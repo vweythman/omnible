@@ -1,0 +1,23 @@
+<%= form_for(@term) do |f| %>
+
+	<fieldset>
+		<div class='field'>
+			<%= f.label :facet_id %>
+			<%= f.collection_select(:facet_id, Facet.order('name').all, :id, :name) %>
+		</div>
+
+		<div class='field'>
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<%= f.fields_for :broad_edges do |builder| %>
+			<%= render "node_fields", :f => builder %>
+		<% end %>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>

@@ -1,0 +1,15 @@
+<header>
+	<h1><%= @facet.name.titleize %></h1>
+</header>
+
+<table class='index terms'>
+	<tbody>
+		<% @terms.each do |term| %>
+		<tr>
+			<th><%= link_to term.name, term %></th>
+			<td><%= link_to 'Edit', edit_term_path(term) %></td>
+			<td><%= link_to 'Delete', term, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

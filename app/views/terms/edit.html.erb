@@ -1,0 +1,10 @@
+<% provide(:title, "Edit " + @term.name) %>
+<header>
+	<h1>Edit Term</h1>
+</header>
+
+<%= render 'form' %>
+
+<footer>
+	<%= return_path 'Terms', terms_path %>
+</footer>

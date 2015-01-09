@@ -1,0 +1,17 @@
+<%= form_for(@character) do |f| %>
+  <fieldset>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+  </fieldset>
+
+  <fieldset class="submit">
+    <%= f.submit %>
+  </fieldset>
+<% end %>

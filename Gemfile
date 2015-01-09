@@ -32,6 +32,10 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
+gem 'awesome_nested_set', '~> 3.0.1'
+
+gem 'redcarpet', '~> 3.0.0'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

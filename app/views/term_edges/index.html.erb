@@ -1,0 +1,29 @@
+<% provide(:title, "Term Relationships") %>
+<header>
+	<h1>Term Relationships</h1>
+	<nav>
+		<%= link_to 'Create More', new_term_edge_path %>
+	</nav>
+</header>
+
+<table class='index'>
+	<thead>
+		<tr>
+			<th>Broader Term</th>
+			<th>Narrower Term</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @term_edges.each do |edge| %>
+		<tr>
+			<th><%= link_to edge.broad_term.name, edge.broad_term %></th>
+			<th><%= link_to edge.narrow_term.name, edge.narrow_term %></th>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+<footer>
+	<%= link_to 'Terms', terms_path, :class => 'return' %>
+</footer>

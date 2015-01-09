@@ -1,0 +1,15 @@
+<% provide(:title, @character.name) %>
+<header>
+	<h1><%= @character.name %></h1>
+	<nav>
+		<%= link_to 'Edit', edit_character_path(@character) %>
+	</nav>
+</header>
+
+<section class='description'>
+	<%= markdown @character.description %>
+</section>
+
+<footer>
+	<%= return_path 'Characters', characters_path %>
+</footer>

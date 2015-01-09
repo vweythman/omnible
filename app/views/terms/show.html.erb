@@ -1,0 +1,19 @@
+<header>
+	<p><%= link_to 'Terms', terms_path %></p>
+	<h1>
+		<%= @term.facet.name.titleize %> : 
+		<%= @term.name.titleize %>
+	</h1>
+
+	<nav>
+		<%= link_to 'Edit', edit_term_path(@term) %>
+		<%= link_to 'Delete', @term, method: :delete, data: { confirm: "Are you sure you want to delete #{@term.name}?" } %>
+	</nav>
+<header>
+
+<%= graph_edge "Narrower Term", @term.narrow_terms %>
+<%= graph_edge "Broader Term", @term.broad_terms %>
+
+<footer>
+	<%= return_path 'Terms', terms_path %>
+</footer>

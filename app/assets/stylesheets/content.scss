@@ -1,0 +1,66 @@
+article {
+	margin: 0 auto;
+	width: 75%;
+
+	header {
+		color: hsla(0, 100%, 39%, 1)
+	}
+
+	footer {
+		border-top: 10px solid #000000;
+		padding: 15px;
+		text-align:center;
+		margin-top: 15px;
+	}
+}
+h1 {
+	font:  2.5em Steelfish;
+	margin: 10px 0;
+}
+.return {
+	font: bolder 15px arial;
+	color: hsla(0, 80%, 50%, 1);
+}
+
+/* INDEX */
+.index {
+	margin: 15px auto;
+	min-width: 75%;
+	border-collapse: collapse;
+
+	a {
+		padding: 10px;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	thead {
+		font: bolder 1.25em garamond;
+		border-bottom: 4px solid #222;
+	}
+
+	tbody {
+		background: #FFF;
+	}
+}
+th {
+	text-align: left;
+	margin: 3px 10px;
+	font-weight: lighter;
+	a {
+		color: hsla(0, 80%, 50%, 1);
+
+		text-decoration: none;
+		display: block;
+		&:hover {
+			background: #333;
+			color: #FFF;
+			box-shadow: inset 0 0 6px #000;
+		}
+	}
+	
+}
+td {
+	max-width: 10%;
+}

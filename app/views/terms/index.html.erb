@@ -1,0 +1,21 @@
+<% provide(:title, "Terms") %>
+<header>
+	<h1>Terms</h1>
+	<nav>
+		<%= link_to 'Create More', new_term_path %>
+		<%= link_to 'Term Edges', term_edges_path %>
+	</nav>
+</header>
+
+<table class='index'>
+	<tbody>
+		<% @terms.each do |term| %>
+		<tr>
+			<th><%= link_to term.name, term %></th>
+			<td><%= term.facet.name %></td>
+			<td><%= link_to 'Edit', edit_term_path(term) %></td>
+			<td><%= link_to 'Delete', term, method: :delete, data: { confirm: "Are you sure you want to delete #{term.name}?" } %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -1,0 +1,4 @@
+<div class='field'>
+	<%= f.label :broad_term_id %>
+	<%= f.collection_select(:broad_term_id, Term.order('lower(name)').all, :id, :name, {include_blank: 'Select Broader Term'}) %>
+</div>

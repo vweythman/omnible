@@ -1,0 +1,18 @@
+<% provide(:title, "Characters") %>
+<header>
+	<h1>Characters</h1>
+	<nav>
+		<%= link_to "Create More", new_character_path %>
+	</nav>
+</header>
+
+<table class='index'>
+	<tbody>
+		<% @characters.each do |character| %>
+		<tr>
+			<th><%= link_to character.name, character %></th>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+

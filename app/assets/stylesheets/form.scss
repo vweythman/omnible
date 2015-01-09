@@ -1,0 +1,52 @@
+form {
+	width: 85%;
+	margin: 0 auto;
+	background: #FFF;
+}
+fieldset {
+	border: none;
+}
+div.field {
+	margin: 10px;
+	vertical-align:top;
+	
+	select {
+		padding: 0 5px;
+	}
+	input, 
+	option {
+		padding: 10px;
+	}
+	select, 
+	input, 
+	textarea {
+ 	   vertical-align: baseline;
+		display: inline-block;
+		width:     70%;
+		max-width: 70%;
+		margin:  0;
+	    box-sizing:         border-box;
+	    -moz-box-sizing:    border-box;
+	    -webkit-box-sizing: border-box;
+	}
+	textarea {
+		padding: 10px;
+		font:       12px "segoe ui";
+	}
+}
+
+input[type="submit"] {
+	padding: 5px;
+	margin: 10px;
+	width: calc(100% - 20px);
+}
+
+label {
+	display: inline-block;
+	font: 1.4em garamond;
+	text-align: right;
+	width: 25%;
+    vertical-align: baseline;
+}
+
+

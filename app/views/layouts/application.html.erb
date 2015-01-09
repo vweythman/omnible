@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:title) %> | Workadex</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<header>
+		<%= link_to 'Pleiades Text', root_url, :id => 'logo' %>
+		<nav>
+		</nav>
+	</header>
 
-<%= yield %>
+	<article>
+	<%= yield %>
+	</article>
+
 
 </body>
 </html>
