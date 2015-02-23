@@ -1,0 +1,130 @@
+$main: hsl(200, 50%, 40%);
+$comp: complement($main);
+
+@mixin linktag($color) {
+	display:         inline-block;
+	text-decoration: none; 
+	background:      $color;
+	margin-bottom:   5px;
+	padding:         7px 10px;
+	color:           #FFF;
+	&:hover { background: lighten($color, 15%); }
+}
+@mixin linkmore($color) {
+	@include buttoner($color);
+	display:    block;
+	margin:     10px auto;
+	padding:    7px 10px;
+	text-align: center;
+	width:      20%;
+	text-decoration: none;
+	&:hover { background: darken($color, 20%); }
+}
+@mixin buttoner($color) {
+	color:         #FFF;
+	background:    darken(saturate($color, 15%), 5%);
+	border:        1px solid darken($color, 15%);
+	box-shadow:    0px 1px 0 fade-out(#fff, .5) inset;
+}
+
+form {
+	background: lighten($main, 25%);
+	margin:     20px auto;
+	padding:    20px 15%;
+	h2, h3 {
+		color:          $main;
+		font:           bolder 20px "segoe ui";
+		letter-spacing: 2px;
+		padding:        7px 0;
+	}
+	& > p { 
+		color: #FFF;
+		background: $main;
+		padding:    10px;
+	}
+}
+fieldset {
+	background: #FFF;
+	border:     2px solid $main;
+	padding:    15px;
+	margin:     5px 0;
+}
+label {
+	color:          $main;
+	display:        inline-block;
+	font-weight:    700;
+	letter-spacing: 2px;
+	padding:        7px;
+	text-align:     right;
+	vertical-align: baseline;
+	width:          25%;
+}
+div.field {
+	margin:         10px;
+	vertical-align: top;
+}
+select { padding: 0 5px; }
+input, option { padding: 10px; }
+select, input, textarea {
+	display:            inline-block;
+	margin:             0;
+	vertical-align:     baseline;
+	width:              70%;
+	box-sizing:         border-box;
+	-moz-box-sizing:    border-box;
+	-webkit-box-sizing: border-box;
+}
+textarea {
+	font:       14px "segoe ui";
+	max-width:  70%;
+	min-height: 250px;
+	padding:    10px;
+}
+textarea.minor { min-height: 100px; }
+input[type="submit"] {
+	@include buttoner($main);
+	border-radius: 3px;
+	font-weight:   bolder;
+	margin:        10px;
+	padding:       10px;
+	width:         calc(100% - 20px);
+	&:hover { background: saturate($main, 15%); }
+}
+
+.nested { display: none; }
+.nested-fields {
+	text-align: right;
+	label { color: $comp; }
+	fieldset {
+		border:  1px solid $comp;
+		margin:  0;
+		padding: 2px 0;
+	}
+}
+.show {	@include linkmore($main); }
+.hide { @include linktag($main); }
+.add_fields { @include linkmore($main); }
+.remove_fields {@include linktag($comp); }
+
+fieldset.radio {
+	border:      none;
+	margin-left: 26%;
+	width:       70%;
+	text-align:  left;
+	.field {
+		float: left;
+		margin: 0 10px;
+		padding:0;
+	}
+	label {
+		@include buttoner(#FFF);
+		color:      #BBB;
+		font-size:  .7em;
+		text-align: center;
+		width:      100%;
+	}
+	input { display: none; }
+	input:checked + label { @include buttoner($comp); }
+}
+
+/* END */

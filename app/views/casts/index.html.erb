@@ -1,0 +1,5 @@
+<%= nest_index_header("Cast Pages for #{link_to(@work.title, @work)}", "Cast Page", new_work_cast_path(@work)) %>
+
+<%= render 'casts', casts: @casts %>
+
+<%= cast_footer(@work) %>

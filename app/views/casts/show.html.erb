@@ -1,0 +1,23 @@
+<% provide(:title, "#{@cast.title} | #{@cast.work.title}") %>
+<header>
+	<h1><%= @cast.main_title %></h1>
+
+	<table class='meta'>
+		<tr>
+			<th>Story</th>
+			<td><%= link_to @cast.work.title, @cast.work %></td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td><%= markdown @cast.about %></td>
+		</tr>
+	</table>
+
+	<nav>
+		<%= link_to "Edit", edit_work_cast_path(@cast.work, @cast) %>
+	</nav>
+</header>
+
+<%= render 'characters/reports', characters: @cast.characters %>
+
+<%= cast_footer(@cast.work) %>

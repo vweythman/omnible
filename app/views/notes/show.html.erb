@@ -1,0 +1,10 @@
+<%= nest_show_header(@note.main_title, 
+	@work.main_title, 
+	@work.summary, 
+	mange_work(@work), 
+	render('works/meta', work: @work)) 
+	%>
+
+<article class='piece'><%= render 'note', note: @note %></article>
+
+<%= note_footer(@note.work) %>

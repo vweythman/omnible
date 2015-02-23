@@ -1,0 +1,37 @@
+<div class='meta'>
+	<dl>
+		<dt>Author</dt> 
+		<dd><%=  work.user.name %></dd>
+
+		<% if work.anthologies.length > 0 %>
+			<dt>Anthology</dt>
+			<dd>
+			<% work.anthologies.each do |anthology| %>
+				<li><%= anthology.name %></li>
+			<% end %>
+			</dd>
+		<% end %>
+
+		<dt>Parts</dt>
+		<dd>
+			<ul>
+				<li><%= link_to "Notes", work_notes_path(@work) %></li>
+				<li><%= link_to "Chapters", work_chapters_path(@work) %></li>
+			</ul>
+		</dd>
+
+		<% if work.concepts.length > 0 %>
+			<div style="clear: both;"></div>
+			<dt>Concepts</dt>
+			<dd><%= cslinks(work.concepts) %></dd>
+		<% end %>
+		
+		<%= render 'works/meta_character', characters: work.main_characters, type: "Main" %>
+		<%= render 'works/meta_character', characters: work.side_characters, type: "Side" %>
+		<%= render 'works/meta_character', characters: work.mentioned_characters, type: "Mentioned" %>
+	</dl>
+	<p>
+		<span class='label'>Created</span> <%= work.created_at.strftime("%b %d, %Y") %>
+		<span class='label'>Updated</span> <%= work.updated_at.strftime("%b %d, %Y") %>
+	</p>
+</div>

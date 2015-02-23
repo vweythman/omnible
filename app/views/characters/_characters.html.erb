@@ -1,0 +1,5 @@
+<ul class="index">
+	<% characters.each do |character| %>
+		<li><p><%= link_to character.name, character_path(character) %></p></li>
+	<% end %>
+</ul>

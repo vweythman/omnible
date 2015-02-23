@@ -1,0 +1,7 @@
+<%= form_for(@concept) do |f| %>
+
+	<fieldset><%= form_field f.label(:name), f.text_field(:name) %></fieldset>
+
+	<%= f.submit %>
+
+<% end %>

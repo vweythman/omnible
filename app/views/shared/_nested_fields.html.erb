@@ -1,0 +1,4 @@
+<%= f.fields_for models do |builder| %>
+	<% rlocals[:f] = builder %>
+	<%= render :partial => rloc, :locals => rlocals %>
+<% end %>

@@ -1,0 +1,16 @@
+<% if views.length > 0 %>
+	<h2><%= heading %></h2>
+	<table class="views">
+		<thead>
+			<tr><th>&nbsp;</th><th>Warmth</th><th>Respect</th><th>Treatment</th></tr>
+		</thead>
+		<% views.each do |view| %>
+		<tr>
+			<th><%= set_title ? view.recip.name.titleize.pluralize : view.recip.name %></th>
+			<td><%= Viewpoint.warmths[view.warmth + 2] %></td>
+			<td><%= Viewpoint.respects[view.respect + 2] %></td>
+			<td><%= view.about %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

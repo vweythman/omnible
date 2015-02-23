@@ -1,0 +1,20 @@
+<%= form_for [@work, @cast] do |f| %>
+	<%= f.hidden_field :work_id, :value => @work.id %>
+
+	<fieldset>
+		<%= form_field f.label(:title), f.text_field(:title) %>
+		<%= form_field f.label(:about), f.text_area(:about)  %>
+	</fieldset>
+
+	<fieldset class='nested'>
+		<h2>Add Characters</h2>
+
+		<%= f.fields_for :memberships do |builder| %>
+			<%= render 'membership_fields', :f => builder %>
+		<% end %>
+
+		<p><%= link_to_add_association '+ Character', f, :memberships %></p>
+	</fieldset>
+
+	<%= f.submit %>
+<% end %>

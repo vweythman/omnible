@@ -1,0 +1,8 @@
+<%= nest_index_header("Chapters of #{link_to(@work.title, @work)}", "Chapter", new_work_chapter_path(@work)) %>
+
+<% if @chapters.length > 0 %>
+	<h2>Chapters</h2>
+	<%= render 'chapters', chapters: @chapters, work: @work %>
+<% end %>
+
+<%= chapter_footer(@work) %>

@@ -1,0 +1,16 @@
+<%= form_for [@work, @chapter] do |f| %>
+	<%= f.hidden_field :work_id,  :value => @work.id %>
+	<%= f.hidden_field :position, :value => @chapter.position || @work.next_chapter_num %>
+
+	<fieldset>
+		<%= form_field f.label(:title), f.text_field(:title) %>
+	</fieldset>
+
+	<fieldset>
+		<%= form_field f.label(:about, "Summary"), f.text_field(:about) %>
+		<%= form_field f.label(:content), f.text_area(:content) %>
+		<%= form_field f.label(:afterward), f.text_area(:afterward, class: "minor") %>
+	</fieldset>
+
+	<%= f.submit %>
+<% end %>

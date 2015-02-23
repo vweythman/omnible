@@ -1,0 +1,6 @@
+<div class='nested-fields'>
+	<fieldset>
+		<%= form_field f.label(:concept_id), f.collection_select(:concept_id, Concept.order('lower(name)').all, :id, :name) %>
+	</fieldset>
+	<p><%= link_to_remove_association "- Concept", f %></p>
+</div>

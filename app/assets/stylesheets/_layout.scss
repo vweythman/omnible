@@ -1,0 +1,47 @@
+$main: hsl(100,  50%, 50%);
+$comp: complement($main);
+
+body {
+	font: 15px "segoe ui";
+	& > header {
+		background: darken($main, 25%);
+		overflow:   auto;
+		a {
+			text-decoration: none;
+			color:           #FFF;
+		}
+		nav {
+			background: darken($main, 5%);
+			width:      70%;
+			overflow:   auto;
+			a {
+				border-right: 1px solid lighten($main, 20%);
+				display:      inline-block;
+				float:        left;
+				padding:      10px 15px;
+				text-align:   center;
+				&:hover { background: $main; }
+			}
+		}
+	}
+	
+}
+#logo {
+	background: darken($main, 10%);
+	display:    block;
+	font:       2.3em steelfish;
+	padding:    10px;
+	width:      calc(30% - 20px);
+	float:      left;
+	&:hover {
+		background: darken($main, 20%);
+		color:      $main;
+	}
+}
+main > footer {
+	text-align: center;
+}
+footer {
+	margin:     15px;
+	a:hover { text-decoration: none; }
+}

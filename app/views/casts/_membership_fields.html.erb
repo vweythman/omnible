@@ -1,0 +1,14 @@
+<div class='nested-fields'>
+	<fieldset>
+		<%= form_field f.label(:character_id), f.collection_select(:character_id, Character.order('lower(name)').all, :id, :name) %>
+	</fieldset>
+
+	<fieldset class='radio'>
+		<h3>Choose Role</h3>
+		<% Membership.roles.each do |role| %>
+			<%= form_field f.radio_button(:role, role), f.label("role_#{role}", "#{role.capitalize} Character") %>
+		<% end %>
+	</fieldset>
+
+	<p><%= link_to_remove_association "- Character", f %></p>
+</div>

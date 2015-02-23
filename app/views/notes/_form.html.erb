@@ -1,0 +1,10 @@
+<%= form_for [@work, @note] do |f| %>
+	<%= f.hidden_field :work_id, :value => @work.id %>
+
+	<fieldset>
+		<%= form_field f.label(:title), f.text_field(:title) %>
+		<%= form_field f.label(:content), f.text_area(:content) %>
+	</fieldset>
+
+	<%= f.submit %>
+<% end %>

@@ -1,0 +1,10 @@
+<%= show_header(@concept) %>
+
+<section class="content">
+
+	<h2>Works with <%= @concept.name.titleize %> Characters</h2>
+	<%= render 'works/works', works: @concept.works %>
+
+</section>
+
+<%= concept_footer %>

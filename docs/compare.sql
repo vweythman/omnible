@@ -1,0 +1,1 @@
+SELECT * FROM identities, descriptions WHERE character_id IN (1, 12, 13) AND identity_id = identities.id AND identity_id NOT IN (SELECT identity_id FROM descriptions WHERE character_id = 11)

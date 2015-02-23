@@ -1,0 +1,53 @@
+$main: hsl(180,  50%, 50%);
+$comp: complement($main);
+
+article {
+	overflow: auto;
+	margin:   0 auto;
+	&.piece { width: 75%; }
+	p {
+		margin: 15px auto;
+		width:  75%;
+		line-height: 1.5;
+	}
+	header p, footer p { width: 100%; }
+	table {
+		width: 75%;
+		margin: 0 auto;
+		th { 
+			background:     lighten($main, 35%);
+			padding:        15px 5px;
+			letter-spacing: 2px;
+		}
+	}
+}
+header h2, main > h2 {
+	background:     lighten($main, 25%);
+	font-weight:    bolder;
+	letter-spacing: 2px;
+	border-width:   3px;
+	margin: 0;
+	padding: 10px;
+}
+hr {
+	width:  30%;
+	height: 3px;
+	border: none;
+	background: darken($main, 15%);
+}
+
+.about {
+	background: #fff;
+	padding:    5px 10px;
+	margin-left: 20%;
+}
+.overview {
+	width:         20%;
+	background:     white;
+	float:          left;
+	padding:        0 15px;
+	padding-bottom: 35px;
+	dl {
+		margin: 5px 25px;
+	}
+}

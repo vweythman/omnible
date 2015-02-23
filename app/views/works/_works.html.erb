@@ -1,0 +1,8 @@
+<ul class="index">
+  <% works.each do |work| %>
+  <li>
+    <p><%= link_to work.title, work %> by <%= work.user.name %></p>
+    <%= markdown work.summary || "" %>
+  </li>
+  <% end %>
+</ul>

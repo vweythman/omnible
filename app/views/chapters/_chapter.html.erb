@@ -1,0 +1,20 @@
+<header>
+	<%= manage_item(chapter) %>
+	<h2><%= chapter.simple_title %></h2>
+	<div><%= markdown chapter.about %></div>
+
+	<p>
+		<%= link_to "<< Previous Chapter", [chapter.work, chapter.prev] unless chapter.prev.nil? %>
+		<%= link_to "Next Chapter >>", [chapter.work, chapter.next] unless chapter.next.nil? %>
+	</p>
+</header>
+
+<%= markdown chapter.content %>
+
+<footer>
+	<%= markdown chapter.afterward %>
+	<p>
+		<%= link_to "<< Previous Chapter", [chapter.work, chapter.prev] unless chapter.prev.nil? %>
+		<%= link_to "Next Chapter >>", [chapter.work, chapter.next] unless chapter.next.nil? %>
+	</p>
+</footer>

@@ -1,0 +1,28 @@
+<%= show_header(@relator) %>
+
+<article>
+	<% if @relator.relationships.length > 0  && @relator.has_reverse? %>
+		<table>
+			<thead>
+				<tr>
+					<th><%= @relator.left_name.titleize %></th>
+					<th><%= @relator.right_name.titleize %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @relator.relationships.each do |relationship| %>
+					<tr>
+						<td><%= link_to relationship.left.name, relationship.left %></td>
+						<td><%= link_to relationship.right.name, relationship.right %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% else %>
+		<% @relator.relationships.each do |relationship| %>
+			<p><%= link_to relationship.left.name, relationship.left %> & <%= link_to relationship.right.name, relationship.right %></p>
+		<% end %>
+	<% end %>
+</article>
+
+<%= relator_footer %>

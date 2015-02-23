@@ -1,0 +1,10 @@
+<header>
+	<h2><%= character.name %></h2>
+	<%= manage_changes(character) %>
+</header>
+
+<% if character.about.empty? %>
+	<%= render 'identities/identities', identities: character.identities %>
+<% else %>
+	<%= render 'characters/content', character: character %>
+<% end %>

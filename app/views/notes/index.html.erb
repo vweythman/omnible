@@ -1,0 +1,8 @@
+<%= work_child_header(@work, Note.null_state(@work)) %>
+
+<% if @notes.length > 0 %>
+	<h2>Notes</h2>
+	<%= render 'notes', notes: @notes, work: @work %>
+<% end %>
+
+<%= note_footer(@work) %>

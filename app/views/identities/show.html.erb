@@ -1,0 +1,13 @@
+<%= show_header(@identity) %>
+
+<section class="content">
+
+	<h2><%= @identity.name.titleize %> Characters</h2>
+	<%= render 'characters/characters', characters: @identity.characters %>
+	
+	<h2>Works with <%= @identity.name.titleize %> Characters</h2>
+	<%= render 'works/works', works: @identity.works %>
+
+</section>
+
+<%= identity_footer %>

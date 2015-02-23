@@ -1,0 +1,10 @@
+<aside class='overview'>
+	<h2>Overview</h2>
+	<%= render 'identities/identities', identities: character.identities %>
+</aside>
+<section class='about'>
+	<%= markdown character.about %>
+	<%= render 'views', views: character.prejudices, heading: 'Prejudices', set_title: true %>
+	<%= render 'views', views: character.opinions, heading: 'Opinions about Others', set_title: false %>
+</section>
+

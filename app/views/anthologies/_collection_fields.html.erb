@@ -1,0 +1,5 @@
+<fieldset class='nested-fields'>
+	<%= form_field f.label(:work_id), f.collection_select(:work_id, Work.order('lower(title)').all, :id, :title) %>
+
+	<p><%= link_to_remove_association "- Remove Work", f %></p>
+</fieldset>

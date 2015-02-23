@@ -1,0 +1,15 @@
+<% provide(:title, 'Tags') %>
+
+<h1>Tags</h1>
+<h2>Concepts</h2>
+<%= manage_index('Concept', new_concept_path) %>
+<%= render 'concepts/concepts', concepts: @concepts %>
+
+<h2>Identities</h2>
+<%= manage_index('Identity', new_identity_path) %>
+<%= render 'identities/identities', identities: @identities %>
+
+<h2>Relationship Types</h2>
+<%= manage_index('Relationship Type', new_relator_path) %>
+<%= render 'relators/relators', relators: @relators %>
+

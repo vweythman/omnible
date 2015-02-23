@@ -1,0 +1,9 @@
+<div class='nested-fields'>
+	<fieldset>
+		<%= form_field label_tag(:facet, "Facet"), select_tag(:facet, options_from_collection_for_select(Identity.facets, :facet, :facet, (f.object.identity.nil? ? "" : f.object.identity.facet))) %>
+		
+		<%= form_field f.label(:identity_id, "Descriptor"), f.collection_select(:identity_id, Identity.all, :id, :name) %>
+	</fieldset>
+
+	<p><%= link_to_remove_association "- Remove Descriptor", f %></p>
+</div>

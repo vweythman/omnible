@@ -1,0 +1,18 @@
+<%= form_for(@relator) do |f| %>
+
+	<p>Use gender neutral terms whenever possible.</p>
+
+	<fieldset>
+		<%= form_field f.label(:left_name, 'Relationship'), f.text_field(:left_name) %>
+		<%= form_field f.label(:right_name, 'Inverse Relationship'), f.text_field(:right_name) %>
+	</fieldset>
+
+	<%= show_link("Relationships", :relate) %>
+	<fieldset class='nested' id="form_relate">
+		<%= nested_fields "Relationships", :relate, :relationships, f, 'relationship_fields', {collection: Character.order('lower(name)').all} %>
+		<p><%= link_to_add_association '+ Add Relationships', f, :relationships, :render_options => {:locals => {collection: Character.order('lower(name)').all}} %></p>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>
