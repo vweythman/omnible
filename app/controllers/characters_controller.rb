@@ -1,13 +1,19 @@
 class CharactersController < ApplicationController
-  # HAS ASSOCIATED VIEW
+  # MANY
   def index
     @characters = Character.order('name').all
   end
 
+  # ONE
   def show
     @character = Character.find(params[:id])
   end
 
+  def preview
+    @character = Character.find(params[:id])
+  end
+
+  # CHANGE
   def new
     @character = Character.new
   end
@@ -41,6 +47,7 @@ class CharactersController < ApplicationController
       render action: 'edit'
     end
   end
+
   def destroy
     @character = Character.find(params[:id]).destroy
     redirect_to(:action => 'index')
@@ -48,6 +55,10 @@ class CharactersController < ApplicationController
 
   private
   def character_params
-    params.require(:character).permit(:name, :description)
+    params.require(:character).permit(:name, :about, 
+      descriptions_attributes: [:id, :identity_id, :_destroy], 
+      opinions_attributes:     [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy],
+      prejudices_attributes:   [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy]
+      )
   end
 end

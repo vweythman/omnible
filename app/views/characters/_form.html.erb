@@ -1,17 +1,26 @@
 <%= form_for(@character) do |f| %>
-  <fieldset>
-    <div class="field">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </div>
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name) %>
+		<%= form_field f.label(:about), f.text_area(:about) %>
+	</fieldset>
 
-    <div class="field">
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-    </div>
-  </fieldset>
+	<%= show_link("Description", :desc) %>
+	<fieldset class='nested' id="form_desc">
+		<%= nested_fields("Description", :desc, :descriptions, f, 'description_fields') %>
+		<p><%= link_to_add_association "+ Add Descriptor", f, :descriptions %></p>
+	</fieldset>
 
-  <fieldset class="submit">
-    <%= f.submit %>
-  </fieldset>
+	<%= show_link("Personal Prejudices", :prej) %>
+	<fieldset class='nested' id="form_prej">
+		<%= nested_fields("Personal Prejudices", :prej, :prejudices, f, 'viewpoint_fields', {:collection => Identity.all, :type => "Prejudice"}) %>
+		<p><%= link_to_add_association '+ Add Prejudice', f, :prejudices, :render_options => {:locals => {:collection => Identity.all, :type => "Prejudice"}}, :partial=> 'viewpoint_fields' %></p>
+	</fieldset>
+
+	<%= show_link("Opinions", :opin) %>
+	<fieldset class='nested' id="form_opin">
+		<%= nested_fields("Opinions", :opin, :opinions, f, 'viewpoint_fields', {:collection => Character.all, :type => "Opinion"}) %>
+		<p><%= link_to_add_association '+ Add Opinion', f, :opinions, :render_options => {:locals => {:collection => Character.all, :type => "Opinion"}}, :partial=> 'viewpoint_fields' %></p>
+	</fieldset>
+
+	<%= f.submit %>
 <% end %>

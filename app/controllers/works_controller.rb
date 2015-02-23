@@ -1,6 +1,4 @@
 class WorksController < ApplicationController
-  before_action :set_work, only: [:show, :edit, :update, :destroy]
-
   # GET /works
   # GET /works.json
   def index
@@ -10,6 +8,7 @@ class WorksController < ApplicationController
   # GET /works/1
   # GET /works/1.json
   def show
+    work_find
   end
 
   # GET /works/new
@@ -19,6 +18,7 @@ class WorksController < ApplicationController
 
   # GET /works/1/edit
   def edit
+    work_find
   end
 
   # POST /works
@@ -26,28 +26,22 @@ class WorksController < ApplicationController
   def create
     @work = Work.new(work_params)
 
-    respond_to do |format|
-      if @work.save
-        format.html { redirect_to @work, notice: 'Work was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @work }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @work.errors, status: :unprocessable_entity }
-      end
+    if @work.save
+      redirect_to @work
+    else
+      render action: 'new'
     end
   end
 
   # PATCH/PUT /works/1
   # PATCH/PUT /works/1.json
   def update
-    respond_to do |format|
-      if @work.update(work_params)
-        format.html { redirect_to @work, notice: 'Work was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @work.errors, status: :unprocessable_entity }
-      end
+    work_find
+
+    if @work.update(work_params)
+      redirect_to @work
+    else
+     render action: 'edit'
     end
   end
 
@@ -62,13 +56,13 @@ class WorksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_work
+    def work_find
       @work = Work.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def work_params
-      params.require(:work).permit(:title, :user_id)
+      params.require(:work).permit(:title, :user_id, :summary, 
+        appearances_attributes: [:id, :character_id, :role, :_destroy],
+        conceptions_attributes: [:id, :concept_id, :_destroy])
     end
 end

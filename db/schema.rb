@@ -11,22 +11,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150106210320) do
+ActiveRecord::Schema.define(version: 20150223223745) do
 
-  create_table "character_term", id: false, force: true do |t|
-    t.integer "character_id"
-    t.integer "term_id"
-  end
-
-  add_index "character_term", ["character_id"], name: "index_character_term_on_character_id"
-  add_index "character_term", ["term_id"], name: "index_character_term_on_term_id"
-
-  create_table "characters", force: true do |t|
+  create_table "anthologies", force: true do |t|
     t.string   "name"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "appearances", force: true do |t|
+    t.integer  "work_id"
+    t.integer  "character_id"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "appearances", ["character_id"], name: "index_appearances_on_character_id"
+  add_index "appearances", ["work_id"], name: "index_appearances_on_work_id"
+
+  create_table "casts", force: true do |t|
+    t.string   "title"
+    t.text     "about"
+    t.integer  "work_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+# Could not dump table "chapters" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "characters", force: true do |t|
+    t.string   "name"
+    t.text     "about"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collections", force: true do |t|
+    t.integer  "work_id"
+    t.integer  "anthology_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "collections", ["anthology_id"], name: "index_collections_on_anthology_id"
+  add_index "collections", ["work_id"], name: "index_collections_on_work_id"
+
+  create_table "conceptions", force: true do |t|
+    t.integer  "work_id"
+    t.integer  "concept_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "conceptions", ["concept_id"], name: "index_conceptions_on_concept_id"
+  add_index "conceptions", ["work_id"], name: "index_conceptions_on_work_id"
+
+  create_table "concepts", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "descriptions", force: true do |t|
+    t.integer "character_id"
+    t.integer "identity_id"
+  end
+
+  add_index "descriptions", ["character_id"], name: "index_descriptions_on_character_id"
+  add_index "descriptions", ["identity_id"], name: "index_descriptions_on_identity_id"
 
   create_table "facets", force: true do |t|
     t.string   "name"
@@ -41,12 +95,30 @@ ActiveRecord::Schema.define(version: 20150106210320) do
     t.datetime "updated_at"
   end
 
-  create_table "notes", force: true do |t|
+  create_table "identities", force: true do |t|
+    t.string   "name"
+    t.string   "facet"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "opinions", force: true do |t|
+# Could not dump table "memberships" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "notes", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "work_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+# Could not dump table "relationships" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "relators", force: true do |t|
+    t.string   "left_name"
+    t.string   "right_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -72,11 +144,20 @@ ActiveRecord::Schema.define(version: 20150106210320) do
     t.datetime "updated_at"
   end
 
-  create_table "works", force: true do |t|
-    t.text     "title"
-    t.integer  "user_id"
+  create_table "viewpoints", force: true do |t|
+    t.integer  "character_id"
+    t.integer  "recip_id"
+    t.string   "recip_type"
+    t.integer  "warmth"
+    t.integer  "respect"
+    t.text     "about"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "viewpoints", ["character_id"], name: "index_opinions_on_character_id"
+
+# Could not dump table "works" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
 end

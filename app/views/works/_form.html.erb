@@ -1,25 +1,21 @@
 <%= form_for(@work) do |f| %>
-  <% if @work.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@work.errors.count, "error") %> prohibited this work from being saved:</h2>
+	<fieldset>
+		<%= form_field f.label(:title), f.text_field(:title) %>
+		<%= form_field f.label(:user_id), f.collection_select(:user_id, User.order('name').all, :id, :name) %>
+		<%= form_field f.label(:summary), f.text_area(:summary) %>
+	</fieldset>
 
-      <ul>
-      <% @work.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<%= show_link("Characters", :char) %>
+	<fieldset class='nested' id="form_char">
+		<%= nested_fields "Characters", :char, :appearances, f, 'appearance_fields' %>
+		<p><%= link_to_add_association '+ Character', f, :appearances %></p>
+	</fieldset>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_area :title %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<%= show_link("Concept", :conp) %>
+	<fieldset class='nested' id="form_conp">
+		<%= nested_fields "Concept", :conp, :conceptions, f, 'conception_fields' %>
+		<p><%= link_to_add_association '+ Concept', f, :conceptions %></p>
+	</fieldset>
+
+	<%= f.submit %>
 <% end %>

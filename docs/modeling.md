@@ -38,4 +38,8 @@ opinions
 	integer respect 
 	text summary
 
+relator
+	u
+
+
 

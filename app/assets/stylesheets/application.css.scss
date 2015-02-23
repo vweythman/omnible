@@ -13,38 +13,4 @@
  *= require_tree .
  *= require_self
  */
-
-body {
-	background: #EEE;
-	font:       12px "segoe ui";
-	margin:     0;
-	padding:    0;
-
-	& > header {
-		background: #FFF;
-		padding: 10px;
-		overflow: auto;
-		border-bottom: 10px #000 solid;
-
-		a {
-			text-decoration: none;
-		}
-	}
-
-	& > footer {
-		width: 85%;
-		margin: 15px auto;
-	}
-}
-
-#logo {
-	color:   hsla(0, 100%, 31%, 1);
-	float:   left;
-	font:    bolder 2.5em "Steelfish";
-	padding: 10px;
-	letter-spacing: 3px;
-	
-	&:hover {
-		color: black;
-	}
-}
+ 

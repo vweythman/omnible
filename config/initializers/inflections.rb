@@ -14,3 +14,10 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+ActiveSupport::Inflector.inflections do |inflect|
+ inflect.irregular 'human', 'humans'
+ inflect.irregular 'charr', 'charr'
+ inflect.irregular 'asura', 'asura'
+ inflect.irregular 'sylvari', 'sylvari'
+end

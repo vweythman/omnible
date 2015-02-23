@@ -1,14 +1,9 @@
-<p id="notice"><%= notice %></p>
+<%= work_header(@work) %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @work.title %>
-</p>
+<% if @work.showcases.length == 1 %>
+	<article class="piece"><%= render @work.showcases.first %></article>
+<% elsif @work.showcases.length > 0 %>
+	<%= render :partial => node_index(@work.showcases.first), :object => showcases %>
+<% end %>
 
-<p>
-  <strong>User:</strong>
-  <%= @work.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_work_path(@work) %> |
-<%= link_to 'Back', works_path %>
+<%= work_footer %>
