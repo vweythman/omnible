@@ -7,6 +7,7 @@ group :development do
   gem 'sqlite3', '1.3.8'
 end
 gem 'awesome_nested_set', '~> 3.0.1'
+gem "friendly_id", "~> 5.0.1"
 
 # assets management
 gem 'sass-rails', '4.0.1'

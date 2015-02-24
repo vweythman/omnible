@@ -1,10 +1,3 @@
 <%= index_header("Identities", new_identity_path) %>
 
-<dl class='index'>
-	<% @faceted_identities.each do |facet, group| %>
-		<dt><%= facet %></dt>
-		<% group.each do |identity| %>
-			<dd><%= link_to identity.name, identity %>
-		<% end %>
-	<% end %>
-</dl>
+<%= render 'identities/identities', identities: @identities %>

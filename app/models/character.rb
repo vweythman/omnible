@@ -1,4 +1,5 @@
 class Character < ActiveRecord::Base
+	has_many :viewpoints
 	has_many :opinions,   -> { where(recip_type: 'Character') } 
 	has_many :prejudices, -> { where(recip_type: 'Identity') } 
 

@@ -23,8 +23,11 @@ module FormHelper
 	end
 
 	def nested_fields_loop(models, f, npartial, nlocals = {})
+		index = 0
 		f.fields_for models do |builder|
 			nlocals[:f] = builder
+			nlocals[:selector_id] = index
+			index = index + 1
 			concat render :partial => npartial, :locals => nlocals
 		end
 	end

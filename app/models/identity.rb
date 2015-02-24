@@ -1,7 +1,8 @@
 class Identity < ActiveRecord::Base
-	default_scope {order('facet, lower(name)')}
+	default_scope {order('facet_id, lower(name)')}
 
 	# ASSOCIATIONS
+	belongs_to :facet
 	has_many :descriptions
 	has_many :characters, through: :descriptions
 	accepts_nested_attributes_for :descriptions
@@ -29,8 +30,13 @@ class Identity < ActiveRecord::Base
 	def self.organize(identities)
 		list = Hash.new
 		identities.each do |identity|
-			list[identity.facet] = Array.new if list[identity.facet].nil?
-			list[identity.facet].push(identity)
+			if list[identity.facet].nil?
+				facet = Hash.new
+				facet[:facet]        = identity.facet
+				facet[:identities]   = Array.new
+				list[identity.facet] = facet
+			end
+			list[identity.facet][:identities].push(identity)
 		end
 		return list
 	end

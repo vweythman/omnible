@@ -41,6 +41,8 @@ GEM
     coffee-script-source (1.8.0)
     erubis (2.7.0)
     execjs (2.2.2)
+    friendly_id (5.0.5)
+      activerecord (>= 4.0.0)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (1.0.2)
@@ -129,6 +131,7 @@ DEPENDENCIES
   awesome_nested_set (~> 3.0.1)
   cocoon
   coffee-rails (= 4.0.1)
+  friendly_id (~> 5.0.1)
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
   jquery-turbolinks
