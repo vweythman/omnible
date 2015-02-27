@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
 
   def tags
   	@concepts   = Concept.order('name').all
-  	@identities = Identity.order('name').all
+  	@identities = Identity.organized_all
     @relators   = Relator.order('left_name').all
   end
 end

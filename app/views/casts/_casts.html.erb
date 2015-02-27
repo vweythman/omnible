@@ -1,8 +1,0 @@
-<ul class='index'>
-	<% casts.each do |cast| %>
-	<li>
-		<p><%= link_to cast.title, polymorphic_path([cast.work, cast]) %></p>
-		<div class="summary"><%= markdown cast.about || "" %></div>
-	</li>
-	<% end %>
-</ul>

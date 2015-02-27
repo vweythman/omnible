@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223223745) do
+ActiveRecord::Schema.define(version: 20150225055115) do
 
   create_table "anthologies", force: true do |t|
     t.string   "name"
@@ -97,10 +97,25 @@ ActiveRecord::Schema.define(version: 20150223223745) do
 
   create_table "identities", force: true do |t|
     t.string   "name"
-    t.string   "facet"
+    t.integer  "facet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "item_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", force: true do |t|
+    t.string   "name"
+    t.integer  "item_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["item_type_id"], name: "index_items_on_item_type_id"
 
 # Could not dump table "memberships" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
@@ -157,7 +172,14 @@ ActiveRecord::Schema.define(version: 20150223223745) do
 
   add_index "viewpoints", ["character_id"], name: "index_opinions_on_character_id"
 
-# Could not dump table "works" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "works", force: true do |t|
+    t.string   "title"
+    t.text     "summary"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "works", ["user_id"], name: "index_works_on_user_id"
 
 end

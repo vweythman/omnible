@@ -1,0 +1,10 @@
+<%= form_for(@item) do |f| %>
+
+	<fieldset>
+		<%= form_field f.label(:generic_name, "Type"), f.text_field(:generic_name) %>
+		<%= form_field f.label(:name), f.text_field(:name) %>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>

@@ -1,7 +1,6 @@
 class IdentitiesController < ApplicationController
   def index
-  	@identities = Identity.order('name').all
-    @faceted_identities = Identity.organize(@identities)
+  	@identities = Identity.organized_all
   end
 
   def show
@@ -18,7 +17,10 @@ class IdentitiesController < ApplicationController
 
   # post
   def create
+    @facet    = Facet.where(name: params[:identity][:facet_name]).first_or_create
     @identity = Identity.new(identity_params)
+
+    @identity.facet_id = @facet.id
     if @identity.save
       redirect_to(:action => 'index')
     else
@@ -28,7 +30,9 @@ class IdentitiesController < ApplicationController
 
   def update
     @identity = Identity.find(params[:id])
+    @facet    = Facet.where(name: params[:identity][:facet_name]).first_or_create
 
+    params[:identity][:facet_id] = @facet.id
     if @identity.update(identity_params)
       redirect_to(:action => 'index')
     else
@@ -44,6 +48,6 @@ class IdentitiesController < ApplicationController
 
   private
   def identity_params
-    params.require(:identity).permit(:name, :facet, descriptions_attributes: [:id, :character_id, :_destroy])
+    params.require(:identity).permit(:name, :facet_id, descriptions_attributes: [:id, :character_id, :_destroy])
   end
 end

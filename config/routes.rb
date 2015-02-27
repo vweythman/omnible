@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   match '/403' => 'errors#403', via: :all
   match '/404' => 'errors#404', via: :all
   match '/406' => 'errors#406', via: :all
@@ -15,17 +16,21 @@ Rails.application.routes.draw do
     resources :chapters
     resources :notes
   end
+  # list works by related model
+  get '/characters/:character_id/works' => 'works#character_index'
+  get '/identities/:identity_id/works'  => 'works#identity_index'
+  get '/concepts/:concept_id/works'     => 'works#concept_index'
+
 
   resources :casts, except: [:index, :new, :show]
   resources :chapters, except: [:index, :new, :show]
   resources :notes, except: [:index, :new, :show]
 
-  resources :characters do
-    resources :opinions
-  end
-  resources :identities
-  resources :relators
+  resources :characters 
   resources :concepts
+  resources :identities
+  resources :items
+  resources :relators
 
   # static pages
   get 'tags'  => 'static_pages#tags'

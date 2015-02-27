@@ -2,7 +2,27 @@ class WorksController < ApplicationController
   # GET /works
   # GET /works.json
   def index
-    @works = Work.all
+    @works = Work.includes(:user)
+  end
+
+  def curated_index
+    @works = @parent.works
+    render 'curated_index'
+  end
+
+  def character_index
+    @parent = Character.find(params[:character_id])
+    curated_index
+  end
+
+  def concept_index
+    @parent = Concept.find(params[:concept_id])
+    curated_index
+  end
+
+  def identity_index
+    @parent = Identity.find(params[:identity_id])
+    curated_index
   end
 
   # GET /works/1

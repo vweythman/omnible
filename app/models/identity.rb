@@ -16,28 +16,28 @@ class Identity < ActiveRecord::Base
 
 
 	def main_title
-		"#{facet}: #{name}"
+		"#{facet.name}: #{name}"
+	end
+
+	def facet_name
+		facet.name unless facet.nil?
 	end
 
 	def self.null_state
 		NullIdentity.new
 	end
 
-	def self.organized_all
-		Identity.organize(Identity.all)
+	def self.organized_all(list = Identity.includes(:facet))
+		Identity.organize(list)
 	end
 
 	def self.organize(identities)
 		list = Hash.new
 		identities.each do |identity|
-			if list[identity.facet].nil?
-				facet = Hash.new
-				facet[:facet]        = identity.facet
-				facet[:identities]   = Array.new
-				list[identity.facet] = facet
-			end
-			list[identity.facet][:identities].push(identity)
+			list[identity.facet.name] = Array.new if list[identity.facet.name].nil?
+			list[identity.facet.name].push(identity)
 		end
+		list.sort!
 		return list
 	end
 
