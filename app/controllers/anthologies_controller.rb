@@ -1,11 +1,11 @@
 class AnthologiesController < ApplicationController
-  
   def index
     @anthologies = Anthology.order('lower(name)').all
   end
 
   def show
     @anthology = Anthology.find(params[:id])
+    @works     = @anthology.works
   end
 
   def new

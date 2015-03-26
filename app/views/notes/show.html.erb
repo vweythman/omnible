@@ -1,10 +1,14 @@
-<%= nest_show_header(@note.main_title, 
-	@work.main_title, 
-	@work.summary, 
-	mange_work(@work), 
-	render('works/meta', work: @work)) 
-	%>
+<main id="item">
+	<header>
+		<%= work_toolkit @work %>
+		<h1><%= @work.title %></h1>
+		<%= markdown @work.summary || "" %>
+		<%= render 'works/meta' %>
+	</header>
 
-<article class='piece'><%= render 'note', note: @note %></article>
+	<article class='piece'>
+		<%= render 'note', note: @note %>
+	</article>
 
-<%= note_footer(@note.work) %>
+	<%= note_footer(@note.work) %>
+</main>

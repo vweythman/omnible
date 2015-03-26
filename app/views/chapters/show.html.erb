@@ -1,12 +1,9 @@
-<%= nest_show_header(
-	@chapter.main_title, 
-	@work.main_title, 
-	@work.summary, 
-	mange_work(@work), 
-	render('works/meta', work: @work)) %>
+<main id="item">
+	<%= render 'shared/work_header' %>
 
-<article class='piece'>
-	<%= render 'chapter', chapter: @chapter %>
-</article>
+	<article class="piece">
+		<%= render 'chapter' %>
+	</article>
 
-<%= chapter_footer(@chapter.work) %>
+	<%= render 'shared/work_footer' %>
+</main>

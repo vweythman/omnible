@@ -1,37 +1,44 @@
-<div class='meta'>
-	<dl>
-		<dt>Author</dt> 
-		<dd><%=  work.user.name %></dd>
+<table class="meta">
+	<thead>
+		<tr>
+			<th>Parts</th>
+			<td><%= link_to "Chapters", work_chapters_path(@work) %></td>
+			<td><%= link_to "Notes", work_notes_path(@work) %></td>
+		</tr>
+	</thead>
 
-		<% if work.anthologies.length > 0 %>
-			<dt>Anthology</dt>
-			<dd>
-			<% work.anthologies.each do |anthology| %>
-				<li><%= anthology.name %></li>
-			<% end %>
-			</dd>
-		<% end %>
-
-		<dt>Parts</dt>
-		<dd>
+	<% if @work.anthologies.length > 0 %>
+	<tr>
+		<th><%= "Anthology".pluralize(@work.anthologies.length) %></th>
+		<td colspan='3'>
 			<ul>
-				<li><%= link_to "Notes", work_notes_path(@work) %></li>
-				<li><%= link_to "Chapters", work_chapters_path(@work) %></li>
+			<% @work.anthologies.each do |anthology| %>
+				<li><%= link_to anthology.name, anthology %></li>
+			<% end %>
 			</ul>
-		</dd>
+		</td>
+	</tr>
+	<% end %>
 
-		<% if work.concepts.length > 0 %>
-			<div style="clear: both;"></div>
-			<dt>Concepts</dt>
-			<dd><%= cslinks(work.concepts) %></dd>
-		<% end %>
-		
-		<%= render 'works/meta_character', characters: work.main_characters, type: "Main" %>
-		<%= render 'works/meta_character', characters: work.side_characters, type: "Side" %>
-		<%= render 'works/meta_character', characters: work.mentioned_characters, type: "Mentioned" %>
-	</dl>
-	<p>
-		<span class='label'>Created</span> <%= work.created_at.strftime("%b %d, %Y") %>
-		<span class='label'>Updated</span> <%= work.updated_at.strftime("%b %d, %Y") %>
-	</p>
-</div>
+	<tr>
+		<th>Tags</th>
+		<td colspan='3'>
+			<dl>
+				<dt>Concepts</dt>
+				<dd><%= cslinks(@work.concepts) %></dd>
+
+				<%= render 'works/meta_character', characters: @work.main_characters, type: "Main" %>
+				<%= render 'works/meta_character', characters: @work.side_characters, type: "Side" %>
+				<%= render 'works/meta_character', characters: @work.mentioned_characters, type: "Mentioned" %>
+			</dl>
+		</td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th>Created</th>
+			<td><%= @work.created_at.strftime("%b %d, %Y") %></td>
+			<th>Updated</th>
+			<td><%= @work.updated_at.strftime("%b %d, %Y") %></td>
+		</tr>
+	</tfoot>
+</table>

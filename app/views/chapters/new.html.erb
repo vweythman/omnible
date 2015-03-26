@@ -1,5 +1,9 @@
-<%= creation_header("Chapter for #{link_to(@work.title, @work)}") %>
+<main id='item'>
+	<%= creation_header "Chapter of #{link_to @work.title, @work}" %>
 
-<%= render 'form' %>
-
-<%= chapter_footer(@work) %>
+	<article class='new'>
+		<%= render 'form' %>
+	</article>
+	
+	<%= render 'shared/work_footer' %>
+</main>

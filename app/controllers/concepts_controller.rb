@@ -1,5 +1,5 @@
 class ConceptsController < ApplicationController
- def index
+  def index
   	@concepts = Concept.order('name').all
   end
 

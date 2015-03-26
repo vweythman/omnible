@@ -1,2 +1,10 @@
-<%= index_header("Anthologies", new_anthology_path) %>
-<%= render 'anthologies', anthologies: @anthologies %>
+<% provide(:title, "Anthologies") %>
+
+<main class='index'>
+	<header>
+		<h1>Anthologies</h1>
+		<%= index_toolkit("Anthology", new_anthology_path) %>
+	</header>
+
+	<%= render 'list' %>
+</main>

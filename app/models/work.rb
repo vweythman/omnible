@@ -1,19 +1,13 @@
 class Work < ActiveRecord::Base
-	default_scope {order('lower(title) ASC')}
-
+	default_scope {order('updated_at DESC')}
 	validates :title, length: { maximum: 250 }, presence: true
 
 	# Associations
 	belongs_to :user
 	has_many :collections
 	has_many :anthologies, :through => :collections
-	
-	has_many :casts
 	has_many :chapters
 	has_many :notes
-	
-	has_many :conceptions
-	has_many :concepts, :through => :conceptions
 
 	# characters
 	has_many :appearances
@@ -21,6 +15,10 @@ class Work < ActiveRecord::Base
 	has_many :main_characters, -> { where(appearances: {role: 'main'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
 	has_many :side_characters, -> { where(appearances: {role: 'side'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
 	has_many :mentioned_characters, -> { where(appearances: {role: 'mentioned'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
+	
+	has_many :conceptions
+	has_many :concepts, :through => :conceptions
+	has_many :identities, ->{uniq}, :through => :characters
 
 	# NESTED ATTRIBUTION
 	accepts_nested_attributes_for :appearances, :allow_destroy => true

@@ -1,0 +1,82 @@
+$main:   hsl(100, 50%, 50%);
+$alt:    hsl(200, 50%, 50%);
+$mlight: lighten($main, 35%);
+$alight: lighten($alt,  35%);
+$mdark:  darken( $main, 25%);
+$adark:  darken( $alt,  25%);
+
+/* MIXINS 
+************************************************/
+@mixin button($color) {
+	background:        $color;
+	border:            3px solid $color;
+	border-top-color:  lighten($color, 10%);
+	border-left-color: lighten($color, 10%);
+	font-weight:       bolder;
+}
+@mixin click($color) {
+	@include button($color);
+	color:          #FFF;
+	letter-spacing: 1px;
+	padding:        5px 10px;
+
+	&:hover  { @include button(darken($color, 15%)); }
+	&:active { @include button(darken($color, 5%)); }
+}
+@mixin toggler() {
+	display:     block;
+	text-align:  center;
+	width:       20%;
+	&:hover { color: #FFF; }
+}
+
+/* ITEM PAGE
+************************************************/ 
+#item {
+	margin: 15px auto;
+	width:  90%;
+	& > footer { text-align: center; }
+	article {
+		margin: 15px auto;
+		width:  75%;
+		p { 
+			line-height: 1.5;
+			padding:     5px 10px;
+		}
+		footer { padding: 15px 0; }
+	}
+	.about {
+		margin-left:  240px;
+		margin-right: 45px;
+	}
+}
+article article { 
+	box-shadow: none;
+	width:      100%;
+	padding:    0;
+}
+.piece nav a { padding-right: 15px; }
+table {
+	margin: 10px 15px;
+	width:  calc(100% - 30px);
+}
+thead { border-bottom: 2px solid $alight; }
+tfoot { border-top:    2px solid $alight; }
+th { letter-spacing: 2px; }
+tbody th {
+	border-right: 2px solid $alight; 
+	text-align:   right;
+	padding:      10px;
+}
+
+/* ITEM META PAGE
+************************************************/ 
+.meta {
+	box-shadow: 0 0 5px 0 $alight;
+	margin:     7px auto;
+	width:      50%;
+	.label { font-weight: bolder; }
+	th { text-align: right; }
+}
+
+/* END */

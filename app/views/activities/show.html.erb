@@ -1,0 +1,15 @@
+<% provide(:title, @activity.name) %>
+
+<main id='item'>
+  <header>
+    <%= model_toolkit @activity %>
+    <h1><%= @activity.name %></h1>
+    <%= render 'meta' %>
+  </header>
+
+  <article>
+    <h2>Statistics</h2>
+  </article>
+
+  <%= render 'shared/tag_footer' %>
+<main>

@@ -1,0 +1,123 @@
+$main:   hsl(100, 50%, 50%);
+$alt:    hsl(200, 50%, 50%);
+$mlight: lighten($main, 35%);
+$alight: lighten($alt,  35%);
+$mdark:  darken( $main, 25%);
+$adark:  darken( $alt,  25%);
+
+/* MIXINS 
+************************************************/
+@mixin button($color) {
+	background:        $color;
+	border:            3px solid $color;
+	border-top-color:  lighten($color, 10%);
+	border-left-color: lighten($color, 10%);
+	font-weight:       bolder;
+}
+@mixin click($color) {
+	@include button($color);
+	color:          #FFF;
+	letter-spacing: 1px;
+	padding:        5px 10px;
+
+	&:hover  { @include button(darken($color, 15%)); }
+	&:active { @include button(darken($color, 5%)); }
+}
+@mixin toggler() {
+	display:     block;
+	text-align:  center;
+	width:       20%;
+	&:hover { color: #FFF; }
+}
+
+/* GENERIC
+************************************************/
+body { 
+	font: 15px "segoe ui", "sans-serif";
+	background: $adark;
+}
+a    { text-decoration: none; }
+
+/* SITE HEADERS AND FOOTERS
+************************************************/
+#site-header {
+	background:  $mdark;
+	overflow:    auto;
+	a   { float: left; }
+	nav {
+		background: darken($main, 10%);
+		overflow:   auto;
+		a {
+			color:                white; 
+			font-variant:         small-caps;
+			letter-spacing:       2px;
+			padding:              10px;
+			&:hover { background: $main; }
+		}
+	}
+}
+#logo {
+	color:          $mlight; 
+	background:     darken($main, 20%);
+	font:           2.3em steelfish;
+	letter-spacing: 1px;
+	text-align:     center;
+	width:          150px;
+	padding:        10px;
+	&:hover {
+		color:      $main;
+		background: black;
+	}
+}
+#site-footer {
+	color:      $alt;
+	border-top: $alt 5px solid;
+	padding:    10px 25px;
+}
+
+/* BODY OF PAGE
+************************************************/
+#site-content {
+	background: #FFF;
+	overflow:   auto;
+	padding:    15px 0;
+	aside {
+		float:   left;
+		padding: 0 20px;
+		width:   250px;
+	}
+	aside + main { margin-left: 290px; }
+}
+a { 
+	color: $alt;
+	&:hover { color: #000; }
+}
+.toolkit {
+	@include button($alt);
+	margin: 10px auto;
+	a {
+		color:       #FFF;
+		display:     inline-block;
+		margin:      1px 2px;
+		padding:     5px 10px;
+		font-weight: 700;
+		letter-spacing: 2px;
+		&:hover { 
+			background:  darken($alt, 5%);
+		}
+	}
+}
+article {
+	box-shadow: 0 0 5px 0 $mlight;
+	margin:     15px;
+	padding:    15px;
+	overflow:   auto;
+}
+hr {
+	background: $main;
+	border:     none;
+	margin:     25px auto;
+	width:      50%;
+}
+
+/* END */

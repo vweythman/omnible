@@ -1,0 +1,8 @@
+<% if @anthologies.length > 0 %>
+	<% @anthologies.each do |anthology| %>
+		<article>
+			<p><%= link_to anthology.name, anthology %></p>
+			
+		</article>
+	<% end %>
+<% end %>

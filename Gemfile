@@ -8,6 +8,8 @@ group :development do
 end
 gem 'awesome_nested_set', '~> 3.0.1'
 gem "friendly_id", "~> 5.0.1"
+gem 'sunspot_rails', git: "http://github.com/betam4x/sunspot.git" # , '2.1.1'
+gem 'sunspot_solr', git: "http://github.com/betam4x/sunspot.git" # '2.1.1'
 
 # assets management
 gem 'sass-rails', '4.0.1'
@@ -21,7 +23,8 @@ gem 'jquery-turbolinks'
 # viewable
 gem 'kramdown'
 gem 'jbuilder', '1.0.2'
-gem "cocoon"
+gem 'cocoon'
+gem 'kaminari'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

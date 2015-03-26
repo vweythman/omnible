@@ -1,130 +1,136 @@
-$main: hsl(200, 50%, 40%);
-$comp: complement($main);
+$main:   hsl(100, 50%, 50%);
+$alt:    hsl(200, 50%, 50%);
+$mlight: lighten($main, 35%);
+$alight: lighten($alt,  35%);
+$mdark:  darken( $main, 25%);
+$adark:  darken( $alt,  25%);
 
-@mixin linktag($color) {
-	display:         inline-block;
-	text-decoration: none; 
-	background:      $color;
-	margin-bottom:   5px;
-	padding:         7px 10px;
-	color:           #FFF;
-	&:hover { background: lighten($color, 15%); }
+/* MIXINS 
+************************************************/
+@mixin button($color) {
+	background:        $color;
+	border:            3px solid $color;
+	border-top-color:  lighten($color, 10%);
+	border-left-color: lighten($color, 10%);
+	font-weight:       bolder;
 }
-@mixin linkmore($color) {
-	@include buttoner($color);
-	display:    block;
-	margin:     10px auto;
-	padding:    7px 10px;
+@mixin click($color) {
+	@include button($color);
+	color:          #FFF;
+	letter-spacing: 1px;
+	padding:        5px 10px;
+
+	&:hover  { @include button(darken($color, 15%)); }
+	&:active { @include button(darken($color, 5%)); }
+}
+@mixin toggler() {
 	text-align: center;
 	width:      20%;
-	text-decoration: none;
-	&:hover { background: darken($color, 20%); }
+	&:hover { color: #FFF; }
 }
-@mixin buttoner($color) {
-	color:         #FFF;
-	background:    darken(saturate($color, 15%), 5%);
-	border:        1px solid darken($color, 15%);
-	box-shadow:    0px 1px 0 fade-out(#fff, .5) inset;
+@mixin labeled($color) {
+	background:  $color;
+	border:      2px solid darken($color, 10%);
+	color:       #000;
+	font-weight: bolder;
 }
 
-form {
-	background: lighten($main, 25%);
-	margin:     20px auto;
-	padding:    20px 15%;
-	h2, h3 {
-		color:          $main;
-		font:           bolder 20px "segoe ui";
-		letter-spacing: 2px;
-		padding:        7px 0;
-	}
-	& > p { 
-		color: #FFF;
-		background: $main;
-		padding:    10px;
-	}
+/* FORM PAGE
+************************************************/
+input[type="submit"] { 
+	@include click($alt);
+	margin:  0 auto;
+	display: block;
 }
 fieldset {
-	background: #FFF;
-	border:     2px solid $main;
-	padding:    15px;
-	margin:     5px 0;
-}
-label {
-	color:          $main;
-	display:        inline-block;
-	font-weight:    700;
-	letter-spacing: 2px;
-	padding:        7px;
-	text-align:     right;
-	vertical-align: baseline;
-	width:          25%;
-}
-div.field {
-	margin:         10px;
-	vertical-align: top;
-}
-select { padding: 0 5px; }
-input, option { padding: 10px; }
-select, input, textarea {
-	display:            inline-block;
-	margin:             0;
-	vertical-align:     baseline;
-	width:              70%;
-	box-sizing:         border-box;
-	-moz-box-sizing:    border-box;
-	-webkit-box-sizing: border-box;
-}
-textarea {
-	font:       14px "segoe ui";
-	max-width:  70%;
-	min-height: 250px;
-	padding:    10px;
-}
-textarea.minor { min-height: 100px; }
-input[type="submit"] {
-	@include buttoner($main);
-	border-radius: 3px;
-	font-weight:   bolder;
-	margin:        10px;
-	padding:       10px;
-	width:         calc(100% - 20px);
-	&:hover { background: saturate($main, 15%); }
-}
-
-.nested { display: none; }
-.nested-fields {
-	text-align: right;
-	label { color: $comp; }
-	fieldset {
-		border:  1px solid $comp;
-		margin:  0;
-		padding: 2px 0;
+	border:   2px solid $mlight;
+	margin:   15px;
+	overflow: auto;
+	padding-bottom: 7px;
+	& > .field label {
+		color:       #000;
+		font-weight: bolder;
 	}
 }
-.show {	@include linkmore($main); }
-.hide { @include linktag($main); }
-.add_fields { @include linkmore($main); }
-.remove_fields {@include linktag($comp); }
+legend {
+	@include labeled($mlight);
+	margin:    0 15px;
+	padding:   5px;
+	width:     10%;
+	min-width: 100px;
+}
+.field { margin: 10px; }
+label {
+	color:      #000;
+	padding:    5px 10px;
+	display:    inline-block;
+	width:      calc(25% - 8px);
+	text-align: right;
+}
+select, input, textarea { width: calc(75% - 20px); }
+textarea { max-width: calc(75% - 20px); }
+.minor   { min-height: 100px; }
+.major   { min-height: 600px; }
 
+/* NESTED FIELDS
+************************************************/
+.show {
+	@include click($main);
+	@include toggler();
+	display: block;
+	margin:  15px auto;
+}
+.edit .nested, .new .show { display: none; }
+.hider { text-align: right; }
+.hide  {
+	@include toggler();
+	@include labeled($mlight);
+	display: inline-block;
+	margin:  5px 15px;
+	padding: 8px 10px;
+	&:hover { background: $main; }
+}
+.add_fields {
+	@include click($alt);
+	display:   block;
+	margin:    10px auto;
+	min-width: 150px;
+	width:     10%;
+}
+.remove_fields {
+	text-align: right;
+	padding:    10px 15px;
+	background: $mlight;
+	color:      $mdark;
+	margin:     0 50px;
+	display:    inline-block;
+}
+.nested-fields fieldset { margin-bottom: 0; }
+.nested-fields p        { text-align: right; }
+#item .nested-fields p  { padding: 0; }
+
+/* RADIO BUTTONS
+************************************************/
 fieldset.radio {
-	border:      none;
+	padding:     10px;
 	margin-left: 26%;
 	width:       70%;
-	text-align:  left;
 	.field {
-		float: left;
-		margin: 0 10px;
-		padding:0;
+		float:   left;
+		padding: 0;
+		margin:  0;
 	}
 	label {
-		@include buttoner(#FFF);
-		color:      #BBB;
-		font-size:  .7em;
+		color:      #FFF;
 		text-align: center;
-		width:      100%;
+		width:      calc(100% - 20px);
 	}
 	input { display: none; }
-	input:checked + label { @include buttoner($comp); }
+	input:checked + label { background: $alt; }
+}
+.choice {
+	@include button(lighten($alt, 15%));
+	height: 28px;
 }
 
 /* END */

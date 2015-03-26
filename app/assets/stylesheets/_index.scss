@@ -1,0 +1,47 @@
+$main:   hsl(100, 50%, 50%);
+$alt:    hsl(200, 50%, 50%);
+$mlight: lighten($main, 35%);
+$alight: lighten($alt,  35%);
+$mdark:  darken( $main, 25%);
+$adark:  darken( $alt,  25%);
+
+/* INDEX PAGE
+************************************************/
+.index {
+	padding:    0 15px;
+	list-style: none;
+	dl, ul, ol {
+		-webkit-column-count: 5;
+   		-moz-column-count:    5;
+ 		column-count:         5;
+	}
+	li { overflow: auto; }
+}
+.pagination {
+	padding: 10px 0;
+}
+.search {
+	border:         $alt 2px solid;
+	padding:        0px;
+	padding-bottom: 1em;
+	width:          100%;
+	h2 { padding: 10px; }
+	fieldset { border-width: 1px; }
+	label {
+		background: lighten($main, 45%);
+		padding:    3px 0;
+		width:      100%;
+		text-align: center;
+	}
+	select, input:not([type="submit"]), textarea {
+		border: none;
+		width:  100%;
+	}
+	input[type="submit"] {
+		margin: 10px;
+		width:  calc(100% - 20px);
+	}
+}
+.related_items { text-align: center; }
+
+/* END */

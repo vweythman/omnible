@@ -1,5 +1,11 @@
-<%= show_header(@anthology) %>
+<% provide(:title, @anthology.main_title) %>
 
-<%= render 'works/works', works: @anthology.works %>
+<main id='item'>
+	<header>
+		<%= model_toolkit @anthology %>
+		<h1><%= @anthology.main_title %></h1>
+	</header>
 
-<%= anthology_footer %>
+	<%= render 'works/list' %>
+	<%= render 'footer' %>
+<main>

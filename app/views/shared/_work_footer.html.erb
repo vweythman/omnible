@@ -1,0 +1,5 @@
+<footer class='related_items'>
+	<p><%= link_to "Chapters", work_chapters_path(@work) %> | <%= link_to "Notes", work_notes_path(@work) %></p>
+	<p><%= link_to @work.title, @work %></p>
+	<p><%= link_to 'Works', works_path %></p>
+</footer>

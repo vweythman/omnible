@@ -14,11 +14,12 @@ module FormHelper
 	end
 
 	def nested_fields_top(title, id)
-		hide_link = content_tag :a, class: 'hide', id: "hide_#{id}" do "Hide #{title}" end
-		heading   = content_tag :h3 do title end
+		heading   = content_tag :legend do title end
+		hide_link = content_tag :a, class: 'hide' , id: "hide_#{id}" do "&uArr; Hide #{title}".html_safe end
+		hide_p    = content_tag :p, class: 'hider' do hide_link end
 		capture do 
-			concat hide_link
 			concat heading
+			concat hide_p
 		end
 	end
 
@@ -32,18 +33,22 @@ module FormHelper
 		end
 	end
 
-
 	def show_link(title, id)
-		content_tag :a, class: 'show', id: "show_#{id}" do "Show #{title}" end
+		content_tag :a, class: 'show', id: "show_#{id}" do "&dArr; View #{title}".html_safe end
 	end
 
 	def opinion_fields(f, collection, value)
-		sl = collection.length / 2
-		content_tag :fieldset, class: 'radio' do
-			concat "<h3>#{value}</h3>".titleize.html_safe
+		sl      = collection.length / 2
+		heading = content_tag :legend do "#{value}".titleize end
+		choice  = content_tag :div, class: 'choice' do 
 			((-1 * sl)..(sl)).each do |i|
 				concat form_field f.radio_button(value, i, :checked => (i == 0)), f.label("#{value}_#{i}", "#{collection[i + sl]}")
 			end
+		end
+
+		content_tag :fieldset, class: 'radio' do
+			concat heading
+			concat choice
 		end
 	end
 end

@@ -24,6 +24,8 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
 
     if @note.save
+      @work.updated_at = @note.updated_at
+      @work.save
       redirect_to [@work, @note]
     else
       render action: 'new'
@@ -34,6 +36,8 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
 
     if @note.update(note_params)
+      @note.work.updated_at = @note.updated_at
+      @note.work.save
       redirect_to [@note.work, @note]
     else
       render action: 'edit'

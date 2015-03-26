@@ -1,0 +1,9 @@
+<% if @concepts.length > 0 %>
+	<article>
+		<ul>
+		<% @concepts.each do |concept| %>
+			<li><%= link_to concept.name, concept %></li>
+		<% end %>
+		</ul>
+	</article>
+<% end %>

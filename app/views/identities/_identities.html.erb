@@ -1,9 +1,0 @@
-<% facet = "" %>
-<dl class="index">
-	<% identities.each do |identity| %>
-		<% if facet != identity.facet.name %>
-			<dt><%= facet = identity.facet.name %></dt>
-		<% end %>
-		<dd><%= link_to identity.name, identity %></dd>
-	<% end %>
-</dl>

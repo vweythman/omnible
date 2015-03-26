@@ -30,7 +30,7 @@ module ApplicationHelper
 		end
 		
 		content_tag :li do 
-			"the #{relate} #{link_to recip.name, recip}".html_safe
+			"a #{relate} #{link_to recip.name, recip}".html_safe
 		end
 	end
 end

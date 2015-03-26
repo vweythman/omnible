@@ -4,9 +4,20 @@ class CharactersController < ApplicationController
     @characters = Character.order('name').all
   end
 
+  def identity_index
+    @parent = Identity.find(params[:identity_id])
+    curated_index
+  end
+
+  def curated_index
+    @characters = @parent.characters
+    render 'curated_index'
+  end
+
   # ONE
   def show
-    @character = Character.find(params[:id])
+    @character  = Character.find(params[:id])
+    @identities = Identity.organize(@character.identities)
   end
 
   def preview
@@ -16,6 +27,7 @@ class CharactersController < ApplicationController
   # CHANGE
   def new
     @character = Character.new
+    @character.descriptions.build
   end
 
   def edit
@@ -56,7 +68,8 @@ class CharactersController < ApplicationController
   private
   def character_params
     params.require(:character).permit(:name, :about, 
-      descriptions_attributes: [:id, :identity_id, :_destroy], 
+      identifiers_attributes:  [:id, :name,        :_destroy],
+      descriptions_attributes: [:id, :identity_id, :_destroy],
       opinions_attributes:     [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy],
       prejudices_attributes:   [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy]
       )

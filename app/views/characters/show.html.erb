@@ -1,11 +1,26 @@
-<%= show_header(@character) %>
+<% provide(:title, @character.name) %>
+<main id='item'>
+	<header>
+		<%= model_toolkit @character %>
+		<h1><%= @character.name %></h1>
+		<%= render 'meta' %>
+	</header>
 
-<% if @character.about.empty? && @character.viewpoints.empty? %>
-	<%= render 'identities/identities', identities: @character.identities %>
-<% else %>
-	<article>
-		<%= render 'content', character: @character %>
-	</article>
-<% end %>
+	<% if @character.about.empty? && @character.viewpoints.empty? %>
+		<%= render 'identities/list' %>
+	<% else %>
+		<article>
+			<aside class='overview'>
+				<h2>Overview</h2>
+				<%= render 'identities/list' %>
+			</aside>
+			<section class='about'>
+				<%= markdown @character.about %>
+				<%= render 'views', views: @character.prejudices, heading: 'Prejudices', set_title: true %>
+				<%= render 'views', views: @character.opinions, heading: 'Opinions about Others', set_title: false %>
+			</section>
+		</article>
+	<% end %>
 
-<%= character_footer %>
+	<% render 'footer' %>
+<main>

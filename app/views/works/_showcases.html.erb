@@ -1,5 +1,0 @@
-<% if showcases.length == 1 %>
-	<article><%= render showcases.first %></article>
-<% elsif showcases.length > 0 %>
-	<%= render :partial => node_index(showcases.first), :object => showcases %>
-<% end %>

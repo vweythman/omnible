@@ -11,9 +11,9 @@
 		<p><%= link_to_add_association '+ Character', f, :appearances %></p>
 	</fieldset>
 
-	<%= show_link("Concept", :conp) %>
+	<%= show_link("Concepts", :conp) %>
 	<fieldset class='nested' id="form_conp">
-		<%= nested_fields "Concept", :conp, :conceptions, f, 'conception_fields' %>
+		<%= nested_fields "Concepts", :conp, :conceptions, f, 'conception_fields' %>
 		<p><%= link_to_add_association '+ Concept', f, :conceptions %></p>
 	</fieldset>
 

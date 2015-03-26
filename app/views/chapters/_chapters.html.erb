@@ -1,8 +1,0 @@
-<ul class='index'>
-	<% chapters.each do |chapter| %>
-		<li>
-			<%= link_to chapter.title, [work, chapter] %>
-			<%= markdown chapter.about %>
-		</li>
-	<% end %>
-</ul>

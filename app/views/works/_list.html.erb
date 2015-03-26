@@ -1,0 +1,6 @@
+<% @works.each do |work| %>
+	<article>
+		<p><%= link_to work.title, work %> by <%= work.user.name %></p>
+		<%= markdown work.summary || "" %>
+	</article>
+<% end %>

@@ -1,17 +1,17 @@
-<% character = meta %>
-<dl class="meta">
-	<% if character.works.length > 0 %>
-		<dt>Works</dt>
-		<dd><%= render 'works/works', works: character.works %></dd>
+<% addjoiner = false %>
+
+<div class='about'>
+	<% @character.identifiers.each do |identifier| %>
+		<p><%= identifier.name %></p>
 	<% end %>
+</div>
 
-	<div style="clear: both;"></div>
-
-	<% if character.relationships.length > 0 %>
+<dl class="meta">
+	<% if @character.relationships.length > 0 %>
 		<dt>Relationships</dt>
 		<dd>
 			<ul>
-				<% character.relationships.each do |relationship| %>
+				<% @character.relationships.each do |relationship| %>
 					<%= related_character(@character.id, relationship) %>
 				<% end %>
 			</ul>

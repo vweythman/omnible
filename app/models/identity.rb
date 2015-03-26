@@ -37,8 +37,7 @@ class Identity < ActiveRecord::Base
 			list[identity.facet.name] = Array.new if list[identity.facet.name].nil?
 			list[identity.facet.name].push(identity)
 		end
-		list.sort!
-		return list
+		return list.sort
 	end
 
 	def self.facets()

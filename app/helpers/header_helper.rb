@@ -12,7 +12,7 @@ module HeaderHelper
 	end
 
 	def curated_index_header(parent, child_model_name)
-		title   = "#{@parent.main_title} / #{child_model_name}"
+		title   = "#{@parent.main_title.titleize} / #{child_model_name}"
 		heading = content_tag :h1 do title end
 		
 		provide(:title, title)

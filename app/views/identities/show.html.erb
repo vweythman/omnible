@@ -1,13 +1,18 @@
 <%= show_header(@identity) %>
 
+<article>
+	<nav>
+		<%= link_to "All Works", identity_works_path(@identity) %><%= link_to "All Characters", identity_characters_path(@identity) %>
+	</nav>
+</article>
+
+
+
 <section class="content">
 
 	<h2><%= @identity.name.titleize %> Characters</h2>
 	<%= render 'characters/characters', characters: @identity.characters %>
 	
-	<h2>Works with <%= @identity.name.titleize %> Characters</h2>
-	<%= render 'works/works', works: @identity.works %>
-
 </section>
 
 <%= identity_footer %>

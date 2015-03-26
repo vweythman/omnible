@@ -12,6 +12,7 @@
 # Ignore other unneeded files.
 database.yml
 doc/
+solr/
 *.swp
 *~
 .project

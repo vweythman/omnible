@@ -22,6 +22,8 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.new(chapter_params)
 
     if @chapter.save
+      @work.updated_at = @chapter.updated_at
+      @work.save
       redirect_to [@work, @chapter]
     else
       render action: 'new'
@@ -32,6 +34,8 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.find(params[:id])
 
     if @chapter.update(chapter_params)
+      @chapter.work.updated_at = @chapter.updated_at
+      @chapter.work.save
       redirect_to [@chapter.work, @chapter]
     else
       render action: 'edit'

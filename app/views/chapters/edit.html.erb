@@ -1,7 +1,9 @@
-<% provide(:title, "Edit") %>
+<main id='item'>
+	<%= edit_header 'Chapter', "Chapter of #{@work.title}" %>
 
-<header><h1>Edit Chapter</h1></header>
-
-<%= render 'form' %>
-
-<%= chapter_footer(@chapter.work, @chapter) %>
+	<article class='edit'>
+		<%= render 'form' %>
+	</article>
+	
+	<%= render 'shared/work_footer' %>
+</main>

@@ -2,7 +2,8 @@ class WorksController < ApplicationController
   # GET /works
   # GET /works.json
   def index
-    @works = Work.includes(:user)
+    works_search
+    @top_appearers = Character.top_appearers
   end
 
   def curated_index
@@ -29,6 +30,17 @@ class WorksController < ApplicationController
   # GET /works/1.json
   def show
     work_find
+
+    # add if owner render show
+    # add if hidden render restricted
+    if @work.chapters.length > 0
+      # redirect to first chapter
+      redirect_to work_chapter_path(@work, @work.chapters.first)
+    elsif @work.notes.length > 0
+      redirect_to work_notes_path(@work)
+    else
+      # render resticted
+    end
   end
 
   # GET /works/new
@@ -78,6 +90,10 @@ class WorksController < ApplicationController
   private
     def work_find
       @work = Work.find(params[:id])
+    end
+
+    def works_search
+      @works = Work.includes(:user).page(params[:page])
     end
 
     def work_params

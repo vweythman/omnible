@@ -5,10 +5,18 @@ module IndexHelper
 			elements.push link_to(item.name, item)
 		end
 
-		csindex(elements)
+		content_tag :p do 
+			elements.join(", ").html_safe
+		end
 	end
 
-	def csindex(list)
+	# comma separated list
+	def cslist(models)
+		list = Array.new()
+		models.each do |model|
+			list.push model.main_title
+		end
+
 		list.join(", ").html_safe
 	end
 

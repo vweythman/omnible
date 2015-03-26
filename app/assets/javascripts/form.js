@@ -9,12 +9,12 @@ $(document).ready(function(){
    $(".hide").click(function(){
       var id =  $(this).attr('id');
       id = id.split('_'); 
-      $("#show_"+id[1]).show();
+      $("#show_"+id[1]).css('display', 'block');
       $("#form_"+id[1]).hide();
    });
    terms = $("#character_descriptions_attributes_0_identity_id").html();
 
-   $( ".nested" ).delegate( ".selector", 'change', function(){
+   $( "#form_desc" ).delegate( ".selector", 'change', function(){
       facet = $(this).find(":selected").text();
       t_id = $(this).attr('id');
       t_id = t_id.split('_facet');
@@ -25,4 +25,9 @@ $(document).ready(function(){
       $("#" + d_id).html(options);
       $("#" + d_id).parent().show();       
    });
+
+   $("#form_desc .selector").trigger('change');
+   $( "#form_desc" ).on('cocoon:after-insert', function(e, inserted_item) {
+      inserted_item.find('.selector').trigger('change');
+   })
 });

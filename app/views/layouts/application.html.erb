@@ -8,10 +8,12 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-	<%= render 'shared/site' %>
-
-	<main>
+	<%= render 'shared/site_header' %>
+	
+	<div id="site-content">
 		<%= yield %>
-	</main>
+	</div>
+	
+	<%= render 'shared/site_footer' %>
 </body>
 </html>

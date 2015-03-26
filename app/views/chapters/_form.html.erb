@@ -8,7 +8,7 @@
 
 	<fieldset>
 		<%= form_field f.label(:about, "Summary"), f.text_field(:about) %>
-		<%= form_field f.label(:content), f.text_area(:content) %>
+		<%= form_field f.label(:content), f.text_area(:content, class: "major") %>
 		<%= form_field f.label(:afterward), f.text_area(:afterward, class: "minor") %>
 	</fieldset>
 

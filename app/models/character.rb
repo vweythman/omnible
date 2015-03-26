@@ -1,4 +1,9 @@
 class Character < ActiveRecord::Base
+	# SCOPES
+	scope :top_appearers, -> {joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
+
+	# RELATED MODELS
+	has_many :identifiers
 	has_many :viewpoints
 	has_many :opinions,   -> { where(recip_type: 'Character') } 
 	has_many :prejudices, -> { where(recip_type: 'Identity') } 
@@ -11,13 +16,12 @@ class Character < ActiveRecord::Base
 
 	has_many :descriptions
 	has_many :identities, through: :descriptions
-
 	has_many :left_relationships, class_name: "Relationship", foreign_key: "left_id"
 	has_many :right_relationships, class_name: "Relationship", foreign_key: "right_id"
 	
+	accepts_nested_attributes_for :identifiers
 	accepts_nested_attributes_for :opinions
 	accepts_nested_attributes_for :prejudices
-
 	accepts_nested_attributes_for :descriptions
 	accepts_nested_attributes_for :left_relationships
 	accepts_nested_attributes_for :right_relationships

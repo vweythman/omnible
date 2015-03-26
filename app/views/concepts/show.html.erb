@@ -1,10 +1,14 @@
 <%= show_header(@concept) %>
 
-<section class="content">
+<article>
+	<nav>
+		<%= link_to "All Works", concept_works_path(@concept) %>
+	</nav>
 
-	<h2>Works with <%= @concept.name.titleize %> Characters</h2>
-	<%= render 'works/works', works: @concept.works %>
-
-</section>
+	<section class="content">
+		<h2>Works with <%= @concept.name.titleize %> Characters</h2>
+		<%= render 'works/works', works: @concept.works %>
+	</section>
+</article>
 
 <%= concept_footer %>

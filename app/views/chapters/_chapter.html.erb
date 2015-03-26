@@ -1,20 +1,20 @@
 <header>
-	<%= manage_item(chapter) %>
-	<h2><%= chapter.simple_title %></h2>
-	<div><%= markdown chapter.about %></div>
+	<nav>
+		<%= link_to "&lsaquo; Previous Chapter".html_safe, [@chapter.work, @chapter.prev] unless @chapter.prev.nil? %>
+		<%= link_to "Next Chapter &rsaquo;".html_safe, [@chapter.work, @chapter.next] unless @chapter.next.nil? %>
+	</nav>
 
-	<p>
-		<%= link_to "<< Previous Chapter", [chapter.work, chapter.prev] unless chapter.prev.nil? %>
-		<%= link_to "Next Chapter >>", [chapter.work, chapter.next] unless chapter.next.nil? %>
-	</p>
+	<h2><%= @chapter.simple_title %></h2>
+	<div><%= markdown @chapter.about %></div>
+	<%= model_toolkit(@chapter) %>
 </header>
 
-<%= markdown chapter.content %>
+<%= markdown @chapter.content %>
 
 <footer>
-	<%= markdown chapter.afterward %>
-	<p>
-		<%= link_to "<< Previous Chapter", [chapter.work, chapter.prev] unless chapter.prev.nil? %>
-		<%= link_to "Next Chapter >>", [chapter.work, chapter.next] unless chapter.next.nil? %>
-	</p>
+	<%= markdown @chapter.afterward %>
+	<nav>
+		<%= link_to "&lsaquo; Previous Chapter".html_safe, [@chapter.work, @chapter.prev] unless @chapter.prev.nil? %>
+		<%= link_to "Next Chapter &rsaquo;".html_safe, [@chapter.work, @chapter.next] unless @chapter.next.nil? %>
+	</nav>
 </footer>

@@ -1,8 +1,18 @@
-<%= work_child_header(@work, Note.null_state(@work)) %>
+<main class='index'>
+	<header>
+		<%= work_toolkit @work %>
+		<h1><%= @work.title %></h1>
+		<%= markdown @work.summary || "" %>
+		<%= render 'works/meta' %>
+	</header>
 
-<% if @notes.length > 0 %>
-	<h2>Notes</h2>
-	<%= render 'notes', notes: @notes, work: @work %>
-<% end %>
+	<% if @notes.length > 0 %>
+		<%= render 'notes', notes: @notes, work: @work %>
+	<% else %>
+		<nav>
+		<%= link_to "Add Note", new_work_note_path(@work) %>
+		</nav>
+	<% end %>
 
-<%= note_footer(@work) %>
+	<%= note_footer(@work) %>
+</main>

@@ -1,0 +1,17 @@
+<aside>
+	<%= form_tag(works_path, :method => "get", class: "search") do %>
+		<h2>Search Works</h2>
+
+		<fieldset>
+			<%= label_tag(:characters, "Characters &amp; Descriptors".html_safe) %>
+			<%= text_field_tag :characters, params[:characters], :placeholder => "Clark Kent, transgender..." %>
+		</fieldset>
+		
+		<fieldset>
+			<%= label_tag(:concepts) %>
+			<%= text_field_tag :concepts, params[:search], :placeholder => "happy endings, action..." %>
+		</fieldset>
+
+		<%= submit_tag "Search", :name => nil %>
+	<% end %>
+</aside>

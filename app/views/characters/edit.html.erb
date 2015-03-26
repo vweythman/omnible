@@ -1,5 +1,9 @@
-<%= edit_header('Character', @character.main_title) %>
+<main id='item'>
+	<%= edit_header 'Character', @character.main_title %>
 
-<%= render 'form' %>
-
-<%= character_footer(@character) %>
+	<article class='edit'>
+		<%= render 'form' %>
+	</article>
+	
+	<% render 'footer' %>
+</main>

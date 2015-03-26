@@ -1,2 +1,10 @@
-<%= index_header("Characters", new_character_path) %>
-<%= render 'characters', characters: @characters %>
+<% provide(:title, "Characters") %>
+
+<main class='index'>
+	<header>
+		<h1>Characters</h1>
+		<%= index_toolkit "Character", new_character_path %>
+	</header>
+
+	<%= render 'list' %>
+</main>
