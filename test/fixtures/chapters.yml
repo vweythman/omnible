@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  intro: MyText
-  content: MyText
-  afterward: MyText
-  work_id: 
+flight_one:
+  title: Prologue
+  content: blah blah blah
+  about: 
+  afterward: 
+  position: 1
+  work: flight
 
-two:
-  title: MyString
-  intro: MyText
-  content: MyText
-  afterward: MyText
-  work_id: 
+flight_two:
+  title: The Start
+  content: blah blah blah and also blah
+  about: 
+  afterward: 
+  position: 2
+  work: flight

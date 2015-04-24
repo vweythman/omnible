@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309204656) do
+ActiveRecord::Schema.define(version: 20150419025744) do
 
-  create_table "acts", force: true do |t|
+  create_table "activities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -36,16 +36,18 @@ ActiveRecord::Schema.define(version: 20150309204656) do
   add_index "appearances", ["character_id"], name: "index_appearances_on_character_id"
   add_index "appearances", ["work_id"], name: "index_appearances_on_work_id"
 
-  create_table "casts", force: true do |t|
+  create_table "chapters", force: true do |t|
     t.string   "title"
-    t.text     "about"
+    t.text     "content"
     t.integer  "work_id"
+    t.string   "about"
+    t.string   "afterward"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-# Could not dump table "chapters" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  add_index "chapters", ["work_id"], name: "index_chapters_on_work_id"
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -75,7 +77,8 @@ ActiveRecord::Schema.define(version: 20150309204656) do
   add_index "conceptions", ["work_id"], name: "index_conceptions_on_work_id"
 
   create_table "concepts", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
+    t.string   "slug",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,7 +111,7 @@ ActiveRecord::Schema.define(version: 20150309204656) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
-    t.string   "summary"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -129,24 +132,34 @@ ActiveRecord::Schema.define(version: 20150309204656) do
     t.datetime "updated_at"
   end
 
+  create_table "item_descriptions", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "quality_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "item_descriptions", ["item_id"], name: "index_item_descriptions_on_item_id"
+  add_index "item_descriptions", ["quality_id"], name: "index_item_descriptions_on_quality_id"
+
   create_table "items", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.integer  "generic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
-  create_table "locations", force: true do |t|
-    t.string   "name"
-    t.integer  "form_id"
+  create_table "memberships", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "character_id"
+    t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "locations", ["form_id"], name: "index_locations_on_form_id"
-
-# Could not dump table "memberships" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  add_index "memberships", ["character_id"], name: "index_memberships_on_character_id"
+  add_index "memberships", ["group_id"], name: "index_memberships_on_group_id"
 
   create_table "notes", force: true do |t|
     t.string   "title"
@@ -156,8 +169,51 @@ ActiveRecord::Schema.define(version: 20150309204656) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "relationships" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "pitches", force: true do |t|
+    t.string   "title"
+    t.text     "about"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pitches", ["user_id"], name: "index_pitches_on_user_id"
+
+  create_table "places", force: true do |t|
+    t.string   "name"
+    t.integer  "form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "places", ["form_id"], name: "index_locations_on_form_id"
+
+  create_table "qualities", force: true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ratings", force: true do |t|
+    t.integer  "work_id"
+    t.integer  "violence"
+    t.integer  "sexuality"
+    t.integer  "language"
+    t.integer  "overall"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ratings", ["work_id"], name: "index_ratings_on_work_id"
+
+  create_table "relationships", force: true do |t|
+    t.integer  "left_id"
+    t.integer  "relator_id"
+    t.integer  "right_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "relators", force: true do |t|
     t.string   "left_name"
@@ -165,6 +221,33 @@ ActiveRecord::Schema.define(version: 20150309204656) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "respondences", force: true do |t|
+    t.integer  "caller_id"
+    t.string   "caller_type"
+    t.integer  "response_id"
+    t.string   "response_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "respondences", ["caller_id", "caller_type"], name: "index_challenge_responses_on_caller_id_and_caller_type"
+  add_index "respondences", ["response_id", "response_type"], name: "index_challenge_responses_on_response_id_and_response_type"
+
+  create_table "reviews", force: true do |t|
+    t.integer  "work_id"
+    t.integer  "user_id"
+    t.integer  "plot"
+    t.integer  "characterization"
+    t.integer  "writing"
+    t.integer  "overall"
+    t.text     "details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
+  add_index "reviews", ["work_id"], name: "index_reviews_on_work_id"
 
   create_table "term_edges", force: true do |t|
     t.integer "broad_term_id"

@@ -1,8 +1,8 @@
 
 <div class='nested-fields'>
 	<fieldset>
-		<%= form_field f.label(:left_id,  (@relator.left_name  || "Left").titleize), f.collection_select(:left_id,  collection, :id, :main_title) %>
-		<%= form_field f.label(:right_id, (@relator.right_name || @relator.left_name || "Right").titleize), f.collection_select(:right_id, collection, :id, :main_title) %>
+		<%= form_field f.label(:left_id,  (@relator.left_name  || "Left").titleize), f.collection_select(:left_id,  collection, :id, :heading) %>
+		<%= form_field f.label(:right_id, (@relator.right_name || @relator.left_name || "Right").titleize), f.collection_select(:right_id, collection, :id, :heading) %>
 	</fieldset>
 
 	<p><%= link_to_remove_association "- Remove Relationship", f %></p>

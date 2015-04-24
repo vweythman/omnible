@@ -15,22 +15,26 @@ module ApplicationHelper
 		Kramdown::Document.new(text, :auto_ids => false, :parse_block_html => true).to_html.html_safe
 	end
 	
+	def record_time(date)
+		date.strftime("%b %d, %Y")
+	end
+
 	def node_index(node)
 		name = node.class.to_s.tableize
 		"#{name}/#{name}"
 	end
-
-	def related_character(character_id, relationship)
-		if relationship.left_id == character_id
-			relate = relationship.relator.left_joiner
-			recip  = relationship.right
-		else
-			relate = relationship.relator.right_joiner
-			recip  = relationship.left
+	
+	def creation_header(heading)
+		provide(:title, "Create #{heading}")
+		content_tag :h1 do
+			"Create #{heading}".html_safe
 		end
-		
-		content_tag :li do 
-			"a #{relate} #{link_to recip.name, recip}".html_safe
+	end
+
+	def edit_header(name, title)
+		provide(:title, "Edit #{title}")
+		content_tag :h1 do
+			"Edit #{name}"
 		end
 	end
 end

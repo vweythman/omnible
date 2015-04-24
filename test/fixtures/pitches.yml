@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+awesome:
+  title: My Awesome Idea
+  about: MyText
+  user_id: 
+
+terrible:
+  title: This terrible but brillant idea! 
+  about: MyText
+  user_id: 

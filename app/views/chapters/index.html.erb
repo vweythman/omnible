@@ -2,13 +2,16 @@
 
 <main id='item'>
 	<%= render 'shared/work_header' %>
-	<h2>Chapters</h2>
+	
+	<article>
+		<h2>Chapters</h2>
 
 		<% if @chapters.length > 0 %>
 			<%= render 'list' %>
 		<% else %>
 			<%= build_toolkit @work, 'Chapter' %>
 		<% end %>
+	</article>
 
 	<%= render 'shared/work_footer' %>
 </main>

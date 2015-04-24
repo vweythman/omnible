@@ -1,5 +1,10 @@
-<%= edit_header('Relator', @relator.main_title) %>
+<main id='item'>
+  <%= edit_header 'Relationship Type', @relator.heading.html_safe %>
 
-<article class='edit'><%= render 'form' %></article>
+  <article class='edit'>
+    <%= render 'form' %>
+  </article>
+  
+  <%= render 'shared/tag_footer' %>
+</main>
 
-<%= relator_footer(@relator) %>

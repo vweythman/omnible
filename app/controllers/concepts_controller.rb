@@ -1,52 +1,68 @@
 class ConceptsController < ApplicationController
-  def index
-  	@concepts = Concept.order('name').all
-  end
 
-  def show
-  	concept_find
-  end
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# GET
+	# ............................................................
+	def index
+		@concepts = Concept.order('name').all
+	end
 
-  def new
-    @concept = Concept.new
-  end
+	def show
+		find_concept
+	end
 
-  def edit
-  	concept_find
-  end
+	def new
+		@concept = Concept.new
+	end
 
-  # post
-  def create
-    @concept = Concept.new(concept_params)
-    if @concept.save
-      redirect_to(:action => 'index')
-    else
-      render action: 'new'
-    end
-  end
+	def edit
+		find_concept
+	end
 
-  def update
-    concept_find
+	# POST
+	# ............................................................
+	def create
+		@concept = Concept.new(concept_params)
 
-    if @concept.update(concept_params)
-      redirect_to(:action => 'index')
-    else
-     render action: 'edit'
-    end
-  end
+		if @concept.save
+			redirect_to(:action => 'index')
+		else
+			render action: 'new'
+		end
+	end
 
-  # delete one
-  def destroy
-    @concept = Concept.find(params[:id]).destroy
-    redirect_to(:action => 'index')
-  end
+	# PATCH/PUT
+	# ............................................................
+	def update
+		find_concept
 
-  private
-  def concept_find
-  	@concept = Concept.find(params[:id])
-  end
+		if @concept.update(concept_params)
+			redirect_to(:action => 'index')
+		else
+			render action: 'edit'
+		end
+	end
 
-  def concept_params
-    params.require(:concept).permit(:name)
-  end
+	# DELETE
+	# ............................................................
+	def destroy
+		@concept = Concept.find(params[:id]).destroy
+		redirect_to(:action => 'index')
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	# find by id
+	def find_concept
+		@concept = Concept.friendly.find(params[:id])
+	end
+
+	# define strong parameters
+	def concept_params
+		params.require(:concept).permit(:name)
+	end
+
 end

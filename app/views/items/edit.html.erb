@@ -1,3 +1,10 @@
+<main id='item'>
+  <%= edit_header 'Item', @item.name %>
 
+  <article class='edit'>
+    <%= render 'form' %>
+  </article>
+  
+  <%= render 'shared/subject_footer' %>
+</main>
 
-<article class='edit'><%= render 'form' %></article>

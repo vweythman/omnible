@@ -24,8 +24,10 @@
 		<th>Tags</th>
 		<td colspan='3'>
 			<dl>
-				<dt>Concepts</dt>
-				<dd><%= cslinks(@work.concepts) %></dd>
+				<% if @work.concepts.length > 0 %>
+					<dt>Concepts</dt>
+					<dd><%= cslinks(@work.concepts) %></dd>
+				<% end %>
 
 				<%= render 'works/meta_character', characters: @work.main_characters, type: "Main" %>
 				<%= render 'works/meta_character', characters: @work.side_characters, type: "Side" %>
@@ -36,9 +38,9 @@
 	<tfoot>
 		<tr>
 			<th>Created</th>
-			<td><%= @work.created_at.strftime("%b %d, %Y") %></td>
+			<td><%= record_time @work.created_at %></td>
 			<th>Updated</th>
-			<td><%= @work.updated_at.strftime("%b %d, %Y") %></td>
+			<td><%= record_time @work.updated_at %></td>
 		</tr>
 	</tfoot>
 </table>

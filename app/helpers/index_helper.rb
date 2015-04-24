@@ -1,4 +1,5 @@
 module IndexHelper
+	
 	def cslinks(links)
 		elements = Array.new
 		links.each do |item|
@@ -14,7 +15,7 @@ module IndexHelper
 	def cslist(models)
 		list = Array.new()
 		models.each do |model|
-			list.push model.main_title
+			list.push model.heading
 		end
 
 		list.join(", ").html_safe

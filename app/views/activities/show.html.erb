@@ -4,7 +4,7 @@
   <header>
     <%= model_toolkit @activity %>
     <h1><%= @activity.name %></h1>
-    <%= render 'meta' %>
+    <p>created : <%= record_time @activity.created_at %></p>
   </header>
 
   <article>

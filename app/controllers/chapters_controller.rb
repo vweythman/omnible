@@ -1,57 +1,74 @@
 class ChaptersController < ApplicationController
-  def index
-  	@work     = Work.find(params[:work_id])
-  	@chapters = @work.chapters
-  end
+	
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# GET
+	# ............................................................
+	def index
+		@work     = Work.find(params[:work_id])
+		@chapters = @work.chapters
+	end
 
-  def show
-    chapter_find
-  end
+	def show
+		find_chapter
+	end
 
-  def new
-    @work    = Work.find(params[:work_id])
-    @chapter = Chapter.new
-  end
+	def new
+		@work    = Work.find(params[:work_id])
+		@chapter = Chapter.new
+		@chapter.work = @work
+	end
 
-  def edit
-    chapter_find
-  end
+	def edit
+		find_chapter
+	end
 
-  def create
-  	@work    = Work.find(params[:work_id])
-    @chapter = Chapter.new(chapter_params)
+	# POST
+	# ............................................................
+	def create
+		@work    = Work.find(params[:work_id])
+		@chapter = Chapter.new(chapter_params)
 
-    if @chapter.save
-      @work.updated_at = @chapter.updated_at
-      @work.save
-      redirect_to [@work, @chapter]
-    else
-      render action: 'new'
-    end
-  end
+		if @chapter.save
+			@work.updated_at = @chapter.updated_at
+			@work.save
+			redirect_to [@work, @chapter]
+		else
+			render action: 'new'
+		end
+	end
 
-  def update
-    @chapter = Chapter.find(params[:id])
+	# PATCH/PUT
+	# ............................................................
+	def update
+		find_chapter
 
-    if @chapter.update(chapter_params)
-      @chapter.work.updated_at = @chapter.updated_at
-      @chapter.work.save
-      redirect_to [@chapter.work, @chapter]
-    else
-      render action: 'edit'
-    end
-  end
+		if @chapter.update(chapter_params)
+			@work.updated_at = @chapter.updated_at
+			@work.save
+			redirect_to [@chapter.work, @chapter]
+		else
+			render action: 'edit'
+		end
+	end
 
-  def destroy
-  end
+	# DELETE
+	# ............................................................
+	def destroy
+	end
 
-  private
-    def chapter_find
-      @chapter = Chapter.find(params[:id])
-      @work    = @chapter.work
-    end
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
 
-    def chapter_params
-      params.require(:chapter).permit(:title, :work_id, :about, :position, :content, :afterward)
-    end
+	# find by id
+	def find_chapter
+		@chapter = Chapter.find(params[:id])
+		@work    = @chapter.work
+	end
+
+	# define strong parameters
+	def chapter_params
+		params.require(:chapter).permit(:title, :work_id, :about, :position, :content, :afterward)
+	end
 end

@@ -1,28 +1,32 @@
-<%= show_header(@relator) %>
+<% provide(:title, @relator.heading.html_safe) %>
 
-<article>
-	<% if @relator.relationships.length > 0  && @relator.has_reverse? %>
+<main id='item'>
+	<header>
+		<%= model_toolkit @relator %>
+		<h1><%= @relator.heading %></h1>
+		<p>created : <%= record_time @relator.created_at %></p>
+	</header>
+
+	<article>
 		<table>
-			<thead>
-				<tr>
-					<th><%= @relator.left_name.titleize %></th>
-					<th><%= @relator.right_name.titleize %></th>
-				</tr>
-			</thead>
-			<tbody>
+			<% if @relator.relationships.length > 0  && @relator.has_reverse? %>
+				<thead>
+					<tr><th><%= @relator.left_name.titleize %></th> <th><%= @relator.right_name.titleize %></th></tr>
+				</thead>
+
 				<% @relator.relationships.each do |relationship| %>
 					<tr>
 						<td><%= link_to relationship.left.name, relationship.left %></td>
 						<td><%= link_to relationship.right.name, relationship.right %></td>
 					</tr>
 				<% end %>
-			</tbody>
+			<% else %>
+				<thead><tr><th><%= @relator.heading %></th></tr></thead>
+				<% @relator.relationships.each do |relationship| %>
+					<tr><td><%= link_to relationship.left.name, relationship.left %> & <%= link_to relationship.right.name, relationship.right %></td></tr>
+				<% end %>
+			<% end %>
 		</table>
-	<% else %>
-		<% @relator.relationships.each do |relationship| %>
-			<p><%= link_to relationship.left.name, relationship.left %> & <%= link_to relationship.right.name, relationship.right %></p>
-		<% end %>
-	<% end %>
-</article>
-
-<%= relator_footer %>
+	</article>
+	<%= render 'shared/tag_footer' %>
+<main>

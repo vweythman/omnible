@@ -1,0 +1,10 @@
+<%= form_for(@place) do |f| %>
+
+	<fieldset>
+		<%= form_field f.label(:type, "Type"), f.text_field(:type) %>
+		<%= form_field f.label(:name), f.text_field(:name) %>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>

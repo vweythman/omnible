@@ -1,60 +1,54 @@
 class Identity < ActiveRecord::Base
+
+	# MODULES
+	# ------------------------------------------------------------
+	include Imaginable    # member of the idea group
+	include Taggable      # member of the tag group
+	extend Organizable    # has a type
+
+	# VALIDATIONS and SCOPES
+	# ------------------------------------------------------------
 	default_scope {order('facet_id, lower(name)')}
+	scope :ages,    -> { where(facet: 'age') }
+	scope :genders, -> { where(facet: 'gender') } 
 
 	# ASSOCIATIONS
-	belongs_to :facet
+	# -----------------------------------------------------------
+	# joins
 	has_many :descriptions
-	has_many :characters, through: :descriptions
-	accepts_nested_attributes_for :descriptions
 
+	# model that possess identities
+	has_many :characters, through: :descriptions
+	belongs_to :facet
+
+	# indirect associations and subgroups
 	has_many :appearances, source: :appearance, through: :descriptions
 	has_many :works, ->{uniq}, source: :work, through: :appearances
 
+	# NESTED ATTRIBUTION
+	# ------------------------------------------------------------
+	accepts_nested_attributes_for :descriptions, :allow_destroy => true
 
-	scope :ages, -> { where(facet: 'age') }
-	scope :genders, -> { where(facet: 'gender') } 
-
-
-	def main_title
+	# METHODS
+	# ------------------------------------------------------------
+	# Heading
+	# - defines the main means of addressing the model
+	def heading
 		"#{facet.name}: #{name}"
 	end
 
-	def facet_name
+	# Type
+	# - finds the facet name when it exists
+	def type
 		facet.name unless facet.nil?
 	end
 
-	def self.null_state
-		NullIdentity.new
-	end
-
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# OrganizedAll
+	# - creates an list of all identities organized by facet
 	def self.organized_all(list = Identity.includes(:facet))
 		Identity.organize(list)
 	end
 
-	def self.organize(identities)
-		list = Hash.new
-		identities.each do |identity|
-			list[identity.facet.name] = Array.new if list[identity.facet.name].nil?
-			list[identity.facet.name].push(identity)
-		end
-		return list.sort
-	end
-
-	def self.facets()
-		Identity.select('facet').group(:facet)
-	end
-end
-
-class NullIdentity
-	def id
-		nil
-	end
-
-	def main_title
-		"Identities"
-	end
-
-	def part_of
-		:identities
-	end
 end

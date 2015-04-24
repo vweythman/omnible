@@ -5,31 +5,6 @@ $alight: lighten($alt,  35%);
 $mdark:  darken( $main, 25%);
 $adark:  darken( $alt,  25%);
 
-/* MIXINS 
-************************************************/
-@mixin button($color) {
-	background:        $color;
-	border:            3px solid $color;
-	border-top-color:  lighten($color, 10%);
-	border-left-color: lighten($color, 10%);
-	font-weight:       bolder;
-}
-@mixin click($color) {
-	@include button($color);
-	color:          #FFF;
-	letter-spacing: 1px;
-	padding:        5px 10px;
-
-	&:hover  { @include button(darken($color, 15%)); }
-	&:active { @include button(darken($color, 5%)); }
-}
-@mixin toggler() {
-	display:     block;
-	text-align:  center;
-	width:       20%;
-	&:hover { color: #FFF; }
-}
-
 /* ITEM PAGE
 ************************************************/ 
 #item {
@@ -45,11 +20,12 @@ $adark:  darken( $alt,  25%);
 		}
 		footer { padding: 15px 0; }
 	}
-	.about {
-		margin-left:  240px;
+	.about, .relationships {
+		margin-left:  290px;
 		margin-right: 45px;
 	}
 }
+.identifiers { color: #909090; }
 article article { 
 	box-shadow: none;
 	width:      100%;

@@ -1,38 +1,42 @@
 class Relator < ActiveRecord::Base
+
+	# MODULES
+	# ------------------------------------------------------------
+	include Imaginable    # member of the idea group
+	include Taggable      # member of the tag group
+
+	# ASSOCIATIONS
+	# ------------------------------------------------------------
 	has_many :relationships
+	
+	# NESTED ATTRIBUTION
+	# ------------------------------------------------------------
 	accepts_nested_attributes_for :relationships, :allow_destroy => true
 
-	def main_title
+	# METHODS
+	# ------------------------------------------------------------
+	# Heading
+	# - defines the main means of addressing the model
+	def heading
 		has_reverse? ? "#{left_name} & #{right_name}" : left_name.pluralize
 	end
 
-	def left_joiner
-		"#{left_name} of"
+	# LeftHeading
+	# - defines the left hand relationship
+	def left_heading
+		"#{left_name}"
 	end
 
-	def right_joiner
-		has_reverse? ? "#{right_name} of" : left_joiner
+	# RightHeading
+	# - defines the right hand relationship
+	def right_heading
+		has_reverse? ? "#{right_name}" : left_heading
 	end
 	
+	# HasReverse?
+	# - asks whether relator type has different left and right values
 	def has_reverse?
 		!(right_name.empty? || left_name.eql?(right_name))
 	end
 
-	def self.null_state
-		NullRelator.new
-	end
-end
-
-class NullRelator
-	def id
-		nil
-	end
-
-	def main_title
-		"Relationship Types"
-	end
-
-	def part_of
-		:relators
-	end
 end

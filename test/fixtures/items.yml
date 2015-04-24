@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  item_type_id: 
+  name: Excalibur
+  generic_id: 1
+  slug: excalibur
 
 two:
-  name: MyString
-  item_type_id: 
+  name: Aegis
+  generic_id: 2
+  slug: aegis

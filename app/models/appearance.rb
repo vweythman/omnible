@@ -1,14 +1,34 @@
+# Appearance
+# ================================================================================
+# appearance is a join model for works and characters
+#
+# Methods (max length: 25 characters) 
+# --------------------------------------------------------------------------------
+#  method name                 | output type | description
+# --------------------------------------------------------------------------------
+#  self.roles                  | array       | defines and collects the types of 
+#                              |             | appearances
+# ================================================================================
+
 class Appearance < ActiveRecord::Base
-  belongs_to :work
-  belongs_to :character
 
-  def self.top_characters
-  end
+	# VALIDATIONS and SCOPES
+	# ------------------------------------------------------------
+	validates :character_id, presence: true
+	validates :work_id,      presence: true
+	validates_uniqueness_of :character_id, :scope => :work_id
 
-  def self.top_works
-  end
+	# ASSOCIATIONS
+	# ------------------------------------------------------------
+	belongs_to :character
+	belongs_to :work
 
-  def self.roles
-  	['main', 'side', 'mentioned']
-  end
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# roles
+	# - defines and collects the types of appearances
+	def self.roles
+		['main', 'side', 'mentioned']
+	end
+
 end

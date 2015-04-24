@@ -1,3 +1,10 @@
-<%= index_header("Identities", new_identity_path) %>
+<% provide(:title, "Identities") %>
+<main class='index'>
+  <header>
+    <h1>Identities</h1>
+    <%= index_toolkit("Identities", new_identity_path) %>
+  </header>
 
-<%= render 'ordered_identities', ordered_identities: @identities %>
+  <%= render 'list' %>
+  <%= render 'shared/tag_footer' %>
+</main>

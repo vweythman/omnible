@@ -1,5 +1,10 @@
-<%= edit_header('Identity', @identity.main_title) %>
+<main id='item'>
+  <%= edit_header 'Identity', @identity.heading %>
 
-<article class='edit'><%= render 'form' %></article>
+  <article class='edit'>
+    <%= render 'form' %>
+  </article>
+  
+  <%= render 'shared/tag_footer' %>
+</main>
 
-<%= identity_footer(@identity) %>

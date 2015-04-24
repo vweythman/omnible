@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  work_id: 
-  character_id: 
-  role: MyString
+main:
+  work: flight
+  character: mary
+  role: main
 
-two:
-  work_id: 
-  character_id: 
-  role: MyString
+side:
+  work: flight
+  character: jane
+  role: side
+
+mentioned:
+  work: flight
+  character: irene
+  role: mentioned

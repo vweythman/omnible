@@ -1,5 +1,9 @@
-<%= creation_header 'Concept' %>
+<main id='item'>
+  <%= creation_header 'Concept' %>
 
-<article class='new'><%= render 'form' %></article>
-
-<%= concept_footer %>
+  <article class='new'>
+    <%= render 'form' %>
+  </article>
+  
+  <%= render 'shared/tag_footer' %>
+</main>

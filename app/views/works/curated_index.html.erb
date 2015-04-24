@@ -1,7 +1,26 @@
-<%= curated_index_header(@parent, "Works") %> 
+<% provide(:title, "#{@parent.heading} - Works" ) %>
+<%= render 'search_form' %>
 
-<%= render 'list' %>
+<main class='index'>
+	<header>
+		<h1>[<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>] Works</h1>
+		<%= paginate @works, :window => 2 %>
+	</header>
 
-<footer>
-	<%= link_to @parent.main_title, @parent %>
-</footer>
+	<%= render 'list' %>
+
+	<footer>
+		<%= paginate @works, :window => 2 %>
+	</footer>
+
+	<footer class='related_items'>
+		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
+		
+		<% if @parent.is_subject? %>
+	 		<%= render 'shared/subject_footer' %>
+		<% else %>
+	 		<%= render 'shared/tag_footer' %>
+ 		<% end %>
+	</footer>
+</main>
+

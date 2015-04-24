@@ -1,5 +1,10 @@
-<%= edit_header('Concept', @concept.main_title) %>
+<main id='item'>
+  <%= edit_header 'Concept', @concept.heading %>
 
-<article class='edit'><%= render 'form' %></article>
+  <article class='edit'>
+    <%= render 'form' %>
+  </article>
+  
+  <%= render 'shared/tag_footer' %>
+</main>
 
-<%= concept_footer(@concept) %>

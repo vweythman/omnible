@@ -1,8 +1,9 @@
 <%= form_for(@item) do |f| %>
 
 	<fieldset>
-		<%= form_field f.label(:generic_name, "Type"), f.text_field(:generic_name) %>
+		<%= form_field f.label(:type, "Type"), f.text_field(:type) %>
 		<%= form_field f.label(:name), f.text_field(:name) %>
+		<%= form_field label_tag(:descriptions, "Qualities"), text_field_tag(:descriptions, @descriptions.join(";"),  class: 'taggables') %>
 	</fieldset>
 
 	<%= f.submit %>

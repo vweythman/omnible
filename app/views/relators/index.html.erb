@@ -1,2 +1,10 @@
-<%= index_header("Relationship Type", new_relator_path) %>
-<%= render 'relators', relators: @relators %>
+<% provide(:title, "Relationship Types") %>
+<main class='index'>
+  <header>
+    <h1>Relationship Types</h1>
+    <%= index_toolkit("Relationship Types", new_relator_path) %>
+  </header>
+
+  <%= render 'list' %>
+  <%= render 'shared/tag_footer' %>
+</main>

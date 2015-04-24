@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+young:
+  name: young
+  facet: age 
+
+human:
+  name: human
+  facet: species 

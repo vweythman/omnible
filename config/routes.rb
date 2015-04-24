@@ -13,32 +13,35 @@ Rails.application.routes.draw do
   resources :users
   
   resources :anthologies
-
   resources :works, :concerns => :paginatable do
     resources :casts
     resources :chapters
     resources :notes
   end
+  resources :characters
+  resources :qualities
+  resources :items
+  resources :places
 
   # list works by related model
-  get '/characters/:character_id/works' => 'works#character_index', as: :character_works
-  get '/concepts/:concept_id/works'     => 'works#concept_index',   as: :concept_works
-  get '/identities/:identity_id/works'  => 'works#identity_index',  as: :identity_works
-
-  resources :casts, except: [:index, :new, :show]
-  resources :chapters, except: [:index, :new, :show]
-  resources :notes, except: [:index, :new, :show]
-
-  resources :characters
+  get '/characters/:character_id/works'     => 'works#character_index',     as: :character_works
+  get '/concepts/:concept_id/works'         => 'works#concept_index',       as: :concept_works
+  get '/identities/:identity_id/works'      => 'works#identity_index',      as: :identity_works
   get '/identities/:identity_id/characters' => 'characters#identity_index', as: :identity_characters 
+
+  resources :chapters, except: [:index, :new, :show]
+  resources :notes,    except: [:index, :new, :show]
+
   resources :concepts
   resources :activities
   resources :identities
-  resources :items
   resources :relators
 
+  # overview pages
+  get 'tags'     => 'tags#index'
+  get 'subjects' => 'subjects#index'
+  
   # static pages
-  get 'tags'  => 'static_pages#tags'
   get 'help'  => 'static_pages#help'
   get 'about' => 'static_pages#about'
   root 'static_pages#home'

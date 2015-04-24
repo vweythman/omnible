@@ -1,10 +1,11 @@
-<%= index_header("Items", new_item_path) %>
+<% provide(:title, "Items") %>
 
-<dl class='index'>
-	<% @items.each do |key, list| %>
-		<dt><%= key %></dt>
-		<% list.each do |item| %>
-			<dd><%= link_to item.name, item %></dd>
-		<% end %>
-	<% end %>
-</dl>
+<main class='index'>
+	<header>
+		<h1>Items</h1>
+		<%= index_toolkit "Item", new_item_path %>
+	</header>
+
+	<%= render 'list' %>
+	<%= render 'shared/subject_footer' %>
+</main>

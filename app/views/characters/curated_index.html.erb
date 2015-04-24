@@ -1,13 +1,17 @@
-<% provide(:title, "#{@parent.main_title} - Characters" ) %>
+<% provide(:title, "#{@parent.heading} - Characters" ) %>
 <main class='index'>
 	<header>
-		<h1>[<%= link_to @parent.main_title.titleize, polymorphic_path(@parent) %>] Characters</h1>
+		<h1>[<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>] Characters</h1>
 	</header>
 
 	<%= render 'list' %>
 
 	<footer class='related_items'>
-		<p><%= link_to @parent.main_title, polymorphic_path(@parent) %></p>
-		<%= render 'shared/tag_footer' %>
+		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
+		<% if @parent.is_subject? %>
+	 		<%= render 'shared/subject_footer' %>
+		<% else %>
+	 		<%= render 'shared/tag_footer' %>
+ 		<% end %>
 	</footer>
 </main>

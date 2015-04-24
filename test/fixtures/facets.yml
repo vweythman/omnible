@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+age:
+  name: age
 
-two:
-  name: MyString
+species:
+  name: species

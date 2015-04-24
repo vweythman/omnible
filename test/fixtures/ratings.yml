@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work_id: 
+  violence: 1
+  sexuality: 1
+  language: 1
+  overall: 1
+
+two:
+  work_id: 
+  violence: 1
+  sexuality: 1
+  language: 1
+  overall: 1

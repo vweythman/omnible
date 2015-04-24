@@ -1,18 +1,17 @@
-<main class='index'>
-	<header>
-		<%= work_toolkit @work %>
-		<h1><%= @work.title %></h1>
-		<%= markdown @work.summary || "" %>
-		<%= render 'works/meta' %>
-	</header>
+<% provide(:title, "Notes") %>
 
-	<% if @notes.length > 0 %>
-		<%= render 'notes', notes: @notes, work: @work %>
-	<% else %>
-		<nav>
-		<%= link_to "Add Note", new_work_note_path(@work) %>
-		</nav>
-	<% end %>
+<main id='item'>
+	<%= render 'shared/work_header' %>
+	
+	<article>
+		<h2>Notes</h2>
 
-	<%= note_footer(@work) %>
+		<% if @notes.length > 0 %>
+			<%= render 'list' %>
+		<% else %>
+			<%= build_toolkit @work, 'Note' %>
+		<% end %>
+	</article>
+
+	<%= render 'shared/work_footer' %>
 </main>

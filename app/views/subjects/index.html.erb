@@ -1,0 +1,17 @@
+<% provide(:title, 'Subject') %>
+<main class='index'>
+	<h1>Subject</h1>
+
+	<h2>Characters</h2>
+	<%= index_toolkit('Character', new_character_path) %>
+	<%= render 'characters/list' %>
+
+	<h2>Items</h2>
+	<%= index_toolkit('Item', new_item_path) %>
+	<%= render 'items/list' %>
+
+	<h2>Places</h2>
+	<%= index_toolkit('Place', new_place_path) %>
+	<%= render 'places/list' %>
+
+</main>

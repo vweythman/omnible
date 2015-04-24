@@ -1,5 +1,9 @@
-<%= creation_header("Note for #{link_to(@work.title, @work)}") %>
+<main id='item'>
+	<%= creation_header "Note for #{link_to @work.title, @work}" %>
 
-<article class='new'><%= render 'form' %></article>
-
-<%= note_footer(@work) %>
+	<article class='new'>
+		<%= render 'form' %>
+	</article>
+	
+	<%= render 'shared/work_footer' %>
+</main>

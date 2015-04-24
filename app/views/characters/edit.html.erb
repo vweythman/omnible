@@ -1,9 +1,9 @@
 <main id='item'>
-	<%= edit_header 'Character', @character.main_title %>
+	<%= edit_header 'Character', @character.heading %>
 
 	<article class='edit'>
 		<%= render 'form' %>
 	</article>
-	
-	<% render 'footer' %>
+
+	<%= render 'shared/subject_footer' %>
 </main>

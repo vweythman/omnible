@@ -1,14 +1,13 @@
 <main id="item">
-	<header>
-		<%= work_toolkit @work %>
-		<h1><%= @work.title %></h1>
-		<%= markdown @work.summary || "" %>
-		<%= render 'works/meta' %>
-	</header>
+	<%= render 'shared/work_header' %>
 
-	<article class='piece'>
-		<%= render 'note', note: @note %>
+	<article class="piece">
+		<header>
+			<%= model_toolkit(@note) %>
+			<h2><%= @note.heading %></h2>
+		</header>
+		<%= markdown @note.content %>
 	</article>
 
-	<%= note_footer(@note.work) %>
+	<%= render 'shared/work_footer' %>
 </main>

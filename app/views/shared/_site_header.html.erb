@@ -1,10 +1,27 @@
 <header id="site-header">
 	<%= link_to 'pleiades text', root_url, :id => 'logo' %>
-	<nav>
-		<%= link_to 'Anthologies', anthologies_path %>
-		<%= link_to 'Works', works_path %>
-		<%= link_to 'Characters', characters_path %>
-		<%= link_to 'Items', items_path %>
-		<%= link_to 'Tags', tags_path %>
+	<nav class='menu'>
+		<ul>
+			<li><%= link_to 'Anthologies', anthologies_path %></li>
+			<li><%= link_to 'Works', works_path %></li>
+			<li>
+				<%= link_to "Subjects &#x25BE;".html_safe, subjects_path %>
+				<ul class='subelement'>
+					<li><%= link_to 'Characters', characters_path %></li>
+					<li><%= link_to 'Items', items_path %></li>
+					<li><%= link_to 'Places', places_path %></li>
+				</ul>
+			</li>
+			<li>
+				<%= link_to "Tags &#x25BE;".html_safe, tags_path %>
+				<ul class='subelement'>
+					<li><%= link_to 'Activities', activities_path %></li>
+					<li><%= link_to 'Concepts', concepts_path %></li>
+					<li><%= link_to 'Identities', identities_path %></li>
+					<li><%= link_to 'Qualities', qualities_path %></li>
+					<li><%= link_to 'Relationship Types', relators_path %></li>
+				</ul>
+			</li>
+		</ul>
 	</nav>
 </header>

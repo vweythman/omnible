@@ -15,12 +15,16 @@ module FormHelper
 
 	def nested_fields_top(title, id)
 		heading   = content_tag :legend do title end
-		hide_link = content_tag :a, class: 'hide' , id: "hide_#{id}" do "&uArr; Hide #{title}".html_safe end
-		hide_p    = content_tag :p, class: 'hider' do hide_link end
+		hide_p    = hide_link(title, id)
 		capture do 
 			concat heading
 			concat hide_p
 		end
+	end
+
+	def hide_link(title, id)
+		hide_link = content_tag :a, class: 'hide' , id: "hide_#{id}" do "&uArr; Hide #{title}".html_safe end
+		hide_p    = content_tag :p, class: 'hider' do hide_link end
 	end
 
 	def nested_fields_loop(models, f, npartial, nlocals = {})

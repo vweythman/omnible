@@ -1,77 +1,88 @@
 class CharactersController < ApplicationController
-  # MANY
-  def index
-    @characters = Character.order('name').all
-  end
+	# MODULES
+	# ------------------------------------------------------------
+	include Curated
 
-  def identity_index
-    @parent = Identity.find(params[:identity_id])
-    curated_index
-  end
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# GET
+	# ............................................................
+	def index
+		@characters = Character.order('name').all
+	end
 
-  def curated_index
-    @characters = @parent.characters
-    render 'curated_index'
-  end
+	def curated_index
+		@characters = @parent.characters
+		render 'curated_index'
+	end
 
-  # ONE
-  def show
-    @character  = Character.find(params[:id])
-    @identities = Identity.organize(@character.identities)
-  end
+	def show
+		find_character
+		@identities    = Identity.organize(@character.identities.includes(:facet))
+		@relationships = @character.relationships
+	end
 
-  def preview
-    @character = Character.find(params[:id])
-  end
+	def preview
+		find_character
+	end
 
-  # CHANGE
-  def new
-    @character = Character.new
-    @character.descriptions.build
-  end
+	def new
+		@character = Character.new
+		@character.descriptions.build
+	end
 
-  def edit
-    @character = Character.find(params[:id])
-  end
+	def edit
+		find_character
+	end
 
-  def delete
-    @character = Character.find(params[:id])
-  end
+	# POST
+	# ............................................................
+	def create
+		@character = Character.new(character_params)
 
-  # REDIRECTS OR RENDERS AFTER ACTION
+		if @character.save
+			redirect_to @character
+		else
+			render 'new'
+		end
+	end
 
-  def create
-    @character = Character.new(character_params)
+	# PATCH/PUT
+	# ............................................................
+	def update
+		find_character
 
-    if @character.save
-      redirect_to @character
-    else
-      render 'new'
-    end
-  end
+		if @character.update(character_params)
+			redirect_to @character
+		else
+			render action: 'edit'
+		end
+	end
 
-  def update
-    @character = Character.find(params[:id])
+	# DELETE
+	# ............................................................
+	def destroy
+		@character = Character.find(params[:id]).destroy
+		redirect_to(:action => 'index')
+	end
 
-    if @character.update(character_params)
-      redirect_to @character
-    else
-      render action: 'edit'
-    end
-  end
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
 
-  def destroy
-    @character = Character.find(params[:id]).destroy
-    redirect_to(:action => 'index')
-  end
+	# find by id
+	def find_character
+		@character = Character.find(params[:id])
+	end
 
-  private
-  def character_params
-    params.require(:character).permit(:name, :about, 
-      identifiers_attributes:  [:id, :name,        :_destroy],
-      descriptions_attributes: [:id, :identity_id, :_destroy],
-      opinions_attributes:     [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy],
-      prejudices_attributes:   [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy]
-      )
-  end
+	# define strong parameters
+	def character_params
+		params.require(:character).permit(:name, :about, 
+			identifiers_attributes:  [:id, :name,        :_destroy],
+			descriptions_attributes: [:id, :identity_id, :_destroy],
+			opinions_attributes:     [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy],
+			prejudices_attributes:   [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy]
+		)
+	end
+
 end

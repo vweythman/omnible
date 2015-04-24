@@ -3,24 +3,39 @@
 	<header>
 		<%= model_toolkit @character %>
 		<h1><%= @character.name %></h1>
-		<%= render 'meta' %>
+		<p class='identifiers'><%= @character.identifiers.map { |identifier| identifier.name }.join(", ") %></p>
 	</header>
 
-	<% if @character.about.empty? && @character.viewpoints.empty? %>
-		<%= render 'identities/list' %>
-	<% else %>
-		<article>
-			<aside class='overview'>
-				<h2>Overview</h2>
-				<%= render 'identities/list' %>
-			</aside>
-			<section class='about'>
-				<%= markdown @character.about %>
-				<%= render 'views', views: @character.prejudices, heading: 'Prejudices', set_title: true %>
-				<%= render 'views', views: @character.opinions, heading: 'Opinions about Others', set_title: false %>
-			</section>
-		</article>
-	<% end %>
+	<article>
+		<aside class='overview'>
+			<h2>Overview</h2>
+			<%= render 'identities/list' %>
+		</aside>
 
-	<% render 'footer' %>
+		<section class='about'>
+			<% if @character.about != nil %>
+				<h2>About</h2>
+				<%= markdown @character.about %>
+			<% end %>
+
+			<%= render 'views', views: @character.prejudices, heading: 'Prejudices', set_title: true %>
+			<%= render 'views', views: @character.opinions, heading: 'Opinions about Others', set_title: false %>
+		</section>
+
+		<section class="relationships">
+			<% unless @relationships.empty? %>
+
+			<h2>Relationships</h2>
+			<table>
+				<thead>
+					<tr><th>Type</th><th>People</th></tr>
+				</thead>
+				<%= relationship_cells(@character.id, @relationships) %>
+			</table>
+
+			<% end %>
+		</section>
+	</article>
+
+	<%= render 'shared/subject_footer' %>
 <main>

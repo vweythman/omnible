@@ -1,10 +1,15 @@
 class ActivitiesController < ApplicationController
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# GET
+	# ............................................................
 	def index
 		@activities = Activity.all
 	end
 
 	def show
-		activity_find
+		find_activity
 	end
 
 	def new
@@ -12,9 +17,11 @@ class ActivitiesController < ApplicationController
 	end
 
 	def edit
-		activity_find
+		find_activity
 	end
 
+	# POST
+	# ............................................................
 	def create
 		@activity = Activity.new(activity_params)
 
@@ -25,8 +32,10 @@ class ActivitiesController < ApplicationController
 		end	
 	end
 
+	# PATCH/PUT
+	# ............................................................
 	def update
-		activity_find
+		find_activity
 
 		if @activity.update(activity_params)
 		  redirect_to(:action => 'index')
@@ -35,12 +44,25 @@ class ActivitiesController < ApplicationController
 		end
 	end
 
-	private
-	def activity_params
-		params.require(:activity).permit(:name)
+	# DELETE
+	# ............................................................
+	def destroy
+		find_activity
+		@activity.destroy
+		redirect_to(:action => 'index')
 	end
 
-	def activity_find
-  		@activity = Activity.find(params[:id])
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	# find by id
+	def find_activity
+		@activity = Activity.friendly.find(params[:id])
+	end
+	
+	# define strong parameters
+	def activity_params
+		params.require(:activity).permit(:name)
 	end
 end

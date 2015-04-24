@@ -1,1 +1,14 @@
-<%= show_header(@item) %>
+<% provide(:title, @item.name) %>
+<main id='item'>
+	<header>
+		<%= model_toolkit @item %>
+		<h1><%= @item.name %></h1>
+		<%= cslinks(@item.qualities) %>
+	</header>
+
+	<article>
+		
+	</article>
+
+	<%= render 'shared/subject_footer' %>
+<main>

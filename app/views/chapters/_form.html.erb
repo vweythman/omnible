@@ -1,6 +1,7 @@
 <%= form_for [@work, @chapter] do |f| %>
+
 	<%= f.hidden_field :work_id,  :value => @work.id %>
-	<%= f.hidden_field :position, :value => @chapter.position || @work.next_chapter_num %>
+	<%= f.hidden_field :position, :value => @chapter.position || Chapter.newest_position(@work) %>
 
 	<fieldset>
 		<%= form_field f.label(:title), f.text_field(:title) %>

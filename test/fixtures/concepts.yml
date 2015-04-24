@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  string: 
+  name: happy endings
+  slug: happy-endings
 
 two:
-  string: 
+  name: magic returns
+  slug: magic-returns

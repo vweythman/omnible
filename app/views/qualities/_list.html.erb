@@ -1,0 +1,9 @@
+<% if @qualities.length > 0 %>
+	<article>
+		<ul>
+		<% @qualities.each do |quality| %>
+			<li><%= link_to quality.name, quality %></li>
+		<% end %>
+		</ul>
+	</article>
+<% end %>

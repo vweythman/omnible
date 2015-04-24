@@ -9,11 +9,16 @@
 	<fieldset class='nested' id="form_char">
 		<%= nested_fields "Characters", :char, :appearances, f, 'appearance_fields' %>
 		<p><%= link_to_add_association '+ Character', f, :appearances %></p>
+		<%= form_field label_tag(:relationships, "Relationships"), text_field_tag(:relationships, @relationships.join(";"),  class: 'taggables') %>
 	</fieldset>
 
-	<%= show_link("Concepts", :conp) %>
-	<fieldset class='nested' id="form_conp">
-		<%= nested_fields "Concepts", :conp, :conceptions, f, 'conception_fields' %>
+	<%= show_link("Tags", :tag) %>
+	<fieldset class='nested' id="form_tag">
+		<legend>Tags</legend>
+		<%= hide_link("Tags", :tag) %>
+
+		<%= form_field label_tag(:conceptions, "Concepts"), text_field_tag(:conceptions, @conceptions.join(";"),  class: 'taggables') %>
+
 		<p><%= link_to_add_association '+ Concept', f, :conceptions %></p>
 	</fieldset>
 

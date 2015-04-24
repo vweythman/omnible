@@ -1,0 +1,11 @@
+<% provide(:title, "Places") %>
+
+<main class='index'>
+	<header>
+		<h1>Places</h1>
+		<%= index_toolkit "Place", new_place_path %>
+	</header>
+
+	<%= render 'list' %>
+	<%= render 'shared/subject_footer' %>
+</main>

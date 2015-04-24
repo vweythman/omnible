@@ -1,53 +1,78 @@
 class IdentitiesController < ApplicationController
-  def index
-  	@identities = Identity.organized_all
-  end
 
-  def show
-  	@identity = Identity.find(params[:id])
-  end
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# GET
+	# ............................................................
+	def index
+		@identities = Identity.organized_all
+	end
 
-  def new
-    @identity = Identity.new
-  end
+	def show
+		find_identity
+	end
 
-  def edit
-  	@identity = Identity.find(params[:id])
-  end
+	def new
+		@identity = Identity.new
+	end
 
-  # post
-  def create
-    @facet    = Facet.where(name: params[:identity][:facet_name]).first_or_create
-    @identity = Identity.new(identity_params)
+	def edit
+		find_identity
+	end
 
-    @identity.facet_id = @facet.id
-    if @identity.save
-      redirect_to(:action => 'index')
-    else
-      render action: 'new'
-    end
-  end
+	# POST
+	# ............................................................
+	def create
+		set_type
+		@identity = Identity.new(identity_params)
 
-  def update
-    @identity = Identity.find(params[:id])
-    @facet    = Facet.where(name: params[:identity][:facet_name]).first_or_create
+		if @identity.save
+			redirect_to(:action => 'index')
+		else
+			render action: 'new'
+		end
+	end
 
-    params[:identity][:facet_id] = @facet.id
-    if @identity.update(identity_params)
-      redirect_to(:action => 'index')
-    else
-     render action: 'edit'
-    end
-  end
+	# PATCH/PUT
+	# ............................................................
+	def update
+		find_identity
+		set_type
 
-  # delete one
-  def destroy
-    @identity = Identity.find(params[:id]).destroy
-    redirect_to(:action => 'index')
-  end
+		if @identity.update(identity_params)
+			redirect_to(:action => 'index')
+		else
+			render action: 'edit'
+		end
+	end
 
-  private
-  def identity_params
-    params.require(:identity).permit(:name, :facet_id, descriptions_attributes: [:id, :character_id, :_destroy])
-  end
+	# DELETE
+	# ............................................................
+	def destroy
+		@identity = Identity.find(params[:id]).destroy
+		redirect_to(:action => 'index')
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+	
+	# find by id
+	def find_identity
+		@identity = Identity.find(params[:id])
+	end
+
+	# define strong parameters
+	def identity_params
+		params.require(:identity).permit(:name, :facet_id, 
+			descriptions_attributes: [:id, :character_id, :_destroy]
+		)
+	end
+
+	# define type
+	def set_type
+		@facet = Facet.where(name: params[:identity][:type]).first_or_create
+		params[:identity][:facet_id] = @facet.id
+	end
+
 end

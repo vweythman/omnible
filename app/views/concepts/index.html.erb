@@ -1,2 +1,11 @@
-<%= index_header("Concepts", new_concept_path) %>
-<%= render 'concepts', concepts: @concepts %>
+<% provide(:title, "Concepts") %>
+
+<main class='index'>
+  <header>
+    <h1>Concepts</h1>
+    <%= index_toolkit("Concepts", new_concept_path) %>
+  </header>
+
+  <%= render 'list' %>
+  <%= render 'shared/tag_footer' %>
+</main>
