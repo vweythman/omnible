@@ -5,10 +5,7 @@ module IndexHelper
 		links.each do |item|
 			elements.push link_to(item.name, item)
 		end
-
-		content_tag :p do 
-			elements.join(", ").html_safe
-		end
+		elements.join(", ").html_safe
 	end
 
 	# comma separated list

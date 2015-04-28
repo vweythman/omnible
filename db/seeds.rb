@@ -6,4 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
+adjectives = Adjective.create([
+	{name: 'opinion'}, 
+	{name: 'size'}, 
+	{name: 'shape'}, 
+	{name: 'age'}, 
+	{name: 'color'}, 
+	{name: 'origin'}, 
+	{name: 'purpose'}
+	])

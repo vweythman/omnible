@@ -3,7 +3,7 @@
 	<header>
 		<%= model_toolkit @item %>
 		<h1><%= @item.name %></h1>
-		<%= cslinks(@item.qualities) %>
+		<p>A <%= cslinks(@item.qualities) %> <%= @item.generic.name %></p>
 	</header>
 
 	<article>

@@ -25,7 +25,7 @@ module Curated
   # concept_index
   # - find models through concept
   def concept_index
-    @parent = Concept.find(params[:concept_id])
+    @parent = Concept.friendly.find(params[:concept_id])
     curated_index
   end
 
