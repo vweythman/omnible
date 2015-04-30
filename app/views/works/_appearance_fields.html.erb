@@ -2,7 +2,7 @@
 	<fieldset>
 		<%= form_field f.label(:character_id), f.collection_select(:character_id, Character.order('lower(name)').all, :id, :name) %>
 
-		<fieldset class='radio'>
+		<fieldset class='options'>
 			<legend>Choose Role</legend>
 			<div class='choice'>
 			<% Appearance.roles.each do |role| %>

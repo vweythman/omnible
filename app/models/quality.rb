@@ -18,7 +18,17 @@ class Quality < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# joins
 	has_many :item_descriptions
+	has_many :adjectivations
+
+	# belongs to
 	has_many :items, :through => :item_descriptions
+
+	# posseses
+	has_many :adjectives, :through => :adjectivations
+
+	# NESTED ATTRIBUTION
+	# ------------------------------------------------------------
+	accepts_nested_attributes_for :adjectivations, :allow_destroy => true
 
 	# METHODS
 	# ------------------------------------------------------------

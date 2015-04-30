@@ -3,6 +3,7 @@
 <main id='item'>
 	<header>
 		<%= model_toolkit @quality %>
+		<p><%= @quality.adjectives.pluck(:name).join(", ") %></p>
 		<h1><%= @quality.name %></h1>
 		<p>created : <%= record_time @quality.created_at %></p>
 	</header>

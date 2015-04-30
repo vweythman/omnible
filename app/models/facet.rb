@@ -22,6 +22,6 @@ class Facet < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :identities
+	has_many :identities, :inverse_of => :facet
 
 end

@@ -19,7 +19,7 @@ class Identity < ActiveRecord::Base
 
 	# model that possess identities
 	has_many :characters, through: :descriptions
-	belongs_to :facet
+	belongs_to :facet, :inverse_of => :identities
 
 	# indirect associations and subgroups
 	has_many :appearances, source: :appearance, through: :descriptions

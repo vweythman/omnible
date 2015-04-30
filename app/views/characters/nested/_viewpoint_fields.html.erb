@@ -3,8 +3,8 @@
 		<%= form_field f.label(:recip_id, "About"), f.collection_select(:recip_id, collection, :id, :heading) %>
 		<%= form_field f.label(:about, "Treatment"), f.text_area(:about, class: "minor") %>
 
-		<%= opinion_fields(f, Viewpoint.warmths,  :warmth) %>
-		<%= opinion_fields(f, Viewpoint.respects, :respect) %>
+		<%= scale_fields(f, Viewpoint.warmths,  :warmth) %>
+		<%= scale_fields(f, Viewpoint.respects, :respect) %>
 	</fieldset>
 
 	<p><%= link_to_remove_association "- Remove #{type}", f %></p>

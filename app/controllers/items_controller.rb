@@ -86,7 +86,7 @@ class ItemsController < ApplicationController
 		@quality_ids = Quality.batch_build params[:descriptions]
 
 		# delete missing
-		ItemDescription.not_included(@item.id, @quality_ids).destroy_all
+		ItemDescription.not_among(@item.id, @quality_ids).destroy_all
 
 		# remove duplicates
 		already_exists = ItemDescription.is_included(@item.id, @quality_ids).pluck(:quality_id)

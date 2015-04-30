@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428064241) do
+ActiveRecord::Schema.define(version: 20150429173043) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "adjectivations", force: true do |t|
+    t.integer  "quality_id"
+    t.integer  "adjective_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "adjectivations", ["adjective_id"], name: "index_adjectivations_on_adjective_id"
+  add_index "adjectivations", ["quality_id"], name: "index_adjectivations_on_quality_id"
 
   create_table "adjectives", force: true do |t|
     t.string   "name"

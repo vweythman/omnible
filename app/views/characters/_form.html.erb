@@ -18,8 +18,8 @@
 
 	<%= show_link("Personal Prejudices", :prej) %>
 	<fieldset class='nested' id="form_prej">
-		<%= nested_fields("Personal Prejudices", :prej, :prejudices, f, 'characters/nested/viewpoint_fields', {:collection => Identity.all, :type => "Prejudice"}) %>
-		<p><%= link_to_add_association '+ Add Prejudice', f, :prejudices, :render_options => {:locals => {:collection => Identity.all, :type => "Prejudice"}}, :partial=> 'characters/nested/viewpoint_fields' %></p>
+		<%= nested_fields("Personal Prejudices", :prej, :prejudices, f, 'characters/nested/viewpoint_fields', {:collection => @identities, :type => "Prejudice"}) %>
+		<p><%= link_to_add_association '+ Add Prejudice', f, :prejudices, :render_options => {:locals => {:collection =>  @identities, :type => "Prejudice"}}, :partial=> 'characters/nested/viewpoint_fields' %></p>
 	</fieldset>
 
 	<%= show_link("Opinions", :opin) %>

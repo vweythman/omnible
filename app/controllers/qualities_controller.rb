@@ -1,5 +1,9 @@
 class QualitiesController < ApplicationController
 
+	# MODULES
+	# ------------------------------------------------------------
+	include Tagged
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GET
@@ -25,6 +29,7 @@ class QualitiesController < ApplicationController
 	# ............................................................
 	def create
 		@quality = Quality.new(quality_params)
+		find_adjectives
 
 		if @quality.save
 			redirect_to(:action => 'index')
@@ -37,9 +42,10 @@ class QualitiesController < ApplicationController
 	# ............................................................
 	def update
 		find_quality
+		find_adjectives
 
 		if @quality.update(quality_params)
-			redirect_to(:action => 'index')
+			redirect_to @quality
 		else
 			render action: 'edit'
 		end
@@ -64,6 +70,17 @@ class QualitiesController < ApplicationController
 	# define strong parameters
 	def quality_params
 		params.require(:quality).permit(:name)
+	end
+
+	def add_adjectives
+		adjective_ids = Array.new
+
+		Adjective.all.each do |adjective|
+			if params['type_' + adjective.name] == "1"
+				adjective_ids.push adjective.id
+			end
+		end
+		params[:quality][:adjectivations_attributes] = build_tag_list(adjective_ids, :adjective_id)
 	end
 
 end

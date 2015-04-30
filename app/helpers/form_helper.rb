@@ -41,7 +41,7 @@ module FormHelper
 		content_tag :a, class: 'show', id: "show_#{id}" do "&dArr; View #{title}".html_safe end
 	end
 
-	def opinion_fields(f, collection, value)
+	def scale_fields(f, collection, value)
 		sl      = collection.length / 2
 		heading = content_tag :legend do "#{value}".titleize end
 		choice  = content_tag :div, class: 'choice' do 
@@ -50,9 +50,23 @@ module FormHelper
 			end
 		end
 
-		content_tag :fieldset, class: 'radio' do
+		content_tag :fieldset, class: 'options' do
 			concat heading
 			concat choice
+		end
+	end
+
+	def checkbox_list(f, collection, value)
+		heading = content_tag :p do "#{value} (Check all that apply)".titleize end
+		choices = content_tag :div, class: 'choice' do
+			collection.each do |item|
+				concat form_field check_box_tag("#{value}_#{item}"), label_tag("#{value}_#{item}", item)
+			end
+		end
+
+		content_tag :fieldset, class: 'options' do
+			concat heading
+			concat choices
 		end
 	end
 end

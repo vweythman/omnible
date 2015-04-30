@@ -29,10 +29,15 @@ class CharactersController < ApplicationController
 	def new
 		@character = Character.new
 		@character.descriptions.build
+		@facets     = Facet.all.includes(:identities)
+		@identities = @facets.collect{|facet|facet.identities}.flatten
 	end
 
 	def edit
 		find_character
+		@facets     = Facet.all.includes(:identities)
+		@identities = @facets.collect{|facet|facet.identities}.flatten
+
 	end
 
 	# POST
