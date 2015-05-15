@@ -1,0 +1,68 @@
+/* MAIN CONTENT
+************************************************/
+.alert {
+	color:      red;
+	box-shadow: 0 0 1px 0 red;
+	margin:     10px auto;
+	padding:    10px;
+	width:      90%;
+}
+.notice {
+	color:      blue;
+	box-shadow: 0 0 1px 0 $water-light;
+	margin:     10px auto;
+	padding:    10px;
+	width:      90%;
+}
+.toolkit {
+	@include buttonable($water-color);
+	margin:   10px;
+	overflow: auto;
+	display:  inline-block;
+	a {
+		display:        inline-block;
+		font-weight:    700;
+		padding:        5px 10px;
+		letter-spacing: 2px;
+	}
+}
+
+/* CONSISTENT GENERALS
+************************************************/
+a { 
+	color:           $water-dark;
+	text-decoration: none;
+	&:hover { color: $read-color; }
+}
+article {
+	margin:      15px;
+	padding:     15px;
+	line-height: 1.5;
+	overflow:    auto;
+}
+main > article {
+	box-shadow:  0 0 1px 0 $moss-light;
+}
+hr {
+	background: $moss-color;
+	border:     none;
+	padding:    2px;
+	margin:     10px 0;
+}
+h1 {
+	font-size:      $heading-size;
+	font-weight:    600;
+	letter-spacing: 3px;
+	border-bottom:  3px solid $moss-light;
+	margin:         0;
+}
+p {
+	margin: 0;
+	padding: 10px;
+}
+li, dt, dd {
+	margin: 0;
+	padding: 0 0 10px 0;
+}
+
+/* END */

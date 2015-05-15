@@ -1,0 +1,191 @@
+$main-color:    hsl(100, 50%, 50%);
+$main-light:    lighten( $main-color, 15%);
+$main-lighter:  lighten( $main-color, 30%);
+$main-lightest: lighten( $main-color, 40%);
+$main-dark:     darken(  $main-color, 10%);
+$main-darker:   darken(  $main-color, 20%);
+$main-darkest:  darken(  $main-color, 35%);
+$main-fade:     desaturate($main-color, 30%);
+
+$alt-color:    hsl(200, 50%, 50%);
+$alt-light:    lighten( $alt-color, 15%);
+$alt-lighter:  lighten( $alt-color, 30%);
+$alt-lightest: lighten( $alt-color, 40%);
+$alt-dark:     darken(  $alt-color, 10%);
+$alt-darker:   darken(  $alt-color, 20%);
+$alt-darkest:  darken(  $alt-color, 35%);
+$alt-fade:     desaturate($alt-color, 30%);
+
+$small-screen: 800px;
+$large-screen: 1200px;
+$def-spacing:  10px;
+
+
+/* MIXINS 
+************************************************
+@mixin buttonable($color) {
+	background:        $color;
+	border:            3px solid darken($color, 5%);
+	border-top-color:  lighten($color, 10%);
+	border-left-color: lighten($color, 10%);
+	font-weight:       bolder;
+}
+@mixin clickable($color) {
+	@include buttonable($color);
+	color:          #FFF;
+	letter-spacing: 1px;
+	padding:        7px $def-spacing;
+
+	&:hover  { @include buttonable(darken($color, 15%)); }
+	&:active { @include buttonable(darken($color, 5%)); }
+}
+@mixin togglable($color) {
+	cursor:      pointer;
+	background:  $color;
+	color:       black;
+	display:     block;
+	font-weight: 600;
+	padding:     $def-spacing;
+	&:hover {
+		background: darken($color, 10%);
+		color: darken($color, 70%);
+	}
+}
+@mixin chooseable($color) {
+	@include buttonable($color);
+	input:checked + label { background: darken($color, 10%); }
+}
+@mixin fading-background($color) {
+	background: linear-gradient($color, white);
+}
+@mixin grouping($color) {
+	@include fading-background($color);
+	border-right:   3px solid $color;
+	border-left:    3px solid $color;
+	border-bottom:  2px solid $color;
+}
+@mixin headable($color) {
+	font-weight: 600;
+	background: $color;
+	@if lightness($color) < 50% {
+		border-bottom: 5px solid lighten($color, 10%);
+		color: lighten($color, 50%);
+	} @else {
+		border-bottom: 5px solid darken($color, 10%);
+		color: darken($color, 50%);
+	}
+}
+
+/* FORM PAGE
+************************************************
+.new, .edit {
+	margin: 15px auto;
+	@media screen and (max-width: $small-screen) { width: 90%; }
+	@media screen and (min-width: $small-screen + 1) { width: 60%; }
+}
+legend {
+	@include headable($alt-dark);
+	font-variant:   small-caps;
+	letter-spacing: 2px;
+	padding:        $def-spacing;
+	width:          calc(100% - 20px);
+}
+.field { margin: $def-spacing 0; }
+label { 
+	display: none;
+	.membership &, .nested & { 
+		@include headable($alt-lighter);
+		display: block;
+		padding: 6px $def-spacing;
+	}
+	.tags & { display: none; }
+}
+
+input, select, textarea {
+	font:  15px "segoe ui";
+	width: 100%;
+	margin: 2px 0;
+}
+input, textarea, select { border: 1px solid #d0d0d0; }
+textarea {
+	max-width: 100%;
+	min-width: 100%;
+}
+.minor { min-height: 100px; }
+.major { min-height: 600px; }
+.pair {
+	overflow: auto;
+	.field {
+		width: calc(50% - 2px);
+		float: left;
+		margin: 1px;
+	}
+}
+input[type="submit"] { 
+	@include clickable($alt-color);
+	margin:  $def-spacing auto;
+	display: block;
+}
+
+/* NESTED FIELDS
+************************************************
+.nested { 
+	margin-top: $def-spacing;
+	@include fading-background($alt-lighter);
+	input, textarea { border-style: solid; }
+}
+.tags .field { 
+	margin: 0;
+	padding: 0 $def-spacing;
+	padding-top: 10px;
+}
+.nested-fields {
+	font-size: .85em;
+	margin:    $def-spacing auto;
+	width:     90%;
+}
+.hider { margin:  0; }
+.edit .nested, .new .show { display: none; }
+.show, .add_fields    { margin-top: 15px; }
+.hide, .remove_fields { text-align: right; }
+
+.show { @include togglable($alt-light); }
+.hide { @include togglable($alt-light); }
+.add_fields    { @include togglable($alt-lightest); }
+.remove_fields { @include togglable($alt-lighter);  }
+
+/* RADIO BUTTONS
+************************************************
+.options {
+	@include grouping($alt-lighter);
+	margin:         $def-spacing 30%;
+	margin-right:   0;
+	padding:        $def-spacing;
+	overflow:       auto;
+	width:          calc(70% - 26px);
+}
+.choice {
+	@include chooseable($alt-color);
+	margin:   5px $def-spacing;
+	overflow: auto;
+	display: inline-block;
+
+	.field {
+		border:  none;
+		float:   left;
+		padding: 0;
+		margin:  0;
+	}
+	label {
+		background: none;
+		border:     none;
+		display:    inline-block;
+		padding:    6px $def-spacing;
+		color:      #FFF;
+		text-align: center;
+		width:      calc(100% - $def-spacing * 2);
+	}
+	input { display: none; }
+}
+
+/* END */

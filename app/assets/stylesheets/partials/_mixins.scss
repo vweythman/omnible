@@ -1,0 +1,50 @@
+/* MIXINS 
+************************************************/
+// ENFORCE CONSISTENCY
+@mixin box-sizing ($type: border-box) {
+	-webkit-box-sizing: $type;
+	-moz-box-sizing: $type;
+	box-sizing: $type;
+}
+@mixin gradiention($deg, $start, $stop) {
+  	background: linear-gradient($deg, $start, $stop);
+}
+@mixin column-counting($count) {
+	-webkit-column-count: $count;
+	-moz-column-count:    $count;
+	column-count:         $count;
+}
+
+// LINKS AND ACTIONS
+@mixin buttonable($color) {
+	background:        $color;
+	border:            3px solid darken($color, 5%);
+	border-top-color:  lighten($color, 10%);
+	border-left-color: lighten($color, 10%);
+	font-weight:       bolder;
+	border-radius:     2px;
+	@if lightness($color) > 55% {
+		a { color: darken($color, 100%); }
+	} @else {
+		a { color: lighten($color, 100%); }
+	}
+	
+	a:hover { background: darken($color, 5%); }
+}
+
+// RESPONSIVE
+@mixin reel {
+	@media (max-width: #{$reel-max}) { 
+		@content;
+	}
+}
+@mixin portrait {
+	@media (min-width: #{$portrait-min}) and (max-width: #{$portrait-max}) { 
+		@content;
+	}
+}
+@mixin landscape {
+	@media (min-width: #{$landscape-min}) { 
+		@content;
+	}
+}

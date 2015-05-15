@@ -1,0 +1,26 @@
+/* INDEX PAGE
+************************************************/
+.index {
+	dl, ul, ol {
+		@include column-counting(5);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	dt { 
+		font-weight: bolder;
+		color: $moss-darker;
+	}
+	h2 {
+		margin:        15px 10px 0 10px;
+		font-weight:   600;
+		font-size:     $heading-size - 2;
+		border-bottom: 2px dotted $water-dark;
+	}
+}
+.pagination {
+	padding: 5px 15px;
+}
+.related_items { text-align: center; }
+
+/* END */

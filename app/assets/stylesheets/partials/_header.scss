@@ -1,0 +1,122 @@
+/* SITE HEADER
+************************************************/
+#site-header {
+	background: $moss-darker;
+	overflow:   auto;
+}
+
+/* COMPONENTS
+************************************************/
+#logo {
+	color:          $moss-light; 
+	background:     $moss-darker;
+	font:           30px steelfish;
+	letter-spacing: 1px;
+	&:hover {
+		color:      $moss-color;
+		background: $moss-darkest;
+	}
+}
+.user-session {
+	color:       $water-lightest;
+	font-weight: bolder;
+	padding:     10px;
+	margin:      0;
+	text-align:  right;
+	a {
+		background: $water-lightest;
+		padding:    10px 15px;
+		&:hover {
+			color: $water-lightest;
+			background: $water-darker;
+		}
+	}
+}
+.menu {
+	background: $moss-dark;
+	text-align: center;
+	margin:     0;
+	ul { list-style: none; }
+	ul, li {
+		padding: 0;
+		margin:  0;
+	}
+	li {
+		float:     left;
+		min-width: 125px;
+	}
+	a {
+		color:          $moss-lightest;
+		display:        inline-block;
+		font-variant:   small-caps;
+		letter-spacing: 2px;
+		padding:        10px 0;
+		width:          100%;
+		&:hover {
+			color:      $moss-darkest;
+			background: $moss-light;
+		}
+	}
+	.subelement {
+		background: $moss-dark;
+		position:   absolute;
+		float:      left;
+		width:      125px;
+		a { 
+			background: $moss-dark;
+			&:hover { background: $moss-light; }
+		}
+	}
+}
+
+/* RESPONSIVE
+************************************************/
+@include reel {
+	#logo {
+		display: block;
+		padding: 15px;
+	}
+	.user-session {
+		margin:     0;
+		padding:    10px;
+		background: $water-lightest;
+	}
+	.drop-arrow { display: none; }
+	.menu {
+		overflow: auto;
+		li { width: 50%; } 
+	}
+}
+@include portrait {
+	#logo {
+		float:   left;
+		width:   calc(22% - 20px);
+		padding: 17px 10px;
+	}
+	.user-session { 
+		padding-bottom: 20px;
+	}
+	.menu {
+		width: 78%;
+		overflow: auto;
+		float: right;
+	}
+}
+@include landscape {
+	#site-header { @include gradiention(90deg, $moss-color, $moss-darker); }
+	#logo {
+		float:   left;
+		padding: 2px 10px;
+		width:   120px;
+	}
+	.menu {
+		background: none;
+		float: left;
+	}
+	.user-session {
+		float: right;
+		width: 20%;
+	}
+}
+
+/* END */

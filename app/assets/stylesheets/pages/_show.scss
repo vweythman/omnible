@@ -1,0 +1,103 @@
+/* ITEM PAGE
+************************************************/
+.itemized {
+	margin: 15px auto;
+	width:  90%;
+	.toolkit { margin: 0; }
+	footer { text-align: center; }
+	aside {
+		width: calc(20% - 30px);
+		margin: 15px 0;
+		padding: 15px;
+		float: left;
+	}
+	aside + article { margin-left: 20%; }
+	h2 {
+		font-size: $heading-size - 2;
+		letter-spacing: 3px;
+		font-variant: small-caps;
+		font-weight: lighter;
+	}
+}
+.piece {
+	margin:    15px auto;
+	width:     80%;
+	min-width: 200px;
+	max-width: 700px;
+	footer {
+		border-top: 2px solid black;
+		margin: 25px;
+		text-align: left;
+		p { padding: 0; }
+	}
+}
+table {
+	width: 100%;
+}
+thead { 
+	background: $moss-lighter;
+	border-top: 2px solid $moss-color;
+	border-bottom: 2px solid $moss-color;
+}
+th { padding: 5px 10px; }
+tbody th { border-right: 2px solid $moss-color; }
+td { padding: 5px 10px; }
+.rating { font-weight: bolder; }
+.level-2 { color: $rating-lowest; }
+.level-1 { color: $rating-low; }
+.level0  { color: $rating-mid; }
+.level1  { color: $rating-high; }
+.level2  { color: $rating-highest; }
+
+
+/* ITEM PAGE
+************************************************
+.itemized {
+	article {
+		margin: 15px auto;
+		width:  75%;
+		p { 
+			line-height: 1.5;
+			padding:     5px 10px;
+		}
+		footer { padding: 15px 0; }
+	}
+	.about, .relationships {
+		margin-left:  290px;
+		margin-right: 45px;
+	}
+}
+.itemized > footer,
+.membership > footer { text-align: center; }
+
+.identifiers { color: #909090; }
+article article { 
+	box-shadow: none;
+	width:      100%;
+	padding:    0;
+}
+.piece nav a { padding-right: 15px; }
+table {
+	margin: 10px 15px;
+	width:  calc(100% - 30px);
+}
+thead { border-bottom: 2px solid $alight; }
+tfoot { border-top:    2px solid $alight; }
+th { letter-spacing: 2px; }
+tbody th {
+	border-right: 2px solid $alight; 
+	text-align:   right;
+	padding:      10px;
+}
+
+/* ITEM META PAGE
+************************************************
+.meta {
+	box-shadow: 0 0 5px 0 $alight;
+	margin:     7px auto;
+	width:      50%;
+	.label { font-weight: bolder; }
+	th { text-align: right; }
+}
+
+/* END */

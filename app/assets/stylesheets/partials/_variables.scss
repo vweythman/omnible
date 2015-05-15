@@ -1,0 +1,37 @@
+/* VARIABLES
+************************************************/
+// READING COLORS
+$page-color: #FFF;
+$read-color: #333;
+$text-size:  15px;
+$heading-size: 25px;
+
+// LAYOUT COLORS
+$moss-color:    hsl(100, 50%, 50%);
+$moss-light:    lighten($moss-color, 15%);
+$moss-lighter:  lighten($moss-color, 30%);
+$moss-lightest: lighten($moss-color, 40%);
+$moss-dark:     darken($moss-color, 10%);
+$moss-darker:   darken($moss-color, 20%);
+$moss-darkest:  darken($moss-color, 35%);
+
+$water-color:    hsl(200, 50%, 50%);
+$water-light:    lighten($water-color, 15%);
+$water-lighter:  lighten($water-color, 30%);
+$water-lightest: lighten($water-color, 40%);
+$water-dark:     darken($water-color, 10%);
+$water-darker:   darken($water-color, 20%);
+$water-darkest:  darken($water-color, 35%);
+
+$rating-lowest:  hsl(20, 95%, 50%);
+$rating-low:     hsl(30, 90%, 50%);
+$rating-mid:     hsl(50, 90%, 50%);
+$rating-high:    hsl(80, 90%, 50%);
+$rating-highest: hsl(90, 95%, 50%);
+
+// SCREEN SIZE and LAYOUT
+$reel-max:      500px;
+$portrait-min:  $reel-max + 1;
+$portrait-max:  875px;
+$landscape-min: $portrait-max + 1;
+

@@ -12,7 +12,7 @@
  * governing permissions and limitations under the License.
  *
  * $author Brian Reavis <brian$thirdroute.com>
- */
+ *
 
 // base styles
 
@@ -21,10 +21,35 @@ $selectize-font-smoothing: inherit;
 $selectize-font-size: 15px;
 $selectize-line-height: 18px;
 
+$text-height: 18px;
+$base-font:   15px inherit;
+
+$main-color:    hsl(100, 50%, 50%);
+$main-light:    lighten( $main-color, 15%);
+$main-lighter:  lighten( $main-color, 30%);
+$main-lightest: lighten( $main-color, 40%);
+$main-dark:     darken(  $main-color, 10%);
+$main-darker:   darken(  $main-color, 20%);
+$main-darkest:  darken(  $main-color, 35%);
+
+$alt-color:    hsl(200, 50%, 50%);
+$alt-light:    lighten( $alt-color, 15%);
+$alt-lighter:  lighten( $alt-color, 30%);
+$alt-lightest: lighten( $alt-color, 40%);
+$alt-dark:     darken(  $alt-color, 10%);
+$alt-darker:   darken(  $alt-color, 20%);
+$alt-darkest:  darken(  $alt-color, 35%);
+
+$small-screen: 800px;
+$large-screen: 1200px;
+$def-spacing:  10px;
+
+
+
 $selectize-color-text: #303030;
 $selectize-color-border: #d0d0d0;
 $selectize-color-highlight: rgba(125,168,208,0.2);
-$selectize-color-input: #fff;
+$selectize-color-input: hsla(0, 0%, 100%, .75);
 $selectize-color-input-full: $selectize-color-input;
 $selectize-color-disabled: #fafafa;
 $selectize-color-item: #f2f2f2;
@@ -85,13 +110,12 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px;
 
 .selectize-control {
 	display:inline-block;
-	width: calc(75% - 20px);
+	width: 100%;
 }
 
 .selectize-dropdown, .selectize-input, .selectize-input input {
 	color: $selectize-color-text;
-	font-family: $selectize-font-family;
-	font-size: $selectize-font-size;
+	font:  $base-font;
 	line-height: $selectize-line-height;
 	-webkit-font-smoothing: $selectize-font-smoothing;
 }
@@ -102,14 +126,14 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px;
 	display: inline-block;
 }
 
+
 .selectize-input {
-	border: $selectize-border;
+	border: 1px solid #d0d0d0;
+	background: white;
 	padding: $selectize-padding-y $selectize-padding-x;
 	display: inline-block;
 	width: 100%;
 	overflow: hidden;
-	position: relative;
-	z-index: 1;
 	@include selectize-box-sizing(border-box);
 
 	.selectize-control.multi &.has-items {
@@ -119,9 +143,6 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px;
 		padding: $padding-top $padding-x $padding-bottom;
 	}
 
-	&.full {
-		background-color: $selectize-color-input-full;
-	}
 	&.disabled, &.disabled * {
 		cursor: default !important;
 	}
@@ -239,24 +260,6 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px;
 	&, input { cursor: pointer; }
 	&.input-active, &.input-active input { cursor: text; }
 
-	&:after {
-		content: ' ';
-		display: block;
-		position: absolute;
-		top: 50%;
-		right: $selectize-arrow-offset;
-		margin-top: round((-1 * $selectize-arrow-size / 2));
-		width: 0;
-		height: 0;
-		border-style: solid;
-		border-width: $selectize-arrow-size $selectize-arrow-size 0 $selectize-arrow-size;
-		border-color: $selectize-arrow-color transparent transparent transparent;
-	}
-	&.dropdown-active:after {
-		margin-top: $selectize-arrow-size * -0.8;
-		border-width: 0 $selectize-arrow-size $selectize-arrow-size $selectize-arrow-size;
-		border-color: transparent transparent $selectize-arrow-color transparent;
-	}
 }
 
 .selectize-control.rtl {
@@ -323,13 +326,14 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px;
 		border-top: 0 none;
 	}
 }
+
 .selectize-control.plugin-remove_button {
 	[data-value] {
 		position: relative;
 		padding-right: 24px !important;
 	}
 	[data-value] .remove {
-		z-index: 1; /* fixes ie bug (see #392) */
+		z-index: 1; /* fixes ie bug (see #392) *
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -359,3 +363,5 @@ $selectize-caret-margin-rtl: 0 4px 0 -2px;
 		border-left-color: lighten(desaturate($selectize-color-item-border, 100%), $selectize-lighten-disabled-item-border);
 	}
 }
+
+/* END */

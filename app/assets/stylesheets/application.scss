@@ -1,0 +1,17 @@
+// NORMALIZE 
+@import "normalize.scss";
+
+// SETUP
+@import "partials/variables";
+@import "partials/mixins";
+
+// GENERALITIES
+@import "main.scss";
+@import "partials/header.scss";
+@import "partials/footer.scss";
+@import "partials/page.scss";
+
+// SPECIFICS
+@import "pages/index.scss";
+@import "pages/show.scss";
+
