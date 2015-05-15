@@ -63,4 +63,7 @@ class RelatorsController < ApplicationController
 			relationships_attributes: [:id, :left_id, :right_id, :_destroy]
 		)
 	end
+	def define_components
+		@shipnest = Nest.new("Relationships", :relationships, "relationship_fields")
+	end
 end

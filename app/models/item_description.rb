@@ -1,6 +1,6 @@
 class ItemDescription < ActiveRecord::Base
 
-	# VALIDATIONS and SCOPES
+	# SCOPES
 	# ------------------------------------------------------------
 	scope :not_among, ->(item_id, qualities_ids)   { where("item_id = ? AND quality_id NOT IN (?)", item_id, qualities_ids)}
 	scope :is_included, ->(item_id, qualities_ids) { where("item_id = ? AND quality_id IN (?)",     item_id, qualities_ids)}

@@ -1,0 +1,15 @@
+<tr>
+	<th>Tags</th>
+	<td colspan='3'>
+		<dl>
+			<% if @work.concepts.length > 0 %>
+				<dt>Concepts</dt>
+				<dd><%= cslinks(@work.concepts) %></dd>
+			<% end %>
+
+			<%= render 'works/shared/meta/character', characters: @work.main_characters, type: "Main" %>
+			<%= render 'works/shared/meta/character', characters: @work.side_characters, type: "Side" %>
+			<%= render 'works/shared/meta/character', characters: @work.mentioned_characters, type: "Mentioned" %>
+		</dl>
+	</td>
+</tr>

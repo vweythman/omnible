@@ -21,11 +21,13 @@ class WorksController < ApplicationController
 	def show
 		find_work
 
-		# add if owner 
-			# render show
+		if user_signed_in? && @work.editable?(current_user)
+			@chapters = @work.chapters
+			@notes    = @work.notes
+			render 'show'
 		# add if hidden
 			# render restricted
-		if @work.chapters.length > 0
+		elsif @work.chapters.length > 0
 			# redirect to first chapter
 			redirect_to work_chapter_path(@work, @work.chapters.first)
 		elsif @work.notes.length > 0
@@ -40,11 +42,15 @@ class WorksController < ApplicationController
 		@work          = Work.new
 		@conceptions   = Array.new
 		@relationships = Array.new
+		@work.appearances.build
+		define_components
 	end
 
 	def edit
 		find_work
-		@conceptions = @work.concepts.pluck(:name)
+		define_components
+		@conceptions   = @work.concepts.pluck(:name)
+		@relationships = Array.new
 	end
 
 	# POST
@@ -103,4 +109,8 @@ class WorksController < ApplicationController
 		)
 	end
 
+	# setup form components
+	def define_components
+		@charnest = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+	end
 end

@@ -1,0 +1,7 @@
+<header>
+	<%= work_toolkit @work %>
+	<h1><%= @work.title %></h1>
+	<p>by <%= @work.user.name %></p>
+	<%= markdown @work.summary || "" %>
+	<%= render 'works/shared/meta' %>
+</header>

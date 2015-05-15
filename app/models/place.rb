@@ -15,7 +15,7 @@ class Place < ActiveRecord::Base
 	# Heading
 	# - defines the main means of addressing the model
 	def heading
-		name
+		"#{form.name.titleize} / #{name}"
 	end
 
 	# Type

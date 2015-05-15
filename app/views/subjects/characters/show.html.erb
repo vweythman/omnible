@@ -1,0 +1,44 @@
+<% provide(:title, @character.name) %>
+<main class="itemized">
+	<header>
+		<%= model_toolkit @character %>
+		<h1><%= @character.name %></h1>
+		<p class='identifiers'><%= @character.identifiers.map { |identifier| identifier.name }.join(", ") %></p>
+	</header>
+
+	<aside class='overview'>
+		<h2>Overview</h2>
+		<%= render 'tags/identities/list' %>
+		<% if @items.length > 0 %>
+			<h2><%= "Related Item".pluralize(@items.length) %></h2>
+			<%= render 'subjects/items/list' %>
+		<% end %>
+	</aside>
+
+	<article>
+		<section class='about'>
+			<% if @character.about != nil %>
+				<h2>About</h2>
+				<%= markdown @character.about %>
+			<% end %>
+
+			<%= render 'views_list' %>
+		</section>
+
+		<section class="relationships">
+			<% unless @relationships.empty? %>
+
+			<h2>Relationships</h2>
+			<table>
+				<thead>
+					<tr><th>Type</th><th>People</th></tr>
+				</thead>
+				<%= relationship_cells(@character.id, @relationships) %>
+			</table>
+
+			<% end %>
+		</section>
+	</article>
+
+	<%= render 'shared/subject_footer' %>
+<main>

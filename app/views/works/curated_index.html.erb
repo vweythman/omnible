@@ -9,9 +9,7 @@
 
 	<%= render 'list' %>
 
-	<footer>
-		<%= paginate @works, :window => 2 %>
-	</footer>
+	<footer><%= paginate @works, :window => 2 %></footer>
 
 	<footer class='related_items'>
 		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>

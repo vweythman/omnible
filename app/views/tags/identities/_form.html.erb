@@ -1,0 +1,16 @@
+<%= form_for(@identity) do |f| %>
+
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Name the Identity") %>
+		<%= form_field f.label(:type), f.text_field(:type, :placeholder => "Describe the Type of Identity") %>
+	</fieldset>
+
+	<%= show_link @describe_nest.heading, @describe_nest.klass %>
+	<fieldset class='nested' id="<%= @describe_nest.form_id %>">
+		<%= nested_fields @describe_nest, f %>
+		<p><%= link_to_add_association '+ Add Character', f, @describe_nest.klass %></p>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>

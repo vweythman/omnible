@@ -10,6 +10,12 @@ module ApplicationHelper
 		end
 	end
 
+	def drop_arrow
+		content_tag :span, class: 'drop-arrow' do
+			"&#x25BE;".html_safe
+		end
+	end
+
 	# OUTPUT markdown content
 	def markdown(text)
 		Kramdown::Document.new(text, :auto_ids => false, :parse_block_html => true).to_html.html_safe

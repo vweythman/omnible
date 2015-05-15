@@ -6,4 +6,8 @@ class Prejudice < Viewpoint
 		recip_type = 'Identity'
 	end
 
+	def recip_heading
+		recip.name.titleize.pluralize
+	end
+
 end

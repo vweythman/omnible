@@ -15,12 +15,15 @@ class AnthologiesController < ApplicationController
 
 	def new
 		@anthology = Anthology.new
+		@works     = Work.order('lower(title)').all
 		@anthology.collections.build
+		define_components
 	end
 
 	def edit
 		find_anthology
-		@anthology.collections.build if @anthology.collections.empty?
+		@works = Work.order('lower(title)').all
+		define_components
 	end
 
 	# POST
@@ -65,6 +68,11 @@ class AnthologiesController < ApplicationController
 
 	# define strong parameters
 	def anthology_params
-		params.require(:anthology).permit(:name, collections_attributes: [:id, :work_id, :_destroy])
+		params.require(:anthology).permit(:name, :summary, collections_attributes: [:id, :work_id, :_destroy])
+	end
+
+	# setup form components
+	def define_components
+		@worknest = Nest.new("Works", :collections, "collection_fields")
 	end
 end

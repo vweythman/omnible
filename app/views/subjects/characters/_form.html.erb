@@ -1,0 +1,33 @@
+<%= form_for(@character) do |f| %>
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
+		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @variants.join(";"), :placeholder => "Add Alternate Names", class: 'taggables') %>
+		<%= form_field f.label(:about), f.text_area(:about, :placeholder => "Describe Character...") %>
+	</fieldset>
+
+	<%= show_link @descnest.heading, @descnest.klass %>
+	<fieldset class='nested' id="<%= @descnest.form_id %>">
+		<%= nested_fields @descnest, f %>
+		<p><%= link_to_add_association "+ Add Descriptor", f, @descnest.klass, :partial=> @descnest.partial %></p>
+	</fieldset>
+
+	<%= show_link @itemnest.heading, @itemnest.klass %>
+	<fieldset class='nested' id="<%= @itemnest.form_id %>">
+		<%= nested_fields @itemnest, f %>
+		<p><%= link_to_add_association "+ Add Item", f, @itemnest.klass, :partial=> @itemnest.partial %></p>
+	</fieldset>
+
+	<%= show_link(@prejnest.heading, @prejnest.klass) %>
+	<fieldset class='nested' id="<%= @prejnest.form_id %>">
+		<%= nested_fields @prejnest, f, { :collection => @identities, :type => "Prejudice" } %>
+		<p><%= link_to_add_association '+ Add Prejudice', f, @prejnest.klass, :render_options => {:locals => {:collection =>  @identities, :type => "Prejudice"}}, :partial=> @prejnest.partial %></p>
+	</fieldset>
+
+	<%= show_link(@opinnest.heading, @opinnest.klass) %>
+	<fieldset class='nested' id="<%= @opinnest.form_id %>">
+		<%= nested_fields @opinnest, f %>
+		<p><%= link_to_add_association '+ Add Opinion', f, @opinnest.klass, :partial=> @opinnest.partial %></p>
+	</fieldset>
+
+	<%= f.submit %>
+<% end %>

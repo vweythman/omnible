@@ -45,6 +45,7 @@ class Character < ActiveRecord::Base
 	has_many :appearances
 	has_many :memberships
 	has_many :descriptions
+	has_many :possessions
 
 	# models that possess these models
 	has_many :groups, through: :memberships
@@ -53,6 +54,7 @@ class Character < ActiveRecord::Base
 	# models that belong to this model
 	has_many :identifiers
 	has_many :identities, through: :descriptions
+	has_many :items,      through: :possessions
 	has_many :viewpoints 
 
 	# indirect associations and subgroups
@@ -64,9 +66,10 @@ class Character < ActiveRecord::Base
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :descriptions, :allow_destroy => true
-	accepts_nested_attributes_for :identifiers, :allow_destroy => true
-	accepts_nested_attributes_for :opinions, :allow_destroy => true
-	accepts_nested_attributes_for :prejudices, :allow_destroy => true
+	accepts_nested_attributes_for :identifiers,  :allow_destroy => true
+	accepts_nested_attributes_for :opinions,     :allow_destroy => true
+	accepts_nested_attributes_for :possessions,  :allow_destroy => true
+	accepts_nested_attributes_for :prejudices,   :allow_destroy => true
 
 	# METHODS
 	# ------------------------------------------------------------

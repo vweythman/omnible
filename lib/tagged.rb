@@ -14,4 +14,13 @@ module Tagged
 		return arr
 	end
 
+	def batch_qualities(qualities)
+		Quality.batch_build qualities.split(";")
+	end
+
+	def batch_activities(activities)
+		Activity.batch_build.split(";")
+	end
+
+
 end

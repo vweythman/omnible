@@ -8,11 +8,13 @@ group :development do
 end
 gem 'awesome_nested_set', '~> 3.0.1'
 gem "friendly_id", "~> 5.0.1"
+
+# search engine
 gem 'sunspot_rails', git: "http://github.com/betam4x/sunspot.git" # , '2.1.1'
 gem 'sunspot_solr', git: "http://github.com/betam4x/sunspot.git" # '2.1.1'
 
 # assets management
-gem 'sass-rails', '4.0.1'
+gem "sass-rails", "~> 4.0.2"
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
@@ -25,6 +27,9 @@ gem 'kramdown'
 gem 'jbuilder', '1.0.2'
 gem 'cocoon'
 gem 'kaminari'
+
+# user expierence
+gem 'devise'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

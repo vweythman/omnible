@@ -21,9 +21,14 @@
 
 class Anthology < ActiveRecord::Base
 	
-	# VALIDATIONS and SCOPES
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :name, length: { maximum: 250 }, presence: true
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :recently_updated, ->(num) {order(:updated_at => :desc).limit(num)}
+	scope :recently_created, ->(num) {order(:created_at => :desc).limit(num)}
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------

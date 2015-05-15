@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   match '/403' => 'errors#403', via: :all
   match '/404' => 'errors#404', via: :all
   match '/406' => 'errors#406', via: :all
@@ -10,32 +11,34 @@ Rails.application.routes.draw do
     get '(page/:page)', :action => :index, :on => :collection, :as => ''
   end
 
-  resources :users
-  
   resources :anthologies
   resources :works, :concerns => :paginatable do
-    resources :casts
-    resources :chapters
-    resources :notes
+    resources :chapters, :controller => 'works/chapters'
+    resources :notes, :controller => 'works/notes'
   end
-  resources :characters
-  resources :qualities
-  resources :items
-  resources :places
 
   # list works by related model
   get '/characters/:character_id/works'     => 'works#character_index',     as: :character_works
   get '/concepts/:concept_id/works'         => 'works#concept_index',       as: :concept_works
   get '/identities/:identity_id/works'      => 'works#identity_index',      as: :identity_works
-  get '/identities/:identity_id/characters' => 'characters#identity_index', as: :identity_characters 
+  get '/identities/:identity_id/characters' => 'subjects/characters#identity_index', as: :identity_characters 
 
-  resources :chapters, except: [:index, :new, :show]
-  resources :notes,    except: [:index, :new, :show]
+  resources :chapters, except: [:index, :new, :show], :controller => 'works/chapters'
+  resources :notes,    except: [:index, :new, :show], :controller => 'works/notes'
 
-  resources :concepts
-  resources :activities
-  resources :identities
-  resources :relators
+  scope module: 'subjects' do
+    resources :characters
+    resources :items
+    resources :places
+  end
+
+  scope module: 'tags' do
+    resources :activities
+    resources :concepts
+    resources :identities
+    resources :qualities
+    resources :relators
+  end
 
   # overview pages
   get 'tags'     => 'tags#index'

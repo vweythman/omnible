@@ -1,6 +1,0 @@
-<% @chapters.each do |chapter| %>
-	<article>
-		<p><%= link_to chapter.title, [@work, chapter] %></p>
-		<%= markdown chapter.about %>
-	</article>
-<% end %>

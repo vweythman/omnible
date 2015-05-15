@@ -1,0 +1,13 @@
+<% if @viewpoints.length > 0 %>
+	<h2>Opinions and Prejudices</h2>
+	<table class="views">
+		<thead>
+			<tr><th>&nbsp;</th><th>Warmth</th><th>Respect</th><th>Details</th></tr>
+		</thead>
+		
+		<tbody>
+			<%= render 'views', views: @prejudices %>
+			<%= render 'views', views: @opinions %>
+		</tbody>
+	</table>
+<% end %>

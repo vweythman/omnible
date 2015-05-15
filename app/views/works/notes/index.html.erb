@@ -1,0 +1,17 @@
+<% provide(:title, "Notes") %>
+
+<main class="itemized">
+	<%= render 'works/shared/header' %>
+	
+	<article>
+		<h2>Notes</h2>
+
+		<% if @notes.length > 0 %>
+			<%= render 'list' %>
+		<% else %>
+			<%= component_toolkit @work, 'Note' %>
+		<% end %>
+	</article>
+
+	<%= render 'works/shared/footer' %>
+</main>

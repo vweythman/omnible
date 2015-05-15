@@ -69,18 +69,11 @@ class QualitiesController < ApplicationController
 
 	# define strong parameters
 	def quality_params
-		params.require(:quality).permit(:name)
+		params.require(:quality).permit(:name, :adjective_id)
 	end
 
-	def add_adjectives
-		adjective_ids = Array.new
+	def find_adjectives
 
-		Adjective.all.each do |adjective|
-			if params['type_' + adjective.name] == "1"
-				adjective_ids.push adjective.id
-			end
-		end
-		params[:quality][:adjectivations_attributes] = build_tag_list(adjective_ids, :adjective_id)
 	end
 
 end

@@ -2,7 +2,6 @@ class Adjective < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :adjectivations
-	has_many :qualities, :through => :adjectivations
+	has_many :qualities, :inverse_of => :adjective
 
 end

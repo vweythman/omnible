@@ -1,0 +1,14 @@
+<% provide(:title, @item.name) %>
+<main class="itemized">
+	<header>
+		<%= model_toolkit @item %>
+		<h1><%= @item.heading %></h1>
+		<p>A <%= cslinks(@item.qualities) %> <%= @item.generic.name %></p>
+	</header>
+
+	<article>
+		
+	</article>
+
+	<%= render 'shared/subject_footer' %>
+<main>

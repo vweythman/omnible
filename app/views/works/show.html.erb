@@ -1,13 +1,23 @@
-<main id='item'>
-	<%= render 'shared/work_header' %>
-	
-	<article>
-		<h2>Parts</h2>
-	</article>
+<main class="itemized">
+	<header>
+		<%= work_toolkit @work %>
+		<h1><%= @work.heading %></h1>
+		<p><%= markdown @work.summary %></p>
+	</header>
+
+	<%= render 'show_aside' %>
 
 	<article>
-		<h2>Statistics</h2>
+		<h2>Chapters</h2>
+		<%= render 'works/chapters/list' %>
+		<%= component_toolkit @work, 'Chapter' %>
+
+		<h2>Notes</h2>
+		<%= render 'works/notes/list' %>
+		<%= component_toolkit @work, 'Note' %>
 	</article>
 
-	<%= render 'shared/work_footer' %>
+	<footer>
+		<p><%= link_to 'Works', works_path %></p>
+	</footer>
 <main>

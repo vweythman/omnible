@@ -1,0 +1,8 @@
+<ol>
+<% @chapters.each do |chapter| %>
+	<li>
+		<p><%= link_to chapter.title, [@work, chapter] %></p>
+		<%= markdown chapter.about %>
+	</li>
+<% end %>
+</ol>

@@ -81,4 +81,9 @@ class Chapter < ActiveRecord::Base
 		work.chapters.length + 1 
 	end
 
+	def editable?(user)
+		
+	end
+
+
 end

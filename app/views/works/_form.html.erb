@@ -1,26 +1,22 @@
 <%= form_for(@work) do |f| %>
-	<fieldset>
-		<%= form_field f.label(:title), f.text_field(:title) %>
-		<%= form_field f.label(:user_id), f.collection_select(:user_id, User.order('name').all, :id, :name) %>
-		<%= form_field f.label(:summary), f.text_area(:summary) %>
+
+	<%= f.hidden_field :user_id,  :value => 1 %>
+
+	<fieldset class="heading">
+		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Add Title") %>
+		<%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Add Summary", :class=> :minor) %>
 	</fieldset>
 
-	<%= show_link("Characters", :char) %>
-	<fieldset class='nested' id="form_char">
-		<%= nested_fields "Characters", :char, :appearances, f, 'appearance_fields' %>
-		<p><%= link_to_add_association '+ Character', f, :appearances %></p>
-		<%= form_field label_tag(:relationships, "Relationships"), text_field_tag(:relationships, @relationships.join(";"),  class: 'taggables') %>
-	</fieldset>
-
-	<%= show_link("Tags", :tag) %>
-	<fieldset class='nested' id="form_tag">
+	<fieldset class='nested tags'>
 		<legend>Tags</legend>
-		<%= hide_link("Tags", :tag) %>
-
-		<%= form_field label_tag(:conceptions, "Concepts"), text_field_tag(:conceptions, @conceptions.join(";"),  class: 'taggables') %>
-
-		<p><%= link_to_add_association '+ Concept', f, :conceptions %></p>
+		<%= form_field label_tag(:relationships, "Relationships"), text_field_tag(:relationships, @relationships.join(";"), :placeholder => "Add Character Relationships", :class => 'taggables') %>
+		<%= form_field label_tag(:conceptions, "Concepts"), text_field_tag(:conceptions, @conceptions.join(";"), :placeholder => "Add Concepts", class: 'taggables') %>
 	</fieldset>
 
+	<%= show_link(@charnest.heading, @charnest.klass) %>
+	<fieldset class='nested' id="<%= @charnest.form_id %>">
+		<%= nested_fields @charnest, f %>
+		<p><%= link_to_add_association '+ Character', f, @charnest.klass %></p>
+	</fieldset>
 	<%= f.submit %>
 <% end %>

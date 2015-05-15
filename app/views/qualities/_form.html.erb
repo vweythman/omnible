@@ -1,8 +1,0 @@
-<%= form_for(@quality) do |f| %>
-
-	<fieldset><%= form_field f.label(:name), f.text_field(:name) %>
-		<%= checkbox_list(f, Adjective.all.pluck(:name), "type") %>
-	</fieldset>
-	<%= f.submit %>
-
-<% end %>

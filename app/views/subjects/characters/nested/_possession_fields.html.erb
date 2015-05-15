@@ -1,0 +1,7 @@
+<div class='nested-fields'>
+	<fieldset>
+		<%= form_field f.label(:item_id, "Item"), f.collection_select(:item_id, @items, :id, :heading, {}, :class => 'selectables') %>
+	</fieldset>
+
+	<p><%= link_to_remove_association "- Remove Item", f %></p>
+</div>

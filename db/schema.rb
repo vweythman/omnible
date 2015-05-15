@@ -11,23 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429173043) do
+ActiveRecord::Schema.define(version: 20150511235149) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "adjectivations", force: true do |t|
-    t.integer  "quality_id"
-    t.integer  "adjective_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "adjectivations", ["adjective_id"], name: "index_adjectivations_on_adjective_id"
-  add_index "adjectivations", ["quality_id"], name: "index_adjectivations_on_quality_id"
 
   create_table "adjectives", force: true do |t|
     t.string   "name"
@@ -39,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150429173043) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "summary"
   end
 
   create_table "appearances", force: true do |t|
@@ -132,6 +123,13 @@ ActiveRecord::Schema.define(version: 20150429173043) do
     t.datetime "updated_at"
   end
 
+  create_table "hosts", force: true do |t|
+    t.string   "name"
+    t.string   "reference"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "identifiers", force: true do |t|
     t.string   "name"
     t.integer  "character_id"
@@ -204,11 +202,22 @@ ActiveRecord::Schema.define(version: 20150429173043) do
 
   add_index "places", ["form_id"], name: "index_locations_on_form_id"
 
+  create_table "possessions", force: true do |t|
+    t.integer  "character_id"
+    t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "possessions", ["character_id"], name: "index_possessions_on_character_id"
+  add_index "possessions", ["item_id"], name: "index_possessions_on_item_id"
+
   create_table "qualities", force: true do |t|
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "adjective_id", default: 0, null: false
   end
 
   create_table "ratings", force: true do |t|
@@ -265,6 +274,15 @@ ActiveRecord::Schema.define(version: 20150429173043) do
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
   add_index "reviews", ["work_id"], name: "index_reviews_on_work_id"
 
+  create_table "sources", force: true do |t|
+    t.string   "reference"
+    t.integer  "host_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sources", ["host_id"], name: "index_sources_on_host_id"
+
   create_table "term_edges", force: true do |t|
     t.integer "broad_term_id"
     t.integer "narrow_term_id"
@@ -284,7 +302,19 @@ ActiveRecord::Schema.define(version: 20150429173043) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "viewpoints", force: true do |t|
     t.integer  "character_id"

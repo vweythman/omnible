@@ -1,0 +1,24 @@
+<main class="new membership">
+  <article>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <fieldset class='pair'>
+      <legend>Sign Up</legend>
+      <%= form_field f.label(:name, "Username"), f.text_field(:name, autofocus: true) %>
+      <%= form_field f.label(:email), f.email_field(:email) %>
+    </fieldset>
+
+    <fieldset class='password pair'>
+      <legend>Security</legend>
+      <%= form_field f.label(:password, "Password (#{@minimum_password_length} characters minimum)"), f.password_field(:password, autocomplete: "off") %>
+      <%= form_field f.label(:password_confirmation, "Confirm Password"), f.password_field(:password_confirmation, autocomplete: "off") %>
+    </fieldset>
+
+    <%= f.submit "Sign up" %>
+
+  <% end %>
+  </article>
+  
+  <footer><%= render "devise/shared/links" %></footer>
+</main>

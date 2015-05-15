@@ -90,4 +90,8 @@ class Work < ActiveRecord::Base
 		}
 	end
 
+	def editable?(user)
+		self.user.id == user.id
+	end
+
 end

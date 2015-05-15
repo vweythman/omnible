@@ -1,0 +1,15 @@
+<div class='nested-fields'>
+	<fieldset>
+		<legend>Prejudice</legend>
+		<div class='pair'>
+			<%= form_field f.label(:facet_id, "Facet"), f.collection_select(:facet_id, @facets, :id, :name, {:selected => (f.object.recip.nil? ? "state" : f.object.recip.facet.id)}, {:class=>'selector'}) %>
+			<%= form_field f.label(:recip_id, "Identity"), f.grouped_collection_select(:recip_id, @facets, :identities, :name, :id, :name, {}, {:class=>'selection'}) %>
+		</div>
+		<%= form_field f.label(:about, "Treatment"), f.text_area(:about, class: "minor") %>
+
+		<%= scale_fields(f, Viewpoint.warmths,  :warmth, f.object.warmth || 0) %>
+		<%= scale_fields(f, Viewpoint.respects, :respect, f.object.respect || 0) %>
+	</fieldset>
+
+	<p><%= link_to_remove_association "- Remove #{type}", f %></p>
+</div>

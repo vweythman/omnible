@@ -24,7 +24,7 @@ class Relator < ActiveRecord::Base
 	# LeftHeading
 	# - defines the left hand relationship
 	def left_heading
-		"#{left_name}"
+		"#{left_name}" unless left_name.nil?
 	end
 
 	# RightHeading
@@ -36,7 +36,7 @@ class Relator < ActiveRecord::Base
 	# HasReverse?
 	# - asks whether relator type has different left and right values
 	def has_reverse?
-		!(right_name.empty? || left_name.eql?(right_name))
+		!(right_name.nil? || right_name.empty? || left_name.eql?(right_name))
 	end
 
 end

@@ -18,17 +18,10 @@ class Quality < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# joins
 	has_many :item_descriptions
-	has_many :adjectivations
 
 	# belongs to
 	has_many :items, :through => :item_descriptions
-
-	# posseses
-	has_many :adjectives, :through => :adjectivations
-
-	# NESTED ATTRIBUTION
-	# ------------------------------------------------------------
-	accepts_nested_attributes_for :adjectivations, :allow_destroy => true
+	belongs_to :adjective, :inverse_of => :qualities
 
 	# METHODS
 	# ------------------------------------------------------------
@@ -43,7 +36,7 @@ class Quality < ActiveRecord::Base
 	def self.batch_build(taggables)
 		ids = Array.new
 
-		taggables.split(";").each do |description|
+		taggables.each do |description|
 			quality  = Quality.where(name: description).first_or_create
 			ids.push quality.id
 		end

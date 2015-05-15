@@ -1,10 +1,13 @@
 <%= form_for(@anthology) do |f| %>
-	<fieldset><%= form_field f.label(:name), f.text_field(:name) %>	</fieldset>
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name of Anthology") %>
+		<%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Add Summary", :class=> :minor) %>
+	</fieldset>
 
-	<%= show_link("Works", :works) %>
-	<fieldset class='nested' id="form_works">
-		<%= nested_fields "Works", :works, :collections, f, 'collection_fields' %>
-		<p><%= link_to_add_association('+ Add Work', f, :collections) %></p>
+	<%= show_link @worknest.heading, @worknest.klass %>
+	<fieldset class='nested' id="<%= @worknest.form_id %>">
+		<%= nested_fields @worknest, f %>
+		<p><%= link_to_add_association('+ Add Work', f, @worknest.klass) %></p>
 	</fieldset>
 
 	<%= f.submit %>

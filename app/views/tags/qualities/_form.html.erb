@@ -1,0 +1,10 @@
+<%= form_for(@quality) do |f| %>
+
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name") %>
+		<%= radio_fields f, Adjective.all.pluck(:name), :adjective_id, @quality.adjective_id %>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>

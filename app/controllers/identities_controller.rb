@@ -14,10 +14,13 @@ class IdentitiesController < ApplicationController
 
 	def new
 		@identity = Identity.new
+		@identity.descriptions.build
+		define_components
 	end
 
 	def edit
 		find_identity
+		define_components
 	end
 
 	# POST
@@ -75,4 +78,8 @@ class IdentitiesController < ApplicationController
 		params[:identity][:facet_id] = @facet.id
 	end
 
+	# setup form components
+	def define_components
+		@describe_nest = Nest.new("Characters", :descriptions, "description_fields")
+	end
 end

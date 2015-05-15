@@ -8,7 +8,7 @@ class Form < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Organizer     # member of the type group
+	include Organizerable # member of the type group
 	extend FriendlyId     # slugged based on the name
 
 	# VALIDATIONS and SCOPES

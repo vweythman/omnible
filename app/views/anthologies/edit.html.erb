@@ -1,5 +1,7 @@
-<%= edit_header 'Anthology', @anthology.heading %>
+<main class="edit">
+	<%= edit_header 'Anthology', @anthology.heading %>
 
-<article class='edit'><%= render 'form' %></article>
+	<%= render 'form' %>
 
-<%= anthology_footer @anthology %>
+	<%= anthology_footer @anthology %>
+</main>
