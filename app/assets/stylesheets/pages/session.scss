@@ -1,0 +1,50 @@
+.membership {
+	h2 {
+		font-weight: 300;
+		border-bottom: 5px solid $moss-color;
+	}
+	form {
+		@include page-shadow($moss-color);
+		padding: 15px;
+		overflow: auto;
+	}
+
+	fieldset {
+		margin: 10px 0;
+	}
+	legend {
+		width: calc(100% - 20px);
+		background: $water-color;
+		padding:    5px 10px;
+		color:      white;
+	}
+	label {
+		padding:    3px 10px;
+		background: $water-lightest;
+		display:    inline-block;
+		min-width:  25%;
+	}
+	.field {
+		margin: 5px 0;
+	}
+
+	input[type="submit"] { 
+		@include clickable($water-darker);
+		float: right;
+		border-radius: 3px;
+		padding: 5px;
+		width:   125px;
+	}
+}
+.rememberable {
+	margin: 10px 0;
+	border-top: 3px solid $water-darker;
+	label {
+		border: none;
+		&:hover { background: $water-lighter; }
+	}
+	padding: 10px;
+}
+.input-rule {
+	font-size: .75em;
+}

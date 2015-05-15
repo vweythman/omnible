@@ -16,7 +16,7 @@
 	<%= show_link(@charnest.heading, @charnest.klass) %>
 	<fieldset class='nested' id="<%= @charnest.form_id %>">
 		<%= nested_fields @charnest, f %>
-		<p><%= link_to_add_association '+ Character', f, @charnest.klass %></p>
+		<p><%= link_to_add_association '+ Character', f, @charnest.klass, :partial=> @charnest.partial %></p>
 	</fieldset>
 	<%= f.submit %>
 <% end %>

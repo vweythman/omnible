@@ -1,6 +1,13 @@
-<header>
-	<h1>See All</h1>
-	<nav>
-		<%= link_to 'Anthologies', anthologies_path %><%= link_to 'Works', works_path %><%= link_to 'Characters', characters_path %><%= link_to 'Tags', tags_path %>
-	</nav>
-</header>
+<h1>Pleiades</h1>
+
+<div class='home'>
+	<section>
+		<h2>Anthologies / recently updated</h2>
+		<%= render 'anthologies/list' %>
+	</section>
+
+	<section>
+		<h2>Works / recently updated</h2>
+		<%= render 'works/list' %>
+	</section>
+</div>

@@ -1,5 +1,7 @@
 <div class='nested-fields'>
 	<fieldset>
+		<legend>Character</legend>
+		
 		<%= form_field f.label(:character_id), f.collection_select(:character_id, Character.order('lower(name)').all, :id, :name) %>
 
 		<fieldset class='options'>

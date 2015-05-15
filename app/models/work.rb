@@ -31,10 +31,14 @@
 
 class Work < ActiveRecord::Base
 
-	# VALIDATIONS and SCOPES
+	# VALIDATIONS
 	# ------------------------------------------------------------
-	default_scope {order('updated_at DESC')}
 	validates :title, length: { maximum: 250 }, presence: true
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :order_by, ->(choice) { order(self.sorter(choice)) }
+	scope :recently_updated, ->(num) { order(:updated_at => :desc).limit(num) }
 
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
@@ -92,6 +96,24 @@ class Work < ActiveRecord::Base
 
 	def editable?(user)
 		self.user.id == user.id
+	end
+
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# Sorter
+	# - decide on the sort order
+
+	def self.sorter(choice)
+		case choice
+		when "posted"
+			return "created_at desc"
+		when "alphabetical"
+			return "lower(title) desc"
+		when "chronological"
+			return "created_at asc"
+		else
+			return "updated_at desc"             
+		end
 	end
 
 end

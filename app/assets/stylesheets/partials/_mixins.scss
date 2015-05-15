@@ -6,7 +6,7 @@
 	-moz-box-sizing: $type;
 	box-sizing: $type;
 }
-@mixin gradiention($deg, $start, $stop) {
+@mixin gradient-back($deg, $start, $stop) {
   	background: linear-gradient($deg, $start, $stop);
 }
 @mixin column-counting($count) {
@@ -16,20 +16,62 @@
 }
 
 // LINKS AND ACTIONS
+@mixin page-shadow($color) {
+	box-shadow: 0 0 1px 0 $color;
+}
+@mixin split-element($div) {
+	float: left;
+	width: $div;
+}
 @mixin buttonable($color) {
-	background:        $color;
-	border:            3px solid darken($color, 5%);
+	$text-color: $color;
+	@if lightness($color) > 55% { 
+		$text-color: darken($color, 100%);
+	} @else { 
+		$text-color: lighten($color, 100%);
+	}
+	border:        3px solid darken($color, 5px);
+	background:    $color;
+	a {
+		color: $text-color;
+		&:hover {
+			color:      $text-color;
+			background: darken($color, 5px);
+		}
+	}
+}
+@mixin embossed($color) {
+	@include buttonable($color);
 	border-top-color:  lighten($color, 10%);
 	border-left-color: lighten($color, 10%);
-	font-weight:       bolder;
-	border-radius:     2px;
-	@if lightness($color) > 55% {
-		a { color: darken($color, 100%); }
-	} @else {
-		a { color: lighten($color, 100%); }
+}
+@mixin depressed($color) {
+	@include buttonable($color);
+	border-bottom-color: lighten($color, 10%);
+	border-right-color:  lighten($color, 10%);
+}
+
+@mixin clickable($color) {
+	@include embossed($color);
+	color:          #FFF;
+	letter-spacing: 1px;
+	padding:        7px 10px;
+
+	&:hover  { @include embossed(darken($color, 15%)); }
+	&:active { @include depressed(darken($color, 15%)); }
+}
+
+@mixin switch-controller($color) {
+	cursor:      pointer;
+	background:  $color;
+	color:       black;
+	display:     block;
+	font-weight: 600;
+	padding:     10px;
+	&:hover {
+		background: darken($color, 10%);
+		color: darken($color, 70%);
 	}
-	
-	a:hover { background: darken($color, 5%); }
 }
 
 // RESPONSIVE
@@ -45,6 +87,11 @@
 }
 @mixin landscape {
 	@media (min-width: #{$landscape-min}) { 
+		@content;
+	}
+}
+@mixin non-mobile {
+	@media (min-width: #{$portrait-min}) {
 		@content;
 	}
 }

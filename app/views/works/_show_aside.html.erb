@@ -5,15 +5,13 @@
 		<%= render 'works/shared/meta/anthologies' %>
 		<%= render 'works/shared/meta/tags' %>
 
-		<tfoot>
-			<tr>
-				<th>Created</th>
-				<td><%= record_time @work.created_at %></td>
-			</tr>
-			<tr>
-				<th>Updated</th>
-				<td><%= record_time @work.updated_at %></td>
-			</tr>
-		</tfoot>
+		<tr>
+			<th>Created</th>
+			<td><%= record_time @work.created_at %></td>
+		</tr>
+		<tr>
+			<th>Updated</th>
+			<td><%= record_time @work.updated_at %></td>
+		</tr>
 	</table>
 </aside>

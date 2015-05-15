@@ -11,8 +11,13 @@ Rails.application.routes.draw do
     get '(page/:page)', :action => :index, :on => :collection, :as => ''
   end
 
+  concern :sortable do 
+    get '(sort/:sort)', :action => :index, :on => :collection
+  end
+
+
   resources :anthologies
-  resources :works, :concerns => :paginatable do
+  resources :works, :concerns => [:paginatable, :sortable] do
     resources :chapters, :controller => 'works/chapters'
     resources :notes, :controller => 'works/notes'
   end

@@ -10,8 +10,12 @@
 @import "partials/header.scss";
 @import "partials/footer.scss";
 @import "partials/page.scss";
+@import "partials/form.scss";
 
 // SPECIFICS
+@import "pages/home.scss";
 @import "pages/index.scss";
 @import "pages/show.scss";
+@import "pages/model.scss";
+@import "pages/session.scss";
 

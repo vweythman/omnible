@@ -1,8 +1,11 @@
-<% if @anthologies.length > 0 %>
-	<% @anthologies.each do |anthology| %>
-		<article>
-			<p><%= link_to anthology.name, anthology %></p>
-			
-		</article>
-	<% end %>
+<% @anthologies.each do |anthology| %>
+	<article class='descriptive'>
+		<p><%= link_to anthology.heading, anthology %></p>
+		<div class='date'>
+			<p><span class='label'>Created:</span> <%= record_time anthology.created_at %></p>
+			<% if anthology.updated_at != anthology.created_at %>
+				<p><span class='label'>Updated:</span> <%= record_time anthology.updated_at %></p>
+			<% end %>
+		</div>
+	</article>
 <% end %>

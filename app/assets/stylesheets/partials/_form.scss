@@ -1,25 +1,27 @@
-$main-color:    hsl(100, 50%, 50%);
-$main-light:    lighten( $main-color, 15%);
-$main-lighter:  lighten( $main-color, 30%);
-$main-lightest: lighten( $main-color, 40%);
-$main-dark:     darken(  $main-color, 10%);
-$main-darker:   darken(  $main-color, 20%);
-$main-darkest:  darken(  $main-color, 35%);
-$main-fade:     desaturate($main-color, 30%);
-
-$alt-color:    hsl(200, 50%, 50%);
-$alt-light:    lighten( $alt-color, 15%);
-$alt-lighter:  lighten( $alt-color, 30%);
-$alt-lightest: lighten( $alt-color, 40%);
-$alt-dark:     darken(  $alt-color, 10%);
-$alt-darker:   darken(  $alt-color, 20%);
-$alt-darkest:  darken(  $alt-color, 35%);
-$alt-fade:     desaturate($alt-color, 30%);
-
-$small-screen: 800px;
-$large-screen: 1200px;
-$def-spacing:  10px;
-
+form {
+	margin: 10px;
+}
+fieldset {
+	margin: 10px 0;
+}
+@include non-mobile {	
+	.pair {
+		overflow: auto;
+		.field {
+			@include split-element(50%);
+			background: $water-lighter;
+		}
+		label {
+			width: calc(100% - 22px);
+			border: 1px solid $water-lighter;
+		}
+		input {
+			margin: 1px;
+			border: none;
+			width: calc(100% - 4px);
+		}
+	}
+}
 
 /* MIXINS 
 ************************************************
@@ -29,15 +31,6 @@ $def-spacing:  10px;
 	border-top-color:  lighten($color, 10%);
 	border-left-color: lighten($color, 10%);
 	font-weight:       bolder;
-}
-@mixin clickable($color) {
-	@include buttonable($color);
-	color:          #FFF;
-	letter-spacing: 1px;
-	padding:        7px $def-spacing;
-
-	&:hover  { @include buttonable(darken($color, 15%)); }
-	&:active { @include buttonable(darken($color, 5%)); }
 }
 @mixin togglable($color) {
 	cursor:      pointer;

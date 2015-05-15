@@ -17,10 +17,17 @@
 		font-size:     $heading-size - 2;
 		border-bottom: 2px dotted $water-dark;
 	}
+	p { padding: 0 2px; }
 }
-.pagination {
-	padding: 5px 15px;
-}
+.pagination { padding: 5px 15px; }
+.descriptive { max-width: 900px; }
 .related_items { text-align: center; }
+.date {
+	font-size: .85em;
+	.label { 
+		font-style:  italic;
+		font-weight: bolder;
+	}
+}
 
 /* END */

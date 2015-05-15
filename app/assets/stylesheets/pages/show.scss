@@ -6,12 +6,20 @@
 	.toolkit { margin: 0; }
 	footer { text-align: center; }
 	aside {
+		@include page-shadow($water-light);
 		width: calc(20% - 30px);
 		margin: 15px 0;
 		padding: 15px;
 		float: left;
+		article { 
+			margin: 0;
+			padding: 0;
+		}
+		h2 {margin-bottom: 0;
+		}
+		& > dl { text-align: center; }
 	}
-	aside + article { margin-left: 20%; }
+	aside + article { margin-left: calc(20% + 30px); }
 	h2 {
 		font-size: $heading-size - 2;
 		letter-spacing: 3px;

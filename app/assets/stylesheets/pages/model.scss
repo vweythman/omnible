@@ -1,0 +1,9 @@
+.model-make {
+	width: 90%;
+	margin: 10px auto;
+
+	input[type="submit"] { 
+		@include clickable($moss-darker);
+		margin:  15px auto;
+	}
+}

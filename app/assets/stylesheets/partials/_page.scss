@@ -2,24 +2,26 @@
 ************************************************/
 .alert {
 	color:      red;
-	box-shadow: 0 0 1px 0 red;
+	@include page-shadow(red);
 	margin:     10px auto;
 	padding:    10px;
 	width:      90%;
 }
 .notice {
 	color:      blue;
-	box-shadow: 0 0 1px 0 $water-light;
+	@include page-shadow($water-light);
 	margin:     10px auto;
 	padding:    10px;
 	width:      90%;
 }
 .toolkit {
-	@include buttonable($water-color);
+	@include embossed($water-color);
 	margin:   10px;
 	overflow: auto;
 	display:  inline-block;
+	border-radius: 2px;
 	a {
+		font-weight:    bolder;
 		display:        inline-block;
 		font-weight:    700;
 		padding:        5px 10px;
@@ -41,7 +43,7 @@ article {
 	overflow:    auto;
 }
 main > article {
-	box-shadow:  0 0 1px 0 $moss-light;
+	@include page-shadow($moss-light);
 }
 hr {
 	background: $moss-color;
@@ -56,13 +58,11 @@ h1 {
 	border-bottom:  3px solid $moss-light;
 	margin:         0;
 }
-p {
-	margin: 0;
-	padding: 10px;
-}
-li, dt, dd {
-	margin: 0;
-	padding: 0 0 10px 0;
-}
+p, li, dt, dd { margin: 0; }
+p     { padding: 10px; }
+ol li { padding: 0; }
+ul li { padding: 5px 0; }
+dt { padding: 0; }
+dd { padding: 0 5px;}
 
 /* END */

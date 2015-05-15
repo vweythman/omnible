@@ -14,7 +14,7 @@ class WorksController < ApplicationController
 	end
 
 	def curated_index
-		@works = @parent.works.page(params[:page])
+		@works = @parent.works.order_by(params[:sort]).page(params[:page])
 		render 'curated_index'
 	end
 
@@ -93,7 +93,7 @@ class WorksController < ApplicationController
 
 	# find all
 	def find_works
-		@works = Work.includes(:user).page(params[:page])
+		@works = Work.order_by(params[:sort]).includes(:user).page(params[:page])
 	end
 
 	# find by id
