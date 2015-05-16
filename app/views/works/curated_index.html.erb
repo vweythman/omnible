@@ -1,15 +1,12 @@
 <% provide(:title, "#{@parent.heading} - Works" ) %>
-<%= render 'search_form' %>
 
 <main class='index'>
-	<header>
-		<h1>[<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>] Works</h1>
-		<%= paginate @works, :window => 2 %>
+	<header>	
+		<h1><%= link_to @parent.heading.titleize, polymorphic_path(@parent) %> / Works</h1>
 	</header>
 
-	<%= render 'list' %>
-
-	<footer><%= paginate @works, :window => 2 %></footer>
+	<%= render 'index_aside' %>
+	<%= render 'index_results' %>
 
 	<footer class='related_items'>
 		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
@@ -21,4 +18,3 @@
  		<% end %>
 	</footer>
 </main>
-

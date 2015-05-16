@@ -19,8 +19,8 @@ module ToolkitHelper
 		end
 	end
 
-	def model_toolkit(model, editable = true)
-		if editable
+	def model_toolkit(model)
+		if user_signed_in?
 			content_tag :nav, class: 'toolkit' do
 				concat link_to 'Edit', edit_polymorphic_path(model)
 				concat link_to 'Delete', model, method: :delete, data: { confirm: "Are you sure you want to delete #{model.heading}?" }
@@ -36,8 +36,8 @@ module ToolkitHelper
 		end
 	end
 
-	def response_toolkit(challenge, work, editable = true)
-		if editable
+	def response_toolkit(challenge, work)
+		if user_signed_in? 
 			content_tag :nav, class: 'toolkit' do
 				'+ Response'
 			end

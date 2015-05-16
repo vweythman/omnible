@@ -39,17 +39,8 @@
 		p { padding: 0; }
 	}
 }
-table {
-	width: 100%;
-}
-thead { 
-	background: $moss-lighter;
-	border-top: 2px solid $moss-color;
-	border-bottom: 2px solid $moss-color;
-}
-th { padding: 5px 10px; }
-tbody th { border-right: 2px solid $moss-color; }
-td { padding: 5px 10px; }
+
+// RATINGS AND REVIEWS
 .rating { font-weight: bolder; }
 .level-2 { color: $rating-lowest; }
 .level-1 { color: $rating-low; }
@@ -57,55 +48,20 @@ td { padding: 5px 10px; }
 .level1  { color: $rating-high; }
 .level2  { color: $rating-highest; }
 
-
-/* ITEM PAGE
-************************************************
-.itemized {
-	article {
-		margin: 15px auto;
-		width:  75%;
-		p { 
-			line-height: 1.5;
-			padding:     5px 10px;
-		}
-		footer { padding: 15px 0; }
-	}
-	.about, .relationships {
-		margin-left:  290px;
-		margin-right: 45px;
-	}
-}
-.itemized > footer,
-.membership > footer { text-align: center; }
-
-.identifiers { color: #909090; }
-article article { 
-	box-shadow: none;
-	width:      100%;
-	padding:    0;
-}
-.piece nav a { padding-right: 15px; }
-table {
-	margin: 10px 15px;
-	width:  calc(100% - 30px);
-}
-thead { border-bottom: 2px solid $alight; }
-tfoot { border-top:    2px solid $alight; }
-th { letter-spacing: 2px; }
-tbody th {
-	border-right: 2px solid $alight; 
-	text-align:   right;
-	padding:      10px;
-}
-
-/* ITEM META PAGE
-************************************************
+// META INFO
+.identifiers { color: $fade-color; }
 .meta {
-	box-shadow: 0 0 5px 0 $alight;
-	margin:     7px auto;
-	width:      50%;
-	.label { font-weight: bolder; }
-	th { text-align: right; }
+	color: $fade-color; 
+	border-top:    1px solid $moss-color;
+	border-bottom: 1px solid $moss-color;
+	width:         80%;
+	margin:        10px auto;
+	th {
+		width: 25%;
+		text-align: right;
+		vertical-align: top;
+	}
 }
+
 
 /* END */

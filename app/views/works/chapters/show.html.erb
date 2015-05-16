@@ -8,7 +8,7 @@
 				<%= link_to "Next Chapter &rsaquo;".html_safe, [@chapter.work, @chapter.next] unless @chapter.next.nil? %>
 			</nav>
 
-			<h2><%= @chapter.simple_heading %></h2>
+			<h2><%= @chapter.complete_heading %></h2>
 			<div><%= markdown @chapter.about %></div>
 			<%= model_toolkit(@chapter) %>
 		</header>

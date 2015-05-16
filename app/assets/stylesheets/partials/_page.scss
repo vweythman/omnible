@@ -42,7 +42,7 @@ article {
 	line-height: 1.5;
 	overflow:    auto;
 }
-main > article {
+main > article, .results > article {
 	@include page-shadow($moss-light);
 }
 hr {
@@ -64,5 +64,14 @@ ol li { padding: 0; }
 ul li { padding: 5px 0; }
 dt { padding: 0; }
 dd { padding: 0 5px;}
+table { width: 100%; }
+thead { 
+	background: $moss-lighter;
+	border-top: 2px solid $moss-color;
+	border-bottom: 2px solid $moss-color;
+}
+th { padding: 5px 10px; }
+tbody th { border-right: 2px solid $moss-color; }
+td { padding: 5px 10px; }
 
 /* END */

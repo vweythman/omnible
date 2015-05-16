@@ -1,14 +1,11 @@
 <% provide(:title, "Works") %>
-<%= render 'index_aside' %>
 
 <main class='index'>
 	<header>
 		<h1>Works</h1>
 		<%= index_toolkit("Work", new_work_path) %>
-		<%= paginate @works, :window => 2 %>
 	</header>
 
-	<%= render 'list' %>
-
-	<footer><%= paginate @works, :window => 2 %></footer>
+	<%= render 'index_aside' %>
+	<%= render 'index_results' %>
 </main>

@@ -1,5 +1,16 @@
-<ol>
-<% @chapters.each do |chapter| %>
-	<li><%= link_to chapter.title, [@work, chapter] %></li>
-<% end %>
-</ol>
+<table>
+	<% @chapters.each do |chapter| %>
+		<tr>
+			<th><%= chapter.position %></th>
+			<td><%= link_to chapter.heading, [@work, chapter] %></td>
+			<td><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %></td>
+			<td><%= model_toolkit(chapter) %></td>
+		</tr>
+	<% end %>
+
+	<tfoot>
+		<tr>
+			<td colspan='3'><%= component_toolkit @work, 'Chapter' %></td>
+		</tr>
+	</tfoot>
+</table>

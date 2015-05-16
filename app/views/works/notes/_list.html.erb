@@ -1,5 +1,16 @@
-<ol>
+<table>
+	<% count = 0 %>
 	<% @notes.each do |note| %>
-	<li><%= link_to note.title, [@work, note] %></li>
+		<tr>
+			<th><%= count = count + 1 %></th>
+			<td><%= link_to note.heading, [@work, note] %></td>
+			<td><%= model_toolkit(note) %></td>
+		</tr>
 	<% end %>
-</ol>
+
+	<tfoot>
+		<tr>
+			<td colspan='3'><%= component_toolkit @work, 'Note' %></td>
+		</tr>
+	</tfoot>
+</table>

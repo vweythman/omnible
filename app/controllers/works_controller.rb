@@ -34,7 +34,7 @@ class WorksController < ApplicationController
 			# redirect to notes index
 			redirect_to work_notes_path(@work)
 		else
-			# render resticted
+			render 'restrict'
 		end
 	end
 

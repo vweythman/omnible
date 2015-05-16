@@ -2,10 +2,10 @@
 	<div>
 		<h2>Order</h2>
 		<ul>
-			<li>POSTED</li>
-			<li>UPDATED</li>
-			<li>ALPHABETICAL</li>
-			<li>CHRONOLOGICAL</li>
+			<li><%= link_to "Alphabetical", params.merge(:sort => "alphabetical") %></li>
+			<li><%= link_to "Chronological", params.merge(:sort => "chronological") %></li>
+			<li><%= link_to "Posted", params.merge(:sort => "posted")%></li>
+			<li><%= link_to "Updated", params.merge(:sort => "updated") %></li>
 		</ul>
 	</div>
 	

@@ -3,6 +3,7 @@
 // READING COLORS
 $page-color: #FFF;
 $read-color: #333;
+$fade-color: lighten($read-color, 20%);
 $text-size:  15px;
 $heading-size: 25px;
 

@@ -10,21 +10,5 @@ body {
 	overflow:   auto;
 	padding:    15px;
 }
-@include reel {
-	.organizer { display: none; }
-}
-@include portrait {
-	.organizer {
-		float: left;
-		width: 200px;
-	}
-	.organizer + main { margin-left: 240px; }
-}
-@include landscape {
-	.organizer {
-		float:    none;
-		overflow: auto;
-		div { float: left; }
-	}
-}
+ul { list-style: none; }
 /* END */

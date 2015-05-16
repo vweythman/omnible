@@ -22,10 +22,12 @@
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
-#  simple_heading              | string      | defines the simplified chapter
-#                              |             | heading
-#  prev                        | model       | finds the previous chapter
-#  next                        | model       | finds the next chapter
+#  complete_heading            | string      | defines the full chapter heading
+#  word_count                  | integer     | count the number of words in the 
+#                              |             | chapter contents
+#  prev                        | object      | finds the previous chapter
+#  next                        | object      | finds the next chapter
+#  editable                    | bool        | user is allowed to edit
 #  self.newest_position        | integer     | outputs the newest positional
 #                              |             | chapter number
 # ================================================================================
@@ -46,32 +48,50 @@ class Chapter < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Heading
 	# - defines the main means of addressing the model
+	# - :: string
 	def heading
 		if title.empty?
-			"#{work.title} | Chapter #{self.position}"
+			"Chapter #{self.position}"
 		else
-			"#{work.title} | #{title}"
+			title
 		end
 	end
 
-	# SimpleHeading
-	# - defines the simplified chapter heading
-	def simple_heading
+	# CompleteHeading
+	# - defines the full chapter heading
+	# - :: string
+	def complete_heading
 		current_title = "Chapter #{self.position}"
 		current_title.concat " - #{self.title}" unless title.empty?
 		current_title
 	end
 
+	# WordCount
+	# - count the number of words in the chapter contents
+	# - :: integer
+	def word_count
+		I18n.transliterate(self.content).scan(/[\w-]+/).size
+	end
+
 	# Prev
 	# - finds the previous chapter
+	# - :: object
 	def prev
 		@prev.nil? ? @prev = Chapter.where("work_id = ? AND position = ?", self.work_id, (self.position - 1)).first : @prev
 	end
 
 	# Next
 	# - finds the next chapter
+	# - :: object
 	def next
 		@next.nil? ? @next = Chapter.where("work_id = ? AND position = ?", self.work_id, (self.position + 1)).first : @next
+	end
+
+	# Editable
+	# - user is allowed to edit
+	# - :: bool
+	def editable?(user)
+		
 	end
 
 	# CLASS METHODS
@@ -80,10 +100,5 @@ class Chapter < ActiveRecord::Base
 	def self.newest_position(work)
 		work.chapters.length + 1 
 	end
-
-	def editable?(user)
-		
-	end
-
 
 end

@@ -1,21 +1,18 @@
 <table class="meta">
-	<thead>
-		<tr>
-			<th>Parts</th>
-			<td><%= link_to "Chapters", work_chapters_path(@work) %></td>
-			<td><%= link_to "Notes", work_notes_path(@work) %></td>
-		</tr>
-	</thead>
+	<tr>
+		<th>Parts</th>
+		<td><%= link_to "Chapters", work_chapters_path(@work) %></br><%= link_to "Notes", work_notes_path(@work) %></td>
+	</tr>
 
 	<%= render 'works/shared/meta/anthologies' %>
 	<%= render 'works/shared/meta/tags' %>
 
-	<tfoot>
-		<tr>
-			<th>Created</th>
-			<td><%= record_time @work.created_at %></td>
-			<th>Updated</th>
-			<td><%= record_time @work.updated_at %></td>
-		</tr>
-	</tfoot>
+	<tr>
+		<th>Created</th>
+		<td><%= record_time @work.created_at %></td>
+	</tr>
+	<tr>
+		<th>Updated</th>
+		<td><%= record_time @work.updated_at %></td>
+	</tr>
 </table>
