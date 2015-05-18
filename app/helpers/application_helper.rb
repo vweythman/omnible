@@ -10,6 +10,7 @@ module ApplicationHelper
 		end
 	end
 
+	# OUTPUT drop down arrow symbol
 	def drop_arrow
 		content_tag :span, class: 'drop-arrow' do
 			"&#x25BE;".html_safe
@@ -21,26 +22,8 @@ module ApplicationHelper
 		Kramdown::Document.new(text, :auto_ids => false, :parse_block_html => true).to_html.html_safe
 	end
 	
+	# OUTPUT formated time string
 	def record_time(date)
 		date.strftime("%b %d, %Y")
-	end
-
-	def node_index(node)
-		name = node.class.to_s.tableize
-		"#{name}/#{name}"
-	end
-	
-	def creation_header(heading)
-		provide(:title, "Create #{heading}")
-		content_tag :h1 do
-			"Create #{heading}".html_safe
-		end
-	end
-
-	def edit_header(name, title)
-		provide(:title, "Edit #{title}")
-		content_tag :h1 do
-			"Edit #{name}"
-		end
 	end
 end

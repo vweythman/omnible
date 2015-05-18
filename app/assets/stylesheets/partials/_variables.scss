@@ -1,10 +1,11 @@
 /* VARIABLES
 ************************************************/
-// READING COLORS
-$page-color: #FFF;
-$read-color: #333;
-$fade-color: lighten($read-color, 20%);
-$text-size:  15px;
+// READING COLORS and MISC
+$page-color:   #FFF;
+$read-color:   #333;
+$fade-color:   lighten($read-color, 20%);
+$border-color: #d0d0d0;
+$text-size:    15px;
 $heading-size: 25px;
 
 // COLOR SCHEME COLORS
@@ -35,4 +36,7 @@ $reel-max:      500px;
 $portrait-min:  $reel-max + 1;
 $portrait-max:  875px;
 $landscape-min: $portrait-max + 1;
+
+// INPUT SIZES
+$micro-height: 200px;
 

@@ -53,10 +53,12 @@ class Work < ActiveRecord::Base
 	has_many :collections
 	has_many :appearances
 	has_many :conceptions
+	has_many :respondences, as: :response
 
 	# models that possess these models
 	belongs_to :user
 	has_many :anthologies, :through => :collections
+	has_many :callers, :through => :respondences
 
 	# models that belong to this model
 	has_many :chapters, :inverse_of => :work

@@ -4,6 +4,7 @@
 	<header>
 		<%= model_toolkit @anthology %>
 		<h1><%= @anthology.heading %></h1>
+		<div class="summary"><%= markdown @anthology.summary || "" %></div>
 	</header>
 
 	<%= render 'works/list' %>

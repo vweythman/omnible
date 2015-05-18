@@ -48,6 +48,7 @@ class Subjects::CharactersController < ApplicationController
 		find_character
 		define_components
 		@variants = @character.identifiers.pluck(:name)
+		@character.descriptions.build if @character.descriptions.length < 1
 	end
 
 	# POST

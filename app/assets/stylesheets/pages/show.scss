@@ -4,7 +4,10 @@
 	margin: 15px auto;
 	width:  90%;
 	.toolkit { margin: 0; }
-	footer { text-align: center; }
+	footer { 
+		text-align: center;
+		p { padding: 0; }
+	}
 	aside {
 		@include page-shadow($water-light);
 		width: calc(20% - 30px);
@@ -33,11 +36,17 @@
 	min-width: 200px;
 	max-width: 700px;
 	footer {
-		border-top: 2px solid black;
+		border-top: 2px solid $read-color;
 		margin: 25px;
 		text-align: left;
 		p { padding: 0; }
 	}
+	header {
+		margin: 25px;
+		border-bottom: 2px solid $read-color;
+	}
+	h2 { margin: 0; }
+	.toolkit { margin: 5px 0; }
 }
 
 // RATINGS AND REVIEWS
@@ -61,6 +70,7 @@
 		text-align: right;
 		vertical-align: top;
 	}
+	dd { padding: 0; }
 }
 
 

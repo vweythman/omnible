@@ -6,4 +6,78 @@
 		@include clickable($moss-darker);
 		margin:  15px auto;
 	}
+	input, select, textarea { width: 100%; }
 }
+
+/* FORM PAGE
+************************************************/
+.new, .edit {
+	margin: 15px auto;
+	@include reel { width: 90%; }
+	@include non-mobile { width: 60%; }
+}
+
+/* NESTED FIELDS
+************************************************/
+.nested { 
+	margin-top: 10px;
+	@include gradient-back(180deg, $water-lighter, $page-color);
+	input, textarea { border-style: solid; }
+}
+.tags .field { 
+	margin: 0;
+	padding: 0 10px;
+	padding-top: 10px;
+}
+.nested-fields {
+	font-size: .85em;
+	margin:    10px auto;
+	width:     90%;
+}
+.hider { margin:  0; }
+.edit .nested, .new .show { display: none; }
+#form_descriptions { display: block; }
+#show_descriptions { display: none; }
+.show, .add_fields    { margin-top: 15px; }
+.hide, .remove_fields { text-align: right; }
+
+.show { @include togglable($water-light); }
+.hide { @include togglable($water-light); }
+.add_fields    { @include togglable($water-lightest); }
+.remove_fields { @include togglable($water-lighter);  }
+
+
+/* RADIO BUTTONS
+************************************************/
+.options {
+	@include grouping($water-lighter);
+	margin:         10px 30%;
+	margin-right:   0;
+	padding:        10px;
+	overflow:       auto;
+	width:          calc(70% - 26px);
+}
+.choice {
+	@include chooseable($water-color);
+	margin:   5px 10px;
+	overflow: auto;
+	display: inline-block;
+
+	.field {
+		border:  none;
+		float:   left;
+		padding: 0;
+		margin:  0;
+	}
+	label {
+		background: none;
+		border:     none;
+		display:    inline-block;
+		padding:    6px 10px;
+		color:      #FFF;
+		text-align: center;
+		width:      calc(100% - 20px);
+	}
+	input { display: none; }
+}
+/* END */

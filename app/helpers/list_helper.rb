@@ -1,5 +1,5 @@
-module IndexHelper
-	
+module ListHelper
+	# OUTPUT comma separated links
 	def cslinks(links)
 		elements = Array.new
 		links.each do |item|
@@ -8,7 +8,7 @@ module IndexHelper
 		elements.join(", ").html_safe
 	end
 
-	# comma separated list
+	# OUTPUT comma separated list
 	def cslist(models)
 		list = Array.new()
 		models.each do |model|
@@ -16,18 +16,5 @@ module IndexHelper
 		end
 
 		list.join(", ").html_safe
-	end
-
-	def ul_index(list)
-	end
-
-	def dl_index(list)
-		content_tag :ol, class: 'index' do
-		end
-	end
-
-	def ol_index(list)
-		content_tag :ol, class: 'index'  do 
-		end
 	end
 end

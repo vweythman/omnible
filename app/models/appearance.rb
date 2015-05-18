@@ -12,12 +12,6 @@
 
 class Appearance < ActiveRecord::Base
 
-	# VALIDATIONS and SCOPES
-	# ------------------------------------------------------------
-	validates :character_id, presence: true
-	validates :work_id,      presence: true
-	validates_uniqueness_of :character_id, :scope => :work_id
-
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :character

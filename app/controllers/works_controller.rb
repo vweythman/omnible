@@ -39,9 +39,7 @@ class WorksController < ApplicationController
 	end
 
 	def new
-		@work          = Work.new
-		@conceptions   = Array.new
-		@relationships = Array.new
+		@work = Work.new
 		@work.appearances.build
 		define_components
 	end
@@ -49,18 +47,18 @@ class WorksController < ApplicationController
 	def edit
 		find_work
 		define_components
-		@conceptions   = @work.concepts.pluck(:name)
-		@relationships = Array.new
 	end
 
 	# POST
 	# ............................................................
 	def create
+		add_characters
 		@work = Work.new(work_params)
 
 		if @work.save
 			redirect_to @work
 		else
+			define_components
 			render action: 'new'
 		end
 	end
@@ -69,10 +67,12 @@ class WorksController < ApplicationController
 	# ............................................................
 	def update
 		find_work
+		add_characters
 
 		if @work.update(work_params)
 			redirect_to @work
 		else
+			define_components
 			render action: 'edit'
 		end
 	end
@@ -111,6 +111,20 @@ class WorksController < ApplicationController
 
 	# setup form components
 	def define_components
-		@charnest = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+		@conceptions   = @work.concepts.pluck(:name)
+		@relationships = Array.new
+		@charnest      = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+	end
+
+	def add_characters
+		appearances = params[:work][:appearances_attributes]
+		appearances.each do |appearance|
+			char_id = appearance[1][:character_id]
+			is_int  = Integer(char_id, 10) rescue false
+			if !(is_int || char_id.empty?)
+				character = Character.where(name: char_id).first_or_create
+				appearance[1][:character_id] = character.id
+			end
+		end
 	end
 end

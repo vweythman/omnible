@@ -2,7 +2,7 @@
 	<fieldset>
 		<legend>Character</legend>
 		
-		<%= form_field f.label(:character_id), f.collection_select(:character_id, Character.order('lower(name)').all, :id, :name) %>
+		<%= form_field f.label(:character_id), f.collection_select(:character_id, Character.order('lower(name)').all, :id, :name, {}, :class => 'selectables') %>
 
 		<fieldset class='options'>
 			<legend>Choose Role</legend>

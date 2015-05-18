@@ -1,10 +1,10 @@
 /* MIXINS 
 ************************************************/
 // ENFORCE CONSISTENCY
-@mixin box-sizing ($type: border-box) {
-	-webkit-box-sizing: $type;
-	-moz-box-sizing: $type;
-	box-sizing: $type;
+@mixin box-sized () {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:    border-box;
+	box-sizing:         border-box;
 }
 @mixin gradient-back($deg, $start, $stop) {
   	background: linear-gradient($deg, $start, $stop);
@@ -13,6 +13,12 @@
 	-webkit-column-count: $count;
 	-moz-column-count:    $count;
 	column-count:         $count;
+}
+@mixin unselectable () {
+	-webkit-user-select: none;
+	-moz-user-select:    none;
+	-ms-user-select:     none;
+	user-select:         none;
 }
 
 // LINKS AND ACTIONS
@@ -61,7 +67,7 @@
 	&:active { @include depressed(darken($color, 15%)); }
 }
 
-@mixin switch-controller($color) {
+@mixin togglable($color) {
 	cursor:      pointer;
 	background:  $color;
 	color:       black;
@@ -73,6 +79,28 @@
 		color: darken($color, 70%);
 	}
 }
+@mixin chooseable($color) {
+	@include embossed($color);
+	input:checked + label { background: darken($color, 10%); }
+}
+@mixin grouping($color) {
+	@include gradient-back(180deg, $color, $page-color);
+	border-right:   3px solid $color;
+	border-left:    3px solid $color;
+	border-bottom:  2px solid $color;
+}
+@mixin headable($color) {
+	font-weight: 600;
+	background: $color;
+	@if lightness($color) < 50% {
+		border-bottom: 5px solid lighten($color, 10%);
+		color: lighten($color, 50%);
+	} @else {
+		border-bottom: 5px solid darken($color, 10%);
+		color: darken($color, 50%);
+	}
+}
+
 
 // RESPONSIVE
 @mixin reel {
