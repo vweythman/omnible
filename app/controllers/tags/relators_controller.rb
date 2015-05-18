@@ -60,10 +60,10 @@ class Tags::RelatorsController < ApplicationController
 	# define strong parameters
 	def relator_params
 		params.require(:relator).permit(:right_name, :left_name, 
-			relationships_attributes: [:id, :left_id, :right_id, :_destroy]
+			connections_attributes: [:id, :left_id, :right_id, :_destroy]
 		)
 	end
 	def define_components
-		@shipnest = Nest.new("Relationships", :relationships, "relationship_fields")
+		@shipnest = Nest.new("Connections", :connections, "connection_fields")
 	end
 end

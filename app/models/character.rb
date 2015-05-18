@@ -23,8 +23,8 @@
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
-#  relationships               | array       | merges both left and right 
-#                              |             | relationships
+#  connections                 | array       | merges both left and right 
+#                              |             | connections
 # ================================================================================
 
 class Character < ActiveRecord::Base
@@ -60,8 +60,8 @@ class Character < ActiveRecord::Base
 	# indirect associations and subgroups
 	has_many :opinions,   -> { where(recip_type: 'Character') } 
 	has_many :prejudices, -> { where(recip_type: 'Identity')  }
-	has_many :left_relationships,  class_name: "Relationship", foreign_key: "left_id"
-	has_many :right_relationships, class_name: "Relationship", foreign_key: "right_id"
+	has_many :left_connections,  class_name: "Connection", foreign_key: "left_id"
+	has_many :right_connections, class_name: "Connection", foreign_key: "right_id"
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -79,10 +79,10 @@ class Character < ActiveRecord::Base
 		name
 	end
 
-	# Relationships
-	# - merges both left and right relationships
-	def relationships
-		Relationship.character_relationships(self.id).order(:relator_id).includes(:relator)
+	# Connections
+	# - merges both left and right connections
+	def connections
+		Connection.character_connections(self.id).order(:relator_id).includes(:relator)
 	end
 
 end

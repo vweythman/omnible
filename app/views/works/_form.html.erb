@@ -9,7 +9,7 @@
 
 	<fieldset class='nested tags'>
 		<legend>Tags</legend>
-		<%= form_field label_tag(:relationships, "Relationships"), text_field_tag(:relationships, @relationships.join(";"), :placeholder => "Add Character Relationships", :class => 'taggables') %>
+		<%= form_field label_tag(:connections, "Relationships"), text_field_tag(:connections, @connections.join(";"), :placeholder => "Add Character Relationships", :class => 'taggables') %>
 		<%= form_field label_tag(:conceptions, "Concepts"), text_field_tag(:conceptions, @conceptions.join(";"), :placeholder => "Add Concepts", class: 'taggables') %>
 	</fieldset>
 

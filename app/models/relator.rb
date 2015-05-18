@@ -7,11 +7,11 @@ class Relator < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :relationships
+	has_many :connections
 	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
-	accepts_nested_attributes_for :relationships, :allow_destroy => true
+	accepts_nested_attributes_for :connections, :allow_destroy => true
 
 	# METHODS
 	# ------------------------------------------------------------
@@ -22,13 +22,13 @@ class Relator < ActiveRecord::Base
 	end
 
 	# LeftHeading
-	# - defines the left hand relationship
+	# - defines the left hand connection
 	def left_heading
 		"#{left_name}" unless left_name.nil?
 	end
 
 	# RightHeading
-	# - defines the right hand relationship
+	# - defines the right hand connection
 	def right_heading
 		has_reverse? ? "#{right_name}" : left_heading
 	end

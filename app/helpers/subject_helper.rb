@@ -1,12 +1,12 @@
 module SubjectHelper
 
-	def relationship_cells(character_id, relationships)
+	def connection_cells(character_id, connections)
 		cheading = 0
 		cells    = ""
 		links     = Array.new
 
-		relationships.each do |relationship|
-			recip, heading = find_inverse_relationship(relationship, character_id)
+		connections.each do |connection|
+			recip, heading = find_inverse_connection(connection, character_id)
 
 			if cheading == 0
 				cheading = heading
@@ -20,11 +20,11 @@ module SubjectHelper
 		"#{cells} #{build_row(cheading, links)}".html_safe
 	end
 
-	def find_inverse_relationship(relationship, character_id)
-		if relationship.left_id == character_id
-			[relationship.right, relationship.relator.right_heading]
+	def find_inverse_connection(connection, character_id)
+		if connection.left_id == character_id
+			[connection.right, connection.relator.right_heading]
 		else
-			[relationship.left, relationship.relator.left_heading]
+			[connection.left, connection.relator.left_heading]
 		end
 	end
 

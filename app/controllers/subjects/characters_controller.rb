@@ -22,7 +22,7 @@ class Subjects::CharactersController < ApplicationController
 		find_character
 		@identities    = Identity.organize(@character.identities.includes(:facet))
 		@items         = Item.organize(@character.items.includes(:generic))
-		@relationships = @character.relationships.includes(:relator).includes(:left).includes(:right)
+		@connections   = @character.connections.includes(:relator).includes(:left).includes(:right)
 		@prejudices    = @character.prejudices.includes(:recip)
 		@opinions      = @character.opinions.includes(:recip)
 		@viewpoints    = @character.viewpoints

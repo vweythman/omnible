@@ -25,15 +25,15 @@
 			<%= render 'views_list' %>
 		</section>
 
-		<section class="relationships">
-			<% unless @relationships.empty? %>
+		<section class="connections">
+			<% unless @connections.empty? %>
 
 			<h2>Relationships</h2>
 			<table>
 				<thead>
 					<tr><th>Type</th><th>People</th></tr>
 				</thead>
-				<%= relationship_cells(@character.id, @relationships) %>
+				<%= connection_cells(@character.id, @connections) %>
 			</table>
 
 			<% end %>

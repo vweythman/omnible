@@ -1,15 +1,15 @@
-# Relationship
+# Connection
 # ================================================================================
-# membership is a join model between characters and their relationship type
+# membership is a join model between characters and their connection type
 #
 # ================================================================================
 
-class Relationship < ActiveRecord::Base
+class Connection < ActiveRecord::Base
 
   # VALIDATIONS and SCOPES
   # ------------------------------------------------------------
-  scope :canon_relationship, -> { where(canon: '1') }
-  scope :character_relationships, ->(person_id) { where("left_id = ? OR right_id = ?", person_id, person_id)}
+  scope :canon_connection, -> { where(canon: '1') }
+  scope :character_connections, ->(person_id) { where("left_id = ? OR right_id = ?", person_id, person_id)}
   
   # ASSOCIATIONS
   # ------------------------------------------------------------

@@ -111,9 +111,9 @@ class WorksController < ApplicationController
 
 	# setup form components
 	def define_components
-		@conceptions   = @work.concepts.pluck(:name)
-		@relationships = Array.new
-		@charnest      = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+		@conceptions = @work.concepts.pluck(:name)
+		@connections = Array.new
+		@charnest    = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
 	end
 
 	def add_characters
