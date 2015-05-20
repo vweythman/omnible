@@ -7,10 +7,15 @@
 		<%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Add Summary", :class=> :minor) %>
 	</fieldset>
 
-	<fieldset class='nested tags'>
+	<fieldset class='nested tags' id="tags">
 		<legend>Tags</legend>
-		<%= form_field label_tag(:connections, "Relationships"), text_field_tag(:connections, @connections.join(";"), :placeholder => "Add Character Relationships", :class => 'taggables') %>
-		<%= form_field label_tag(:conceptions, "Concepts"), text_field_tag(:conceptions, @conceptions.join(";"), :placeholder => "Add Concepts", class: 'taggables') %>
+		<%= form_field label_tag(:activities, "Activities"), text_field_tag(:activities, @relationships.join(";"), :placeholder => "Add Activities", :class => 'taggables') %>
+		<%= form_field label_tag(:relationships, "Relationships"), text_field_tag(:relationships, @relationships.join(";"), :placeholder => "Add Character Relationships", :class => 'taggables') %>
+		<%= form_field label_tag(:concepts, "Concepts"), text_field_tag(:concepts, @concepts.join(";"), :placeholder => "Add Concepts", class: 'taggables') %>
+		<%= form_field label_tag(:events, "Events"), text_field_tag(:events, @relationships.join(";"), :placeholder => "Add Events", :class => 'taggables') %>
+		<%= form_field label_tag(:items, "Items"), text_field_tag(:items, @relationships.join(";"), :placeholder => "Add Items", :class => 'taggables') %>
+		<%= form_field label_tag(:relators, "Types of Relationships"), text_field_tag(:relators, @relationships.join(";"), :placeholder => "Types of Relationships", :class => 'taggables') %>
+		<%= form_field label_tag(:connections, "Relationships"), text_field_tag(:connections, @relationships.join(";"), :placeholder => "Add Relationships", :class => 'taggables') %>
 	</fieldset>
 
 	<%= show_link(@charnest.heading, @charnest.klass) %>

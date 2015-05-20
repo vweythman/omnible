@@ -20,6 +20,7 @@ class WorksController < ApplicationController
 
 	def show
 		find_work
+		@taggables = WorkTag.organized_all(@work.work_tags)
 
 		if user_signed_in? && @work.editable?(current_user)
 			@chapters = @work.chapters
@@ -111,9 +112,10 @@ class WorksController < ApplicationController
 
 	# setup form components
 	def define_components
-		@conceptions = @work.concepts.pluck(:name)
-		@connections = Array.new
-		@charnest    = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+		@concepts      = @work.concepts.pluck(:name)
+		@characters    = Character.order('lower(name)').all
+		@relationships = Array.new
+		@charnest      = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
 	end
 
 	def add_characters

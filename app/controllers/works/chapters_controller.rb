@@ -11,6 +11,7 @@ class Works::ChaptersController < ApplicationController
 
 	def show
 		find_chapter
+		@taggables = WorkTag.organized_all(@work.work_tags)
 	end
 
 	def new

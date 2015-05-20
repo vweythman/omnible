@@ -3,9 +3,9 @@
 	<th>Tags</th>
 	<td colspan='3'>
 		<dl>
-			<% if @work.concepts.length > 0 %>
-				<dt>Concepts</dt>
-				<dd><%= cslinks(@work.concepts) %></dd>
+			<% @taggables.each do |type, taggable| %>
+				<dt><%= type.pluralize(taggable.count) %></dt>
+				<dd><%= cslinks(taggable.map { |tagged| tagged.tag }) %></dd>
 			<% end %>
 
 			<%= render 'works/shared/meta/character', characters: @work.main_characters, type: "Main" %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511235149) do
+ActiveRecord::Schema.define(version: 20150518215641) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -86,6 +86,14 @@ ActiveRecord::Schema.define(version: 20150511235149) do
   create_table "concepts", force: true do |t|
     t.string   "name",       null: false
     t.string   "slug",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "connections", force: true do |t|
+    t.integer  "left_id"
+    t.integer  "relator_id"
+    t.integer  "right_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -232,14 +240,6 @@ ActiveRecord::Schema.define(version: 20150511235149) do
 
   add_index "ratings", ["work_id"], name: "index_ratings_on_work_id"
 
-  create_table "relationships", force: true do |t|
-    t.integer  "left_id"
-    t.integer  "relator_id"
-    t.integer  "right_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "relators", force: true do |t|
     t.string   "left_name"
     t.string   "right_name"
@@ -328,6 +328,17 @@ ActiveRecord::Schema.define(version: 20150511235149) do
   end
 
   add_index "viewpoints", ["character_id"], name: "index_opinions_on_character_id"
+
+  create_table "work_tags", force: true do |t|
+    t.integer  "work_id"
+    t.integer  "tag_id"
+    t.string   "tag_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "work_tags", ["tag_id", "tag_type"], name: "index_work_tags_on_tag_id_and_tag_type"
+  add_index "work_tags", ["work_id"], name: "index_work_tags_on_work_id"
 
   create_table "works", force: true do |t|
     t.string   "title"

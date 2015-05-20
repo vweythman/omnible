@@ -44,10 +44,10 @@ class Concept < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# joins
-	has_many :conceptions
+	has_many :work_tags, as: :tag
 
 	# models that reference concepts
-	has_many :works, :through => :conceptions
+	has_many :works, :through => :work_tags
 
 	# METHODS
 	# ------------------------------------------------------------

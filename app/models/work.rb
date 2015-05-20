@@ -52,8 +52,8 @@ class Work < ActiveRecord::Base
 	# joins
 	has_many :collections
 	has_many :appearances
-	has_many :conceptions
 	has_many :respondences, as: :response
+	has_many :work_tags
 
 	# models that possess these models
 	belongs_to :user
@@ -66,7 +66,7 @@ class Work < ActiveRecord::Base
 
 	# models that are refrenced by these models
 	has_many :characters, :through => :appearances
-	has_many :concepts, :through => :conceptions
+	has_many :tags, :through => :work_tags
 
 	# indirect associations and subgroups
 	has_many :identities, ->{uniq}, :through => :characters
@@ -74,10 +74,13 @@ class Work < ActiveRecord::Base
 	has_many :side_characters, -> { where(appearances: {role: 'side'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
 	has_many :mentioned_characters, -> { where(appearances: {role: 'mentioned'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
 
+	# DELEGATIONS
+	# ------------------------------------------------------------
+	delegate :concepts, :to => :work_tags
+	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :appearances, :allow_destroy => true
-	accepts_nested_attributes_for :conceptions, :allow_destroy => true
 
 	# METHODS
 	# ------------------------------------------------------------

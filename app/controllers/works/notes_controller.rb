@@ -11,6 +11,7 @@ class Works::NotesController < ApplicationController
 
 	def show
 		find_note
+		@taggables = WorkTag.organized_all(@work.work_tags)
 	end
 
 	def new

@@ -10,10 +10,24 @@
 	}
 	aside {
 		@include page-shadow($water-light);
-		width: calc(20% - 30px);
 		margin: 15px 0;
-		padding: 15px;
-		float: left;
+		
+		@include reel {
+			width: calc(100% - 40px);
+			padding: 5px;
+
+		}
+		@include non-mobile {
+			float: left;
+			width: calc(20% - 30px);
+			padding: 15px;
+		}
+		@include portrait {
+			width: calc(50% - 30px);
+		}
+
+
+
 		article { 
 			margin: 0;
 			padding: 0;
@@ -22,7 +36,9 @@
 		}
 		& > dl { text-align: center; }
 	}
-	aside + article { margin-left: calc(20% + 30px); }
+	aside + article { 
+		margin-left: calc(20% + 30px);
+	}
 	h2 {
 		font-size: $heading-size - 2;
 		letter-spacing: 3px;

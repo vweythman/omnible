@@ -20,12 +20,12 @@ class Subjects::CharactersController < ApplicationController
 
 	def show
 		find_character
-		@identities    = Identity.organize(@character.identities.includes(:facet))
-		@items         = Item.organize(@character.items.includes(:generic))
-		@connections   = @character.connections.includes(:relator).includes(:left).includes(:right)
-		@prejudices    = @character.prejudices.includes(:recip)
-		@opinions      = @character.opinions.includes(:recip)
-		@viewpoints    = @character.viewpoints
+		@identities  = Identity.organize(@character.identities.includes(:facet))
+		@items       = Item.organize(@character.items.includes(:generic))
+		@connections = @character.connections.includes(:relator).includes(:left).includes(:right)
+		@prejudices  = @character.prejudices.includes(:recip)
+		@opinions    = @character.opinions.includes(:recip)
+		@viewpoints  = @character.viewpoints
 	end
 
 	def preview

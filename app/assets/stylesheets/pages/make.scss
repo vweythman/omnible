@@ -36,7 +36,7 @@
 }
 .hider { margin:  0; }
 .edit .nested, .new .show { display: none; }
-#form_descriptions { display: block; }
+#form_descriptions, #tags { display: block; }
 #show_descriptions { display: none; }
 .show, .add_fields    { margin-top: 15px; }
 .hide, .remove_fields { text-align: right; }
