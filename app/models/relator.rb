@@ -3,11 +3,11 @@ class Relator < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Imaginable    # member of the idea group
-	include Taggable      # member of the tag group
+	extend Taggable      # member of the tag group
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :connections
+	has_many :connections, dependent: :destroy
 	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------

@@ -56,13 +56,13 @@ class Viewpoint < ActiveRecord::Base
   # warmths
   # - defines and collects names associated with @warmth
   def self.warmths
-  	['Very Low', 'Low', 'Neutral', 'High', 'Very High']
+  	['Lowest', 'Low', 'Neutral', 'High', 'Highest']
   end
 
   # respects
   # - defines and collects names associated with @respect
   def self.respects
-    ['Very Low', 'Low', 'Neutral', 'High', 'Very High']
+    ['Lowest', 'Low', 'Neutral', 'High', 'Highest']
   end
 
 end

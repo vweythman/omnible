@@ -21,7 +21,14 @@
 	user-select:         none;
 }
 
-// LINKS AND ACTIONS
+// LOOKS
+@mixin upbox($text-color, $box-color) {
+	@include page-shadow($text-color);
+	color:   $box-color;
+	margin:  10px auto;
+	padding: 10px;
+	width:   90%;
+}
 @mixin page-shadow($color) {
 	box-shadow: 0 0 1px 0 $color;
 }
@@ -63,7 +70,8 @@
 	letter-spacing: 1px;
 	padding:        7px 10px;
 
-	&:hover  { @include embossed(darken($color, 15%)); }
+	&:hover, 
+	&:focus  { @include embossed(darken($color, 15%)); }
 	&:active { @include depressed(darken($color, 15%)); }
 }
 
@@ -123,3 +131,9 @@
 		@content;
 	}
 }
+@mixin non-desktop {
+	@media (max-width: #{$portrait-max}) {
+		@content;
+	}
+}
+

@@ -6,25 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Host.create([
-	{
-		name: "SpaceBattles"
-		source:  'forums.spacebattles.com'
-	},
-	{
-		name:
-		source:
-	},
-	{
-		name:
-		source:
-	},
-	{
-		name:
-		source:
-	},
-	{
-		name:
-		source:
-	}
-])
+Replication.create(original_id: 60, clone_id: 61)

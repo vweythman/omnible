@@ -3,7 +3,7 @@
 		<tr>
 			<th><%= chapter.position %></th>
 			<td><%= link_to chapter.heading, [@work, chapter] %></td>
-			<td><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %></td>
+			<td><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %> words</td>
 			<td><%= model_toolkit(chapter) %></td>
 		</tr>
 	<% end %>

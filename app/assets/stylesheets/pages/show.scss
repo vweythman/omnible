@@ -4,29 +4,23 @@
 	margin: 15px auto;
 	width:  90%;
 	.toolkit { margin: 0; }
+	div { overflow: auto; }
 	footer { 
 		text-align: center;
 		p { padding: 0; }
 	}
 	aside {
-		@include page-shadow($water-light);
 		margin: 15px 0;
-		
 		@include reel {
 			width: calc(100% - 40px);
 			padding: 5px;
-
 		}
 		@include non-mobile {
 			float: left;
-			width: calc(20% - 30px);
-			padding: 15px;
+			padding: 0 15px;
 		}
-		@include portrait {
-			width: calc(50% - 30px);
-		}
-
-
+		@include portrait  { width: calc(50% - 30px); }
+		@include landscape { width: calc(40% - 30px); }
 
 		article { 
 			margin: 0;
@@ -36,14 +30,22 @@
 		}
 		& > dl { text-align: center; }
 	}
-	aside + article { 
-		margin-left: calc(20% + 30px);
+	.content > aside {
+		@include landscape { width: calc(20% - 30px); }	
+	}
+	aside + section {
+		margin:      15px 0;
+
+		@include portrait  { margin-left: calc(50% + 30px); }
+		@include landscape { margin-left: calc(20% + 30px); }
 	}
 	h2 {
 		font-size: $heading-size - 2;
 		letter-spacing: 3px;
 		font-variant: small-caps;
 		font-weight: lighter;
+		padding: 0;
+		margin: 0;
 	}
 }
 .piece {
@@ -63,6 +65,11 @@
 	}
 	h2 { margin: 0; }
 	.toolkit { margin: 5px 0; }
+}
+article tbody .toolkit {
+	@include non-desktop {
+		display: none;
+	}
 }
 
 // RATINGS AND REVIEWS
@@ -88,6 +95,5 @@
 	}
 	dd { padding: 0; }
 }
-
 
 /* END */

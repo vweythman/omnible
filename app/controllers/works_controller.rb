@@ -105,17 +105,17 @@ class WorksController < ApplicationController
 	# define strong parameters
 	def work_params
 		params.require(:work).permit(:title, :user_id, :summary, 
-			appearances_attributes: [:id, :character_id, :role, :_destroy],
-			conceptions_attributes: [:id, :concept_id, :_destroy]
+			appearances_attributes: [:id, :character_id, :role, :_destroy]
 		)
 	end
 
 	# setup form components
 	def define_components
-		@concepts      = @work.concepts.pluck(:name)
-		@characters    = Character.order('lower(name)').all
-		@relationships = Array.new
-		@charnest      = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+		@characters = Character.order('lower(name)').all
+		@concepts   = @work.concepts.pluck(:name)
+		@qualities  = @work.qualities.pluck(:name)
+		@activities = @work.activities.pluck(:name)
+		@charnest   = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
 	end
 
 	def add_characters

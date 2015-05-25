@@ -30,10 +30,15 @@ class Concept < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Imaginable    # member of the idea group
-	include Taggable      # member of the tag group
+	extend Taggable      # member of the tag group
 	extend FriendlyId     # slugged based on the name
 	
-	# VALIDATIONS and SCOPES
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :not_among, ->(concepts) { where("name NOT IN (?)", concepts) }
+	scope :are_among, ->(concepts) { where("name IN (?)", concepts) }
+
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :name, presence: true
 	

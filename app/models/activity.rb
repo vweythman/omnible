@@ -25,13 +25,18 @@ class Activity < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Imaginable    # member of the idea group
-	include Taggable      # member of the tag group
+	extend Taggable       # member of the tag group
 	extend FriendlyId     # slugged based on the name
-	
-	# VALIDATIONS and SCOPES
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :not_among, ->(activities) { where("name NOT IN (?)", activities) }
+	scope :are_among, ->(activities) { where("name IN (?)", activities) }
+
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :name, length: { maximum: 250 }, presence: true
-	
+
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
 	friendly_id :name

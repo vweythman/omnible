@@ -2,8 +2,8 @@ require 'test_helper'
 
 class WorkTest < ActiveSupport::TestCase
   setup do
-    @work = works(:flight)
-    @alt_work = works(:fool)
+    @work  = works(:flight)
+    @work2 = works(:fool)
   end
 
   test "heading should be the same as title" do

@@ -107,7 +107,7 @@ class Subjects::CharactersController < ApplicationController
 	def set_identifiers
 		list    = params[:identifiers]
 		list    = list.split(";")
-		params[:character][:identifiers_attributes] = build_tag_list(list, :name)
+		params[:character][:identifiers_attributes] = build_tags(list, :name)
 	end		
 
 	def update_identifiers
@@ -116,7 +116,7 @@ class Subjects::CharactersController < ApplicationController
 		remove  = Identifier.not_among(@character.id, list).destroy_all
 		current = Identifier.are_among(@character.id, list).pluck(:name)
 		list    = list - current
-		params[:character][:identifiers_attributes] = build_tag_list(list, :name)
+		params[:character][:identifiers_attributes] = build_tags(list, :name)
 	end
 
 	# setup form components

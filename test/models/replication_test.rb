@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConceptionTest < ActiveSupport::TestCase
+class ReplicationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

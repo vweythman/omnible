@@ -3,10 +3,15 @@ class Quality < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Imaginable    # member of the idea group
-	include Taggable      # member of the tag group
+	extend Taggable      # member of the tag group
 	extend FriendlyId     # slugged based on the name
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :not_among, ->(qualities) { where("name NOT IN (?)", qualities) }
+	scope :are_among, ->(qualities) { where("name IN (?)", qualities) }
 	
-	# VALIDATIONS and SCOPES
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :name, presence: true
 	
@@ -31,16 +36,4 @@ class Quality < ActiveRecord::Base
 		name
 	end
 
-	# CLASS METHODS
-	# ------------------------------------------------------------
-	def self.batch_build(taggables)
-		ids = Array.new
-
-		taggables.each do |description|
-			quality  = Quality.where(name: description).first_or_create
-			ids.push quality.id
-		end
-
-		ids
-	end
 end

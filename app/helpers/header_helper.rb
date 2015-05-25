@@ -8,7 +8,7 @@ module HeaderHelper
 	end
 	# OUTPUT header for "edit" page
 	def edit_header(name, title)
-		provide(:title, "Edit #{title}")
+		provide(:title, "Edit #{title}".html_safe)
 		content_tag :h1 do
 			"Edit #{name}"
 		end

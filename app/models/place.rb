@@ -3,7 +3,7 @@ class Place < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable  # member of the subject group
-	include Taggable      # member of the tag group
+	extend Taggable      # member of the tag group
 	extend Organizable    # has a type
 
 	# ASSOCIATIONS

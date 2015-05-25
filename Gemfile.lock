@@ -40,6 +40,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    amoeba (3.0.0)
+      activerecord (>= 3.2.6)
     arel (5.0.1.20140414130214)
     awesome_nested_set (3.0.2)
       activerecord (>= 4.0.0, < 5)
@@ -167,6 +169,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  amoeba
   awesome_nested_set (~> 3.0.1)
   cocoon
   coffee-rails (= 4.0.1)

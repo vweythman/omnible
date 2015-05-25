@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518215641) do
+ActiveRecord::Schema.define(version: 20150522221859) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -246,6 +246,16 @@ ActiveRecord::Schema.define(version: 20150518215641) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "replications", force: true do |t|
+    t.integer  "original_id"
+    t.integer  "clone_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "replications", ["clone_id"], name: "index_replications_on_clone_id"
+  add_index "replications", ["original_id"], name: "index_replications_on_original_id"
 
   create_table "respondences", force: true do |t|
     t.integer  "caller_id"

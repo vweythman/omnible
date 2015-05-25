@@ -12,19 +12,21 @@
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
 #
-# Model Associations
-# --------------------------------------------------------------------------------
-# owned by  : work, groups
-# has this  : identifiers, identities, viewpoints
-#
 # Methods (max length: 25 characters) 
 # --------------------------------------------------------------------------------
 #  method name                 | output type | description
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
-#  connections                 | array       | merges both left and right 
+#  connections                 | array       | finds both left and right 
 #                              |             | connections
+#  editable?                   | bool        | asks if character can be edited
+#  is_a_clone?                 | bool        | asks if character cloned from 
+#                              |             | another character
+#  playable?                   | bool        | asks if character is an roleplay 
+#                              |             | character
+#  viewable?                   | bool        | asks if character is publically 
+#                              |             | viewable or owned by current user
 # ================================================================================
 
 class Character < ActiveRecord::Base
@@ -32,36 +34,45 @@ class Character < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable  # member of the subject group
-	include Taggable      # member of the tag group
+	extend Taggable       # member of the tag group
 
-	# VALIDATIONS and SCOPES
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :top_appearers, -> {joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
+	scope :not_among, ->(characters) { where("name NOT IN (?)", characters) }
+	scope :are_among, ->(characters) { where("name IN (?)", characters) }
+
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :name, presence: true
-	scope :top_appearers, -> {joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# joins
-	has_many :appearances
-	has_many :memberships
-	has_many :descriptions
-	has_many :possessions
+	has_many :appearances,  dependent: :destroy
+	has_one  :cloning,      class_name: "Replication", foreign_key: "clone_id", dependent: :destroy
+	has_many :descriptions, dependent: :destroy
+	has_many :memberships,  dependent: :destroy
+	has_many :possessions,  dependent: :destroy
+	has_many :replications, foreign_key: "original_id", dependent: :destroy
+	has_many :viewpoints,   dependent: :destroy
 
 	# models that possess these models
-	has_many :groups, through: :memberships
-	has_many :works,  through: :appearances
+	has_many :groups,   through: :memberships
+	has_many :works,    through: :appearances
+	has_one  :original, through: :cloning
 
 	# models that belong to this model
-	has_many :identifiers
+	has_many :identifiers, dependent: :destroy
 	has_many :identities, through: :descriptions
 	has_many :items,      through: :possessions
-	has_many :viewpoints 
+	has_many :clones,     through: :replications
 
 	# indirect associations and subgroups
 	has_many :opinions,   -> { where(recip_type: 'Character') } 
 	has_many :prejudices, -> { where(recip_type: 'Identity')  }
-	has_many :left_connections,  class_name: "Connection", foreign_key: "left_id"
-	has_many :right_connections, class_name: "Connection", foreign_key: "right_id"
+	has_many :left_connections,  class_name: "Connection", foreign_key: "left_id", dependent: :destroy
+	has_many :right_connections, class_name: "Connection", foreign_key: "right_id", dependent: :destroy
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -70,6 +81,16 @@ class Character < ActiveRecord::Base
 	accepts_nested_attributes_for :opinions,     :allow_destroy => true
 	accepts_nested_attributes_for :possessions,  :allow_destroy => true
 	accepts_nested_attributes_for :prejudices,   :allow_destroy => true
+
+	# DEEP DUPLICATION
+	# ------------------------------------------------------------
+	amoeba do
+		enable
+		include_association :descriptions
+		include_association :possessions
+		include_association :viewpoints
+		include_association :identifiers
+	end
 
 	# METHODS
 	# ------------------------------------------------------------
@@ -80,9 +101,42 @@ class Character < ActiveRecord::Base
 	end
 
 	# Connections
-	# - merges both left and right connections
+	# - finds both left and right connections
 	def connections
 		Connection.character_connections(self.id).order(:relator_id).includes(:relator)
+	end
+
+	def replicate
+		replica      = self.amoeba_dup
+		number       = self.clones.count + 1
+		replica.name = "#{replica.name} (Clone \##{number})"
+
+		replica.save
+
+		Replication.create(original_id: self.id, clone_id: replica.id)
+		return replica
+	end
+
+	# Editable?
+	# - asks if character can be edited
+	def editable?
+	end
+
+	# IsAClone?
+	# - asks if character cloned from another character
+	def is_a_clone?
+		self.original.present?
+	end
+
+	# Playable?
+	# - asks if character is an roleplay character
+	def playable?
+	end
+
+	# Viewable?
+	# - asks if character is publically viewable or owned by 
+	#   current user
+	def viewable?
 	end
 
 end

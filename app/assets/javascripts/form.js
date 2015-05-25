@@ -2,12 +2,17 @@ function sort_description(selector, list) {
 	facet = $(selector).find(":selected").text();
 	t_id = $(selector).attr('id');
 	t_id = t_id.split('_facet');
+
 	d_id = t_id[0] + '_identity_id';
+	if ( !$( "#" + d_id ).length ) {
+		d_id = t_id[0] + '_recip_id';
+	}
+
 	options = $(list).filter('optgroup[label="' + facet + '"]').html();
 
 	$("#" + d_id).parent().hide();
 	$("#" + d_id).html(options);
-	$("#" + d_id).parent().show();  
+	$("#" + d_id).parent().show();
 }
 
 $(document).ready(function(){
@@ -33,18 +38,18 @@ $(document).ready(function(){
 	// CREATE IDENTITY SELECTION BY FACET
 	terms = $("#character_descriptions_attributes_0_identity_id").html();
 
-	$( "#form_descriptions" ).delegate( ".selector", 'change', function() {
+	$( ".identities" ).delegate( ".selector", 'change', function() {
 		sort_description(this, terms);
 	});
 
-	$("#form_descriptions .selector").on('setupDescribe', function() {
+	$(".identities .selector").on('setupDescribe', function() {
 		terms = $(this).closest('fieldset').find('.selection').html();
 		sort_description(this, terms);
 	});
 
-	$("#form_descriptions .selector").trigger('setupDescribe');
+	$(".identities .selector").trigger('setupDescribe');
 	
-	$( "#form_descriptions" ).on('cocoon:after-insert', function(e, inserted_item) {
+	$( ".identities" ).on('cocoon:after-insert', function(e, inserted_item) {
 		inserted_item.find('.selector').trigger('change');
 	});
 

@@ -1,19 +1,16 @@
 /* MAIN CONTENT
 ************************************************/
 .alert {
-	color:      red;
-	@include page-shadow(red);
-	margin:     10px auto;
-	padding:    10px;
-	width:      90%;
+	@include upbox(red, red);
 }
 .notice {
-	color:      blue;
-	@include page-shadow($water-light);
-	margin:     10px auto;
-	padding:    10px;
-	width:      90%;
+	@include upbox(blue, $water-light);
 }
+.announce {
+	@include upbox($fade-color, $water-color);
+	text-align:center;
+}
+
 .toolkit {
 	@include embossed($water-color);
 	margin:   10px;
@@ -34,7 +31,11 @@
 a { 
 	color:           $water-dark;
 	text-decoration: none;
-	&:hover { color: $read-color; }
+	main &:hover { 
+		color: $read-color;
+		text-decoration: underline;
+	}
+	.toolkit &:hover, form &:hover { text-decoration: none; }
 }
 article {
 	margin:      15px;

@@ -1,44 +1,22 @@
 <% provide(:title, @character.name) %>
 <main class="itemized">
 	<header>
+		<%= render 'subjects/characters/about/cloning_source' %>
 		<%= model_toolkit @character %>
 		<h1><%= @character.name %></h1>
 		<p class='identifiers'><%= @character.identifiers.map { |identifier| identifier.name }.join(", ") %></p>
 	</header>
 
-	<aside class='overview'>
-		<h2>Overview</h2>
-		<%= render 'tags/identities/list' %>
-		<% if @items.length > 0 %>
-			<h2><%= "Related Item".pluralize(@items.length) %></h2>
-			<%= render 'subjects/items/list' %>
-		<% end %>
-	</aside>
-
 	<article>
-		<section class='about'>
-			<% if @character.about != nil %>
-				<h2>About</h2>
-				<%= markdown @character.about %>
-			<% end %>
-
-			<%= render 'views_list' %>
-		</section>
-
-		<section class="connections">
-			<% unless @connections.empty? %>
-
-			<h2>Relationships</h2>
-			<table>
-				<thead>
-					<tr><th>Type</th><th>People</th></tr>
-				</thead>
-				<%= connection_cells(@character.id, @connections) %>
-			</table>
-
-			<% end %>
-		</section>
+		<div class="content">
+			<%= render 'subjects/characters/about/aside' %>
+			<%= render 'subjects/characters/about/details' %>
+		</div>
+		<footer>
+			<%= render 'subjects/characters/about/replicate' %>
+			<%= render 'subjects/characters/about/roleplay' %>
+		</footer>
 	</article>
 
-	<%= render 'shared/subject_footer' %>
 <main>
+<%= render 'subjects/shared/footer' %>

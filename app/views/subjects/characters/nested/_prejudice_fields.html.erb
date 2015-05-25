@@ -1,9 +1,21 @@
-<div class='nested-fields'>
+<div class='nested-fields identities'>
 	<fieldset>
 		<legend>Prejudice</legend>
 		<div class='pair'>
-			<%= form_field f.label(:facet_id, "Facet"), f.collection_select(:facet_id, @facets, :id, :name, {:selected => (f.object.recip.nil? ? "state" : f.object.recip.facet.id)}, {:class=>'selector'}) %>
-			<%= form_field f.label(:recip_id, "Identity"), f.grouped_collection_select(:recip_id, @facets, :identities, :name, :id, :name, {}, {:class=>'selection'}) %>
+			<%= 
+				form_field f.label(:facet_id, "Facet"), 
+					f.collection_select(:facet_id, @facets, :id, :name, 
+						{:selected => (f.object.recip.nil? ? "state" : f.object.recip.facet.id)}, 
+						{:class=>'selector'}
+					)
+			%>
+			<%= 
+				form_field f.label(:recip_id, "Identity"), 
+					f.grouped_collection_select(:recip_id, @facets, :identities, :name, :id, :name, 
+						{}, 
+						{:class=>'selection'}
+					)
+			%>
 		</div>
 		<%= form_field f.label(:about, "Treatment"), f.text_area(:about, class: "minor") %>
 

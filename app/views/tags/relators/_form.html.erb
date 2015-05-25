@@ -7,10 +7,10 @@
 		<%= form_field f.label(:right_name, 'Inverse Relationship'), f.text_field(:right_name, :placeholder => "Name the Inverse Relationship If It Exists") %>
 	</fieldset>
 
-	<%= show_link @shipnest.heading, @shipnest.klass %>
-	<fieldset class='nested' id="<%= @shipnest.form_id %>">
-		<%= nested_fields @shipnest, f, {collection: Character.order('lower(name)').all} %>
-		<p><%= link_to_add_association '+ Add Relationships', f, @shipnest.klass, :render_options => {:locals => {collection: Character.order('lower(name)').all}} %></p>
+	<%= show_link @connest.heading, @connest.klass %>
+	<fieldset class='nested' id="<%= @connest.form_id %>">
+		<%= nested_fields @connest, f, {collection: Character.order('lower(name)').all} %>
+		<p><%= link_to_add_association '+ Add Relationships', f, @connest.klass, :render_options => {:locals => {collection: Character.order('lower(name)').all}} %></p>
 	</fieldset>
 
 	<%= f.submit %>

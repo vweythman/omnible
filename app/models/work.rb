@@ -13,12 +13,6 @@
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
 #
-# Model Associations
-# --------------------------------------------------------------------------------
-# owned by  : user, anthologies
-# has this  : chapters, notes
-# refrences : characters, concepts
-# 
 # Methods (max length: 25 characters) 
 # --------------------------------------------------------------------------------
 #  method name                 | output type | description
@@ -27,6 +21,8 @@
 #                              |             | addressing the model
 #  content_distribution        | array       | collects the totals number of 
 #                              |             | chapters and notes
+#  editable?                   | bool        | asks if work can be edited
+#  self.sorter                 | string      | decide on the sort order
 # ================================================================================
 
 class Work < ActiveRecord::Base
@@ -58,15 +54,15 @@ class Work < ActiveRecord::Base
 	# models that possess these models
 	belongs_to :user
 	has_many :anthologies, :through => :collections
-	has_many :callers, :through => :respondences
+	has_many :callers,     :through => :respondences
 
 	# models that belong to this model
 	has_many :chapters, :inverse_of => :work
-	has_many :notes, :inverse_of => :work
+	has_many :notes,    :inverse_of => :work
 
 	# models that are refrenced by these models
 	has_many :characters, :through => :appearances
-	has_many :tags, :through => :work_tags
+	has_many :tags,       :through => :work_tags
 
 	# indirect associations and subgroups
 	has_many :identities, ->{uniq}, :through => :characters
@@ -76,7 +72,7 @@ class Work < ActiveRecord::Base
 
 	# DELEGATIONS
 	# ------------------------------------------------------------
-	delegate :concepts, :to => :work_tags
+	delegate :concepts, :activities, :qualities, :to => :work_tags
 	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -99,6 +95,8 @@ class Work < ActiveRecord::Base
 		}
 	end
 
+	# Editable?
+	# - asks if work can be edited
 	def editable?(user)
 		self.user.id == user.id
 	end
@@ -107,7 +105,6 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Sorter
 	# - decide on the sort order
-
 	def self.sorter(choice)
 		case choice
 		when "posted"
@@ -120,5 +117,4 @@ class Work < ActiveRecord::Base
 			return "updated_at desc"             
 		end
 	end
-
 end

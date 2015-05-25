@@ -1,0 +1,10 @@
+<section class='about'>
+	<% if @character.about.present? %>
+		<h2>About</h2>
+		<%= markdown @character.about %>
+	<% end %>
+
+	<%= render 'subjects/characters/about/views_list' %>
+	<%= render 'subjects/characters/about/clones' %>
+	<%= render 'subjects/characters/about/connections' %>
+</section>

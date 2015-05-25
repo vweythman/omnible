@@ -14,10 +14,12 @@ class Tags::RelatorsController < ApplicationController
 
 	def new
 		@relator = Relator.new
+		define_components
 	end
 
 	def edit
 		find_relator
+		define_components
 	end
 
 	# POST
@@ -27,6 +29,7 @@ class Tags::RelatorsController < ApplicationController
 		if @relator.save
 			redirect_to @relator
 		else
+			define_components
 			render action: 'new'
 		end
 	end
@@ -39,6 +42,7 @@ class Tags::RelatorsController < ApplicationController
 		if @relator.update(relator_params)
 			redirect_to @relator
 		else
+			define_components
 			render action: 'edit'
 		end
 	end
@@ -64,6 +68,6 @@ class Tags::RelatorsController < ApplicationController
 		)
 	end
 	def define_components
-		@shipnest = Nest.new("Connections", :connections, "connection_fields")
+		@connest = Nest.new("Connections", :connections, "connection_fields")
 	end
 end

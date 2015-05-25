@@ -9,9 +9,9 @@
 	<footer class='related_items'>
 		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
 		<% if @parent.is_subject? %>
-	 		<%= render 'shared/subject_footer' %>
+	 		<%= render 'subjects/shared/footer' %>
 		<% else %>
-	 		<%= render 'shared/tag_footer' %>
+	 		<%= render 'tags/shared/footer' %>
  		<% end %>
 	</footer>
 </main>

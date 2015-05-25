@@ -30,7 +30,7 @@ class Subjects::ItemsController < ApplicationController
 	# ............................................................
 	def create
 		set_type
-		set_descriptions batch_qualities(params[:descriptions])
+		set_tags
 
 		@item = Item.new(item_params)
 
@@ -76,17 +76,15 @@ class Subjects::ItemsController < ApplicationController
 	end
 
 	# define descriptions
-	def set_descriptions(list)
-		params[:item][:item_descriptions_attributes] = build_tag_list(list, :quality_id)
+	def set_tags(list = Quality.batch(params[:descriptions]))
+		params[:item][:item_descriptions_attributes] = build_tags(list, :quality_id)
 	end
 
 	# update description list
 	def update_descriptions
-		list    = batch_qualities params[:descriptions]
-		remove  = ItemDescription.not_among(@item.id, list).destroy_all
-		current = ItemDescription.is_included(@item.id, list).pluck(:quality_id)
-		list    = list - current
-		set_descriptions(list)
+		list = Quality.batch params[:descriptions]
+		curr = @item.update_tags(list)
+		set_tags(list - curr)
 	end
 	
 	# define strong parameters

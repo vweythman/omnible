@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :users
   match '/403' => 'errors#403', via: :all
   match '/404' => 'errors#404', via: :all
@@ -32,6 +33,8 @@ Rails.application.routes.draw do
   resources :notes,    except: [:index, :new, :show], :controller => 'works/notes'
 
   scope module: 'subjects' do
+    post "/clones/:character_id/" => "clones#create", as: :new_clone
+    get "/clones/:character_id/" => "clones#new"
     resources :characters
     resources :items
     resources :places
