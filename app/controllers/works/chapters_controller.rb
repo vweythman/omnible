@@ -7,11 +7,12 @@ class Works::ChaptersController < ApplicationController
 	def index
 		@work     = Work.find(params[:work_id])
 		@chapters = @work.chapters
+		work_elements
 	end
 
 	def show
 		find_chapter
-		@taggables = WorkTag.organized_all(@work.work_tags)
+		work_elements
 	end
 
 	def new
@@ -66,6 +67,14 @@ class Works::ChaptersController < ApplicationController
 	def find_chapter
 		@chapter = Chapter.find(params[:id])
 		@work    = @chapter.work
+	end
+
+	def work_elements
+		@user      = @work.user
+		@taggables = WorkTag.organized_all(@work.work_tags.includes(:tag))
+		@mains     = @work.main_characters
+		@sides     = @work.side_characters
+		@mentions  = @work.mentioned_characters
 	end
 
 	# define strong parameters

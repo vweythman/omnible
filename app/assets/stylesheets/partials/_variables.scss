@@ -25,11 +25,11 @@ $water-dark:     darken($water-color, 10%);
 $water-darker:   darken($water-color, 20%);
 $water-darkest:  darken($water-color, 35%);
 
-$rating-lowest:  hsl(20, 95%, 50%);
-$rating-low:     hsl(30, 90%, 50%);
-$rating-mid:     hsl(50, 90%, 50%);
-$rating-high:    hsl(80, 90%, 50%);
-$rating-highest: hsl(90, 95%, 50%);
+$rating-lowest:  hsl(20, 95%, 40%);
+$rating-low:     hsl(30, 90%, 40%);
+$rating-mid:     hsl(50, 90%, 40%);
+$rating-high:    hsl(80, 90%, 40%);
+$rating-highest: hsl(90, 95%, 40%);
 
 // SCREEN SIZE and LAYOUT
 $reel-max:      500px;

@@ -1,6 +1,6 @@
 # Activity
 # ================================================================================
-# activities belong to the idea group of tags
+# activities are a type of tag which describe actions that can be undertaken
 #
 # Variables
 # --------------------------------------------------------------------------------
@@ -24,9 +24,8 @@ class Activity < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Imaginable    # member of the idea group
-	extend Taggable       # member of the tag group
-	extend FriendlyId     # slugged based on the name
+	extend Taggable   # methods for general tags
+	extend FriendlyId # methods for clean urls
 
 	# SCOPES
 	# ------------------------------------------------------------

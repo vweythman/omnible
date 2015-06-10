@@ -34,11 +34,16 @@
 
 class Chapter < ActiveRecord::Base
 
-	# VALIDATIONS and SCOPES
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :work_id, presence: true
 	validates :content, presence: true
 	validates_uniqueness_of :position, :scope => :work_id
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :prev_in_work, ->(work_id, position) { where("work_id = ? AND position < ?", work_id, position) }
+	scope :next_in_work, ->(work_id, position) { where("work_id = ? AND position > ?", work_id, position) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -77,14 +82,14 @@ class Chapter < ActiveRecord::Base
 	# - finds the previous chapter
 	# - :: object
 	def prev
-		@prev.nil? ? @prev = Chapter.where("work_id = ? AND position = ?", self.work_id, (self.position - 1)).first : @prev
+		@prev.nil? ? @prev = Chapter.prev_in_work(self.work_id, self.position).first : @prev
 	end
 
 	# Next
 	# - finds the next chapter
 	# - :: object
 	def next
-		@next.nil? ? @next = Chapter.where("work_id = ? AND position = ?", self.work_id, (self.position + 1)).first : @next
+		@next.nil? ? @next = Chapter.next_in_work(self.work_id, self.position).first : @next
 	end
 
 	# Editable

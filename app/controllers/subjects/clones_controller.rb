@@ -2,25 +2,50 @@ class Subjects::ClonesController < ApplicationController
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# POST
-	# ............................................................
-	def create
-		find_original
-		@character = @original.replicate
-		render 'new'
-	end
 
 	# GET
 	# ............................................................
-	def new
+	def show
 	end
 
+	def edit
+		@clone       = Character.find(params[:id])
+		@replication = Replication.new
+		@characters  = Character.not_among([@clone.name])
+
+		@replication.clone = @clone
+	end
+
+	# POST
+	# ............................................................
+	def create
+		@original  = Character.find(params[:id])
+		@character = @original.replicate
+		render 'show'
+	end
+
+	# PATCH/PUT
+	# ............................................................
+	def update
+		@replication = Replication.new(replication_params)
+
+		if @replication.save
+			redirect_to @replication.clone
+		else
+			@clone       = Character.find(params[:id])
+			@replication = Replication.new
+			@characters  = Character.not_among([@clone.name])
+			render action: 'edit'
+		end
+	end
+	
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
 
-	# find by id
-	def find_original
-		@original = Character.find(params[:character_id])
+	# define strong parameters
+	def replication_params
+		params.require(:replication).permit(:original_id, :clone_id)
 	end
+
 end

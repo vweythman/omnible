@@ -6,7 +6,7 @@
 	</fieldset>
 
 	<%= show_link @descnest.heading, @descnest.klass %>
-	<fieldset class='nested' id="<%= @descnest.form_id %>">
+	<fieldset class='nested identities' id="<%= @descnest.form_id %>">
 		<%= nested_fields @descnest, f %>
 		<p><%= link_to_add_association "+ Add Descriptor", f, @descnest.klass, :partial=> @descnest.partial %></p>
 	</fieldset>
@@ -18,7 +18,7 @@
 	</fieldset>
 
 	<%= show_link(@prejnest.heading, @prejnest.klass) %>
-	<fieldset class='nested' id="<%= @prejnest.form_id %>">
+	<fieldset class='nested identities' id="<%= @prejnest.form_id %>">
 		<%= nested_fields @prejnest, f, { :collection => @identities, :type => "Prejudice" } %>
 		<p><%= link_to_add_association '+ Add Prejudice', f, @prejnest.klass, :render_options => {:locals => {:collection =>  @identities, :type => "Prejudice"}}, :partial=> @prejnest.partial %></p>
 	</fieldset>

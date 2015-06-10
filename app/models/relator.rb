@@ -2,7 +2,6 @@ class Relator < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Imaginable    # member of the idea group
 	extend Taggable      # member of the tag group
 
 	# ASSOCIATIONS

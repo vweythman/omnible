@@ -33,8 +33,19 @@ class Work < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
-	scope :order_by, ->(choice) { order(self.sorter(choice)) }
+	# - General
 	scope :recently_updated, ->(num) { order(:updated_at => :desc).limit(num) }
+	scope :assort,           ->(date, order) { Work.span(date).order_by(order) }
+
+	# - Time Period
+	scope :within_day,   -> { where("works.updated_at > ? ", 1.day.ago) }
+	scope :within_month, -> { where("works.updated_at > ? ", 1.month.ago) }
+	scope :within_year,  -> { where("works.updated_at > ? ", 1.year.ago) }
+
+	# - Order
+	scope :chronological, -> { order("works.created_at asc") }
+	scope :alphabetical,  -> { order("lower(works.title) asc") }
+	scope :updated,       -> { order("works.updated_at desc") }
 
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
@@ -105,16 +116,36 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Sorter
 	# - decide on the sort order
-	def self.sorter(choice)
+	def self.order_by(choice)
 		case choice
-		when "posted"
-			return "created_at desc"
 		when "alphabetical"
-			return "lower(title) desc"
+			alphabetical
 		when "chronological"
-			return "created_at asc"
+			chronological
 		else
-			return "updated_at desc"             
+			updated
 		end
 	end
+
+	# Span
+	# - define the time span
+	def self.span(choice)
+		case choice
+		when "thisyear"
+			within_year
+		when "thismonth"
+			within_month
+		when "today"
+			within_day
+		else
+			all
+		end
+	end
+
+	# Rand
+	# - get a random work
+	def self.any(count = 1)
+		Work.offset(rand(Work.count)).limit(count)
+	end
+
 end

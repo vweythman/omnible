@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522221859) do
+ActiveRecord::Schema.define(version: 20150527201521) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -72,16 +72,6 @@ ActiveRecord::Schema.define(version: 20150522221859) do
 
   add_index "collections", ["anthology_id"], name: "index_collections_on_anthology_id"
   add_index "collections", ["work_id"], name: "index_collections_on_work_id"
-
-  create_table "conceptions", force: true do |t|
-    t.integer  "work_id"
-    t.integer  "concept_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "conceptions", ["concept_id"], name: "index_conceptions_on_concept_id"
-  add_index "conceptions", ["work_id"], name: "index_conceptions_on_work_id"
 
   create_table "concepts", force: true do |t|
     t.string   "name",       null: false
@@ -306,6 +296,17 @@ ActiveRecord::Schema.define(version: 20150522221859) do
   end
 
   add_index "terms", ["facet_id"], name: "index_terms_on_facet_id"
+
+  create_table "topics", force: true do |t|
+    t.string   "title"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.boolean  "allow_response", default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "topics", ["creator_id", "creator_type"], name: "index_topics_on_creator_id_and_creator_type"
 
   create_table "users", force: true do |t|
     t.string   "name"

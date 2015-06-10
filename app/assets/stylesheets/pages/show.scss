@@ -48,6 +48,13 @@
 		margin: 0;
 	}
 }
+article tbody .toolkit {
+	@include non-desktop {
+		display: none;
+	}
+}
+
+// SUBCONTENT DETAILS
 .piece {
 	margin:    15px auto;
 	width:     80%;
@@ -66,27 +73,24 @@
 	h2 { margin: 0; }
 	.toolkit { margin: 5px 0; }
 }
-article tbody .toolkit {
-	@include non-desktop {
-		display: none;
-	}
-}
 
 // RATINGS AND REVIEWS
 .rating { font-weight: bolder; }
-.level-2 { color: $rating-lowest; }
-.level-1 { color: $rating-low; }
-.level0  { color: $rating-mid; }
-.level1  { color: $rating-high; }
-.level2  { color: $rating-highest; }
+.avg    { text-align: center; }
+.level0 { color: $rating-lowest; }
+.level1 { color: $rating-low; }
+.level2  { color: $rating-mid; }
+.level3  { color: $rating-high; }
+.level4  { color: $rating-highest; }
 
-// META INFO
+// HEADER INFO
 .identifiers { color: $fade-color; }
 .meta {
 	color: $fade-color; 
 	border-top:    1px solid $moss-color;
 	border-bottom: 1px solid $moss-color;
 	width:         80%;
+	max-width:     730px;
 	margin:        10px auto;
 	th {
 		width: 25%;
@@ -95,5 +99,14 @@ article tbody .toolkit {
 	}
 	dd { padding: 0; }
 }
+// FOOTER INFO
+.directed {
+	padding: 10px;
+	a, b {
+		display: inline-block;
+		width:   20%;
+	}
+}
+
 
 /* END */

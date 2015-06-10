@@ -1,0 +1,5 @@
+<nav class='directed'>
+	<%= link_to prev_heading(@prev.name), @prev unless @prev.nil? %>
+	<b><%= @character.name %></b>
+	<%= link_to next_heading(@next.name), @next unless @next.nil?  %>
+</nav>

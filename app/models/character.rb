@@ -20,6 +20,9 @@
 #                              |             | addressing the model
 #  connections                 | array       | finds both left and right 
 #                              |             | connections
+#  replicate                   | model       | clone character and create 
+#                              |             | connection between original and 
+#                              |             | clone
 #  editable?                   | bool        | asks if character can be edited
 #  is_a_clone?                 | bool        | asks if character cloned from 
 #                              |             | another character
@@ -34,13 +37,14 @@ class Character < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable  # member of the subject group
-	extend Taggable       # member of the tag group
 
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :top_appearers, -> {joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
-	scope :not_among, ->(characters) { where("name NOT IN (?)", characters) }
-	scope :are_among, ->(characters) { where("name IN (?)", characters) }
+	scope :not_among, ->(character_names) { where("name NOT IN (?)", character_names) }
+	scope :are_among, ->(character_names) { where("name IN (?)", character_names) }
+	scope :next_in_line, ->(character_name) { where('name > ?', character_name).order('name ASC') }
+	scope :prev_in_line, ->(character_name) { where('name < ?', character_name).order('name DESC') }
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
@@ -50,12 +54,17 @@ class Character < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# joins
 	has_many :appearances,  dependent: :destroy
-	has_one  :cloning,      class_name: "Replication", foreign_key: "clone_id", dependent: :destroy
 	has_many :descriptions, dependent: :destroy
 	has_many :memberships,  dependent: :destroy
 	has_many :possessions,  dependent: :destroy
 	has_many :replications, foreign_key: "original_id", dependent: :destroy
-	has_many :viewpoints,   dependent: :destroy
+	has_many :viewpoints, dependent: :destroy
+
+	# joins with changed model names
+	has_one  :cloning,           class_name: "Replication", foreign_key: "clone_id", dependent: :destroy
+	has_many :reputations,       class_name: "Viewpoint",  as: :recip, dependent: :destroy
+	has_many :left_connections,  class_name: "Connection",  foreign_key: "left_id",  dependent: :destroy
+	has_many :right_connections, class_name: "Connection",  foreign_key: "right_id", dependent: :destroy
 
 	# models that possess these models
 	has_many :groups,   through: :memberships
@@ -68,11 +77,9 @@ class Character < ActiveRecord::Base
 	has_many :items,      through: :possessions
 	has_many :clones,     through: :replications
 
-	# indirect associations and subgroups
+	# subgroups
 	has_many :opinions,   -> { where(recip_type: 'Character') } 
 	has_many :prejudices, -> { where(recip_type: 'Identity')  }
-	has_many :left_connections,  class_name: "Connection", foreign_key: "left_id", dependent: :destroy
-	has_many :right_connections, class_name: "Connection", foreign_key: "right_id", dependent: :destroy
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -106,6 +113,8 @@ class Character < ActiveRecord::Base
 		Connection.character_connections(self.id).order(:relator_id).includes(:relator)
 	end
 
+	# Replicate
+	# - clone character and create connection between original and clone
 	def replicate
 		replica      = self.amoeba_dup
 		number       = self.clones.count + 1
@@ -115,6 +124,14 @@ class Character < ActiveRecord::Base
 
 		Replication.create(original_id: self.id, clone_id: replica.id)
 		return replica
+	end
+
+	def next_character
+		@next_character.nil? ? @next_character = Character.next_in_line(self.name).first : @next_character
+	end
+
+	def prev_character
+		@prev_character.nil? ? @prev_character = Character.prev_in_line(self.name).first : @prev_character
 	end
 
 	# Editable?

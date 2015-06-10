@@ -1,0 +1,14 @@
+<main class="new model-make">
+	<%= creation_header " Original Character for #{@clone.heading}" %>
+
+	<%= form_for(@replication, url: clone_path(@clone), html: {method: "patch"}) do |f| %>
+		<%= f.hidden_field :clone_id,  :value => @clone.id %>
+
+		<fieldset>
+			<legend>Original Character</legend>
+			<%= form_field f.label(:original_id), f.collection_select(:original_id, @characters, :id, :name, {}, :class => 'selectables') %>
+		</fieldset>
+		
+		<%= f.submit "Connect Original and Clone" %>
+	<% end %>
+</main>

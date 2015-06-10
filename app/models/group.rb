@@ -3,7 +3,6 @@ class Group < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable  # member of the subject group
-	extend Taggable      # member of the tag group
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------

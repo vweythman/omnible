@@ -32,4 +32,15 @@ module ApplicationHelper
 	def record_time(date)
 		date.strftime("%b %d, %Y")
 	end
+
+	# OUTPUT heading for prev link
+	def prev_heading(title)
+		"&lsaquo; #{title}".html_safe
+	end
+
+	# OUTPUT heading for next link
+	def next_heading(title)
+		"#{title} &rsaquo;".html_safe
+	end
+
 end

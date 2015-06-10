@@ -1,4 +1,4 @@
-class ItemDescription < ActiveRecord::Base
+class ItemTag < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------

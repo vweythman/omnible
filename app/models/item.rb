@@ -29,7 +29,6 @@ class Item < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable  # member of the subject group
-	extend Taggable      # member of the tag group
 	extend Organizable    # has a type
 	extend FriendlyId     # slugged based on the name
 	
@@ -40,15 +39,15 @@ class Item < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# joins
-	has_many :item_descriptions
+	has_many :item_tags
 
 	# models that belong to this model
 	belongs_to :generic
-	has_many :qualities, :through => :item_descriptions
+	has_many :qualities, :through => :item_tags
 	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
-	accepts_nested_attributes_for :item_descriptions, :allow_destroy => true
+	accepts_nested_attributes_for :item_tags, :allow_destroy => true
 
 	# METHODS
 	# ------------------------------------------------------------
@@ -64,11 +63,17 @@ class Item < ActiveRecord::Base
 		generic.name unless generic.nil?
 	end
 
+	# Typify
+	# - set the facet type of the identity
+	def typify(name)
+		self.generic = Generic.where(name: name).first_or_create
+	end
+
 	# ReorganizeTags
 	# - reassess current tag and return ids
 	def update_tags(list)
-		ItemDescription.not_among(self.id, list).destroy_all
-		ItemDescription.are_among(self.id, list).pluck(:quality_id)
+		ItemTag.not_among(self.id, list).destroy_all
+		ItemTag.are_among(self.id, list).pluck(:quality_id)
 	end
 
 	# CLASS METHODS

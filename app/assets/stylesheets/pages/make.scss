@@ -23,6 +23,8 @@
 	margin-top: 10px;
 	@include gradient-back(180deg, $water-lighter, $page-color);
 	input, textarea { border-style: solid; }
+	.field { margin: 0; }
+	fieldset { padding: 0; }
 }
 .tags .field { 
 	margin: 0;
@@ -34,7 +36,10 @@
 	margin:    10px auto;
 	width:     90%;
 }
-.hider { margin:  0; }
+.hider { 
+	margin: 0;
+	float:  right;
+}
 .edit .nested, .new .show { display: none; }
 #form_descriptions, #tags { display: block; }
 #show_descriptions { display: none; }
@@ -42,7 +47,7 @@
 .hide, .remove_fields { text-align: right; }
 
 .show { @include togglable($water-light); }
-.hide { @include togglable($water-light); }
+.hide { @include togglable($water-lighter); }
 .add_fields    { @include togglable($water-lightest); }
 .remove_fields { @include togglable($water-lighter);  }
 

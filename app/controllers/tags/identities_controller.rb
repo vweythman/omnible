@@ -14,7 +14,6 @@ class Tags::IdentitiesController < ApplicationController
 
 	def new
 		@identity = Identity.new
-		@identity.descriptions.build
 		define_components
 	end
 
@@ -26,8 +25,8 @@ class Tags::IdentitiesController < ApplicationController
 	# POST
 	# ............................................................
 	def create
-		set_type
 		@identity = Identity.new(identity_params)
+		@identity.typify params[:identity][:type]
 
 		if @identity.save
 			redirect_to(:action => 'index')
@@ -40,7 +39,7 @@ class Tags::IdentitiesController < ApplicationController
 	# ............................................................
 	def update
 		find_identity
-		set_type
+		@identity.typify params[:identity][:type]
 
 		if @identity.update(identity_params)
 			redirect_to(:action => 'index')
@@ -70,12 +69,6 @@ class Tags::IdentitiesController < ApplicationController
 		params.require(:identity).permit(:name, :facet_id, 
 			descriptions_attributes: [:id, :character_id, :_destroy]
 		)
-	end
-
-	# define type
-	def set_type
-		@facet = Facet.where(name: params[:identity][:type]).first_or_create
-		params[:identity][:facet_id] = @facet.id
 	end
 
 	# setup form components

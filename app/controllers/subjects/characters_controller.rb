@@ -20,12 +20,14 @@ class Subjects::CharactersController < ApplicationController
 
 	def show
 		find_character
-		@identities  = Identity.organize(@character.identities.includes(:facet))
+		@identities  = Identity.organize(@character.identities.alphabetic.includes(:facet))
 		@items       = Item.organize(@character.items.includes(:generic))
 		@connections = @character.connections.includes(:relator).includes(:left).includes(:right)
 		@prejudices  = @character.prejudices.includes(:recip)
 		@opinions    = @character.opinions.includes(:recip)
 		@viewpoints  = @character.viewpoints
+		@prev = @character.prev_character
+		@next = @character.next_character
 	end
 
 	def preview
@@ -33,12 +35,9 @@ class Subjects::CharactersController < ApplicationController
 	end
 
 	def new
+		@character = Character.new
 		define_components
 
-		@character = Character.new
-		@variants  = Array.new
-
-		@character.descriptions.build
 		@character.opinions.build
 		@character.prejudices.build
 		@character.possessions.build
@@ -47,8 +46,6 @@ class Subjects::CharactersController < ApplicationController
 	def edit
 		find_character
 		define_components
-		@variants = @character.identifiers.pluck(:name)
-		@character.descriptions.build if @character.descriptions.length < 1
 	end
 
 	# POST
@@ -60,6 +57,7 @@ class Subjects::CharactersController < ApplicationController
 		if @character.save
 			redirect_to @character
 		else
+			define_components
 			render 'new'
 		end
 	end
@@ -73,6 +71,7 @@ class Subjects::CharactersController < ApplicationController
 		if @character.update(character_params)
 			redirect_to @character
 		else
+			define_components
 			render action: 'edit'
 		end
 	end
@@ -126,6 +125,9 @@ class Subjects::CharactersController < ApplicationController
 
 		@identities = @facets.collect{|facet|facet.identities}.flatten
 		@items      = @generics.collect{|genric|genric.items}.flatten
+		@variants   = @character.identifiers.pluck(:name)
+
+		@character.descriptions.build if @character.descriptions.length < 1
 
 		@descnest = Nest.new("Descriptors", :descriptions, "subjects/characters/nested/description_fields")
 		@opinnest = Nest.new("Opinions About Other Characters", :opinions, "subjects/characters/nested/opinion_fields")

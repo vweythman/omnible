@@ -11,7 +11,11 @@ class Works::NotesController < ApplicationController
 
 	def show
 		find_note
+		@user      = @work.user
 		@taggables = WorkTag.organized_all(@work.work_tags)
+		@mains     = @work.main_characters
+		@sides     = @work.side_characters
+		@mentions  = @work.mentioned_characters
 	end
 
 	def new

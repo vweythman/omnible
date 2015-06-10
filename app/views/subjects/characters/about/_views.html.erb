@@ -1,4 +1,4 @@
-<% views.each do |view| %>
+<% @viewpoints.each do |view| %>
 	<tr>
 		<th><%= link_to view.recip_heading, view.recip %></th>
 		<td class="rating level<%= view.warmth %>"><%= Viewpoint.warmths[view.warmth + 2] %></td>

@@ -1,6 +1,6 @@
-# Activity
+# Concept
 # ================================================================================
-# activities belong to the idea group of tags
+# concepts belong to the idea group of tags
 #
 # Variables
 # --------------------------------------------------------------------------------
@@ -12,10 +12,6 @@
 #  created_at   | datetime       | must be earlier or equal to updated_at
 #  updated_at   | datetime       | must be later or equal to created_at
 # --------------------------------------------------------------------------------
-# 
-# Model Associations
-# --------------------------------------------------------------------------------
-#  models that reference concepts         : works
 #
 # Methods
 # --------------------------------------------------------------------------------
@@ -29,7 +25,6 @@ class Concept < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Imaginable    # member of the idea group
 	extend Taggable      # member of the tag group
 	extend FriendlyId     # slugged based on the name
 	

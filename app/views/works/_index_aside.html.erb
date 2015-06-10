@@ -4,7 +4,6 @@
 		<ul>
 			<li><%= link_to "Alphabetical", params.merge(:sort => "alphabetical") %></li>
 			<li><%= link_to "Chronological", params.merge(:sort => "chronological") %></li>
-			<li><%= link_to "Posted", params.merge(:sort => "posted")%></li>
 			<li><%= link_to "Updated", params.merge(:sort => "updated") %></li>
 		</ul>
 	</div>
@@ -12,9 +11,10 @@
 	<div>
 		<h2>Time</h2>
 		<ul>
-			<li>TODAY</li>
-			<li>THIS MONTH</li>
-			<li>THIS YEAR</li>
+			<li><%= link_to "Today", params.merge(:date => "today") %></li>
+			<li><%= link_to "This Month", params.merge(:date => "thismonth") %></li>
+			<li><%= link_to "This Year", params.merge(:date => "thisyear") %></li>
+			<li><%= link_to "All", params.merge(:date => "all") %></li>
 		</ul>
 	</div>
 

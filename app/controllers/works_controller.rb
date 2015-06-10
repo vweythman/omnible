@@ -14,20 +14,25 @@ class WorksController < ApplicationController
 	end
 
 	def curated_index
-		@works = @parent.works.order_by(params[:sort]).page(params[:page])
+		find_works
 		render 'curated_index'
 	end
 
 	def show
 		find_work
-		@taggables = WorkTag.organized_all(@work.work_tags)
 
 		if user_signed_in? && @work.editable?(current_user)
+			@user     = @work.user
 			@chapters = @work.chapters
 			@notes    = @work.notes
+
+			@taggables = WorkTag.organized_all(@work.work_tags.includes(:tag))
+			@mains     = @work.main_characters
+			@sides     = @work.side_characters
+			@mentions  = @work.mentioned_characters
 			render 'show'
-		# add if hidden
-			# render restricted
+		# add if !@work.viewable?(curent_user)
+			# render restrict
 		elsif @work.chapters.length > 0
 			# redirect to first chapter
 			redirect_to work_chapter_path(@work, @work.chapters.first)
@@ -94,7 +99,11 @@ class WorksController < ApplicationController
 
 	# find all
 	def find_works
-		@works = Work.order_by(params[:sort]).includes(:user).page(params[:page])
+		if @parent.nil?
+			@works = Work.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
+		else
+			@works = @parent.works.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
+		end
 	end
 
 	# find by id

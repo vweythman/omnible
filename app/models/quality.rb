@@ -2,7 +2,6 @@ class Quality < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Imaginable    # member of the idea group
 	extend Taggable      # member of the tag group
 	extend FriendlyId     # slugged based on the name
 
@@ -22,10 +21,10 @@ class Quality < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# joins
-	has_many :item_descriptions
+	has_many :item_tags
 
 	# belongs to
-	has_many :items, :through => :item_descriptions
+	has_many :items, :through => :item_tags
 	belongs_to :adjective, :inverse_of => :qualities
 
 	# METHODS

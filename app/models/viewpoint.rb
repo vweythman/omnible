@@ -15,11 +15,6 @@
 #  about           | text        | can be null
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
-#
-# Model Associations
-# --------------------------------------------------------------------------------
-# owned by  : character
-# refrences : recip (character || identity)
 # 
 # Methods (max length: 25 characters) 
 # --------------------------------------------------------------------------------
@@ -32,24 +27,30 @@
 
 class Viewpoint < ActiveRecord::Base
 
-  # VALIDATIONS and SCOPES
+  # VALIDATIONS
   # ------------------------------------------------------------
   validates :character_id, presence: true
   validates :recip_id,     presence: true
-  validates :recip_type,   presence: true, :uniqueness => {:scope => [:character_id, :recip_type]}
+  validates :recip_type,   presence: true
   validates :warmth,       presence: true
   validates :respect,      presence: true
-  scope :prejudices, -> { where(recip_type: 'Identity') } 
-  scope :opinions,   -> { where(recip_type: 'Character') }
+
+  # SCOPES
+  # ------------------------------------------------------------
+  scope :summations,  -> { select("SUM(warmth) as warmth, SUM(respect) as respect") }
+  scope :prejudices,  -> { where(recip_type: 'Identity') } 
+  scope :opinions,    -> { where(recip_type: 'Character') }
 
   # ASSOCIATIONS
   # ------------------------------------------------------------
-  belongs_to :character
+  belongs_to :holder, class_name: "Character", :inverse_of => :viewpoints
   belongs_to :recip, :polymorphic => true
 
   # METHODS
   # ------------------------------------------------------------
-  # none yet
+  def recip_heading
+    recip_type == "Identity" ? recip.name.titleize.pluralize : recip.name
+  end
 
   # CLASS METHODS
   # ------------------------------------------------------------

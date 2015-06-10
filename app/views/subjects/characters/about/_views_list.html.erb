@@ -2,12 +2,36 @@
 	<h2>Opinions and Prejudices</h2>
 	<table class="views">
 		<thead>
-			<tr><th>&nbsp;</th><th>Warmth</th><th>Respect</th><th>Details</th></tr>
+			<tr><th>Recipient</th><th>Warmth</th><th>Respect</th><th>Details</th></tr>
 		</thead>
 		
 		<tbody>
-			<%= render 'subjects/characters/about/views', views: @prejudices %>
-			<%= render 'subjects/characters/about/views', views: @opinions %>
+			<% @viewpoints.each do |view| %>
+				<tr>
+					<th><%= link_to view.recip_heading, view.recip %></th>
+					<td class="rating level<%= view.warmth + 2 %>"><%= Viewpoint.warmths[view.warmth + 2] %></td>
+					<td class="rating level<%= view.respect + 2 %>"><%= Viewpoint.respects[view.respect + 2] %></td>
+					<td><%= view.about %></td>
+				</tr>
+			<% end %>
 		</tbody>
+	</table>
+<% end %>
+
+<% repcount = @character.reputations.length %>
+<% if repcount > 0 %>
+	<% sums = @character.reputations.summations.first %>
+	<% warmthsum  = (sums.warmth/repcount).round + 2 %>
+	<% respectsum = (sums.respect/repcount).round + 2 %>
+	<h2>Court of Public Opinion</h2>
+	<p>Decided by <%= repcount %> <%= "opinion".pluralize(repcount) %></p>
+	<table>
+		<thead>
+			<tr><th>Liked</th><th>Respected</th></tr>
+		</thead>
+		<tr>
+			<td class="rating avg level<%= warmthsum %>"><%= Viewpoint.warmths[warmthsum] %></td>
+			<td class="rating avg level<%= respectsum %>"><%= Viewpoint.respects[respectsum] %></td>
+		</tr>
 	</table>
 <% end %>

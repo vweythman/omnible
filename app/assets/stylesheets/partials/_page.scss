@@ -71,6 +71,10 @@ thead {
 	border-top: 2px solid $moss-color;
 	border-bottom: 2px solid $moss-color;
 }
+tfoot {
+	border-top: 2px solid $moss-light;
+	border-bottom: 2px solid $moss-light;
+}
 th { padding: 5px 10px; }
 tbody th { border-right: 2px solid $moss-color; }
 td { padding: 5px 10px; }

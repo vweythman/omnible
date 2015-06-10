@@ -17,18 +17,13 @@ module FormHelper
 
 	# OUTPUT nested fields heading
 	def nested_fields_top(title, id)
-		heading   = content_tag :legend do title end
-		hide_p    = hide_link(title, id)
-		capture do 
-			concat heading
-			concat hide_p
-		end
+		heading = content_tag :legend do "#{title} #{hide_link(title, id)}".html_safe end
 	end
 
 	# OUTPUT hide toggle
 	def hide_link(title, id)
-		hide_link = content_tag :a, class: 'hide' , id: "hide_#{id}" do "&uArr; Hide".html_safe end
-		hide_p    = content_tag :p, class: 'hider' do hide_link end
+		hide_link    = content_tag :a, class: 'hide' , id: "hide_#{id}" do "&uArr; Hide".html_safe end
+		hide_enclose = content_tag :span, class: 'hider' do hide_link end
 	end
 
 	# OUTPUT show toggle

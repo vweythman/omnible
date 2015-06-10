@@ -15,10 +15,12 @@ Rails.application.routes.draw do
   concern :sortable do 
     get '(sort/:sort)', :action => :index, :on => :collection
   end
-
+  concern :dateable do 
+    get '(date/:date)', :action => :index, :on => :collection
+  end
 
   resources :anthologies
-  resources :works, :concerns => [:paginatable, :sortable] do
+  resources :works, :concerns => [:sortable, :dateable, :paginatable] do
     resources :chapters, :controller => 'works/chapters'
     resources :notes, :controller => 'works/notes'
   end
@@ -33,8 +35,8 @@ Rails.application.routes.draw do
   resources :notes,    except: [:index, :new, :show], :controller => 'works/notes'
 
   scope module: 'subjects' do
-    post "/clones/:character_id/" => "clones#create", as: :new_clone
-    get "/clones/:character_id/" => "clones#new"
+    resources :clones, only: [:edit, :update]
+    post "/clones/:id/" => "clones#create", as: :replicate
     resources :characters
     resources :items
     resources :places

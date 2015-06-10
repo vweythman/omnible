@@ -10,7 +10,6 @@ gem 'awesome_nested_set', '~> 3.0.1'
 gem "friendly_id", "~> 5.0.1"
 gem 'amoeba'
 
-# search engine
 gem 'sunspot_rails', git: "http://github.com/betam4x/sunspot.git" # , '2.1.1'
 gem 'sunspot_solr', git: "http://github.com/betam4x/sunspot.git" # '2.1.1'
 

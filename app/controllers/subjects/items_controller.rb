@@ -29,10 +29,10 @@ class Subjects::ItemsController < ApplicationController
 	# POST
 	# ............................................................
 	def create
-		set_type
 		set_tags
 
 		@item = Item.new(item_params)
+		@item.typify params[:item][:type]
 
 		if @item.save
 			redirect_to @item
@@ -45,8 +45,8 @@ class Subjects::ItemsController < ApplicationController
 	# ............................................................
 	def update
 		find_item
+		@item.typify params[:item][:type]
 
-		set_type
 		update_descriptions
 
 		if @item.update(item_params)
@@ -69,20 +69,14 @@ class Subjects::ItemsController < ApplicationController
 		@item = Item.friendly.find(params[:id])
 	end
 
-	# define type
-	def set_type
-		@generic = Generic.where(name: params[:item][:type]).first_or_create
-		params[:item][:generic_id] = @generic.id
-	end
-
 	# define descriptions
-	def set_tags(list = Quality.batch(params[:descriptions]))
-		params[:item][:item_descriptions_attributes] = build_tags(list, :quality_id)
+	def set_tags(list = Quality.batch(params[:descriptions]).pluck(:id))
+		params[:item][:item_tags_attributes] = build_tags(list, :quality_id)
 	end
 
 	# update description list
 	def update_descriptions
-		list = Quality.batch params[:descriptions]
+		list = Quality.batch(params[:descriptions]).pluck(:id)
 		curr = @item.update_tags(list)
 		set_tags(list - curr)
 	end
@@ -90,7 +84,7 @@ class Subjects::ItemsController < ApplicationController
 	# define strong parameters
 	def item_params
 		params.require(:item).permit(:name, :generic_id,
-			item_descriptions_attributes: [:id, :quality_id, :_destroy]
+			item_tags_attributes: [:id, :quality_id, :_destroy]
 		)
 	end
 
