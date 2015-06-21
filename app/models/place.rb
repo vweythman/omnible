@@ -5,6 +5,11 @@ class Place < ActiveRecord::Base
 	include Documentable  # member of the subject group
 	extend Organizable    # has a type
 
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :fictitious, -> { where("fictional = 1") }
+	scope :actual,     -> { where("fictional = 0") }
+
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :form
@@ -21,6 +26,11 @@ class Place < ActiveRecord::Base
 	# - defines the type name if it exists
 	def type
 		self.form.name unless self.form.nil?
+	end
+
+	# fictional?
+	def fictional?
+		self.fictional == 1
 	end
 
 	# CLASS METHODS
