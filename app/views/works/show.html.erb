@@ -1,21 +1,18 @@
-<main class="itemized">
+<main class="feature">
 	<header>
 		<%= work_toolkit @work %>
 		<h1><%= @work.heading %></h1>
-		<p><%= markdown @work.summary %></p>
+		<div class="summary"><%= markdown @work.summary %>
 	</header>
 	
 	<%= render 'show_aside' %>
 
 	<article>
-		<h2>Chapters</h2>
-		<%= render 'works/chapters/list' %>
-
-		<h2>Notes</h2>
-		<%= render 'works/notes/list' %>
+		<%= render 'works/chapters/list_brief' %>
+		<%= render 'works/notes/list_brief' %>
 	</article>
 
 	<footer>
 		<p><%= link_to 'Works', works_path %></p>
 	</footer>
-<main>
+</main>

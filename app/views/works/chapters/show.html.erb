@@ -1,7 +1,7 @@
-<main class="itemized">
+<main class="feature">
 	<%= render 'works/shared/header' %>
 
-	<article class="piece">
+	<article class="piece" role="article">
 		<header>
 			<nav>
 				<%= link_to prev_heading("Prev Chapter"), [@chapter.work, @chapter.prev] unless @chapter.prev.nil? %>
