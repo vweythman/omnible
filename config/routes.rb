@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'tags' do
+  scope module: 'descriptors' do
     resources :activities
     resources :concepts
     resources :identities

@@ -1,0 +1,15 @@
+<% provide(:title, @activity.name) %>
+
+<main class="feature">
+  <header>
+    <%= model_toolkit @activity %>
+    <h1><%= @activity.name %></h1>
+    <p>created : <%= record_time @activity.created_at %></p>
+  </header>
+
+  <article>
+    <h2>Statistics</h2>
+  </article>
+
+  <%= render 'descriptors/shared/footer' %>
+<main>

@@ -1,0 +1,20 @@
+<% provide(:title, @identity.name) %>
+<main class="feature">
+	<header>
+		<%= model_toolkit @identity %>
+		<h1><%= @identity.heading %></h1>
+		<p>created : <%= record_time @identity.created_at %></p>
+
+		<nav>
+			<%= link_to "All Works", identity_works_path(@identity) %>,
+			<%= link_to "All Characters", identity_characters_path(@identity) %>
+		</nav>
+	</header>
+
+	<article>
+		<%= render 'descriptors/identities/about/stats' %>
+		<%= render 'descriptors/identities/about/directed_links' %>
+	</article>
+
+<main>
+<%= render 'descriptors/shared/footer' %>

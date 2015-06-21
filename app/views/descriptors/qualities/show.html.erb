@@ -1,0 +1,17 @@
+<% provide(:title, @quality.name) %>
+
+<main class="feature">
+	<header>
+		<%= model_toolkit @quality %>
+		<h1><%= @quality.heading %></h1>
+		<p>created : <%= record_time @quality.created_at %></p>
+		<p><%= @quality.adjective.name unless @quality.adjective.nil?%></p>
+	</header>
+
+	<article>
+		<h2>Items</h2>
+		<%= render 'subjects/items/list' %>
+	</article>
+
+	<%= render 'descriptors/shared/footer' %>
+<main>
