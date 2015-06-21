@@ -3,6 +3,11 @@
 	<fieldset>
 		<%= form_field f.label(:type, "Type"), f.text_field(:type, :placeholder => "Add Type of Place") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Place Name") %>
+
+		<div class="choice">
+			<%= form_field f.radio_button(:fictional, 0, :checked => (0 == (f.object.fictional? || 0 ))), f.label(:fictional_0, "Actual Place") %>
+			<%= form_field f.radio_button(:fictional, 1, :checked => (1 == (f.object.fictional || 0 ))), f.label(:fictional_1, "Fictitious Place") %>
+		</div>
 	</fieldset>
 
 	<%= f.submit %>

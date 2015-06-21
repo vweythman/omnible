@@ -39,7 +39,12 @@ Rails.application.routes.draw do
     post "/clones/:id/" => "clones#create", as: :replicate
     resources :characters
     resources :items
-    resources :places
+    resources :places do
+      collection do 
+        get :real
+        get :unreal
+      end
+    end
   end
 
   scope module: 'tags' do

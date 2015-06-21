@@ -8,6 +8,16 @@ class Subjects::PlacesController < ApplicationController
 		@places = Place.organized_all
 	end
 
+	def real
+		@places = Place.organize(Place.actual.order(:name).includes(:form))
+		render 'index'
+	end
+
+	def unreal
+		@places = Place.organize(Place.fictitious.order(:name).includes(:form))
+		render 'index'
+	end
+
 	def show
 		find_place
 	end
@@ -61,7 +71,7 @@ class Subjects::PlacesController < ApplicationController
 
 	# define strong parameters
 	def place_params
-		params.require(:place).permit(:name, :form_id)
+		params.require(:place).permit(:name, :form_id, :fictional)
 	end
 
 	# define type
