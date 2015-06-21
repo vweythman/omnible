@@ -33,6 +33,15 @@ module ApplicationHelper
 		date.strftime("%b %d, %Y")
 	end
 
+	# OUTPUT toolblock class
+	def toolblockable_heading(htype, title, length)
+		tag_class = length == 0 ? "tool-label" : nil
+
+		content_tag htype, class: tag_class do
+			title
+		end
+	end
+
 	# OUTPUT heading for prev link
 	def prev_heading(title)
 		"&lsaquo; #{title}".html_safe

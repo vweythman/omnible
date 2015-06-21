@@ -20,8 +20,8 @@
 # --------------------------------------------------------------------------------
 #  method name                 | output type | description
 # --------------------------------------------------------------------------------
-#  self.warmth                 | list        | defines and collects @warmth levels
-#  self.respect                | list        | defines and collects @respect 
+#  self.warmths                | list        | defines and collects @warmth levels
+#  self.respects               | list        | defines and collects @respect 
 #                              |             | levels
 # ================================================================================
 
@@ -37,9 +37,11 @@ class Viewpoint < ActiveRecord::Base
 
   # SCOPES
   # ------------------------------------------------------------
-  scope :summations,  -> { select("SUM(warmth) as warmth, SUM(respect) as respect") }
-  scope :prejudices,  -> { where(recip_type: 'Identity') } 
-  scope :opinions,    -> { where(recip_type: 'Character') }
+  scope :summed_likes,    -> { select("SUM(warmth) as warmth") }
+  scope :summed_respects, -> { select("SUM(respect) as respect") }
+  scope :summations, -> { select("SUM(warmth) as warmth, SUM(respect) as respect") }
+  scope :prejudices, -> { where(recip_type: 'Identity') } 
+  scope :opinions,   -> { where(recip_type: 'Character') }
 
   # ASSOCIATIONS
   # ------------------------------------------------------------

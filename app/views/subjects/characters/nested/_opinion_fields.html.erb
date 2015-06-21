@@ -4,9 +4,25 @@
 		<%= form_field f.label(:recip_id, "Subject"), f.collection_select(:recip_id, Character.all, :id, :heading, {}, :class => 'selectables') %>
 		<%= form_field f.label(:about, "Treatment"), f.text_area(:about, class: "minor") %>
 
-		<%= scale_fields(f, Viewpoint.warmths,  :warmth, f.object.warmth || 0) %>
-		<%= scale_fields(f, Viewpoint.respects, :respect, f.object.respect || 0) %>
+		<%= render partial: "shared/scaled_rate", locals: {
+				f: f, 
+				collection: Viewpoint.warmths,
+				title: :fondness, 
+				value: :warmth, 
+				default: f.object.warmth || 0 
+			}
+		%>
+		<%= render partial: "shared/scaled_rate", locals: {
+				f: f, 
+				collection: Viewpoint.respects,
+				title: :respect, 
+				value: :respect, 
+				default: f.object.respect || 0 
+			}
+		%>
 	</fieldset>
 
 	<p><%= link_to_remove_association "- Remove Opinion", f %></p>
 </div>
+
+

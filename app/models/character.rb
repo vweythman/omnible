@@ -134,6 +134,24 @@ class Character < ActiveRecord::Base
 		@prev_character.nil? ? @prev_character = Character.prev_in_line(self.name).first : @prev_character
 	end
 
+	def judgers
+		@judgers = @judgers.nil? ? self.reputations : @judgers
+	end
+
+	def likableness
+		amt = self.judgers.length
+		sum = self.reputations.summed_likes.first
+
+		sum.warmth / amt
+	end
+
+	def respectedness
+		amt = self.judgers.length
+		sum = self.reputations.summed_respects.first
+
+		sum.respect / amt
+	end
+
 	# Editable?
 	# - asks if character can be edited
 	def editable?
