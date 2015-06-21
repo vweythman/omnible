@@ -27,8 +27,9 @@ class Identity < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Taggable      # member of the tag group
-	extend Organizable    # has a type
+	extend Organizable    # class method for typeification
+	extend Taggable       # class methods for general tags
+	include Referenceable # instance methods for general tags
 
 	# SCOPES
 	# ------------------------------------------------------------

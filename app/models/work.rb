@@ -19,6 +19,8 @@
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
+#  all_tags                    | array       | aggreagates the general and 
+#                              |             | subject tags
 #  content_distribution        | array       | collects the totals number of 
 #                              |             | chapters and notes
 #  editable?                   | bool        | asks if work can be edited
@@ -73,7 +75,7 @@ class Work < ActiveRecord::Base
 
 	# models that are refrenced by these models
 	has_many :characters, :through => :appearances
-	has_many :tags,       :through => :work_tags
+	has_many :gen_tags,   :through => :work_tags
 
 	# indirect associations and subgroups
 	has_many :identities, ->{uniq}, :through => :characters
@@ -95,6 +97,12 @@ class Work < ActiveRecord::Base
 	# - defines the main means of addressing the model
 	def heading
 		title
+	end
+
+	# AllTags
+	# - aggreagates the general and subject tags
+	def all_tags
+		characters + gen_tags
 	end
 
 	# ContentDistribution

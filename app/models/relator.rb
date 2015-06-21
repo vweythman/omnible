@@ -2,7 +2,8 @@ class Relator < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Taggable      # member of the tag group
+	extend Taggable       # class methods for general tags
+	include Referenceable # instance methods for general tags
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------

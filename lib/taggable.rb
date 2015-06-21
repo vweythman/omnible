@@ -1,6 +1,6 @@
 # Taggable Methods
 # ================================================================================
-# methods for models that can act as general tags for other models
+# class methods for models that can act as tags for other models
 # 
 # Lists
 # output type is a collection of other types - arrays, lists, hashes
@@ -43,14 +43,6 @@ module Taggable
 		oldTags = self.are_among(taggables).pluck(:name)
 		newTags = self.hash_list(taggables - oldTags, :name)
 		self.create(newTags)
-	end
-
-	# QUESTIONS
-	# ------------------------------------------------------------
-	# IsSubject?
-	# - answers that model is not a subject
-	def is_subject?
-		false
 	end
 
 end

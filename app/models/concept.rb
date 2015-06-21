@@ -25,8 +25,9 @@ class Concept < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Taggable      # member of the tag group
-	extend FriendlyId     # slugged based on the name
+	extend Taggable       # class methods for general tags
+	extend FriendlyId     # class methods for clean urls
+	include Referenceable # instance methods for general tags
 	
 	# SCOPES
 	# ------------------------------------------------------------

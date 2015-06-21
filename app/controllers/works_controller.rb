@@ -100,9 +100,9 @@ class WorksController < ApplicationController
 	# find all
 	def find_works
 		if @parent.nil?
-			@works = Work.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
+			@works = Work.assort(params[:date], params[:sort]).includes(:user, :characters).page(params[:page])
 		else
-			@works = @parent.works.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
+			@works = @parent.works.assort(params[:date], params[:sort]).includes(:user, :characters).page(params[:page])
 		end
 	end
 
