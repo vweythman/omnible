@@ -1,16 +1,21 @@
 <table>
-	<% count = 0 %>
+	<thead>
+		<tr>
+			<th>Chapter Title</th>
+			<th>Creation Date</th>
+			<th>Update Date</th>
+		</tr>
+	</thead>
+	<% colcount = 3 %>
+
 	<% @notes.each do |note| %>
 		<tr>
-			<th><%= count = count + 1 %></th>
-			<td><%= link_to note.heading, [@work, note] %></td>
-			<td><%= model_toolkit(note) %></td>
+			<th rowspan="2"><%= link_to note.heading, [@work, note] %></th>
+			<td data-label="Creation Date"><%= record_time note.created_at %></td>
+			<td data-label="Update Date"><%= record_time note.updated_at %></td>
+		</tr>
+		<tr class="toolblock">
+			<td colspan="<%= colcount - 1 %>"><%= model_toolkit(note) %></td>
 		</tr>
 	<% end %>
-
-	<tfoot>
-		<tr>
-			<td colspan='3'><%= component_toolkit @work, 'Note' %></td>
-		</tr>
-	</tfoot>
 </table>

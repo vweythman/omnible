@@ -7,14 +7,14 @@
 
 	<%= render 'index_aside' %>
 	<%= render 'index_results' %>
-
-	<footer class='related_items'>
-		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
-		
-		<% if @parent.is_subject? %>
-	 		<%= render 'subjects/shared/footer' %>
-		<% else %>
-	 		<%= render 'tags/shared/footer' %>
- 		<% end %>
-	</footer>
 </main>
+
+<footer class='related_items'>
+	<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
+	
+	<% if @parent.is_subject? %>
+ 		<%= render 'subjects/shared/footer' %>
+	<% else %>
+ 		<%= render 'tags/shared/footer' %>
+		<% end %>
+</footer>

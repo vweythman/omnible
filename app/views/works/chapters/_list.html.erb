@@ -1,16 +1,23 @@
 <table>
+	<thead>
+		<tr>
+			<th>Chapter Title</th>
+			<th>Creation Date</th>
+			<th>Update Date</th>
+			<th>Word Count</th>
+		</tr>
+	</thead>
+	<% colcount = 4 %>
+
 	<% @chapters.each do |chapter| %>
 		<tr>
-			<th><%= chapter.position %></th>
-			<td><%= link_to chapter.heading, [@work, chapter] %></td>
-			<td><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %> words</td>
-			<td><%= model_toolkit(chapter) %></td>
+			<th rowspan="2"><%= chapter.position %>. <%= link_to chapter.heading, [@work, chapter] %></th>
+			<td data-label="Creation Date"><%= record_time chapter.created_at %></td>
+			<td data-label="Update Date"><%= record_time chapter.updated_at %></td>
+			<td data-label="Word Count"><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %> words</td>
+		</tr>
+		<tr class="toolblock">
+			<td colspan="<%= colcount - 1 %>"><%= model_toolkit(chapter) %></td>
 		</tr>
 	<% end %>
-
-	<tfoot>
-		<tr>
-			<td colspan='3'><%= component_toolkit @work, 'Chapter' %></td>
-		</tr>
-	</tfoot>
 </table>

@@ -1,16 +1,10 @@
 <% provide(:title, "Chapters") %>
 
-<main class="itemized">
+<main class="feature">
 	<%= render 'works/shared/header' %>
 	
 	<article>
-		<h2>Chapters</h2>
-
-		<% if @chapters.length > 0 %>
-			<%= render 'list' %>
-		<% else %>
-			<%= component_toolkit @work, 'Chapter' %>
-		<% end %>
+		<%= render 'works/chapters/list_brief' %>
 	</article>
 
 	<%= render 'works/shared/footer' %>
