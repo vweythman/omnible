@@ -1,5 +1,6 @@
 <% @anthologies.each do |anthology| %>
-	<article class='descriptive'>
+
+	<article class='snippet'>
 		<p><%= link_to anthology.heading, anthology %></p>
 		
 		<div class='date'>
@@ -11,4 +12,5 @@
 		
 		<div class="summary"><%= markdown anthology.summary || "" %></div>
 	</article>
+
 <% end %>

@@ -1,30 +1,7 @@
 <header id="site-header">
-	<%= link_to 'pleiades', root_url, :id => 'logo' %>
-
-	<%= render 'shared/user_session' %>
-
-	<nav class='menu'>
-		<ul>
-			<li><%= link_to 'Works', works_path %></li>
-			<li><%= link_to 'Anthologies', anthologies_path %></li>
-			<li>
-				<%= link_to "Subjects #{drop_arrow}".html_safe, subjects_path %>
-				<ul class='subelement'>
-					<li><%= link_to 'Characters', characters_path %></li>
-					<li><%= link_to 'Items', items_path %></li>
-					<li><%= link_to 'Places', places_path %></li>
-				</ul>
-			</li>
-			<li>
-				<%= link_to "Tags #{drop_arrow}".html_safe, tags_path %>
-				<ul class='subelement'>
-					<li><%= link_to 'Activities', activities_path %></li>
-					<li><%= link_to 'Concepts', concepts_path %></li>
-					<li><%= link_to 'Identities', identities_path %></li>
-					<li><%= link_to 'Qualities', qualities_path %></li>
-					<li><%= link_to 'Relationship Types', relators_path %></li>
-				</ul>
-			</li>
-		</ul>
-	</nav>
+	<%= link_to 'pleiades', root_url, :class => 'logo' %>
+	<div class="toolkit">
+		<%= render 'shared/user_session' %>
+		<%= render 'shared/site_nav' %>
+	</div>
 </header>
