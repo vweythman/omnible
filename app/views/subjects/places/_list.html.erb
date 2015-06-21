@@ -1,12 +1,5 @@
 <% if @places.length > 0 %>
 	<article>
-		<dl>
-		<% @places.each do |type, group| %>
-			<dt><%= type %></dt>
-			<% group.each do |place| %>
-				<dd><%= link_to place.name, place %></dd>
-			<% end %>
-		<% end %>
-		</dl>
+		<%= render partial: "shared/definitions", object: @places %>
 	</article>
 <% end %>

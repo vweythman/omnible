@@ -1,13 +1,5 @@
-
 <% if @identities.length > 0 %>
 	<article>
-		<dl>
-		<% @identities.each do |facet, group| %>
-			<dt><%= facet %></dt>
-			<% group.each do |identity| %>
-				<dd><%= link_to identity.name, identity %></dd>
-			<% end %>
-		<% end %>
-		</dl>
+		<%= render partial: "shared/definitions", object: @identities %>
 	</article>
 <% end %>

@@ -1,0 +1,8 @@
+<dl>
+	<% definitions.each do |type, group| %>
+		<dt><%= type.pluralize(group.length) %></dt>
+		<% group.each do |item| %>
+			<dd><%= link_to item.name, item %></dd>
+		<% end %>
+	<% end %>
+</dl>

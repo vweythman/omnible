@@ -1,12 +1,5 @@
 <% if @items.length > 0 %>
 	<article>
-		<dl>
-		<% @items.each do |type, group| %>
-			<dt><%= type %></dt>
-			<% group.each do |item| %>
-				<dd><%= link_to item.name, item %></dd>
-			<% end %>
-		<% end %>
-		</dl>
+		<%= render partial: "shared/definitions", object: @items %>
 	</article>
 <% end %>
