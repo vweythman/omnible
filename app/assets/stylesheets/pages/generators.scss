@@ -13,7 +13,7 @@
 ************************************************/
 .new, .edit {
 	margin: 15px auto;
-	@include reel { width: 90%; }
+	@include mobile { width: 90%; }
 	@include non-mobile { width: 60%; }
 }
 

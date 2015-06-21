@@ -4,11 +4,28 @@ body {
 	background: $water-darkest;
 	font:       $text-size "Segoe Ui", sans-serif;
 }
-#site-content {
-	background: $page-color;
-	color:      $read-color;
-	overflow:   auto;
-	padding:    15px;
+h1 {
+	font-size:      $heading-size;
+	font-weight:    600;
+	letter-spacing: 3px;
+	border-bottom:  3px solid $moss-light;
+	border-top:     3px solid $moss-light;
+	margin:         0;
+	padding:        10px 5px;
 }
 ul { list-style: none; }
+a { text-decoration: none; }
+footer { text-align: center; }
+
+.alert {
+	@include upbox(red, red);
+}
+.notice {
+	@include upbox($water-color, $water-light);
+}
+.announce {
+	@include upbox($fade-color, $water-color);
+	text-align:center;
+}
+
 /* END */

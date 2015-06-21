@@ -1,0 +1,170 @@
+/* GENERAL
+************************************************/
+#site-header {
+	background: $water-darkest;
+	overflow:   auto;
+
+	.logo {
+		color:          $water-light; 
+		font:           28px steelfish;
+		letter-spacing: 3px;
+		padding:        10px;
+		margin:         0;
+
+		&:hover { color: $water-lightest; }
+	}
+	.toolkit { margin: 0; }
+	.account {
+		margin:     0;
+		padding:    10px 0;
+		text-align: right;
+		a {
+			font-weight: bolder;
+			padding:     10px;
+		}
+	}
+	.session {
+		a {
+			color:      $page-color;
+			background: $water-light;
+
+			&:hover {
+				color:      $water-lightest;
+				background: $water-darker;
+			}
+		}
+	}
+	.user {
+		color:          $water-darkest;
+		font-weight:    bolder;
+		letter-spacing: 2px;
+	}
+	.menu {
+		text-align: center;
+		ul {
+			margin:  0;
+			padding: 0;
+		}
+		a {
+			color:          $water-lightest;
+			padding:        10px;
+			display:        block;
+			font-variant:   small-caps;
+			letter-spacing: 2px;
+
+			&:hover {
+				color: $water-light;
+			}
+		}
+	}
+}
+
+/* MOBILE
+************************************************/
+@include mobile {
+	#site-header {
+		.logo { display: block; }
+		.account { display: block; }
+		.menu { 
+			display: block;
+			li {
+				width: $half-block;
+				float: left;
+			}
+		}
+		.account { background: $water-lightest; }
+		.submenu    { display: none; }
+		.drop-arrow { display: none; }
+	}
+}
+
+/* NON-MOBILE
+************************************************/
+@include non-mobile {
+	#site-header {
+		.menu {
+			a { padding: 10px 0; }
+			& > ul > li {
+				width: $quarter-block;
+				float: left;
+			}
+			li li a { 
+				background: $water-darkest;
+				font-size: .9em;
+				padding:   10px 5px;
+			}
+		}
+		.submenu {
+			float:    left;
+			position: absolute;
+		}
+		.drop-arrow {
+			font-size: .68em;
+		}
+	}
+}
+
+/* TABLET
+************************************************/
+@include tablet {
+	#site-header {
+		padding: 0;
+		.logo {
+			display:        block;
+			float:          left;
+			padding:        10px 0;
+			padding-bottom: 25px;
+			text-align:     center;
+			width:          $one-sixth-block;
+		}
+		.toolkit {
+			width: $five-sixth-block;
+			margin-left: $one-sixth-block;
+		}
+		.submenu {
+			width: (1/4) * (5/6) * 100%;
+		}
+	}
+}
+
+/* NON-DESKTOP
+************************************************/
+@include non-desktop {
+	#site-header {
+		.account { background: $water-lighter; }
+	}
+}
+/* DESKTOP
+************************************************/
+@include desktop {
+	#site-header {
+		.logo {
+			display:    block;
+			float:      left;
+			padding:    0;
+			text-align: center;
+			width:      $one-sixth-block;
+		}
+		.toolkit {
+			width:       $five-sixth-block;
+			margin-left: $one-sixth-block;
+		}
+		.account {
+			width:      $quarter-block;
+			float:      right;
+		}
+		.user {
+			background: $page-color;
+			&:hover { color: $read-color; }
+		}
+		.menu {
+			width: $three-quarter-block;
+		}
+		.submenu {
+			width: (1/4) * (3/4) * (5/6) * 100%;
+		}
+
+	}
+}
+
+/* END */

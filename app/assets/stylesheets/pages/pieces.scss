@@ -1,0 +1,57 @@
+/* GENERAL STYLES
+************************************************/
+.piece {
+	margin: 0 auto;
+	p {
+		padding: 7px 10px;
+	}
+}
+.pieces {
+	table th {
+		vertical-align: top;
+		border: none;
+		text-align: left;
+	}
+}
+
+/* MOBILE
+************************************************/
+@include mobile {
+	.piece { width: 75%; }
+}
+
+/* TABLET
+************************************************/
+@include tablet {
+	.piece {
+		margin: 10px 20px;
+    	width: calc(100% - 70px); 
+	}
+	.pieces {
+		text-align: center;
+		th, td { text-align: center; }
+	}
+}
+
+/* NON-DESKTOP
+************************************************/
+@include non-desktop {
+	.pieces {
+		th a { color: $moss-darker; }
+		tbody tr {
+			border: none;
+		}
+		tbody th {
+			background: $moss-lighter;
+			color:      $read-color;
+		}
+	}
+}
+
+/* DESKTOP
+************************************************/
+@include desktop {
+	.piece { width: $half-block; }
+}
+
+/* END */

@@ -1,0 +1,129 @@
+/* INDEX PAGE
+************************************************/
+.index {
+	dl, ul, ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.menu {
+		border:        2px solid $water-dark;
+		background:    $water-color;
+		border-bottom: 5px solid $water-dark;
+		float:         left;
+		margin:        10px 0;
+		
+		h2 {
+			background:    $water-lighter;
+			border-bottom: 5px solid $water-dark;
+			margin:        0;
+			padding:       5px 15px;
+			font-size:     $heading-size - 10px;
+			font-weight:   600;
+		}
+		ul {
+			background: $water-lightest;
+			padding:    0;
+			margin:     0;
+		}
+		li {
+			padding:     0;
+			display:     block;
+			font-weight: 600;
+			font-size:   .85em;
+			text-align:  center;
+			
+			a {
+				display: block;
+				padding: 5px 15px;
+				&:hover {
+					color: $water-dark;
+					background: $page-color;
+				}
+			}
+		}
+	}
+
+	dt { 
+		font-weight: bolder;
+		color: $moss-darker;
+	}
+	h2 {
+		margin:        15px 10px 0 10px;
+		font-weight:   600;
+		font-size:     $heading-size - 2;
+		border-bottom: 2px solid $water-dark;
+	}
+}
+.pagination    { 
+	padding:    5px 15px;
+	text-align: left;
+}
+.snippet { 
+	max-width: $three-quarter-block;
+	h4 {
+		padding: 0;
+		margin: 0;
+	}
+	.summary {
+		padding: 0;
+	}
+}
+
+/* MOBILE
+************************************************/
+@include mobile {
+	.index aside { display: none; }
+}
+
+/* NON-MOBILE
+************************************************/
+@include non-mobile {
+	aside + .results {
+		@include gradient-back(180deg, $water-lightest, $page-color); 
+		border-top: 2px solid $water-lighter;
+		margin:     10px;
+
+		article {
+			background: $page-color;
+		}
+	}
+}
+
+/* TABLET
+************************************************/
+@include tablet {
+	.index {
+		.menu {
+			width: calc(3/8 * 100% - 10px);
+		}
+		aside + .results { margin-left: 3/8 * 100%; }
+		
+		article {
+			dl, ul, ol {
+				@include column-counting(3);
+			}
+		}
+	}
+}
+
+/* DESKTOP
+************************************************/
+@include desktop {
+	.index {
+		.menu {
+			width: calc(20% - 10px);
+		}
+		aside + .results { 
+			margin-left: 20%;
+		}
+		article {
+			dl, ul, ol {
+				@include column-counting(5);
+			}
+		}
+		dd { padding: 0 15px; }
+	}
+}
+
+/* END */

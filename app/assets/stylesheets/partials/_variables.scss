@@ -32,10 +32,26 @@ $rating-high:    hsl(80, 90%, 40%);
 $rating-highest: hsl(90, 95%, 40%);
 
 // SCREEN SIZE and LAYOUT
-$reel-max:      500px;
-$portrait-min:  $reel-max + 1;
-$portrait-max:  875px;
-$landscape-min: $portrait-max + 1;
+$mobile-max:      550px;
+$tablet-min:  $mobile-max + 1;
+$tablet-max:  875px;
+$desktop-min: $tablet-max + 1;
+
+$smallest-block:      1 / 12 * 100%;
+$one-sixth-block:     2 / 12 * 100%;
+$quarter-block:       3 / 12 * 100%;
+
+$one-third-block:     4 / 12 * 100%;
+$near-half-block:     5 / 12 * 100%;
+$half-block:          6 / 12 * 100%;
+
+$larger-half-block:   7 / 12 * 100%;
+$two-third-block:     8 / 12 * 100%;
+$three-quarter-block: 9 / 12 * 100%;
+
+$five-sixth-block:    10 / 12 * 100%;
+$massive-block:       11 / 12 * 100%;
+$full-block:          12 / 12 * 100%;
 
 // INPUT SIZES
 $micro-height: 200px;

@@ -1,0 +1,8 @@
+// RATINGS AND REVIEWS
+.rating { font-weight: bolder; }
+.avg    { text-align: center; }
+.level0 { color: $rating-lowest; }
+.level1 { color: $rating-low; }
+.level2  { color: $rating-mid; }
+.level3  { color: $rating-high; }
+.level4  { color: $rating-highest; }

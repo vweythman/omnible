@@ -1,0 +1,170 @@
+/* GENERAL STYLES
+************************************************/
+.feature {
+	header {
+		color: $fade-color;
+		p { padding: 0 15px; }
+	}
+	.identifiers { padding: 15px; }
+
+	h2 {
+		font-size:      $heading-size - 5;
+		font-weight:    lighter;
+		letter-spacing: 3px;
+		margin:         0;
+		padding:        0;
+	}
+	table {
+		margin: 10px;
+		width:  calc(100% - 20px);
+	}
+	td, th { padding: 10px; }
+	th {
+		text-align:   right;
+		border-right: 2px solid $moss-darker;
+	}
+	.aggregated-views th {
+		background: $page-color;
+		color:      $read-color;
+		text-align: center;
+	}
+	thead {
+		background:    $moss-dark;
+		color:         $moss-lightest;
+		border-bottom: 3px solid $moss-darker;
+		th {
+			letter-spacing: 2px;
+			text-align:     left;
+			border:         none;
+		}
+	}
+	table .toolkit { margin: 0; }
+	aside {
+		dt {
+			padding-top: 10px;
+		}
+		article {
+			margin:        0;
+			margin-bottom: 15px;
+			padding:       0;
+		}
+	}
+	& > footer {
+		padding: 20px;
+	}
+}
+.meta {
+	th {
+		vertical-align: top;
+		text-align: center;
+		background: $moss-lightest;
+	}
+}
+.content { overflow: auto; }
+.stat {
+	dt { font-weight: bolder; }
+}
+.directed {
+	padding: 10px;
+	a, b {
+		display: inline-block;
+		width:   25%;
+	}
+}
+
+/* MOBILE
+************************************************/
+@include mobile {
+	.feature {
+		.tool-label { display: none; }
+	}
+	.directed {
+		padding: 10px 0;
+		a, b {
+			width: calc((1/3) * 100% - 5px);
+		}
+	}
+}
+
+/* NON-MOBILE
+************************************************/
+@include non-mobile {
+	.overview {
+		float: left;
+	}
+	.stat {
+		@include page-shadow($moss-light);
+		float:   left;
+		padding: 15px 15px;
+		margin:  15px 0;
+	}
+}
+
+/* TABLET
+************************************************/
+@include tablet {
+	.overview {
+		width: $quarter-block;
+	}
+	.overview + .about {
+		margin-left: $quarter-block;
+	}
+	.stat {
+		width: 5/12 * 100%;
+	}
+	.stat + article {
+		margin-left: calc((5/12 * 100%) + 40px);
+	}
+	.feature tbody tr {
+		border: 2px solid $moss-darkest;
+	}
+}
+
+/* NON-DESKTOP
+************************************************/
+@include non-desktop {
+	.feature {
+		thead      { display: none; }
+		tr, th, td { display: block; }
+		th {
+			background: $moss-dark;
+			border:     none;
+			color:      $moss-lightest;
+			text-align: center; 
+			font-weight: 600;
+		}
+		th a { color: $moss-lighter; }
+		tbody tr { margin: 10px; }
+		td:before {
+			content:     attr(data-label);
+			display:     block;
+			font-weight: bolder;
+			color:       $read-color;
+		}
+	}
+	tbody .toolblock { display: none; }
+}
+
+/* DESKTOP
+************************************************/
+@include desktop {
+	.feature {
+		article table {
+			border-bottom: 3px solid $moss-darker;
+		}
+	}
+	.overview + .about {
+		margin-left: $one-third-block;
+	}
+	.stat {
+		width:   calc(33.3333% - 50px);
+	}
+	.stat + article {
+		margin-left: $one-third-block;
+	}
+	.meta {
+		th { width: $one-sixth-block; }
+	}
+}
+
+/* END */

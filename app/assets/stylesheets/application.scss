@@ -4,18 +4,25 @@
 // SETUP
 @import "partials/variables";
 @import "partials/mixins";
-
-// GENERALITIES
 @import "main.scss";
-@import "partials/header.scss";
-@import "partials/footer.scss";
-@import "partials/page.scss";
+
+
+// PAGE SECTIONS
+@import "sections/header";
+@import "sections/page.scss";
+@import "sections/footer.scss";
+
+// PIECES
 @import "partials/form.scss";
+@import "partials/rating.scss";
 
-// SPECIFICS
-@import "pages/home.scss";
-@import "pages/index.scss";
-@import "pages/show.scss";
-@import "pages/make.scss";
-@import "pages/session.scss";
+// TYPES
+@import "pages/statics.scss";
+@import "pages/indices.scss";
+@import "pages/features.scss";
+@import "pages/generators.scss";
+@import "pages/sessions.scss";
+@import "pages/pieces.scss";
 
+
+/* END */

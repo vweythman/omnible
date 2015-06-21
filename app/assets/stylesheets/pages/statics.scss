@@ -3,11 +3,11 @@
 .home {
 	overflow: auto;
 
-	@include landscape {
+	@include desktop {
 		width: 50%;
 		section { @include split-element(50%); }
 	}
-	@include portrait {
+	@include tablet {
 		section { @include split-element(50%); }
 	}
 

@@ -111,28 +111,28 @@
 
 
 // RESPONSIVE
-@mixin reel {
-	@media (max-width: #{$reel-max}) { 
+@mixin mobile {
+	@media (max-width: #{$mobile-max}) { 
 		@content;
 	}
 }
-@mixin portrait {
-	@media (min-width: #{$portrait-min}) and (max-width: #{$portrait-max}) { 
+@mixin tablet {
+	@media (min-width: #{$tablet-min}) and (max-width: #{$tablet-max}) { 
 		@content;
 	}
 }
-@mixin landscape {
-	@media (min-width: #{$landscape-min}) { 
+@mixin desktop {
+	@media (min-width: #{$desktop-min}) { 
 		@content;
 	}
 }
 @mixin non-mobile {
-	@media (min-width: #{$portrait-min}) {
+	@media (min-width: #{$tablet-min}) {
 		@content;
 	}
 }
 @mixin non-desktop {
-	@media (max-width: #{$portrait-max}) {
+	@media (max-width: #{$tablet-max}) {
 		@content;
 	}
 }

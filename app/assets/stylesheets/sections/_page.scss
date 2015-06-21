@@ -1,0 +1,102 @@
+/* PAGE GENERICS
+************************************************/
+#site-content {
+	background: $page-color;
+	color:      $read-color;
+	overflow:   auto;
+	padding:    10px;
+}
+p {
+	margin:  0;
+	padding: 0;
+}
+main {
+	ol li { padding: 0; }
+	ul li { padding: 5px 0; }
+	a { 
+		color: $water-dark;
+		&:hover { color: $read-color; }
+	}
+	.toolkit {
+		@include embossed($water-color);
+		margin:   10px;
+		overflow: auto;
+		display:  inline-block;
+		border-radius: 2px;
+		a {
+			font-weight:    bolder;
+			display:        inline-block;
+			font-weight:    700;
+			padding:        5px 10px;
+			letter-spacing: 2px;
+		}
+	}
+	& > footer {
+		font-size: .95em;
+		a:hover { text-decoration: underline; }
+	}
+}
+article {
+	margin:      15px;
+	padding:     15px;
+	line-height: 1.5;
+	overflow:    auto;
+	
+	a:hover { text-decoration: underline; }
+	.toolkit a:hover { text-decoration: none; }
+}
+hr {
+	background: $moss-color;
+	border:     none;
+	padding:    2px;
+	margin:     10px 0;
+}
+dl {
+	margin:  0;
+	padding: 0;
+}
+dt, dd { margin: 0; }
+dt {
+	padding: 1px 5px;
+	padding-top: 10px;
+}
+dt:first-child {
+	padding-top: 0;
+}
+dd { padding: 0 5px; }
+.summary { padding: 15px; }
+.related_items { text-align: center; }
+.date {
+	font-size: .85em;
+	.label { 
+		font-style:  italic;
+		font-weight: bolder;
+	}
+}
+
+/* MOBILE
+************************************************/
+@include mobile {
+	main .toolkit { display: none; }
+}
+
+/* NON-MOBILE 
+************************************************/
+@include non-mobile {
+	article {
+		main > &,
+		.results > & {
+			@include page-shadow($moss-light);
+		}
+	}
+}
+
+/* NON-DESKTOP
+************************************************/
+@include non-desktop {
+	article tbody .toolkit {
+		display: none;
+	}
+}
+
+/* END */
