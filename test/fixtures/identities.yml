@@ -4,6 +4,30 @@ young:
   name: young
   facet: age 
 
+old:
+  name: old
+  facet: age
+
+teen:
+  name: teen
+  facet: age
+
 human:
   name: human
   facet: species 
+
+man:
+  name: man
+  facet: gender
+
+woman:
+  name: woman
+  facet: gender
+
+cisgender:
+  name: cisgender
+  facet: gender
+
+transgender:
+  name: transgender
+  facet: gender

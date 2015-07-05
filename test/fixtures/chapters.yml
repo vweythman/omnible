@@ -2,16 +2,24 @@
 
 flight_one:
   title: Prologue
-  content: blah blah blah
+  content: blah blah A.C.M.E.
   about: 
   afterward: 
   position: 1
   work: flight
 
 flight_two:
-  title: The Start
-  content: blah blah blah and also blah
-  about: 
-  afterward: 
+  title:
+  content: blah's blah
+  about: And here we end the tale.
+  afterward: Thanks for reading! It's been fun.
   position: 2
   work: flight
+
+fortune_titleless:
+  title:
+  position: 1
+  content: blah blah blah. and also blah
+  about: 
+  afterward: 
+  work: fortune

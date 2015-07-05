@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-folktales:
-  name: Collection of Folktales
-
-greek_myths:
-  name: Greek Myths
+one:
+  topic: solo
+  creator: cinders (User)
+  parent: 
+  content: blah
+  lft: 1
+  rgt: 2

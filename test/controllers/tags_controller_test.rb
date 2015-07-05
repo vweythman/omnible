@@ -1,9 +1,5 @@
 require 'test_helper'
 
-class TagsControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
-  end
+class TagsControllerTest < ControllerTestCase
 
 end

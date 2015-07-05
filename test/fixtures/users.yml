@@ -1,73 +1,13 @@
 # GENERAL SET OF POTENTIAL USERS
 
-# Nonny the Anon can view anything public
-nonny:
-  name: Nonny
-  email:
-
-# Randa runs the site
 randa:
   name: Randa
   email: owner@thissite.com
 
-# Sirka always signs up everything
 sirka:
   name: Sirka
   email: signupper@signup.com
 
-# Ingrid is always invited to things
-ingrid:
-  name: Ingrid
-  email: invited@invite.com
-
-# Alice is always added to things
-alice:
-  name: Alice
-  email: added@automatic.com
-
-# Padma always posts works
-padma:
-  name: Padma
-  email: poster@postable.com
-
-# Cinders always creates communities
 cinders:
   name: Cinders
-  email: comcreator@community.com
-
-# Mai always mods things
-mai:
-  name: Mai
-  email: moderator@team.com
-
-# USERS FOR SPECIFIC WORKS
-
-# Sora writes stories
-sora:
-  name: Sora
-  email: writer@novels.com
-
-# Aiko draws art
-aiko:
-  name: Aiko
-  email: artist@artgallery.com
-
-# Cathy chats in discussions
-cathy:
-  name: Cathy
-  email: chatty@social.com
-
-# Lily posts links
-lily:
-  name: Lily
-  email: linker@social.com
-
-# Moira makes music
-moira:
-  name: Moira
-  email: music@songndance.com
-
-# Vivian shares videos
-vivian:
-  name: Vivian
-  email: filmer@filmography.com
+  email: invited@invite.com

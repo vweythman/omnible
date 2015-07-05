@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ChaptersControllerTest < ControllerTestCase
+class InterconnectionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

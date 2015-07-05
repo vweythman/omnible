@@ -1,11 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+discusser:
   title: MyString
   creator_id: 
   allow_response: false
+  discussed: flight (Work)
 
-two:
+solo:
   title: MyString
   creator_id: 
   allow_response: false

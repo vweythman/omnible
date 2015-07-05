@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  character_id: 
+  place_id: 
+  nature: MyString
+
+two:
+  character_id: 
+  place_id: 
+  nature: MyString

@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+color:
+  name: color
 
-two:
-  name: MyString
+size:
+  name: size
+
+purpose:
+  name: purpose

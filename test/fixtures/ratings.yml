@@ -1,15 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  work_id: 
-  violence: 1
-  sexuality: 1
-  language: 1
-  overall: 1
+clean:
+  work: flight
+  violence: 0
+  sexuality: 0
+  language: 0
 
-two:
-  work_id: 
+mild: 
+  work: fool
   violence: 1
-  sexuality: 1
+  sexuality: 0
   language: 1
-  overall: 1
+
+explicit:
+  work: fortune 
+  violence: 2
+  sexuality: 4
+  language: 4

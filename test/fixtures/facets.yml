@@ -5,3 +5,6 @@ age:
 
 species:
   name: species
+
+gender:
+  name: gender

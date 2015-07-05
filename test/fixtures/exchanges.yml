@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uploader: randa
+  about: MyText
+  response_level: Private
+
+two:
+  uploader: sirka
+  about: MyText
+  response_level: Appliable
+
+two:
+  uploader: cinders
+  about: MyText
+  response_level: Public

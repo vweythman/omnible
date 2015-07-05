@@ -1,15 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  character_id: 
-  recip_id: 
-  warmth: 1
-  respect: 1
-  about: MyText
-
-two:
-  character_id: 
-  recip_id: 
-  warmth: 1
-  respect: 1
-  about: MyText
+nemesis: 
+  character: mary
+  recip: jane
+  fondness: -2
+  respect: 2
+  about: hateful

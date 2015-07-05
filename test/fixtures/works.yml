@@ -2,8 +2,12 @@
 
 flight:
   title: Flight Path
-  user: sora
+  user: randa
 
 fool:
   title: Five-Pound Fool
-  user: vivian
+  user: sirka
+
+fortune: 
+  title: Fortune's Favor
+  user: cinders

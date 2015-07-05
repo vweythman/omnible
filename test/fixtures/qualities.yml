@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+red:
   name: red
+  adjective: color
 
-two:
-  name: magical
+big:
+  name: big
+  adjective: size
+

@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-folktales:
-  name: Collection of Folktales
+one:
+  domain_id: 
+  subdomain_id: 
 
-greek_myths:
-  name: Greek Myths
+two:
+  domain_id: 
+  subdomain_id: 

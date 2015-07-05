@@ -1,9 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  form_id: 
+actual_earth:
+  name: Earth
+  form: planet
+  fictional: 'f'
 
-two:
-  name: MyString
-  form_id: 
+middle_earth:
+  name: Middle-Earth
+  form: planet 
+  fictional: 't'
+
+nile:
+  name: Nile River
+  form: river
+  fictional: 'f'
+
+styx:
+  name: Styx
+  form: river
+  fictional: 't'

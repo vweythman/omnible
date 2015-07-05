@@ -4,10 +4,26 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: 
-  character_id: 1
-  identity_id: 1
-two: 
-  character_id: 1
-  identity_id: 2
+young_mary: 
+  character: mary
+  identity: young
 
+mary_gender1:
+  character: mary
+  identity: woman
+
+jane_species:
+  character: jane
+  identity: human
+
+jane_gender2:
+  character: jane
+  identity: transgender
+
+erik_gender1:
+  character: erik
+  identity: man
+
+old_erik:
+  character: erik
+  identity: old

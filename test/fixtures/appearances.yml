@@ -12,5 +12,15 @@ side:
 
 mentioned:
   work: flight
-  character: irene
+  character: erik
   role: mentioned
+ 
+fool_side:
+  work: fool
+  character: jane
+  role: side
+
+fortune_main:
+  work: fortune
+  character: mary
+  role: main
