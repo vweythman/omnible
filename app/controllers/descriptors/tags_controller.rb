@@ -1,31 +1,31 @@
-class Descriptors::ConceptsController < ApplicationController
+class Descriptors::TagsController < ApplicationController
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GET
 	# ............................................................
 	def index
-		@concepts = Concept.order('name').all
+		@tags = Tag.order('name').all
 	end
 
 	def show
-		find_concept
+		find_tag
 	end
 
 	def new
-		@concept = Concept.new
+		@tag = Tag.new
 	end
 
 	def edit
-		find_concept
+		find_tag
 	end
 
 	# POST
 	# ............................................................
 	def create
-		@concept = Concept.new(concept_params)
+		@tag = Tag.new(tag_params)
 
-		if @concept.save
+		if @tag.save
 			redirect_to(:action => 'index')
 		else
 			render action: 'new'
@@ -35,9 +35,9 @@ class Descriptors::ConceptsController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_concept
+		find_tag
 
-		if @concept.update(concept_params)
+		if @tag.update(tag_params)
 			redirect_to(:action => 'index')
 		else
 			render action: 'edit'
@@ -47,7 +47,7 @@ class Descriptors::ConceptsController < ApplicationController
 	# DELETE
 	# ............................................................
 	def destroy
-		@concept = Concept.find(params[:id]).destroy
+		@tag = Tag.find(params[:id]).destroy
 		redirect_to(:action => 'index')
 	end
 
@@ -56,13 +56,13 @@ class Descriptors::ConceptsController < ApplicationController
 	private
 
 	# find by id
-	def find_concept
-		@concept = Concept.friendly.find(params[:id])
+	def find_tag
+		@tag = Tag.friendly.find(params[:id])
 	end
 
 	# define strong parameters
-	def concept_params
-		params.require(:concept).permit(:name)
+	def tag_params
+		params.require(:tag).permit(:name)
 	end
 
 end

@@ -21,7 +21,7 @@ module ToolkitHelper
 
 	def model_toolkit(model)
 		if user_signed_in?
-			content_tag :nav, class: 'toolkit' do
+			content_tag :nav, class: 'toolkit alteration' do
 				concat link_to 'Edit', edit_polymorphic_path(model)
 				concat link_to 'Delete', model, method: :delete, data: { confirm: "Are you sure you want to delete #{model.heading}?" }
 			end
@@ -30,8 +30,8 @@ module ToolkitHelper
 
 	def component_toolkit(parent, type, editable = true)
 		if user_signed_in? && parent.editable?(current_user)
-			content_tag :nav, class: 'toolkit' do
-				concat link_to "+ #{type}", new_polymorphic_path([parent, "#{type}".downcase ])
+			content_tag :nav, class: 'toolkit insertion' do
+				concat link_to "+ New #{type}", new_polymorphic_path([parent, "#{type}".downcase ])
 			end
 		end
 	end
@@ -44,4 +44,27 @@ module ToolkitHelper
 		end
 	end
 
+	def insertable_chapter_toolkit(work, prev = nil, next_one = nil)
+		if user_signed_in? && work.editable?(current_user)
+			if prev.nil?
+				text      = "Place A Chapter Here"
+				insertion = link_to text, work_first_chapter_path(work)
+			else
+				text      = "Place Chapter Between Chapter #{prev.position} & Chapter #{prev.position + 1}"
+				insertion = link_to text, work_chapter_insert_path(work, prev)
+			end
+
+			content_tag :nav, class: 'toolkit insertion' do
+				insertion
+			end
+		end
+	end
+
+	def toolblock(colspan, toolkit)
+		content_tag :tr, class: 'toolblock' do
+			content_tag :td, colspan: colspan do
+				toolkit
+			end
+		end
+	end
 end

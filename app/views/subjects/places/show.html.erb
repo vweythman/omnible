@@ -5,5 +5,17 @@
 		<h1><%= @place.heading %></h1>
 	</header>
 
+	<article>
+		<% if @domains.length > 0 %>
+			<h2>Contained Within</h2>
+			<%= render partial: "shared/definitions", object: @domains %>
+		<% end %>
+
+		<% if @subdomains.length > 0 %>
+			<h2>Contains</h2>
+			<%= render partial: "shared/definitions", object: @subdomains %>
+		<% end %>
+	</article>
+
 	<%= render 'subjects/shared/footer' %>
 <main>

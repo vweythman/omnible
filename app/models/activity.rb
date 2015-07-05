@@ -24,9 +24,8 @@ class Activity < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Taggable       # class methods for general tags
-	extend FriendlyId     # class methods for clean urls
-	include Referenceable # instance methods for general tags
+	extend FriendlyId
+	include Taggable
 
 	# SCOPES
 	# ------------------------------------------------------------

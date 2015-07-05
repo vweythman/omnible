@@ -8,10 +8,11 @@
 	</fieldset>
 
 	<%= show_link @connest.heading, @connest.klass %>
-	<fieldset class='nested' id="<%= @connest.form_id %>">
-		<%= nested_fields @connest, f, {collection: Character.order('lower(name)').all} %>
-		<p><%= link_to_add_association '+ Add Relationships', f, @connest.klass, :render_options => {:locals => {collection: Character.order('lower(name)').all}} %></p>
-	</fieldset>
+	<%= content_tag :fieldset, class: 'nested relationships', id: @connest.form_id do %>
+		<%= nested_legend @connest %>
+		<%= nested_fields f, @connest %>
+		<p><%= link_to_add_association "+ Add Relationship", f, @connest.klass, :partial=> @connest.partial %></p>
+	<% end %>
 
 	<%= f.submit %>
 

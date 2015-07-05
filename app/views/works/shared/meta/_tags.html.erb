@@ -3,14 +3,10 @@
 	<th>Tags</th>
 	<td colspan='3'>
 		<dl>
-			<% @taggables.each do |type, taggable| %>
-				<dt><%= type.pluralize(taggable.count) %></dt>
-				<dd><%= cslinks(taggable.map { |tagged| tagged.tag }) %></dd>
-			<% end %>
+			<dt><%= "Tag".pluralize(@tags.length) %></dt>
+			<dd><%= cslinks @tags %></dd>
 
-			<%= render 'works/shared/meta/character', characters: @mains, type: "Main" %>
-			<%= render 'works/shared/meta/character', characters: @sides, type: "Side" %>
-			<%= render 'works/shared/meta/character', characters: @mentions, type: "Mentioned" %>
+			<%= render 'works/shared/meta/characters' %>
 		</dl>
 	</td>
 </tr>

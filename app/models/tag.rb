@@ -1,6 +1,6 @@
-# Concept
+# Tag
 # ================================================================================
-# concepts belong to the idea group of tags
+# tags belong to the idea group of tags
 #
 # Variables
 # --------------------------------------------------------------------------------
@@ -21,18 +21,17 @@
 #                              |             | addressing the model
 # ================================================================================
 
-class Concept < ActiveRecord::Base
+class Tag < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Taggable       # class methods for general tags
-	extend FriendlyId     # class methods for clean urls
-	include Referenceable # instance methods for general tags
+	extend FriendlyId
+	include Taggable
 	
 	# SCOPES
 	# ------------------------------------------------------------
-	scope :not_among, ->(concepts) { where("name NOT IN (?)", concepts) }
-	scope :are_among, ->(concepts) { where("name IN (?)", concepts) }
+	scope :not_among, ->(tags) { where("name NOT IN (?)", tags) }
+	scope :are_among, ->(tags) { where("name IN (?)", tags) }
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
@@ -45,10 +44,10 @@ class Concept < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# joins
-	has_many :work_tags, as: :tag
+	has_many :taggings
 
-	# models that reference concepts
-	has_many :works, :through => :work_tags
+	# models that reference tags
+	has_many :works, :through => :taggings
 
 	# METHODS
 	# ------------------------------------------------------------

@@ -1,8 +1,15 @@
 <%= form_for(@quality) do |f| %>
 
 	<fieldset>
-		<%= radio_fields f, Adjective.all.pluck(:name), :adjective_id, @quality.adjective_id %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name") %>
+		<%= render partial: "shared/radio_collection", locals: {
+				f: f, 
+				collection: Adjective.all,
+				title: "Adjective", 
+				value: :adjective_id, 
+				default: @quality.adjective_id
+			}
+		%>
 	</fieldset>
 
 	<%= f.submit %>

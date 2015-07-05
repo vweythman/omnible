@@ -1,5 +1,6 @@
-<footer class='related_items'>
+<footer>
 	<p><%= link_to "Chapters", work_chapters_path(@work) %> | <%= link_to "Notes", work_notes_path(@work) %></p>
+	<%= render 'works/shared/reaction' %>
 	<p><%= link_to @work.title, @work %></p>
 	<p><%= link_to 'Works', works_path %></p>
 </footer>

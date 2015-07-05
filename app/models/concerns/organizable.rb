@@ -3,12 +3,18 @@ module Organizable
 	# Organize
 	# - organizes models by their type
 	def organize(models)
-		list = Hash.new
-		models.each do |model|
-			list[model.type] = Array.new if list[model.type].nil?
-			list[model.type].push(model)
+		if models.nil?
+			return {}
 		end
-		return list.sort
+
+		list = Hash.new
+		models.map { |model|
+			unless model.nil?
+				list[model.nature] = Array.new if list[model.nature].nil?
+				list[model.nature] << model.linkable
+			end
+		}
+		return list
 	end
 
 end

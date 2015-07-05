@@ -8,16 +8,16 @@
 
 		<fieldset class='tags' id="tags">
 			<legend>Tags</legend>
-			<%= form_field label_tag(:concepts, "General Tags"), text_field_tag(:concepts, @concepts.join(";"), :placeholder => "Add General Tags (magic realism,...)", class: 'taggables') %>
-			<%= form_field label_tag(:activities, "Activities"), text_field_tag(:activities, @activities.join(";"), :placeholder => "Add Activities (dancing, fighting,...)", :class => 'taggables') %>
-			<%= form_field label_tag(:qualities, "Qualities"), text_field_tag(:qualities, @qualities.join(";"), :placeholder => "Add Qualities (good, evil,...)", class: 'taggables') %>
+			<%= form_field label_tag(:tags, "Tags"), text_field_tag(:tags, @tags.join(";"), :placeholder => "Add General Tags (magic realism,...)", class: 'taggables') %>
 		</fieldset>
 	</fieldset>
 
-	<%= show_link(@charnest.heading, @charnest.klass) %>
-	<fieldset class='nested' id="<%= @charnest.form_id %>">
-		<%= nested_fields @charnest, f %>
-		<p><%= link_to_add_association '+ Character', f, @charnest.klass, :partial=> @charnest.partial %></p>
-	</fieldset>
+	<%= show_link @charnest.heading, @charnest.klass %>
+	<%= content_tag :fieldset, class: "nested characters", id: @charnest.form_id do %>
+		<%= nested_legend @charnest %>
+		<%= nested_fields f, @charnest %>
+		<p><%= link_to_add_association "+ Add Character", f, @charnest.klass, :partial=> @charnest.partial %></p>
+	<% end %>
+
 	<%= f.submit %>
 <% end %>

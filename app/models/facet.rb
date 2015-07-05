@@ -8,8 +8,7 @@ class Facet < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Organizerable # member of the type group
-	extend FriendlyId     # slugged based on the name
+	extend FriendlyId
 
 	# VALIDATIONS and SCOPES
 	# ------------------------------------------------------------

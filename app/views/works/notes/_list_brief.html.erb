@@ -1,6 +1,9 @@
-<%= toolblockable_heading(:h2, "Notes", @notes.length) %>
+<%= tool_heading "Notes", @notes.length %>
 
 <div class="pieces">
-	<%= render 'works/notes/list' if @notes.length > 0 %>
-	<%= component_toolkit @work, 'Note' %>
+	<% if @notes.length > 0 %>
+		<%= render 'works/notes/list' %>
+	<% else %>
+		<%= component_toolkit @work, 'Note' %>
+	<% end %>
 </div>

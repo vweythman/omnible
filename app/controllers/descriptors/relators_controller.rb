@@ -64,10 +64,11 @@ class Descriptors::RelatorsController < ApplicationController
 	# define strong parameters
 	def relator_params
 		params.require(:relator).permit(:right_name, :left_name, 
-			connections_attributes: [:id, :left_id, :right_id, :_destroy]
+			interconnections_attributes: [:id, :left_id, :right_id, :_destroy]
 		)
 	end
 	def define_components
-		@connest = Nest.new("Connections", :connections, "connection_fields")
+		@connest    = Nest.new("Interconnections", :interconnections, "interconnection_fields")
+		@characters = Character.order('lower(name)')
 	end
 end

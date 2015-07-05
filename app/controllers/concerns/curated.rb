@@ -7,7 +7,7 @@
 #  method name                 | description
 # --------------------------------------------------------------------------------
 #  character_index             | find models through character
-#  concept_index               | find models through concept
+#  tag_index                   | find models through tag
 #  identity_index              | find models through identity
 # ================================================================================
 
@@ -22,10 +22,10 @@ module Curated
     curated_index
   end
 
-  # concept_index
-  # - find models through concept
-  def concept_index
-    @parent = Concept.friendly.find(params[:concept_id])
+  # tag_index
+  # - find models through tag
+  def tag_index
+    @parent = Tag.friendly.find(params[:tag_id])
     curated_index
   end
 

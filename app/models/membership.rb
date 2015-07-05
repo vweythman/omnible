@@ -12,17 +12,17 @@
 
 class Membership < ActiveRecord::Base
 
-  # ASSOCIATIONS
-  # ------------------------------------------------------------
-  belongs_to :group
-  belongs_to :character
+	# ASSOCIATIONS
+	# ------------------------------------------------------------
+	belongs_to :group
+	belongs_to :character
 
-  # CLASS METHODS
-  # ------------------------------------------------------------
-  # roles
-  # - defines and collects the types of memberships
-  def self.roles
-    ['included', 'associated']
-  end
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# roles
+	# - defines and collects the types of memberships
+	def self.roles
+		['included', 'associated']
+	end
 
 end

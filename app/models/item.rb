@@ -28,9 +28,9 @@ class Item < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Documentable  # member of the subject group
-	extend Organizable    # has a type
-	extend FriendlyId     # slugged based on the name
+	include Documentable
+	extend Organizable
+	extend FriendlyId
 	
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
@@ -59,7 +59,7 @@ class Item < ActiveRecord::Base
 
 	# Type
 	# - defines the type name if it exists
-	def type
+	def nature
 		generic.name unless generic.nil?
 	end
 

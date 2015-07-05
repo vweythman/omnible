@@ -1,0 +1,9 @@
+<% if @tags.length > 0 %>
+	<article>
+		<ul>
+		<% @tags.each do |tag| %>
+			<li><%= link_to tag.name, tag %></li>
+		<% end %>
+		</ul>
+	</article>
+<% end %>

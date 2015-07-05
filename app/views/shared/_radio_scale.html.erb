@@ -1,0 +1,9 @@
+<% offset ||= 0 %>
+<fieldset class="options">
+	<legend><%= title %></legend>
+	<div class="choice">
+		<% (0..collection.length-1).each do |i| %>
+			<%= form_field f.radio_button(value, i + offset, :checked => (i == default)), f.label("#{value}_#{i}", "#{collection[i]}") %>
+		<% end %>
+	</div>
+</fieldset>

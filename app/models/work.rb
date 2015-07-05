@@ -23,6 +23,7 @@
 #                              |             | subject tags
 #  content_distribution        | array       | collects the totals number of 
 #                              |             | chapters and notes
+#  set_discussion              | object      | setup a discussion of the work
 #  editable?                   | bool        | asks if work can be edited
 #  self.sorter                 | string      | decide on the sort order
 # ================================================================================
@@ -32,6 +33,14 @@ class Work < ActiveRecord::Base
 	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :title, length: { maximum: 250 }, presence: true
+
+	# MODULES
+	# ------------------------------------------------------------
+	include Discussable
+
+	# CALLBACKS
+	# ------------------------------------------------------------
+	after_create :set_discussion
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -62,7 +71,7 @@ class Work < ActiveRecord::Base
 	has_many :collections
 	has_many :appearances
 	has_many :respondences, as: :response
-	has_many :work_tags
+	has_many :taggings
 
 	# models that possess these models
 	belongs_to :user
@@ -72,21 +81,14 @@ class Work < ActiveRecord::Base
 	# models that belong to this model
 	has_many :chapters, :inverse_of => :work
 	has_many :notes,    :inverse_of => :work
+	has_one  :topic,    :inverse_of => :discussed, as: :discussed
+	has_many :comments, :through => :discussion
 
 	# models that are refrenced by these models
 	has_many :characters, :through => :appearances
-	has_many :gen_tags,   :through => :work_tags
-
-	# indirect associations and subgroups
+	has_many :tags,       :through => :taggings
 	has_many :identities, ->{uniq}, :through => :characters
-	has_many :main_characters, -> { where(appearances: {role: 'main'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
-	has_many :side_characters, -> { where(appearances: {role: 'side'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
-	has_many :mentioned_characters, -> { where(appearances: {role: 'mentioned'}) }, :through => :appearances, :class_name => 'Character', source: :character, :foreign_key => 'character_id'
 
-	# DELEGATIONS
-	# ------------------------------------------------------------
-	delegate :concepts, :activities, :qualities, :to => :work_tags
-	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :appearances, :allow_destroy => true
@@ -99,10 +101,10 @@ class Work < ActiveRecord::Base
 		title
 	end
 
-	# AllTags
-	# - aggreagates the general and subject tags
-	def all_tags
-		characters + gen_tags
+	# OrganizedCharacters
+	def organized_characters
+		appearances = self.appearances.order('role asc').includes(:character)
+		Appearance.organize(appearances)
 	end
 
 	# ContentDistribution
@@ -112,6 +114,22 @@ class Work < ActiveRecord::Base
 			:chapters => Chapter.where(:work_id => self.id).count,
 			:notes => Note.where(:work_id => self.id).count
 		}
+	end
+
+	# NewChapter
+	# - creates a new chapter
+	def new_chapter
+		chapter = Chapter.new
+		chapter.work = self
+		chapter.position = self.newest_chapter_position
+
+		return chapter
+	end
+
+	# NewestChapterPosition
+	# - get position for newest chapter
+	def newest_chapter_position
+		self.chapters.size + 1
 	end
 
 	# Editable?

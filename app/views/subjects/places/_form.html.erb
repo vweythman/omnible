@@ -10,6 +10,20 @@
 		</div>
 	</fieldset>
 
+	<%= show_link @nested_dom.heading, @nested_dom.klass %>
+	<%= content_tag :fieldset, class: 'nested localities', id: @nested_dom.form_id do %>
+		<%= nested_legend @nested_dom %>
+		<%= nested_fields f, @nested_dom %>
+		<p><%= link_to_add_association "+ Add Place", f, @nested_dom.klass, :partial=> @nested_dom.partial %></p>
+	<% end %>
+
+	<%= show_link @nested_sub.heading, @nested_sub.klass %>
+	<%= content_tag :fieldset, class: 'nested sublocalities', id: @nested_sub.form_id do %>
+		<%= nested_legend @nested_sub %>
+		<%= nested_fields f, @nested_sub %>
+		<p><%= link_to_add_association "+ Add Place", f, @nested_sub.klass, :partial=> @nested_sub.partial %></p>
+	<% end %>
+
 	<%= f.submit %>
 
 <% end %>

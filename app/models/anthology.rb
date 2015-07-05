@@ -24,6 +24,7 @@ class Anthology < ActiveRecord::Base
 	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :name, length: { maximum: 250 }, presence: true
+	validates :uploader_id, presence: true
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -44,7 +45,7 @@ class Anthology < ActiveRecord::Base
 	# Heading
 	# - defines the main means of addressing the model
 	def heading
-		name
+		self.name
 	end
 
 end

@@ -11,31 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527201521) do
+ActiveRecord::Schema.define(version: 20150705213912) do
 
-  create_table "activities", force: true do |t|
-    t.string   "name"
+  create_table "activities", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "adjectives", force: true do |t|
-    t.string   "name"
+  create_table "adjectives", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "anthologies", force: true do |t|
-    t.string   "name"
+  create_table "anthologies", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "summary"
+    t.integer  "uploader_id"
   end
 
-  create_table "appearances", force: true do |t|
+  create_table "appearances", force: :cascade do |t|
     t.integer  "work_id"
     t.integer  "character_id"
-    t.string   "role"
+    t.string   "role",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,12 +44,23 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "appearances", ["character_id"], name: "index_appearances_on_character_id"
   add_index "appearances", ["work_id"], name: "index_appearances_on_work_id"
 
-  create_table "chapters", force: true do |t|
-    t.string   "title"
+  create_table "challenges", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.integer  "uploader_id"
+    t.text     "about"
+    t.string   "response_level", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "challenges", ["uploader_id"], name: "index_challenges_on_uploader_id"
+
+  create_table "chapters", force: :cascade do |t|
+    t.string   "title",      limit: 255
     t.text     "content"
     t.integer  "work_id"
-    t.string   "about"
-    t.string   "afterward"
+    t.string   "about",      limit: 255
+    t.string   "afterward",  limit: 255
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -56,14 +68,20 @@ ActiveRecord::Schema.define(version: 20150527201521) do
 
   add_index "chapters", ["work_id"], name: "index_chapters_on_work_id"
 
-  create_table "characters", force: true do |t|
-    t.string   "name"
+  create_table "characters", force: :cascade do |t|
+    t.string   "name",            limit: 255
     t.text     "about"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "uploader_id"
+    t.integer  "publicity_level"
+    t.integer  "editor_level"
+    t.boolean  "allow_play"
+    t.boolean  "allow_clones"
+    t.boolean  "allow_as_clone"
   end
 
-  create_table "collections", force: true do |t|
+  create_table "collections", force: :cascade do |t|
     t.integer  "work_id"
     t.integer  "anthology_id"
     t.datetime "created_at"
@@ -73,22 +91,23 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "collections", ["anthology_id"], name: "index_collections_on_anthology_id"
   add_index "collections", ["work_id"], name: "index_collections_on_work_id"
 
-  create_table "concepts", force: true do |t|
-    t.string   "name",       null: false
-    t.string   "slug",       null: false
+  create_table "comments", force: :cascade do |t|
+    t.integer  "topic_id",                               null: false
+    t.integer  "creator_id",                             null: false
+    t.string   "creator_type",   limit: 255,             null: false
+    t.integer  "parent_id"
+    t.integer  "lft",                                    null: false
+    t.integer  "rgt",                                    null: false
+    t.integer  "depth",                      default: 0, null: false
+    t.integer  "children_count",             default: 0, null: false
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "connections", force: true do |t|
-    t.integer  "left_id"
-    t.integer  "relator_id"
-    t.integer  "right_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "comments", ["topic_id"], name: "index_comments_on_topic_id"
 
-  create_table "descriptions", force: true do |t|
+  create_table "descriptions", force: :cascade do |t|
     t.integer "character_id"
     t.integer "identity_id"
   end
@@ -96,40 +115,59 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "descriptions", ["character_id"], name: "index_descriptions_on_character_id"
   add_index "descriptions", ["identity_id"], name: "index_descriptions_on_identity_id"
 
-  create_table "facets", force: true do |t|
-    t.string   "name"
+  create_table "events", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "forms", force: true do |t|
-    t.string   "name"
+  add_index "events", ["place_id"], name: "index_events_on_place_id"
+
+  create_table "exchanges", force: :cascade do |t|
+    t.integer  "uploader_id",                null: false
+    t.text     "about"
+    t.string   "response_level", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "generics", force: true do |t|
-    t.string   "name"
+  add_index "exchanges", ["uploader_id"], name: "index_exchanges_on_uploader_id"
+
+  create_table "facets", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "groups", force: true do |t|
-    t.string   "name"
+  create_table "forms", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "generics", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",        limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "hosts", force: true do |t|
-    t.string   "name"
-    t.string   "reference"
+  create_table "hosts", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "reference",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "identifiers", force: true do |t|
-    t.string   "name"
+  create_table "identifiers", force: :cascade do |t|
+    t.string   "name",         limit: 255
     t.integer  "character_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -137,35 +175,61 @@ ActiveRecord::Schema.define(version: 20150527201521) do
 
   add_index "identifiers", ["character_id"], name: "index_identifiers_on_character_id"
 
-  create_table "identities", force: true do |t|
-    t.string   "name"
+  create_table "identities", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.integer  "facet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "item_descriptions", force: true do |t|
+  create_table "interconnections", force: :cascade do |t|
+    t.integer  "left_id"
+    t.integer  "relator_id"
+    t.integer  "right_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_tags", force: :cascade do |t|
     t.integer  "item_id"
     t.integer  "quality_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "item_descriptions", ["item_id"], name: "index_item_descriptions_on_item_id"
-  add_index "item_descriptions", ["quality_id"], name: "index_item_descriptions_on_quality_id"
+  add_index "item_tags", ["item_id"], name: "index_item_descriptions_on_item_id"
+  add_index "item_tags", ["quality_id"], name: "index_item_descriptions_on_quality_id"
 
-  create_table "items", force: true do |t|
-    t.string   "name",       null: false
+  create_table "items", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
     t.integer  "generic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
+    t.string   "slug",       limit: 255
   end
 
-  create_table "memberships", force: true do |t|
+  create_table "localities", force: :cascade do |t|
+    t.integer  "domain_id"
+    t.integer  "subdomain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "place_id"
+    t.string   "nature",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "locations", ["character_id"], name: "index_locations_on_character_id"
+  add_index "locations", ["place_id"], name: "index_locations_on_place_id"
+
+  create_table "memberships", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "character_id"
-    t.string   "role"
+    t.string   "role",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -173,16 +237,26 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "memberships", ["character_id"], name: "index_memberships_on_character_id"
   add_index "memberships", ["group_id"], name: "index_memberships_on_group_id"
 
-  create_table "notes", force: true do |t|
-    t.string   "title"
+  create_table "notes", force: :cascade do |t|
+    t.string   "title",      limit: 255
     t.text     "content"
     t.integer  "work_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "pitches", force: true do |t|
-    t.string   "title"
+  create_table "opinions", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "recip_id"
+    t.integer  "fondness",     null: false
+    t.integer  "respect",      null: false
+    t.text     "about"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pitches", force: :cascade do |t|
+    t.string   "title",      limit: 255
     t.text     "about"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -191,53 +265,60 @@ ActiveRecord::Schema.define(version: 20150527201521) do
 
   add_index "pitches", ["user_id"], name: "index_pitches_on_user_id"
 
-  create_table "places", force: true do |t|
-    t.string   "name"
+  create_table "places", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "fictional",              null: false
   end
 
-  add_index "places", ["form_id"], name: "index_locations_on_form_id"
-
-  create_table "possessions", force: true do |t|
+  create_table "possessions", force: :cascade do |t|
     t.integer  "character_id"
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type",         limit: 255
   end
 
   add_index "possessions", ["character_id"], name: "index_possessions_on_character_id"
   add_index "possessions", ["item_id"], name: "index_possessions_on_item_id"
 
-  create_table "qualities", force: true do |t|
-    t.string   "name"
-    t.string   "slug"
+  create_table "prejudices", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "identity_id"
+    t.integer  "fondness"
+    t.integer  "respect"
+    t.text     "about"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "adjective_id", default: 0, null: false
   end
 
-  create_table "ratings", force: true do |t|
+  create_table "qualities", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "slug",         limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "adjective_id",             default: 0, null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
     t.integer  "work_id"
     t.integer  "violence"
     t.integer  "sexuality"
     t.integer  "language"
-    t.integer  "overall"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "ratings", ["work_id"], name: "index_ratings_on_work_id"
-
-  create_table "relators", force: true do |t|
-    t.string   "left_name"
-    t.string   "right_name"
+  create_table "relators", force: :cascade do |t|
+    t.string   "left_name",  limit: 255
+    t.string   "right_name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "replications", force: true do |t|
+  create_table "replications", force: :cascade do |t|
     t.integer  "original_id"
     t.integer  "clone_id"
     t.datetime "created_at"
@@ -247,11 +328,11 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "replications", ["clone_id"], name: "index_replications_on_clone_id"
   add_index "replications", ["original_id"], name: "index_replications_on_original_id"
 
-  create_table "respondences", force: true do |t|
+  create_table "respondences", force: :cascade do |t|
     t.integer  "caller_id"
-    t.string   "caller_type"
+    t.string   "caller_type",   limit: 255
     t.integer  "response_id"
-    t.string   "response_type"
+    t.string   "response_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -259,7 +340,7 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "respondences", ["caller_id", "caller_type"], name: "index_challenge_responses_on_caller_id_and_caller_type"
   add_index "respondences", ["response_id", "response_type"], name: "index_challenge_responses_on_response_id_and_response_type"
 
-  create_table "reviews", force: true do |t|
+  create_table "reviews", force: :cascade do |t|
     t.integer  "work_id"
     t.integer  "user_id"
     t.integer  "plot"
@@ -274,8 +355,18 @@ ActiveRecord::Schema.define(version: 20150527201521) do
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
   add_index "reviews", ["work_id"], name: "index_reviews_on_work_id"
 
-  create_table "sources", force: true do |t|
-    t.string   "reference"
+  create_table "settings", force: :cascade do |t|
+    t.integer  "work_id",    null: false
+    t.integer  "place_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["place_id"], name: "index_settings_on_place_id"
+  add_index "settings", ["work_id"], name: "index_settings_on_work_id"
+
+  create_table "sources", force: :cascade do |t|
+    t.string   "reference",  limit: 255
     t.integer  "host_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -283,80 +374,60 @@ ActiveRecord::Schema.define(version: 20150527201521) do
 
   add_index "sources", ["host_id"], name: "index_sources_on_host_id"
 
-  create_table "term_edges", force: true do |t|
-    t.integer "broad_term_id"
-    t.integer "narrow_term_id"
-  end
-
-  create_table "terms", force: true do |t|
-    t.string   "name"
-    t.integer  "facet_id"
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "work_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "terms", ["facet_id"], name: "index_terms_on_facet_id"
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.string   "slug",       limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
-  create_table "topics", force: true do |t|
-    t.string   "title"
+  create_table "topics", force: :cascade do |t|
+    t.string   "title",          limit: 255
     t.integer  "creator_id"
-    t.string   "creator_type"
-    t.boolean  "allow_response", default: true, null: false
+    t.string   "creator_type",   limit: 255
+    t.boolean  "allow_response",             default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "discussed_id"
+    t.string   "discussed_type", limit: 255
   end
 
   add_index "topics", ["creator_id", "creator_type"], name: "index_topics_on_creator_id_and_creator_type"
 
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "email"
+  create_table "users", force: :cascade do |t|
+    t.string   "name",                   limit: 255
+    t.string   "email",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
-  create_table "viewpoints", force: true do |t|
-    t.integer  "character_id"
-    t.integer  "recip_id"
-    t.string   "recip_type"
-    t.integer  "warmth"
-    t.integer  "respect"
-    t.text     "about"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "viewpoints", ["character_id"], name: "index_opinions_on_character_id"
-
-  create_table "work_tags", force: true do |t|
-    t.integer  "work_id"
-    t.integer  "tag_id"
-    t.string   "tag_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "work_tags", ["tag_id", "tag_type"], name: "index_work_tags_on_tag_id_and_tag_type"
-  add_index "work_tags", ["work_id"], name: "index_work_tags_on_work_id"
-
-  create_table "works", force: true do |t|
-    t.string   "title"
+  create_table "works", force: :cascade do |t|
+    t.string   "title",           limit: 255
     t.text     "summary"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "publicity_level"
+    t.boolean  "is_complete",                 default: false
   end
 
   add_index "works", ["user_id"], name: "index_works_on_user_id"

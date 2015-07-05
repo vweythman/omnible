@@ -1,0 +1,8 @@
+<fieldset class="options">
+	<legend><%= title %></legend>
+	<div class="choice">
+		<% collection.each do |item| %>
+			<%= form_field f.radio_button(value, item.id, :checked => (item.id == default)), f.label("#{value}_#{item.id}", item.name) %>
+		<% end %>
+	</div>
+</fieldset>

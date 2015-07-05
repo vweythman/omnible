@@ -26,10 +26,9 @@ class WorksController < ApplicationController
 			@chapters = @work.chapters
 			@notes    = @work.notes
 
-			@taggables = WorkTag.organized_all(@work.work_tags.includes(:tag))
-			@mains     = @work.main_characters
-			@sides     = @work.side_characters
-			@mentions  = @work.mentioned_characters
+			@characters = @work.organized_characters
+			@user       = @work.user
+			@tags       = @work.tags
 			render 'show'
 		# add if !@work.viewable?(curent_user)
 			# render restrict
@@ -100,9 +99,9 @@ class WorksController < ApplicationController
 	# find all
 	def find_works
 		if @parent.nil?
-			@works = Work.assort(params[:date], params[:sort]).includes(:user, :characters).page(params[:page])
+			@works = Work.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
 		else
-			@works = @parent.works.assort(params[:date], params[:sort]).includes(:user, :characters).page(params[:page])
+			@works = @parent.works.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
 		end
 	end
 
@@ -121,9 +120,7 @@ class WorksController < ApplicationController
 	# setup form components
 	def define_components
 		@characters = Character.order('lower(name)').all
-		@concepts   = @work.concepts.pluck(:name)
-		@qualities  = @work.qualities.pluck(:name)
-		@activities = @work.activities.pluck(:name)
+		@tags       = @work.tags.pluck(:name)
 		@charnest   = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
 	end
 
@@ -133,7 +130,7 @@ class WorksController < ApplicationController
 			char_id = appearance[1][:character_id]
 			is_int  = Integer(char_id, 10) rescue false
 			if !(is_int || char_id.empty?)
-				character = Character.where(name: char_id).first_or_create
+				character = Character.where(name: char_id, uploader_id: current_user.id).create
 				appearance[1][:character_id] = character.id
 			end
 		end

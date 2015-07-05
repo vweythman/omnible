@@ -28,8 +28,6 @@
 #  prev                        | object      | finds the previous chapter
 #  next                        | object      | finds the next chapter
 #  editable                    | bool        | user is allowed to edit
-#  self.newest_position        | integer     | outputs the newest positional
-#                              |             | chapter number
 # ================================================================================
 
 class Chapter < ActiveRecord::Base
@@ -40,22 +38,35 @@ class Chapter < ActiveRecord::Base
 	validates :content, presence: true
 	validates_uniqueness_of :position, :scope => :work_id
 
+	# MODULES
+	# ------------------------------------------------------------
+	include Discussable
+
+	# CALLBACKS
+	# ------------------------------------------------------------
+	after_create :set_discussion
+	before_create :set_position
+
 	# SCOPES
 	# ------------------------------------------------------------
+	default_scope { order('chapters.position asc') }
 	scope :prev_in_work, ->(work_id, position) { where("work_id = ? AND position < ?", work_id, position) }
 	scope :next_in_work, ->(work_id, position) { where("work_id = ? AND position > ?", work_id, position) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :work, :inverse_of => :chapters
+	belongs_to :work,     :inverse_of => :chapters
+	has_one    :topic,    :inverse_of => :discussed, as: :discussed
+	has_many   :comments, :through => :discussion, as: :discussed
+
+	delegate :user, to: :work
 
 	# METHODS
 	# ------------------------------------------------------------
 	# Heading
 	# - defines the main means of addressing the model
-	# - :: string
 	def heading
-		if title.empty?
+		if title.blank?
 			"Chapter #{self.position}"
 		else
 			title
@@ -64,46 +75,110 @@ class Chapter < ActiveRecord::Base
 
 	# CompleteHeading
 	# - defines the full chapter heading
-	# - :: string
 	def complete_heading
 		current_title = "Chapter #{self.position}"
-		current_title.concat " - #{self.title}" unless title.empty?
+		current_title.concat " - #{self.title}" unless title.blank?
 		current_title
-	end
-
-	# WordCount
-	# - count the number of words in the chapter contents
-	# - :: integer
-	def word_count
-		I18n.transliterate(self.content).scan(/[\w-]+/).size
 	end
 
 	# Prev
 	# - finds the previous chapter
-	# - :: object
 	def prev
-		@prev.nil? ? @prev = Chapter.prev_in_work(self.work_id, self.position).first : @prev
+		@prev ||= Chapter.prev_in_work(self.work_id, self.position).first
 	end
 
 	# Next
 	# - finds the next chapter
-	# - :: object
 	def next
-		@next.nil? ? @next = Chapter.next_in_work(self.work_id, self.position).first : @next
+		@next ||= Chapter.next_in_work(self.work_id, self.position).first
+	end
+
+	# WordCount
+	# - count the number of words in the chapter contents
+	def word_count
+		body = self.content.downcase.gsub(/[^[:word:]\s]/, '')
+		I18n.transliterate(body).scan(/[a-zA-Z]+/).size
+	end
+
+	# MakeRoomAfter
+	# - create space for a chapter after this chapter
+	def make_room
+		self.position ||= 0
+		success = false
+		Chapter.transaction do
+			success = Chapter.where("work_id = ? AND position > ?", self.work_id, self.position).update_all("position = -1 * (position + 1)")
+			success = success && Chapter.where("work_id = ? AND position < 0", self.work_id).update_all("position = -1 * position")
+		end
+		return success
+	end
+
+	# PlaceFirst
+	# - place as first chapter
+	def place_first
+		if self.work.newest_chapter_position == 1
+			self.position = 1
+		else
+			self.make_room
+			self.position = 1
+		end
+	end
+
+	# PlaceAfter
+	# - set after previous chapter
+	def place_after(prev, made_room = false)
+		if self.work != prev.work
+			return false
+		end
+
+		last_position = self.work.newest_chapter_position
+		next_position = prev.position + 1
+
+		if !(made_room || last_position == next_position)
+			prev.make_room
+		end
+
+		self.position = next_position
 	end
 
 	# Editable
 	# - user is allowed to edit
-	# - :: bool
 	def editable?(user)
-		
+		self.user.id == user.id
 	end
 
 	# CLASS METHODS
-	# NewestPosition
-	# - outputs the newest positional chapter number
-	def self.newest_position(work)
-		work.chapters.length + 1 
+	# SwapPositions
+	# - swap the positions of two chapters of the same work
+	def self.swap_positions(left, right)
+		if left.work != right.work
+			return false
+		end
+
+		temp_pos = left.position * -1
+		old_pos1 = left.position
+		old_pos2 = right.position
+
+		success = false
+		Chapter.transaction do
+			left.position = temp_pos
+			success = left.save
+
+			right.position = old_pos1
+			success = right.save && success
+
+			left.position = old_pos2
+			success = left.save && success
+		end
+		return success
+	end
+
+	# PRIVATE METHODS
+	private
+
+	# SetPosition
+	# - set the correct position if it does not exist
+	def set_position
+		self.position ||= work.newest_chapter_position
 	end
 
 end

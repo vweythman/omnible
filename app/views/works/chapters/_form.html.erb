@@ -1,17 +1,3 @@
 <%= form_for [@work, @chapter] do |f| %>
-
-	<%= f.hidden_field :work_id,  :value => @work.id %>
-	<%= f.hidden_field :position, :value => @chapter.position || Chapter.newest_position(@work) %>
-
-	<fieldset>
-		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Add Title") %>
-	</fieldset>
-
-	<fieldset>
-		<%= form_field f.label(:about, "Summary"), f.text_area(:about, :placeholder => "Add Summary", class: "minor") %>
-		<%= form_field f.label(:content), f.text_area(:content, class: "major") %>
-		<%= form_field f.label(:afterward), f.text_area(:afterward, :placeholder => "Add Afterward", class: "minor") %>
-	</fieldset>
-
-	<%= f.submit %>
+	<%= render 'form_fields', f: f %>
 <% end %>

@@ -6,10 +6,11 @@
 	</fieldset>
 
 	<%= show_link @describe_nest.heading, @describe_nest.klass %>
-	<fieldset class='nested' id="<%= @describe_nest.form_id %>">
-		<%= nested_fields @describe_nest, f %>
-		<p><%= link_to_add_association '+ Add Character', f, @describe_nest.klass %></p>
-	</fieldset>
+	<%= content_tag :fieldset, class: 'nested characters', id: @describe_nest.form_id do %>
+		<%= nested_legend @describe_nest %>
+		<%= nested_fields f, @describe_nest %>
+		<p><%= link_to_add_association "+ Add Character", f, @describe_nest.klass, :partial=> @describe_nest.partial %></p>
+	<% end %>
 
 	<%= f.submit %>
 

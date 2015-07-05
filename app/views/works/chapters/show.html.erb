@@ -1,4 +1,5 @@
 <main class="feature">
+	<% provide(:title, @chapter.heading + " | " + @work.heading) %>
 	<%= render 'works/shared/header' %>
 
 	<article class="piece" role="article">
@@ -24,6 +25,7 @@
 				<%= link_to prev_heading("Prev Chapter"), [@chapter.work, @chapter.prev] unless @chapter.prev.nil? %>
 				<%= link_to next_heading("Next Chapter"), [@chapter.work, @chapter.next] unless @chapter.next.nil? %>
 			</nav>
+			<%= @chapter.topic.heading %>
 		</footer>
 	</article>
 

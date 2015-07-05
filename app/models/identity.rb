@@ -21,15 +21,20 @@
 #                              |             | addressing the model
 #  type                        | string      | returns the facet name when it
 #                              |             | exists
+#  faceted_next                | object      | next in facet
+#  faceted_prev                | object      | previous in facet
 #  typify                      | object      | set the facet type of the identity
+#  character_percent           | float       | percent of all characters with 
+#                              |             | identity
+#  work_percent                | float       | percent of all works where 
+#                              |             | characters with identity appear
 # ================================================================================
 class Identity < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Organizable    # class method for typeification
-	extend Taggable       # class methods for general tags
-	include Referenceable # instance methods for general tags
+	extend  Organizable
+	include Taggable
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -66,8 +71,20 @@ class Identity < ActiveRecord::Base
 
 	# Type
 	# - returns the facet name when it exists
-	def type
+	def nature
 		facet.name unless facet.nil?
+	end
+
+	# FacetedNext
+	# - next in facet
+	def faceted_next
+		@faceted_next ||= Identity.next_in_facet(self).first
+	end
+
+	# FacetedPrev
+	# - previous in facet
+	def faceted_prev
+		@faceted_prev ||= Identity.prev_in_facet(self).first
 	end
 
 	# Typify
@@ -76,12 +93,16 @@ class Identity < ActiveRecord::Base
 		self.facet = Facet.where(name: name).first_or_create
 	end
 
-	def faceted_next
-		@faceted_next.nil? ? @faceted_next = Identity.next_in_facet(self).first : @faceted_next
+	# CharacterPercent
+	# - percent of all characters with identity
+	def character_percent
+		1.0 * self.characters.count / Character.count * 100.0
 	end
 
-	def faceted_prev
-		@faceted_prev.nil? ? @faceted_prev = Identity.prev_in_facet(self).first : @faceted_prev
+	# WOrkPercent
+	# - percent of all works where characters with identity appear
+	def work_percent
+		1.0 * self.works.count / Work.count * 100.0
 	end
 
 	# CLASS METHODS

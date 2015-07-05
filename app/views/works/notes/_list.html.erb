@@ -6,16 +6,14 @@
 			<th>Update Date</th>
 		</tr>
 	</thead>
-	<% colcount = 3 %>
-
 	<% @notes.each do |note| %>
 		<tr>
 			<th rowspan="2"><%= link_to note.heading, [@work, note] %></th>
 			<td data-label="Creation Date"><%= record_time note.created_at %></td>
 			<td data-label="Update Date"><%= record_time note.updated_at %></td>
 		</tr>
-		<tr class="toolblock">
-			<td colspan="<%= colcount - 1 %>"><%= model_toolkit(note) %></td>
-		</tr>
+		<%= toolblock 2, model_toolkit(note) %>
 	<% end %>
+
+	<%= toolblock 3, component_toolkit(@work, 'Note') %></tr>
 </table>

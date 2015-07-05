@@ -7,8 +7,8 @@
 			<th>Word Count</th>
 		</tr>
 	</thead>
-	<% colcount = 4 %>
-
+	
+	<%= toolblock 4, insertable_chapter_toolkit(@work) %>
 	<% @chapters.each do |chapter| %>
 		<tr>
 			<th rowspan="2"><%= chapter.position %>. <%= link_to chapter.heading, [@work, chapter] %></th>
@@ -16,8 +16,12 @@
 			<td data-label="Update Date"><%= record_time chapter.updated_at %></td>
 			<td data-label="Word Count"><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %> words</td>
 		</tr>
-		<tr class="toolblock">
-			<td colspan="<%= colcount - 1 %>"><%= model_toolkit(chapter) %></td>
-		</tr>
+		
+		<%= toolblock 3, model_toolkit(chapter) %>
+
+		<% if chapter.position < @chapters.length %>
+			<%= toolblock 4, insertable_chapter_toolkit(@work, chapter) %>
+		<% end %>
 	<% end %>
+	<%= toolblock 4, component_toolkit(@work, 'Chapter') %></tr>
 </table>

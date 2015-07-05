@@ -2,16 +2,15 @@ class Relator < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	extend Taggable       # class methods for general tags
-	include Referenceable # instance methods for general tags
+	include Taggable
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :connections, dependent: :destroy
+	has_many :interconnections, dependent: :destroy
 	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
-	accepts_nested_attributes_for :connections, :allow_destroy => true
+	accepts_nested_attributes_for :interconnections, :allow_destroy => true
 
 	# METHODS
 	# ------------------------------------------------------------
@@ -22,13 +21,13 @@ class Relator < ActiveRecord::Base
 	end
 
 	# LeftHeading
-	# - defines the left hand connection
+	# - defines the left hand interconnection
 	def left_heading
 		"#{left_name}" unless left_name.nil?
 	end
 
 	# RightHeading
-	# - defines the right hand connection
+	# - defines the right hand interconnection
 	def right_heading
 		has_reverse? ? "#{right_name}" : left_heading
 	end

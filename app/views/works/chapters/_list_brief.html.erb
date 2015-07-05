@@ -1,6 +1,9 @@
-<%= toolblockable_heading(:h2, "Chapters", @chapters.length) %>
+<%= tool_heading "Chapters", @chapters.length %>
 
 <div class="pieces">
-	<%= render 'works/chapters/list' if @chapters.length > 0 %>
-	<%= component_toolkit @work, 'Chapter' %>
+	<% if @chapters.length > 0 %>
+		<%= render 'works/chapters/list' %>
+	<% else %>
+		<%= component_toolkit @work, 'Chapter' %>
+	<% end %>
 </div>

@@ -9,7 +9,7 @@
 	<%= render 'index_results' %>
 </main>
 
-<footer class='related_items'>
+<footer>
 	<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
 	
 	<% if @parent.is_subject? %>

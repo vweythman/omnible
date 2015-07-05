@@ -1,0 +1,9 @@
+<main class="new model-make">
+	<%= creation_header "Chapter of #{link_to @work.title, @work}" %>
+
+	<%= form_for [@work, @chapter], :url => work_first_chapter_path do |f| %>
+		<%= render 'works/chapters/form_fields', f: f %>
+	<% end %>
+	
+	<footer><%= link_to @work.title, @work %></footer>
+</main>

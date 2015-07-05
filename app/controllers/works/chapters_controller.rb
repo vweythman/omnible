@@ -17,8 +17,7 @@ class Works::ChaptersController < ApplicationController
 
 	def new
 		@work    = Work.find(params[:work_id])
-		@chapter = Chapter.new
-		@chapter.work = @work
+		@chapter = @work.new_chapter
 	end
 
 	def edit
@@ -70,11 +69,9 @@ class Works::ChaptersController < ApplicationController
 	end
 
 	def work_elements
-		@user      = @work.user
-		@taggables = WorkTag.organized_all(@work.work_tags.includes(:tag))
-		@mains     = @work.main_characters
-		@sides     = @work.side_characters
-		@mentions  = @work.mentioned_characters
+		@characters = @work.organized_characters
+		@user       = @work.user
+		@tags       = @work.tags
 	end
 
 	# define strong parameters

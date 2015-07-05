@@ -9,21 +9,21 @@
 
 	<article>
 		<table>
-			<% if @relator.connections.length > 0  && @relator.has_reverse? %>
+			<% if @relator.interconnections.length > 0  && @relator.has_reverse? %>
 				<thead>
 					<tr><th><%= @relator.left_name.titleize %></th> <th><%= @relator.right_name.titleize %></th></tr>
 				</thead>
 
-				<% @relator.connections.each do |connection| %>
+				<% @relator.interconnections.each do |interconnection| %>
 					<tr>
-						<td><%= link_to connection.left.name, connection.left %></td>
-						<td><%= link_to connection.right.name, connection.right %></td>
+						<td><%= link_to interconnection.left.name, interconnection.left %></td>
+						<td><%= link_to interconnection.right.name, interconnection.right %></td>
 					</tr>
 				<% end %>
 			<% else %>
 				<thead><tr><th><%= @relator.heading %></th></tr></thead>
-				<% @relator.connections.each do |connection| %>
-					<tr><td><%= link_to connection.left.name, connection.left %> & <%= link_to connection.right.name, connection.right %></td></tr>
+				<% @relator.interconnections.each do |interconnection| %>
+					<tr><td><%= link_to interconnection.left.name, interconnection.left %> & <%= link_to interconnection.right.name, interconnection.right %></td></tr>
 				<% end %>
 			<% end %>
 		</table>
