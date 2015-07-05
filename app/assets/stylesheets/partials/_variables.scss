@@ -33,9 +33,9 @@ $rating-highest: hsl(90, 95%, 40%);
 
 // SCREEN SIZE and LAYOUT
 $mobile-max:      550px;
-$tablet-min:  $mobile-max + 1;
+$tablet-min:  $mobile-max;
 $tablet-max:  875px;
-$desktop-min: $tablet-max + 1;
+$desktop-min: $tablet-max;
 
 $smallest-block:      1 / 12 * 100%;
 $one-sixth-block:     2 / 12 * 100%;
