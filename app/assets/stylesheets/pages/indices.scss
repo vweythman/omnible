@@ -1,6 +1,7 @@
 /* INDEX PAGE
 ************************************************/
 .index {
+	overflow: auto;
 	dl, ul, ol {
 		list-style: none;
 		margin: 0;

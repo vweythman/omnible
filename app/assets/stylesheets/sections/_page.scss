@@ -17,25 +17,54 @@ main {
 		color: $water-dark;
 		&:hover { color: $read-color; }
 	}
-	.toolkit {
-		@include embossed($water-color);
-		margin:   10px;
-		overflow: auto;
-		display:  inline-block;
-		border-radius: 2px;
-		a {
-			font-weight:    bolder;
-			display:        inline-block;
-			font-weight:    700;
-			padding:        5px 10px;
-			letter-spacing: 2px;
-		}
-	}
 	& > footer {
 		font-size: .95em;
 		a:hover { text-decoration: underline; }
 	}
 }
+.toolkit {
+	@include embossed($water-color);
+	margin:   10px;
+	overflow: auto;
+	display:  inline-block;
+	border-radius: 2px;
+	a {
+		font-weight:    bolder;
+		display:        inline-block;
+		font-weight:    700;
+		padding:        5px 10px;
+		letter-spacing: 2px;
+	}
+}
+.insertion {
+	background:   none;
+	margin:       10px 0;
+	border-width: 1px;
+	width:        calc(100% - 1px);
+	a { 
+		color:   $water-darker;
+		display: block;
+		&:hover {
+			background: none;
+			color:      $water-darkest;
+		}
+	}
+	&:hover { border-color: $page-color; }
+}
+.alteration {
+	width:  100%;
+	margin: 10px 0;
+	overflow: auto;
+	a {
+		display: block;
+		float:   left;
+		padding: 5px 0;
+		text-align: center;
+		width:   50%;
+	}
+}
+
+
 article {
 	margin:      15px;
 	padding:     15px;
@@ -65,7 +94,6 @@ dt:first-child {
 }
 dd { padding: 0 5px; }
 .summary { padding: 15px; }
-.related_items { text-align: center; }
 .date {
 	font-size: .85em;
 	.label { 

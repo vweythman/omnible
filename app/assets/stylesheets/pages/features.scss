@@ -93,10 +93,12 @@
 		float: left;
 	}
 	.stat {
-		@include page-shadow($moss-light);
-		float:   left;
 		padding: 15px 15px;
 		margin:  15px 0;
+		.feature > & { 
+			@include page-shadow($moss-light);
+			float:   left;
+		}
 	}
 }
 
@@ -143,6 +145,7 @@
 		}
 	}
 	tbody .toolblock { display: none; }
+	article .stat { text-align: center; }
 }
 
 /* DESKTOP

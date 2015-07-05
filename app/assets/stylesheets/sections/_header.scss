@@ -13,7 +13,7 @@
 
 		&:hover { color: $water-lightest; }
 	}
-	.toolkit { margin: 0; }
+	.actionbar { margin: 0; }
 	.account {
 		margin:     0;
 		padding:    10px 0;
@@ -117,7 +117,7 @@
 			text-align:     center;
 			width:          $one-sixth-block;
 		}
-		.toolkit {
+		.actionbar {
 			width: $five-sixth-block;
 			margin-left: $one-sixth-block;
 		}
@@ -145,7 +145,7 @@
 			text-align: center;
 			width:      $one-sixth-block;
 		}
-		.toolkit {
+		.actionbar {
 			width:       $five-sixth-block;
 			margin-left: $one-sixth-block;
 		}
