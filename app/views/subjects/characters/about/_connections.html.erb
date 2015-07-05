@@ -1,5 +1,5 @@
 <% unless @connections.empty? %>
-<section class="connections">
+<section class="interconnections">
 
 	<h2>Relationships</h2>
 	
@@ -10,8 +10,12 @@
 				<th>People</th>
 			</tr>
 		</thead>
-
-		<%= connection_cells(@character.id, @connections) %>
+		<% @connections.each do |heading, characters| %>
+			<tr>
+				<th><%= heading.pluralize(characters.length) %></th>
+				<td><%= cslinks(characters) %></td>
+			</tr>
+		<% end %>
 	</table>
 
 </section>

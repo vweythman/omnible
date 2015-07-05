@@ -22,9 +22,7 @@ class Subjects::CharactersController < ApplicationController
 		find_character
 		@identities  = Identity.organize(@character.identities.alphabetic.includes(:facet))
 		@items       = Item.organize(@character.items.includes(:generic))
-		@connections = @character.connections.includes(:relator).includes(:left).includes(:right)
-		@prejudices  = @character.prejudices.includes(:recip)
-		@opinions    = @character.opinions.includes(:recip)
+		@connections = @character.ordered_connections
 		@viewpoints  = @character.viewpoints
 		@prev = @character.prev_character
 		@next = @character.next_character
@@ -53,6 +51,7 @@ class Subjects::CharactersController < ApplicationController
 	def create
 		set_identifiers
 		@character = Character.new(character_params)
+		@character.uploader = current_user
 
 		if @character.save
 			redirect_to @character
@@ -98,8 +97,8 @@ class Subjects::CharactersController < ApplicationController
 			identifiers_attributes:  [:id, :name,        :_destroy],
 			descriptions_attributes: [:id, :identity_id, :_destroy],
 			possessions_attributes:  [:id, :item_id,     :_destroy],
-			opinions_attributes:     [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy],
-			prejudices_attributes:   [:id, :recip_id,    :recip_type, :warmth, :respect, :about, :_destroy]
+			opinions_attributes:     [:id, :identity_id, :fondness, :respect, :about, :_destroy],
+			prejudices_attributes:   [:id, :recip_id,    :fondness, :respect, :about, :_destroy]
 		)
 	end
 

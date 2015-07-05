@@ -5,7 +5,7 @@
 		<tr><th>Liked</th><th>Respected</th></tr>
 	</thead>
 	<tr>
-		<td data-label="Liked" class="rating avg level<%= avg_likes %>"><%= Viewpoint.warmths[avg_likes] %></td>
-		<td data-label="Respected" class="rating avg level<%= avg_respects %>"><%= Viewpoint.respects[avg_respects] %></td>
+		<td data-label="Liked" class="rating avg level<%= avg_likes %>"><%= Judgemental.scale[avg_likes] %></td>
+		<td data-label="Respected" class="rating avg level<%= avg_scale %>"><%= Judgemental.scale[avg_scale] %></td>
 	</tr>
 </table>

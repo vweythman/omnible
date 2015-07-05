@@ -5,6 +5,7 @@
 		<%= model_toolkit @character %>
 		<h1><%= @character.name %></h1>
 		<p class='identifiers'><%= @character.identifiers.map { |identifier| identifier.name }.join(", ") %></p>
+		<p>Uploaded by <%= link_to @character.uploader.name, @character.uploader %></p>
 	</header>
 
 	<article>

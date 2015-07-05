@@ -6,23 +6,15 @@
 		</thead>
 		
 		<tbody>
-			<% @viewpoints.each do |view| %>
-				<tr>
-					<th data-label="Recipient"><%= link_to view.recip_heading, view.recip %></th>
-					<td data-label="Fondness" class="rating level<%= view.warmth + 2 %>"><%= Viewpoint.warmths[view.warmth + 2] %></td>
-					<td data-label="Respect" class="rating level<%= view.respect + 2 %>"><%= Viewpoint.respects[view.respect + 2] %></td>
-					<td<%= ' data-label=Details' unless view.about == ""%>><%= view.about %></td>
-				</tr>
-			<% end %>
+			<%= render partial: "subjects/characters/about/views" %>
 		</tbody>
 	</table>
 <% end %>
 
-
 <%= render partial: "subjects/characters/about/views_aggregated", 
 	locals: {
-		amt:          @character.judgers.length,
-		avg_likes:    @character.likableness.round + 2,
-		avg_respects: @character.respectedness.round + 2
-	} if @character.judgers.length > 0
+		amt:       @character.reputation_count,
+		avg_likes: @character.likableness.round,
+		avg_scale: @character.respectedness.round
+	} if @character.reputation_count > 0
 %>

@@ -2,24 +2,7 @@
 	<fieldset>
 		<legend>Interpersonal Opinion</legend>
 		<%= form_field f.label(:recip_id, "Subject"), f.collection_select(:recip_id, Character.all, :id, :heading, {}, :class => 'selectables') %>
-		<%= form_field f.label(:about, "Treatment"), f.text_area(:about, class: "minor") %>
-
-		<%= render partial: "shared/scaled_rate", locals: {
-				f: f, 
-				collection: Viewpoint.warmths,
-				title: :fondness, 
-				value: :warmth, 
-				default: f.object.warmth || 0 
-			}
-		%>
-		<%= render partial: "shared/scaled_rate", locals: {
-				f: f, 
-				collection: Viewpoint.respects,
-				title: :respect, 
-				value: :respect, 
-				default: f.object.respect || 0 
-			}
-		%>
+		<%= render 'subjects/characters/nested/viewpoint_fields', f: f %>
 	</fieldset>
 
 	<p><%= link_to_remove_association "- Remove Opinion", f %></p>

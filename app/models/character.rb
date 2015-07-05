@@ -18,10 +18,10 @@
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
-#  connections                 | array       | finds both left and right 
-#                              |             | connections
+#  interconnections                 | array       | finds both left and right 
+#                              |             | interconnections
 #  replicate                   | model       | clone character and create 
-#                              |             | connection between original and 
+#                              |             | interconnection between original and 
 #                              |             | clone
 #  editable?                   | bool        | asks if character can be edited
 #  is_a_clone?                 | bool        | asks if character cloned from 
@@ -36,11 +36,11 @@ class Character < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Documentable  # member of the subject group
+	include Documentable
 
 	# SCOPES
 	# ------------------------------------------------------------
-	scope :top_appearers, -> {joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
+	scope :top_appearers, -> { joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
 	scope :not_among, ->(character_names) { where("name NOT IN (?)", character_names) }
 	scope :are_among, ->(character_names) { where("name IN (?)", character_names) }
 	scope :next_in_line, ->(character_name) { where('name > ?', character_name).order('name ASC') }
@@ -48,7 +48,7 @@ class Character < ActiveRecord::Base
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
-	validates :name, presence: true
+	validates :name, length: { maximum: 100 }, presence: true
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -57,29 +57,27 @@ class Character < ActiveRecord::Base
 	has_many :descriptions, dependent: :destroy
 	has_many :memberships,  dependent: :destroy
 	has_many :possessions,  dependent: :destroy
-	has_many :replications, foreign_key: "original_id", dependent: :destroy
-	has_many :viewpoints, dependent: :destroy
+	has_many :replications, dependent: :destroy, foreign_key: "original_id"
 
-	# joins with changed model names
-	has_one  :cloning,           class_name: "Replication", foreign_key: "clone_id", dependent: :destroy
-	has_many :reputations,       class_name: "Viewpoint",  as: :recip, dependent: :destroy
-	has_many :left_connections,  class_name: "Connection",  foreign_key: "left_id",  dependent: :destroy
-	has_many :right_connections, class_name: "Connection",  foreign_key: "right_id", dependent: :destroy
+	has_one  :cloning,     class_name: "Replication", dependent: :destroy, foreign_key: "clone_id"
+	has_many :reputations, class_name: "Opinion",     dependent: :destroy, foreign_key: "recip_id"
+	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
+	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
 
 	# models that possess these models
-	has_many :groups,   through: :memberships
-	has_many :works,    through: :appearances
-	has_one  :original, through: :cloning
+	has_many   :groups,   through: :memberships
+	has_many   :works,    through: :appearances
+	has_one    :original, through: :cloning
+	belongs_to :uploader, class_name: "User"
 
 	# models that belong to this model
-	has_many :identifiers, dependent: :destroy
-	has_many :identities, through: :descriptions
-	has_many :items,      through: :possessions
-	has_many :clones,     through: :replications
+	has_many :clones,      through: :replications
+	has_many :identities,  through: :descriptions
+	has_many :items,       through: :possessions
 
-	# subgroups
-	has_many :opinions,   -> { where(recip_type: 'Character') } 
-	has_many :prejudices, -> { where(recip_type: 'Identity')  }
+	has_many :identifiers, dependent: :destroy
+	has_many :opinions,    dependent: :destroy
+	has_many :prejudices,  dependent: :destroy
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -95,7 +93,8 @@ class Character < ActiveRecord::Base
 		enable
 		include_association :descriptions
 		include_association :possessions
-		include_association :viewpoints
+		include_association :opinions
+		include_association :prejudices
 		include_association :identifiers
 	end
 
@@ -104,57 +103,97 @@ class Character < ActiveRecord::Base
 	# Heading
 	# - defines the main means of addressing the model
 	def heading
-		name
+		self.name
 	end
 
-	# Connections
-	# - finds both left and right connections
-	def connections
-		Connection.character_connections(self.id).order(:relator_id).includes(:relator)
+	# Interconnections
+	# - finds both left and right interconnections
+	def interconnections
+		Interconnection.character_interconnections(self.id).order(:relator_id).includes(:relator, :left, :right)
+	end
+
+	# OrderedConnections
+	# - organizes the interconnections
+	def ordered_connections
+		Interconnection.organize(self.interconnections, self)
+	end
+
+	# Viewpoints
+	# - merge opinions and prejudices
+	def viewpoints
+		self.prejudices.includes(:identity) + self.opinions.includes(:recip)
 	end
 
 	# Replicate
-	# - clone character and create connection between original and clone
-	def replicate
-		replica      = self.amoeba_dup
-		number       = self.clones.count + 1
-		replica.name = "#{replica.name} (Clone \##{number})"
+	# - clone character and create interconnection between original and clone
+	def replicate(current_user)
+		replication = Replication.new
+		replica     = self.amoeba_dup
+		number      = self.clones.count + 1
+		
+		replica.name     = "#{replica.name} (Clone \##{number})"
+		replica.uploader = current_user
 
-		replica.save
+		replication.original = self
+		replication.clone    = replica
 
-		Replication.create(original_id: self.id, clone_id: replica.id)
+		replication.save
+
 		return replica
 	end
 
+	# NextCharacter
+	# - find next character alphabetically
 	def next_character
-		@next_character.nil? ? @next_character = Character.next_in_line(self.name).first : @next_character
+		@next_character ||= Character.next_in_line(self.name).first
 	end
 
+	# NextCharacter
+	# - find next character alphabetically
 	def prev_character
-		@prev_character.nil? ? @prev_character = Character.prev_in_line(self.name).first : @prev_character
+		@prev_character ||= Character.prev_in_line(self.name).first
 	end
 
-	def judgers
-		@judgers = @judgers.nil? ? self.reputations : @judgers
+	# ReputationCount
+	# - 
+	def reputation_count
+		@repcount ||= self.reputations.size
 	end
 
+	# Likableness
+	# - how well liked is the character
 	def likableness
-		amt = self.judgers.length
-		sum = self.reputations.summed_likes.first
+		amt = self.reputation_count
+		sum = self.reputations.summarize(:fondness).first
 
-		sum.warmth / amt
+		sum.fondness / amt
 	end
 
+	# Respectedness
+	# - how well respected is the character
 	def respectedness
-		amt = self.judgers.length
-		sum = self.reputations.summed_respects.first
+		amt = self.reputation_count
+		sum = self.reputations.summarize(:respect).first
 
 		sum.respect / amt
 	end
 
 	# Editable?
 	# - asks if character can be edited
-	def editable?
+	def editable?(user)
+		self.editor_level > 1 || self.uploader == user
+	end
+
+	# CanBeAClone?
+	# - asks if character can be set as a clone
+	def can_be_a_clone?
+		self.allow_as_clone == 't'
+	end
+
+	# Cloneable?
+	# - asks whether character can be cloned
+	def cloneable?
+		self.allow_clones == 't'
 	end
 
 	# IsAClone?
@@ -163,15 +202,30 @@ class Character < ActiveRecord::Base
 		self.original.present?
 	end
 
+	# IsPlayableCharacter
+	# - asks whether character is a player character
+	def is_playable_character?
+	end
+
 	# Playable?
-	# - asks if character is an roleplay character
+	# - asks if character can be cloned for roleplay
 	def playable?
+		self.allow_play == 't'
 	end
 
 	# Viewable?
 	# - asks if character is publically viewable or owned by 
 	#   current user
-	def viewable?
+	def viewable?(user)
+		self.publicity_level > 2 || 
+	end
+
+	def self.publicity_levels
+		['private', 'friends', 'followers', 'public']
+	end
+
+	def self.editor_levels
+		['private', 'invited', 'public']
 	end
 
 end

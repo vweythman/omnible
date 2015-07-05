@@ -1,20 +1,7 @@
 <div class='nested-fields'>
-	<fieldset class='pair'>
+	<fieldset>
 		<legend>Descriptor</legend>
-		<%= 
-			form_field f.label(:facet_id, "Facet"), 
-				f.collection_select(:facet_id, @facets, :id, :name, 
-					{ :selected => (f.object.identity.nil? ? "state" : f.object.identity.facet.id) }, 
-					{ :class=>'selector' }
-				)
-		%>
-		<%= 
-			form_field f.label(:identity_id, "Descriptor"), 
-				f.grouped_collection_select(:identity_id, @facets, :identities, :name, :id, :name, 
-					{}, 
-					{ :class=>'selection' }
-				)
-		%>
+		<%= render partial: 'subjects/characters/nested/descriptor_fields', locals: { f: f } %>
 	</fieldset>
 
 	<p><%= link_to_remove_association "- Remove Descriptor", f %></p>

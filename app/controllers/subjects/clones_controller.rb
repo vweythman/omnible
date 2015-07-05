@@ -20,7 +20,7 @@ class Subjects::ClonesController < ApplicationController
 	# ............................................................
 	def create
 		@original  = Character.find(params[:id])
-		@character = @original.replicate
+		@character = @original.replicate(current_user)
 		render 'show'
 	end
 
