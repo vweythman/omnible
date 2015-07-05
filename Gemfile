@@ -1,11 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.2.1'
 
-# database
-group :development do
+# dev
+group :development, :test do
   gem 'sqlite3', '1.3.8'
 end
+
+# tests
+group :test do 
+  gem 'shoulda'
+end
+
 gem 'awesome_nested_set', '~> 3.0.1'
 gem "friendly_id", "~> 5.0.1"
 gem 'amoeba'
@@ -20,6 +26,7 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 
 gem 'turbolinks', '1.1.1'
+gem 'coffee-script-source', '1.8.0'
 gem 'jquery-turbolinks'
 
 # viewable
@@ -30,6 +37,7 @@ gem 'kaminari'
 
 # user expierence
 gem 'devise'
+
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false
