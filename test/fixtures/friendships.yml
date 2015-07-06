@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+randa_to_sirka:
+  friender: randa
+  friendee: sirka
+  is_mutual: 't'
+
+sirka_to_randa:
+  friender: sirka
+  friendee: randa
+  is_mutual: 't'
+
+cinders_to_randa:
+  friender: cinders
+  friendee: randa
+  is_mutual: 'f'
+

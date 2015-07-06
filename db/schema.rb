@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705213912) do
+ActiveRecord::Schema.define(version: 20150706034300) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.text     "summary"
     t.integer  "uploader_id"
   end
+
+  add_index "anthologies", ["uploader_id"], name: "index_anthologies_on_uploader_id"
 
   create_table "appearances", force: :cascade do |t|
     t.integer  "work_id"
@@ -105,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "updated_at"
   end
 
+  add_index "comments", ["creator_id", "creator_type"], name: "index_comments_on_creator_id_and_creator_type"
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id"
 
   create_table "descriptions", force: :cascade do |t|
@@ -140,11 +143,32 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "updated_at"
   end
 
+  create_table "followings", force: :cascade do |t|
+    t.integer  "follower_id", null: false
+    t.integer  "followed_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "followings", ["followed_id"], name: "index_followings_on_followed_id"
+  add_index "followings", ["follower_id"], name: "index_followings_on_follower_id"
+
   create_table "forms", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "friender_id",                 null: false
+    t.integer  "friendee_id",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "is_mutual",   default: false
+  end
+
+  add_index "friendships", ["friendee_id"], name: "index_friendships_on_friendee_id"
+  add_index "friendships", ["friender_id"], name: "index_friendships_on_friender_id"
 
   create_table "generics", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -182,6 +206,8 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "updated_at"
   end
 
+  add_index "identities", ["facet_id"], name: "index_identities_on_facet_id"
+
   create_table "interconnections", force: :cascade do |t|
     t.integer  "left_id"
     t.integer  "relator_id"
@@ -189,6 +215,21 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "interconnections", ["left_id"], name: "index_interconnections_on_left_id"
+  add_index "interconnections", ["relator_id"], name: "index_interconnections_on_relator_id"
+  add_index "interconnections", ["right_id"], name: "index_interconnections_on_right_id"
+
+  create_table "invited_editors", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "editable_id"
+    t.string   "editable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "invited_editors", ["editable_type", "editable_id"], name: "index_invited_editors_on_editable_type_and_editable_id"
+  add_index "invited_editors", ["user_id"], name: "index_invited_editors_on_user_id"
 
   create_table "item_tags", force: :cascade do |t|
     t.integer  "item_id"
@@ -201,12 +242,16 @@ ActiveRecord::Schema.define(version: 20150705213912) do
   add_index "item_tags", ["quality_id"], name: "index_item_descriptions_on_quality_id"
 
   create_table "items", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
+    t.string   "name",        limit: 255, null: false
     t.integer  "generic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",       limit: 255
+    t.string   "slug",        limit: 255
+    t.integer  "uploader_id"
   end
+
+  add_index "items", ["generic_id"], name: "index_items_on_generic_id"
+  add_index "items", ["uploader_id"], name: "index_items_on_uploader_id"
 
   create_table "localities", force: :cascade do |t|
     t.integer  "domain_id"
@@ -214,6 +259,9 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "localities", ["domain_id"], name: "index_localities_on_domain_id"
+  add_index "localities", ["subdomain_id"], name: "index_localities_on_subdomain_id"
 
   create_table "locations", force: :cascade do |t|
     t.integer  "character_id"
@@ -245,6 +293,8 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "updated_at"
   end
 
+  add_index "notes", ["work_id"], name: "index_notes_on_work_id"
+
   create_table "opinions", force: :cascade do |t|
     t.integer  "character_id"
     t.integer  "recip_id"
@@ -254,6 +304,9 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "opinions", ["character_id"], name: "index_opinions_on_character_id"
+  add_index "opinions", ["recip_id"], name: "index_opinions_on_recip_id"
 
   create_table "pitches", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -266,12 +319,15 @@ ActiveRecord::Schema.define(version: 20150705213912) do
   add_index "pitches", ["user_id"], name: "index_pitches_on_user_id"
 
   create_table "places", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",         limit: 255
     t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "fictional",              null: false
+    t.boolean  "fictional",                null: false
+    t.integer  "editor_level"
   end
+
+  add_index "places", ["form_id"], name: "index_places_on_form_id"
 
   create_table "possessions", force: :cascade do |t|
     t.integer  "character_id"
@@ -294,6 +350,9 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "updated_at"
   end
 
+  add_index "prejudices", ["character_id"], name: "index_prejudices_on_character_id"
+  add_index "prejudices", ["identity_id"], name: "index_prejudices_on_identity_id"
+
   create_table "qualities", force: :cascade do |t|
     t.string   "name",         limit: 255
     t.string   "slug",         limit: 255
@@ -310,6 +369,8 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "ratings", ["work_id"], name: "index_ratings_on_work_id"
 
   create_table "relators", force: :cascade do |t|
     t.string   "left_name",  limit: 255
@@ -381,6 +442,9 @@ ActiveRecord::Schema.define(version: 20150705213912) do
     t.datetime "updated_at"
   end
 
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["work_id"], name: "index_taggings_on_work_id"
+
   create_table "tags", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
     t.string   "slug",       limit: 255, null: false
@@ -400,6 +464,7 @@ ActiveRecord::Schema.define(version: 20150705213912) do
   end
 
   add_index "topics", ["creator_id", "creator_type"], name: "index_topics_on_creator_id_and_creator_type"
+  add_index "topics", ["discussed_id", "discussed_type"], name: "index_topics_on_discussed_id_and_discussed_type"
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255

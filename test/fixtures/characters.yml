@@ -7,11 +7,29 @@
 mary: 
   name: Mary 
   about: the rightful child
+  uploader: randa
+  publicity_level: 2
+  editor_level: 1
+  allow_play: 'f'
+  allow_clones: 't'
+  allow_as_clone: 'f'
 
 jane: 
   name: Jane
   about: the wrongful heart
+  uploader: sirka
+  publicity_level: 4
+  editor_level: 3
+  allow_play: 't'
+  allow_clones: 't'
+  allow_as_clone: 'f'
 
 erik:
   name: Erik
   about: the watchful soul
+  uploader: cinders
+  publicity_level: 0
+  editor_level: 0
+  allow_play: 'f'
+  allow_clones: 'f'
+  allow_as_clone: 't'

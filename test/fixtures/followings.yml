@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  follower: sirka
+  followed: randa
+
+two:
+  follower: randa
+  followed: cinders
+
+three:
+  follower: sirka
+  followed: cinders
