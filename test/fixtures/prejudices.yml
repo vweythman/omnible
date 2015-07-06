@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 transphobia: 
-  character: mary
+  character: erik
   identity: transgender
   fondness: -2
   respect: -2
