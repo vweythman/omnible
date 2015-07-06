@@ -1,0 +1,6 @@
+module Viewable
+	PERSONAL = 0
+	FRIENDS  = 1
+	FRIENDS_AND_FOLLOWERS = 2
+	EVERYONE = 3
+end

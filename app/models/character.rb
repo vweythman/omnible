@@ -127,17 +127,13 @@ class Character < ActiveRecord::Base
 	# Replicate
 	# - clone character and create interconnection between original and clone
 	def replicate(current_user)
-		replication = Replication.new
-		replica     = self.amoeba_dup
-		number      = self.clones.count + 1
-		
+		replica          = self.amoeba_dup
+		number           = self.clones.count + 1
 		replica.name     = "#{replica.name} (Clone \##{number})"
 		replica.uploader = current_user
+		replica.original = self
 
-		replication.original = self
-		replication.clone    = replica
-
-		replication.save
+		replica.save
 
 		return replica
 	end
@@ -181,13 +177,20 @@ class Character < ActiveRecord::Base
 	# Editable?
 	# - asks if character can be edited
 	def editable?(user)
-		self.editor_level > 1 || self.uploader == user
+		# easy_check || (self.editor_level > 0 && self.has_editor(user))
+		easy_check = self.editor_level > 1 || self.uploader == user
 	end
 
 	# CanBeAClone?
 	# - asks if character can be set as a clone
 	def can_be_a_clone?
 		self.allow_as_clone == 't'
+	end
+
+	# Clone?
+	# - 
+	def has_clone?(character)
+		self.clones.include?(character)
 	end
 
 	# Cloneable?
@@ -217,7 +220,7 @@ class Character < ActiveRecord::Base
 	# - asks if character is publically viewable or owned by 
 	#   current user
 	def viewable?(user)
-		self.publicity_level > 2 || 
+		self.publicity_level > 2 || self.uploader == user
 	end
 
 	def self.publicity_levels

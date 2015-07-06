@@ -1,11 +1,12 @@
 require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
-  
+
   setup do
     @mary = characters(:mary)
     @jane = characters(:jane)
     @erik = characters(:erik)
+    @cinders = users(:cinders)
   end
 
   test "should have heading the same as name" do
@@ -20,11 +21,10 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test "should create a clone" do
-    cinders = users(:cinders)
-    mary2   = @mary.replicate(cinders)
-    assert_not_equal @mary, mary2
-    assert_not_equal @mary.is_a_clone?
-    assert_equal mary2.is_a_clone?
+    @mary2  = @mary.replicate(@cinders)
+    @mary.reload
+    assert @mary.has_clone? @mary2
+    assert_equal @cinders, @mary2.uploader
   end
 
   test "should get next" do
