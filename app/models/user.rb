@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	has_many :works
+	has_many :characters, foreign_key: "uploader_id"
 
-	has_many :friendships,                                 dependent: :destroy, foreign_key: "friender_id"
+	has_many :friendships, dependent: :destroy, foreign_key: "friender_id"
 	has_many :mutual_friendships, ->{ Friendship.mutual }, dependent: :destroy, foreign_key: "friender_id", class_name: "Friendship"
 	has_many :friends,        :through => :friendships, source: :friendee
 	has_many :mutual_friends, :through => :mutual_friendships, source: :friendee
@@ -37,12 +38,25 @@ class User < ActiveRecord::Base
 		self.followers.include?(user)
 	end
 
+	def follow(user)
+		Following.create(follower_id: self.id, followed_id: user.id)
+	end
+
+	def unfollow(user)
+	end
+
 	def friend?(user)
 		self.friends.include?(user)
 	end
 
 	def mutual_friend?(user)
 		self.mutual_friends.include?(user)
+	end
+
+	def befriend(user)
+	end
+
+	def defriend(user)
 	end
 
 end
