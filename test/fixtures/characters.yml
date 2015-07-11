@@ -8,8 +8,8 @@ mary:
   name: Mary 
   about: the rightful child
   uploader: randa
-  publicity_level: 2
-  editor_level: 1
+  publicity_level: <%= Viewable::INVITED %>
+  editor_level: <%= Editable::INVITED %>
   allow_play: 'f'
   allow_clones: 't'
   allow_as_clone: 'f'
@@ -18,8 +18,8 @@ jane:
   name: Jane
   about: the wrongful heart
   uploader: sirka
-  publicity_level: 4
-  editor_level: 3
+  publicity_level: <%= Viewable::EVERYONE %>
+  editor_level: <%= Editable::PUBLIC %>
   allow_play: 't'
   allow_clones: 't'
   allow_as_clone: 'f'
@@ -28,8 +28,8 @@ erik:
   name: Erik
   about: the watchful soul
   uploader: cinders
-  publicity_level: 0
-  editor_level: 0
+  publicity_level: <%= Viewable::EVERYONE %>
+  editor_level: <%= Editable::PRIVATE_ONLY %>
   allow_play: 'f'
   allow_clones: 'f'
   allow_as_clone: 't'

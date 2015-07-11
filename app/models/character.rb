@@ -18,18 +18,15 @@
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
-#  interconnections                 | array       | finds both left and right 
+#  interconnections            | array       | finds both left and right 
 #                              |             | interconnections
 #  replicate                   | model       | clone character and create 
-#                              |             | interconnection between original and 
-#                              |             | clone
-#  editable?                   | bool        | asks if character can be edited
+#                              |             | interconnection between original
+#                              |             | and clone
 #  is_a_clone?                 | bool        | asks if character cloned from 
 #                              |             | another character
 #  playable?                   | bool        | asks if character is an roleplay 
 #                              |             | character
-#  viewable?                   | bool        | asks if character is publically 
-#                              |             | viewable or owned by current user
 # ================================================================================
 
 class Character < ActiveRecord::Base
@@ -37,6 +34,7 @@ class Character < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable
+	include Editable
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -63,6 +61,8 @@ class Character < ActiveRecord::Base
 	has_many :reputations, class_name: "Opinion",     dependent: :destroy, foreign_key: "recip_id"
 	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
 	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
+	has_many :edit_invites
+	has_many :invited_editors, through: :edit_invites, source: :user
 
 	# models that possess these models
 	has_many   :groups,   through: :memberships
@@ -118,6 +118,10 @@ class Character < ActiveRecord::Base
 		Interconnection.organize(self.interconnections, self)
 	end
 
+	def editors
+
+	end
+
 	# Viewpoints
 	# - merge opinions and prejudices
 	def viewpoints
@@ -127,6 +131,10 @@ class Character < ActiveRecord::Base
 	# Replicate
 	# - clone character and create interconnection between original and clone
 	def replicate(current_user)
+		unless self.allow_clones
+			return nil
+		end
+
 		replica          = self.amoeba_dup
 		number           = self.clones.count + 1
 		replica.name     = "#{replica.name} (Clone \##{number})"
@@ -174,13 +182,6 @@ class Character < ActiveRecord::Base
 		sum.respect / amt
 	end
 
-	# Editable?
-	# - asks if character can be edited
-	def editable?(user)
-		# easy_check || (self.editor_level > 0 && self.has_editor(user))
-		easy_check = self.editor_level > 1 || self.uploader == user
-	end
-
 	# CanBeAClone?
 	# - asks if character can be set as a clone
 	def can_be_a_clone?
@@ -196,7 +197,7 @@ class Character < ActiveRecord::Base
 	# Cloneable?
 	# - asks whether character can be cloned
 	def cloneable?
-		self.allow_clones == 't'
+		self.allow_clones == true
 	end
 
 	# IsAClone?
@@ -214,21 +215,6 @@ class Character < ActiveRecord::Base
 	# - asks if character can be cloned for roleplay
 	def playable?
 		self.allow_play == 't'
-	end
-
-	# Viewable?
-	# - asks if character is publically viewable or owned by 
-	#   current user
-	def viewable?(user)
-		self.publicity_level > 2 || self.uploader == user
-	end
-
-	def self.publicity_levels
-		['private', 'friends', 'followers', 'public']
-	end
-
-	def self.editor_levels
-		['private', 'invited', 'public']
 	end
 
 end
