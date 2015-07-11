@@ -20,11 +20,22 @@ class CharacterTest < ActiveSupport::TestCase
     assert @erik.is_subject?
   end
 
+  test "should be cloneable" do
+    assert_equal true, @mary.allow_clones
+    assert @mary.cloneable?
+  end
+
   test "should create a clone" do
     @mary2  = @mary.replicate(@cinders)
     @mary.reload
     assert @mary.has_clone? @mary2
     assert_equal @cinders, @mary2.uploader
+  end
+
+  test "should not create a clone" do
+    assert_equal false, @erik.cloneable?
+    @empty = @erik.replicate(@cinders)
+    assert_equal nil, @empty
   end
 
   test "should get next" do
