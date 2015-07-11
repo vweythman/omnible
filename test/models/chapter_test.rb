@@ -71,14 +71,14 @@ class ChapterTest < ActiveSupport::TestCase
 
   test "should set position upon create" do
     new_position = @flight.newest_chapter_position
-    new_chapter  = Chapter.create(title: 'New End', content: "Not Important", work_id: @flight.id)
+    new_chapter  = Chapter.create(title: 'New End', content: "Not Important", story_id: @flight.id)
     assert_equal new_position, new_chapter.position
   end
 
   test "should insert as first chapter" do
     chapter         = Chapter.new
     chapter.content = "this is not that important"
-    chapter.work    = @flight
+    chapter.story   = @flight
 
     assert chapter.place_first
     assert chapter.save
@@ -116,7 +116,7 @@ class ChapterTest < ActiveSupport::TestCase
 
   test "should create valid position" do
     position        = @flight.newest_chapter_position
-    new_chapter     = Chapter.create(title: 'The Real End This Time', content: "Blah x 2", position: position, work_id: @flight.id)
+    new_chapter     = Chapter.create(title: 'The Real End This Time', content: "Blah x 2", position: position, story_id: @flight.id)
     newest_position = @flight.newest_chapter_position
     assert_not_equal newest_position, new_chapter.position
   end

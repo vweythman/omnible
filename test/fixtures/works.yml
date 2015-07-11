@@ -3,11 +3,15 @@
 flight:
   title: Flight Path
   user: randa
+  is_narrative: 't'
 
 fool:
   title: Five-Pound Fool
   user: sirka
+  is_narrative: 't'
 
 fortune: 
   title: Fortune's Favor
   user: cinders
+  is_narrative: 'f'
+

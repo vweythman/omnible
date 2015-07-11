@@ -1,6 +1,6 @@
 # Work
 # ================================================================================
-# works are part of the creatable content group
+# works are the basis of the creatable content group
 #
 # Variables (max length: 15 characters) 
 # --------------------------------------------------------------------------------
@@ -67,24 +67,24 @@ class Work < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# joins
+	# - Joins
 	has_many :collections
 	has_many :appearances
 	has_many :respondences, as: :response
 	has_many :taggings
 
-	# models that possess these models
+	# - Belongs to
 	belongs_to :user
 	has_many :anthologies, :through => :collections
 	has_many :callers,     :through => :respondences
 
-	# models that belong to this model
-	has_many :chapters, :inverse_of => :work
+	# - Has
+	has_many :chapters, :inverse_of => :story, foreign_key: "story_id"
 	has_many :notes,    :inverse_of => :work
 	has_one  :topic,    :inverse_of => :discussed, as: :discussed
 	has_many :comments, :through => :discussion
 
-	# models that are refrenced by these models
+	# - References
 	has_many :characters, :through => :appearances
 	has_many :tags,       :through => :taggings
 	has_many :identities, ->{uniq}, :through => :characters
@@ -110,17 +110,21 @@ class Work < ActiveRecord::Base
 	# ContentDistribution
 	# - collects the totals number of chapters and notes
 	def content_distribution
-		@content_distribution = {
-			:chapters => Chapter.where(:work_id => self.id).count,
-			:notes => Note.where(:work_id => self.id).count
+		@content_distribution ||= {
+			:chapters => self.chapters.size,
+			:notes    => self.notes.size
 		}
+	end
+
+	def defaults
+		@is_narrative ||= true
 	end
 
 	# NewChapter
 	# - creates a new chapter
 	def new_chapter
 		chapter = Chapter.new
-		chapter.work = self
+		chapter.story    = self
 		chapter.position = self.newest_chapter_position
 
 		return chapter
@@ -136,6 +140,10 @@ class Work < ActiveRecord::Base
 	# - asks if work can be edited
 	def editable?(user)
 		self.user.id == user.id
+	end
+
+	def narrative?
+		self.is_narrative == 't' || self.is_narrative == true
 	end
 
 	# CLASS METHODS

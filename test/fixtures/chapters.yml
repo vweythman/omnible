@@ -6,7 +6,7 @@ flight_one:
   about: 
   afterward: 
   position: 1
-  work: flight
+  story: flight
 
 flight_two:
   title:
@@ -14,7 +14,7 @@ flight_two:
   about: And here we end the tale.
   afterward: Thanks for reading! It's been fun.
   position: 2
-  work: flight
+  story: flight
 
 fortune_titleless:
   title:
@@ -22,4 +22,4 @@ fortune_titleless:
   content: blah blah blah. and also blah
   about: 
   afterward: 
-  work: fortune
+  story: fortune

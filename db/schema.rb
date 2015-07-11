@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706034300) do
+ActiveRecord::Schema.define(version: 20150710223216) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20150706034300) do
   create_table "chapters", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.text     "content"
-    t.integer  "work_id"
+    t.integer  "story_id"
     t.string   "about",      limit: 255
     t.string   "afterward",  limit: 255
     t.integer  "position"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150706034300) do
     t.datetime "updated_at"
   end
 
-  add_index "chapters", ["work_id"], name: "index_chapters_on_work_id"
+  add_index "chapters", ["story_id"], name: "index_chapters_on_story_id"
 
   create_table "characters", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -117,6 +117,17 @@ ActiveRecord::Schema.define(version: 20150706034300) do
 
   add_index "descriptions", ["character_id"], name: "index_descriptions_on_character_id"
   add_index "descriptions", ["identity_id"], name: "index_descriptions_on_identity_id"
+
+  create_table "edit_invites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "editable_id"
+    t.string   "editable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "edit_invites", ["editable_type", "editable_id"], name: "index_invited_editors_on_editable_type_and_editable_id"
+  add_index "edit_invites", ["user_id"], name: "index_invited_editors_on_user_id"
 
   create_table "events", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -220,17 +231,6 @@ ActiveRecord::Schema.define(version: 20150706034300) do
   add_index "interconnections", ["relator_id"], name: "index_interconnections_on_relator_id"
   add_index "interconnections", ["right_id"], name: "index_interconnections_on_right_id"
 
-  create_table "invited_editors", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "editable_id"
-    t.string   "editable_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "invited_editors", ["editable_type", "editable_id"], name: "index_invited_editors_on_editable_type_and_editable_id"
-  add_index "invited_editors", ["user_id"], name: "index_invited_editors_on_user_id"
-
   create_table "item_tags", force: :cascade do |t|
     t.integer  "item_id"
     t.integer  "quality_id"
@@ -319,12 +319,13 @@ ActiveRecord::Schema.define(version: 20150706034300) do
   add_index "pitches", ["user_id"], name: "index_pitches_on_user_id"
 
   create_table "places", force: :cascade do |t|
-    t.string   "name",         limit: 255
+    t.string   "name",            limit: 255
     t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "fictional",                null: false
+    t.boolean  "fictional",                   null: false
     t.integer  "editor_level"
+    t.integer  "publicity_level"
   end
 
   add_index "places", ["form_id"], name: "index_places_on_form_id"
@@ -493,6 +494,8 @@ ActiveRecord::Schema.define(version: 20150706034300) do
     t.datetime "updated_at"
     t.integer  "publicity_level"
     t.boolean  "is_complete",                 default: false
+    t.boolean  "is_narrative",                default: true
+    t.integer  "editor_level"
   end
 
   add_index "works", ["user_id"], name: "index_works_on_user_id"
