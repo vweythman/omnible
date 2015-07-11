@@ -43,8 +43,12 @@ class Appearance < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Roles
 	# - defines and collects the types of appearances
-	def self.roles
-		['main', 'side', 'mentioned']
+	def self.roles(work)
+		if work.narrative?
+			['main', 'side', 'mentioned']
+		else
+			['subject', 'appearing', 'mentioned']
+		end
 	end
 
 end

@@ -7,7 +7,7 @@
 		<fieldset class='options'>
 			<legend>Choose Role</legend>
 			<div class='choice'>
-			<% Appearance.roles.each do |role| %>
+			<% Appearance.roles(@work).each do |role| %>
 				<%= form_field f.radio_button(:role, role), f.label("role_#{role}", "#{role.capitalize} Character") %>
 			<% end %>
 			</div>

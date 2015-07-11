@@ -20,7 +20,7 @@ fool_side:
   character: jane
   role: side
 
-fortune_main:
+fortune_subject:
   work: fortune
   character: mary
-  role: main
+  role: subject
