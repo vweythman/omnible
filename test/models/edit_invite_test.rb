@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class InvitedEditorTest < ActiveSupport::TestCase
+class EditInviteTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
