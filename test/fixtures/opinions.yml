@@ -2,7 +2,29 @@
 
 nemesis: 
   character: erik
+  recip: mary
+  fondness: <%= Judgemental::LOWEST %>
+  respect: <%= Judgemental::NEUTRAL %>
+  about: this is just the description
+
+friend:
+  character: jane
+  recip: mary
+  fondness: <%= Judgemental::HIGHEST %>
+  respect: <%= Judgemental::HIGH %>
+  about: this is just the description
+
+foe:
+  character: erik
   recip: jane
-  fondness: -2
-  respect: 2
-  about: hateful
+  fondness: <%= Judgemental::LOWEST %>
+  respect: <%= Judgemental::LOW %>
+  about: this is just the description
+
+friendly_enemy:
+  character: mary
+  recip: jane
+  fondness: <%= Judgemental::NEUTRAL %>
+  respect: <%= Judgemental::HIGHEST %>
+  about: this is just the description
+

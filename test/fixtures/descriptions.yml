@@ -16,6 +16,10 @@ jane_species:
   character: jane
   identity: human
 
+jane_gender1:
+  character: jane
+  identity: woman
+
 jane_gender2:
   character: jane
   identity: transgender

@@ -56,13 +56,13 @@ class Character < ActiveRecord::Base
 	has_many :memberships,  dependent: :destroy
 	has_many :possessions,  dependent: :destroy
 	has_many :replications, dependent: :destroy, foreign_key: "original_id"
+	has_many :edit_invites, dependent: :destroy, as: :editable
+	has_many :view_invites, dependent: :destroy, as: :viewable
 
 	has_one  :cloning,     class_name: "Replication", dependent: :destroy, foreign_key: "clone_id"
 	has_many :reputations, class_name: "Opinion",     dependent: :destroy, foreign_key: "recip_id"
 	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
 	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
-	has_many :edit_invites
-	has_many :invited_editors, through: :edit_invites, source: :user
 
 	# models that possess these models
 	has_many   :groups,   through: :memberships
@@ -71,13 +71,16 @@ class Character < ActiveRecord::Base
 	belongs_to :uploader, class_name: "User"
 
 	# models that belong to this model
+	has_many :invited_editors, through: :edit_invites, source: :user
+	has_many :invited_viewers, through: :view_invites, source: :user
+
 	has_many :clones,      through: :replications
 	has_many :identities,  through: :descriptions
 	has_many :items,       through: :possessions
 
 	has_many :identifiers, dependent: :destroy
-	has_many :opinions,    dependent: :destroy
-	has_many :prejudices,  dependent: :destroy
+	has_many :opinions,    dependent: :destroy, :inverse_of => :character
+	has_many :prejudices,  dependent: :destroy, :inverse_of => :character
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -92,10 +95,10 @@ class Character < ActiveRecord::Base
 	amoeba do
 		enable
 		include_association :descriptions
-		include_association :possessions
-		include_association :opinions
-		include_association :prejudices
 		include_association :identifiers
+		include_association :opinions
+		include_association :possessions
+		include_association :prejudices
 	end
 
 	# METHODS
@@ -135,13 +138,12 @@ class Character < ActiveRecord::Base
 			return nil
 		end
 
-		replica          = self.amoeba_dup
-		number           = self.clones.count + 1
+		replica  = self.amoeba_dup
+		number   = self.clones.count + 1
+		
 		replica.name     = "#{replica.name} (Clone \##{number})"
 		replica.uploader = current_user
 		replica.original = self
-
-		replica.save
 
 		return replica
 	end
@@ -159,7 +161,7 @@ class Character < ActiveRecord::Base
 	end
 
 	# ReputationCount
-	# - 
+	# - count how many characters have an opinion about the character
 	def reputation_count
 		@repcount ||= self.reputations.size
 	end
@@ -185,7 +187,7 @@ class Character < ActiveRecord::Base
 	# CanBeAClone?
 	# - asks if character can be set as a clone
 	def can_be_a_clone?
-		self.allow_as_clone == 't'
+		self.allow_as_clone == 't' || self.allow_as_clone == true
 	end
 
 	# Clone?
@@ -197,7 +199,7 @@ class Character < ActiveRecord::Base
 	# Cloneable?
 	# - asks whether character can be cloned
 	def cloneable?
-		self.allow_clones == true
+		self.allow_clones == true || self.allow_clones == 't'
 	end
 
 	# IsAClone?

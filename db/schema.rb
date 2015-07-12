@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710223216) do
+ActiveRecord::Schema.define(version: 20150712040318) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20150710223216) do
 
   add_index "appearances", ["character_id"], name: "index_appearances_on_character_id"
   add_index "appearances", ["work_id"], name: "index_appearances_on_work_id"
+
+  create_table "blocks", force: :cascade do |t|
+    t.integer  "blocker_id"
+    t.integer  "blocked_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "blocks", ["blocked_id"], name: "index_blocks_on_blocked_id"
+  add_index "blocks", ["blocker_id"], name: "index_blocks_on_blocker_id"
 
   create_table "challenges", force: :cascade do |t|
     t.string   "title",          limit: 255
@@ -485,6 +495,17 @@ ActiveRecord::Schema.define(version: 20150710223216) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "view_invites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "viewable_id"
+    t.string   "viewable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "view_invites", ["user_id"], name: "index_view_invites_on_user_id"
+  add_index "view_invites", ["viewable_type", "viewable_id"], name: "index_view_invites_on_viewable_type_and_viewable_id"
 
   create_table "works", force: :cascade do |t|
     t.string   "title",           limit: 255

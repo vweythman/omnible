@@ -1,5 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-randa_to_cinders:
-  follower: randa
-  followed: cinders
+one:
+  user: sirka
+  viewable: mary (Character)

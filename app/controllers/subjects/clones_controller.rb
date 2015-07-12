@@ -1,4 +1,5 @@
 class Subjects::ClonesController < ApplicationController
+	before_action :require_user
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -9,10 +10,9 @@ class Subjects::ClonesController < ApplicationController
 	end
 
 	def edit
-		@clone       = Character.find(params[:id])
+		@clone = Character.find(params[:id])
 		@replication = Replication.new
 		@characters  = Character.not_among([@clone.name])
-
 		@replication.clone = @clone
 	end
 
@@ -21,6 +21,8 @@ class Subjects::ClonesController < ApplicationController
 	def create
 		@original  = Character.find(params[:id])
 		@character = @original.replicate(current_user)
+
+		@character.save
 		render 'show'
 	end
 
@@ -46,6 +48,13 @@ class Subjects::ClonesController < ApplicationController
 	# define strong parameters
 	def replication_params
 		params.require(:replication).permit(:original_id, :clone_id)
+	end
+
+	def require_user
+		unless user_signed_in?
+			@character = Character.find(params[:id])
+			redirect_to @character
+		end
 	end
 
 end

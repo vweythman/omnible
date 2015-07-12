@@ -2,7 +2,6 @@ class Prejudice < ActiveRecord::Base
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
-	validates :character_id, presence: true
 	validates :identity_id,  presence: true
 	validates :fondness,     presence: true
 	validates :respect,      presence: true

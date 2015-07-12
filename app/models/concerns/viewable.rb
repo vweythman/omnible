@@ -1,61 +1,86 @@
 module Viewable
-	PERSONAL              = 0
-	INVITED               = 1
-	FRIENDS               = 2
-	PLUS_FOLLOWERS        = 3
-	EXCEPT_BLOCKED        = 4
-	EVERYONE              = 5
+	
+	# VARIABLES
+	# ------------------------------------------------------------
+	attr_accessor :reader
+	attr_accessor :level
 
-	# 
-	def personal?
-		self.publicity_level == Viewable::PERSONAL
+	# CONSTANTS
+	# ------------------------------------------------------------
+	PRIVATE             = 0
+	FRIENDS_ONLY        = 1
+	FRIENDS_N_FOLLOWERS = 2
+	MEMBERS_ONLY        = 3
+	EXCEPT_BLOCKED      = 4
+	PUBLIC              = 5
+
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	def self.levels
+		['private', 'friends', 'friends & followers', 'users', 'mostly public', 'completely public']
 	end
 
-	# ForFriends?
-	# - only creators and friends can view
-	def for_friends?
-		self.publicity_level == Viewable::FRIENDS
-	end
-
-	# ForFollowers
-	# add followers to list of allowed viewers
-	def and_followers?
-		self.publicity_level == Viewable::PLUS_FOLLOWERS
-	end
-
-	# ForUnblocked
-	# - everyone can view except for people that have been blocked
-	def for_unblocked?
-		self.publicity_level == Viewable::EXCEPT_BLOCKED
-	end
-
-	# IsPublic?
-	# - at highest publicity level
-	def is_public?
-		self.publicity_level == Viewable::Everyone
-	end
-
-	#
+	# METHODS
+	# ------------------------------------------------------------
+	# Creator?
+	# - reader is the creator
 	def creator?(reader)
 		self.uploader == reader
 	end
 
-	def in_followers?(reader)
-		and_followers? && self.uploader.follower?(reader)
+	# InvitedToView?
+	# - viewer is on invite list
+	def invited_viewer?(reader)
+		self.invited_viewers.include?(reader)
 	end
 
-	def in_friends?(reader)
-		 for_friends? && self.uploader.friend?(reader)
-	end
-
-	def not_in_blocked?(reader)
-		for_unblocked? && true # check blocked list
+	# Unblocked?
+	# - viewer is not banned from viewing
+	def unblocked_access?(reader)
+		!self.uploader.blocking?(reader)
 	end
 
 	# Viewable?
 	# - asks if character is publically viewable or owned by 
 	#   current user
 	def viewable?(reader)
-		creator?(reader) || is_public? || in_friends?(reader) || for_followers?(reader)
+		@reader = reader
+		@level  = self.publicity_level
+
+		creator?(@reader) || for_public? || invited_viewer?(@reader) || check_restrictions
 	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+	# ForPublicViewing?
+	# - checks if publically viewable or semi-public
+	def for_public?
+		@level == Viewable::PUBLIC || (@level == Viewable::EXCEPT_BLOCKED && unblocked_access?(@reader))
+	end
+
+	# CheckRestrictions
+	# - checks various publicity levels
+	def check_restrictions
+		unblocked_access?(@reader) && (for_friendly? || for_following? || for_user?)
+	end
+	
+	# ForFriendlyViewer
+	# - allows viewing if reader is a friend
+	def for_friendly?
+		@level <= Viewable::FRIENDS_N_FOLLOWERS && self.uploader.friend?(@reader)
+	end
+
+	# ForFollowingViewer
+	# - allows viewing if reader is a follower
+	def for_following?
+		@level == Viewable::FRIENDS_N_FOLLOWERS && self.uploader.follower?(@reader)
+	end
+
+	# ForViewingUser
+	# - allows viewing if reader is a user of the site
+	def for_user?
+		@level == Viewable::MEMBERS_ONLY && !@reader.nil
+	end
+
 end

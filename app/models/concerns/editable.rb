@@ -1,33 +1,20 @@
 module Editable
 	include Viewable
 
-	PRIVATE_ONLY   = 0
-	INVITED        = 1
-	MEMBERS        = 2
-	PUBLIC         = 3
-
-	def invite_editable?(editor)
-		self.editor_level == Editable.INVITED
-		# and has editor
-	end
-
-	def membership_editable?(editor)
-		self.editor_level == Editable.MEMBERS && !editor.nil?
-	end
-
-	def edits_public?
-		self.editor_level == Editable.PUBLIC
-	end
-
-	def editor?(editor)
-		# check invited editors list
-		false
+	# METHODS
+	# ------------------------------------------------------------
+	# InvitedEditor?
+	# - viewer is on invite list
+	def invited_editor?(editor)
+		self.invited_editors.include?(editor)
 	end
 
 	# Editable?
 	# - asks if character can be edited
 	def editable?(editor)
-		editor?(editor) || edits_public? || invite_editable?(editor) || membership_editable?(editor)
+		@reader = editor
+		@level  = self.editor_level
+		creator?(@reader) || for_public? || invited_editor?(@reader) || check_restrictions
 	end
 
 end

@@ -11,3 +11,13 @@ sirka:
 cinders:
   name: Cinders
   email: invited@invite.com
+
+# RELATIONSHIPS
+# randa -> sirka    :: FRIENDSHIP
+# sirka -> randa    :: FRIENDSHIP
+
+# cinders -> randa  :: FRIENDSHIP
+# randa -> cinders  :: FOLLOW
+
+# sirka -> cinders  :: BLOCKING
+# cinders -> sirka  :: BLOCKING
