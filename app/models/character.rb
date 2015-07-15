@@ -33,7 +33,6 @@ class Character < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Visibility
 	include Editable
 	include Documentable
 	include Replicant
