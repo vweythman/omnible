@@ -1,18 +1,10 @@
 module Viewable
-	
+
 	# VARIABLES
 	# ------------------------------------------------------------
 	attr_accessor :reader
 	attr_accessor :level
 
-	# CONSTANTS
-	# ------------------------------------------------------------
-	PRIVATE             = 0
-	FRIENDS_ONLY        = 1
-	FRIENDS_N_FOLLOWERS = 2
-	MEMBERS_ONLY        = 3
-	EXCEPT_BLOCKED      = 4
-	PUBLIC              = 5
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
@@ -56,31 +48,37 @@ module Viewable
 	# ForPublicViewing?
 	# - checks if publically viewable or semi-public
 	def for_public?
-		@level == Viewable::PUBLIC || (@level == Viewable::EXCEPT_BLOCKED && unblocked_access?(@reader))
+		@level == PUBLIC
 	end
 
 	# CheckRestrictions
 	# - checks various publicity levels
 	def check_restrictions
-		unblocked_access?(@reader) && (for_friendly? || for_following? || for_user?)
+		unblocked_access?(@reader) && (semi_public? || for_friendly? || for_following? || for_user?)
 	end
 	
 	# ForFriendlyViewer
 	# - allows viewing if reader is a friend
 	def for_friendly?
-		@level <= Viewable::FRIENDS_N_FOLLOWERS && self.uploader.friend?(@reader)
+		@level > Visibility::PERSONAL && @level <= Visibility::FRIENDS_N_FOLLOWERS && self.uploader.friend?(@reader)
 	end
 
 	# ForFollowingViewer
 	# - allows viewing if reader is a follower
 	def for_following?
-		@level == Viewable::FRIENDS_N_FOLLOWERS && self.uploader.follower?(@reader)
+		@level == Visibility::FRIENDS_N_FOLLOWERS && self.uploader.follower?(@reader)
 	end
 
 	# ForViewingUser
 	# - allows viewing if reader is a user of the site
 	def for_user?
-		@level == Viewable::MEMBERS_ONLY && !@reader.nil
+		@level == Visibility::MEMBERS_ONLY && !@reader.nil
+	end
+
+	# SemiPublic?
+	# - check if can be viewed
+	def semi_public?
+		@level == Visibility::EXCEPT_BLOCKED
 	end
 
 end

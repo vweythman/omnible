@@ -33,8 +33,10 @@ class Character < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Documentable
+	include Visibility
 	include Editable
+	include Documentable
+	include Replicant
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -50,37 +52,31 @@ class Character < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# joins
+	# - Joins
 	has_many :appearances,  dependent: :destroy
 	has_many :descriptions, dependent: :destroy
 	has_many :memberships,  dependent: :destroy
 	has_many :possessions,  dependent: :destroy
-	has_many :replications, dependent: :destroy, foreign_key: "original_id"
-	has_many :edit_invites, dependent: :destroy, as: :editable
-	has_many :view_invites, dependent: :destroy, as: :viewable
 
-	has_one  :cloning,     class_name: "Replication", dependent: :destroy, foreign_key: "clone_id"
 	has_many :reputations, class_name: "Opinion",     dependent: :destroy, foreign_key: "recip_id"
 	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
 	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
 
-	# models that possess these models
+	# - Belongs to
 	has_many   :groups,   through: :memberships
 	has_many   :works,    through: :appearances
-	has_one    :original, through: :cloning
 	belongs_to :uploader, class_name: "User"
 
-	# models that belong to this model
-	has_many :invited_editors, through: :edit_invites, source: :user
-	has_many :invited_viewers, through: :view_invites, source: :user
-
-	has_many :clones,      through: :replications
+	# - Has
 	has_many :identities,  through: :descriptions
 	has_many :items,       through: :possessions
 
 	has_many :identifiers, dependent: :destroy
 	has_many :opinions,    dependent: :destroy, :inverse_of => :character
 	has_many :prejudices,  dependent: :destroy, :inverse_of => :character
+
+	# - References
+	has_many :anthologies, ->{uniq}, :through => :works
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -121,31 +117,10 @@ class Character < ActiveRecord::Base
 		Interconnection.organize(self.interconnections, self)
 	end
 
-	def editors
-
-	end
-
 	# Viewpoints
 	# - merge opinions and prejudices
 	def viewpoints
 		self.prejudices.includes(:identity) + self.opinions.includes(:recip)
-	end
-
-	# Replicate
-	# - clone character and create interconnection between original and clone
-	def replicate(current_user)
-		unless self.allow_clones
-			return nil
-		end
-
-		replica  = self.amoeba_dup
-		number   = self.clones.count + 1
-		
-		replica.name     = "#{replica.name} (Clone \##{number})"
-		replica.uploader = current_user
-		replica.original = self
-
-		return replica
 	end
 
 	# NextCharacter
@@ -184,30 +159,6 @@ class Character < ActiveRecord::Base
 		sum.respect / amt
 	end
 
-	# CanBeAClone?
-	# - asks if character can be set as a clone
-	def can_be_a_clone?
-		self.allow_as_clone == 't' || self.allow_as_clone == true
-	end
-
-	# Clone?
-	# - 
-	def has_clone?(character)
-		self.clones.include?(character)
-	end
-
-	# Cloneable?
-	# - asks whether character can be cloned
-	def cloneable?
-		self.allow_clones == true || self.allow_clones == 't'
-	end
-
-	# IsAClone?
-	# - asks if character cloned from another character
-	def is_a_clone?
-		self.original.present?
-	end
-
 	# IsPlayableCharacter
 	# - asks whether character is a player character
 	def is_playable_character?
@@ -216,7 +167,7 @@ class Character < ActiveRecord::Base
 	# Playable?
 	# - asks if character can be cloned for roleplay
 	def playable?
-		self.allow_play == 't'
+		self.allow_play == 't' || self.allow_play == true
 	end
 
 end
