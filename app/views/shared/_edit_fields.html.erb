@@ -1,0 +1,34 @@
+<div class="slider">
+	<div class="range">
+		<p><span class="label">Editing Level</span><span id="editor_label" class="val"></span></p>
+		<p><span class="label">Viewing Requirements</span><span id="viewer_label" class="val"></span></p>
+	</div>
+	<div id="editable" class='range-values'></div>
+	<%= f.hidden_field :editor_level, id: "editor" %>
+	<%= f.hidden_field :publicity_level, id: "viewer" %>
+</div>
+
+<script type="text/javascript">
+ $(function() {
+   var levels = <%= Editable.user_levels.to_s.html_safe %>;
+   $( "#editable" ).slider({
+      range: true,
+      values: [<%= f.object.editor_level || 0 %>, <%= f.object.publicity_level || 5 %>],
+      min: 0,
+      max: 5,
+      step: 1,
+      slide: function( event, ui ) {
+          $("#viewer" ).val( ui.values[1] );
+          $("#viewer_label").html(levels[ui.values[1]]);
+          $("#editor" ).val( ui.values[0] );
+          $("#editor_label").html(levels[ui.values[0]]);
+      }
+  });
+  $("#viewer").val($( "#editable" ).slider( "values", 1 ) );
+  $("#viewer_label").html(levels[$( "#editable" ).slider( "values", 1 )]);
+     
+  $("#editor").val($( "#editable" ).slider( "values", 0 ) );
+  $("#editor_label").html(levels[$( "#editable" ).slider( "values", 0 )]);
+  
+});
+</script>

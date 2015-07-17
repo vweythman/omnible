@@ -3,6 +3,7 @@
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
 		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @variants.join(";"), :placeholder => "Add Alternate Names", class: 'taggables') %>
 		<%= form_field f.label(:about), f.text_area(:about, :placeholder => "Describe Character...") %>
+		<%= render 'shared/edit_fields', f: f %>
 	</fieldset>
 
 	<%= show_link @descnest.heading, @descnest.klass %>

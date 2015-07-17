@@ -13,7 +13,18 @@ module Editable
 	PUBLIC              = 5
 
 	included do
-		scope :by_friends, ->(user, level) { where("publicity_level = #{FRIENDS_ONLY}", level)}
+		# levels
+		scope :public_viewable, -> { where("publicity_level = ?", PUBLIC) }
+		scope :semi_viewable,   -> { where("publicity_level = ?", EXCEPT_BLOCKED) }
+		scope :user_viewable,   -> { where("publicity_level = ?", MEMBERS_ONLY)}
+		scope :friend_viewable, -> { where("publicity_level >= ? AND publicity_level <= ?", FRIENDS_ONLY, FRIENDS_N_FOLLOWERS) }
+		scope :follow_viewable, -> { where("publicity_level = ?", FRIENDS_N_FOLLOWERS) }
+
+		# conditional
+		scope :for_anons,     -> {where("publicity_level >= ?", EXCEPT_BLOCKED)}
+		scope :unblocked_for, ->(user) { where("uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)",    user.id).semi_viewable }
+		scope :friendlisted,  ->(user) { where("uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = ?)", user.id).friend_viewable }
+		scope :followlisted,  ->(user) { where("uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = ?)",    user.id).follow_viewable.unblocked_for(user) }
 
 		has_many :edit_invites, dependent: :destroy, as: :editable
 		has_many :view_invites, dependent: :destroy, as: :viewable
@@ -28,8 +39,32 @@ module Editable
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	def self.levels
-		['private', 'friends', 'friends & followers', 'users', 'mostly public', 'completely public']
+	class_methods do
+		def viewable_by(user)
+			if user.nil?
+				for_anons.order('name')
+			else
+				i = user.id
+				# REPLACE WITH OR CHAINING EVENTUALLY
+				self.where("
+					uploader_id = #{i} OR
+					publicity_level = #{PUBLIC} OR (
+						uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i}) AND
+						uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i}) AND (
+							publicity_level = #{EXCEPT_BLOCKED} OR publicity_level = #{MEMBERS_ONLY} OR (
+								publicity_level > #{FRIENDS_ONLY - 1} AND publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})
+							) OR (
+								publicity_level = #{FRIENDS_N_FOLLOWERS} AND uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})
+							)
+						)
+					)"
+				)
+			end
+		end
+	end
+
+	def self.user_levels
+		['Private', 'Friends', 'Friends & Followers', 'Must Be Signed In', 'Mostly Public (no blocked users)', 'Completely Public']
 	end
 
 	# METHODS
@@ -93,7 +128,7 @@ module Editable
 	# ForFriendlyViewer
 	# - allows viewing if reader is a friend
 	def for_friendly?
-		@level > Editable::PERSONAL && @level <= Editable::FRIENDS_N_FOLLOWERS && self.uploader.friend?(@reader)
+		@level >= Editable::FRIENDS_ONLY && @level <= Editable::FRIENDS_N_FOLLOWERS && self.uploader.friend?(@reader)
 	end
 
 	# ForFollowingViewer

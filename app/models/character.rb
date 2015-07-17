@@ -57,7 +57,7 @@ class Character < ActiveRecord::Base
 	has_many :memberships,  dependent: :destroy
 	has_many :possessions,  dependent: :destroy
 
-	has_many :reputations, class_name: "Opinion",     dependent: :destroy, foreign_key: "recip_id"
+	has_many :reputations, class_name: "Opinion", dependent: :destroy, foreign_key: "recip_id"
 	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
 	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
 
@@ -124,14 +124,14 @@ class Character < ActiveRecord::Base
 
 	# NextCharacter
 	# - find next character alphabetically
-	def next_character
-		@next_character ||= Character.next_in_line(self.name).first
+	def next_character(user = nil)
+		@next_character ||= Character.next_in_line(self.name).viewable_by(user).first
 	end
 
 	# NextCharacter
 	# - find next character alphabetically
-	def prev_character
-		@prev_character ||= Character.prev_in_line(self.name).first
+	def prev_character(user = nil)
+		@prev_character ||= Character.prev_in_line(self.name).viewable_by(user).first
 	end
 
 	# ReputationCount
