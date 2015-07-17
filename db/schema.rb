@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712040318) do
+ActiveRecord::Schema.define(version: 20150714040132) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -426,6 +426,16 @@ ActiveRecord::Schema.define(version: 20150712040318) do
 
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
   add_index "reviews", ["work_id"], name: "index_reviews_on_work_id"
+
+  create_table "roleplayers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "roleplayers", ["character_id"], name: "index_roleplayers_on_character_id"
+  add_index "roleplayers", ["user_id"], name: "index_roleplayers_on_user_id"
 
   create_table "settings", force: :cascade do |t|
     t.integer  "work_id",    null: false
