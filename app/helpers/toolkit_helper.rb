@@ -46,11 +46,11 @@ module ToolkitHelper
 
 	def insertable_chapter_toolkit(work, prev = nil, next_one = nil)
 		if user_signed_in? && work.editable?(current_user)
+			text = "+ New Chapter Here"
+			
 			if prev.nil?
-				text      = "Place A Chapter Here"
 				insertion = link_to text, work_first_chapter_path(work)
 			else
-				text      = "Place Chapter Between Chapter #{prev.position} & Chapter #{prev.position + 1}"
 				insertion = link_to text, work_chapter_insert_path(work, prev)
 			end
 
