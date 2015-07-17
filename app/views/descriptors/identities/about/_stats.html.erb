@@ -11,7 +11,7 @@
 
 	<tr>
 		<th>Characters</th>
-		<td data-label="Count"><%= @identity.characters.count %></td>
+		<td data-label="Count"><%= @identity.use_count %></td>
 		<td data-label="Percentage"><%= pretty_percentage @identity.character_percent %></td>
 	</tr>
 	<tr>
@@ -20,3 +20,45 @@
 		<td data-label="Percentage"><%= pretty_percentage @identity.work_percent %></td>
 	</tr>
 </table>
+
+<div class="stat-distribution">
+	<% piedata = @identity.facet.piedata %>
+	<table>
+		<caption>Distribution of Characters by <%= @identity.facet.name.titleize %></caption>
+		<thead>
+			<th>Identity</th>
+			<th>Count</th>
+		</thead>
+		<% piedata.each do |group| %>
+		<tr>
+			<th><%= group[:label] %></th>
+			<td data-label="Count"><%= group[:value] %></td>
+		</tr>
+		<% end %>
+	</table>
+	<canvas id="distribution"></canvas>
+	<p>Chart of Character Distribution</p>
+</div>
+
+<script type="text/javascript">
+	var data = <%= piedata.to_json.to_s.html_safe %>;
+	var ctx = document.getElementById("distribution").getContext("2d");
+	var distribution = new Chart(ctx).Pie(data, {
+		tooltipFillColor: "rgba(0,0,0,1)"
+	});
+</script>
+
+<% relatives = @identity.relatives %>
+<% if relatives.length > 0%>
+	<h3>Related Tags</h3>
+	<p>Of the characters tagged <%= @identity.name %>, here are the most common other tags:</p>
+	<ul>
+		<% relatives.each do |identity| %>
+		<li><%= link_to identity.name, identity %></li>
+		<ul>
+			<li><%= percent_also_tagged "characters", (100.0 * identity.amt / @identity.use_count), @identity.name, identity.name %></li>
+			<li><%= percent_also_tagged "characters", (100.0 * identity.amt / identity.full_count), identity.name, @identity.name %></li>
+		</ul>
+		<% end %>
+	</ul>
+<% end %>

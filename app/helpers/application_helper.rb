@@ -57,4 +57,8 @@ module ApplicationHelper
 		sprintf('%.2f', value) + "%"
 	end
 
+	def percent_also_tagged(what, per, left_tag, right_tag)
+		pretty_percentage(per) + " of " + what + " tagged " + left_tag + " are also tagged " + right_tag
+	end
+
 end

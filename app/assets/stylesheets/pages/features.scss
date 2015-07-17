@@ -64,6 +64,24 @@
 .stat {
 	dt { font-weight: bolder; }
 }
+.stat-distribution {
+	overflow: auto;
+	caption {
+		font-weight: bolder;
+		padding: 10px;
+		border-top: 3px solid $moss-darker;
+	}
+	table {
+		float: left;
+		width: 50%;
+	}
+	canvas {
+		margin: 20px 10px;
+	}
+	p {
+		margin: 10px;
+	}
+}
 .directed {
 	padding: 10px;
 	a, b {

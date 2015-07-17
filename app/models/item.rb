@@ -63,6 +63,12 @@ class Item < ActiveRecord::Base
 		generic.name unless generic.nil?
 	end
 
+	# Linkable
+	# - grab what will be used when organizing
+	def linkable
+		self
+	end
+
 	# Typify
 	# - set the facet type of the identity
 	def typify(name)

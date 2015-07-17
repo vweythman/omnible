@@ -12,6 +12,10 @@
 
 class Description < ActiveRecord::Base
 
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :within, ->(identity) {where("character_id IN (#{identity.descriptions.pluck(:character_id).join(",")})")}
+
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# models that possess these models

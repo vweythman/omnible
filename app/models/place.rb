@@ -72,6 +72,12 @@ class Place < ActiveRecord::Base
 		self.form.name unless self.form.nil?
 	end
 
+	# Linkable
+	# - grab what will be used when organizing
+	def linkable
+		self
+	end
+
 	# Fictional?
 	# asks whether the place exists in real life or not
 	def fictional?
