@@ -1,10 +1,11 @@
 form {
 	margin: 10px;
 	overflow: auto;
+	@include page-shadow($water-color);
 }
 fieldset {
-	@include page-shadow($water-color);
 	margin: 10px auto;
+	padding:0;
 	width:  calc(100% - 40px);
 	border: none;
 }
@@ -66,9 +67,9 @@ textarea {
 .pair {
 	overflow: auto;
 	.field {
-		width: calc(50% - 2px);
+		width: 50%;
 		float: left;
-		margin: 1px;
+		//margin: 0;
 	}
 }
 
