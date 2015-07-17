@@ -86,7 +86,7 @@ class Subjects::PlacesController < ApplicationController
 
 	# define type
 	def set_type
-		@form = Form.where(name: params[:place][:type]).first_or_create
+		@form = Form.where(name: params[:place][:nature]).first_or_create
 		params[:place][:form_id] = @form.id
 	end
 

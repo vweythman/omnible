@@ -32,7 +32,7 @@ class Subjects::ItemsController < ApplicationController
 		set_tags
 
 		@item = Item.new(item_params)
-		@item.typify params[:item][:type]
+		@item.typify params[:item][:nature]
 
 		if @item.save
 			redirect_to @item
@@ -45,7 +45,7 @@ class Subjects::ItemsController < ApplicationController
 	# ............................................................
 	def update
 		find_item
-		@item.typify params[:item][:type]
+		@item.typify params[:item][:nature]
 
 		update_descriptions
 

@@ -10,7 +10,7 @@ class Subjects::CharactersController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@characters = Character.order('name').all
+		@characters = Character.viewable_by(current_user).order('name')
 	end
 
 	def curated_index
@@ -24,8 +24,8 @@ class Subjects::CharactersController < ApplicationController
 		@items       = Item.organize(@character.items.includes(:generic))
 		@connections = @character.ordered_connections
 		@viewpoints  = @character.viewpoints
-		@prev = @character.prev_character
-		@next = @character.next_character
+		@prev = @character.prev_character current_user
+		@next = @character.next_character current_user
 	end
 
 	def preview
@@ -93,7 +93,7 @@ class Subjects::CharactersController < ApplicationController
 
 	# define strong parameters
 	def character_params
-		params.require(:character).permit(:name, :about, 
+		params.require(:character).permit(:name, :about, :editor_level, :publicity_level, 
 			identifiers_attributes:  [:id, :name,        :_destroy],
 			descriptions_attributes: [:id, :identity_id, :_destroy],
 			possessions_attributes:  [:id, :item_id,     :_destroy],

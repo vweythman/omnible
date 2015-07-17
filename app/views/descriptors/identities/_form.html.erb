@@ -1,7 +1,7 @@
 <%= form_for(@identity) do |f| %>
 
 	<fieldset>
-		<%= form_field f.label(:type), f.text_field(:type, :placeholder => "Describe the Type of Identity") %>
+		<%= form_field f.label(:nature), f.text_field(:nature, :placeholder => "Describe the Type of Identity") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Name the Identity") %>
 	</fieldset>
 

@@ -1,7 +1,7 @@
 <%= form_for(@place) do |f| %>
 
 	<fieldset>
-		<%= form_field f.label(:type, "Type"), f.text_field(:type, :placeholder => "Add Type of Place") %>
+		<%= form_field f.label(:nature, "Type"), f.text_field(:nature, :placeholder => "Add Type of Place") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Place Name") %>
 
 		<div class="choice">

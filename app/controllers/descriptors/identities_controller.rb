@@ -26,7 +26,7 @@ class Descriptors::IdentitiesController < ApplicationController
 	# ............................................................
 	def create
 		@identity = Identity.new(identity_params)
-		@identity.typify params[:identity][:type]
+		@identity.typify params[:identity][:nature]
 
 		if @identity.save
 			redirect_to(:action => 'index')
@@ -39,7 +39,7 @@ class Descriptors::IdentitiesController < ApplicationController
 	# ............................................................
 	def update
 		find_identity
-		@identity.typify params[:identity][:type]
+		@identity.typify params[:identity][:nature]
 
 		if @identity.update(identity_params)
 			redirect_to(:action => 'index')
