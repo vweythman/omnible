@@ -69,14 +69,14 @@ class Subjects::ItemsController < ApplicationController
 		@item = Item.friendly.find(params[:id])
 	end
 
-	# define descriptions
+	# define descriptions of items
 	def set_tags(list = Quality.batch(params[:descriptions]).pluck(:id))
 		params[:item][:item_tags_attributes] = build_tags(list, :quality_id)
 	end
 
 	# update description list
 	def update_descriptions
-		list = Quality.batch(params[:descriptions]).pluck(:id)
+		list = Quality.batch(params[:descriptions])
 		curr = @item.update_tags(list)
 		set_tags(list - curr)
 	end

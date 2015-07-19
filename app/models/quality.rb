@@ -3,6 +3,7 @@ class Quality < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	extend FriendlyId
+	extend NameBatchable
 	include Taggable
 
 	# SCOPES

@@ -47,7 +47,7 @@ class Works::ChaptersController < ApplicationController
 		if @chapter.update(chapter_params)
 			@work.updated_at = @chapter.updated_at
 			@work.save
-			redirect_to [@chapter.work, @chapter]
+			redirect_to [@chapter.story, @chapter]
 		else
 			render action: 'edit'
 		end
@@ -65,7 +65,7 @@ class Works::ChaptersController < ApplicationController
 	# find by id
 	def find_chapter
 		@chapter = Chapter.find(params[:id])
-		@work    = @chapter.work
+		@work    = @chapter.story
 	end
 
 	def work_elements
@@ -76,6 +76,6 @@ class Works::ChaptersController < ApplicationController
 
 	# define strong parameters
 	def chapter_params
-		params.require(:chapter).permit(:title, :work_id, :about, :position, :content, :afterward)
+		params.require(:chapter).permit(:title, :story_id, :about, :position, :content, :afterward)
 	end
 end

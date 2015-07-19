@@ -97,24 +97,26 @@ class Subjects::CharactersController < ApplicationController
 			identifiers_attributes:  [:id, :name,        :_destroy],
 			descriptions_attributes: [:id, :identity_id, :_destroy],
 			possessions_attributes:  [:id, :item_id,     :_destroy],
-			opinions_attributes:     [:id, :identity_id, :fondness, :respect, :about, :_destroy],
-			prejudices_attributes:   [:id, :recip_id,    :fondness, :respect, :about, :_destroy]
+			opinions_attributes:     [:id, :recip_id,    :fondness, :respect, :about, :_destroy],
+			prejudices_attributes:   [:id, :identity_id, :fondness, :respect, :about, :_destroy]
 		)
 	end
 
 	def set_identifiers
-		list    = params[:identifiers]
-		list    = list.split(";")
-		params[:character][:identifiers_attributes] = build_tags(list, :name)
-	end		
+		list = params[:identifiers]
+		params[:character][:identifiers_attributes] = build_tags(list.split(";"), :name)
+	end
 
 	def update_identifiers
 		list    = params[:identifiers]
 		list    = list.split(";")
-		remove  = Identifier.not_among(@character.id, list).destroy_all
-		current = Identifier.are_among(@character.id, list).pluck(:name)
-		list    = list - current
-		params[:character][:identifiers_attributes] = build_tags(list, :name)
+		if list.length > 0
+			remove  = Identifier.not_among_for(@character.id, list).destroy_all
+			current = Identifier.are_among_for(@character.id, list).pluck(:name)
+			params[:character][:identifiers_attributes] = build_tags(list - current, :name)
+		else
+			@character.identifiers.destroy_all
+		end
 	end
 
 	# setup form components
