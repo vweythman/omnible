@@ -96,6 +96,19 @@ class Character < ActiveRecord::Base
 		include_association :prejudices
 	end
 
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	def self.batch(characters, uploader, column = :character_id)
+		Character.transaction do 
+			appearing = characters.map { |c| 
+				character = Character.where(name: c[:name]).first_or_create
+				character.uploader = uploader
+				character.save
+				c.merge!({column => character.id})
+			}
+		end
+	end
+
 	# METHODS
 	# ------------------------------------------------------------
 	# Heading

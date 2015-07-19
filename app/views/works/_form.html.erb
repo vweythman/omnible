@@ -5,19 +5,20 @@
 	<fieldset class="heading">
 		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Add Title") %>
 		<%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Add Summary", :class=> :minor) %>
-
-		<fieldset class='tags' id="tags">
-			<legend>Tags</legend>
-			<%= form_field label_tag(:tags, "Tags"), text_field_tag(:tags, @tags.join(";"), :placeholder => "Add General Tags (magic realism,...)", class: 'taggables') %>
-		</fieldset>
 	</fieldset>
 
-	<%= show_link @charnest.heading, @charnest.klass %>
-	<%= content_tag :fieldset, class: "nested characters", id: @charnest.form_id do %>
-		<%= nested_legend @charnest %>
-		<%= nested_fields f, @charnest %>
-		<p><%= link_to_add_association "+ Add Character", f, @charnest.klass, :partial=> @charnest.partial %></p>
-	<% end %>
+	<fieldset class='tags' id="tags">
+		<legend>Tags</legend>
+		<%= taggables :tags, @general_tags, nil, "Add General Tags (magic realism,...)" %>
+	</fieldset>
+
+	<%= show_link "Characters", :characters %>
+	<fieldset class='nested characters' id="form_characters">
+		<legend>Characters <%= hide_link :characters %></legend>
+		<% @characters.each do |key, listable| %>
+			<%= taggables key, listable, "#{key} characters".titleize %>
+		<% end %>
+	</fieldset>
 
 	<%= f.submit %>
 <% end %>

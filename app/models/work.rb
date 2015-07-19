@@ -85,9 +85,13 @@ class Work < ActiveRecord::Base
 	has_many :comments, :through => :discussion
 
 	# - References
-	has_many :characters, :through => :appearances
-	has_many :tags,       :through => :taggings
+	has_many :characters,      :through => :appearances
+	has_many :main_characters, :through => :appearances
+	has_many :side_characters, :through => :appearances
+	has_many :mentioned_characters, :through => :appearances
+	
 	has_many :identities, ->{uniq}, :through => :characters
+	has_many :tags, :through => :taggings
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -103,8 +107,18 @@ class Work < ActiveRecord::Base
 
 	# OrganizedCharacters
 	def organized_characters
-		appearances = self.appearances.order('role asc').includes(:character)
+		appearances = self.appearances.includes(:character)
 		Appearance.organize(appearances)
+	end
+
+	def init_characters
+		lst = Appearance.init_type_hash(self)
+		appearances = self.appearances.joins(:character)
+		appearances.each do |character|
+			lst[character.role] ||= Array.new
+			lst[character.role] << character.name
+		end
+		return lst
 	end
 
 	# ContentDistribution

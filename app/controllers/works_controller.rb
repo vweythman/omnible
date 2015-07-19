@@ -119,20 +119,12 @@ class WorksController < ApplicationController
 
 	# setup form components
 	def define_components
-		@characters = Character.order('lower(name)').all
-		@tags       = @work.tags.pluck(:name)
-		@charnest   = Nest.new("Characters", :appearances, "works/nested_forms/appearance_fields")
+		@general_tags = @work.tags.pluck(:name)
+		@characters   = @work.init_characters
 	end
 
 	def add_characters
-		appearances = params[:work][:appearances_attributes]
-		appearances.each do |appearance|
-			char_id = appearance[1][:character_id]
-			is_int  = Integer(char_id, 10) rescue false
-			if !(is_int || char_id.empty?)
-				character = Character.where(name: char_id, uploader_id: current_user.id).create
-				appearance[1][:character_id] = character.id
-			end
-		end
+		new_appears = Character.batch Appearance.update_for(@work, params), current_user
+		params[:work][:appearances_attributes] = new_appears
 	end
 end

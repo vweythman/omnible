@@ -35,7 +35,7 @@ module FormHelper
 	end
 
 	def taggables(label, list, title = nil, placeholder = nil)
-		form_field label_tag(label), text_field_tag(label, list.join(";"), :placeholder => placeholder, class: 'taggables')
+		form_field label_tag(label, title), text_field_tag(label, list.join(";"), :placeholder => placeholder, class: 'taggables')
 	end
 
 end
