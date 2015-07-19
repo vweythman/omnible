@@ -84,7 +84,7 @@
 	padding:     10px;
 	&:hover {
 		background: darken($color, 10%);
-		color: darken($color, 70%);
+		color:     darken($color, 70%);
 	}
 }
 @mixin chooseable($color) {

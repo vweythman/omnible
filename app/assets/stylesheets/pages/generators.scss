@@ -54,9 +54,18 @@
 
 .show { 
 	@include togglable($water-light);
-	margin: 15px 20px;
+	margin:  15px 20px;
 }
-.hide { @include togglable($water-lighter); }
+.hide {
+	text-transform: uppercase;
+	cursor: pointer;
+	padding: 0;
+	background: none;
+	color: $water-lighter;
+	&:hover {
+		color: $water-lightest
+	}
+}
 .add_fields    { @include togglable($water-lightest); }
 .remove_fields { @include togglable($water-lighter);  }
 
