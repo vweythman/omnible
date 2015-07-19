@@ -1,8 +1,16 @@
+<% provide(:title, "Information about " + @work.heading) %>
 <main class="feature">
 	<header>
 		<%= work_toolkit @work %>
 		<h1><%= @work.heading %></h1>
-		<div class="summary"><%= markdown @work.summary %>
+		<div class="summary"><%= markdown @work.summary %></div>
+		<% 
+			pa = Hash.new
+			pa['main'] = "Kal-El"
+			pa["side"] = "Lois Lane;Arre Tel-Gon"
+			pa["mentioned"] = "Mara Ae-Dor;Kina Bar-Je"
+		%>
+		<p><%= Appearance.update_for(@work, pa) %></p>
 	</header>
 	
 	<%= render 'show_stats' %>

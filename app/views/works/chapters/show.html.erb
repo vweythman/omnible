@@ -5,8 +5,8 @@
 	<article class="piece" role="article">
 		<header>
 			<nav>
-				<%= link_to prev_heading("Prev Chapter"), [@chapter.work, @chapter.prev] unless @chapter.prev.nil? %>
-				<%= link_to next_heading("Next Chapter"), [@chapter.work, @chapter.next] unless @chapter.next.nil? %>
+				<%= link_to prev_heading("Prev Chapter"), [@work, @chapter.prev] unless @chapter.prev.nil? %>
+				<%= link_to next_heading("Next Chapter"), [@work, @chapter.next] unless @chapter.next.nil? %>
 			</nav>
 
 			<h2><%= @chapter.complete_heading %></h2>
@@ -22,8 +22,8 @@
 				<%= markdown @chapter.afterward %>
 			<% end %>
 			<nav>
-				<%= link_to prev_heading("Prev Chapter"), [@chapter.work, @chapter.prev] unless @chapter.prev.nil? %>
-				<%= link_to next_heading("Next Chapter"), [@chapter.work, @chapter.next] unless @chapter.next.nil? %>
+				<%= link_to prev_heading("Prev Chapter"), [@work, @chapter.prev] unless @chapter.prev.nil? %>
+				<%= link_to next_heading("Next Chapter"), [@work, @chapter.next] unless @chapter.next.nil? %>
 			</nav>
 			<%= @chapter.topic.heading %>
 		</footer>

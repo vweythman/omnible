@@ -1,4 +1,9 @@
 <%= form_for(@character) do |f| %>
+	<ul>
+		<% @character.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
 	<fieldset>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
 		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @variants.join(";"), :placeholder => "Add Alternate Names", class: 'taggables') %>
@@ -17,7 +22,7 @@
 	<%= content_tag :fieldset, class: 'nested items', id: @itemnest.form_id do %>
 		<%= nested_legend @itemnest %>
 		<%= nested_fields f, @itemnest %>
-		<p><%= link_to_add_association "+ Add Place", f, @itemnest.klass, :partial=> @itemnest.partial %></p>
+		<p><%= link_to_add_association "+ Add Item", f, @itemnest.klass, :partial=> @itemnest.partial %></p>
 	<% end %>
 
 	<%= show_link @prejnest.heading, @prejnest.klass %>
