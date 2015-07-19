@@ -38,10 +38,10 @@ class Item < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# joins
+	# - Joins
 	has_many :item_tags
 
-	# models that belong to this model
+	# - General
 	belongs_to :generic
 	has_many :qualities, :through => :item_tags
 	
@@ -51,40 +51,36 @@ class Item < ActiveRecord::Base
 
 	# METHODS
 	# ------------------------------------------------------------
-	# Heading
+
 	# - defines the main means of addressing the model
 	def heading
 		name
 	end
 
-	# Type
 	# - defines the type name if it exists
 	def nature
 		generic.name unless generic.nil?
 	end
 
-	# Linkable
 	# - grab what will be used when organizing
 	def linkable
 		self
 	end
 
-	# Typify
 	# - set the facet type of the identity
 	def typify(name)
 		self.generic = Generic.where(name: name).first_or_create
 	end
 
-	# ReorganizeTags
 	# - reassess current tag and return ids
 	def update_tags(list)
-		ItemTag.not_among(self.id, list).destroy_all
-		ItemTag.are_among(self.id, list).pluck(:quality_id)
+		ItemTag.not_among_for(self.id, list).destroy_all
+		ItemTag.are_among_for(self.id, list).pluck(:quality_id)
 	end
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	# OrganizedAll
+
 	# - creates an list of all identities organized by facet
 	def self.organized_all(list = Item.includes(:generic))
 		self.organize(list)
