@@ -9,11 +9,11 @@ module FormHelper
 	
 	# OUTPUT nested fields heading
 	def nested_legend(nesting)
-		heading = content_tag :legend do "#{nesting.heading} #{hide_link(nesting.heading, nesting.klass)}".html_safe end
+		heading = content_tag :legend do "#{nesting.heading} #{hide_link(nesting.klass)}".html_safe end
 	end
 
 	# OUTPUT hide toggle
-	def hide_link(title, id)
+	def hide_link(id)
 		hide_link    = content_tag :a, class: 'hide' , id: "hide_#{id}" do "&uArr; Hide".html_safe end
 		hide_enclose = content_tag :span, class: 'hider' do hide_link end
 	end
@@ -32,6 +32,10 @@ module FormHelper
 			index = index + 1
 			concat render :partial => nesting.partial, :locals => nlocals
 		end
+	end
+
+	def taggables(label, list, title = nil, placeholder = nil)
+		form_field label_tag(label), text_field_tag(label, list.join(";"), :placeholder => placeholder, class: 'taggables')
 	end
 
 end
