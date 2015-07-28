@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------------
 #  heading                     | string      | defines the main means of
 #                              |             | addressing the model
-#  interconnections                 | string      | defines the type name if it exists
+#  interconnections            | string      | defines the type name if it exists
 #  fictional?                  | bool        | asks whether the place exists in 
 #                              |             | real life or not
 # ================================================================================

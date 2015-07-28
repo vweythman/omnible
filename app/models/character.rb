@@ -62,9 +62,8 @@ class Character < ActiveRecord::Base
 	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
 
 	# - Belongs to
-	has_many   :groups,   through: :memberships
-	has_many   :works,    through: :appearances
-	belongs_to :uploader, class_name: "User"
+	has_many :groups, through: :memberships
+	has_many :works,  through: :appearances
 
 	# - Has
 	has_many :identities,  through: :descriptions
@@ -138,13 +137,13 @@ class Character < ActiveRecord::Base
 	# NextCharacter
 	# - find next character alphabetically
 	def next_character(user = nil)
-		@next_character ||= Character.next_in_line(self.name).viewable_by(user).first
+		@next_character ||= Character.next_in_line(self.name).viewable_for(user).first
 	end
 
 	# NextCharacter
 	# - find next character alphabetically
 	def prev_character(user = nil)
-		@prev_character ||= Character.prev_in_line(self.name).viewable_by(user).first
+		@prev_character ||= Character.prev_in_line(self.name).viewable_for(user).first
 	end
 
 	# ReputationCount

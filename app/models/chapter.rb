@@ -55,11 +55,8 @@ class Chapter < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :story,    :inverse_of => :chapters, class_name: "Work"
-	has_one    :topic,    :inverse_of => :discussed, as: :discussed
-	has_many   :comments, :through => :discussion, as: :discussed
-
-	delegate :user, to: :story
+	belongs_to :story, :inverse_of => :chapters, class_name: "Work"
+	delegate :uploader, to: :story
 
 	# METHODS
 	# ------------------------------------------------------------
@@ -140,13 +137,13 @@ class Chapter < ActiveRecord::Base
 		self.position = next_position
 	end
 
-	# Editable
-	# - user is allowed to edit
+	# Editable - user is allowed to edit
 	def editable?(user)
-		self.user.id == user.id
+		self.uploader.id == user.id
 	end
 
 	# CLASS METHODS
+	# ------------------------------------------------------------
 	# SwapPositions
 	# - swap the positions of two chapters of the same story
 	def self.swap_positions(left, right)

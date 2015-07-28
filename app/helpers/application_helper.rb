@@ -61,4 +61,8 @@ module ApplicationHelper
 		pretty_percentage(per) + " of " + what + " tagged " + left_tag + " are also tagged " + right_tag
 	end
 
+	def rating_class(lvl)
+		"rating level#{lvl}"
+	end
+
 end
