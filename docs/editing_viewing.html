@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Editing and Viewing Guide for Omnible</title>
+	<style type="text/css">
+		table {
+			border-collapse: collapse;
+			margin: 10px;
+		}
+		caption {
+			font-size: 1.25em;
+			padding: 10px;
+		}
+		th {
+			background: #888;
+			color: white;
+			padding: 5px 10px;
+		}
+		td {
+			padding: 10px;
+			text-align: center;
+		}
+		.y {
+			color: blue;
+		}
+		.n {
+			color: red;
+		}
+		tr:nth-child(even) {
+			background:#eee;
+		}
+	</style>
+</head>
+<body>
+
+<table>
+	<caption>Allowed Viewing and Editing Combinations</caption>
+	<thead>
+		<tr>
+			<th></th>
+			<th colspan="6">Viewing</th>
+		</tr>
+		<tr>
+			<th>Editing</th>
+
+			<th>PERSONAL</th>
+			<th>FRIENDS_ONLY</th>
+			<th>FRIENDS_N_FOLLOWERS</th>
+
+			<th>MEMBERS_ONLY</th>
+			<th>EXCEPT_BLOCKED</th>
+			<th>PUBLIC</th>
+		</tr>
+	</thead>
+	<tr>
+		<th>PERSONAL</th>
+		<td class='y'>YES - testing [C]</td>
+		<td class='y'>YES</td>
+		<td class='y'>YES</td>
+
+		<td class='y'>YES</td>
+		<td class='y'>YES - testing [C]</td>
+		<td class='y'>YES</td>
+	</tr>
+	<tr>
+		<th>FRIENDS_ONLY</th>
+		<td class='n'>NO</td>
+		<td class='y'>YES - testing [W]</td>
+		<td class='y'>YES</td>
+
+		<td class='y'>YES</td>
+		<td class='y'>YES</td>
+		<td class='y'>YES</td>
+	</tr>
+	<tr>
+		<th>FRIENDS_N_FOLLOWERS</th>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		<td class='y'>YES</td>
+		
+		<td class='y'>YES</td>
+		<td class='y'>YES</td>
+		<td class='y'>YES</td>
+	</tr>
+	<tr>
+		<th>MEMBERS_ONLY</th>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		
+		<td class='y'>YES</td>
+		<td class='y'>YES</td>
+		<td class='y'>YES - testing [W]</td>
+	</tr>
+	<tr>
+		<th>EXCEPT_BLOCKED</th>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		
+		<td class='n'>NO</td>
+		<td class='y'>YES - testing [W]</td>
+		<td class='y'>YES</td>
+	</tr>
+	<tr>
+		<th>PUBLIC</th>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+
+		<td class='n'>NO</td>
+		<td class='n'>NO</td>
+		<td class='y'>YES - testing [C]</td>
+	</tr>
+</table>
+
+<ul>
+	<li>36 Combinations</li>
+	<li>21 that are <span class='y'>possible</span></li>
+	<li>15 that are <span class='n'>impossible</span></li>
+</ul>
+
+</body>
+</html>
