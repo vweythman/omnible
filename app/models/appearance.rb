@@ -48,6 +48,23 @@ class Appearance < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
+	# Hashing - organize values by roles
+	def self.hashing(work, work_params)
+		tags = Array.new
+		self.roles(work).map {|role|
+			tagging = work_params[role].split(";")
+			tags    = tags + tagging.map {|tagged| { :role => role, :name => tagged } }
+		}
+		return tags
+	end
+
+	# - inits a hash of arrays with the roles as keys
+	def self.init_hash(work)
+		lst = {}
+		self.roles(work).map {|role| lst[role] = Array.new }
+		return lst
+	end
+
 	# Roles
 	# - defines and collects the types of appearances
 	def self.roles(work)
@@ -64,7 +81,7 @@ class Appearance < ActiveRecord::Base
 		orig = work.appearances.joins(:character).pluck(:name, :role, :character_id)
 		curr = hashing(work, work_params)
 		delt = Array.new
-		updt = init_type_hash(work)
+		updt = init_hash(work)
 
 		orig.map {|character|
 			idx = curr.index { |i| i[:name] == character[0] }
@@ -83,34 +100,8 @@ class Appearance < ActiveRecord::Base
 		}
 
 		self.are_among_for(work, delt).destroy_all
-		self.update_roles(work, updt)
-		curr
-	end
-
-	def self.init_type_hash(work)
-		lst = Hash.new
-		self.roles(work).map {|role| lst[role] = Array.new }
-		return lst
-	end
-
-	# - 
-	def self.hashing(work, work_params)
-		tags  = Array.new
-		self.roles(work).map {|role|
-			taggables = work_params[role].split(";")
-			tags = tags + set_hash(role, taggables)
-		}
-		tags
-	end
-
-	# - 
-	def self.set_hash(role, taggables)
-		taggables.map {|tagged| { :role => role, :name => tagged } }
-	end
-
-	# - 
-	def self.update_roles(work, sorted_characters)
-		sorted_characters.map {|role, cids| self.are_among_for(work, cids).update_all(:role => role) }
+		updt.map {|role, cids| self.are_among_for(work, cids).update_all(:role => role) }
+		return curr
 	end
 
 end
