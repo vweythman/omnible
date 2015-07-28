@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
  $(function() {
-   var levels = <%= Editable.user_levels.to_s.html_safe %>;
+   var levels = <%= Editable.labels.to_s.html_safe %>;
    $( "#editable" ).slider({
       range: true,
       values: [<%= f.object.editor_level || 0 %>, <%= f.object.publicity_level || 5 %>],
