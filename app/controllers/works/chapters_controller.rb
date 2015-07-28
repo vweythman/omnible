@@ -70,7 +70,7 @@ class Works::ChaptersController < ApplicationController
 
 	def work_elements
 		@characters = @work.organized_characters
-		@user       = @work.user
+		@user       = @work.uploader
 		@tags       = @work.tags
 	end
 

@@ -22,12 +22,11 @@ class WorksController < ApplicationController
 		find_work
 
 		if user_signed_in? && @work.editable?(current_user)
-			@user     = @work.user
+			@uploader = @work.uploader
 			@chapters = @work.chapters
 			@notes    = @work.notes
 
 			@characters = @work.organized_characters
-			@user       = @work.user
 			@tags       = @work.tags
 			render 'show'
 		# add if !@work.viewable?(curent_user)
@@ -98,10 +97,11 @@ class WorksController < ApplicationController
 
 	# find all
 	def find_works
+		options = params.slice(:date, :sort, :rating, :rating_min, :rating_max)
 		if @parent.nil?
-			@works = Work.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
+			@works = Work.assort(options).includes(:uploader).page(params[:page])
 		else
-			@works = @parent.works.assort(params[:date], params[:sort]).includes(:user).page(params[:page])
+			@works = @parent.works.assort(options).includes(:uploader).page(params[:page])
 		end
 	end
 
@@ -112,7 +112,7 @@ class WorksController < ApplicationController
 
 	# define strong parameters
 	def work_params
-		params.require(:work).permit(:title, :user_id, :summary, 
+		params.require(:work).permit(:title, :uploader_id, :summary, 
 			appearances_attributes: [:id, :character_id, :role, :_destroy]
 		)
 	end

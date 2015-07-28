@@ -10,7 +10,7 @@ class Subjects::CharactersController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@characters = Character.viewable_by(current_user).order('name')
+		@characters = Character.viewable_for(current_user).order('name')
 	end
 
 	def curated_index

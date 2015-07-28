@@ -26,6 +26,7 @@ module Editable
 		scope :friendlisted,  ->(user) { where("uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = ?)", user.id).friend_viewable }
 		scope :followlisted,  ->(user) { where("uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = ?)",    user.id).follow_viewable.unblocked_for(user) }
 
+		belongs_to :uploader, class_name: "User"
 		has_many :edit_invites, dependent: :destroy, as: :editable
 		has_many :view_invites, dependent: :destroy, as: :viewable
 		has_many :invited_editors, through: :edit_invites, source: :user
@@ -40,7 +41,7 @@ module Editable
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	class_methods do
-		def viewable_by(user)
+		def viewable_for(user)
 			if user.nil?
 				for_anons.order('name')
 			else
@@ -63,7 +64,7 @@ module Editable
 		end
 	end
 
-	def self.user_levels
+	def self.labels
 		['Private', 'Friends', 'Friends & Followers', 'Must Be Signed In', 'Mostly Public (no blocked users)', 'Completely Public']
 	end
 
@@ -140,7 +141,7 @@ module Editable
 	# ForViewingUser
 	# - allows viewing if reader is a user of the site
 	def for_user?
-		@level == Editable::MEMBERS_ONLY && !@reader.nil
+		@level == Editable::MEMBERS_ONLY && !@reader.nil?
 	end
 
 	# SemiPublic?

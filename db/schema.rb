@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714040132) do
+ActiveRecord::Schema.define(version: 20150721094413) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -520,7 +520,7 @@ ActiveRecord::Schema.define(version: 20150714040132) do
   create_table "works", force: :cascade do |t|
     t.string   "title",           limit: 255
     t.text     "summary"
-    t.integer  "user_id"
+    t.integer  "uploader_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "publicity_level"
@@ -529,6 +529,6 @@ ActiveRecord::Schema.define(version: 20150714040132) do
     t.integer  "editor_level"
   end
 
-  add_index "works", ["user_id"], name: "index_works_on_user_id"
+  add_index "works", ["uploader_id"], name: "index_works_on_uploader_id"
 
 end
