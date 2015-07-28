@@ -1,15 +1,8 @@
 <% @works.each do |work| %>
 
 	<article class='snippet'>
-		<h4 class='heading'><%= link_to work.title, work %> by <%= work.user.nil? ? "Anon" : work.user.name %></h4>
-
-		<div class='date'>
-			<p><span class='label'>Created:</span> <%= record_time work.created_at %></p>
-			<% if work.updated_at != work.created_at %>
-				<p><span class='label'>Updated:</span> <%= record_time work.updated_at %></p>
-			<% end %>
-		</div>
-		
+		<h4 class='heading'><%= link_to work.title, work %> by <%= work.uploader.name %></h4>
+		<%= render 'works/shared/stats', work: work %>
 		<div class="summary"><%= markdown work.summary || "" %></div>
 	</article>
 

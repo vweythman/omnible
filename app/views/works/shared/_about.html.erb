@@ -1,0 +1,14 @@
+<h3>Summary</h3>
+<%= markdown @work.summary %>
+
+<h3>Tags</h3>
+<%= render 'works/shared/tags' %>
+
+<h3>Anthologies</h3>
+<ul>
+<% if @work.anthologies.length > 0 %>
+	<li><%= cslinks(@work.anthologies) %></li>
+<% else %>
+	<li>None.</li>
+<% end %>
+</ul>

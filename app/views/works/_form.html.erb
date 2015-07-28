@@ -1,6 +1,6 @@
 <%= form_for(@work) do |f| %>
 
-	<%= f.hidden_field :user_id,  :value => 1 %>
+	<%= f.hidden_field :uploader_id,  :value => 1 %>
 
 	<fieldset class="heading">
 		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Add Title") %>

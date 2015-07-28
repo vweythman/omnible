@@ -1,6 +1,0 @@
-<% Appearance.roles(@work).each do |role| %>
-	<% unless @characters[role].nil? %>
-		<dt><%= role.titleize %> Characters</dt>
-		<dd><%= cslinks @characters[role] %></dd>
-	<% end %>
-<% end %>

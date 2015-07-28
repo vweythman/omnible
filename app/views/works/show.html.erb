@@ -1,16 +1,17 @@
 <% provide(:title, "Information about " + @work.heading) %>
 <main class="feature">
 	<header>
+		<h1>Information about <%= @work.heading %></h1>
 		<%= work_toolkit @work %>
-		<h1><%= @work.heading %></h1>
-		<div class="summary"><%= markdown @work.summary %></div>
 	</header>
-	
-	<%= render 'show_stats' %>
 
-	<article>
-		<%= render 'works/chapters/list_brief' %>
-		<%= render 'works/notes/list_brief' %>
+	<article class="content">
+		<%= render 'works/shared/overview' %>
+
+		<section class='about'>
+			<%= render 'works/chapters/list_brief' %>
+			<%= render 'works/notes/list_brief' %>
+		</section>
 	</article>
 
 	<footer>

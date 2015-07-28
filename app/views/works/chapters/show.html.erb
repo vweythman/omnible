@@ -1,17 +1,18 @@
+<% provide(:title, @chapter.heading + " | " + @work.heading) %>
 <main class="feature">
-	<% provide(:title, @chapter.heading + " | " + @work.heading) %>
-	<%= render 'works/shared/header' %>
+	<header>
+		<h1><%= @work.heading %></h1>
+		<%= render 'works/shared/tags' %>
+	</header>
 
 	<article class="piece" role="article">
 		<header>
+			<h2><%= @chapter.complete_heading %></h2>
 			<nav>
 				<%= link_to prev_heading("Prev Chapter"), [@work, @chapter.prev] unless @chapter.prev.nil? %>
 				<%= link_to next_heading("Next Chapter"), [@work, @chapter.next] unless @chapter.next.nil? %>
 			</nav>
-
-			<h2><%= @chapter.complete_heading %></h2>
 			<div><%= markdown @chapter.about %></div>
-			<%= model_toolkit(@chapter) %>
 		</header>
 
 		<%= markdown @chapter.content %>

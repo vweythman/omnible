@@ -1,0 +1,28 @@
+<div class="slider">
+  <h2>Rated</h2>
+	<div id="general-rating" class='rated range-values'></div>
+  <div class="range">
+    <span class="label">Min</span><span id="min_label" class="rate-min val"></span>
+    <span class="label">Max</span><span id="max_label" class="rate-max val"></span>
+  </div>
+</div>
+
+<script type="text/javascript">
+ $(function() {
+   var levels = <%= Rating.labels.to_s.html_safe %>;
+   $( ".rated" ).slider({
+      range: true,
+      values: [0, 4],
+      min: 0,
+      max: 4,
+      step: 1,
+      slide: function( event, ui ) {
+          $("#min_label").html(levels[ui.values[0]]);
+          $("#max_label").html(levels[ui.values[1]]);
+      }
+  });
+  $("#min_label").html(levels[$( ".rated" ).slider( "values", 0 )]);
+  $("#max_label").html(levels[$( ".rated" ).slider( "values", 1 )]);
+  
+});
+</script>

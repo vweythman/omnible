@@ -1,0 +1,30 @@
+<table class='stats'>
+	<tr>
+		<th>Created</th>
+		<td colspan='3'><%= record_time work.created_at %></td>
+	</tr>
+	
+	<% unless work.just_created? %>
+		<tr>
+			<th>Updated</th>
+			<td colspan='3'><%= record_time work.updated_at %></td>
+		</tr>
+	<% end %>
+</table>
+
+<table class='stats'>
+	<caption>Rating</caption>
+	<thead>
+		<tr>
+			<th>Sexuality</th>
+			<th>Violence</th>
+			<th>Language</th>
+		</tr>
+	</thead>
+
+	<tr>
+		<td class="<%= rating_class(4 - work.rating.sexuality) %>"><%= work.rating.heading_sexuality %></td>
+		<td class="<%= rating_class(4 - work.rating.language)  %>"><%= work.rating.heading_language  %></td>
+		<td class="<%= rating_class(4 - work.rating.violence)  %>"><%= work.rating.heading_violence  %></td>
+	</tr>
+</table>

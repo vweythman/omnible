@@ -4,13 +4,7 @@
 	<%= render 'works/shared/header' %>
 	
 	<article>
-		<h2>Notes</h2>
-
-		<% if @notes.length > 0 %>
-			<%= render 'list' %>
-		<% else %>
-			<%= component_toolkit @work, 'Note' %>
-		<% end %>
+		<%= render 'list_brief' %>
 	</article>
 
 	<%= render 'works/shared/footer' %>
