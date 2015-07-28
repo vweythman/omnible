@@ -6,9 +6,10 @@ class CharacterTest < ActiveSupport::TestCase
     @mary = characters(:mary)
     @jane = characters(:jane)
     @erik = characters(:erik)
-    @randa   = users(:randa)
-    @sirka   = users(:sirka)
-    @cinders = users(:cinders)
+
+    @randa = users(:randa)
+    @sirka = users(:sirka)
+    @amiya = users(:amiya)
   end
 
   test "should have heading the same as name" do
@@ -25,7 +26,7 @@ class CharacterTest < ActiveSupport::TestCase
   test "should have creator" do
     assert @mary.creator? @randa
     assert @jane.creator? @sirka
-    assert @erik.creator? @cinders
+    assert @erik.creator? @amiya
   end
 
   test "should be cloneable" do
@@ -34,11 +35,11 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test "should create a clone" do
-    @mary2 = @mary.replicate(@cinders)
+    @mary2 = @mary.replicate(@amiya)
 
     assert_not_equal nil, @mary2
     
-    assert_equal @cinders, @mary2.uploader
+    assert_equal @amiya, @mary2.uploader
     assert_equal @mary, @mary2.original
     assert @mary2.save
 
@@ -48,19 +49,25 @@ class CharacterTest < ActiveSupport::TestCase
 
   test "should not create a clone" do
     assert_not @erik.cloneable?
-    assert_equal nil, @erik.replicate(@cinders)
+    assert_equal nil, @erik.replicate(@amiya)
   end
 
   test "should get next" do
+    assert_equal @jane, @erik.next_character(@sirka)
+    assert_equal @mary, @jane.next_character(@randa)
+    assert_not_equal @erik, @mary.next_character(@amiya)
+
+    # when publically viewable
     assert_equal @jane, @erik.next_character
-    assert_equal @mary, @jane.next_character
-    assert_not_equal @erik, @mary.next_character
   end
 
   test "should get prev" do
+    assert_equal @erik, @jane.prev_character(@amiya)
+    assert_equal @jane, @mary.prev_character(@sirka)
+    assert_not_equal @mary, @erik.prev_character(@randa)
+
+    # when publically viewable
     assert_equal @erik, @jane.prev_character
-    assert_equal @jane, @mary.prev_character
-    assert_not_equal @mary, @erik.prev_character
   end
 
   test "should count reputations" do

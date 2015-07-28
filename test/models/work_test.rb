@@ -3,7 +3,7 @@ require 'test_helper'
 class WorkTest < ActiveSupport::TestCase
   setup do
     @flight = works(:flight)
-    @fool   = works(:fool)
+    @baffle = works(:baffle)
   end
 
   test "heading should be the same as title" do

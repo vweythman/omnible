@@ -3,11 +3,11 @@ require 'test_helper'
 class ChapterTest < ActiveSupport::TestCase
   
   setup do
-    @flight       = works(:flight)
-    @fortune      = works(:fortune)
-    @flight_one   = chapters(:flight_one)
-    @flight_two   = chapters(:flight_two)
-    @fortune_zero = chapters(:fortune_titleless)
+    @flight = works(:flight)
+    @offend = works(:offend)
+    @flight_one = chapters(:flight_one)
+    @flight_two = chapters(:flight_two)
+    @offend_zro = chapters(:offend_titleless)
   end
 
   test "should build headings through title and position" do
@@ -16,8 +16,8 @@ class ChapterTest < ActiveSupport::TestCase
     assert_equal "Chapter 1 - Prologue", @flight_one.complete_heading
 
     # does not have a title
-    assert_equal "Chapter 1", @fortune_zero.heading
-    assert_equal "Chapter 1", @fortune_zero.complete_heading
+    assert_equal "Chapter 1", @offend_zro.heading
+    assert_equal "Chapter 1", @offend_zro.complete_heading
   end
 
   test "should count chapter length" do
@@ -29,7 +29,7 @@ class ChapterTest < ActiveSupport::TestCase
     assert @flight_two.word_count > 1
 
     # content: blah blah blah. and also blah
-    assert_equal 6, @fortune_zero.word_count
+    assert_equal 6, @offend_zro.word_count
   end
 
   test "should get next" do
@@ -86,7 +86,7 @@ class ChapterTest < ActiveSupport::TestCase
   end
 
   test "should not insert chapter amongst chapters of a different work" do
-    assert_not @flight.new_chapter.place_after @fortune_zero
+    assert_not @flight.new_chapter.place_after @offend_zro
   end
 
   test "should insert chapter within existing chapters" do
