@@ -55,6 +55,19 @@
 		font-size:     $heading-size - 2;
 		border-bottom: 2px solid $water-dark;
 	}
+	.slider {
+		margin: 0;
+		padding-bottom: 10px;
+		background: $water-lightest;
+		border-color: $water-darkest;
+	}
+	.ui-slider {
+		border-color: $water-color;
+	}
+	.ui-slider-handle {
+		@include gradient-back(180deg, $water-lighter, $page-color);
+		border-color: $water-dark;
+	}
 }
 .pagination    { 
 	padding:    5px 15px;
