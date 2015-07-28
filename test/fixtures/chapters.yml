@@ -16,10 +16,10 @@ flight_two:
   position: 2
   story: flight
 
-fortune_titleless:
+offend_titleless:
   title:
   position: 1
   content: blah blah blah. and also blah
   about: 
   afterward: 
-  story: fortune
+  story: offend

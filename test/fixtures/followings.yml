@@ -1,5 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-randa_to_cinders:
+randa_to_amiya:
   follower: randa
-  followed: cinders
+  followed: amiya

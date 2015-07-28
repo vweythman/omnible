@@ -2,16 +2,35 @@
 
 flight:
   title: Flight Path
-  user: randa
-  is_narrative: 't'
+  uploader: randa
+  is_narrative: true
+  editor_level: <%= Editable::FRIENDS_ONLY %>
+  publicity_level: <%= Editable::FRIENDS_ONLY %>
 
-fool:
-  title: Five-Pound Fool
-  user: sirka
-  is_narrative: 't'
+baffle:
+  title: Baffle and Bother
+  uploader: sirka
+  is_narrative: true
+  editor_level: <%= Editable::EXCEPT_BLOCKED %>
+  publicity_level: <%= Editable::EXCEPT_BLOCKED %>
 
-fortune: 
-  title: Fortune's Favor
-  user: cinders
-  is_narrative: 'f'
+offend: 
+  title: Offend Fortune
+  uploader: amiya
+  is_narrative: false
+  editor_level: <%= Editable::MEMBERS_ONLY %>
+  publicity_level: <%= Editable::PUBLIC %>
 
+attend:
+  title: Attend and Amend
+  uploader: randa
+  is_narrative: true
+  editor_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
+  publicity_level: <%= Editable::MEMBERS_ONLY %>
+
+frenzy:
+  title: Feeding frenzy
+  uploader: indra
+  is_narrative: true
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PERSONAL %>

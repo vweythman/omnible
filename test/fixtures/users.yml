@@ -8,16 +8,20 @@ sirka:
   name: Sirka
   email: signupper@signup.com
 
-cinders:
+amiya:
   name: Cinders
   email: invited@invite.com
+
+indra:
+  name: indra
+  email: lurker@anonable.com
 
 # RELATIONSHIPS
 # randa -> sirka    :: FRIENDSHIP
 # sirka -> randa    :: FRIENDSHIP
 
-# cinders -> randa  :: FRIENDSHIP
-# randa -> cinders  :: FOLLOW
+# amiya -> randa  :: FRIENDSHIP
+# randa -> amiya  :: FOLLOW
 
-# sirka -> cinders  :: BLOCKING
-# cinders -> sirka  :: BLOCKING
+# sirka -> amiya  :: BLOCKING
+# amiya -> sirka  :: BLOCKING

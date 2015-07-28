@@ -10,7 +10,7 @@ sirka_to_randa:
   friendee: randa
   is_mutual: 't'
 
-cinders_to_randa:
-  friender: cinders
+amiya_to_randa:
+  friender: amiya
   friendee: randa
   is_mutual: 'f'

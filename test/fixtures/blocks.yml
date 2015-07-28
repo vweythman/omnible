@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-sirka_to_cinders:
+sirka_to_amiya:
   blocker: sirka
-  blocked: cinders
+  blocked: amiya
 
-cinders_to_sirka:
-  blocker: cinders
+amiya_to_sirka:
+  blocker: amiya
   blocked: sirka

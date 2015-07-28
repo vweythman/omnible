@@ -15,12 +15,12 @@ flight_mentioned:
   character: erik
   role: mentioned
 
-fortune_subject:
-  work: fortune
+offend_subject:
+  work: offend
   character: mary
   role: subject
 
-fortune_appearing:
-  work: fortune
+offend_appearing:
+  work: offend
   character: erik
   role: appearing

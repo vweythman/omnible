@@ -6,14 +6,26 @@ clean:
   sexuality: 0
   language: 0
 
-mild: 
-  work: fool
+minor: 
+  work: baffle
   violence: 1
   sexuality: 0
   language: 1
 
+present:
+  work: attend
+  violence: 2
+  sexuality: 1
+  language: 1
+
+major:
+  work: frenzy
+  violence: 3
+  sexuality: 1
+  language: 3
+
 explicit:
-  work: fortune 
+  work: offend 
   violence: 2
   sexuality: 4
   language: 4
