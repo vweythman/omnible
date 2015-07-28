@@ -61,9 +61,6 @@
 	}
 }
 .content { overflow: auto; }
-.stat {
-	dt { font-weight: bolder; }
-}
 .stat-distribution {
 	overflow: auto;
 	caption {
@@ -129,12 +126,6 @@
 	.overview + .about {
 		margin-left: $quarter-block;
 	}
-	.stat {
-		width: 5/12 * 100%;
-	}
-	.stat + article {
-		margin-left: calc((5/12 * 100%) + 40px);
-	}
 	.feature tbody tr {
 		border: 2px solid $moss-darkest;
 	}
@@ -172,15 +163,13 @@
 	.feature {
 		article table {
 			border-bottom: 3px solid $moss-darker;
+			border-top:    3px solid $moss-darker;
 		}
 	}
+	.overview {
+		width: $one-third-block;
+	}
 	.overview + .about {
-		margin-left: $one-third-block;
-	}
-	.stat {
-		width:   calc(33.3333% - 50px);
-	}
-	.stat + article {
 		margin-left: $one-third-block;
 	}
 	.meta {
