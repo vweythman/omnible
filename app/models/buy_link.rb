@@ -1,0 +1,3 @@
+class BuyLink < Source
+	
+end

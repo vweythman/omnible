@@ -10,9 +10,4 @@ class WorkTest < ActiveSupport::TestCase
   	assert_equal @flight.title, @flight.heading
   end
 
-  test "should start chapters at 1" do
-    work = Work.new
-    assert_equal 1, work.newest_chapter_position
-  end
-
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721094413) do
+ActiveRecord::Schema.define(version: 20150810004052) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -448,13 +448,17 @@ ActiveRecord::Schema.define(version: 20150721094413) do
   add_index "settings", ["work_id"], name: "index_settings_on_work_id"
 
   create_table "sources", force: :cascade do |t|
-    t.string   "reference",  limit: 255
+    t.string   "reference",       limit: 255
     t.integer  "host_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "referencer_id"
+    t.string   "referencer_type"
+    t.string   "type"
   end
 
   add_index "sources", ["host_id"], name: "index_sources_on_host_id"
+  add_index "sources", ["referencer_type", "referencer_id"], name: "index_sources_on_referencer_type_and_referencer_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "work_id"
@@ -527,6 +531,7 @@ ActiveRecord::Schema.define(version: 20150721094413) do
     t.boolean  "is_complete",                 default: false
     t.boolean  "is_narrative",                default: true
     t.integer  "editor_level"
+    t.string   "type"
   end
 
   add_index "works", ["uploader_id"], name: "index_works_on_uploader_id"
