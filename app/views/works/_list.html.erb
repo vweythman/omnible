@@ -1,8 +1,10 @@
-<% @works.each do |work| %>
+<% @works.eager_load(:tags, :main_characters, :rating, :uploader).each do |work| %>
 
 	<article class='snippet'>
 		<h4 class='heading'><%= link_to work.title, work %> by <%= work.uploader.name %></h4>
 		<%= render 'works/shared/stats', work: work %>
+		<%= markdown cslinks work.tags %>
+		<%= markdown cslinks work.main_characters %>
 		<div class="summary"><%= markdown work.summary || "" %></div>
 	</article>
 

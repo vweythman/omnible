@@ -1,6 +1,0 @@
-<dl>
-	<% @characters.each do |role, cgroup| %>
-		<dt><%= role.titleize %> <%= "Character".pluralize cgroup %></dt>
-		<dd><%= cslinks @characters[role] %></dd>
-	<% end %>
-</dl>

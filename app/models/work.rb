@@ -22,12 +22,7 @@ class Work < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Discussable
 	include Editable
-
-	# CALLBACKS
-	# ------------------------------------------------------------
-	after_create :set_discussion
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -67,6 +62,7 @@ class Work < ActiveRecord::Base
 	# - Has
 	has_many :chapters, :inverse_of => :story, foreign_key: "story_id"
 	has_many :notes,    :inverse_of => :work
+	has_many :comments, :through => :chapters
 	has_one  :rating
 
 	# - References

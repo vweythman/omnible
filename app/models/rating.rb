@@ -42,14 +42,14 @@ class Rating < ActiveRecord::Base
 	# ------------------------------------------------------------
 	ABSENT   = 0
 	MINOR    = 1
-	MID      = 2
+	MEDIUM   = 2
 	MAJOR    = 3
 	EXPLICIT = 4
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	def self.labels
-		['General', 'Minor', 'Medial', 'Major', 'Explicit']
+		['Absent', 'Minor', 'Medium', 'Major', 'Explicit']
 	end
 
 	def self.choose(range = {})

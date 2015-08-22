@@ -5,7 +5,7 @@ module Discussable
 
 	included do
 		has_one  :topic,    :inverse_of => :discussed, as: :discussed
-		has_many :comments, :through => :discussion
+		has_many :comments, :through => :topic
 	end
 
 	# SetDiscussion - setup a discussion of the model

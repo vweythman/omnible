@@ -68,6 +68,10 @@
 		@include gradient-back(180deg, $water-lighter, $page-color);
 		border-color: $water-dark;
 	}
+	.stats {
+		float: left;
+		width: 25%;
+	}
 }
 .pagination    { 
 	padding:    5px 15px;
@@ -81,6 +85,23 @@
 	}
 	.summary {
 		padding: 0;
+	}
+	table {
+		margin: 5px;
+		width: calc(100% - 10px);
+	}
+	th, td {
+		padding: 0 10px;
+		text-align: center;
+	}
+	tbody th {
+		width: $one-third-block;
+	}
+	caption {
+		display: none;
+	}
+	.time td {
+		text-align: left;
 	}
 }
 

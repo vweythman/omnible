@@ -99,9 +99,9 @@ class WorksController < ApplicationController
 	def find_works
 		options = params.slice(:date, :sort, :rating, :rating_min, :rating_max)
 		if @parent.nil?
-			@works = Work.assort(options).includes(:uploader).page(params[:page])
+			@works = Work.assort(options).page(params[:page])
 		else
-			@works = @parent.works.assort(options).includes(:uploader).page(params[:page])
+			@works = @parent.works.assort(options).page(params[:page])
 		end
 	end
 

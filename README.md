@@ -1,10 +1,5 @@
-Workadex Project
-==========================================
+Omnible
+=====================
 
-Building for the sake fo a group.
-
-- Kanban Board
-
-
-
+Collaborative Content Creation and Recordkeeping
 
