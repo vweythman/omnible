@@ -21,22 +21,11 @@ class WorksController < ApplicationController
 	def show
 		find_work
 
-		if user_signed_in? && @work.editable?(current_user)
-			@uploader = @work.uploader
-			@chapters = @work.chapters
-			@notes    = @work.notes
+		if @work.viewable?(current_user)
 
-			@characters = @work.organized_characters
-			@tags       = @work.tags
-			render 'show'
-		# add if !@work.viewable?(curent_user)
-			# render restrict
-		elsif @work.chapters.length > 0
-			# redirect to first chapter
-			redirect_to work_chapter_path(@work, @work.chapters.first)
-		elsif @work.notes.length > 0
-			# redirect to notes index
-			redirect_to work_notes_path(@work)
+			#redirect_to @work
+		#elsif @work.upcoming?
+			render 'upcoming'
 		else
 			render 'restrict'
 		end

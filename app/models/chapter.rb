@@ -55,10 +55,37 @@ class Chapter < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :story, :inverse_of => :chapters, class_name: "Work"
+	belongs_to :story, class_name: "Work"
 	delegate :uploader, to: :story
 
-	# METHODS
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# SwapPositions
+	# - swap the positions of two chapters of the same story
+	def self.swap_positions(left, right)
+		if left.story != right.story
+			return false
+		end
+
+		temp_pos = left.position * -1
+		old_pos1 = left.position
+		old_pos2 = right.position
+
+		success = false
+		Chapter.transaction do
+			left.position = temp_pos
+			success = left.save
+
+			right.position = old_pos1
+			success = right.save && success
+
+			left.position = old_pos2
+			success = left.save && success
+		end
+		return success
+	end
+
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# Heading
 	# - defines the main means of addressing the model
@@ -142,38 +169,11 @@ class Chapter < ActiveRecord::Base
 		self.uploader.id == user.id
 	end
 
-	# CLASS METHODS
-	# ------------------------------------------------------------
-	# SwapPositions
-	# - swap the positions of two chapters of the same story
-	def self.swap_positions(left, right)
-		if left.story != right.story
-			return false
-		end
-
-		temp_pos = left.position * -1
-		old_pos1 = left.position
-		old_pos2 = right.position
-
-		success = false
-		Chapter.transaction do
-			left.position = temp_pos
-			success = left.save
-
-			right.position = old_pos1
-			success = right.save && success
-
-			left.position = old_pos2
-			success = left.save && success
-		end
-		return success
-	end
-
 	# PRIVATE METHODS
+	# ------------------------------------------------------------
 	private
 
-	# SetPosition
-	# - set the correct position if it does not exist
+	# SetPosition - set the correct position if it does not exist
 	def set_position
 		self.position ||= story.newest_chapter_position
 	end

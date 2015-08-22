@@ -40,13 +40,6 @@ class Work < ActiveRecord::Base
 	scope :updated,       -> { order("works.updated_at desc") }
 	scope :by_chapters,   -> { order("(SELECT COUNT(*) FROM chapters WHERE story_id = works.id) desc")}
 
-	# NONTABLE VARIABLES
-	# ------------------------------------------------------------
-	attr_reader :content_distribution
-	def after_initialize
-		content_distribution()
-	end
-
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# - Joins
@@ -56,11 +49,11 @@ class Work < ActiveRecord::Base
 	has_many :taggings
 
 	# - Belongs to
-	has_many :anthologies, :through => :collections
-	has_many :callers,     :through => :respondences
+	has_many :anthologies,   :through => :collections
+	has_many :callers,       :through => :respondences
+	belongs_to :contentable, :polymorphic => true
 
 	# - Has
-	has_many :chapters, :inverse_of => :story, foreign_key: "story_id"
 	has_many :notes,    :inverse_of => :work
 	has_many :comments, :through => :chapters
 	has_one  :rating
@@ -88,6 +81,7 @@ class Work < ActiveRecord::Base
 
 		self.span(date).order_by(order).joins(:rating).merge(Rating.choose(rate_options))
 	end
+
 	# OrderBy - decide on the sort order
 	def self.order_by(choice)
 		case choice
@@ -121,6 +115,13 @@ class Work < ActiveRecord::Base
 		Work.offset(rand(Work.count)).limit(count)
 	end
 
+	# CALLBACK METHODS
+	# ------------------------------------------------------------
+	attr_reader :content_distribution
+	def after_initialize
+		content_distribution()
+	end
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
@@ -148,23 +149,8 @@ class Work < ActiveRecord::Base
 	# ContentDistribution - collects the totals number of chapters and notes
 	def content_distribution
 		@content_distribution ||= {
-			:chapters => self.chapters.size,
-			:notes    => self.notes.size
+			:notes => self.notes.size
 		}
-	end
-
-	# NewChapter - creates a new chapter
-	def new_chapter
-		chapter = Chapter.new
-		chapter.story    = self
-		chapter.position = self.newest_chapter_position
-
-		return chapter
-	end
-
-	# NewestChapterPosition - get position for newest chapter
-	def newest_chapter_position
-		self.chapters.size + 1
 	end
 
 	# Narrative? - fiction vs. non-fiction

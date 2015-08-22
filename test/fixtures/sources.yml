@@ -1,9 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  reference: MyString
-  host_id: 
+  reference: www.marker.com/baffle2015
+  host: reviewer
+  referencer: baffle (Work)
+  type: ReviewLink
 
 two:
-  reference: MyString
-  host_id: 
+  reference: www.authorial.com/oaog342
+  host: authorial
+  referencer: baffle (Work)
+  type: ArchiveLink
+
+buy:
+ reference: pretend.amazon.com/whatevergoesafterthis
+ host: amazon
+ referencer: baffle (Work)
+ type: BuyLink
+

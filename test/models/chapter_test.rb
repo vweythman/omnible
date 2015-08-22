@@ -3,11 +3,16 @@ require 'test_helper'
 class ChapterTest < ActiveSupport::TestCase
   
   setup do
-    @flight = works(:flight)
-    @offend = works(:offend)
+    @flight = works(:flight) # Chaptered Story
+    @offend = works(:offend) # Short Story
     @flight_one = chapters(:flight_one)
     @flight_two = chapters(:flight_two)
     @offend_zro = chapters(:offend_titleless)
+  end
+
+  test "should have story" do
+    assert_equal @flight, @flight_one.story
+    assert_equal @offend, @offend_zro.story
   end
 
   test "should build headings through title and position" do

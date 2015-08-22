@@ -1,0 +1,3 @@
+class ReviewLink < Source
+	
+end

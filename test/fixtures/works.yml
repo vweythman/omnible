@@ -1,25 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-flight:
-  title: Flight Path
-  uploader: randa
-  is_narrative: true
-  editor_level: <%= Editable::FRIENDS_ONLY %>
-  publicity_level: <%= Editable::FRIENDS_ONLY %>
-
 baffle:
   title: Baffle and Bother
   uploader: sirka
   is_narrative: true
   editor_level: <%= Editable::EXCEPT_BLOCKED %>
   publicity_level: <%= Editable::EXCEPT_BLOCKED %>
-
-offend: 
-  title: Offend Fortune
-  uploader: amiya
-  is_narrative: false
-  editor_level: <%= Editable::MEMBERS_ONLY %>
-  publicity_level: <%= Editable::PUBLIC %>
+  type: ExternalStory
 
 attend:
   title: Attend and Amend
@@ -27,6 +14,7 @@ attend:
   is_narrative: true
   editor_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
   publicity_level: <%= Editable::MEMBERS_ONLY %>
+  type: 
 
 frenzy:
   title: Feeding frenzy
@@ -34,3 +22,20 @@ frenzy:
   is_narrative: true
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PERSONAL %>
+  type:
+
+flight:
+  title: Flight Path
+  uploader: randa
+  is_narrative: true
+  editor_level: <%= Editable::FRIENDS_ONLY %>
+  publicity_level: <%= Editable::FRIENDS_ONLY %>
+  type: Story
+
+offend: 
+  title: Offend Fortune
+  uploader: amiya
+  is_narrative: false
+  editor_level: <%= Editable::MEMBERS_ONLY %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: ShortStory
