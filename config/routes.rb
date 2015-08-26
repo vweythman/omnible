@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show]
 
+  # Interaction routes
+  # ------------------------------------------------------------
+  resources :comments
+
   # COLLECTION routes
   # ------------------------------------------------------------
   resources :anthologies
@@ -34,23 +38,38 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   resources :works, :concerns => [:sortable, :dateable, :paginatable] do
     
-    # for new first chapters of stories
     get  'new-first-chapter' => "works/insertable_chapters#first", as: :first_chapter
     post 'new-first-chapter' => "works/insertables_chapters#create_first"
-
-    # for new chapters in between existing chapters
-    resources :chapters, :controller => 'works/chapters' do
+    
+    resources :chapters, :controller => 'works/chapters' do 
       get  'insert-after' => "works/insertable_chapters#after", as: :insert
       post 'insert-after' => "works/insertable_chapters#create_after"
     end
-    
-    resources :notes, :controller => 'works/notes'
+    resources :notes,    :controller => 'works/notes'
   end
 
-  # - works subtypes
+  # - work types
   scope module: 'works' do
-    resources :stories
-    resources :short_stories
+
+    resources :stories do
+      resources :notes
+
+      # new first chapters
+      get  'new-first-chapter' => "insertable_chapters#first", as: :first_chapter
+      post 'new-first-chapter' => "insertables_chapters#create_first"
+    
+      # all other chapters
+      resources :chapters do
+        get  'insert-after' => "works/insertable_chapters#after", as: :insert
+        post 'insert-after' => "works/insertable_chapters#create_after"
+      end
+
+    end
+
+    resources :short_stories do
+      resources :notes
+    end
+    
     resources :external_stories
   end
 

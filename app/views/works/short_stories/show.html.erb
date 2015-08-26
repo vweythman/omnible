@@ -1,2 +1,26 @@
-<h1>ShortStories#show</h1>
-<p>Find me in app/views/short_stories/show.html.erb</p>
+<% provide(:title, @short.heading) %>
+
+<main class="feature">
+	<article class="piece" role="article">
+		<header>
+			<h1><%= @short.title %></h1>
+			<p>uploaded by <%= link_to @short.uploader.name, @short.uploader %></p>
+			<p class="rating">
+				<%= reversed_rating(:span, @rating.sexuality, @rating.heading_sexuality) %>
+				<%= reversed_rating(:span, @rating.violence, @rating.heading_violence) %>
+				<%= reversed_rating(:span, @rating.language, @rating.heading_profanity) %>
+			</p>
+		</header>
+
+		<%= markdown @short.content %>
+
+		<footer>
+			<%= render 'works/discussion' %>
+		</footer>
+	</article>
+
+	<footer>
+		<%= link_to "All Short Stories", short_stories_path %> |
+		<%= link_to "All Works", works_path %>
+	</footer>
+</main>

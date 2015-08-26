@@ -65,4 +65,9 @@ module ApplicationHelper
 		"rating level#{lvl}"
 	end
 
+	def reversed_rating(tag, lvl, content)
+		content_tag tag, class: "level#{4 - lvl}" do
+			content
+		end
+	end
 end

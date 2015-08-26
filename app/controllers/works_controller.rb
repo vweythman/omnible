@@ -1,5 +1,8 @@
 class WorksController < ApplicationController
 
+	# FILTERS
+	before_action :check_viewability, except: [:index, :new, :create]
+
 	# MODULES
 	# ------------------------------------------------------------
 	include Curated
@@ -97,6 +100,15 @@ class WorksController < ApplicationController
 	# find by id
 	def find_work
 		@work = Work.find(params[:id])
+	end
+
+	# ensures that a viewer can view
+	def check_viewability
+		@work = Work.find(params[:id])
+
+		if !@work.viewable? current_user
+			render 'restrict'
+		end
 	end
 
 	# define strong parameters

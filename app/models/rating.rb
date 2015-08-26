@@ -75,14 +75,14 @@ class Rating < ActiveRecord::Base
 	end
 
 	def heading_sexuality
-		Rating.labels[self.sexuality]
+		Rating.labels[self.sexuality] + " Sexuality"
 	end
 
-	def heading_language
-		Rating.labels[self.language]
+	def heading_profanity
+		Rating.labels[self.language] + " Profanity"
 	end
 
 	def heading_violence
-		Rating.labels[self.violence]
+		Rating.labels[self.violence] + " Violence"
 	end
 end

@@ -23,6 +23,7 @@ class Work < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Editable
+	include Discussable
 
 	# SCOPES
 	# ------------------------------------------------------------

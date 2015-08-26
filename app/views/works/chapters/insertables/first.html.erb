@@ -1,5 +1,5 @@
 <main class="new generatable">
-	<%= creation_header "Chapter of #{link_to @work.title, @work}" %>
+	<%= creation_header "First Chapter for #{link_to @work.title, @work}" %>
 
 	<%= form_for [@work, @chapter], :url => work_first_chapter_path do |f| %>
 		<%= render 'works/chapters/form_fields', f: f %>

@@ -6,3 +6,15 @@
 .level2  { color: $rating-mid; }
 .level3  { color: $rating-high; }
 .level4  { color: $rating-highest; }
+
+article .rating {
+	width:   calc(100% - 30px);
+	padding: 15px;
+
+	span {
+		display: inline-block;
+		padding: 5px;
+		margin:  2px;
+		border: 1px solid #ccc;
+	}
+}

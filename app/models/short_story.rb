@@ -5,6 +5,8 @@ class ShortStory < Work
 	has_one  :chapter,  :inverse_of => :story, foreign_key: "story_id"
 	has_many :comments, :through => :chapter
 
+	delegate :content, to: :chapter
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# NewChapter - creates a new chapter

@@ -2,7 +2,7 @@
 	<table class='time'>
 		<caption>Time</caption>
 		<tr>
-			<th>Created</th>
+			<th>Uploaded</th>
 			<td><%= record_time work.created_at %></td>
 			<td></td>
 		</tr>
@@ -16,20 +16,9 @@
 		<% end %>
 	</table>
 
-	<table>
-		<caption>Rating</caption>
-		<thead>
-			<tr>
-				<th>Sexuality</th>
-				<th>Violence</th>
-				<th>Language</th>
-			</tr>
-		</thead>
-
-		<tr>
-			<td class="<%= rating_class(4 - work.rating.sexuality) %>"><%= work.rating.heading_sexuality %></td>
-			<td class="<%= rating_class(4 - work.rating.violence)  %>"><%= work.rating.heading_violence  %></td>
-			<td class="<%= rating_class(4 - work.rating.language)  %>"><%= work.rating.heading_language  %></td>
-		</tr>
-	</table>
+	<p class="rating">
+		<%= reversed_rating(:span, work.rating.sexuality, work.rating.heading_sexuality) %>
+		<%= reversed_rating(:span, work.rating.violence, work.rating.heading_violence) %>
+		<%= reversed_rating(:span, work.rating.language, work.rating.heading_profanity) %>
+	</p>
 </div>

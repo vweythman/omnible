@@ -5,7 +5,7 @@ class Works::ChaptersController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@work     = Work.find(params[:work_id])
+		find_work
 		@chapters = @work.chapters
 		work_elements
 	end
@@ -16,7 +16,7 @@ class Works::ChaptersController < ApplicationController
 	end
 
 	def new
-		@work    = Work.find(params[:work_id])
+		find_work
 		@chapter = @work.new_chapter
 	end
 
@@ -27,7 +27,7 @@ class Works::ChaptersController < ApplicationController
 	# POST
 	# ............................................................
 	def create
-		@work    = Work.find(params[:work_id])
+		find_work
 		@chapter = Chapter.new(chapter_params)
 
 		if @chapter.save
@@ -62,7 +62,10 @@ class Works::ChaptersController < ApplicationController
 	# ------------------------------------------------------------
 	private
 
-	# find by id
+	def find_work
+		@work = Work.find(params[:work_id] || params[:story_id])
+	end
+
 	def find_chapter
 		@chapter = Chapter.find(params[:id])
 		@work    = @chapter.story

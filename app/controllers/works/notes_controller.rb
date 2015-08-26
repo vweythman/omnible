@@ -5,7 +5,7 @@ class Works::NotesController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@work  = Work.find(params[:work_id])
+		find_work
 		@notes = @work.notes
 		work_elements
 	end
@@ -16,7 +16,7 @@ class Works::NotesController < ApplicationController
 	end
 
 	def new
-		@work = Work.find(params[:work_id])
+		find_work
 		@note = Note.new
 	end
 
@@ -27,7 +27,7 @@ class Works::NotesController < ApplicationController
 	# POST
 	# ............................................................
 	def create
-		@work = Work.find(params[:work_id])
+		find_work
 		@note = Note.new(note_params)
 
 		if @note.save
@@ -61,6 +61,11 @@ class Works::NotesController < ApplicationController
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
+
+	def find_work
+		work_id = params[:work_id] || params[:story_id] || params[:short_story_id]
+		@work   = Work.find(work_id)
+	end
 
 	# find by id
 	def find_note
