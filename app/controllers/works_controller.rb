@@ -48,10 +48,10 @@ class WorksController < ApplicationController
 	# POST
 	# ............................................................
 	def create
-		add_characters
 		@work = Work.new(work_params)
 
 		if @work.save
+			add_characters
 			redirect_to @work
 		else
 			define_components
@@ -125,7 +125,8 @@ class WorksController < ApplicationController
 	end
 
 	def add_characters
-		new_appears = Character.batch Appearance.update_for(@work, params), current_user
+		options = params.slice(:main, :side, :mentioned)
+		new_appears = Character.batch Appearance.update_for(@work, options), current_user
 		params[:work][:appearances_attributes] = new_appears
 	end
 end
