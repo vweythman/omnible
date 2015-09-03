@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810004052) do
+ActiveRecord::Schema.define(version: 20150903172632) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -140,10 +140,11 @@ ActiveRecord::Schema.define(version: 20150810004052) do
   add_index "edit_invites", ["user_id"], name: "index_invited_editors_on_user_id"
 
   create_table "events", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",        limit: 255
     t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "uploader_id"
   end
 
   add_index "events", ["place_id"], name: "index_events_on_place_id"
@@ -202,6 +203,7 @@ ActiveRecord::Schema.define(version: 20150810004052) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "uploader_id"
   end
 
   create_table "hosts", force: :cascade do |t|
@@ -336,6 +338,7 @@ ActiveRecord::Schema.define(version: 20150810004052) do
     t.boolean  "fictional",                   null: false
     t.integer  "editor_level"
     t.integer  "publicity_level"
+    t.integer  "uploader_id"
   end
 
   add_index "places", ["form_id"], name: "index_places_on_form_id"
@@ -402,15 +405,14 @@ ActiveRecord::Schema.define(version: 20150810004052) do
 
   create_table "respondences", force: :cascade do |t|
     t.integer  "caller_id"
-    t.string   "caller_type",   limit: 255
+    t.string   "caller_type", limit: 255
     t.integer  "response_id"
-    t.string   "response_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "respondences", ["caller_id", "caller_type"], name: "index_challenge_responses_on_caller_id_and_caller_type"
-  add_index "respondences", ["response_id", "response_type"], name: "index_challenge_responses_on_response_id_and_response_type"
+  add_index "respondences", ["response_id"], name: "index_challenge_responses_on_response_id_and_response_type"
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "work_id"
@@ -532,6 +534,7 @@ ActiveRecord::Schema.define(version: 20150810004052) do
     t.boolean  "is_narrative",                default: true
     t.integer  "editor_level"
     t.string   "type"
+    t.boolean  "is_singleton",                default: true
   end
 
   add_index "works", ["uploader_id"], name: "index_works_on_uploader_id"
