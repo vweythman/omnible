@@ -1,8 +1,8 @@
-# ExternalStory
+# ExternalComicSeries
 # ================================================================================
 # type of narrative work
 # see Work for table variables
 
-class ExternalStory < Fiction
+class ExternalComicSeries < Fiction
 	has_many :sources, as: :referencer
 end

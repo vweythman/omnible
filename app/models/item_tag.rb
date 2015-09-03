@@ -1,3 +1,18 @@
+# ItemTag
+# ================================================================================
+# join table, tags items with qualities
+#
+# Table Variables
+# --------------------------------------------------------------------------------
+#  variable name   | type        | about
+# --------------------------------------------------------------------------------
+#  id              | integer     | unique
+#  item_id         | integer     | references item
+#  quality_id      | integer     | references user
+#  created_at      | datetime    | must be earlier or equal to updated_at
+#  updated_at      | datetime    | must be later or equal to created_at
+# ================================================================================
+
 class ItemTag < ActiveRecord::Base
 
 	# SCOPES

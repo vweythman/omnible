@@ -1,12 +1,21 @@
 # Collection
 # ================================================================================
-# collection is a join model for works and anthologies
+# join table, anthologies has works
 #
+# Table Variables
+# --------------------------------------------------------------------------------
+#  variable        | type        | about
+# --------------------------------------------------------------------------------
+#  id              | integer     | unique
+#  anthology_id    | integer     | references anthology
+#  work_id         | integer     | references work
+#  created_at      | datetime    | must be earlier or equal to updated_at
+#  updated_at      | datetime    | must be later or equal to created_at
 # ================================================================================
 
 class Collection < ActiveRecord::Base
 
-	# VALIDATIONS and SCOPES
+	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates :anthology_id, presence: true
 	validates :work_id,      presence: true

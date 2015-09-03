@@ -1,17 +1,22 @@
 # Work
 # ================================================================================
-# works are the basis of the creatable content group
+# creations
 #
+# Table Variables
 # --------------------------------------------------------------------------------
 #  variable name   | type        | about
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
 #  title           | string      | max: 250 characters
-#  summary         | text        | nullable
-#  uploader_id     | integer     | (User)
+#  summary         | text        | can be null
+#  uploader_id     | integer     | references user
 #  created_at      | datetime    | <= updated_at
 #  updated_at      | datetime    | >= created_at
-#
+#  publicity_level | integer     | cannot be null
+#  is_complete     | boolean     | default: false
+#  is_narrative    | boolean     | default: true
+#  editor_level    | integer     | cannot be null
+#  type            | string      | sti
 # ================================================================================
 
 class Work < ActiveRecord::Base
@@ -40,6 +45,11 @@ class Work < ActiveRecord::Base
 	scope :alphabetical,  -> { order("lower(works.title) asc") }
 	scope :updated,       -> { order("works.updated_at desc") }
 	scope :by_chapters,   -> { order("(SELECT COUNT(*) FROM chapters WHERE story_id = works.id) desc")}
+
+	# - Types
+	scope :stories,          -> { where(:type => "Story") }
+	scope :short_stories,    -> { where(:type => "ShortStory") }
+	scope :external_stories, -> {where(:type => "ExternalStory") }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -125,17 +135,33 @@ class Work < ActiveRecord::Base
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
+	# GETTERS
+	# ............................................................
 	# Heading - defines the main means of addressing the model
 	def heading
 		title
 	end
 
-	# OrganizedCharacters
+	# OrganizedCharacters - Self Explanatory
 	def organized_characters
 		appearances = self.appearances.includes(:character)
 		Appearance.organize(appearances)
 	end
 
+	# ContentDistribution - collects the totals number of chapters and notes
+	def content_distribution
+		@content_distribution ||= {
+			:notes => self.notes.size
+		}
+	end
+
+	# Rated - rating level set at highest
+	def rated
+		self.rating.heading
+	end
+
+	# ACTIONS
+	# ............................................................
 	# InitCharacters - 
 	def init_characters
 		lst = Appearance.init_hash(self)
@@ -147,30 +173,26 @@ class Work < ActiveRecord::Base
 		return lst
 	end
 
-	# ContentDistribution - collects the totals number of chapters and notes
-	def content_distribution
-		@content_distribution ||= {
-			:notes => self.notes.size
-		}
+	# Rate - defines the work's rating
+	def rate(v, s, l)
+		Rating.create(work_id: self.id, violence: v, sexuality: s, language: l)
 	end
 
+	# QUESTIONS
+	# ............................................................
 	# Narrative? - fiction vs. non-fiction
 	def narrative?
 		self.is_narrative == 't' || self.is_narrative == true
 	end
 
+	# JustCreated? - self explanatory
 	def just_created?
 		self.updated_at == self.created_at
 	end
 
-	# Rated - rating level set at highest
-	def rated
-		self.rating.heading
-	end
-
-	# Rate - defines the work's rating
-	def rate(v, s, l)
-		Rating.create(work_id: self.id, violence: v, sexuality: s, language: l)
+	# Complete? - self explantory
+	def complete?
+		self.is_complete == 't' || self.is_complete == true
 	end
 
 	# PRIVATE METHODS

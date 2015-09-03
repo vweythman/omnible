@@ -1,19 +1,30 @@
 # Facet
 # ================================================================================
-# facets belong to the type group, defining identities
+# categories for identities
 #
+# Table Variables
+# --------------------------------------------------------------------------------
+#  variable     | type        | about
+# --------------------------------------------------------------------------------
+#  id           | integer     | unique
+#  name         | string      | maximum of 250 characters
+#  created_at   | datetime    | must be earlier or equal to updated_at
+#  updated_at   | datetime    | must be later or equal to created_at
 # ================================================================================
 
 class Facet < ActiveRecord::Base
+
+	# VALIDATIONS
+	# ------------------------------------------------------------
+	validates :name, length: { maximum: 250 }, presence: true
 
 	# MODULES
 	# ------------------------------------------------------------
 	extend FriendlyId
 
-	# VALIDATIONS and SCOPES
+	# SCOPES
 	# ------------------------------------------------------------
-	default_scope {order('name')}
-	validates :name, length: { maximum: 250 }, presence: true
+	default_scope { order('name') }
 
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
@@ -24,6 +35,9 @@ class Facet < ActiveRecord::Base
 	has_many :identities, :inverse_of => :facet
 	has_many :descriptions, through: :identities
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# Piedata - organizes facet data for use in pie charts
 	def piedata
 		list  = Array.new
 		label = self.descriptions.joins(:identity).group("identities.name").order("identities.name").count

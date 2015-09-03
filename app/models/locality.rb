@@ -1,13 +1,38 @@
+# Locality
+# ================================================================================
+# join table, places contain places within them
+#
+# Table Variables
+# --------------------------------------------------------------------------------
+#  variable     | type           | about
+# --------------------------------------------------------------------------------
+#  id           | integer        | unique
+#  domain_id    | integer        | references place
+#  subdomain_id | integer        | references place
+#  created_at   | datetime       | must be earlier or equal to updated_at
+#  updated_at   | datetime       | must be later or equal to created_at
+# ================================================================================
+
 class Locality < ActiveRecord::Base
-	belongs_to :domain, class_name: "Place"
-	belongs_to :subdomain, class_name: "Place"
-	
+
+	# VALIDATIONS
+	# ------------------------------------------------------------
 	validates_uniqueness_of :subdomain_id, :scope => :domain_id
 	validate :reality_enforcement
 
+	# SCOPES
+	# ------------------------------------------------------------
 	scope :subdomains, ->(domain_ids)    { where("domain_id IN (?)", domain_ids) }
 	scope :domains,    ->(subdomain_ids) { where("subdomain_id IN (?)", subdomain_ids) }
 
+	# ASSOCIATIONS
+	# ------------------------------------------------------------
+	belongs_to :domain, class_name: "Place"
+	belongs_to :subdomain, class_name: "Place"
+	
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# BatchMissing - add 
 	def self.batch_missing(place)
 		place_domains    = place.domains.pluck(:id)
 		place_subdomains = place.subdomains.pluck(:id)
@@ -33,6 +58,11 @@ class Locality < ActiveRecord::Base
 		Locality.create inserts
 	end
 
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	# RealityEnforcement - real places cannot be the subdomain of fictional places
 	def reality_enforcement
 		if (self.domain.fictional? && !self.subdomain.fictional?)
 			errors.add(:subdomain, "fictitious places cannot be the parent place of real places")

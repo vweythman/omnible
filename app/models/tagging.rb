@@ -1,3 +1,18 @@
+# Tagging
+# ================================================================================
+# join table, for works
+#
+# Table Variables
+# --------------------------------------------------------------------------------
+#  variable        | type        | about
+# --------------------------------------------------------------------------------
+#  id              | integer     | unique
+#  work_id         | integer     | references work
+#  tag_id          | integer     | references tag
+#  created_at      | datetime    | <= updated_at
+#  updated_at      | datetime    | >= created_at
+# ================================================================================
+
 class Tagging < ActiveRecord::Base
 
 	# SCOPES

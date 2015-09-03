@@ -1,10 +1,10 @@
 # Chapter
 # ================================================================================
-# chapter is a subpart of stories
+# subpart of stories
 #
-# Variables (max length: 15 characters) 
+# Table Variables
 # --------------------------------------------------------------------------------
-#  variable name   | type        | about
+#  variable        | type        | about
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
 #  title           | string      | maximum of 250 characters
@@ -15,19 +15,6 @@
 #  position        | integer     | default = 1
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
-#
-# Methods (max length: 25 characters) 
-# --------------------------------------------------------------------------------
-#  method name                 | output type | description
-# --------------------------------------------------------------------------------
-#  heading                     | string      | defines the main means of
-#                              |             | addressing the model
-#  complete_heading            | string      | defines the full chapter heading
-#  word_count                  | integer     | count the number of words in the 
-#                              |             | chapter contents
-#  prev                        | object      | finds the previous chapter
-#  next                        | object      | finds the next chapter
-#  editable                    | bool        | user is allowed to edit
 # ================================================================================
 
 class Chapter < ActiveRecord::Base
@@ -56,12 +43,14 @@ class Chapter < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :story, class_name: "Work"
+
+	# DELEGATED METHODS
+	# ------------------------------------------------------------
 	delegate :uploader, to: :story
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	# SwapPositions
-	# - swap the positions of two chapters of the same story
+	# SwapPositions - swap the positions of two chapters of the same story
 	def self.swap_positions(left, right)
 		if left.story != right.story
 			return false
@@ -87,8 +76,7 @@ class Chapter < ActiveRecord::Base
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# Heading
-	# - defines the main means of addressing the model
+	# Heading - defines the main means of addressing the model
 	def heading
 		if title.blank?
 			"Chapter #{self.position}"
@@ -97,35 +85,30 @@ class Chapter < ActiveRecord::Base
 		end
 	end
 
-	# CompleteHeading
-	# - defines the full chapter heading
+	# CompleteHeading - defines the full chapter heading
 	def complete_heading
 		current_title = "Chapter #{self.position}"
 		current_title.concat " - #{self.title}" unless title.blank?
 		current_title
 	end
 
-	# Prev
-	# - finds the previous chapter
+	# Prev - finds the previous chapter
 	def prev
 		@prev ||= Chapter.prev_in_story(self.story_id, self.position).first
 	end
 
-	# Next
-	# - finds the next chapter
+	# Next - finds the next chapter
 	def next
 		@next ||= Chapter.next_in_story(self.story_id, self.position).first
 	end
 
-	# WordCount
-	# - count the number of words in the chapter contents
+	# WordCount - count the number of words in the chapter contents
 	def word_count
 		body = self.content.downcase.gsub(/[^[:word:]\s]/, '')
 		I18n.transliterate(body).scan(/[a-zA-Z]+/).size
 	end
 
-	# MakeRoomAfter
-	# - create space for a chapter after this chapter
+	# MakeRoom - create space for a chapter after this chapter
 	def make_room
 		self.position ||= 0
 		success = false
@@ -136,8 +119,7 @@ class Chapter < ActiveRecord::Base
 		return success
 	end
 
-	# PlaceFirst
-	# - place as first chapter
+	# PlaceFirst - place as first chapter
 	def place_first
 		if self.story.newest_chapter_position == 1
 			self.position = 1
@@ -147,8 +129,7 @@ class Chapter < ActiveRecord::Base
 		end
 	end
 
-	# PlaceAfter
-	# - set after previous chapter
+	# PlaceAfter - set after previous chapter
 	def place_after(prev, made_room = false)
 		if self.story != prev.story
 			return false

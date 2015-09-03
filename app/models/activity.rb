@@ -1,26 +1,22 @@
 # Activity
 # ================================================================================
-# activities are a type of tag which describe actions that can be undertaken
+# tags for events
 #
-# Variables
+# Table Variables
 # --------------------------------------------------------------------------------
-#  variable     | type           | about
+#  variable     | type        | about
 # --------------------------------------------------------------------------------
-#  id           | integer        | unique
-#  name         | string         | maximum of 250 characters
-#  created_at   | datetime       | must be earlier or equal to updated_at
-#  updated_at   | datetime       | must be later or equal to created_at
-# --------------------------------------------------------------------------------
-# 
-# Methods
-# --------------------------------------------------------------------------------
-#  name (max: 25 characters)   | output type | description
-# --------------------------------------------------------------------------------
-#  heading                     | string      | defines the main means of
-#                              |             | addressing the model
+#  id           | integer     | unique
+#  name         | string      | maximum of 250 characters
+#  created_at   | datetime    | must be earlier or equal to updated_at
+#  updated_at   | datetime    | must be later or equal to created_at
 # ================================================================================
 
 class Activity < ActiveRecord::Base
+
+	# VALIDATIONS
+	# ------------------------------------------------------------
+	validates :name, length: { maximum: 250 }, presence: true
 
 	# MODULES
 	# ------------------------------------------------------------
@@ -32,18 +28,13 @@ class Activity < ActiveRecord::Base
 	scope :not_among, ->(activities) { where("name NOT IN (?)", activities) }
 	scope :are_among, ->(activities) { where("name IN (?)", activities) }
 
-	# VALIDATIONS
-	# ------------------------------------------------------------
-	validates :name, length: { maximum: 250 }, presence: true
-
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
 	friendly_id :name
 
-	# METHODS
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# Heading
-	# - defines the main means of addressing the model
+	# Heading - defines the main means of addressing the model
 	def heading
 		name
 	end

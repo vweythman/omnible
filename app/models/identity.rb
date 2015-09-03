@@ -1,33 +1,16 @@
 # Identity
 # ================================================================================
-# identities belong to the idea group of tags
+# tags for characters
 #
-# Variables
+# Table Variables
 # --------------------------------------------------------------------------------
 #  variable     | type           | about
 # --------------------------------------------------------------------------------
 #  id           | integer        | unique
 #  name         | string         | maximum of 250 characters
-#  slug         | string         | maximum of 250 characters, based on name
+#  facet_id     | integer        | references facet
 #  created_at   | datetime       | must be earlier or equal to updated_at
 #  updated_at   | datetime       | must be later or equal to created_at
-# --------------------------------------------------------------------------------
-#
-# Methods
-# --------------------------------------------------------------------------------
-#  name (max: 25 characters)   | output type | description
-# --------------------------------------------------------------------------------
-#  heading                     | string      | defines the main means of
-#                              |             | addressing the model
-#  type                        | string      | returns the facet name when it
-#                              |             | exists
-#  faceted_next                | object      | next in facet
-#  faceted_prev                | object      | previous in facet
-#  typify                      | object      | set the facet type of the identity
-#  character_percent           | float       | percent of all characters with 
-#                              |             | identity
-#  work_percent                | float       | percent of all works where 
-#                              |             | characters with identity appear
 # ================================================================================
 class Identity < ActiveRecord::Base
 
@@ -38,24 +21,31 @@ class Identity < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
+	# - Order
 	scope :alphabetic, -> { order('lower(name)') }
+
+	# - Types
 	scope :ages,    -> { where(facet: 'age') }
 	scope :genders, -> { where(facet: 'gender') }
+
+	# - Associated
 	scope :next_in_facet, ->(identity) { where('facet_id = ? AND name > ?', identity.facet_id, identity.name).order('name ASC') }
 	scope :prev_in_facet, ->(identity) { where('facet_id = ? AND name < ?', identity.facet_id, identity.name).order('name DESC') }
-	scope :related,    ->(identity) { where("identities.id != ?", identity.id).joins(:descriptions).merge(Description.within(identity)).with_count(identity).select("COUNT(*) as amt")}
+	scope :related,       ->(identity) { where("identities.id != ?", identity.id).joins(:descriptions).merge(Description.within(identity)).with_count(identity).select("COUNT(*) as amt")}
+	
+	# - Divide
 	scope :with_count, ->(identity) { group("identities.id").order("COUNT(*) DESC").select("identities.*, (SELECT COUNT(*) FROM descriptions WHERE descriptions.identity_id = identities.id) as full_count")}
 
 	# ASSOCIATIONS
 	# -----------------------------------------------------------
-	# joins
+	# - Joins
 	has_many :descriptions
 
-	# model that possess identities
+	# - Belongs to
 	has_many :characters, through: :descriptions
 	belongs_to :facet, :inverse_of => :identities
 
-	# indirect associations and subgroups
+	# - References
 	has_many :appearances, source: :appearance, through: :descriptions
 	has_many :works, ->{uniq}, source: :work, through: :appearances
 
@@ -63,68 +53,61 @@ class Identity < ActiveRecord::Base
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :descriptions, :allow_destroy => true
 
-	# METHODS
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# Heading
-	# - defines the main means of addressing the model
+	# Heading - defines the main means of addressing the model
 	def heading
 		"#{facet.name}: #{name}"
 	end
 
-	# Type
-	# - returns the facet name when it exists
+	# Nature - returns the facet name when it exists
 	def nature
 		facet.name unless facet.nil?
 	end
 
-	# Linkable
-	# - grab what will be used when organizing
+	# Linkable - grab what will be used when organizing
 	def linkable
 		self
 	end
 
-	# FacetedNext
-	# - next in facet
+	# FacetedNext - next in facet
 	def faceted_next
 		@faceted_next ||= Identity.next_in_facet(self).first
 	end
 
-	# FacetedPrev
-	# - previous in facet
+	# FacetedPrev - previous in facet
 	def faceted_prev
 		@faceted_prev ||= Identity.prev_in_facet(self).first
 	end
 
-	# Typify
-	# - set the facet type of the identity
+	# Typify - set the facet type of the identity
 	def typify(name)
 		self.facet = Facet.where(name: name).first_or_create
 	end
 
-	# CharacterPercent
-	# - percent of all characters with identity
+	# CharacterPercent - percent of all characters with identity
 	def character_percent
 		1.0 * self.characters.count / Character.count * 100.0
 	end
 
-	# WOrkPercent
-	# - percent of all works where characters with identity appear
+	# WorkPercent - percent of all works where characters with identity appear
 	def work_percent
 		1.0 * self.works.count / Work.count * 100.0
 	end
 
+	# Identity - finds identities commonly used together
 	def relatives(lim = 5)
 		Identity.related(self).limit(lim)
 	end
 
+	# UseCount - how often
 	def use_count
 		@usage_count ||= self.characters.count
 	end
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	# OrganizedAll
-	# - creates an list of all identities organized by facet
+	# OrganizedAll - creates an list of all identities organized by facet
 	def self.organized_all(list = Identity.includes(:facet).alphabetic)
 		Identity.organize(list)
 	end

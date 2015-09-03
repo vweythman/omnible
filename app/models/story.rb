@@ -1,3 +1,8 @@
+# Story
+# ================================================================================
+# type of narrative work
+# see Work for table variables
+
 class Story < Work
 
 	# ASSOCIATIONS

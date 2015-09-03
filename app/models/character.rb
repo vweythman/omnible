@@ -1,35 +1,29 @@
 # Character
 # ================================================================================
-# characters belong to the subject group of tags
+# a type of subject
 #
-# Variables (max length: 15 characters) 
+# Table Variables
 # --------------------------------------------------------------------------------
-#  variable name   | type        | about
+#  variable        | type        | about
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
 #  name            | string      | maximum of 250 characters
 #  about           | text        | can be null
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
-#
-# Methods (max length: 25 characters) 
-# --------------------------------------------------------------------------------
-#  method name                 | output type | description
-# --------------------------------------------------------------------------------
-#  heading                     | string      | defines the main means of
-#                              |             | addressing the model
-#  interconnections            | array       | finds both left and right 
-#                              |             | interconnections
-#  replicate                   | model       | clone character and create 
-#                              |             | interconnection between original
-#                              |             | and clone
-#  is_a_clone?                 | bool        | asks if character cloned from 
-#                              |             | another character
-#  playable?                   | bool        | asks if character is an roleplay 
-#                              |             | character
+#  uploader_id     | integer     | references user
+#  publicity_level | integer     | cannot be null
+#  editor_level    | integer     | cannot be null
+#  allow_play      | boolean     | cannot be null
+#  allow_clones    | boolean     | cannot be null
+#  allow_as_clone  | boolean     | cannot be null
 # ================================================================================
 
 class Character < ActiveRecord::Base
+
+	# VALIDATIONS
+	# ------------------------------------------------------------
+	validates :name, length: { maximum: 100 }, presence: true
 
 	# MODULES
 	# ------------------------------------------------------------
@@ -44,10 +38,6 @@ class Character < ActiveRecord::Base
 	scope :are_among, ->(character_names) { where("name IN (?)", character_names) }
 	scope :next_in_line, ->(character_name) { where('name > ?', character_name).order('name ASC') }
 	scope :prev_in_line, ->(character_name) { where('name < ?', character_name).order('name DESC') }
-
-	# VALIDATIONS
-	# ------------------------------------------------------------
-	validates :name, length: { maximum: 100 }, presence: true
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -108,75 +98,70 @@ class Character < ActiveRecord::Base
 		end
 	end
 
-	# METHODS
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# Heading
-	# - defines the main means of addressing the model
+	# Heading - defines the main means of addressing the model
 	def heading
 		self.name
 	end
 
-	# Interconnections
-	# - finds both left and right interconnections
+	# GETTERS
+	# ............................................................
+	# Interconnections - finds both left and right interconnections
 	def interconnections
 		Interconnection.character_interconnections(self.id).order(:relator_id).includes(:relator, :left, :right)
 	end
 
-	# OrderedConnections
-	# - organizes the interconnections
+	# OrderedConnections - organizes the interconnections
 	def ordered_connections
 		Interconnection.organize(self.interconnections, self)
 	end
 
-	# Viewpoints
-	# - merge opinions and prejudices
+	# Viewpoints - merge opinions and prejudices
 	def viewpoints
 		self.prejudices.includes(:identity) + self.opinions.includes(:recip)
 	end
 
-	# NextCharacter
-	# - find next character alphabetically
+	# NextCharacter - find next character alphabetically
 	def next_character(user = nil)
 		@next_character ||= Character.next_in_line(self.name).viewable_for(user).first
 	end
 
-	# NextCharacter
-	# - find next character alphabetically
+	# NextCharacter - find next character alphabetically
 	def prev_character(user = nil)
 		@prev_character ||= Character.prev_in_line(self.name).viewable_for(user).first
 	end
 
-	# ReputationCount
-	# - count how many characters have an opinion about the character
+	# CALC
+	# ............................................................
+	# ReputationCount - count how many characters have an opinion about the character
 	def reputation_count
 		@repcount ||= self.reputations.size
 	end
 
-	# Likableness
-	# - how well liked is the character
-	def likableness
+	# AvgerageLikes - how well liked is the character
+	def avgerage_likes
 		amt = self.reputation_count
 		sum = self.reputations.summarize(:fondness).first
 
-		sum.fondness / amt
+		(sum.fondness / amt).round
 	end
 
-	# Respectedness
-	# - how well respected is the character
-	def respectedness
+	# AvgerageRespect - how well respected is the character
+	def avgerage_respect
 		amt = self.reputation_count
 		sum = self.reputations.summarize(:respect).first
 
-		sum.respect / amt
+		(sum.respect / amt).round
 	end
 
-	# IsPlayableCharacter
-	# - asks whether character is a player character
+	# QUESTIONS
+	# ............................................................
+	# IsPlayableCharacter - asks whether character is a player character
 	def is_playable_character?
 	end
 
-	# Playable?
-	# - asks if character can be cloned for roleplay
+	# Playable? - asks if character can be cloned for roleplay
 	def playable?
 		self.allow_play == 't' || self.allow_play == true
 	end

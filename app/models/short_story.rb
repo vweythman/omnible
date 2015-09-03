@@ -1,3 +1,8 @@
+# ShortStory
+# ================================================================================
+# type of narrative work
+# see Work for table variables
+
 class ShortStory < Work
 
 	# ASSOCIATIONS
@@ -5,6 +10,8 @@ class ShortStory < Work
 	has_one  :chapter,  :inverse_of => :story, foreign_key: "story_id"
 	has_many :comments, :through => :chapter
 
+	# DELEGATED METHODS
+	# ------------------------------------------------------------
 	delegate :content, to: :chapter
 
 	# PUBLIC METHODS

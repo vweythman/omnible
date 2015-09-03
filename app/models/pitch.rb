@@ -1,14 +1,25 @@
+# Pitch
+# ================================================================================
+# work prompt
+#
+# Table Variables
+# --------------------------------------------------------------------------------
+#  variable        | type        | about
+# --------------------------------------------------------------------------------
+#  id              | integer     | unique
+#  title           | string      | maximum of 250 characters
+#  about           | string      | can be null
+#  user_id         | integer     | references user
+#  created_at      | datetime    | must be earlier or equal to updated_at
+#  updated_at      | datetime    | must be later or equal to created_at
+# ================================================================================
+
 class Pitch < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# joins
-	has_many :respondence, as: :caller
-
-	# models that possess these models
 	belongs_to :user
-
-	# models that belong to this model
-	has_many :responses, through: :respondences
+	has_many :respondence, as: :caller
+	has_many :responses,   through: :respondences
 
 end

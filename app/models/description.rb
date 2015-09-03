@@ -1,13 +1,16 @@
 # Description
 # ================================================================================
-# description is a join model for characters and identities
+# join table, tags characters with identities
 #
-# Methods (max length: 25 characters) 
+# Table Variables
 # --------------------------------------------------------------------------------
-#  method name                 | output type | description
+#  variable        | type        | about
 # --------------------------------------------------------------------------------
-#  facet_id                    | integer     | finds the id of the identity's 
-#                              |             | facet if it exists
+#  id              | integer     | unique
+#  anthology_id    | integer     | references anthology
+#  work_id         | integer     | references work
+#  created_at      | datetime    | must be earlier or equal to updated_at
+#  updated_at      | datetime    | must be later or equal to created_at
 # ================================================================================
 
 class Description < ActiveRecord::Base
@@ -18,18 +21,17 @@ class Description < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# models that possess these models
+	# - Belongs to
 	belongs_to :character
 	belongs_to :identity
 
-	# indirect associations and subgroups
+	# - References
 	belongs_to :appearance, foreign_key: :character_id, primary_key: :character_id
-	has_one :facet, through: :identity
+	has_one    :facet,      through: :identity
 
-	# METHODS
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# facetID
-	# finds the id of the identity's facet if it exists
+	# facetID - finds the id of the facet if it exists
 	def facet_id
 		facet.id unless identity.nil?
 	end

@@ -1,27 +1,20 @@
-# Character
+# Place
 # ================================================================================
-# characters belong to the subject group of tags
+# a type of subject
 #
-# Variables (max length: 15 characters) 
+# Table Variables
 # --------------------------------------------------------------------------------
-#  variable name   | type        | about
+#  variable        | type        | about
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
 #  name            | string      | maximum of 250 characters
 #  form_id         | integer     | references form, cannot be null
-#  fictional       | boolean     | cannot be null
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
-#
-# Methods (max length: 25 characters) 
-# --------------------------------------------------------------------------------
-#  method name                 | output type | description
-# --------------------------------------------------------------------------------
-#  heading                     | string      | defines the main means of
-#                              |             | addressing the model
-#  interconnections            | string      | defines the type name if it exists
-#  fictional?                  | bool        | asks whether the place exists in 
-#                              |             | real life or not
+#  fictional       | boolean     | cannot be null
+#  editor_level    | integer     | cannot be null
+#  publicity_level | integer     | cannot be null
+#  uploader_id     | integer     | references user
 # ================================================================================
 
 class Place < ActiveRecord::Base
@@ -43,49 +36,48 @@ class Place < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# joins
+	# - Joins
 	has_many :localities,    foreign_key: "subdomain_id", dependent: :destroy
 	has_many :sublocalities, class_name: "Locality", foreign_key: "domain_id", dependent: :destroy
 	
-	# models that possess these models
+	# - Belongs to
 	belongs_to :form
 	has_many :domains, through: :localities
 
-	# models that belong to this model
+	# - Has
 	has_many :subdomains, through: :sublocalities
 
+	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :localities,    :allow_destroy => true
 	accepts_nested_attributes_for :sublocalities, :allow_destroy => true
 
-	# METHODS
+	# CLASS METHODS
 	# ------------------------------------------------------------
-	# Heading
-	# - defines the main means of addressing the model
+	# OrganizedAll
+	# - creates an list of all identities organized by form
+	def self.organized_all(list = Place.order(:name).includes(:form))
+		Place.organize(list)
+	end
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# Heading - defines the main means of addressing the model
 	def heading
 		"#{form.name.titleize} / #{name}"
 	end
 
-	# Type
-	# - defines the type name if it exists
+	# Nature - defines the type name if it exists
 	def nature
 		self.form.name unless self.form.nil?
 	end
 
-	# Linkable
-	# - grab what will be used when organizing
+	# Linkable - grab what will be used when organizing
 	def linkable
 		self
 	end
 
-	# Fictional?
-	# asks whether the place exists in real life or not
-	def fictional?
-		self.fictional
-	end
-
-	# PotentialDomains
-	# - find all potential domains
+	# PotentialDomains - find all potential domains
 	def potential_domains
 		if self.id.nil?
 			Place.all.includes(:form)
@@ -96,8 +88,7 @@ class Place < ActiveRecord::Base
 		end
 	end
 
-	# PotentialSubomains
-	# - find all potential subdomains
+	# PotentialSubomains - find all potential subdomains
 	def potential_subdomains
 		if self.id.nil?
 			Place.all.includes(:form)
@@ -108,16 +99,18 @@ class Place < ActiveRecord::Base
 		end
 	end
 
-	def build_place_relationships
-		Locality.batch_missing(self) unless self.id.nil?
+	# Fictional? - asks whether the place exists in real life or not
+	def fictional?
+		self.fictional
 	end
 
-	# CLASS METHODS
+	# PRIVATE METHODS
 	# ------------------------------------------------------------
-	# OrganizedAll
-	# - creates an list of all identities organized by form
-	def self.organized_all(list = Place.order(:name).includes(:form))
-		Place.organize(list)
+	private
+
+	# BuildPlaceRelationships
+	def build_place_relationships
+		Locality.batch_missing(self) unless self.id.nil?
 	end
 
 end

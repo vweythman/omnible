@@ -1,8 +1,8 @@
-# ExternalStory
+# Nonfiction
 # ================================================================================
-# type of narrative work
+# type of non-narrative work
 # see Work for table variables
 
-class ExternalStory < Fiction
-	has_many :sources, as: :referencer
+class Nonfiction < Work
+
 end

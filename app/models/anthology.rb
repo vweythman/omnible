@@ -1,22 +1,17 @@
 # Anthology
 # ================================================================================
-# anthologies to the collection group
+# collection of narrative works
 #
-# Variables (max length: 15 characters) 
+# Table Variables
 # --------------------------------------------------------------------------------
-#  variable name   | type        | about
+#  variable        | type        | about
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
 #  name            | string      | maximum of 250 characters
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
-#
-# Methods (max length: 25 characters) 
-# --------------------------------------------------------------------------------
-#  method name                 | output type | description
-# --------------------------------------------------------------------------------
-#  heading                     | string      | defines the main means of
-#                              |             | addressing the model
+#  summary         | string      | can be null
+#  uploader_id     | integer     | references user
 # ================================================================================
 
 class Anthology < ActiveRecord::Base
@@ -32,15 +27,15 @@ class Anthology < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :collections
-	has_many :works, :through => :collections
-	# -- ownership // user
+	has_many   :collections
+	belongs_to :uploader, class_name: "User"
+	has_many   :works,    :through => :collections
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :collections
 
-	# METHODS
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# Heading
 	# - defines the main means of addressing the model
