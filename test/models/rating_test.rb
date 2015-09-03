@@ -19,9 +19,9 @@ class RatingTest < ActiveSupport::TestCase
     assert_equal "Minor", @baffle.rated
   end
 
-  test "should be rated medial" do
+  test "should be rated medium" do
     assert_equal 2, @attend.rating.max
-    assert_equal "Medial", @attend.rated
+    assert_equal "Medium", @attend.rated
   end
 
   test "should be rated major" do
