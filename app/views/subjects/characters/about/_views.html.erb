@@ -1,8 +1,8 @@
 <% @viewpoints.each do |view| %>
 	<tr>
 		<th data-label="Recipient"><%= link_to view.recip_heading, view.recip %></th>
-		<td data-label="Fondness" class="<%= rating_class(view.fondness) %>"><%= Judgemental.scale[view.fondness] %></td>
-		<td data-label="Respect"  class="<%= rating_class(view.respect)  %>"><%= Judgemental.scale[view.respect]  %></td>
+		<%= rating_data("Fondness", view.fondness) %>
+		<%= rating_data("Respect",  view.respect)  %>
 		<td<%= ' data-label=Details' unless view.about == ""%>><%= view.about %></td>
 	</tr>
 <% end %>

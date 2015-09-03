@@ -65,6 +65,12 @@ module ApplicationHelper
 		"rating level#{lvl}"
 	end
 
+	def rating_data(label, lvl)
+		content_tag :td, :data => {:label => label}, class: "rating level#{lvl}" do
+			Judgemental.scale[lvl]
+		end
+	end
+
 	def reversed_rating(tag, lvl, content)
 		content_tag tag, class: "level#{4 - lvl}" do
 			content

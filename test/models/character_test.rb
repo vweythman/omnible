@@ -77,13 +77,13 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test "should average likableness" do
-    likable = (Judgemental::LOWEST + Judgemental::HIGHEST) / 2
-    assert_equal likable, @mary.likableness
+    likeable = ((Judgemental::LOWEST + Judgemental::HIGHEST) / 2).round
+    assert_equal likeable, @mary.avgerage_likes
   end
 
   test "should average respect" do
-    respect = (Judgemental::NEUTRAL + Judgemental::HIGH) / 2
-    assert_equal respect, @mary.respectedness
+    respect = ((Judgemental::NEUTRAL + Judgemental::HIGH) / 2).round
+    assert_equal respect, @mary.avgerage_respect
   end
 
 

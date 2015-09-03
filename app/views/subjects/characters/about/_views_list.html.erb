@@ -14,7 +14,7 @@
 <%= render partial: "subjects/characters/about/views_aggregated", 
 	locals: {
 		amt:       @character.reputation_count,
-		avg_likes: @character.likableness.round,
-		avg_scale: @character.respectedness.round
+		avg_likes: @character.avgerage_likes,
+		avg_scale: @character.avgerage_respect
 	} if @character.reputation_count > 0
 %>
