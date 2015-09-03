@@ -69,7 +69,8 @@ Rails.application.routes.draw do
     resources :short_stories do
       resources :notes
     end
-    
+
+    resources :articles
     resources :external_stories
   end
 
