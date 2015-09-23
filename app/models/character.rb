@@ -117,11 +117,6 @@ class Character < ActiveRecord::Base
 		Interconnection.organize(self.interconnections, self)
 	end
 
-	# Viewpoints - merge opinions and prejudices
-	def viewpoints
-		self.prejudices.includes(:identity) + self.opinions.includes(:recip)
-	end
-
 	# NextCharacter - find next character alphabetically
 	def next_character(user = nil)
 		@next_character ||= Character.next_in_line(self.name).viewable_for(user).first
@@ -137,6 +132,11 @@ class Character < ActiveRecord::Base
 	# ReputationCount - count how many characters have an opinion about the character
 	def reputation_count
 		@repcount ||= self.reputations.size
+	end
+
+	# AverageReputation - how well liked and well respected this character is
+	def average_reputation
+		reputations.aggreate_average.first
 	end
 
 	# AvgerageLikes - how well liked is the character
