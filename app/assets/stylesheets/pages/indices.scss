@@ -1,72 +1,16 @@
 /* INDEX PAGE
-************************************************/
+************************************************
 .index {
+	margin: 10px;
 	overflow: auto;
 	dl, ul, ol {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
-	.menu {
-		border:        2px solid $water-dark;
-		background:    $water-color;
-		border-bottom: 5px solid $water-dark;
-		float:         left;
-		margin:        10px 0;
-		
-		h2 {
-			background:    $water-lighter;
-			border-bottom: 5px solid $water-dark;
-			margin:        0;
-			padding:       5px 15px;
-			font-size:     $heading-size - 10px;
-			font-weight:   600;
-		}
-		ul {
-			background: $water-lightest;
-			padding:    0;
-			margin:     0;
-		}
-		li {
-			padding:     0;
-			display:     block;
-			font-weight: 600;
-			font-size:   .85em;
-			text-align:  center;
-			
-			a {
-				display: block;
-				padding: 5px 15px;
-				&:hover {
-					color: $water-dark;
-					background: $page-color;
-				}
-			}
-		}
-	}
-
 	dt { 
 		font-weight: bolder;
 		color: $moss-darker;
-	}
-	h2 {
-		margin:        15px 10px 0 10px;
-		font-weight:   600;
-		font-size:     $heading-size - 2;
-		border-bottom: 2px solid $water-dark;
-	}
-	.slider {
-		margin: 0;
-		padding-bottom: 10px;
-		background: $water-lightest;
-		border-color: $water-darkest;
-	}
-	.ui-slider {
-		border-color: $water-color;
-	}
-	.ui-slider-handle {
-		@include gradient-back(180deg, $water-lighter, $page-color);
-		border-color: $water-dark;
 	}
 	.stats {
 		float: left;
@@ -106,13 +50,13 @@
 }
 
 /* MOBILE
-************************************************/
+************************************************
 @include mobile {
 	.index aside { display: none; }
 }
 
 /* NON-MOBILE
-************************************************/
+************************************************
 @include non-mobile {
 	aside + .results {
 		@include gradient-back(180deg, $water-lightest, $page-color); 
@@ -126,7 +70,7 @@
 }
 
 /* TABLET
-************************************************/
+************************************************
 @include tablet {
 	.index {
 		.menu {
@@ -143,7 +87,7 @@
 }
 
 /* DESKTOP
-************************************************/
+************************************************
 @include desktop {
 	.index {
 		.menu {
