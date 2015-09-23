@@ -23,16 +23,15 @@ class Note < ActiveRecord::Base
 	# CALLBACKS
 	# ------------------------------------------------------------
 	after_create :set_discussion
+	after_save :cascade_data
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :work,     :inverse_of => :notes
-	has_one    :topic,    :inverse_of => :discussed, as: :discussed
-	has_many   :comments, :through => :discussion
+	belongs_to :work
 
 	# DELEGATED METHODS
 	# ------------------------------------------------------------
-	delegate :user, to: :work
+	delegate :uploader, to: :work
 	
 	# METHODS
 	# ------------------------------------------------------------
@@ -43,6 +42,11 @@ class Note < ActiveRecord::Base
 		else
 			title
 		end
+	end
+
+	def cascade_data
+		self.work.updated_at = self.updated_at
+		self.work.save
 	end
 
 end

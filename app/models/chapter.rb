@@ -33,6 +33,7 @@ class Chapter < ActiveRecord::Base
 	# ------------------------------------------------------------
 	after_create :set_discussion
 	before_create :set_position
+	after_save :cascade_data
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -147,7 +148,12 @@ class Chapter < ActiveRecord::Base
 
 	# Editable - user is allowed to edit
 	def editable?(user)
-		self.uploader.id == user.id
+		self.story.editable? user
+	end
+
+	# JustCreated? - self explanatory
+	def just_created?
+		self.updated_at == self.created_at
 	end
 
 	# PRIVATE METHODS
@@ -157,6 +163,11 @@ class Chapter < ActiveRecord::Base
 	# SetPosition - set the correct position if it does not exist
 	def set_position
 		self.position ||= story.newest_chapter_position
+	end
+
+	def cascade_data
+		self.story.updated_at = self.updated_at
+		self.story.save
 	end
 
 end
