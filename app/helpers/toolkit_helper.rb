@@ -7,6 +7,14 @@ module ToolkitHelper
 		end
 	end
 
+	# INSERTIONS
+	# ------------------------------------------------------------
+	def insertion_link(heading, path)
+		content_tag :nav, class: 'toolkit insertion' do
+			link_to heading, path
+		end
+	end
+
 	def work_toolkit(work)
 		if user_signed_in? && work.editable?(current_user)
 			content_tag :nav, class: 'toolkit' do
