@@ -26,14 +26,18 @@ class Opinion < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
+	# - Collect
+	scope :uniques, -> { select("fondness, respect, Count(*) as count").group("fondness, respect").order('fondness, respect')}
+
 	# - Sums
-	scope :summarize,    ->(column) { select("SUM(#{column}) as #{column}") }
-	scope :sum_opinion,  ->         { summarize("fondness").summarize("respect") }
+	scope :summarize,        ->(column) { select("SUM(#{column}) as #{column}") }
+	scope :aggregate,        -> { summarize("fondness").summarize("respect") }
+	scope :aggreate_average, -> { select("SUM(fondness) / COUNT(*) as fondness, SUM(respect) / COUNT(*) as respect") }
 
 	# - Associated
 	scope :from_either, ->(c1, c2) { where("character_id = ? OR character_id = ?", c1.id, c2.id) }
 	scope :to_either,   ->(c1, c2) { where("recip_id = ? OR recip_id = ?",         c1.id, c2.id) }
-	scope :intersect,   ->(c1, c2) { sum_opinion.from_either(c1, c2).to_either(c1, c2) }
+	scope :intersect,   ->(c1, c2) { aggregate.from_either(c1, c2).to_either(c1, c2) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -48,13 +52,6 @@ class Opinion < ActiveRecord::Base
 		avg.fondness = (avg.fondness / 2.0).round
 		avg.respect  = (avg.respect / 2.0).round
 		return avg
-	end
-
-	# PUBLIC METHODS
-	# ------------------------------------------------------------
-	# RecipHeading - gives the heading for the recipient
-	def recip_heading
-		recip.name
 	end
 
 end
