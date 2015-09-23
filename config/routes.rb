@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'journals/show'
+
+  get 'journals/edit'
+
   # ERROR PAGES
   # ------------------------------------------------------------
   match '/403' => 'errors#403', via: :all
@@ -36,34 +40,31 @@ Rails.application.routes.draw do
 
   # WORKS routes
   # ------------------------------------------------------------
-  resources :works, :concerns => [:sortable, :dateable, :paginatable] do
-    
-    get  'new-first-chapter' => "works/insertable_chapters#first", as: :first_chapter
-    post 'new-first-chapter' => "works/insertables_chapters#create_first"
-    
-    resources :chapters, :controller => 'works/chapters' do 
-      get  'insert-after' => "works/insertable_chapters#after", as: :insert
-      post 'insert-after' => "works/insertable_chapters#create_after"
-    end
-    resources :notes,    :controller => 'works/notes'
-  end
+  resources :works, :concerns => [:sortable, :dateable, :paginatable]
 
   # - work types
   scope module: 'works' do
 
+    # sort by narrative type
+    resources :fiction,    only: [:index], :concerns => [:sortable, :dateable, :paginatable]
+    resources :nonfiction, only: [:index], :concerns => [:sortable, :dateable, :paginatable]
+
+    # get stories
+    get '/stories/:id/whole' => 'whole_story#show', as: :whole_story
     resources :stories do
       resources :notes
+      resources :chapters
+    end
 
+    # place chapters
+    scope module: 'chapters' do
       # new first chapters
-      get  'new-first-chapter' => "insertable_chapters#first", as: :first_chapter
-      post 'new-first-chapter' => "insertables_chapters#create_first"
-    
-      # all other chapters
-      resources :chapters do
-        get  'insert-after' => "works/insertable_chapters#after", as: :insert
-        post 'insert-after' => "works/insertable_chapters#create_after"
-      end
+      get  'stories/:story_id/new-first' => 'first#new', as: :first_chapter
+      post 'stories/:story_id/new-first' => "first#create"
 
+      # new chapter inbetween old chapters
+      get  'chapters/:chapter_id/new-next' => "next#new", as: :insert_chapter
+      post 'chapters/:chapter_id/new-next' => "next#create"
     end
 
     resources :short_stories do
@@ -71,14 +72,16 @@ Rails.application.routes.draw do
     end
 
     resources :articles
-    resources :external_stories
-  end
+    resources :story_records
 
-  # - list works by related model
-  get '/characters/:character_id/works'     => 'works#character_index',     as: :character_works
-  get '/tags/:tag_id/works'                 => 'works#tag_index',           as: :tag_works
-  get '/identities/:identity_id/works'      => 'works#identity_index',      as: :identity_works
-  get '/identities/:identity_id/characters' => 'subjects/characters#identity_index', as: :identity_characters 
+    # - list works by related model
+    scope module: 'curation' do
+      get '/characters/:character_id/works'     => 'character_works#index',     as: :character_works
+      get '/tags/:tag_id/works'                 => 'tag_works#index',           as: :tag_works
+      get '/identities/:identity_id/works'      => 'identity_works#index',      as: :identity_works
+    end
+  end
+  
 
   # - work possessions
   resources :chapters, except: [:index, :new, :show], :controller => 'works/chapters'
@@ -97,6 +100,10 @@ Rails.application.routes.draw do
         get :real
         get :unreal
       end
+    end
+
+    scope module: 'curation' do
+      get '/identities/:identity_id/characters' => 'identity_characters#index', as: :identity_characters
     end
   end
 
