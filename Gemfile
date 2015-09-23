@@ -26,15 +26,14 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 gem 'jquery-ui-rails'
 
-gem 'turbolinks', '~> 2.5.3'
 gem 'coffee-script-source', '1.8.0'
-gem 'jquery-turbolinks'
 
 # viewable
 gem 'kramdown'
 gem 'jbuilder', '1.0.2'
 gem 'cocoon'
 gem 'kaminari'
+gem 'draper', '~> 1.3'
 
 # user expierence
 gem 'devise'
