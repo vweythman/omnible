@@ -1,18 +1,12 @@
 <%= form_field f.label(:about, "Treatment"), f.text_area(:about, class: "minor") %>
 
-<%= render partial: "shared/radio_scale", locals: {
-		f: f, 
-		collection: Judgemental.scale,
-		title: :fondness, 
-		value: :fondness, 
-		default: f.object.fondness || 2 
-	}
-%>
-<%= render partial: "shared/radio_scale", locals: {
-		f: f, 
-		collection: Judgemental.scale,
-		title: :respect, 
-		value: :respect, 
-		default: f.object.respect || 2 
-	}
-%>
+<fieldset class="options">
+	<legend>Fondness</legend>
+	<%= radios(f, :fondness, Judgemental.scale, f.object.fondness || 2) %>
+</fieldset>
+
+<fieldset class="options">
+	<legend>Fondness</legend>
+	<%= radios(f, :respect, Judgemental.scale, f.object.respect || 2) %>
+</fieldset>
+

@@ -8,20 +8,22 @@
 		</tr>
 	</thead>
 	
-	<%= toolblock 4, insertable_chapter_toolkit(@work) %>
+	<%= toolblock 4, @chapters.link_to_insert_first(@story) %>
+
 	<% @chapters.each do |chapter| %>
 		<tr>
-			<th rowspan="2"><%= chapter.position %>. <%= link_to chapter.heading, [@work, chapter] %></th>
-			<td data-label="Creation Date"><%= record_time chapter.created_at %></td>
-			<td data-label="Update Date"><%= record_time chapter.updated_at %></td>
-			<td data-label="Word Count"><%= number_with_delimiter(chapter.word_count, :delimiter => ",") %> words</td>
+			<th rowspan="2"><%= chapter.position %>. <%= link_to chapter.heading, [@story, chapter] %></th>
+			<%= chapter.creation_data %>
+			<%= chapter.updated_at_data %>
+			<%= chapter.length_data %>
 		</tr>
 		
-		<%= toolblock 3, model_toolkit(chapter) %>
+		<%= toolblock 3, chapter.edit_bar %>
 
 		<% if chapter.position < @chapters.length %>
-			<%= toolblock 4, insertable_chapter_toolkit(@work, chapter) %>
+			<%= toolblock 4, chapter.link_to_insert_next %>
 		<% end %>
 	<% end %>
-	<%= toolblock 4, component_toolkit(@work, 'Chapter') %></tr>
+
+	<%= toolblock 4, @story.chapter_insertion_link %></tr>
 </table>

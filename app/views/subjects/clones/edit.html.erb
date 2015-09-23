@@ -1,4 +1,4 @@
-<main class="new generatable">
+<div id="main" class="new generatable">
 	<%= creation_header " Original Character for #{@clone.heading}" %>
 
 	<%= form_for(@replication, url: clone_path(@clone), html: {method: "patch"}) do |f| %>
@@ -11,4 +11,4 @@
 		
 		<%= f.submit "Connect Original and Clone" %>
 	<% end %>
-</main>
+</div>

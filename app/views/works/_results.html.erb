@@ -1,5 +1,15 @@
 <section class='results'>
-	<header><%= paginate @works, :window => 2 %></header>
-	<%= render 'list' %>
+	<header>
+		<nav class="for-categories">
+			<ul>
+				<li><%= @works.link_to_all %></li>
+				<% @works.types.map do |item| %>
+					<li><%= link_to "#{item}".humanize.titleize, polymorphic_path(item) %></li>
+				<% end %>
+			</ul>
+		</nav>
+		<%= paginate @works, :window => 2 %>
+	</header>
+	<%= render 'works/list' %>
 	<footer><%= paginate @works, :window => 2 %></footer>
 </section>

@@ -1,34 +1,44 @@
-<% provide(:title, @chapter.heading + " | " + @work.heading) %>
-<main class="feature">
+<% provide(:title, @chapter.meta_title) %>
+
+<header>
+		<%= @story.edit_bar %>
+		<%= @story.rated %>
+		<h1><%= @story.title %></h1>
+
+		<p><%= @story.chapter_creation_link %></p>
+		<p><%# @story.note_creation_link %></p>
+
+		<%= @story.uploaded_by.html_safe %>
+		<%= markdown @story.summary %>
+		<%= @story.component_indices %>
+		<p><%= link_to "Whole Story", whole_story_path(@story) %></p>
+</header>
+
+<article role="article">
 	<header>
-		<h1><%= @work.heading %></h1>
-		<%= render 'works/shared/tags' %>
+		<%= @chapter.pagination %>
+		<h2><%= @chapter.heading %></h2>
+		<%= @chapter.edit_bar %>
+
+		<p><%= @chapter.length_status %></p>
+		<%= @chapter.timestamps %>
+		<%= @chapter.summarized %>
 	</header>
 
-	<article class="piece" role="article">
-		<header>
-			<h2><%= @chapter.complete_heading %></h2>
-			<nav>
-				<%= link_to prev_heading("Prev Chapter"), [@work, @chapter.prev] unless @chapter.prev.nil? %>
-				<%= link_to next_heading("Next Chapter"), [@work, @chapter.next] unless @chapter.next.nil? %>
-			</nav>
-			<div><%= markdown @chapter.about %></div>
-		</header>
+	<%= markdown @chapter.content %>
 
-		<%= markdown @chapter.content %>
+	<footer>
+		<%= @chapter.edit_bar %>
+		<%= @chapter.pagination %>
+		<%= markdown @chapter.afterward %>
+		<%= render 'works/discussion' %>
+	</footer>
+</article>
 
-		<footer>
-			<% unless @chapter.afterward.empty? %>
-				<h3>Afterward</h3>
-				<%= markdown @chapter.afterward %>
-			<% end %>
-			<nav>
-				<%= link_to prev_heading("Prev Chapter"), [@work, @chapter.prev] unless @chapter.prev.nil? %>
-				<%= link_to next_heading("Next Chapter"), [@work, @chapter.next] unless @chapter.next.nil? %>
-			</nav>
-			<%= @chapter.topic.heading %>
-		</footer>
-	</article>
-
-	<%= render 'works/shared/footer' %>
-</main>
+<footer>
+	<p>
+		<%= link_to "All Stories", stories_path %> |
+		<%= link_to "All Fiction", fiction_index_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>

@@ -1,0 +1,11 @@
+<%= form_for(@article) do |f| %>
+
+	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
+
+	<fieldset>
+		<%= render 'works/shared/work_fields', f: f %>
+		<%= form_field f.label(:content), f.text_area(:content, :placeholder => "Write Article", :class=> :major) %>
+	</fieldset>
+
+	<%= f.submit %>
+<% end %>

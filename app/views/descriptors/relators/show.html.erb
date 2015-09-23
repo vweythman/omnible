@@ -1,6 +1,6 @@
 <% provide(:title, @relator.heading.html_safe) %>
 
-<main class="feature">
+<div id="main" class="feature">
 	<header>
 		<%= model_toolkit @relator %>
 		<h1><%= @relator.heading %></h1>
@@ -29,4 +29,4 @@
 		</table>
 	</article>
 	<%= render 'descriptors/shared/footer' %>
-<main>
+</div>

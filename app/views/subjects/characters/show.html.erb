@@ -1,11 +1,12 @@
 <% provide(:title, @character.name) %>
-<main class="feature">
+<div id="main" class="feature">
 	<header>
-		<%= render 'subjects/characters/about/cloning_source' %>
+		<%= @character.link_to_original %>
 		<%= model_toolkit @character %>
+
 		<h1><%= @character.name %></h1>
-		<p class='identifiers'><%= @character.identifiers.map { |identifier| identifier.name }.join(", ") %></p>
-		<p>Uploaded by <%= link_to @character.uploader.name, @character.uploader %></p>
+		<%= @character.list_aliases %>
+		<%= uploaded_by @character.uploader %>
 	</header>
 
 	<article>
@@ -22,5 +23,5 @@
 	<footer>
 		<%= render 'subjects/characters/about/directed_links' %>
 	</footer>
-<main>
+</div>
 <%= render 'subjects/shared/footer' %>

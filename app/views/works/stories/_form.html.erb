@@ -1,0 +1,15 @@
+<%= form_for(@story) do |f| %>
+
+	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
+
+	<fieldset><%= render 'works/shared/work_fields', f: f %></fieldset>
+
+	<%= show_link "Chapters", :chapters %>
+	<%= content_tag :fieldset, class: "nested chapters", id: @chapters.formid do %>
+		<%= nested_legend @chapters %>
+		<%= nested_fields f, @chapters %>
+		<p><%= link_to_add_association "+ Add Chapter", f, :chapters, :partial => @chapters.partial %></p>
+	<% end %>
+
+	<%= f.submit %>
+<% end %>

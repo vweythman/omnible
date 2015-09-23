@@ -1,13 +1,8 @@
-<%= f.hidden_field :story_id,  :value => @work.id %>
-
-<fieldset>
-	<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Add Title") %>
+<fieldset class="chapter">
+	<legend>
+		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Chapter Title") %>
+	</legend>
+	<%= form_field f.label(:about, "Summary"), f.text_area(:about, :placeholder => "Write Chapter Summary", class: "minor") %>
+	<%= form_field f.label(:content), f.text_area(:content, :placeholder => "Write Chapter", class: "major") %>
+	<%= form_field f.label(:afterward), f.text_area(:afterward, :placeholder => "Write Afterward", class: "minor") %>
 </fieldset>
-
-<fieldset>
-	<%= form_field f.label(:about, "Summary"), f.text_area(:about, :placeholder => "Add Summary", class: "minor") %>
-	<%= form_field f.label(:content), f.text_area(:content, class: "major") %>
-	<%= form_field f.label(:afterward), f.text_area(:afterward, :placeholder => "Add Afterward", class: "minor") %>
-</fieldset>
-
-<%= f.submit %>

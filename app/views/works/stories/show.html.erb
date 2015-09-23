@@ -1,2 +1,39 @@
-<h1>Stories#show</h1>
-<p>Find me in app/views/stories/show.html.erb</p>
+<% provide(:title, @story.title) %>
+
+<article role="article">
+	<header>
+		<%= @story.edit_bar %>
+		<%= @story.rated %>
+		<h1><%= @story.title %></h1>
+
+		<%= @story.uploaded_by.html_safe %>
+		<p><%= @story.link_to_chapters %> <%= @story.link_to_notes %></p>
+	</header>
+
+	<% @chapters.each do |chapter| %>
+		<section class="chapter">
+			<header>
+				<h2><%= chapter.heading %></h2>
+				<%= chapter.summarized %>
+				<%= chapter.timestamps %>
+			</header>
+
+			<%= markdown chapter.content %>
+
+			<%= chapter.afterward_foot %>
+		</section>
+	<% end %>
+
+	<footer>
+		<%= @story.edit_bar %>
+		<%= render 'works/discussion' %>
+	</footer>
+</article>
+
+<footer>
+	<p>
+		<%= link_to "All Stories", stories_path %> |
+		<%= link_to "All Fiction", fiction_index_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>

@@ -1,6 +1,7 @@
-<main class="edit generatable">
-	<%= edit_header 'Work', @work.heading %>
+<% provide(:title, @work.editing_title) %>
 
+<div id="main" class="edit generatable">
+	<%= @work.editor_heading %>
 	<%= render 'form' %>
+</div>
 
-</main>

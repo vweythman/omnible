@@ -1,7 +1,11 @@
-<main class="edit generatable">
-	<%= edit_header 'Note', "Note for #{@work.title}" %>
+<% provide(:title, @note.editing_title) %>
 
+<div id="main" class="edit generatable">
+	<%= @note.editor_heading %>
 	<%= render 'form' %>
-	
-	<footer><%= link_to @work.title, @work %></footer>
-</main>
+</div>
+
+<script>
+	autosize(document.querySelectorAll('textarea'));
+</script>
+

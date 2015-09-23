@@ -1,0 +1,16 @@
+<h2>Court of Public Opinion</h2>
+
+<p><%= @character.public_opinion_status %></p>
+
+<table class="aggregated-views">
+	<thead>
+		<tr>
+			<th>Fondness</th>
+			<th>Respected</th>
+		</tr>
+	</thead>
+	<tr>
+		<%= @character.public_opinion.fondness_data %>
+		<%= @character.public_opinion.respect_data %>
+	</tr>
+</table>

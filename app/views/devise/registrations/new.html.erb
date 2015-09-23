@@ -1,4 +1,4 @@
-<main class="new membership">
+<div class="new membership">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
@@ -18,4 +18,4 @@
   <% end %>
   
   <footer><%= render "devise/shared/links" %></footer>
-</main>
+</div>

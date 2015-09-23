@@ -1,9 +1,14 @@
 <nav class="menu">
 	<ul>
-		<li><%= link_to 'Works', works_path %> </li>
+		<li><%= link_to drop_arrowed("Works"), works_path %>
+			<ul class="submenu">
+				<li><%= link_to 'Fiction', fiction_index_path %></li>
+				<li><%= link_to 'Nonfiction', nonfiction_index_path %></li>
+			</ul>
+		</li>
 		<li><%= link_to 'Anthologies', anthologies_path %> </li>
 		<li>
-			<%= link_to "Subjects #{drop_arrow}".html_safe, subjects_path %>
+			<%= link_to drop_arrowed("Subjects"), subjects_path %>
 			<ul class="submenu">
 				<li><%= link_to 'Characters', characters_path %></li>
 				<li><%= link_to 'Items', items_path %></li>
@@ -11,7 +16,7 @@
 			</ul>
 		</li>
 		<li>
-			<%= link_to "Tags #{drop_arrow}".html_safe, tags_path %>
+			<%= link_to drop_arrowed("Tags"), tags_path %>
 			<ul class="submenu">
 				<li><%= link_to 'Activities', activities_path %></li>
 				<li><%= link_to 'Tags', tags_path %></li>

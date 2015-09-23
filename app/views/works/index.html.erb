@@ -1,11 +1,11 @@
-<% provide(:title, "Works") %>
+<% provide :title, @works.title %>
 
-<main class='index'>
+<div id="main" class="index">
 	<header>
-		<h1>Works</h1>
-		<%= index_toolkit("Work", new_work_path) %>
+		<h1><%= @works.heading %></h1>
+		<%= @works.creation_path %>
 	</header>
 
-	<%= render 'filter' %>
-	<%= render 'results' %>
-</main>
+	<%= render 'works/filter' %>
+	<%= render 'works/results' %>
+</div>

@@ -1,2 +1,24 @@
-<h1>Articles#show</h1>
-<p>Find me in app/views/external_stories/show.html.erb</p>
+<% provide(:title, @article.title) %>
+
+<article role="article">
+	<header>
+		<%= @article.edit_bar %>
+		<%= @article.rated %>
+		<h1><%= @article.title %></h1>
+
+		<%= @article.uploaded_by.html_safe %>
+		<%= @article.timestamps %>
+	</header>
+
+	<%= markdown @article.content %>
+
+	<footer>
+		<%= @article.edit_bar %>
+		<%= render 'works/discussion' %>
+	</footer>
+</article>
+
+<footer>
+	<%= link_to "All Article", articles_path %> |
+	<%= link_to "All Works", works_path %>
+</footer>

@@ -1,0 +1,21 @@
+<fieldset class='rating'>
+	<legend>Rating</legend>
+
+	<table>
+		<tr>
+			<th>Violence</th>
+			<td><%= radios(f, :violence, Rating.labels, f.object.violence || 0) %></td>
+		</tr>
+
+		<tr>
+			<th>Sexual Content</th>
+			<td><%= radios(f, :sexuality, Rating.labels, f.object.sexuality || 0) %></td>
+		</tr>
+
+		<tr>
+			<th>Profanity</th>
+			<td><%= radios(f, :language, Rating.labels, f.object.language || 0) %></td>
+		</tr>
+	</table>
+
+</fieldset>

@@ -1,25 +1,10 @@
-<aside class='menu'>
-	<div>
-		<h2>Order</h2>
-		<ul>
-			<li><%= link_to "Alphabetical", params.merge(:sort => "alphabetical") %></li>
-			<li><%= link_to "Chronological", params.merge(:sort => "chronological") %></li>
-			<li><%= link_to "Updated", params.merge(:sort => "updated") %></li>
-			<li><%= link_to "Chapter Count", params.merge(:sort => "chapter-count") %></li>
-		</ul>
-	</div>
-	<div>
-		<h2>Time</h2>
-		<ul>
-			<li><%= link_to "Today", params.merge(:date => "today") %></li>
-			<li><%= link_to "This Month", params.merge(:date => "thismonth") %></li>
-			<li><%= link_to "This Year", params.merge(:date => "thisyear") %></li>
-			<li><%= link_to "All", params.merge(:date => "all") %></li>
-		</ul>
-	</div>
-	<%= render 'works/shared/ratings' %>
-	<div>
-		<h2>Length</h2>
-		<p>INSERT SLIDER HERE</p>
-	</div>
-</aside>
+<% if @works.length > 1 %>
+	<aside class='filters'>
+		<% @works.filter_values.each do |key, group| %>
+			<div>
+				<h2><%= group[:title] %></h2>
+				<%= list_filters(group[:type], group[:values]) %>
+			</div>
+		<% end %>
+	</aside>
+<% end %>

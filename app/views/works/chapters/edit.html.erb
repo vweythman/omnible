@@ -1,7 +1,11 @@
-<main class="edit generatable">
-	<%= edit_header 'Chapter', "Chapter of #{@work.title}" %>
+<% provide(:title, @chapter.editing_title) %>
 
+<div id="main" class="edit generatable">
+	<%= @chapter.editor_heading %>
 	<%= render 'form' %>
-	
-	<footer><%= link_to @work.title, @work %></footer>
-</main>
+</div>
+
+<script>
+	autosize(document.querySelectorAll('textarea'));
+</script>
+

@@ -1,6 +1,6 @@
 <% provide(:title, @anthology.heading) %>
 
-<main class="feature">
+<div id="main" class="feature">
 	<header>
 		<%= model_toolkit @anthology %>
 		<h1><%= @anthology.heading %></h1>
@@ -9,4 +9,4 @@
 
 	<%= render 'works/list' %>
 	<%= render 'footer' %>
-<main>
+</div>

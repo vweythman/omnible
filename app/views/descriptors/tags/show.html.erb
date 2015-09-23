@@ -1,6 +1,6 @@
 <% provide(:title, @tag.name) %>
 
-<main class="feature">
+<div id="main" class="feature">
   <header>
     <%= model_toolkit @tag %>
     <h1><%= @tag.name %></h1>
@@ -15,4 +15,4 @@
   </article>
 
   <%= render 'descriptors/shared/footer' %>
-<main>
+</div>

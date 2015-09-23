@@ -1,5 +1,5 @@
 <% provide(:title, @identity.name) %>
-<main class="feature">
+<div id="main" class="feature">
 	<header>
 		<%= model_toolkit @identity %>
 		<h1><%= @identity.heading %></h1>
@@ -16,5 +16,5 @@
 		<%= render 'descriptors/identities/about/directed_links' %>
 	</article>
 
-<main>
+</div>
 <%= render 'descriptors/shared/footer' %>

@@ -1,3 +1,5 @@
-<%= form_for [@work, @chapter] do |f| %>
+<%= form_for [@story, @chapter] do |f| %>
+	<%= f.hidden_field :story_id,  :value => @story.id %>
 	<%= render 'form_fields', f: f %>
+	<%= f.submit %>
 <% end %>

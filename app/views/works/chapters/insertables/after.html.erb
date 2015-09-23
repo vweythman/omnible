@@ -1,4 +1,4 @@
-<main class="new generatable">
+<div id="main" class="new generatable">
 	<%= creation_header "New Chapter for #{link_to @work.title, @work}" %>
 
 	<%= form_for [@work, @previous, @chapter], :url => work_chapter_insert_path do |f| %>
@@ -6,4 +6,4 @@
 	<% end %>
 	
 	<footer><%= link_to @work.title, @work %></footer>
-</main>
+</div>

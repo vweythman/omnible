@@ -1,5 +1,5 @@
 <% provide(:title, @item.name) %>
-<main class="feature">
+<div id="main" class="feature">
 	<header>
 		<%= model_toolkit @item %>
 		<h1><%= @item.heading %></h1>
@@ -11,4 +11,4 @@
 	</article>
 
 	<%= render 'subjects/shared/footer' %>
-<main>
+</div>

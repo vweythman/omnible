@@ -1,11 +1,15 @@
 <% provide(:title, "Notes") %>
 
-<main class="feature">
-	<%= render 'works/shared/header' %>
-	
+<div id="main" class="index">
 	<article>
+		<h1><%= link_to @work.title, @work %></h1>
 		<%= render 'list_brief' %>
 	</article>
-
-	<%= render 'works/shared/footer' %>
-</main>
+	
+	<footer>
+		<p>
+			<%= link_to "All Fiction", fiction_index_path %> |
+			<%= link_to "All Works", works_path %>
+		</p>
+	</footer>
+</div>

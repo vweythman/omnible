@@ -1,5 +1,5 @@
 <% provide(:title, "#{@parent.heading} - Characters" ) %>
-<main class='index'>
+<div id="main" class="index">
 	<header>
 		<h1>[<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>] Characters</h1>
 	</header>
@@ -14,4 +14,4 @@
 	 		<%= render 'descriptors/shared/footer' %>
  		<% end %>
 	</footer>
-</main>
+</div>

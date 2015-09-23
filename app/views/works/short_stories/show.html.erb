@@ -1,26 +1,27 @@
-<% provide(:title, @short.heading) %>
+<% provide(:title, @short.title) %>
 
-<main class="feature">
-	<article class="piece" role="article">
-		<header>
-			<h1><%= @short.title %></h1>
-			<p>uploaded by <%= link_to @short.uploader.name, @short.uploader %></p>
-			<p class="rating">
-				<%= reversed_rating(:span, @rating.sexuality, @rating.heading_sexuality) %>
-				<%= reversed_rating(:span, @rating.violence, @rating.heading_violence) %>
-				<%= reversed_rating(:span, @rating.language, @rating.heading_profanity) %>
-			</p>
-		</header>
+<article role="article">
+	<header>
+		<%= @short.edit_bar %>
+		<%= @short.rated %>
+		<h1><%= @short.title %></h1>
 
-		<%= markdown @short.content %>
+		<%= @short.uploaded_by.html_safe %>
+		<p><%= @short.component_indices %></p>
+	</header>
 
-		<footer>
-			<%= render 'works/discussion' %>
-		</footer>
-	</article>
+	<%= markdown @short.content %>
 
 	<footer>
-		<%= link_to "All Short Stories", short_stories_path %> |
-		<%= link_to "All Works", works_path %>
+		<%= @short.edit_bar %>
+		<%= render 'works/discussion' %>
 	</footer>
-</main>
+</article>
+
+<footer>
+	<p>
+		<%= link_to "All Short Stories", short_stories_path %> |
+		<%= link_to "All Fiction", fiction_index_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>

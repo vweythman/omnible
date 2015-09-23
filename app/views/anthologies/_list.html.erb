@@ -1,16 +1,11 @@
 <% @anthologies.each do |anthology| %>
-
 	<article class='snippet'>
-		<p><%= link_to anthology.heading, anthology %></p>
-		
-		<div class='date'>
-			<p><span class='label'>Created:</span> <%= record_time anthology.created_at %></p>
-			<% if anthology.updated_at != anthology.created_at %>
-				<p><span class='label'>Updated:</span> <%= record_time anthology.updated_at %></p>
-			<% end %>
-		</div>
+		<header>
+			<h4><%= link_to anthology.name, anthology %></h4>
+			<%= anthology.uploaded_by.html_safe %>
+			<%= anthology.timestamps %>
+		</header>
 		
 		<div class="summary"><%= markdown anthology.summary || "" %></div>
 	</article>
-
 <% end %>
