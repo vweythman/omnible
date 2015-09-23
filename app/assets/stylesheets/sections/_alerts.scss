@@ -1,0 +1,11 @@
+/* ALERTS
+************************************************/
+.alert {
+	@include alert-box(red);
+}
+.notice {
+	@include alert-box($water-color);
+}
+.announce {
+	@include alert-box($moss-color);
+}

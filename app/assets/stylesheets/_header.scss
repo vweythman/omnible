@@ -1,0 +1,167 @@
+/* GENERAL
+************************************************/
+#site-header {
+	background: $water-darkest;
+	overflow:   auto;
+}
+.logo {
+	color:          $water-light; 
+	font-size:      28px;
+	letter-spacing: 3px;
+	padding:        10px;
+	margin:         0;
+
+	&:hover { color: $water-lightest; }
+}
+.actionbar { margin: 0; }
+.account {
+	margin:     0;
+	padding:    10px 0;
+	text-align: right;
+	line-height: normal;
+	a {
+		font-weight: bolder;
+		padding:     10px;
+	}
+}
+.session {
+	a {
+		color:      $page-color;
+		background: $water-light;
+
+		&:hover {
+			color:      $water-lightest;
+			background: $water-darker;
+		}
+	}
+}
+.user {
+	color:          $water-darkest;
+	font-weight:    bolder;
+	letter-spacing: 2px;
+}
+.menu {
+	text-align: center;
+	ul {
+		margin:  0;
+		padding: 0;
+	}
+	a {
+		padding:        10px;
+		display:        block;
+		letter-spacing: 2px;
+
+		&:hover {
+			color: $water-light;
+		}
+	}
+}
+header .menu a {
+	color:        $water-lightest;
+	font-variant: small-caps;
+}
+
+/* MOBILE
+************************************************/
+@include mobile {
+	.logo { display: block; }
+	.account { display: block; }
+	.menu { 
+		display: block;
+		li {
+			width: $half-block;
+			float: left;
+		}
+	}
+	.account { background: $water-lightest; }
+	.submenu    { display: none; }
+	.drop-arrow { display: none; }
+}
+
+/* NON-MOBILE
+************************************************/
+@include non-mobile {
+	.menu {
+		a { padding: 10px 0; }
+		& > ul > li {
+			width: $quarter-block;
+			float: left;
+		}
+		li li a { 
+			background: $water-darkest;
+			font-size: .9em;
+			padding:   10px 5px;
+		}
+	}
+	.submenu {
+		float:    left;
+		position: absolute;
+	}
+	.drop-arrow {
+		font-size: .68em;
+	}
+}
+
+/* TABLET
+************************************************/
+@include tablet {
+	#site-header {
+		padding: 0;
+	}
+	.logo {
+		display:        block;
+		float:          left;
+		padding:        10px 5px;
+		margin:         0;
+		padding-bottom: 25px;
+		text-align:     center;
+		min-width:      90px;
+		letter-spacing: 1px;
+	}
+	.actionbar {
+		margin-left: 115px;
+	}
+	.submenu {
+		width: (1/4) * (5/6) * 100%;
+	}
+	.menu > ul > li {
+		width: 24.50%;
+	}
+}
+
+/* NON-DESKTOP
+************************************************/
+@include non-desktop {
+	.account { background: $water-lighter; }
+}
+/* DESKTOP
+************************************************/
+@include desktop {
+	.logo {
+		display:    block;
+		float:      left;
+		padding:    0;
+		text-align: center;
+		width:      $one-sixth-block;
+	}
+	.actionbar {
+		width:       $five-sixth-block;
+		margin-left: $one-sixth-block;
+	}
+	.account {
+		width:      $quarter-block;
+		float:      right;
+	}
+	.user {
+		background: $page-color;
+		&:hover { color: $read-color; }
+	}
+	.menu {
+		width: $three-quarter-block;
+	}
+	.submenu {
+		width: (1/4) * (3/4) * (5/6) * 100%;
+	}
+}
+
+/* END */

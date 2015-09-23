@@ -1,36 +1,26 @@
-/* GENERICS
+/* SITE STYLE
 ************************************************/
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 body { 
 	background: $water-darkest;
 	font:       $text-size "Arial", sans-serif;
+	color:      $read-color;
 }
-h1 {
-	font-size:      $heading-size;
-	font-weight:    600;
-	letter-spacing: 3px;
-	border-bottom:  3px solid $moss-light;
-	border-top:     3px solid $moss-light;
-	margin:         0;
-	padding:        10px 5px;
-}
-ul { list-style: none; }
-a {
-	color: $water-color;
-	text-decoration: none;
-	&:hover { color: $read-color; }
-}
-footer { text-align: center; }
 
-.alert {
-	@include upbox(red, red);
-}
-.notice {
-	@include upbox($water-color, $water-light);
-}
-.announce {
-	@include upbox($fade-color, $water-color);
-	text-align:center;
+// SITE HEADER
+// .............................................
+@import "header";
+
+// SITE PAGE
+// .............................................
+@import "page";
+
+// SITE FOOTER
+// .............................................
+#site-footer {
+	color:      $water-color;
+	border-top: $water-color 5px solid;
+	padding:    10px 25px;
 }
 
 /* END */

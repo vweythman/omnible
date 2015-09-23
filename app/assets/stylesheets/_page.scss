@@ -1,0 +1,35 @@
+/* SITE CONTENT
+************************************************/
+// VIEWPORT: ALL
+// =============================================
+#site-content {
+	background: $page-color;
+	overflow:   auto;
+	padding:    0;
+}
+#main > header {
+	border-bottom:  3px solid $moss-lighter;
+}
+#main > footer {
+	text-align: center;
+	padding: 10px;
+}
+h1 {
+	font-size:      $heading-size;
+	font-weight:    900;
+	margin:         0;
+	padding:        10px 15px;
+}
+
+// STYLE IMPORTS
+// .............................................
+@import 'sections/general';
+@import 'sections/alerts';
+
+// DATES
+// .............................................
+.date {
+	font-weight: bolder;
+}
+
+/* END */
