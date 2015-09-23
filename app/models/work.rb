@@ -16,7 +16,8 @@
 #  is_complete     | boolean     | default: false
 #  is_narrative    | boolean     | default: true
 #  editor_level    | integer     | cannot be null
-#  type            | string      | sti
+#  type            | string      | sti value
+#  is_singleton    | boolean     | default: true
 # ================================================================================
 
 class Work < ActiveRecord::Base
@@ -29,6 +30,10 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	include Editable
 	include Discussable
+
+	# CALLBACKS
+	# ------------------------------------------------------------
+	after_initialize :defaults
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -49,7 +54,17 @@ class Work < ActiveRecord::Base
 	# - Types
 	scope :stories,          -> { where(:type => "Story") }
 	scope :short_stories,    -> { where(:type => "ShortStory") }
-	scope :external_stories, -> {where(:type => "ExternalStory") }
+	scope :story_records, -> {where(:type => "ExternalStory") }
+
+	# - Categories
+	scope :fiction,    -> { where("is_narrative = 't'") }
+	scope :nonfiction, -> { where("is_narrative = 'f'") }
+
+	scope :chaptered,  -> { where("is_singleton = 'f'") }
+	scope :oneshot,    -> { where("is_singleton = 't'") }
+	
+	scope :complete,   -> { where("is_complete  = 't'") }
+	scope :incomplete, -> { where("is_complete  = 'f'") }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -65,8 +80,6 @@ class Work < ActiveRecord::Base
 	belongs_to :contentable, :polymorphic => true
 
 	# - Has
-	has_many :notes,    :inverse_of => :work
-	has_many :comments, :through => :chapters
 	has_one  :rating
 
 	# - References
@@ -86,11 +99,16 @@ class Work < ActiveRecord::Base
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	def self.assort(options = {})
-		date  = options[:date]
-		order = options[:sort]
+		date     = options[:date]
+		order    = options[:sort]
+		page_num = options[:page]
 		rate_options = options.slice(:rating_min, :rating_max, :rating)
 
-		self.span(date).order_by(order).joins(:rating).merge(Rating.choose(rate_options))
+		self.span(date).order_by(order).joins(:rating).merge(Rating.choose(rate_options)).page(page_num)
+	end
+
+	def self.with_filters(options = {}, user)
+		self.assort(options).viewable_for(user, "works.").eager_load(:tags, :main_characters, :rating, :uploader)
 	end
 
 	# OrderBy - decide on the sort order
@@ -185,11 +203,6 @@ class Work < ActiveRecord::Base
 		self.is_narrative == 't' || self.is_narrative == true
 	end
 
-	# JustCreated? - self explanatory
-	def just_created?
-		self.updated_at == self.created_at
-	end
-
 	# Complete? - self explantory
 	def complete?
 		self.is_complete == 't' || self.is_complete == true
@@ -199,7 +212,7 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Defaults - self explanatory
 	def defaults
-		@is_narrative ||= true
+		self.rating ||= Rating.new
 	end
 
 end
