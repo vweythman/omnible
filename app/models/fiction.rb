@@ -5,4 +5,8 @@
 
 class Fiction < Work
 
+	def self.with_filters(options, user)
+		Work.fiction.with_filters(options, user)
+	end
+
 end
