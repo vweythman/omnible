@@ -74,21 +74,6 @@ class Rating < ActiveRecord::Base
 		Rating.labels[self.max]
 	end
 
-	# HeadingSexuality - heading for Sexuality
-	def heading_sexuality
-		Rating.labels[self.sexuality] + " Sexuality"
-	end
-
-	# HeadingProfanity - heading for language
-	def heading_profanity
-		Rating.labels[self.language] + " Profanity"
-	end
-
-	# HeadingViolence - heading for violence
-	def heading_violence
-		Rating.labels[self.violence] + " Violence"
-	end
-
 	# Max - highest column value
 	def max
 		[self.violence, self.sexuality, self.language].max
