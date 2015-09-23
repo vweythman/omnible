@@ -43,4 +43,8 @@ class Anthology < ActiveRecord::Base
 		self.name
 	end
 
+	# JustCreated? - self explanatory
+	def just_created?
+		self.updated_at == self.created_at
+	end
 end
