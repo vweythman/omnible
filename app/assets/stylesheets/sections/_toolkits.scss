@@ -1,0 +1,63 @@
+/* TOOLKITS
+************************************************/
+.toolkit {
+	margin: 10px 15px;
+	a {
+		padding: 10px;
+		display: inline-block;
+		background: $moss-dark;
+		color: #FFF;
+		min-width: 200px;
+		text-align: center;
+		font-weight: bolder;
+		border-radius: 5px;
+	}
+}
+.toolblock td {
+	padding: 10px;
+}
+
+// CREATION BAR
+// .............................................
+.insertion a {
+	width:      calc(100% - 20px);
+	text-align: left;
+	&:hover {
+		background: $moss-lightest;
+		color: $moss-darker;
+	}
+}
+
+// EDIT BAR
+// .............................................
+.alteration {
+	@include embossed($rose-color);
+	
+	border-radius: 5px;
+	display:       inline-block;
+	margin:        10px 0;
+	margin-bottom: 0;
+	overflow:      auto;
+	width:         calc(100% - 6px);
+
+	a {
+		background:     none;
+		display:        block;
+		font-weight:    bolder;
+		float:          left;
+		letter-spacing: 2px;
+		padding:        5px 0;
+		text-align:     center;
+		width:          50%;
+		&:hover {
+			border-radius: 0;
+		}
+	}
+}
+.toolblock .alteration {
+	margin: 10px 15px;
+	width:  calc(100% - 36px);
+}
+
+
+/* END */

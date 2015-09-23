@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name=viewport content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><%= full_title(yield(:title)) %></title>
 	<%= stylesheet_link_tag    'application', media: 'all' %>
+	<%= stylesheet_link_tag page_style_loc(params[:controller], params[:action]) %>
 	<%= javascript_include_tag 'application' %>
 	<%= csrf_meta_tags %>
 </head>
@@ -17,9 +19,19 @@
 		<% if alert %>
 			<p class="alert"><%= alert %></p>
 		<% end %>
+		
 		<%= yield %>
 	</div>
 	
 	<%= render 'shared/site_footer' %>
+
+	<script>
+		autosize(document.querySelectorAll('textarea'));
+		
+		$( ".nested" ).on('cocoon:after-insert', function(e, inserted_item) {
+			autosize(document.querySelectorAll('textarea'));
+		});
+	</script>
+
 </body>
 </html>

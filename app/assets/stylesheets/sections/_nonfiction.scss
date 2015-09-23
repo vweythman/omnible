@@ -1,0 +1,83 @@
+/* NON-FICTION
+************************************************/
+ol li {
+	margin: 10px;
+}
+p {
+	line-height: 1.5;
+}
+
+// HEADINGS
+// .............................................
+h2 {
+	background:    $moss-dark;
+	border-bottom: 2px solid $moss-darkest;
+	color:      $moss-lightest;
+	font-size:  $text-size + 3px;
+	margin:     0;
+	margin-top: 25px;
+	padding:    5px;
+}
+h3 {
+	font-size: $text-size + 3px;
+	margin:    5px 0;
+	margin-top: 20px;
+	padding-bottom: 4px;
+	border-bottom:  4px solid $moss-dark;
+	width: 50%;
+}
+h4 {
+	color:     $moss-dark;
+	font-size: $text-size + 1px;
+	padding-bottom: 4px;
+}
+h5 {
+	color: $fade-color;
+	font-size:  $text-size;
+	margin:     5px;
+	margin-top: 10px;
+	padding: 5px 0;
+}
+h5:before {
+    content: "» ";
+    color: $moss-light;
+}
+h6 {
+	font-size: $text-size;
+	margin:    0 5px;
+}
+
+// MOBILE
+// =============================================
+@include mobile {
+	h4 {
+		margin:     5px 0;
+		margin-top: 15px;
+		text-align: center;
+	}
+}
+
+
+// NON-MOBILE
+// =============================================
+@include non-mobile {
+	p {
+		padding: 5px 30px;
+	}
+	h3 {
+		margin: 5px 30px;
+		margin-top: 20px;
+	}
+	h4 {
+		margin: 0 30px;
+		margin-top: 15px;
+	}
+	h5 {
+		margin: 5px 30px;
+	}
+	h6 {
+		margin: 0 30px;
+	}
+}
+
+/* END */

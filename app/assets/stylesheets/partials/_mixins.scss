@@ -1,5 +1,5 @@
-/* MIXINS 
-************************************************/
+// MIXINS
+// .............................................
 // ENFORCE CONSISTENCY
 @mixin box-sized () {
 	-webkit-box-sizing: border-box;
@@ -22,12 +22,15 @@
 }
 
 // LOOKS
-@mixin upbox($text-color, $box-color) {
-	@include page-shadow($text-color);
-	color:   $box-color;
-	margin:  10px auto;
-	padding: 10px;
-	width:   90%;
+@mixin alert-box($box-color) {
+	background: $box-color;
+	color:      #FFF;
+	margin:     10px auto;
+	padding:    20px;
+	max-width:  300px;
+	text-align: center;
+	width:      90%;
+	font-size:  1.3em;
 }
 @mixin page-shadow($color) {
 	box-shadow: 0 0 1px 0 $color;
@@ -57,6 +60,7 @@
 	@include buttonable($color);
 	border-top-color:  lighten($color, 10%);
 	border-left-color: lighten($color, 10%);
+	border-radius: 2px;
 }
 @mixin depressed($color) {
 	@include buttonable($color);
@@ -66,13 +70,14 @@
 
 @mixin clickable($color) {
 	@include embossed($color);
-	color:          #FFF;
-	letter-spacing: 1px;
-	padding:        7px 10px;
-
-	&:hover, 
-	&:focus  { @include embossed(darken($color, 15%)); }
-	&:active { @include depressed(darken($color, 15%)); }
+	background: $color;
+	color:       #FFF;
+	font-weight: bolder;
+	padding:     10px;
+	margin:      10px;
+	width:       calc(100% - 20px);
+	&:hover  { background: saturate($color, 15%); }
+	&:active { @include depressed($color); }
 }
 
 @mixin togglable($color) {
@@ -97,18 +102,6 @@
 	border-left:    3px solid $color;
 	border-bottom:  2px solid $color;
 }
-@mixin headable($color) {
-	font-weight: 600;
-	background: $color;
-	@if lightness($color) < 50% {
-		border-bottom: 5px solid lighten($color, 10%);
-		color: lighten($color, 50%);
-	} @else {
-		border-bottom: 5px solid darken($color, 10%);
-		color: darken($color, 50%);
-	}
-}
-
 
 // RESPONSIVE
 @mixin mobile {

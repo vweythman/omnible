@@ -1,0 +1,100 @@
+/* TEMPLATE: SIGN IN AND SIGN UP
+************************************************/
+// SETUP
+// .............................................
+@import "partials/variables";
+@import "partials/mixins";
+
+// VIEWPORT: ALL
+// =============================================
+.membership {
+	margin: 40px auto;
+	max-width: 600px;
+	width: 50%;
+
+	footer {
+		text-align: center;
+		padding: 10px 20px;
+	}
+}
+
+// STRUCTURE
+// .............................................
+fieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+// HEADINGS AND LABELS
+// .............................................
+h2,
+legend {
+	background:    $rose-darkest;
+	color:         $rose-lightest;
+	padding:       10px;
+	text-align:    center;
+}
+h2 {
+	margin: 0;
+}
+legend {
+	width: calc(100% - 20px);
+	margin: 0;
+}
+label {
+	color: $page-color;
+	font-weight: bolder;
+	display: block;
+	padding: 10px;
+	border-top: 4px solid $rose-darker;
+	margin: 0;
+	background: $rose-dark;
+}
+
+// INPUT
+// .............................................
+input {
+	padding: 10px;
+	border: none;
+	background: lighten($rose-lightest, 5%);
+}
+input:not([type="checkbox"]) {
+	width: calc(100% - 20px);
+}
+input[type="submit"] {
+	width: calc(100% - 40px);
+	margin: 15px 20px;
+	background: $rose-lightest;
+	border-size: 1px;
+}
+
+// REMEMBER ME
+// .............................................
+.rememberable {
+	border-top: 4px solid $rose-darker;
+	overflow: auto;
+	input {
+		float: left;
+		margin: 10px;
+	}
+	label {
+		border: none;
+		color: $rose-dark;
+		background: $page-color;
+	}
+}
+
+// VIEWPORT: DESKTOP
+// =============================================
+@include desktop {
+	form {
+		overflow: auto;
+	}
+	fieldset .field {
+		width: 50%;
+		float: left;
+	}
+}
+
+/* END */

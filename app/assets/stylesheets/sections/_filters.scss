@@ -1,0 +1,36 @@
+/* FILTERS
+************************************************/
+.filters {
+	min-height: 300px;
+	h2 {
+		background:    $moss-lightest;
+		border-bottom: 3px solid $moss-dark;
+		margin:        0;
+		padding:       7px 15px;
+		font-size:     $text-size + 3px;
+		font-weight:   300;
+		font-variant:  small-caps;
+	}
+	ul {
+		padding:    0;
+		margin:     0;
+	}
+	li {
+		padding:     8px 0;
+		display:     block;
+		font-weight: 600;
+		font-size:   .95em;
+		text-align:  center;
+		
+		a {
+			color: $water-color;
+			display: block;
+			padding: 0 15px;
+			&:hover {
+				color: $water-darker;
+				background: $page-color;
+				font-weight: 900;
+			}
+		}
+	}
+}

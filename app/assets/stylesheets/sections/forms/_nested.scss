@@ -1,0 +1,97 @@
+/* NESTED FIELDS IN FORMS
+************************************************/
+// VIEWPORT: ALL
+// =============================================
+// TOGGLE DISPLAY
+// .............................................
+.edit .nested, 
+.new .show { 
+	display: none;
+}
+.show { 
+	@include togglable(desaturate($moss-lightest, 20%));
+}
+.hide {
+	cursor: pointer;
+	color: $rose-color;
+}
+
+// STRUCTURE & HEADINGS
+// .............................................
+.nested, .nested-fields fieldset {
+	border: 1px solid $border-color;
+}
+.nested {
+	margin:     10px;
+	padding:    10px;
+	width: calc(100% - 44px);
+	background: $page-color;
+	label {
+		display: block;
+		padding: 10px;
+		font-weight: bolder;
+		font-size:   15px;
+		background: $water-darker;
+		color: $page-color;
+		width: calc(100% - 20px);
+	}
+	legend {
+		padding:    10px;
+		background: $page-color;
+		border:     1px solid $border-color;
+	}
+	input, textarea { border-style: solid; }
+}
+.nested-fields {
+	overflow: auto;
+	margin: 10px 0;
+}
+.nested-fields fieldset {
+	background: #f0f0f0;
+	padding:    10px;
+	margin-bottom: 0;
+	width: calc(100% - 47px);
+}
+.nested-fields p {
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+// DYNAMIC INPUT
+// .............................................
+.remove_fields { 
+	@include togglable(desaturate($moss-lighter, 20%));
+	display: inline-block;
+	margin: 0 10px;
+}
+.add_fields    {
+	@include togglable($moss-lightest);
+	display: inline-block;
+	margin-top: 10px;
+}
+
+// VIEWPORT: DESKTOP
+// =============================================
+@include desktop {
+	
+	.show {
+		margin:    15px auto;
+		width:     50%;
+		max-width: 800px;
+		min-width: 650px;
+	}
+
+}
+
+// VIEWPORT: NON-DESKTOP
+// =============================================
+@include non-desktop {
+
+	.show {
+		margin: 10px;
+	}
+
+}
+
+/* END */

@@ -1,0 +1,19 @@
+/* PAIRED FIELDS IN FORMS
+************************************************/
+// VIEWPORT: NON-MOBILE
+// =============================================
+@include non-mobile {	
+	.pair {
+		overflow: auto;
+		.field {
+			@include split-element(50%);
+		}
+		input {
+			margin: 1px;
+			border: none;
+			width: calc(100% - 4px);
+		}
+	}
+}
+
+/* END */

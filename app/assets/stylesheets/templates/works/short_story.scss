@@ -1,0 +1,43 @@
+/* TEMPLATE: SHOW SHORT STORY
+************************************************/
+// SETUP
+// =============================================
+@import "partials/variables";
+@import "partials/mixins";
+
+// VIEWPORT: ALL
+// =============================================
+// HEADER
+// .............................................
+@import 'sections/ratings';
+@import 'sections/edit_bar';
+
+article {
+	margin: 0 auto;
+	max-width: 800px;
+	header {
+		margin-bottom: 25px;
+		text-align: center;
+	}
+}
+h1 {
+	font: 25px "Segoe UI";
+}
+.ratings {
+	width: 75%;
+}
+// CONTENT
+// .............................................
+@import 'sections/fiction';
+
+// FOOTER
+// .............................................
+@import 'sections/comments';
+#site-content > footer {
+	padding: 20px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+
+/* END */

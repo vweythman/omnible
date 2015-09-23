@@ -1,0 +1,25 @@
+/* COMMENTS
+************************************************/
+@import 'sections/forms/general';
+input[type="submit"] {
+	@include clickable(desaturate($moss-color, 20%));
+}
+form {
+	border: 1px solid $border-color;
+	margin: 10px 0;
+}
+legend {
+	width: calc(100% - 20px);
+	padding: 10px;
+	background: $moss-lightest;
+	text-transform: uppercase;
+	font-weight: bolder;
+}
+label {
+	font-weight: bolder;
+	padding: 10px;
+	border-bottom: 3px solid $moss-dark;
+	display: none;
+}
+
+/* END */

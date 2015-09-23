@@ -1,0 +1,48 @@
+/* SNIPPETS 
+************************************************/
+.snippet {
+	border: 2px solid $water-lightest;
+	margin: 10px;
+}
+h4 {
+	background: $water-lightest;
+	padding:    15px;
+	margin:     0;
+}
+.status {
+	width: 15%;
+	padding: 10px;
+	text-align: right;
+	font-weight: bolder;
+	border-bottom: 4px solid $water-lightest;
+	border-right: 4px solid $water-lightest;
+	float: left;
+}
+.incomplete {
+	color: $rose-dark;
+}
+.complete {
+	color: $moss-dark;
+}
+.summary {
+	padding:    10px;
+	font-style: italic;
+	text-align: center;
+}
+.time, .agents {
+	font-size: .95em;
+	padding: 5px 10px;
+}
+.time {
+	border-bottom: 1px solid $moss-lightest;
+	border-top: 1px solid $moss-lightest;
+}
+.tags {
+	text-align: right;
+}
+
+// RATINGS
+// .............................................
+@import 'ratings';
+
+/* END */

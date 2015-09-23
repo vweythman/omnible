@@ -1,0 +1,38 @@
+/* DROPDOWN FIELDS
+************************************************/
+.selectize-dropdown {
+	@include box-sized();
+	position:   absolute;
+	z-index:    10;
+	background: $page-color;
+	border:     1px solid $border-color;
+	border-top: 0 none;	
+	margin:     0;
+	[data-selectable] {
+		cursor: pointer;
+		overflow: hidden;
+		.highlight { background: $water-lightest; }
+	}
+	.optgroup:first-child .optgroup-header {
+		border-top: 0 none;
+	}
+	.optgroup-header {
+		color:  $water-darker;
+		cursor: default;
+	}
+	.active {
+		background-color: $water-lightest;
+		&.create { color: $water-darker; }
+	}
+	.create { color: $water-darkest; }
+	.option {
+		padding: 2px;
+	}
+}
+.selectize-dropdown-content {
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: $micro-height;
+}
+
+/* END */

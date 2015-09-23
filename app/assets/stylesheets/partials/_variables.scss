@@ -1,5 +1,6 @@
-/* VARIABLES
-************************************************/
+// VARIABLES
+// .............................................
+
 // READING COLORS and MISC
 $page-color:   #FFF;
 $read-color:   #333;
@@ -9,7 +10,7 @@ $text-size:    14px;
 $heading-size: 24px;
 
 // COLOR SCHEME COLORS
-$moss-color:    hsl(100, 50%, 50%);
+$moss-color:    hsl(115, 50%, 35%);
 $moss-light:    lighten($moss-color, 15%);
 $moss-lighter:  lighten($moss-color, 30%);
 $moss-lightest: lighten($moss-color, 40%);
@@ -17,7 +18,7 @@ $moss-dark:     darken($moss-color, 10%);
 $moss-darker:   darken($moss-color, 20%);
 $moss-darkest:  darken($moss-color, 35%);
 
-$water-color:    hsl(200, 50%, 50%);
+$water-color:    hsl(205, 50%, 50%);
 $water-light:    lighten($water-color, 15%);
 $water-lighter:  lighten($water-color, 30%);
 $water-lightest: lighten($water-color, 40%);
@@ -25,11 +26,13 @@ $water-dark:     darken($water-color, 10%);
 $water-darker:   darken($water-color, 20%);
 $water-darkest:  darken($water-color, 35%);
 
-$rating-lowest:  hsl(20, 95%, 40%);
-$rating-low:     hsl(30, 90%, 40%);
-$rating-mid:     hsl(50, 90%, 40%);
-$rating-high:    hsl(80, 90%, 40%);
-$rating-highest: hsl(90, 95%, 40%);
+$rose-color:    hsl(295, 50%, 50%);
+$rose-light:    lighten($rose-color, 15%);
+$rose-lighter:  lighten($rose-color, 30%);
+$rose-lightest: lighten($rose-color, 40%);
+$rose-dark:     darken($rose-color, 10%);
+$rose-darker:   darken($rose-color, 20%);
+$rose-darkest:  darken($rose-color, 35%);
 
 // SCREEN SIZE and LAYOUT
 $mobile-max:      550px;

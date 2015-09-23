@@ -1,0 +1,113 @@
+/* TEMPLATE: SHOW CHAPTER
+************************************************/
+// SETUP
+// =============================================
+@import "partials/variables";
+@import "partials/mixins";
+
+// VIEWPORT: ALL
+// =============================================
+article {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+// HEADER
+// .............................................
+@import 'sections/ratings';
+#site-content > header {
+	text-align: center;
+}
+h2 {
+	margin: 0;
+	font-size: 22px;
+}
+h1 {
+	margin: 0;
+	padding: 5px;
+	font: 25px "Segoe UI";
+}
+article header {
+	margin-bottom: 25px;
+}
+.pagination {
+	overflow: auto;
+	list-style: none;
+	padding: 0;
+	li {
+		display: inline-block;
+		a {
+			display: block;
+			padding: 10px;
+		}
+	}
+}
+.next {
+	float: right;
+}
+
+
+// ALTERATION
+// .............................................
+@import 'sections/toolkits';
+.insertion {
+	margin: 0 auto;
+	width: 50%;
+	a {
+		text-align: center;	
+	}
+}
+article .alteration {
+	@include embossed($rose-lighter);
+}
+
+// CONTENT
+// .............................................
+@import 'sections/fiction';
+
+// FOOTER
+// .............................................
+@import 'sections/comments';
+#site-content > footer {
+	padding: 20px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+// MOBILE
+// =============================================
+@include mobile {
+	#site-content > header {
+		margin: 10px;
+	}
+	article {
+		padding: 0 5%;
+	}
+}
+
+// TABLET
+// =============================================
+@include tablet {
+	#site-content > header {
+		margin: 0 10px;
+	}
+	article {
+		padding: 0 10%;
+	}
+}
+
+// DESKTOP
+// =============================================
+@include desktop {
+	#site-content > header {
+		margin: 0 auto;
+		max-width: 1000px;
+		min-width: 850px;
+		width: 90%;
+	}
+	article {
+		padding: 0 25px;
+	}
+}
+
+/* END */

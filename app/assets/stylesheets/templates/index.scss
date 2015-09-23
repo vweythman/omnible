@@ -1,0 +1,139 @@
+/* TEMPLATE: INDEX
+************************************************/
+// SETUP
+// .............................................
+@import "partials/variables";
+@import "partials/mixins";
+
+// IMPORTS
+// .............................................
+@import 'sections/filters';
+@import 'sections/category_navigation';
+
+// VIEWPORT: ALL
+// =============================================
+.index {
+	overflow: auto;
+}
+ul, ol {
+	margin: 0;
+	padding: 0;
+}
+article:not(.snippet) {
+	@include page-shadow($moss-dark);
+	padding: 10px;
+	margin:  10px 15px;
+}
+.results section footer {
+	text-align: center;
+}
+
+
+// HEADINGS
+h2 {
+	font: 25px "Segoe UI";
+	padding: 10px;
+}
+#main > h2 {
+	@include gradient-back(180deg, $page-color, $water-lightest);
+	border-bottom: 3px solid $water-color;
+	margin: 10px 0;
+}
+article > h2 {
+	margin: 0;
+}
+
+
+// PAGE NAVIGATION
+// .............................................
+.pagination {
+	margin:  5px 10px;
+	padding: 5px;
+	text-align: left;
+
+	header & {
+		border-bottom: 2px solid $water-dark;
+	}
+	footer & {
+		border-top: 2px solid $water-dark;
+	}
+}
+
+// SNIPPETS
+// .............................................
+@import 'sections/snippets';
+.snippet {
+	background: $page-color;
+	max-width: 900px;
+	a:hover { text-decoration: underline; }
+}
+
+// TABLE INFO
+// .............................................
+table {
+	width: 60%;
+	margin: 0 auto;
+}
+thead {
+	background: desaturate(lighten($moss-lightest, 15%), 20%);
+	border-bottom: 5px solid desaturate($moss-lighter, 20%);
+	th {
+		padding: 10px;
+		padding-top: 15px;
+		font: 20px "Segoe UI";
+		text-align: left;
+	}
+}
+tbody th {
+	text-align: left;
+	padding: 5px 25px;
+	vertical-align: top;
+}
+td {
+	padding: 10px;
+}
+
+// TOOLKITS
+// .............................................
+@import 'sections/toolkits';
+
+// VIEWPORT: DESKTOP
+// =============================================
+@include desktop {
+	.filters {
+		width: 20%;
+	}
+	aside + .results {
+		margin-left: 20%;
+	}
+	article dl,
+	article ol,
+	article ul {
+		@include column-counting(5);
+	}
+}
+
+// VIEWPORT: NON-MOBILE
+// =============================================
+@include non-mobile {
+	.filters {
+		float: left;
+	}
+}
+
+// VIEWPORT: TABLET
+// =============================================
+@include tablet {
+	.filters {
+		width: 25%;
+	}
+	aside + .results {
+		margin-left: 25%;
+	}
+	article dl,
+	article ol,
+	article ul {
+		@include column-counting(3);
+	}
+}
+/* END */

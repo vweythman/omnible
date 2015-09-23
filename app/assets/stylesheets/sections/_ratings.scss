@@ -1,0 +1,32 @@
+// RATINGS
+// .............................................
+
+// VARIABLES
+$rating-lowest:  hsl(20, 95%, 25%);
+$rating-low:     hsl(30, 90%, 25%);
+$rating-mid:     hsl(50, 90%, 25%);
+$rating-high:    hsl(80, 90%, 25%);
+$rating-highest: hsl(90, 95%, 25%);
+
+// LEVELS
+.level0 { color: $rating-lowest; }
+.level1 { color: $rating-low; }
+.level2 { color: $rating-mid; }
+.level3 { color: $rating-high; }
+.level4 { color: $rating-highest; }
+
+// GENERAL
+.ratings {
+	margin: 0 auto;
+	width:  50%;
+	padding: 2px;
+	font-weight: bolder;
+	text-align: center;
+	span {
+		padding:    10px;
+		display:    inline-block;
+		margin:     1px;
+	}
+}
+.rating { font-weight: bolder; }
+.avg    { text-align:  center; }

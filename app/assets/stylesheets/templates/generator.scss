@@ -1,0 +1,74 @@
+/* TEMPLATE: GENERATOR
+************************************************/
+// SETUP
+// =============================================
+@import "partials/variables";
+@import "partials/mixins";
+
+// STYLE IMPORTS
+// =============================================
+@import 'sections/forms/general';
+@import 'sections/forms/nested';
+@import 'sections/forms/nested_chapters';
+@import 'sections/forms/radio_buttons';
+@import 'sections/forms/paired_fields';
+@import 'sections/forms/selections';
+@import 'sections/forms/dropdown';
+
+// VIEWPORT: ALL
+// =============================================
+.generatable {
+	margin:     0;
+	padding:    0;
+	width:      100%;
+	background: #FFF;
+	a:hover { text-decoration: underline; }
+}
+input[type="submit"] {
+	@include clickable($moss-darker);
+}
+form {
+	border-top:    3px solid $moss-color;
+	border-bottom: 3px solid $moss-color;
+}
+.rating {
+	padding: 10px;
+}
+.rating,
+.rating legend {
+	background: $page-color;
+	border:     1px solid $border-color;
+}
+
+// HEADINGS AND LABELS
+// .............................................
+h1 {
+	background:    $moss-lighter;
+	color:         $moss-darker;
+	text-align:    center;
+}
+label { 
+	display: none;
+}
+legend {
+	font-variant:   small-caps;
+	letter-spacing: 2px;
+	padding:        10px;
+	width:          calc(100% - 20px);
+}
+.ref {
+	background: $page-color;
+	color: $moss-dark;
+	a { font-style: italic; }
+}
+
+// SLIDER
+// .............................................
+@import 'sections/forms/slider';
+.slider {
+	padding:    10px;
+	background: $page-color;
+	border:     1px solid $border-color;
+}
+
+/* END */

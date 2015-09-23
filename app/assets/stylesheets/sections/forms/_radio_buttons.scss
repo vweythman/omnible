@@ -1,0 +1,46 @@
+/* RADIO BUTTON GROUPS
+************************************************/
+.options {
+	margin:     10px auto;
+	padding:    10px 0;
+	overflow:   auto;
+	min-width:  calc(80% - 26px);
+	text-align: center;
+}
+.choice {
+	@include chooseable($water-color);
+	margin:   5px 10px;
+	overflow: auto;
+	display: inline-block;
+
+	.field {
+		border:  none;
+		float:   left;
+		padding: 0;
+		margin:  0;
+	}
+	label {
+		background: none;
+		border:     none;
+		display:    inline-block;
+		padding:    6px 10px;
+		color:      #FFF;
+		text-align: center;
+		width:      calc(100% - 20px);
+		cursor:     pointer;
+	}
+	input { display: none; }
+}
+
+// MOBILE
+// =============================================
+@include mobile {
+	.choice .field {
+		float: none;
+	}
+	.choice label {
+		display: block;
+	}
+}
+
+/* END */

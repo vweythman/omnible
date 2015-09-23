@@ -1,0 +1,44 @@
+/* TEMPLATE: HOME
+************************************************/
+// SETUP
+// .............................................
+@import "partials/variables";
+@import "partials/mixins";
+
+// VIEWPORT: ALL
+// =============================================
+.home {
+	overflow: auto;
+	& > section {
+		margin: 10px;
+		float: left;
+	}
+}
+h2 {
+	border-bottom: 3px solid $water-color;
+	font-size:     $heading-size - 4;
+	font-weight:   300;
+}
+
+// SNIPPETS
+// .............................................
+@import 'sections/snippets';
+
+// VIEWPORT: DESKTOP
+// =============================================
+@include desktop {
+	.home > section {
+		width: calc(50% - 20px);
+	}
+}
+
+// VIEWPORT: TABLET
+// =============================================
+@include tablet {
+	.home > section {
+		width: calc(100% - 20px);
+	}
+}
+
+
+/* END */

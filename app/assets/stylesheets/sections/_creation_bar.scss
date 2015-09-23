@@ -1,0 +1,10 @@
+/* CREATION BAR
+************************************************/
+.insertion a {
+	width:     calc(100% - 20px);
+	text-align: left;
+	&:hover {
+		background: $moss-lightest;
+		color: $moss-darker;
+	}
+}
