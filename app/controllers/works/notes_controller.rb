@@ -1,27 +1,35 @@
 class Works::NotesController < ApplicationController
 
+	# FILTERS
+	# ------------------------------------------------------------
+	before_action :find_viewable_work, except: [:edit, :update]
+	before_action :find_viewable_note, only:   [:edit, :update]
+
+	# MODULES
+	# ------------------------------------------------------------
+	include ContentCollections
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GET
 	# ............................................................
 	def index
-		find_work
 		@notes = @work.notes
-		work_elements
+		@work  = @work.decorate
 	end
 
 	def show
-		find_note
-		work_elements
+		@note = Note.find(params[:id]).decorate
+		@work = @work.decorate
+		find_note_comments
 	end
 
 	def new
-		find_work
-		@note = Note.new
+		@note = Note.new.decorate
 	end
 
 	def edit
-		find_note
+		@note = @note.decorate
 	end
 
 	# POST
@@ -31,8 +39,6 @@ class Works::NotesController < ApplicationController
 		@note = Note.new(note_params)
 
 		if @note.save
-			@work.updated_at = @note.updated_at
-			@work.save
 			redirect_to [@work, @note]
 		else
 			render action: 'new'
@@ -42,11 +48,7 @@ class Works::NotesController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_note
-
 		if @note.update(note_params)
-			@work.updated_at = @note.updated_at
-			@work.save
 			redirect_to [@note.work, @note]
 		else
 			render action: 'edit'
@@ -62,21 +64,23 @@ class Works::NotesController < ApplicationController
 	# ------------------------------------------------------------
 	private
 
-	def find_work
-		work_id = params[:work_id] || params[:story_id] || params[:short_story_id]
-		@work   = Work.find(work_id)
+	# ensures that a viewer can view
+	def find_viewable_work
+		arr     = params.slice(:story_id, :short_story_id, :journal_id)
+		work_id = arr.first[1]
+		@work   = Work.find(work_id).decorate
+
+		unless @work.viewable? current_user
+			render 'works/restrict'
+		end
 	end
 
-	# find by id
-	def find_note
+	def find_viewable_note
 		@note = Note.find(params[:id])
 		@work = @note.work
-	end
-	
-	def work_elements
-		@characters = @work.organized_characters
-		@user       = @work.uploader
-		@tags       = @work.tags
+		unless @work.viewable? current_user
+			render 'works/restrict'
+		end
 	end
 
 	# define strong parameters

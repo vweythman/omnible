@@ -1,11 +1,13 @@
 class WorksController < ApplicationController
 
 	# FILTERS
-	before_action :check_viewability, except: [:index, :new, :create]
+	# ------------------------------------------------------------
+	before_action :begin_work, only: [:new]
+	before_action :find_viewable_work, except: [:index, :new, :create]
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Curated
+	include ContentCollections
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -13,17 +15,9 @@ class WorksController < ApplicationController
 	# ............................................................
 	def index
 		find_works
-		@top_appearers = Character.top_appearers
-	end
-
-	def curated_index
-		find_works
-		render 'curated_index'
 	end
 
 	def show
-		find_work
-
 		if @work.viewable?(current_user)
 
 			#redirect_to @work
@@ -35,13 +29,9 @@ class WorksController < ApplicationController
 	end
 
 	def new
-		@work = Work.new
-		@work.appearances.build
-		define_components
 	end
 
 	def edit
-		find_work
 		define_components
 	end
 
@@ -62,7 +52,6 @@ class WorksController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_work
 		add_characters
 
 		if @work.update(work_params)
@@ -87,46 +76,42 @@ class WorksController < ApplicationController
 	# ------------------------------------------------------------
 	private
 
-	# find all
-	def find_works
-		options = params.slice(:date, :sort, :rating, :rating_min, :rating_max)
-		if @parent.nil?
-			@works = Work.assort(options).page(params[:page])
-		else
-			@works = @parent.works.assort(options).page(params[:page])
-		end
+	# CRUD METHODS
+	# ............................................................
+	# setup work
+	def begin_work
+		@work = Work.new
+		@work.appearances.build
+		define_components
 	end
 
-	# find by id
-	def find_work
-		@work = Work.find(params[:id])
+	# find all with options from a filter
+	def find_works
+		@works = Work.with_filters(index_params, current_user).decorate
 	end
 
 	# ensures that a viewer can view
-	def check_viewability
-		@work = Work.find(params[:id])
+	def find_viewable_work
+		@work = Work.find(params[:id]).decorate
 
 		if !@work.viewable? current_user
 			render 'restrict'
 		end
 	end
 
+	# PARAMS
+	# ............................................................
+	# clean index params
+	def index_params
+		params.slice(:date, :sort, :rating, :rating_min, :rating_max, :page)
+	end
+
 	# define strong parameters
 	def work_params
-		params.require(:work).permit(:title, :uploader_id, :summary, 
-			appearances_attributes: [:id, :character_id, :role, :_destroy]
+		params.require(:work).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
+			appearances_attributes: [:id, :character_id, :role, :_destroy],
+			rating_attributes:      [:id, :violence, :sexuality, :language]
 		)
 	end
 
-	# setup form components
-	def define_components
-		@general_tags = @work.tags.pluck(:name)
-		@characters   = @work.init_characters
-	end
-
-	def add_characters
-		options = params.slice(:main, :side, :mentioned)
-		new_appears = Character.batch Appearance.update_for(@work, options), current_user
-		params[:work][:appearances_attributes] = new_appears
-	end
 end

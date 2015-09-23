@@ -2,7 +2,6 @@ class Subjects::CharactersController < ApplicationController
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Curated
 	include Tagged
 
 	# PUBLIC METHODS
@@ -10,20 +9,12 @@ class Subjects::CharactersController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@characters = Character.viewable_for(current_user).order('name')
-	end
-
-	def curated_index
-		@characters = @parent.characters
-		render 'curated_index'
+		@characters = Character.viewable_for(current_user).order('name').decorate
 	end
 
 	def show
 		find_character
-		@identities  = Identity.organize(@character.identities.alphabetic.includes(:facet))
-		@items       = Item.organize(@character.items.includes(:generic))
-		@connections = @character.ordered_connections
-		@viewpoints  = @character.viewpoints
+		find_about_character
 		@prev = @character.prev_character current_user
 		@next = @character.next_character current_user
 	end
@@ -88,7 +79,17 @@ class Subjects::CharactersController < ApplicationController
 
 	# find by id
 	def find_character
-		@character = Character.find(params[:id])
+		@character = Character.find(params[:id]).decorate
+	end
+
+	def find_about_character
+		@identities  = Identity.organize(@character.identities.alphabetic.includes(:facet))
+		@items       = Item.organize(@character.items.includes(:generic))
+		@connections = @character.ordered_connections
+
+		@prejudices  = @character.prejudices.includes(:identity).decorate
+		@opinions    = @character.opinions.includes(:recip).decorate
+		@viewpoints  = @prejudices + @opinions
 	end
 
 	# define strong parameters

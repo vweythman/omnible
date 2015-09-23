@@ -1,4 +1,4 @@
-class Works::ExternalStoriesController < ApplicationController
+class Works::StoryRecordsController < ApplicationController
   def index
   end
 

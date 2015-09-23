@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-  	@anthologies = Anthology.recently_updated(10)
-  	@works       = Work.recently_updated(10)
+  	@anthologies = Anthology.recently_updated(10).decorate
+  	@works       = Work.recently_updated(10).decorate
   end
 
   def help

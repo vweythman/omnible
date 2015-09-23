@@ -1,39 +1,44 @@
 class Works::ChaptersController < ApplicationController
 	
+	# FILTERS
+	# ------------------------------------------------------------
+	before_action :find_viewable_story, except: [:edit, :update]
+	before_action :find_viewable_chapter, only: [:edit, :update]
+
+	# MODULES
+	# ------------------------------------------------------------
+	include ContentCollections
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GET
 	# ............................................................
 	def index
-		find_work
-		@chapters = @work.chapters
-		work_elements
+		@chapters = @story.chapters.decorate
+		@story    = @story.decorate
 	end
 
 	def show
-		find_chapter
-		work_elements
+		@chapter = Chapter.find(params[:id]).decorate
+		@story   = @story.decorate
+		find_chapter_comments
 	end
 
 	def new
-		find_work
-		@chapter = @work.new_chapter
+		@chapter = @story.new_chapter.decorate
 	end
 
 	def edit
-		find_chapter
+		@chapter = @chapter.decorate
 	end
 
 	# POST
 	# ............................................................
 	def create
-		find_work
 		@chapter = Chapter.new(chapter_params)
 
 		if @chapter.save
-			@work.updated_at = @chapter.updated_at
-			@work.save
-			redirect_to [@work, @chapter]
+			redirect_to [@story, @chapter]
 		else
 			render action: 'new'
 		end
@@ -42,12 +47,8 @@ class Works::ChaptersController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_chapter
-
 		if @chapter.update(chapter_params)
-			@work.updated_at = @chapter.updated_at
-			@work.save
-			redirect_to [@chapter.story, @chapter]
+			redirect_to [@story, @chapter]
 		else
 			render action: 'edit'
 		end
@@ -62,19 +63,21 @@ class Works::ChaptersController < ApplicationController
 	# ------------------------------------------------------------
 	private
 
-	def find_work
-		@work = Work.find(params[:work_id] || params[:story_id])
+	# ensures that a viewer can view
+	def find_viewable_story
+		@story = Story.find(params[:story_id]).decorate
+
+		unless @story.viewable? current_user
+			render 'works/restrict'
+		end
 	end
 
-	def find_chapter
+	def find_viewable_chapter
 		@chapter = Chapter.find(params[:id])
-		@work    = @chapter.story
-	end
-
-	def work_elements
-		@characters = @work.organized_characters
-		@user       = @work.uploader
-		@tags       = @work.tags
+		@story   = @chapter.story
+		unless @story.viewable? current_user
+			render 'works/restrict'
+		end
 	end
 
 	# define strong parameters

@@ -5,12 +5,12 @@ class AnthologiesController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@anthologies = Anthology.order('lower(name)').all
+		@anthologies = Anthology.order('lower(name)').decorate
 	end
 
 	def show
 		find_anthology
-		@works = @anthology.works
+		@works = @anthology.works.decorate
 	end
 
 	def new
