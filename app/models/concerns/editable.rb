@@ -41,21 +41,21 @@ module Editable
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	class_methods do
-		def viewable_for(user)
+		def viewable_for(user, table="")
 			if user.nil?
 				for_anons.order('name')
 			else
 				i = user.id
 				# REPLACE WITH OR CHAINING EVENTUALLY
 				self.where("
-					uploader_id = #{i} OR
-					publicity_level = #{PUBLIC} OR (
-						uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i}) AND
-						uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i}) AND (
-							publicity_level = #{EXCEPT_BLOCKED} OR publicity_level = #{MEMBERS_ONLY} OR (
-								publicity_level > #{FRIENDS_ONLY - 1} AND publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})
+					#{table}uploader_id = #{i} OR
+					#{table}publicity_level = #{PUBLIC} OR (
+						#{table}uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i}) AND
+						#{table}uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i}) AND (
+							#{table}publicity_level = #{EXCEPT_BLOCKED} OR #{table}publicity_level = #{MEMBERS_ONLY} OR (
+								#{table}publicity_level > #{FRIENDS_ONLY - 1} AND #{table}publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND #{table}uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})
 							) OR (
-								publicity_level = #{FRIENDS_N_FOLLOWERS} AND uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})
+								#{table}publicity_level = #{FRIENDS_N_FOLLOWERS} AND #{table}uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})
 							)
 						)
 					)"
@@ -89,10 +89,16 @@ module Editable
 	def invited_editor?(editor)
 		self.invited_editors.include?(editor)
 	end
+	
 	# InvitedToView?
 	# - viewer is on invite list
 	def invited_viewer?(reader)
 		self.invited_viewers.include?(reader)
+	end
+
+	# JustCreated? - self explanatory
+	def just_created?
+		self.updated_at == self.created_at
 	end
 
 	# Unblocked?
