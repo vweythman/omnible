@@ -4,6 +4,7 @@
 	<header>
 		<h1><%= @works.heading %></h1>
 		<%= @works.creation_path %>
+		<p class="count"><%= @works.total_count %> Found</p>
 	</header>
 
 	<%= render 'works/filter' %>
