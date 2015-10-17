@@ -1,7 +1,7 @@
 module ToolkitHelper
 	def index_toolkit(name, path_to)
 		if user_signed_in? 
-			content_tag :nav, class: 'toolkit' do
+			content_tag :nav, class: 'toolkit creation' do
 				link_to "Create #{name}".titleize, path_to
 			end
 		end
