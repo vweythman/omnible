@@ -5,10 +5,13 @@ class NonfictionDecorator < WorksDecorator
 	end
 
 	def local_types
-		[:articles]
+		{
+			:articles      => h.articles_path
+		}
 	end
 
 	def external_types
-		[]
+		{}
 	end
+
 end

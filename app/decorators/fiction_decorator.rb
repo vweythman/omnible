@@ -5,10 +5,14 @@ class FictionDecorator < WorksDecorator
 	end
 
 	def local_types
-		[:stories, :short_stories]
+		{
+			:stories       => h.stories_path,
+			:short_stories => h.short_stories_path
+		}
 	end
 
 	def external_types
-		[:story_records]
+		{ :story_records => h.story_records_path }
 	end
+	
 end
