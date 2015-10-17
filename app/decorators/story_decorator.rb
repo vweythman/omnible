@@ -22,6 +22,11 @@ class StoryDecorator < WorkDecorator
 		end
 	end
 
+	def current_chapters
+		self.chapters.build if self.chapters.length == 0
+		@current_chapters ||= ChaptersDecorator.decorate(self.chapters)
+	end
+
 	# NOTES
 	# ------------------------------------------------------------
 	def link_to_notes
