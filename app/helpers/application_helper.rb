@@ -27,7 +27,11 @@ module ApplicationHelper
 		end
 		
 		if action == 'show'
-			"templates/" + collector + '/' + type.singularize
+			if collector != type
+				"templates/" + collector + '/' + type.singularize
+			else
+				"templates/" + type.singularize
+			end
 		elsif collector == 'devise'
 			"templates/sessions"
 		else
@@ -94,6 +98,20 @@ module ApplicationHelper
 	def cslinks(links)
 		r = links.map {|i| link_to i.name, i }
 		r.join(", ").html_safe
+	end
+
+	def csnames(list)
+		if !list.nil? && list.length > 0
+			r = list.map {|i| i.name }
+			r.join("; ").html_safe
+		end
+	end
+
+	def lilinks(links)
+		items = links.map {|i| link_to i.name, i }
+		content_tag :ul do
+			items.collect {|item| concat(content_tag(:li, item))}
+		end
 	end
 
 	# User Interaction
