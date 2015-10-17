@@ -27,6 +27,7 @@ class Place < ActiveRecord::Base
 	# CALLBACKS
 	# ------------------------------------------------------------
 	after_save :build_place_relationships
+	before_create :ensure_defaults
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -37,15 +38,19 @@ class Place < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# - Joins
-	has_many :localities,    foreign_key: "subdomain_id", dependent: :destroy
-	has_many :sublocalities, class_name: "Locality", foreign_key: "domain_id", dependent: :destroy
-	
+	has_many :localities, foreign_key: "subdomain_id", dependent: :destroy
+	has_many :locations
+	has_many :settings
+	has_many :sublocalities, foreign_key: "domain_id", dependent: :destroy, class_name: "Locality"
+
 	# - Belongs to
+	has_many   :domains, through: :localities
 	belongs_to :form
-	has_many :domains, through: :localities
 
 	# - Has
+	has_many :characters, through: :locations
 	has_many :subdomains, through: :sublocalities
+	has_many :works,      through: :settings
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -58,6 +63,23 @@ class Place < ActiveRecord::Base
 	# - creates an list of all identities organized by form
 	def self.organized_all(list = Place.order(:name).includes(:form))
 		Place.organize(list)
+	end
+
+	def self.batch_by_name(str, user)
+		names = str.split(";")
+		ids   = Array.new
+
+		Place.transaction do
+			names.each do |name|
+				name.strip!
+				place = Place.where(name: name).first_or_create
+				place.uploader_id ||= user.id
+				place.save
+				ids << place.id
+			end
+		end
+
+		ids
 	end
 
 	# PUBLIC METHODS
@@ -111,6 +133,15 @@ class Place < ActiveRecord::Base
 	# BuildPlaceRelationships
 	def build_place_relationships
 		Locality.batch_missing(self) unless self.id.nil?
+	end
+
+	# EnsureDefaults - default behaivor
+	def ensure_defaults
+		self.fictional ||= true
+		self.form_id   ||= Form.where(name: "unspecified").pluck(:id)
+
+		self.editor_level    ||= 0 # PRIVATE
+		self.publicity_level ||= 4 # NON-BLOCKED PUBLIC
 	end
 
 end
