@@ -112,11 +112,6 @@ class Character < ActiveRecord::Base
 		Interconnection.character_interconnections(self.id).order(:relator_id).includes(:relator, :left, :right)
 	end
 
-	# OrderedConnections - organizes the interconnections
-	def ordered_connections
-		Interconnection.organize(self.interconnections, self)
-	end
-
 	# NextCharacter - find next character alphabetically
 	def next_character(user = nil)
 		@next_character ||= Character.next_in_line(self.name).viewable_for(user).first
