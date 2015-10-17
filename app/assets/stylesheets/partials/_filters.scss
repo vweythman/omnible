@@ -2,9 +2,10 @@
 ************************************************/
 .filters {
 	min-height: 300px;
+
 	h2 {
 		background:    $moss-lightest;
-		border-bottom: 3px solid $moss-dark;
+		border-bottom: 3px solid $moss-lighter;
 		margin:        0;
 		padding:       7px 15px;
 		font-size:     $text-size + 3px;
@@ -20,7 +21,7 @@
 		display:     block;
 		font-weight: 600;
 		font-size:   .95em;
-		text-align:  center;
+		text-align:  left;
 		
 		a {
 			color: $water-color;

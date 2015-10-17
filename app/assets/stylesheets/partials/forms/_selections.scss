@@ -25,11 +25,13 @@
 	}
 
 	.selectize-control.multi & > div {
+		@include gradient-back(180deg, lighten($fade-color, 55%), lighten($fade-color, 35%));
+		border-radius: 5px;
 		cursor:     pointer;
 		display:    inline-block;
-		background: $moss-lightest;
+		color:      $read-color;
 		padding:    2px 5px;
-		margin:     $input-item-margin;
+		margin:     1px;
 		&.active { 
 			color: $moss-darker;
 			font-weight: 600;

@@ -7,9 +7,6 @@
 	overflow:   auto;
 	padding:    0;
 }
-#main > header {
-	border-bottom:  3px solid $moss-lighter;
-}
 #main > footer {
 	text-align: center;
 	padding: 10px;
@@ -23,8 +20,8 @@ h1 {
 
 // STYLE IMPORTS
 // .............................................
-@import 'sections/general';
-@import 'sections/alerts';
+@import 'partials/general';
+@import 'partials/alerts';
 
 // DATES
 // .............................................

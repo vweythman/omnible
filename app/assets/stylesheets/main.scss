@@ -9,15 +9,16 @@ body {
 
 // SITE HEADER
 // .............................................
-@import "header";
+@import "partials/header";
 
 // SITE PAGE
 // .............................................
-@import "page";
+@import "partials/page";
 
 // SITE FOOTER
 // .............................................
 #site-footer {
+	background: $water-darkest;
 	color:      $water-color;
 	border-top: $water-color 5px solid;
 	padding:    10px 25px;

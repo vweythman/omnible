@@ -32,6 +32,14 @@
 	input { display: none; }
 }
 
+// NON-DESKTOP
+// =============================================
+@include non-desktop {
+	table { width: 100%; }
+	td { text-align: center; }
+	tr, th, td { display: block; }
+}
+
 // MOBILE
 // =============================================
 @include mobile {

@@ -1,6 +1,6 @@
 /* COMMENTS
 ************************************************/
-@import 'sections/forms/general';
+@import 'partials/forms/general';
 input[type="submit"] {
 	@include clickable(desaturate($moss-color, 20%));
 }

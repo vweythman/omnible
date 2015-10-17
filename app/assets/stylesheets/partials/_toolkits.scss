@@ -7,10 +7,11 @@
 		display: inline-block;
 		background: $moss-dark;
 		color: #FFF;
-		min-width: 200px;
+		min-width: 50%;
 		text-align: center;
 		font-weight: bolder;
 		border-radius: 5px;
+		text-decoration: none !important;
 	}
 }
 .toolblock td {
@@ -26,6 +27,10 @@
 		background: $moss-lightest;
 		color: $moss-darker;
 	}
+}
+.creation a {
+	max-width: 200px;
+	min-width: 200px;
 }
 
 // EDIT BAR
@@ -58,6 +63,5 @@
 	margin: 10px 15px;
 	width:  calc(100% - 36px);
 }
-
 
 /* END */
