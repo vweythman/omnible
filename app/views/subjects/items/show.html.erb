@@ -1,13 +1,13 @@
 <% provide(:title, @item.name) %>
 <div id="main" class="feature">
 	<header>
-		<%= model_toolkit @item %>
-		<h1><%= @item.heading %></h1>
-		<p><%= indefinite_article("#{cslinks(@item.qualities)} #{@item.generic.name}") %></p>
+		<%= @item.edit_bar %>
+		<h1><%= @item.name %></h1>
+		<%= @item.description_status %>
 	</header>
 
 	<article>
-		
+		<%= @item.list_related_characters %>
 	</article>
 
 	<%= render 'subjects/shared/footer' %>
