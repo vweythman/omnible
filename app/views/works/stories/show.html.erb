@@ -7,26 +7,21 @@
 		<h1><%= @story.title %></h1>
 
 		<%= @story.uploaded_by.html_safe %>
-		<p><%= @story.link_to_chapters %> <%= @story.link_to_notes %></p>
+		<%= @story.component_indices %>
+		<%= @story.contentable.inspect %>
 	</header>
 
 	<% @chapters.each do |chapter| %>
 		<section class="chapter">
-			<header>
-				<h2><%= chapter.heading %></h2>
-				<%= chapter.summarized %>
-				<%= chapter.timestamps %>
-			</header>
-
+			<h2><%= chapter.positioned_heading %></h2>
 			<%= markdown chapter.content %>
-
 			<%= chapter.afterward_foot %>
 		</section>
 	<% end %>
 
 	<footer>
 		<%= @story.edit_bar %>
-		<%= render 'works/discussion' %>
+		<%= render 'works/shared/discussion' %>
 	</footer>
 </article>
 
