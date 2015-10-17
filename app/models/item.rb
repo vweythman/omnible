@@ -31,9 +31,11 @@ class Item < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# - Joins
 	has_many :item_tags
+	has_many :possessions
 
 	# - General
 	belongs_to :generic
+	has_many :characters, through: :possessions
 	has_many :qualities, :through => :item_tags
 	
 	# NESTED ATTRIBUTION
