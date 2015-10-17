@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  is_narrative: false
+  is_singleton: false
+  content_type: MyString
+
+two:
+  name: MyString
+  is_narrative: false
+  is_singleton: false
+  content_type: MyString
