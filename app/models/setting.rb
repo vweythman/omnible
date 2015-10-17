@@ -14,6 +14,34 @@
 # ================================================================================
 
 class Setting < ActiveRecord::Base
-  belongs_to :work
-  belongs_to :place
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :are_among_for, ->(work, ids) { where("work_id = ? AND place_id IN (?)",     work.id, ids) }
+	scope :not_among_for, ->(work, ids) { where("work_id = ? AND place_id NOT IN (?)", work.id, ids) }
+
+	# ASSOCIATIONS
+	# ------------------------------------------------------------
+	belongs_to :work
+	belongs_to :place
+
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	def self.update_for(model, list)
+		if list.length > 0
+			Setting.transaction do
+				remove  = Setting.not_among_for(model, list).destroy_all
+				current = Setting.are_among_for(model, list).pluck(:id)
+
+				to_be_added = list - current
+
+				to_be_added.each do |id|
+					Setting.where(work_id: model.id, place_id: id).first_or_create
+				end
+			end
+		else
+			model.settings.destroy_all
+		end
+	end
+
 end
