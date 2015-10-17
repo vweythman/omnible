@@ -2,15 +2,14 @@
 ************************************************/
 // SETUP
 // =============================================
-@import "partials/variables";
-@import "partials/mixins";
+@import "application";
 
 // VIEWPORT: ALL
 // =============================================
 // HEADER
 // .............................................
-@import 'sections/ratings';
-@import 'sections/edit_bar';
+@import 'partials/ratings';
+@import 'partials/edit_bar';
 
 article {
 	margin: 0 auto;
@@ -28,11 +27,11 @@ h1 {
 }
 // CONTENT
 // .............................................
-@import 'sections/fiction';
+@import 'partials/fiction';
 
 // FOOTER
 // .............................................
-@import 'sections/comments';
+@import 'partials/comments';
 #site-content > footer {
 	padding: 20px;
 	text-align: center;

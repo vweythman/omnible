@@ -2,15 +2,14 @@
 ************************************************/
 // SETUP
 // =============================================
-@import "partials/variables";
-@import "partials/mixins";
+@import "application";
 
 // VIEWPORT: ALL
 // =============================================
 // HEADER
 // .............................................
-@import 'sections/ratings';
-@import 'sections/edit_bar';
+@import 'partials/ratings';
+@import 'partials/edit_bar';
 article {
 	max-width: 800px;
 	header {
@@ -27,11 +26,11 @@ h1 {
 
 // CONTENT
 // .............................................
-@import 'sections/nonfiction';
+@import 'partials/nonfiction';
 
 // FOOTER
 // .............................................
-@import 'sections/comments';
+@import 'partials/comments';
 article footer {
 	padding: 10px;
 	margin-top: 25px;

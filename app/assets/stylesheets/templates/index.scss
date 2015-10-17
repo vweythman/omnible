@@ -1,19 +1,28 @@
 /* TEMPLATE: INDEX
 ************************************************/
 // SETUP
-// .............................................
-@import "partials/variables";
-@import "partials/mixins";
+// =============================================
+@import "application";
 
 // IMPORTS
 // .............................................
-@import 'sections/filters';
-@import 'sections/category_navigation';
+@import 'partials/filters';
+@import 'partials/category_navigation';
 
 // VIEWPORT: ALL
 // =============================================
 .index {
 	overflow: auto;
+	& > header {
+		border-bottom: 3px solid $moss-color;
+	}
+}
+h1 {
+	font: 25px "Segoe UI";
+}
+h1:first-letter {
+	font-size: 30px;
+	font-weight: bolder;
 }
 ul, ol {
 	margin: 0;
@@ -27,6 +36,10 @@ article:not(.snippet) {
 .results section footer {
 	text-align: center;
 }
+#site-content footer {
+	text-align: center;
+	padding: 15px;
+}
 
 
 // HEADINGS
@@ -35,7 +48,7 @@ h2 {
 	padding: 10px;
 }
 #main > h2 {
-	@include gradient-back(180deg, $page-color, $water-lightest);
+	background: darken($page-color, 5%);
 	border-bottom: 3px solid $water-color;
 	margin: 10px 0;
 }
@@ -58,10 +71,15 @@ article > h2 {
 		border-top: 2px solid $water-dark;
 	}
 }
+.count {
+	margin: 5px 10px;
+	font-weight: bolder;
+	font-size:1.2em;
+}
 
 // SNIPPETS
 // .............................................
-@import 'sections/snippets';
+@import 'partials/snippets';
 .snippet {
 	background: $page-color;
 	max-width: 900px;
@@ -95,41 +113,44 @@ td {
 
 // TOOLKITS
 // .............................................
-@import 'sections/toolkits';
+@import 'partials/toolkits';
 
 // VIEWPORT: DESKTOP
 // =============================================
 @include desktop {
-	.filters {
-		width: 20%;
-	}
-	aside + .results {
-		margin-left: 20%;
-	}
 	article dl,
 	article ol,
 	article ul {
 		@include column-counting(5);
+	}
+	.index {
+		margin: 0 auto;
+		max-width: 1500px;
 	}
 }
 
 // VIEWPORT: NON-MOBILE
 // =============================================
 @include non-mobile {
+	#main {
+		margin: 0 auto;
+		width: 95%;
+	}
 	.filters {
 		float: left;
+		width: (100% - (100% / 1.618)) * 7 / 8;
+		margin-left: (100% - (100% / 1.618)) * 1 / 16;
+		margin-top: 10px;
+		margin-bottom: 40px;
+	}
+	aside + .results {
+		margin-left: 100% - (100% / 1.618);
 	}
 }
 
 // VIEWPORT: TABLET
 // =============================================
 @include tablet {
-	.filters {
-		width: 25%;
-	}
-	aside + .results {
-		margin-left: 25%;
-	}
 	article dl,
 	article ol,
 	article ul {

@@ -1,9 +1,8 @@
 /* TEMPLATE: HOME
 ************************************************/
 // SETUP
-// .............................................
-@import "partials/variables";
-@import "partials/mixins";
+// =============================================
+@import "application";
 
 // VIEWPORT: ALL
 // =============================================
@@ -22,7 +21,7 @@ h2 {
 
 // SNIPPETS
 // .............................................
-@import 'sections/snippets';
+@import 'partials/snippets';
 
 // VIEWPORT: DESKTOP
 // =============================================
