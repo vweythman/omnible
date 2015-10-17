@@ -13,7 +13,7 @@ class ChaptersDecorator < Draper::CollectionDecorator
 	end
 
 	def heading
-		klass
+		"Chapters"
 	end
 
 	def partial
