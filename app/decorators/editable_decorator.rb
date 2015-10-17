@@ -10,7 +10,6 @@ class EditableDecorator < Draper::Decorator
 		"Updated"
 	end
 
-
 	# ABOUT
 	# ------------------------------------------------------------
 	def uploaded_by
@@ -22,7 +21,7 @@ class EditableDecorator < Draper::Decorator
 	def timestamps
 		time = started_label + ": " + h.timestamp(created_at).html_safe
 		unless just_created?
-			time = time + " | " + most_recent_label  + ": " + h.timestamp(updated_at).html_safe
+			time = time + " " + most_recent_label  + ": " + h.timestamp(updated_at).html_safe
 		end
 		h.content_tag :p, class: 'time' do
 			time.html_safe
