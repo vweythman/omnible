@@ -1,27 +1,22 @@
 <% provide(:title, @character.name) %>
+
 <div id="main" class="feature">
 	<header>
+		<%= @character.edit_bar %>
 		<%= @character.link_to_original %>
-		<%= model_toolkit @character %>
 
 		<h1><%= @character.name %></h1>
+
 		<%= @character.list_aliases %>
 		<%= uploaded_by @character.uploader %>
 	</header>
 
-	<article>
-		<div class="content">
-			<%= render 'subjects/characters/about/aside' %>
-			<%= render 'subjects/characters/about/details' %>
-		</div>
-		<footer>
-			<%= render 'subjects/characters/about/replicate' %>
-			<%= render 'subjects/characters/about/roleplay' %>
-		</footer>
-	</article>
+	<%= render 'info' %>
 
 	<footer>
-		<%= render 'subjects/characters/about/directed_links' %>
+		<%= @character.replication_bar %>
+		<%= @character.pagination %>
 	</footer>
 </div>
+
 <%= render 'subjects/shared/footer' %>
