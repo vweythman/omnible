@@ -6,9 +6,8 @@
 		<%= index_toolkit "Place", new_place_path %>
 	</header>
 
-	<%= render 'index_sorter' %>
-	<section class='results'>
-		<%= render 'list' %>
-	<section>
-	<%= render 'subjects/shared/footer' %>
+	<%= render 'filters' %>
+	<%= @places.results %>
 </div>
+
+<%= render 'subjects/shared/footer' %>
