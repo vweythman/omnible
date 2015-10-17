@@ -1,12 +1,7 @@
 module FormHelper
-	# OUTPUT form field
-	def form_field(first_element, second_element)
-		content_tag :div, class: 'field' do
-			concat first_element
-			concat second_element
-		end
-	end
 	
+	# FIELDSETS
+	# ------------------------------------------------------------
 	# OUTPUT nested fields heading
 	def nested_legend(nesting)
 		heading = content_tag :legend do "#{nesting.heading} #{hide_link(nesting.klass)}".html_safe end
@@ -36,25 +31,60 @@ module FormHelper
 		end
 	end
 
-	# OUTPUT radio buttons
-	def radios(f, param, collection, default = 0, offset = 0)
-		max = collection.length - 1
-		min = 0
-		output = " "
-		(min..max).each do |idx|
-			num        = idx + offset
-			is_checked = idx == default
-
-			tagid  = "#{param}_#{idx}"
-			label = collection[idx]
-			output = output + form_field(f.radio_button(param, num, :checked => is_checked), f.label(tagid, label))
+	# FIELDS
+	# ------------------------------------------------------------
+	# OUTPUT form field
+	def form_field(first_element, second_element)
+		content_tag :div, class: 'field' do
+			concat first_element
+			concat second_element
 		end
+	end
 
+	# OUTPUT choice div
+	def choice(output)
 		content_tag :div, class: "choice" do
 			output.html_safe
 		end
 	end
 
+	# OUTPUT radio buttons
+	def radios(f, param, collection, default = 0, offset = 0)
+		max = collection.length - 1
+		min = 0
+		output = " "
+
+		(min..max).each do |idx|
+			num        = idx + offset
+			is_checked = idx == default
+
+			tagid = "#{param}_#{idx}"
+			field = f.radio_button(param, num, :checked => is_checked)
+			label = f.label(tagid, collection[idx])
+
+			output = output + form_field(field, label)
+		end
+
+		choice output
+	end
+
+	# OUTPUT radio buttons using string
+	def radios_by_string(f, param, collection, default = "")
+		output = ""
+		collection.each do |v|
+			is_checked = (v == default)
+
+			tagid = "#{param}_#{v.downcase.tr(" ", "_")}"
+			field = f.radio_button(param, v, :checked => is_checked)
+			label = f.label(tagid, v)
+
+			output = output + form_field(field, label)
+		end
+
+		choice output
+	end
+
+	# OUTPUT tag text field
 	def taggables(label, list, title = nil, placeholder = nil)
 		form_field label_tag(label, title), text_field_tag(label, list.join(";"), :placeholder => placeholder, class: 'taggables')
 	end
