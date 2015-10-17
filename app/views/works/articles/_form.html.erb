@@ -2,10 +2,12 @@
 
 	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
 
-	<fieldset>
+	<fieldset class="primary">
 		<%= render 'works/shared/work_fields', f: f %>
 		<%= form_field f.label(:content), f.text_area(:content, :placeholder => "Write Article", :class=> :major) %>
 	</fieldset>
+	
+	<%= render 'works/shared/work_tag_fields', f: f %>
 
 	<%= f.submit %>
 <% end %>
