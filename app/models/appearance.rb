@@ -62,7 +62,7 @@ class Appearance < ActiveRecord::Base
 		if work.narrative?
 			['main', 'side', 'mentioned']
 		else
-			['subject', 'appearing', 'mentioned']
+			['subject']
 		end
 	end
 
