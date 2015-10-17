@@ -3,25 +3,21 @@
 	<fieldset>
 		<%= form_field f.label(:nature, "Type"), f.text_field(:nature, :placeholder => "Add Type of Place") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Place Name") %>
-
-		<div class="choice">
-			<%= form_field f.radio_button(:fictional, 0, :checked => (0 == (f.object.fictional? || 0 ))), f.label(:fictional_0, "Actual Place") %>
-			<%= form_field f.radio_button(:fictional, 1, :checked => (1 == (f.object.fictional || 0 ))), f.label(:fictional_1, "Fictitious Place") %>
-		</div>
+		<%= radios_by_string(f, :fictional, @place.realness_choices, f.object.fictional?) %>
 	</fieldset>
 
-	<%= show_link @nested_dom.heading, @nested_dom.klass %>
-	<%= content_tag :fieldset, class: 'nested localities', id: @nested_dom.form_id do %>
-		<%= nested_legend @nested_dom %>
-		<%= nested_fields f, @nested_dom %>
-		<p><%= link_to_add_association "+ Add Place", f, @nested_dom.klass, :partial=> @nested_dom.partial %></p>
+	<%= show_link @domains.heading, @domains.klass %>
+	<%= content_tag :fieldset, class: 'nested localities', id: @domains.formid do %>
+		<%= nested_legend @domains %>
+		<%= nested_fields f, @domains %>
+		<p><%= link_to_add_association "+ Add Place", f, @domains.klass, :partial=> @domains.partial %></p>
 	<% end %>
 
-	<%= show_link @nested_sub.heading, @nested_sub.klass %>
-	<%= content_tag :fieldset, class: 'nested sublocalities', id: @nested_sub.form_id do %>
-		<%= nested_legend @nested_sub %>
-		<%= nested_fields f, @nested_sub %>
-		<p><%= link_to_add_association "+ Add Place", f, @nested_sub.klass, :partial=> @nested_sub.partial %></p>
+	<%= show_link @subdomains.heading, @subdomains.klass %>
+	<%= content_tag :fieldset, class: 'nested subdomainslocalities', id: @subdomains.formid do %>
+		<%= nested_legend @subdomains %>
+		<%= nested_fields f, @subdomains %>
+		<p><%= link_to_add_association "+ Add Place", f, @subdomains.klass, :partial=> @subdomains.partial %></p>
 	<% end %>
 
 	<%= f.submit %>
