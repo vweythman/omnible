@@ -2,8 +2,9 @@ class Works::ChaptersController < ApplicationController
 	
 	# FILTERS
 	# ------------------------------------------------------------
-	before_action :find_viewable_story, except: [:edit, :update]
-	before_action :find_viewable_chapter, only: [:edit, :update]
+	before_action :find_viewable_story, except: [:edit, :update, :new, :create]
+	before_action :find_editable_story,   only: [:new, :create]
+	before_action :find_editable_chapter, only: [:edit, :update]
 
 	# MODULES
 	# ------------------------------------------------------------
@@ -72,11 +73,21 @@ class Works::ChaptersController < ApplicationController
 		end
 	end
 
-	def find_viewable_chapter
+	# ensures that an editor can create a new chapter of an existing story
+	def find_editable_story
+		@story = Story.find(params[:story_id]).decorate
+
+		unless @story.editable? current_user
+			redirect_to @story
+		end
+	end
+
+	# ensures that an editor can edit an existing chapter
+	def find_editable_chapter
 		@chapter = Chapter.find(params[:id])
 		@story   = @chapter.story
-		unless @story.viewable? current_user
-			render 'works/restrict'
+		unless @chapter.editable? current_user
+			redirect_to [@story, @chapter]
 		end
 	end
 

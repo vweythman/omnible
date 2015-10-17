@@ -1,5 +1,9 @@
 class Subjects::ItemsController < ApplicationController
 
+	# FILTERS
+	# ------------------------------------------------------------
+	before_action :find_item, only: [:show, :edit, :update]
+
 	# MODULES
 	# ------------------------------------------------------------
 	include Tagged
@@ -9,27 +13,23 @@ class Subjects::ItemsController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@items = Item.organized_all
+		@items = Item.order('generics.name, items.name').includes(:generic).decorate
 	end
 
 	def show
-		find_item
 	end
 
 	def new
 		@item = Item.new
-		@descriptions = Array.new
 	end
 
 	def edit
-		find_item
-		@descriptions = @item.qualities.pluck(:name)
 	end
 
 	# POST
 	# ............................................................
 	def create
-		set_tags
+		create_tags
 
 		@item = Item.new(item_params)
 		@item.typify params[:item][:nature]
@@ -44,10 +44,9 @@ class Subjects::ItemsController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_item
 		@item.typify params[:item][:nature]
 
-		update_descriptions
+		update_tags
 
 		if @item.update(item_params)
 			redirect_to @item
@@ -64,21 +63,32 @@ class Subjects::ItemsController < ApplicationController
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
+
+	# SHOW/UPDATE
+	# ............................................................
 	# find by id
 	def find_item
-		@item = Item.friendly.find(params[:id])
+		@item = Item.friendly.find(params[:id]).decorate
 	end
 
-	# define descriptions of items
-	def set_tags(list = Quality.batch(params[:descriptions]).pluck(:id))
-		params[:item][:item_tags_attributes] = build_tags(list, :quality_id)
-	end
-
-	# update description list
-	def update_descriptions
+	def update_tags
 		list = Quality.batch(params[:descriptions])
 		curr = @item.update_tags(list)
 		set_tags(list - curr)
+	end
+
+	# CREATE
+	# ............................................................
+	def create_tags
+		list = Quality.batch(params[:descriptions])
+		set_tags(list)
+	end
+
+	# CREATE/UPDATE
+	# ............................................................
+	# define descriptions of items
+	def set_tags(list)
+		params[:item][:item_tags_attributes] = build_tags(list, :quality_id)
 	end
 	
 	# define strong parameters

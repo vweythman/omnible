@@ -1,8 +1,15 @@
 class Subjects::CharactersController < ApplicationController
 
+	# FILTERS
+	# ------------------------------------------------------------
+	before_action :find_viewable_character,  only: [:show]
+	before_action :begin_character,          only: [:new]
+	before_action :create_tags,              only: [:create]
+	before_action :find_editable_character,  only: [:edit, :update]
+
 	# MODULES
 	# ------------------------------------------------------------
-	include Tagged
+	include IdentityTagged
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -13,41 +20,25 @@ class Subjects::CharactersController < ApplicationController
 	end
 
 	def show
-		find_character
-		find_about_character
-		@prev = @character.prev_character current_user
-		@next = @character.next_character current_user
-	end
-
-	def preview
-		find_character
 	end
 
 	def new
-		@character = Character.new
-		define_components
-
-		@character.opinions.build
-		@character.prejudices.build
-		@character.possessions.build
 	end
 
 	def edit
-		find_character
-		define_components
+		set_associations
 	end
 
 	# POST
 	# ............................................................
 	def create
-		set_identifiers
 		@character = Character.new(character_params)
 		@character.uploader = current_user
 
 		if @character.save
 			redirect_to @character
 		else
-			define_components
+			set_associations
 			render 'new'
 		end
 	end
@@ -55,13 +46,12 @@ class Subjects::CharactersController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_character
-		update_identifiers
+		update_tags(@character)
 
 		if @character.update(character_params)
 			redirect_to @character
 		else
-			define_components
+			set_associations
 			render action: 'edit'
 		end
 	end
@@ -77,19 +67,26 @@ class Subjects::CharactersController < ApplicationController
 	# ------------------------------------------------------------
 	private
 
-	# find by id
-	def find_character
-		@character = Character.find(params[:id]).decorate
+	# viewable character found by id
+	def find_viewable_character
+		@character = Character.find(params[:id])
+
+		unless @character.viewable? current_user
+			render 'restrict'
+		end
+		
+		@character = @character.decorate
 	end
 
-	def find_about_character
-		@identities  = Identity.organize(@character.identities.alphabetic.includes(:facet))
-		@items       = Item.organize(@character.items.includes(:generic))
-		@connections = @character.ordered_connections
+	# editable character found by id
+	def find_editable_character
+		@character = Character.find(params[:id])
 
-		@prejudices  = @character.prejudices.includes(:identity).decorate
-		@opinions    = @character.opinions.includes(:recip).decorate
-		@viewpoints  = @prejudices + @opinions
+		unless @character.editable? current_user
+			redirect_to @character
+		end
+
+		@character = @character.decorate
 	end
 
 	# define strong parameters
@@ -97,43 +94,26 @@ class Subjects::CharactersController < ApplicationController
 		params.require(:character).permit(:name, :about, :editor_level, :publicity_level, 
 			identifiers_attributes:  [:id, :name,        :_destroy],
 			descriptions_attributes: [:id, :identity_id, :_destroy],
-			possessions_attributes:  [:id, :item_id,     :_destroy],
+			possessions_attributes:  [:id, :item_id, :nature, :_destroy],
 			opinions_attributes:     [:id, :recip_id,    :fondness, :respect, :about, :_destroy],
 			prejudices_attributes:   [:id, :identity_id, :fondness, :respect, :about, :_destroy]
 		)
 	end
 
-	def set_identifiers
-		list = params[:identifiers]
-		params[:character][:identifiers_attributes] = build_tags(list.split(";"), :name)
+	def begin_character
+		@character = Character.new.decorate
+		@character.descriptions.build
+		@character.possessions.build
+		@character.opinions.build
+		@character.prejudices.build
+		set_associations
 	end
 
-	def update_identifiers
-		list    = params[:identifiers]
-		list    = list.split(";")
-		if list.length > 0
-			remove  = Identifier.not_among_for(@character.id, list).destroy_all
-			current = Identifier.are_among_for(@character.id, list).pluck(:name)
-			params[:character][:identifiers_attributes] = build_tags(list - current, :name)
-		else
-			@character.identifiers.destroy_all
-		end
+	def set_associations
+		@identities = IdentitiesDecorator.decorate(@character.identities)
+		@items      = PossessionsDecorator.decorate(@character.items)
+		@opinions   = OpinionsDecorator.decorate(@character.opinions)
+		@prejudices = PrejudicesDecorator.decorate(@character.opinions)
 	end
 
-	# setup form components
-	def define_components
-		@facets     = Facet.all.includes(:identities)
-		@generics   = Generic.all.includes(:items)
-
-		@identities = @facets.collect{|facet|facet.identities}.flatten
-		@items      = @generics.collect{|genric|genric.items}.flatten
-		@variants   = @character.identifiers.pluck(:name)
-
-		@character.descriptions.build if @character.descriptions.length < 1
-
-		@descnest = Nest.new("Descriptors", :descriptions, "subjects/characters/nested/description_fields")
-		@opinnest = Nest.new("Opinions About Other Characters", :opinions, "subjects/characters/nested/opinion_fields")
-		@itemnest = Nest.new("Related Items", :possessions, "subjects/characters/nested/possession_fields")
-		@prejnest = Nest.new("Personal Prejudices", :prejudices, "subjects/characters/nested/prejudice_fields")
-	end
 end

@@ -2,12 +2,14 @@ class WorksController < ApplicationController
 
 	# FILTERS
 	# ------------------------------------------------------------
-	before_action :begin_work, only: [:new]
-	before_action :find_viewable_work, except: [:index, :new, :create]
+	before_action :begin_work,           only: [:new]
+	before_action :find_editable_work,   only: [:edit, :update, :delete]
+	before_action :find_viewable_work, except: [:index, :new, :create, :edit, :update]
 
 	# MODULES
 	# ------------------------------------------------------------
 	include ContentCollections
+	include FacetedWorkTags
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -18,21 +20,12 @@ class WorksController < ApplicationController
 	end
 
 	def show
-		if @work.viewable?(current_user)
-
-			#redirect_to @work
-		#elsif @work.upcoming?
-			render 'upcoming'
-		else
-			render 'restrict'
-		end
 	end
 
 	def new
 	end
 
 	def edit
-		define_components
 	end
 
 	# POST
@@ -41,10 +34,8 @@ class WorksController < ApplicationController
 		@work = Work.new(work_params)
 
 		if @work.save
-			add_characters
 			redirect_to @work
 		else
-			define_components
 			render action: 'new'
 		end
 	end
@@ -52,12 +43,10 @@ class WorksController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		add_characters
-
+		update_tags(@work)
 		if @work.update(work_params)
 			redirect_to @work
 		else
-			define_components
 			render action: 'edit'
 		end
 	end
@@ -78,19 +67,12 @@ class WorksController < ApplicationController
 
 	# CRUD METHODS
 	# ............................................................
-	# setup work
-	def begin_work
-		@work = Work.new
-		@work.appearances.build
-		define_components
-	end
-
-	# find all with options from a filter
+	# FOR INDEX :: find all with options from a filter
 	def find_works
 		@works = Work.with_filters(index_params, current_user).decorate
 	end
 
-	# ensures that a viewer can view
+	# FOR SHOW :: ensures that a viewer can view
 	def find_viewable_work
 		@work = Work.find(params[:id]).decorate
 
@@ -99,17 +81,33 @@ class WorksController < ApplicationController
 		end
 	end
 
+	# FOR NEW :: setup work
+	def begin_work
+		@work = Work.new
+		@work.appearances.build
+	end
+
+	# FOR EDIT & DELETE :: ensures that a editor can edit or delete
+	def find_editable_work
+		@work = Work.find(params[:id]).decorate
+
+		unless @work.editable? current_user
+			redirect_to @work
+		end
+	end
+
 	# PARAMS
 	# ............................................................
 	# clean index params
 	def index_params
-		params.slice(:date, :sort, :rating, :rating_min, :rating_max, :page)
+		params.slice(:date, :sort, :completion, :rating, :rating_min, :rating_max, :page)
 	end
 
 	# define strong parameters
 	def work_params
 		params.require(:work).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
 			appearances_attributes: [:id, :character_id, :role, :_destroy],
+			settings_attributes:    [:id, :place_id, :_destroy],
 			rating_attributes:      [:id, :violence, :sexuality, :language]
 		)
 	end

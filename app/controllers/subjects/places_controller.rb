@@ -1,49 +1,40 @@
 class Subjects::PlacesController < ApplicationController
 
+	# FILTERS
+	# ------------------------------------------------------------
+	before_action :find_place,  only: [:show, :edit, :update]
+	before_action :find_places, only: [:index]
+	before_action :set_type,    only: [:create, :update]
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GET
 	# ............................................................
 	def index
-		@places = Place.organized_all
-	end
-
-	def real
-		@places = Place.organize(Place.actual.order(:name).includes(:form))
-		render 'index'
-	end
-
-	def unreal
-		@places = Place.organize(Place.fictitious.order(:name).includes(:form))
-		render 'index'
 	end
 
 	def show
-		find_place
-		@subdomains = Place.organize(@place.subdomains.includes(:form))
-		@domains    = Place.organize(@place.domains.includes(:form))
 	end
 
 	def new
 		@place = Place.new
-		set_components
+		@place = @place.decorate
+		set_associations
 	end
 
 	def edit
-		find_place
-		set_components
+		set_associations
 	end
 
 	# POST
 	# ............................................................
 	def create
-		set_type
 		@place = Place.new(place_params)
 
 		if @place.save
 			redirect_to @place
 		else
-			set_components
+			set_associations
 			render action: 'new'
 		end
 	end
@@ -51,13 +42,10 @@ class Subjects::PlacesController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		set_type
-		find_place
-
 		if @place.update(place_params)
 			redirect_to @place
 		else
-			set_components
+			set_associations
 			render action: 'edit'
 		end
 	end
@@ -74,6 +62,11 @@ class Subjects::PlacesController < ApplicationController
 	# find by id
 	def find_place
 		@place = Place.find(params[:id])
+		@place = @place.decorate
+	end
+
+	def find_places
+		@places = Place.order('forms.name, places.name').includes(:form).decorate
 	end
 
 	# define strong parameters
@@ -91,11 +84,8 @@ class Subjects::PlacesController < ApplicationController
 	end
 
 	# define components
-	def set_components
-		@domains    = @place.potential_domains
-		@subdomains = @place.potential_subdomains
-		
-		@nested_dom = Nest.new("Parent Places", :localities,    "subjects/places/nested/domain_fields")
-		@nested_sub = Nest.new("Child Places",  :sublocalities, "subjects/places/nested/subdomain_fields")
+	def set_associations
+		@subdomains = SublocalitiesDecorator.decorate(@place.sublocalities)
+		@domains    = LocalitiesDecorator.decorate(@place.localities)
 	end
 end

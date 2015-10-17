@@ -1,18 +1,18 @@
 class Subjects::ClonesController < ApplicationController
+
+	# FILTERS
+	# ------------------------------------------------------------
 	before_action :require_user
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
-
 	# GET
 	# ............................................................
 	def show
 	end
 
 	def edit
-		@clone = Character.find(params[:id])
-		@replication = Replication.new
-		@characters  = Character.not_among([@clone.name])
+		set_associations
 		@replication.clone = @clone
 	end
 
@@ -34,9 +34,7 @@ class Subjects::ClonesController < ApplicationController
 		if @replication.save
 			redirect_to @replication.clone
 		else
-			@clone       = Character.find(params[:id])
-			@replication = Replication.new
-			@characters  = Character.not_among([@clone.name])
+			set_associations
 			render action: 'edit'
 		end
 	end
@@ -55,6 +53,12 @@ class Subjects::ClonesController < ApplicationController
 			@character = Character.find(params[:id])
 			redirect_to @character
 		end
+	end
+
+	def set_associations
+		@clone       = Character.find(params[:id])
+		@replication = Replication.new
+		@characters  = Character.not_among([@clone.name])
 	end
 
 end

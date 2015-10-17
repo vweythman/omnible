@@ -5,7 +5,7 @@ class Descriptors::TagsController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@tags = Tag.order('name').all
+		@tags = Tag.order('name')
 	end
 
 	def show

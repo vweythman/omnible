@@ -35,7 +35,7 @@ class Works::ArticlesController < WorksController
 	# ............................................................
 	def update
 		content = params[:article][:content]
-
+		update_tags(@work)
 		if @work.update(work_params) && @work.update_content(content)
 			redirect_to @work
 		else
