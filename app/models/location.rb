@@ -15,6 +15,10 @@
 # ================================================================================
 
 class Location < ActiveRecord::Base
-  belongs_to :character
-  belongs_to :place
+	belongs_to :character
+	belongs_to :place
+
+	def self.relators
+		['Birthplace', 'Home', 'School', 'Workplace', 'Associated Place']
+	end
 end
