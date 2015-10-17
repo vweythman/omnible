@@ -1,2 +1,40 @@
 /* TEMPLATE: SHOW ANTHOLOGY
 ************************************************/
+// SETUP
+// =============================================
+@import "application";
+
+// IMPORTS
+// .............................................
+@import 'partials/snippets';
+@import 'partials/toolkits';
+
+h1 {
+	font: 25px "Segoe UI";
+}
+
+// MOBILE
+// =============================================
+@include mobile {
+	#main {
+		margin: 0 10px;
+	}
+}
+
+// TABLET
+// =============================================
+@include tablet {
+	#main {
+		margin: 0 auto;
+		width:  90%;
+	}
+}
+
+// DESKTOP
+// =============================================
+@include desktop {
+	#main {
+		margin: 0 auto;
+		max-width: 800px;
+	}
+}

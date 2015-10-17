@@ -1,0 +1,187 @@
+/* TEMPLATE: SHOW CHARACTER
+************************************************/
+// SETUP
+// =============================================
+@import "application";
+
+// IMPORTS
+// .............................................
+@import 'partials/ratings';
+@import 'partials/character_tables';
+
+// VIEWPORT: ALL
+// =============================================
+.feature {
+	margin: 10px;
+}
+.feature a:hover,
+#site-content > footer a:hover {
+	text-decoration: underline;
+}
+
+// HEADER
+// .............................................
+#main header {
+	padding-bottom: 15px;
+}
+h1 {
+	font: 25px "Segoe UI";
+}
+header p {
+	margin: 0 10px;
+}
+.announce {
+	border-radius: 10px;
+	margin: 0;
+	margin-top: 10px;
+	a {
+		color: $moss-lightest;
+	}
+}
+
+// ARTICLE
+// .............................................
+article {
+	margin: 10px 0;
+	padding-bottom: 50px;
+	overflow: auto;
+}
+h2 {
+	margin:  5px 0;
+	padding: 7px 10px;
+	font:    22px arial;
+}
+section {
+	margin: 0;
+	p {
+		max-width: 900px;
+		margin: 5px 15px;
+	}
+	h2 {
+		@include gradient-back(90deg, $water-lightest, $water-color);
+		padding: 5px 10px;
+		margin:  0;
+		color:   $water-darkest;
+		border-bottom: 4px $water-color solid;
+	}
+}
+h3 {
+	font:   20px arial;
+	margin: 5px;
+}
+.clones {
+	margin: 0;
+	padding: 10px;
+}
+
+// ASIDE
+// .............................................
+aside h2 {
+	@include gradient-back(90deg, $moss-lightest, $page-color);
+	color:   $moss-darker;
+	margin:  0;
+}
+aside dl {
+	padding: 5px 15px;
+	margin-bottom: 15px;
+}
+
+// FOOTERS
+// .............................................
+#main footer {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+#site-content > footer {
+	padding: 20px;
+	text-align: center;
+	font-weight: bolder;
+}
+.pagination {
+	list-style:none;
+	overflow: auto;
+	li {
+		display: inline-block;
+		padding: 10px 0;
+		width: (100% / 3);
+	}
+	.current {
+		font-weight: bolder;
+	}
+}
+
+// TOOLKITS
+// .............................................
+@import 'partials/toolkits';
+.replication {
+	@include embossed($moss-color);
+	font-size: .85em;
+	border-radius: 10px;
+	margin:        10px auto;
+	margin-bottom: 0;
+	overflow:      auto;
+	width:         20%;
+	min-width:     200px;
+
+	a {
+		background:     none;
+		display:        block;
+		font-weight:    bolder;
+		float:          left;
+		letter-spacing: 1px;
+		padding:        5px 0;
+		text-align:     center;
+		width:          100%;
+		&:hover {
+			border-radius: 0;
+		}
+	}
+}
+
+// MOBILE
+// =============================================
+@include mobile {
+	#main > header { border: none; }
+	aside h2 {
+		border-top: 3px solid $moss-lighter;
+	}
+	aside dl {
+		@include column-counting(2);
+	}
+}
+
+// NON-MOBILE
+// =============================================
+@include non-mobile {
+	
+	aside {
+		float: right;
+		width: calc(100% - (100% / 1.618) - 10px);
+	}
+
+	aside + section {
+		margin-right: 100% - (100% / 1.618);
+	}
+}
+
+// NON-DESKTOP
+// =============================================
+@include non-desktop {
+	.feature {
+		margin: 0 10px;
+	}
+}
+
+/* DESKTOP
+************************************************/
+@include desktop {
+	.feature {
+		max-width: calc(80em - 20px);
+		padding:   0 10px;
+		margin: 0 auto;
+	}
+}
+
+
+/* END */

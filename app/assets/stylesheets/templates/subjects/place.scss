@@ -1,0 +1,47 @@
+/* TEMPLATE: SHOW PLACE
+************************************************/
+// SETUP
+// =============================================
+@import "application";
+@import 'partials/edit_bar';
+
+h1 {
+	padding: 5px 0;
+}
+h2 {
+	@include gradient-back(90deg, $water-lightest, $water-color);
+	padding: 5px 10px;
+	margin:  0;
+	color:   $water-darkest;
+	border-bottom: 4px $water-color solid;
+}
+
+.feature {
+	max-width: 900px;
+	margin: 0 auto;
+}
+article {
+	min-height: 10em;
+	margin: 10px 0;
+}
+
+
+.related-places {
+	padding: 5px 0;
+	dl {
+		padding: 10px;
+	}
+}
+
+article {
+}
+
+// MOBILE
+// =============================================
+@include non-desktop {
+	.feature {
+		margin: 0 10px;
+	}
+}
+
+/* END */
