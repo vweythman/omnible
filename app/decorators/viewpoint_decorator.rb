@@ -1,6 +1,23 @@
 class ViewpointDecorator < Draper::Decorator
 	delegate_all
 
+	def row
+		th  = recip_th
+		td1 = fondness_data
+		td2 = respect_data
+		td3 = details_data
+		
+		h.content_tag :tr do
+			th + td1 + td2 + td3
+		end
+	end
+
+	def recip_th
+		h.content_tag :th, :data => {:label => "Recipient" } do
+			h.link_to recip_heading, recip
+		end
+	end
+
 	def fondness_data
 		data_status "Fondness", self.fondness
 	end
