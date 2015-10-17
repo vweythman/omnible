@@ -33,9 +33,7 @@ class Article < Nonfiction
 
 	# set default categories
 	def set_categories
-		self.is_narrative = false
-		self.is_singleton = true
-		self.is_complete  = true
+		self.is_complete = true
 	end
 
 	def add_note

@@ -50,10 +50,10 @@ class ShortStory < Work
 	# ------------------------------------------------------------
 	private
 
+	# CALLBACK METHODS
+	# ............................................................
 	# set default categories
 	def set_categories
-		self.is_narrative = true
-		self.is_singleton = true
 		self.is_complete  = true
 	end
 
