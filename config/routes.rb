@@ -21,8 +21,13 @@ Rails.application.routes.draw do
   concern :sortable do 
     get '(sort/:sort)', :action => :index, :on => :collection
   end
+
   concern :dateable do 
     get '(date/:date)', :action => :index, :on => :collection
+  end
+
+  concern :completeable do 
+    get '(completion/:completion)', :action => :index, :on => :collection
   end
 
   # USER routes
@@ -40,18 +45,18 @@ Rails.application.routes.draw do
 
   # WORKS routes
   # ------------------------------------------------------------
-  resources :works, :concerns => [:sortable, :dateable, :paginatable]
+  resources :works, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
   # - work types
   scope module: 'works' do
 
     # sort by narrative type
-    resources :fiction,    only: [:index], :concerns => [:sortable, :dateable, :paginatable]
-    resources :nonfiction, only: [:index], :concerns => [:sortable, :dateable, :paginatable]
+    resources :fiction,    only: [:index], :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :nonfiction, only: [:index], :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
     # get stories
     get '/stories/:id/whole' => 'whole_story#show', as: :whole_story
-    resources :stories do
+    resources :stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
       resources :notes
       resources :chapters
     end
@@ -67,12 +72,12 @@ Rails.application.routes.draw do
       post 'chapters/:chapter_id/new-next' => "next#create"
     end
 
-    resources :short_stories do
+    resources :short_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
       resources :notes
     end
 
-    resources :articles
-    resources :story_records
+    resources :articles, :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :story_records, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
     # - list works by related model
     scope module: 'curation' do
@@ -93,14 +98,13 @@ Rails.application.routes.draw do
   scope module: 'subjects' do
     resources :clones, only: [:edit, :update]
     post "/clones/:id/" => "clones#create", as: :replicate
+    get '/places/real'   => 'real_places#index',   as: :real_places
+    get '/places/unreal' => 'unreal_places#index', as: :unreal_places
+    
     resources :characters
     resources :items
-    resources :places do
-      collection do 
-        get :real
-        get :unreal
-      end
-    end
+    resources :places
+
 
     scope module: 'curation' do
       get '/identities/:identity_id/characters' => 'identity_characters#index', as: :identity_characters
