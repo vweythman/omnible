@@ -57,11 +57,11 @@ class Work < ActiveRecord::Base
 	scope :story_records, -> {where(:type => "ExternalStory") }
 
 	# - Categories
-	scope :fiction,    -> { where("is_narrative = 't'") }
-	scope :nonfiction, -> { where("is_narrative = 'f'") }
+	scope :fiction,    -> { where("type IN (?)", WorksTypeDescriber.fiction.pluck(:name)) }
+	scope :nonfiction, -> { where("type IN (?)", WorksTypeDescriber.nonfiction.pluck(:name)) }
 
-	scope :chaptered,  -> { where("is_singleton = 'f'") }
-	scope :oneshot,    -> { where("is_singleton = 't'") }
+	scope :chaptered,  -> { where("type IN (?)", WorksTypeDescriber.chaptered.pluck(:name)) }
+	scope :oneshot,    -> { where("type IN (?)", WorksTypeDescriber.oneshot.pluck(:name)) }
 	
 	scope :complete,   -> { where("is_complete  = 't'") }
 	scope :incomplete, -> { where("is_complete  = 'f'") }
@@ -73,28 +73,35 @@ class Work < ActiveRecord::Base
 	has_many :appearances
 	has_many :respondences, as: :response
 	has_many :taggings
+	has_many :settings
 
 	# - Belongs to
 	has_many :anthologies,   :through => :collections
 	has_many :callers,       :through => :respondences
-	belongs_to :contentable, :polymorphic => true
+	belongs_to :contentable, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
 
 	# - Has
 	has_one  :rating
+	has_many :tags,   :through => :taggings
+	has_many :places, :through => :settings
 
-	# - References
 	has_many :characters,      :through => :appearances
 	has_many :main_characters, :through => :appearances
 	has_many :side_characters, :through => :appearances
 	has_many :mentioned_characters, :through => :appearances
 	
+	# - References
 	has_many :identities, ->{uniq}, :through => :characters
-	has_many :tags, :through => :taggings
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :appearances, :allow_destroy => true
 	accepts_nested_attributes_for :rating,      :allow_destroy => true
+
+	# DELEGATED METHODS
+	# ------------------------------------------------------------
+	delegate :narrative?, to: :contentable
+	delegate :is_singleton, to: :contentable
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
@@ -102,9 +109,10 @@ class Work < ActiveRecord::Base
 		date     = options[:date]
 		order    = options[:sort]
 		page_num = options[:page]
+		cmplt    = options[:completion]
 		rate_options = options.slice(:rating_min, :rating_max, :rating)
 
-		self.span(date).order_by(order).joins(:rating).merge(Rating.choose(rate_options)).page(page_num)
+		self.ready(cmplt).span(date).order_by(order).joins(:rating).merge(Rating.choose(rate_options)).page(page_num)
 	end
 
 	def self.with_filters(options = {}, user)
@@ -134,6 +142,18 @@ class Work < ActiveRecord::Base
 			within_month
 		when "today"
 			within_day
+		else
+			all
+		end
+	end
+
+	# Status - define completion
+	def self.ready(seeking_completion)
+		case seeking_completion
+		when "yes"
+			complete
+		when "no"
+			incomplete
 		else
 			all
 		end
@@ -198,11 +218,6 @@ class Work < ActiveRecord::Base
 
 	# QUESTIONS
 	# ............................................................
-	# Narrative? - fiction vs. non-fiction
-	def narrative?
-		self.is_narrative == 't' || self.is_narrative == true
-	end
-
 	# Complete? - self explantory
 	def complete?
 		self.is_complete == 't' || self.is_complete == true
