@@ -1,7 +1,10 @@
+<% provide(:title, @character.creation_title) %>
+
 <div id="main" class="new generatable">
-	<%= creation_header 'Character' %>
+	<h1><%= @character.creation_title %></h1>
 
 	<%= render 'form' %>
-	
-	<%= render 'subjects/shared/footer' %>
 </div>
+
+<script>autosize(document.querySelectorAll('textarea'));</script>
+

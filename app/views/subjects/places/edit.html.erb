@@ -1,8 +1,8 @@
-<div id="main" class="edit generatable">
-  <%= edit_header 'Place', @place.name %>
+<% provide(:title, @place.editing_title) %>
 
-  <%= render 'form' %>
-  
-  <%= render 'subjects/shared/footer' %>
+<div id="main" class="edit generatable">
+	<%= @place.editor_heading %>
+	<%= render 'form' %>
+	<%= render 'subjects/shared/footer' %>
 </div>
 
