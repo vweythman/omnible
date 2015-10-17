@@ -1,0 +1,19 @@
+<div class='nested-fields'>
+	<fieldset>
+		<legend>Prejudice</legend>
+		<div class='pair'>
+			<% facet_label    = f.label(:facet_id, "Facet") %>
+			<% identity_label = f.label(:identity_id, "Descriptor") %>
+
+			<% facet_collection    = f.collection_select(:facet_id, @prejudices.facets, :id, :name, { :selected => (f.object.identity.nil? ? "state" : f.object.identity.facet.id) }, { :class=>'selector' } ) %>
+			<% identity_collection = f.grouped_collection_select(:identity_id, @prejudices.facets, :identities, :name, :id, :name, {}, { :class=>'selection' } ) %>
+
+			<%= form_field facet_label, facet_collection %>
+			<%= form_field identity_label, identity_collection %>
+		</div>
+
+		<%= render 'subjects/characters/fields/viewpoint_fields', f: f %>
+	</fieldset>
+
+	<p><%= link_to_remove_association "- Remove Prejudice", f %></p>
+</div>

@@ -2,7 +2,7 @@
 	<fieldset>
 		<legend>Interpersonal Opinion</legend>
 		<%= form_field f.label(:recip_id, "Subject"), f.collection_select(:recip_id, Character.all, :id, :heading, {}, :class => 'selectables') %>
-		<%= render 'subjects/characters/nested/viewpoint_fields', f: f %>
+		<%= render 'subjects/characters/fields/viewpoint_fields', f: f %>
 	</fieldset>
 
 	<p><%= link_to_remove_association "- Remove Opinion", f %></p>
