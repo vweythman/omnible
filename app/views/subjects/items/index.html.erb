@@ -6,6 +6,7 @@
 		<%= index_toolkit "Item", new_item_path %>
 	</header>
 
-	<%= render 'list' %>
+	<article><%= @items.list if @items.can_list? %></article>
+	
 	<%= render 'subjects/shared/footer' %>
 </div>
