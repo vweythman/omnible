@@ -21,6 +21,9 @@ class Identity < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
+	# - Search
+	scope :are_among, ->(names) { where("name IN (?)", names) }
+
 	# - Order
 	scope :alphabetic, -> { order('lower(name)') }
 
@@ -52,6 +55,13 @@ class Identity < ActiveRecord::Base
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :descriptions, :allow_destroy => true
+
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	# OrganizedAll - creates an list of all identities organized by facet
+	def self.organized_all(list = Identity.includes(:facet).alphabetic)
+		Identity.organize(list)
+	end
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -104,12 +114,5 @@ class Identity < ActiveRecord::Base
 	def use_count
 		@usage_count ||= self.characters.count
 	end
-
-	# CLASS METHODS
-	# ------------------------------------------------------------
-	# OrganizedAll - creates an list of all identities organized by facet
-	def self.organized_all(list = Identity.includes(:facet).alphabetic)
-		Identity.organize(list)
-	end
-
+	
 end
