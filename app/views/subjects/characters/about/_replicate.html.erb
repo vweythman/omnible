@@ -1,6 +1,0 @@
-<nav class='toolkit'>
-	<%= link_to "Clone", replicate_path(@character), method: :post %>
-	<% unless @character.is_a_clone? %>
-		| <%= link_to "Set as a Clone", edit_clone_path(@character) %>
-	<% end %>
-</nav>
