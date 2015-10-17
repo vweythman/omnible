@@ -13,11 +13,13 @@ class ChapterDecorator < EditableDecorator
 	end
 
 	def heading
-		if object.title.blank?
-			"Chapter #{self.position}"
-		else
-			object.title
-		end
+		object.title.blank? ? "Chapter #{self.position}" : object.title
+	end
+
+	def positioned_heading
+		title = "Chapter #{self.position}"
+
+		object.title.blank? ? title : title + ": " + object.title
 	end
 
 	def editing_title
