@@ -18,6 +18,8 @@ class Description < ActiveRecord::Base
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :within, ->(identity) {where("character_id IN (#{identity.descriptions.pluck(:character_id).join(",")})")}
+	scope :are_among_for, ->(character, ids) { where("character_id = ? AND identity_id IN (?)", character.id, ids)}
+	scope :not_among_for, ->(character, ids) { where("character_id = ? AND identity_id NOT IN (?)", character.id, ids)}
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -34,6 +36,25 @@ class Description < ActiveRecord::Base
 	# facetID - finds the id of the facet if it exists
 	def facet_id
 		facet.id unless identity.nil?
+	end
+
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	def self.update_for(model, list)
+		if list.length > 0
+			Description.transaction do
+				remove  = Description.not_among_for(model, list).destroy_all
+				current = Description.are_among_for(model, list).pluck(:id)
+
+				to_be_added = list - current
+
+				to_be_added.each do |id|
+					Description.where(character_id: model.id, identity_id: id).first_or_create
+				end
+			end
+		else
+			model.descriptions.destroy_all
+		end
 	end
 
 end
