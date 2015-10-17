@@ -1,43 +1,57 @@
 <%= form_for(@character) do |f| %>
+
 	<ul>
 		<% @character.errors.full_messages.each do |msg| %>
 			<li><%= msg %></li>
 		<% end %>
 	</ul>
-	<fieldset>
+
+	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
+
+	<fieldset class="heading">
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
-		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @variants.join(";"), :placeholder => "Add Alternate Names", class: 'taggables') %>
-		<%= form_field f.label(:about), f.text_area(:about, :placeholder => "Describe Character...") %>
 		<%= render 'shared/edit_fields', f: f %>
 	</fieldset>
 
-	<%= show_link @descnest.heading, @descnest.klass %>
-	<%= content_tag :fieldset, class: 'nested identities descriptors', id: @descnest.form_id do %>
-		<%= nested_legend @descnest %>
-		<%= nested_fields f, @descnest %>
-		<p><%= link_to_add_association "+ Add Descriptor", f, @descnest.klass, :partial=> @descnest.partial %></p>
-	<% end %>
+	<fieldset class="about">
+		<legend>About</legend>
 
-	<%= show_link @itemnest.heading, @itemnest.klass %>
-	<%= content_tag :fieldset, class: 'nested items', id: @itemnest.form_id do %>
-		<%= nested_legend @itemnest %>
-		<%= nested_fields f, @itemnest %>
-		<p><%= link_to_add_association "+ Add Item", f, @itemnest.klass, :partial=> @itemnest.partial %></p>
-	<% end %>
+		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @character.variant_names, :placeholder => "Add Other Names", class: 'taggables') %>
+		<%= form_field f.label(:about), f.text_area(:about, :placeholder => "About the Character", :class=> :minor) %>
 
-	<%= show_link @prejnest.heading, @prejnest.klass %>
-	<%= content_tag :fieldset, class: 'nested identities prejudices', id: @prejnest.form_id do %>
-		<%= nested_legend @prejnest %>
-		<%= nested_fields f, @prejnest %>
-		<p><%= link_to_add_association '+ Add Prejudice', f, @prejnest.klass, :partial=> @prejnest.partial %></p>
-	<% end %>
+		<%= show_link "Descriptors", :identities %>
+		<%= content_tag :fieldset, class: @identities.field_class, id: @identities.formid do %>
+			<%= nested_legend @identities %>
+			<% @identities.list_possible.each do |facet, list| %>
+				<%= form_field label_tag(facet, facet), text_field_tag(facet, csnames(list), class: 'taggables') %>
+			<% end %>
+		<% end %>
 
-	<%= show_link @opinnest.heading, @opinnest.klass %>
-	<%= content_tag :fieldset, class: 'nested opinions', id: @opinnest.form_id do %>
-		<%= nested_legend @opinnest %>
-		<%= nested_fields f, @opinnest %>
-		<p><%= link_to_add_association "+ Add Opinion", f, @opinnest.klass, :partial=> @opinnest.partial %></p>
-	<% end %>
+		<%= show_link "Items", :possessions %>
+		<%= content_tag :fieldset, class: 'nested items', id: @items.formid do %>
+			<%= nested_legend @items %>
+			<%= nested_fields f, @items %>
+			<p><%= link_to_add_association "+ Add Item", f, @items.klass, :partial=> @items.partial %></p>
+		<% end %>
+	</fieldset>
+
+	<fieldset>
+		<legend>Opinions and Prejudices</legend>
+
+		<%= show_link @prejudices.heading, @prejudices.klass %>
+		<%= content_tag :fieldset, class: 'nested identities prejudices', id: @prejudices.formid do %>
+			<%= nested_legend @prejudices %>
+			<%= nested_fields f, @prejudices %>
+			<p><%= link_to_add_association '+ Add Prejudice', f, @prejudices.klass, :partial=> @prejudices.partial %></p>
+		<% end %>
+
+		<%= show_link @opinions.heading, @opinions.klass %>
+		<%= content_tag :fieldset, class: 'nested opinions', id: @opinions.formid do %>
+			<%= nested_legend @opinions %>
+			<%= nested_fields f, @opinions %>
+			<p><%= link_to_add_association "+ Add Opinion", f, @opinions.klass, :partial=> @opinions.partial %></p>
+		<% end %>
+	</fieldset>
 
 	<%= f.submit %>
 <% end %>
