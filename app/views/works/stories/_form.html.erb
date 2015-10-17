@@ -2,14 +2,24 @@
 
 	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
 
-	<fieldset><%= render 'works/shared/work_fields', f: f %></fieldset>
+	<ul>
+		<% @story.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+
+	<fieldset class="primary">
+		<%= render 'works/shared/work_fields', f: f %>
+	</fieldset>
 
 	<%= show_link "Chapters", :chapters %>
-	<%= content_tag :fieldset, class: "nested chapters", id: @chapters.formid do %>
-		<%= nested_legend @chapters %>
-		<%= nested_fields f, @chapters %>
-		<p><%= link_to_add_association "+ Add Chapter", f, :chapters, :partial => @chapters.partial %></p>
+	<%= content_tag :fieldset, class: "nested chapters", id: @story.current_chapters.formid do %>
+		<%= nested_legend @story.current_chapters %>
+		<%= nested_fields f, @story.current_chapters %>
+		<p><%= link_to_add_association "+ Add Chapter", f, :chapters, :partial => @story.current_chapters.partial %></p>
 	<% end %>
+
+	<%= render 'works/shared/work_tag_fields', f: f %>
 
 	<%= f.submit %>
 <% end %>
