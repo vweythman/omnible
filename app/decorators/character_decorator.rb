@@ -94,21 +94,15 @@ class CharacterDecorator < EditableDecorator
 
 	# ASIDE
 	# ------------------------------------------------------------
-	def aside
-		identities  = self.identities.alphabetic.includes(:facet).decorate
+	def list_possessions
 		possessions = PossessionsDecorator.decorate(self.possessions.includes(:item, :generic))
+		possessions.items.html_safe
+	end
 
-		if identities.length > 0 && possessions.can_list?
-			h.content_tag :aside do
-				if identities.can_list?
-					h.concat identities.subheading
-					h.concat identities.list
-				end
-
-				if possessions.can_list?
-					h.concat possessions.items.html_safe
-				end
-			end
+	def list_identities
+		identities = self.identities.alphabetic.includes(:facet).decorate
+		if identities.can_list?
+			h.subgrouped_list("Overview", identities)
 		end
 	end
 
@@ -147,6 +141,15 @@ class CharacterDecorator < EditableDecorator
 		h.content_tag :nav, class: 'toolkit replication' do
 			links
 		end
+	end
+
+	def current_detail_text
+		self.details.build if self.details.length == 0
+		@current_details ||= decorated_details
+	end
+
+	def decorated_details
+		CharacterInfosDecorator.decorate(self.details)
 	end
 
 end
