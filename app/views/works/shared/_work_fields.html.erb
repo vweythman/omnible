@@ -1,7 +1,11 @@
+<%= f.hidden_field :uploader_id,  :value => current_user.id %>
 <%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Title") %>
 <%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Write Summary", :class=> :minor) %>
-<%= render 'shared/edit_fields', f: f %>
 
-<%= f.fields_for :rating do |rating_builder| %>
-	<%= render 'works/shared/rating_fields', f: rating_builder %>
+<%= render 'shared/forms/edit_fields', f: f %>
+
+<% if @work.uploader? current_user %>
+	<%= f.fields_for :rating do |rating_builder| %>
+		<%= render 'works/shared/rating_fields', f: rating_builder %>
+	<% end %>
 <% end %>
