@@ -3,6 +3,8 @@
 @import 'partials/forms/general';
 input[type="submit"] {
 	@include clickable(desaturate($moss-color, 20%));
+	margin: 10px;
+	width:  calc(100% - 20px);
 }
 form {
 	border: 1px solid $border-color;
