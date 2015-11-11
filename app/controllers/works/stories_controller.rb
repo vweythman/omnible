@@ -24,7 +24,7 @@ class Works::StoriesController < WorksController
 		if @story.save
 			redirect_to @story
 		else
-			@story = @story.decorate
+			begin_work
 			render action: 'new'
 		end
 	end
@@ -53,9 +53,14 @@ class Works::StoriesController < WorksController
 
 	# setup work
 	def begin_work
-		@story = Story.new
+		@story ||= Story.new
 		@story = @story.decorate
 		@work  = @story
+	end
+
+	# set tag creation
+	def setup_tags
+		create_tags(:story, true)
 	end
 
 	# define strong parameters
