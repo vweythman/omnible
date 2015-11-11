@@ -46,7 +46,6 @@
 	} @else { 
 		$text-color: lighten($color, 100%);
 	}
-	border:        3px solid darken($color, 5px);
 	background:    $color;
 	a {
 		color: $text-color;
@@ -56,28 +55,24 @@
 		}
 	}
 }
-@mixin embossed($color) {
+@mixin buttoned($color) {
 	@include buttonable($color);
-	border-top-color:  lighten($color, 10%);
-	border-left-color: lighten($color, 10%);
 	border-radius: 2px;
 }
-@mixin depressed($color) {
+@mixin clicked($color) {
 	@include buttonable($color);
-	border-bottom-color: lighten($color, 10%);
-	border-right-color:  lighten($color, 10%);
 }
 
 @mixin clickable($color) {
-	@include embossed($color);
-	background: $color;
-	color:       #FFF;
-	font-weight: bolder;
-	padding:     10px;
-	margin:      10px;
-	width:       calc(100% - 20px);
+	@include buttoned($color);
+	background:    $color;
+	border:        none;
+	border-radius: 5px;
+	color:         #FFF;
+	font-weight:   bolder;
+	padding:       10px;
 	&:hover  { background: saturate($color, 15%); }
-	&:active { @include depressed($color); }
+	&:active { @include clicked($color); }
 }
 
 @mixin togglable($color) {
@@ -93,7 +88,7 @@
 	}
 }
 @mixin chooseable($color) {
-	@include embossed($color);
+	@include buttoned($color);
 	input:checked + label { background: darken($color, 10%); }
 }
 @mixin grouping($color) {

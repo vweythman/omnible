@@ -115,7 +115,7 @@ aside dl {
 // .............................................
 @import 'partials/toolkits';
 .replication {
-	@include embossed($moss-color);
+	@include buttoned($moss-color);
 	font-size: .85em;
 	border-radius: 10px;
 	margin:        10px auto;

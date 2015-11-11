@@ -1,7 +1,7 @@
 /* EDIT BAR
 ************************************************/
 .alteration {
-	@include embossed($rose-color);
+	@include buttoned($rose-color);
 	
 	border-radius: 2px;
 	display:  inline-block;
