@@ -1,11 +1,14 @@
 <article>
-	<%= @character.aside %>
+	<aside>
+		<%= @character.list_identities %>
+		<%= @character.list_possessions %>
+	</aside>
 
 	<section>
-		<% if @character.about.present? %>
+		<% @character.decorated_details.each do |detail| %>
 			<div>
-				<h2>About</h2>
-				<%= markdown @character.about %>
+				<%= detail.subheading %>
+				<%= markdown detail.content %>
 			</div>
 		<% end %>
 
