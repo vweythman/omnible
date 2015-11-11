@@ -21,12 +21,12 @@ canvas {
 	width: calc(100% - 10px);
 	margin: 10px;
 	thead {
-		border-bottom: 3px solid $moss-color;
+		border-bottom: 3px solid $fire-color;
 		text-align: left;
 	}
 }
 .aggregated-views {
-	border: 1px solid $moss-color;
+	border: 1px solid $fire-color;
 	margin: 15px 25px;
 }
 .public-opinion-count {
@@ -42,8 +42,8 @@ canvas {
 	max-width: 600px;
 }
 .relationships thead {
-	@include gradient-back(45deg, $moss-lightest, $moss-lighter);
-	border-bottom: 3px solid $moss-color;
+	@include gradient-back(45deg, $fire-lightest, $fire-lighter);
+	border-bottom: 3px solid $fire-color;
 }
 
 // NON-DESKTOP
@@ -52,7 +52,7 @@ canvas {
 	thead      { display: none; }
 	tr, th, td { display: block; }
 	th {
-		border-bottom:  3px solid $moss-color;
+		border-bottom:  3px solid $fire-color;
 		color: $read-color;
 		padding-bottom: 3px;
 		font-weight:    600;
@@ -71,7 +71,7 @@ canvas {
 		width: calc(100% - 50px);
 		border: none;
 		td:before {
-			border-bottom: 3px solid $moss-color;
+			border-bottom: 3px solid $fire-color;
 			margin: 5px 0;
 			padding: 3px 0;
 		}
@@ -83,7 +83,7 @@ canvas {
 @include desktop {
 	.relationships {
 		margin: 10px;
-		border-bottom: 3px solid $moss-color;
+		border-bottom: 3px solid $fire-color;
 	}
 	tr:nth-child(even) {
 		background: lighten($read-color, 70%);

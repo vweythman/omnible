@@ -2,7 +2,7 @@
 ************************************************/
 @import 'partials/forms/general';
 input[type="submit"] {
-	@include clickable(desaturate($moss-color, 20%));
+	@include clickable(desaturate($fire-color, 20%));
 	margin: 10px;
 	width:  calc(100% - 20px);
 }
@@ -13,14 +13,14 @@ form {
 legend {
 	width: calc(100% - 20px);
 	padding: 10px;
-	background: $moss-lightest;
+	background: $fire-lightest;
 	text-transform: uppercase;
 	font-weight: bolder;
 }
 label {
 	font-weight: bolder;
 	padding: 10px;
-	border-bottom: 3px solid $moss-dark;
+	border-bottom: 3px solid $fire-dark;
 	display: none;
 }
 

@@ -1,13 +1,6 @@
 // RATINGS
 // .............................................
 
-// VARIABLES
-$rating-lowest:  hsl(20, 95%, 25%);
-$rating-low:     hsl(30, 90%, 25%);
-$rating-mid:     hsl(50, 90%, 25%);
-$rating-high:    hsl(80, 90%, 25%);
-$rating-highest: hsl(90, 95%, 25%);
-
 // LEVELS
 .level0 { color: $rating-lowest; }
 .level1 { color: $rating-low; }

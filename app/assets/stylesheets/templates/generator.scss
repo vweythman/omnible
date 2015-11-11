@@ -24,14 +24,14 @@
 	a:hover { text-decoration: underline; }
 }
 input[type="submit"] {
-	@include clickable($moss-darker);
+	@include clickable($fire-darker);
 	margin: 10px;
 	width:  calc(100% - 20px);
 	text-transform: capitalize;
 }
 form {
-	border-top:    3px solid $moss-color;
-	border-bottom: 3px solid $moss-color;
+	border-top:    3px solid $fire-color;
+	border-bottom: 3px solid $fire-color;
 }
 .primary {
 	margin-bottom: 0;
@@ -48,8 +48,8 @@ form {
 // HEADINGS AND LABELS
 // .............................................
 h1 {
-	background:    $moss-lighter;
-	color:         $moss-darker;
+	background:    $fire-lighter;
+	color:         $fire-darker;
 	text-align:    center;
 }
 label { 
@@ -63,7 +63,7 @@ legend {
 }
 .ref {
 	background: $page-color;
-	color: $moss-dark;
+	color: $fire-dark;
 	a { font-style: italic; }
 }
 
@@ -98,7 +98,7 @@ legend {
 		margin: 0;
 	}
 	label {
-		color:         $moss-dark;
+		color:         $fire-dark;
 		display:       inline-block;
 		float:         left;
 		font-weight:   bolder;

@@ -57,7 +57,7 @@ article header {
 .time {
 	margin: 5px 0;
 	width: 50%;
-	background: $moss-lighter;
+	background: $fire-lighter;
 	border-radius: 5px;
 	.date {
 		margin-right: 10px;
@@ -84,7 +84,7 @@ article header {
 	}
 }
 article .alteration {
-	@include buttoned($rose-lighter);
+	@include buttoned($fire-lighter);
 }
 
 // CONTENT

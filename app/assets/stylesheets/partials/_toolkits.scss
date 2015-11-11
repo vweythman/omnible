@@ -5,7 +5,7 @@
 	a {
 		padding: 10px;
 		display: inline-block;
-		background: $moss-dark;
+		background: $fire-dark;
 		color: #FFF;
 		min-width: 50%;
 		text-align: center;
@@ -30,14 +30,14 @@
 }
 .creation a:hover,
 .insertion a:hover {
-	background: $moss-lightest;
-	color: $moss-darker;
+	background: $fire-lightest;
+	color: $fire-darker;
 }
 
 // EDIT BAR
 // .............................................
 .alteration {
-	@include buttoned($rose-color);
+	@include buttoned($fire-color);
 	
 	border-radius: 5px;
 	display:       inline-block;

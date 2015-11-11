@@ -9,11 +9,11 @@
 	display: none;
 }
 .show { 
-	@include togglable(desaturate($moss-lightest, 20%));
+	@include togglable(desaturate($fire-lightest, 20%));
 }
 .hide {
 	cursor: pointer;
-	color: $rose-color;
+	color: $fire-color;
 }
 
 // STRUCTURE & HEADINGS
@@ -61,12 +61,12 @@
 // DYNAMIC INPUT
 // .............................................
 .remove_fields { 
-	@include togglable(desaturate($moss-lighter, 20%));
+	@include togglable(desaturate($fire-lighter, 20%));
 	display: inline-block;
 	margin: 0 10px;
 }
 .add_fields    {
-	@include togglable($moss-lightest);
+	@include togglable($fire-lightest);
 	display: inline-block;
 	margin-top: 10px;
 }

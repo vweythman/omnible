@@ -29,8 +29,8 @@ fieldset {
 // .............................................
 h2,
 legend {
-	background:    $rose-darkest;
-	color:         $rose-lightest;
+	background:    $fire-darkest;
+	color:         $fire-lightest;
 	padding:       10px;
 	text-align:    center;
 }
@@ -46,9 +46,9 @@ label {
 	font-weight: bolder;
 	display: block;
 	padding: 10px;
-	border-top: 4px solid $rose-darker;
+	border-top: 4px solid $fire-darker;
 	margin: 0;
-	background: $rose-dark;
+	background: $fire-dark;
 }
 
 // INPUT
@@ -56,7 +56,7 @@ label {
 input {
 	padding: 10px;
 	border: none;
-	background: lighten($rose-lightest, 5%);
+	background: lighten($fire-lightest, 5%);
 }
 input:not([type="checkbox"]) {
 	width: calc(100% - 20px);
@@ -64,14 +64,14 @@ input:not([type="checkbox"]) {
 input[type="submit"] {
 	width: calc(100% - 40px);
 	margin: 15px 20px;
-	background: $rose-lightest;
+	background: $fire-lightest;
 	border-size: 1px;
 }
 
 // REMEMBER ME
 // .............................................
 .rememberable {
-	border-top: 4px solid $rose-darker;
+	border-top: 4px solid $fire-darker;
 	overflow: auto;
 	input {
 		float: left;
@@ -79,7 +79,7 @@ input[type="submit"] {
 	}
 	label {
 		border: none;
-		color: $rose-dark;
+		color: $fire-dark;
 		background: $page-color;
 	}
 }

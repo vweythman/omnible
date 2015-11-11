@@ -4,21 +4,14 @@
 // READING COLORS and MISC
 $page-color:   #FFF;
 $read-color:   #333;
+$text-color:   #333;
 $fade-color:   lighten($read-color, 20%);
 $border-color: #d0d0d0;
 $text-size:    14px;
 $heading-size: 24px;
 
 // COLOR SCHEME COLORS
-$moss-color:    hsl(115, 50%, 35%);
-$moss-light:    lighten($moss-color, 15%);
-$moss-lighter:  lighten($moss-color, 30%);
-$moss-lightest: lighten($moss-color, 40%);
-$moss-dark:     darken($moss-color, 10%);
-$moss-darker:   darken($moss-color, 20%);
-$moss-darkest:  darken($moss-color, 35%);
-
-$water-color:    hsl(205, 50%, 50%);
+$water-color:    hsl(205, 50%, 52%);
 $water-light:    lighten($water-color, 15%);
 $water-lighter:  lighten($water-color, 30%);
 $water-lightest: lighten($water-color, 40%);
@@ -26,7 +19,23 @@ $water-dark:     darken($water-color, 10%);
 $water-darker:   darken($water-color, 20%);
 $water-darkest:  darken($water-color, 35%);
 
-$rose-color:    hsl(295, 50%, 50%);
+$fire-color:    hsl(35, 100%, 56%);
+$fire-light:    lighten($fire-color, 15%);
+$fire-lighter:  lighten($fire-color, 30%);
+$fire-lightest: lighten($fire-color, 40%);
+$fire-dark:     darken($fire-color, 10%);
+$fire-darker:   darken($fire-color, 20%);
+$fire-darkest:  darken($fire-color, 35%);
+
+$moss-color:    hsl(35, 100%, 56%);
+$moss-light:    lighten($moss-color, 15%);
+$moss-lighter:  lighten($moss-color, 30%);
+$moss-lightest: lighten($moss-color, 40%);
+$moss-dark:     darken($moss-color, 10%);
+$moss-darker:   darken($moss-color, 20%);
+$moss-darkest:  darken($moss-color, 35%);
+
+$rose-color:    hsl(35, 100%, 56%);
 $rose-light:    lighten($rose-color, 15%);
 $rose-lighter:  lighten($rose-color, 30%);
 $rose-lightest: lighten($rose-color, 40%);
@@ -34,8 +43,15 @@ $rose-dark:     darken($rose-color, 10%);
 $rose-darker:   darken($rose-color, 20%);
 $rose-darkest:  darken($rose-color, 35%);
 
+// RATING VARIABLES
+$rating-lowest:  hsl(0,   95%, 25%);
+$rating-low:     hsl(35,  90%, 25%);
+$rating-mid:     hsl(70,  90%, 25%);
+$rating-high:    hsl(105, 90%, 25%);
+$rating-highest: hsl(140, 95%, 25%);
+
 // SCREEN SIZE and LAYOUT
-$mobile-max:      550px;
+$mobile-max:  550px;
 $tablet-min:  $mobile-max;
 $tablet-max:  875px;
 $desktop-min: $tablet-max;

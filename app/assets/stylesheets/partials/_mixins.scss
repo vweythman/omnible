@@ -41,7 +41,7 @@
 }
 @mixin buttonable($color) {
 	$text-color: $color;
-	@if lightness($color) > 55% { 
+	@if lightness($color) > 60% { 
 		$text-color: darken($color, 100%);
 	} @else { 
 		$text-color: lighten($color, 100%);

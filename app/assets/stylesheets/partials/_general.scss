@@ -20,7 +20,7 @@ a {
 ul { list-style: none; }
 article ul li:before,
 article dd:before {
-	color: $rose-dark;
+	color: $fire-dark;
 	content: "» ";
 	font-weight: bolder;
 }

@@ -35,7 +35,7 @@ header p {
 	margin: 0;
 	margin-top: 10px;
 	a {
-		color: $moss-lightest;
+		color: $fire-lightest;
 	}
 }
 
@@ -77,8 +77,8 @@ h3 {
 // ASIDE
 // .............................................
 aside h2 {
-	@include gradient-back(90deg, $moss-lightest, $page-color);
-	color:   $moss-darker;
+	@include gradient-back(90deg, $fire-lightest, $page-color);
+	color:   $fire-darker;
 	margin:  0;
 }
 aside dl {
@@ -115,7 +115,7 @@ aside dl {
 // .............................................
 @import 'partials/toolkits';
 .replication {
-	@include buttoned($moss-color);
+	@include buttoned($fire-color);
 	font-size: .85em;
 	border-radius: 10px;
 	margin:        10px auto;
@@ -144,7 +144,7 @@ aside dl {
 @include mobile {
 	#main > header { border: none; }
 	aside h2 {
-		border-top: 3px solid $moss-lighter;
+		border-top: 3px solid $fire-lighter;
 	}
 	aside dl {
 		@include column-counting(2);

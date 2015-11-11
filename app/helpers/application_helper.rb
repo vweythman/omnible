@@ -15,7 +15,7 @@ module ApplicationHelper
 
 	def page_style_loc(controller, action)
 		collector, type   = controller.split('/')
-		dashboard_types   = ['naming']
+		dashboard_types   = ['dashboard', 'naming']
 		generator_actions = ['new', 'edit', 'update', 'create']
 
 		if type.blank?
@@ -33,7 +33,7 @@ module ApplicationHelper
 		
 		# DASHBOARD STYLESHEET
 		if dashboard_types.include? type
-			template_type = "users/dashboard"
+			template_type = "dashboard"
 		
 		# SESSION STYLESHEET
 		elsif collector == 'devise'
