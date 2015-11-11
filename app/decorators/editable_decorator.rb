@@ -56,7 +56,7 @@ class EditableDecorator < Draper::Decorator
 	end
 
 	def link_to_deleting
-		h.link_to 'Delete', object, method: :delete, data: { confirm: "Are you sure you want to delete #{model.heading}?" }
+		h.link_to 'Delete', object, method: :delete, data: { confirm: "Are you sure you want to delete #{self.heading}?" }
 	end
 
 end
