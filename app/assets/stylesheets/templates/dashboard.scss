@@ -62,6 +62,23 @@ article > div {
 
 	}
 }
+td[data-label="Pen Status"] {
+	font-weight: bolder;
+	text-align: center;
+	span {
+		display: inline-block;
+		padding: 5px;
+		width: 100px;
+	}
+}
+.default-pen {
+	background: $moss-darkest;
+	color: $page-color;
+}
+.secondary-pen {
+	background: $rose-lighter;
+}
+
 // PEN NAME FORM
 // .............................................
 @import 'partials/forms/general_input';
