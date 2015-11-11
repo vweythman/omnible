@@ -3,7 +3,7 @@
 <div id="main" class="index">
 	<header>
 		<h1>Items</h1>
-		<%= index_toolkit "Item", new_item_path %>
+		<%= creation_toolkit "Item", new_item_path %>
 	</header>
 
 	<article><%= @items.list if @items.can_list? %></article>

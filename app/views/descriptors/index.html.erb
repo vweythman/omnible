@@ -4,19 +4,19 @@
 	<h1>Tags</h1>
 
 	<h2>Character Tags (Identities)</h2>
-	<%= index_toolkit('Identity', new_identity_path) %>
+	<%= creation_toolkit('Identity', new_identity_path) %>
 	<%= render 'descriptors/identities/list' %>
 
 	<h2>Character Relationship Tags</h2>
-	<%= index_toolkit('Relationship Type', new_relator_path) %>
+	<%= creation_toolkit('Relationship Type', new_relator_path) %>
 	<%= render 'descriptors/relators/list' %>
 
 	<h2>Event Tags (Activities)</h2>
-	<%= index_toolkit('Activity', new_activity_path) %>
+	<%= creation_toolkit('Activity', new_activity_path) %>
 	<%= render 'descriptors/activities/list' %>
 
 	<h2>Work Tags</h2>
-	<%= index_toolkit('Tag', new_tag_path) %>
+	<%= creation_toolkit('Tag', new_tag_path) %>
 	<%= render 'descriptors/tags/list' %>
 </div>
 
