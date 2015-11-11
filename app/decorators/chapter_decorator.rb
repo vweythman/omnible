@@ -62,23 +62,43 @@ class ChapterDecorator < EditableDecorator
 
 	# RELATED MODELS
 	# ------------------------------------------------------------
-	def link_to_prev
-		unless self.prev.nil?
-			h.link_to "&laquo; Prev".html_safe, [self.story, self.prev]
-		end
-	end
-
-	def link_to_next
-		unless self.next.nil?
-			h.link_to "Next &raquo;".html_safe, [self.story, self.next]
-		end
-	end
-
+	# ALL PAGINATION
+	# ............................................................
 	def pagination
-		prv = h.content_tag :li, class: 'prev' do link_to_prev end
-		nxt = h.content_tag :li, class: 'next' do link_to_next end
+		rst = h.content_tag :li, class: 'first' do link_to_first end
+		lst = h.content_tag :li, class: 'last'  do link_to_last  end
+		prv = h.content_tag :li, class: 'prev'  do link_to_prev  end
+		nxt = h.content_tag :li, class: 'next'  do link_to_next  end
 		h.content_tag :ol, class: 'pagination' do
-			prv + nxt 
+			rst + prv + nxt + lst 
+		end
+	end
+
+	# FIRST
+	# ............................................................
+	def first_in_story
+		@first_in_story ||= self.story.chapters.ordered.first
+	end
+
+	def link_to_first
+		unless self.is_first?
+			h.link_to "&laquo; First".html_safe, [self.story, self.first_in_story]
+		end
+	end
+
+	# PREVIOUS
+	# ............................................................
+	def link_to_prev
+		unless self.is_first?
+			h.link_to "&lsaquo; Prev".html_safe, [self.story, self.prev]
+		end
+	end
+	
+	# NEXT
+	# ............................................................
+	def link_to_next
+		unless self.is_last?
+			h.link_to "Next &rsaquo;".html_safe, [self.story, self.next]
 		end
 	end
 
@@ -90,6 +110,28 @@ class ChapterDecorator < EditableDecorator
 				insertion
 			end
 		end
+	end
+
+	# LAST
+	# ............................................................
+	def last_in_story
+		@last_in_story ||= self.story.chapters.ordered.last
+	end
+
+	def link_to_last
+		unless self.is_last?
+			h.link_to "Last &raquo;".html_safe, [self.story, self.last_in_story]
+		end
+	end
+
+	# QUESTIONS
+	# ............................................................
+	def is_first?
+		first_in_story == self
+	end
+
+	def is_last?
+		last_in_story == self
 	end
 
 end
