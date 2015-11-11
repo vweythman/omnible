@@ -10,14 +10,13 @@
 
 	<fieldset class="heading">
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
-		<%= render 'shared/edit_fields', f: f %>
+		<%= render 'shared/forms/edit_fields', f: f %>
 	</fieldset>
 
 	<fieldset class="about">
 		<legend>About</legend>
 
 		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @character.variant_names, :placeholder => "Add Other Names", class: 'taggables') %>
-		<%= form_field f.label(:about), f.text_area(:about, :placeholder => "About the Character", :class=> :minor) %>
 
 		<%= show_link "Descriptors", :identities %>
 		<%= content_tag :fieldset, class: @identities.field_class, id: @identities.formid do %>
@@ -25,6 +24,13 @@
 			<% @identities.list_possible.each do |facet, list| %>
 				<%= form_field label_tag(facet, facet), text_field_tag(facet, csnames(list), class: 'taggables') %>
 			<% end %>
+		<% end %>
+
+		<%= show_link "Detailed Description", :details %>
+		<%= content_tag :fieldset, class: "nested chapters", id: @character.current_detail_text.formid do %>
+			<%= nested_legend @character.current_detail_text %>
+			<%= nested_fields f, @character.current_detail_text %>
+			<p><%= link_to_add_association "+ Add Detail", f, :details, :partial => @character.current_detail_text.partial %></p>
 		<% end %>
 
 		<%= show_link "Items", :possessions %>
