@@ -1,11 +1,34 @@
 module ToolkitHelper
-	def index_toolkit(name, path_to)
+
+	# CREATION
+	# ------------------------------------------------------------
+	def creation_toolkit(name, path_to)
 		if user_signed_in? 
-			content_tag :nav, class: 'toolkit creation' do
-				link_to "Create #{name}".titleize, path_to
-			end
+			render(:partial => "shared/toolkits/createable", :locals => { :titleized_type => name.titleize, :path_to => path_to })
 		end
 	end
+
+	def inline_creation_toolkit(name, path_to)
+		render(:partial => "shared/toolkits/inline_createable", :locals => { :titleized_type => name.titleize, :path_to => path_to })
+	end
+
+	# ALTERATION
+	# ------------------------------------------------------------
+	def alteration_toolkit(model)
+		if user_signed_in? && model.editable?(current_user)
+			render(:partial => "shared/toolkits/alterable", :locals => { :item => model } )
+		end
+	end
+
+	def inline_alteration_toolkit(model)
+		render(:partial => "shared/toolkits/inline_alterable", :locals => { :item => model } )
+	end
+
+
+
+
+
+
 
 	# INSERTIONS
 	# ------------------------------------------------------------
