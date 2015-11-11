@@ -1,17 +1,18 @@
 <% provide(:title, @chapter.meta_title) %>
 
 <header>
-		<%= @story.edit_bar %>
-		<%= @story.rated %>
-		<h1><%= @story.title %></h1>
+	<%= @story.edit_bar %>
+	<%= @story.rated %>
+	<h1><%= @story.title %></h1>
 
-		<p><%= @story.chapter_creation_link %></p>
-		<p><%# @story.note_creation_link %></p>
+	<p><%= @story.chapter_creation_link %></p>
+	<p><%= @story.note_creation_link %></p>
 
-		<%= @story.uploaded_by.html_safe %>
-		<%= markdown @story.summary %>
-		<%= @story.component_indices %>
-		<p><%= link_to "Whole Story", whole_story_path(@story) %></p>
+	<%= @story.uploaded_by.html_safe %>
+	<%= @story.main_tags_line %>
+	<%= markdown @story.summary %>
+	<%= @story.component_indices %>
+	<p><%= link_to "Whole Story", whole_story_path(@story) %></p>
 </header>
 
 <article role="article">
