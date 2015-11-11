@@ -3,32 +3,47 @@ require 'active_support/concern'
 module Editable
 	extend ActiveSupport::Concern
 
-	# CONSTANTS
+	# CONSTANT TYPES
 	# ------------------------------------------------------------
-	PERSONAL            = 0
+	# - ADMIN
+	MANAGER = -2
+	STAFF   = -1
+
+	# - USER
+	PRIVATE  = 0
+	PERSONAL = 0
+
+	# - RELATED USERS
 	FRIENDS_ONLY        = 1
 	FRIENDS_N_FOLLOWERS = 2
-	MEMBERS_ONLY        = 3
-	EXCEPT_BLOCKED      = 4
-	PUBLIC              = 5
 
+	# - GENERAL PUBLIC
+	MEMBERS_ONLY   = 3
+	EXCEPT_BLOCKED = 4
+	PUBLIC         = 5
+
+	# SCOPES AND ASSOCIATIONS
+	# ------------------------------------------------------------
 	included do
-		# levels
-		scope :public_viewable, -> { where("publicity_level = ?", PUBLIC) }
-		scope :semi_viewable,   -> { where("publicity_level = ?", EXCEPT_BLOCKED) }
-		scope :user_viewable,   -> { where("publicity_level = ?", MEMBERS_ONLY)}
-		scope :friend_viewable, -> { where("publicity_level >= ? AND publicity_level <= ?", FRIENDS_ONLY, FRIENDS_N_FOLLOWERS) }
-		scope :follow_viewable, -> { where("publicity_level = ?", FRIENDS_N_FOLLOWERS) }
+		# - Levels of Visibility
+		scope :public_viewable, -> { where("#{self.table_name}.publicity_level = ?", PUBLIC) }
+		scope :semi_viewable,   -> { where("#{self.table_name}.publicity_level = ?", EXCEPT_BLOCKED) }
+		scope :user_viewable,   -> { where("#{self.table_name}.publicity_level = ?", MEMBERS_ONLY)}
+		scope :friend_viewable, -> { where("#{self.table_name}.publicity_level >= ? AND #{self.table_name}.publicity_level <= ?", FRIENDS_ONLY, FRIENDS_N_FOLLOWERS) }
+		scope :follow_viewable, -> { where("#{self.table_name}.publicity_level = ?", FRIENDS_N_FOLLOWERS) }
 
-		# conditional
-		scope :for_anons,     -> {where("publicity_level >= ?", EXCEPT_BLOCKED)}
-		scope :unblocked_for, ->(user) { where("uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)",    user.id).semi_viewable }
-		scope :friendlisted,  ->(user) { where("uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = ?)", user.id).friend_viewable }
-		scope :followlisted,  ->(user) { where("uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = ?)",    user.id).follow_viewable.unblocked_for(user) }
+		# - Conditional Scopes
+		scope :for_anons,     -> { where("#{self.table_name}.publicity_level >= ?", EXCEPT_BLOCKED) }
+		scope :unblocked_for, ->(user) { where("#{self.table_name}.uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)",    user.id).semi_viewable }
+		scope :friendlisted,  ->(user) { where("#{self.table_name}.uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = ?)", user.id).friend_viewable }
+		scope :followlisted,  ->(user) { where("#{self.table_name}.uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = ?)",  user.id).follow_viewable.unblocked_for(user) }
 
-		belongs_to :uploader, class_name: "User"
+		# - Joins
 		has_many :edit_invites, dependent: :destroy, as: :editable
 		has_many :view_invites, dependent: :destroy, as: :viewable
+
+		# - Has
+		belongs_to :uploader, class_name: "User"
 		has_many :invited_editors, through: :edit_invites, source: :user
 		has_many :invited_viewers, through: :view_invites, source: :user
 	end
@@ -41,21 +56,21 @@ module Editable
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	class_methods do
-		def viewable_for(user, table="")
+		def viewable_for(user)
 			if user.nil?
-				for_anons.order('name')
+				for_anons
 			else
 				i = user.id
 				# REPLACE WITH OR CHAINING EVENTUALLY
 				self.where("
-					#{table}uploader_id = #{i} OR
-					#{table}publicity_level = #{PUBLIC} OR (
-						#{table}uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i}) AND
-						#{table}uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i}) AND (
-							#{table}publicity_level = #{EXCEPT_BLOCKED} OR #{table}publicity_level = #{MEMBERS_ONLY} OR (
-								#{table}publicity_level > #{FRIENDS_ONLY - 1} AND #{table}publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND #{table}uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})
+					#{self.table_name}.uploader_id = #{i} OR
+					#{self.table_name}.publicity_level = #{PUBLIC} OR (
+						#{self.table_name}.uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i}) AND
+						#{self.table_name}.uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i}) AND (
+							#{self.table_name}.publicity_level = #{EXCEPT_BLOCKED} OR #{self.table_name}.publicity_level = #{MEMBERS_ONLY} OR (
+								#{self.table_name}.publicity_level > #{FRIENDS_ONLY - 1} AND #{self.table_name}.publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND #{self.table_name}.uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})
 							) OR (
-								#{table}publicity_level = #{FRIENDS_N_FOLLOWERS} AND #{table}uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})
+								#{self.table_name}.publicity_level = #{FRIENDS_N_FOLLOWERS} AND #{self.table_name}.uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})
 							)
 						)
 					)"
@@ -72,8 +87,14 @@ module Editable
 	# ------------------------------------------------------------
 	# Creator?
 	# - reader is the creator
-	def creator?(reader)
-		self.uploader == reader
+	def creator?(user)
+		# when pennames and authors
+	end
+
+	# Uploader?
+	# - reader is the creator
+	def uploader?(user)
+		self.uploader == user
 	end
 
 	# Editable?
@@ -81,7 +102,7 @@ module Editable
 	def editable?(editor)
 		@reader = editor
 		@level  = self.editor_level
-		creator?(@reader) || for_public? || invited_editor?(@reader) || check_restrictions
+		uploader?(@reader) || for_public? || invited_editor?(@reader) || check_restrictions
 	end
 
 	# InvitedEditor?
@@ -114,7 +135,7 @@ module Editable
 		@reader = reader
 		@level  = self.publicity_level
 
-		creator?(@reader) || for_public? || invited_viewer?(@reader) || check_restrictions
+		uploader?(@reader) || for_public? || invited_viewer?(@reader) || check_restrictions
 	end
 
 	# PRIVATE METHODS
