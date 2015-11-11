@@ -20,8 +20,9 @@ a {
 ul { list-style: none; }
 article ul li:before,
 article dd:before {
-    content: "» ";
-    color: $rose-dark;
+	color: $rose-dark;
+	content: "» ";
+	font-weight: bolder;
 }
 article ol li {
 	padding: 0;
