@@ -1,0 +1,31 @@
+// INPUT
+// .............................................
+input, 
+select, 
+textarea {
+	font:  15px "segoe ui";
+	margin: 0;
+	padding: 7px;
+	border: 1px solid #d0d0d0;
+}
+input, 
+select {
+	border: none;
+	width: 100%;
+}
+input {
+	@include box-sized();
+	background: $page-color;
+	border:     1px solid $border-color;
+	display:    inline-block;
+	overflow:   hidden;
+	padding:    7px;
+}
+textarea {
+	max-width: calc(100% - 16px);
+	min-width: calc(100% - 16px);
+}
+.minor { min-height: 50px; }
+.major { min-height: 300px; }
+
+// END
