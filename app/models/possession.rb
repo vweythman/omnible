@@ -47,12 +47,9 @@ class Possession < ActiveRecord::Base
 		list = Hash.new
 		models.map { |possession|
 			unless possession.nil?
-				pos_type = possession.nature
-				itm_type = possession.item.generic.name
-
-				list[pos_type]           = Hash.new if list[pos_type].nil?
-				list[pos_type][itm_type] = Array.new if list[pos_type][itm_type].nil?
-				list[pos_type][itm_type] << possession.item
+				pos_type       = possession.nature
+				list[pos_type] = Array.new if list[pos_type].nil?
+				list[pos_type] << possession.item
 			end
 		}
 		return list
