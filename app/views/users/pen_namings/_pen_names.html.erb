@@ -1,0 +1,17 @@
+<div class="pen-names">
+	<table>
+		<caption><%= caption_heading %> <span class="counter"><%= current_user.pen_names.length %></span></caption>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Works</th>
+			</tr>
+		</thead>
+
+		<tbody id="pen-names-list">
+			<%= render @pen_names %>
+		</tbody>
+	</table>
+	<div id="pen-namer-form" style="display:none;"></div>
+	<%= inline_creation_toolkit "Pen Name", new_pen_naming_path %>
+</div>
