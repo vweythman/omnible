@@ -28,7 +28,8 @@ class Story < Work
 
 	# NewestChapterPosition - get position for newest chapter
 	def newest_chapter_position
-		self.chapters.size + 1
+		latest = self.chapters.order("position DESC").first
+		latest.nil? ? 1 : latest.position + 1
 	end
 
 	# ContentDistribution - collects the totals number of chapters and notes
