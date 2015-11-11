@@ -138,10 +138,10 @@ class Place < ActiveRecord::Base
 	# EnsureDefaults - default behaivor
 	def ensure_defaults
 		self.fictional ||= true
-		self.form_id   ||= Form.where(name: "unspecified").pluck(:id)
+		self.form_id   ||= 16
 
-		self.editor_level    ||= 0 # PRIVATE
-		self.publicity_level ||= 4 # NON-BLOCKED PUBLIC
+		self.editor_level    ||= Editable::PUBLIC
+		self.publicity_level ||= Editable::PUBLIC
 	end
 
 end
