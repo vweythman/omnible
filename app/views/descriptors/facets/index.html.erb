@@ -1,0 +1,11 @@
+<% provide(:title, 'Identity Categories (Facets)') %>
+
+<h1>Identity Categories (Facets)</h1>
+
+<article>
+	<ul>
+		<% @facets.each do |i| %>
+			<li><%= link_to i.name, i %></li>
+		<% end %>
+	</ul>
+</article>
