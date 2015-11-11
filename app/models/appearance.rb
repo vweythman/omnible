@@ -20,6 +20,10 @@ class Appearance < ActiveRecord::Base
 	# ------------------------------------------------------------
 	extend Organizable
 
+	# VALIDATIONS
+	# ------------------------------------------------------------
+	validates_uniqueness_of :character_id, :scope => :work_id
+
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :are_among_for, ->(work, cids) { where("work_id = ? AND character_id IN (?)", work.id, cids)}
@@ -32,66 +36,48 @@ class Appearance < ActiveRecord::Base
 
 	belongs_to :main_character, -> { where("appearances.role = 'main'")}, class_name: "Character", foreign_key: "character_id"
 	belongs_to :side_character, -> { where("appearances.role = 'side'")}, class_name: "Character", foreign_key: "character_id"
-
-	belongs_to :subject,  -> { where("appearances.role = 'subject'")},   class_name: "Character", foreign_key: "character_id"
-	belongs_to :appearer, -> { where("appearances.role = 'appearing'")}, class_name: "Character", foreign_key: "character_id"
-
 	belongs_to :mentioned_character, -> { where("appearances.role = 'mentioned'")}, class_name: "Character", foreign_key: "character_id"
+
+	belongs_to :people_subject,  -> { where("appearances.role = 'subject'")},   class_name: "Character", foreign_key: "character_id"
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	# Hashing - organize values by roles
-	def self.hashing(work, options)
-		tags = Array.new
-		self.roles(work).map {|role|
-			tagging = options[role].split(";")
-			tags    = tags + tagging.map {|tagged| { :role => role, :name => tagged } }
-		}
-		return tags
-	end
-
-	# InitHash - inits a hash of arrays with the roles as keys
-	def self.init_hash(work)
-		lst = {}
-		self.roles(work).map {|role| lst[role] = Array.new }
-		return lst
-	end
-
 	# Roles - defines and collects the types of appearances
 	def self.roles(work)
-		if work.narrative?
+		self.roles_by_type(work.narrative?)
+	end
+
+	def self.roles_by_type(is_narrative)
+		if is_narrative
 			['main', 'side', 'mentioned']
 		else
 			['subject']
 		end
 	end
 
-	# UpdateFor - add and change appearances fro work
-	def self.update_for(work, options)
-		orig = work.appearances.joins(:character).pluck(:name, :role, :character_id)
-		curr = hashing(work, options)
-		delt = Array.new
-		updt = init_hash(work)
+	# UpdateFor - add and change appearances for work
+	def self.update_for(model, grouped_ids)
+		Appearance.transaction do
+			character_ids = Array.new
+			grouped_ids.map{ |role, ids|
 
-		orig.map {|character|
-			idx = curr.index { |i| i[:name] == character[0] }
-			
-			if idx.nil?
-				delt << character[2]
-			else
-				item = curr[idx]
-				role = item[:role]
-				if character[1] != role
-					updt[role] << character[2]
-				else
-					curr.delete_at(idx)
+				character_ids.concat ids
+
+				ids.each do |id|
+					current = Appearance.are_among_for(model, [id]).first
+
+					# create
+					if current.nil?
+						Appearance.where(work_id: model.id, character_id: id, role: role).create
+					# update role
+					elsif current.role != role
+						current.role = role
+						current.save
+					end				
 				end
-			end
-		}
-
-		self.are_among_for(work, delt).destroy_all
-		updt.map {|role, cids| self.are_among_for(work, cids).update_all(:role => role) }
-		return curr
+			}
+			remove = Appearance.not_among_for(model, character_ids).destroy_all
+		end
 	end
 
 	# PUBLIC METHODS

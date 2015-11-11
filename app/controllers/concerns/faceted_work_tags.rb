@@ -9,24 +9,42 @@ module FacetedWorkTags
 		ids.map { |i| { tag_col => i } }
 	end
 
-	def appearance_map(role, ids)
-		ids.map{|i| { character_id: i, role: role} }
+	def appearance_map(grouped_ids)
+		tags = Array.new
+		grouped_ids.map{ |role, ids|
+			ids.each do |id|
+				tags << { :role => role, character_id: id }
+			end
+		}
+		return tags
 	end
 
-	def create_tags
+	def create_tags(work_type, is_narrative)
 		place_ids = find_place_ids
-		
-		params[:character][:settings_attributes] = map_tags(place_ids, :place_id)
+
+		params[work_type][:settings_attributes]   = map_tags(place_ids, :place_id)
+		params[work_type][:appearance_attributes] = appearance_map(find_characters_ids(is_narrative))
 	end
 
 	def update_tags(model)
 		Setting.update_for(model, find_place_ids)
-
+		Appearance.update_for(model, find_characters_ids(model.narrative?))
 	end
 
 	def find_place_ids
 		place_names = params[:places]
 		Place.batch_by_name(place_names, current_user)
+	end
+
+	def find_characters_ids(is_narrative)
+		roles = Appearance.roles_by_type(is_narrative)
+		tags  = Hash.new
+
+		Appearance.transaction do
+			roles.map {|role| tags[role] = Character.batch_by_name(params[role], current_user) }
+		end
+
+		tags
 	end
 
 end
