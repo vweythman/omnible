@@ -18,9 +18,18 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :registerable,
 	:recoverable, :rememberable, :trackable, :validatable
 
+	# CALLBACKS
+	# ------------------------------------------------------------
+	after_create :default_pen
+
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# - Joins
+	# :: self
+	has_many :pseudonymings, dependent: :destroy
+	has_many :pen_namings, ->{ Pseudonyming.pen_namings }, class_name: "Pseudonyming"
+	has_many :roleplays,   ->{ Pseudonyming.roleplays },   class_name: "Pseudonyming"
+
 	# :: invitations
 	has_many :edit_invites, dependent: :destroy
 	has_many :view_invites, dependent: :destroy
@@ -38,6 +47,10 @@ class User < ActiveRecord::Base
 	has_many :given_blocks, dependent: :destroy, foreign_key: "blocked_id", class_name: "Block"
 
 	# - Has
+	# :: self
+	has_many :pen_names,           through: :pen_namings, source: :character
+	has_many :roleplay_characters, through: :roleplays,   source: :character
+
 	# :: relationships
 	has_many :frienders,      through: :given_friendships
 	has_many :friends,        through: :friendships,        source: :friendee
@@ -50,12 +63,12 @@ class User < ActiveRecord::Base
 	has_many :blocked_users, through: :blocks, source: :blocked
 	has_many :blockers,      through: :given_blocks
 
-	# :: creations
-	has_many :works,      foreign_key: "uploader_id"
-	has_many :characters, foreign_key: "uploader_id"
-	has_many :places,     foreign_key: "uploader_id"
-	has_many :items,      foreign_key: "uploader_id"
-	has_many :events,     foreign_key: "uploader_id"
+	# :: uploads
+	has_many :uploaded_works,      foreign_key: "uploader_id", class_name: "Work"
+	has_many :uploaded_characters, foreign_key: "uploader_id", class_name: "Character"
+	has_many :uploaded_places,     foreign_key: "uploader_id", class_name: "Place"
+	has_many :uploaded_items,      foreign_key: "uploader_id", class_name: "Item"
+	has_many :uploaded_events,     foreign_key: "uploader_id", class_name: "Event"
 
 	has_many :editables, through: :edit_invites
 	has_many :viewables, through: :view_invites
@@ -115,8 +128,39 @@ class User < ActiveRecord::Base
 		Friend.create(friender_id: self.id, friendee_id: user.id)
 	end
 
-	# Defrien - removes friendship status
+	# Defriend - removes friendship status
 	def defriend(user)
+	end
+
+	# Pseudonymize - create pen name
+	def pseudonymize(name = self.name, is_prime = true)
+		User.transaction do
+			nom_de_plume = characterize(name)
+			Pseudonyming.create(user_id: self.id, character_id: nom_de_plume.id, type: "PenNaming", is_primary: is_prime)
+		end
+	end
+
+	# Characterize - turn user into a character
+	def characterize(pen_name)
+		character = Character.new
+		character.name            = pen_name
+		character.uploader_id     = self.id
+		character.allow_play      = false
+		character.allow_clones    = false
+		character.allow_as_clone  = false
+		character.is_fictional    = false
+		character.editor_level    = Editable::PRIVATE
+		character.publicity_level = Editable::PRIVATE
+		character.save
+		return character
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def default_pen
+		pseudonymize(self.name, true)
 	end
 
 end

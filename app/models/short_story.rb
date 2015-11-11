@@ -18,7 +18,7 @@ class ShortStory < Work
 
 	# DELEGATED METHODS
 	# ------------------------------------------------------------
-	delegate :content, to: :chapter
+	delegate :content,   to: :chapter
 	delegate :afterward, to: :chapter
 
 	# PUBLIC METHODS
