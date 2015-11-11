@@ -20,34 +20,22 @@ class PossessionsDecorator < Draper::CollectionDecorator
 		object.length > 0
 	end
 
-	def subheading
-		h.content_tag :h2 do
-			"Related Item".pluralize(object.length)
-		end
-	end
-
 	def possible_possessions
 		@possible ||= Item.all
 	end
 
-	def items
-		list   = Possession.organize_items(object)
+	def items 
 		values = ""
-		list.each do |relator, type_group|
-			label  = h.content_tag :h2 do relator end
-			values = values + label
-			values = values + h.render( partial: "shared/definitions", object: type_group)
+		Possession.organize_items(object).each do |relator, group|
+			values = values + h.subgrouped_list(relator, ItemsDecorator.decorate(group))
 		end
 		values
 	end
 
 	def characters
-		list   = Possession.organize_characters(object)
 		values = ""
-		list.each do |relator, characters|
-			label  = h.content_tag :h2 do relator end
-			values = values + label
-			values = values + h.lilinks(characters)
+		Possession.organize_characters(object).each do |relator, group|
+			values = values + h.subgrouped_list(relator, CharactersDecorator.decorate(group))
 		end
 		values
 	end
