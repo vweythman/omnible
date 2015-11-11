@@ -9,12 +9,12 @@
 	<div class="uploads">
 		<h2>Uploads</h2>
 		<ul>
-			<li>Articles      <span class="counter"><%= current_user.uploaded_works.articles.count      %></span></li>
-			<li>Characters    <span class="counter"><%= current_user.uploaded_characters.count          %></span></li>
-			<li>Items         <span class="counter"><%= current_user.uploaded_items.count               %></span></li>
-			<li>Places        <span class="counter"><%= current_user.uploaded_places.count              %></span></li>
-			<li>Stories       <span class="counter"><%= current_user.uploaded_works.stories.count       %></span></li>
-			<li>Short Stories <span class="counter"><%= current_user.uploaded_works.short_stories.count %></span></li>
+			<li>Articles      <span class="counter"><%= @user.uploaded_articles.count      %></span></li>
+			<li>Characters    <span class="counter"><%= @user.uploaded_characters.count    %></span></li>
+			<li>Items         <span class="counter"><%= @user.uploaded_items.count         %></span></li>
+			<li>Places        <span class="counter"><%= @user.uploaded_places.count        %></span></li>
+			<li>Stories       <span class="counter"><%= @user.uploaded_stories.count       %></span></li>
+			<li>Short Stories <span class="counter"><%= @user.uploaded_short_stories.count %></span></li>
 		</ul>
 
 		<% @user.uploadable_types.each do |upload_type| %>

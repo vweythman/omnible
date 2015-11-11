@@ -9,15 +9,15 @@ class UserDecorator < Draper::Decorator
 		[:story_link]
 	end
 
-	def uploade_articles
+	def uploaded_articles
 		self.uploaded_works.articles
 	end
 	
-	def uploade_short_stories
+	def uploaded_short_stories
 		self.uploaded_works.short_stories
 	end
 
-	def uploade_stories
+	def uploaded_stories
 		self.uploaded_works.stories
 	end
 
