@@ -1,4 +1,4 @@
-class ItemsDecorator < Draper::CollectionDecorator
+class ItemsDecorator < ListableCollectionDecorator
 
 	def klass
 		:items
@@ -20,18 +20,21 @@ class ItemsDecorator < Draper::CollectionDecorator
 		self.length > 0
 	end
 
-	def subheading
-		h.content_tag :h2 do
-			"Related Item".pluralize(self.length)
-		end
-	end
-
 	def possible_possessions
 		@possible ||= Item.all
 	end
 
 	def list
-		h.render partial: "shared/definitions", object: Item.organize(object)
+		h.render partial: list_partial, object: Item.organize(object)
+	end
+
+	def creation_path
+		h.creation_toolkit "Item", h.new_item_path
+	end
+
+	private
+	def list_type
+		:definitions
 	end
 
 end
