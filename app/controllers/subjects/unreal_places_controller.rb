@@ -5,7 +5,7 @@ class Subjects::UnrealPlacesController < Subjects::PlacesController
 	private
 
 	def find_places
-		@places = Place.actual.order('forms.name, places.name').includes(:form).decorate
+		@places = Place.fictitious.order('forms.name, places.name').includes(:form).decorate
 	end
 
 end
