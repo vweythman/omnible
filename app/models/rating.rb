@@ -37,7 +37,7 @@ class Rating < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :work
+	belongs_to :work, :inverse_of => :rating
 
 	# CONSTANTS
 	# ------------------------------------------------------------
