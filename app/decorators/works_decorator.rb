@@ -1,40 +1,32 @@
-class WorksDecorator < Draper::CollectionDecorator
+class WorksDecorator < ListableCollectionDecorator
+
+	# PAGINATION DELEGATION
+	# ------------------------------------------------------------
 	delegate :current_page, :total_pages, :limit_value, :entry_name, :total_count, :offset_value, :last_page?
 
-	def title
-		"Works"
-	end
-
+	# ABOUT
+	# ------------------------------------------------------------
 	def heading
 		title
 	end
 
-	def creation_path
-		""
+	def title
+		"Works"
+	end
+	
+	def list
+		h.render partial: list_partial, object: self
 	end
 
-	def link_to_all
-		h.link_to "All", h.polymorphic_path(storage_nav[:all])
-	end
+	# FILTERS
+	# ------------------------------------------------------------
+	def for_categories
+		all_link    = h.content_tag :li do link_to_all end
+		other_links = type_links
 
-	def types
-		local_types.merge external_types
-	end
-
-	def storage_nav
-		{all: :works, local: "local", offsite: "offsite"}
-	end
-
-	def local_types
-		{
-			:articles      => h.articles_path(clean_type_params),
-			:stories       => h.stories_path(clean_type_params),
-			:short_stories => h.short_stories_path(clean_type_params)
-		}
-	end
-
-	def external_types
-		{ :story_records => h.story_records_path(clean_type_params) }
+		h.content_tag :ul do 
+			all_link + other_links
+		end
 	end
 
 	def filter_values
@@ -70,13 +62,10 @@ class WorksDecorator < Draper::CollectionDecorator
 		}
 	end
 
-	def for_categories
-		all_link    = h.content_tag :li do link_to_all end
-		other_links = type_links
-
-		h.content_tag :ul do 
-			all_link + other_links
-		end
+	# LINKS
+	# ------------------------------------------------------------
+	def link_to_all
+		h.link_to "All", h.polymorphic_path(storage_nav[:all])
 	end
 
 	def type_links
@@ -84,11 +73,44 @@ class WorksDecorator < Draper::CollectionDecorator
 		links.join.html_safe
 	end
 
+	# PATHS
+	# ------------------------------------------------------------
 	def clean_type_params
 		para = h.params.dup
 		para.delete(:controller)
 		para.delete(:action)
 		para
+	end
+
+	def creation_path
+		""
+	end
+
+	def external_types
+		{ :story_links => h.story_links_path(clean_type_params) }
+	end
+
+	def local_types
+		{
+			:articles      => h.articles_path(clean_type_params),
+			:stories       => h.stories_path(clean_type_params),
+			:short_stories => h.short_stories_path(clean_type_params)
+		}
+	end
+
+	def types
+		local_types.merge external_types
+	end
+
+	# PRIVATE
+	# ------------------------------------------------------------
+	private
+	def list_type
+		:links
+	end
+
+	def storage_nav
+		{ all: :works, local: "local", offsite: "offsite" }
 	end
 
 end
