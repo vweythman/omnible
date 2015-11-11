@@ -8,7 +8,9 @@
 
 		<%= @story.uploaded_by.html_safe %>
 		<%= @story.component_indices %>
-		<%= @story.contentable.inspect %>
+
+		<%= @story.main_tags_line %>
+		<%= @story.newest_chapter_position.inspect %>
 	</header>
 
 	<% @chapters.each do |chapter| %>
