@@ -14,7 +14,10 @@ module ApplicationHelper
 	end
 
 	def page_style_loc(controller, action)
-		collector, type = controller.split('/')
+		collector, type   = controller.split('/')
+		dashboard_types   = ['naming']
+		generator_actions = ['new', 'edit', 'update', 'create']
+
 		if type.blank?
 			type = collector
 		else
@@ -25,23 +28,35 @@ module ApplicationHelper
 				type = last
 			end
 		end
-		
-		if action == 'show'
-			if collector != type
-				"templates/" + collector + '/' + type.singularize
-			else
-				"templates/" + type.singularize
-			end
-		elsif collector == 'devise'
-			"templates/sessions"
-		else
-			generators = ['new', 'edit', 'update', 'create']
 
-			if generators.include? action
-				action = "generator"
+		type = type.singularize
+		
+		# DASHBOARD STYLESHEET
+		if dashboard_types.include? type
+			template_type = "users/dashboard"
+		
+		# SESSION STYLESHEET
+		elsif collector == 'devise'
+			template_type = "sessions"
+		
+		# EDITING AND CREATING STYLESHEET
+		elsif generator_actions.include? action
+			template_type = "generator"
+
+		# MODEL STYLESHEET
+		elsif action == 'show'
+			if collector.singularize != type
+				template_type = collector + '/' + type
+			else
+				template_type = type
 			end
-			"templates/" + action
+		
+		# INDEX STYLESHEET
+		else
+			template_type = action
 		end
+
+		"templates/" + template_type
 	end
 
 	# BODY
@@ -108,10 +123,14 @@ module ApplicationHelper
 	end
 
 	def lilinks(links)
-		items = links.map {|i| link_to i.name, i }
+		items = links.map {|i| link_to i.heading, i }
 		content_tag :ul do
 			items.collect {|item| concat(content_tag(:li, item))}
 		end
+	end
+
+	def subgrouped_list(heading, listable)
+		render( :partial => "shared/lists/subgrouped", :locals => { :heading => heading, :listable => listable })
 	end
 
 	# User Interaction
