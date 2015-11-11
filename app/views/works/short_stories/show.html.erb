@@ -8,6 +8,12 @@
 
 		<%= @short.uploaded_by.html_safe %>
 		<p><%= @short.component_indices %></p>
+		
+		<div class="tags">
+			<p><%= cslinks @short.tags %></p>
+			<p><%= cslinks @short.main_characters %></p>
+			<p><%= cslinks @short.places %></p>
+		</div>
 	</header>
 
 	<%= markdown @short.content %>
