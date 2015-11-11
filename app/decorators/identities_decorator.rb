@@ -6,12 +6,6 @@ class IdentitiesDecorator < Draper::CollectionDecorator
 		"Character Descriptors"
 	end
 
-	def subheading
-		h.content_tag :h2 do
-			"Overview"
-		end
-	end
-
 	def formid
 		"form_identities"
 	end
@@ -27,7 +21,7 @@ class IdentitiesDecorator < Draper::CollectionDecorator
 	end
 
 	def list
-		h.render partial: "shared/definitions", object: self.organized
+		h.render partial: "shared/lists/definitions", object: self.organized
 	end
 
 	def list_possible
