@@ -3,15 +3,15 @@
 	<h1>Subject</h1>
 
 	<h2>Characters</h2>
-	<%= index_toolkit('Character', new_character_path) %>
-	<%= render 'subjects/characters/list' %>
+	<%= @characters.creation_path %>
+	<article><%= @characters.list %></article>
 
 	<h2>Items</h2>
-	<%= index_toolkit('Item', new_item_path) %>
-	<%= render 'subjects/items/list' %>
+	<%= @items.creation_path %>
+	<article><%= @items.list if @items.can_list? %></article>
 
 	<h2>Places</h2>
-	<%= index_toolkit('Place', new_place_path) %>
+	<%= creation_toolkit('Place', new_place_path) %>
 	<%= @places.results %>
 
 </div>
