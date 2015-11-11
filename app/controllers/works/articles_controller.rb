@@ -55,14 +55,21 @@ class Works::ArticlesController < WorksController
 
 	# setup work
 	def begin_work
-		@article = Article.new
-		@note    = Note.new
+		@note      = Note.new
+		@article ||= Article.new
 
-		@article.note = @note
+		@article.note ||= @note
+		
 		@article = @article.decorate
 		@work    = @article
 	end
 
+	# set tag creation
+	def setup_tags
+		create_tags(:article, false)
+	end
+
+	# switch to work params
 	def article_to_work_params
 		params[:work] = params[:article]
 	end
