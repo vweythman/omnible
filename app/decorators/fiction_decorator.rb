@@ -12,7 +12,7 @@ class FictionDecorator < WorksDecorator
 	end
 
 	def external_types
-		{ :story_records => h.story_records_path }
+		{ :story_links => h.story_links_path }
 	end
 	
 end
