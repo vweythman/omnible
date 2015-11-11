@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014152146) do
+ActiveRecord::Schema.define(version: 20151110225811) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -80,9 +80,18 @@ ActiveRecord::Schema.define(version: 20151014152146) do
 
   add_index "chapters", ["story_id"], name: "index_chapters_on_story_id"
 
+  create_table "character_infos", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content",      null: false
+    t.integer  "character_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "character_infos", ["character_id"], name: "index_character_infos_on_character_id"
+
   create_table "characters", force: :cascade do |t|
     t.string   "name",            limit: 255
-    t.text     "about"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "uploader_id"
@@ -91,6 +100,7 @@ ActiveRecord::Schema.define(version: 20151014152146) do
     t.boolean  "allow_play"
     t.boolean  "allow_clones"
     t.boolean  "allow_as_clone"
+    t.boolean  "is_fictional",                default: true
   end
 
   create_table "collections", force: :cascade do |t|
@@ -119,6 +129,24 @@ ActiveRecord::Schema.define(version: 20151014152146) do
 
   add_index "comments", ["creator_id", "creator_type"], name: "index_comments_on_creator_id_and_creator_type"
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id"
+
+  create_table "creator_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "creatorships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "work_id"
+    t.integer  "creator_category_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "creatorships", ["creator_category_id"], name: "index_creatorships_on_creator_category_id"
+  add_index "creatorships", ["user_id"], name: "index_creatorships_on_user_id"
+  add_index "creatorships", ["work_id"], name: "index_creatorships_on_work_id"
 
   create_table "descriptions", force: :cascade do |t|
     t.integer "character_id"
@@ -367,6 +395,18 @@ ActiveRecord::Schema.define(version: 20151014152146) do
   add_index "prejudices", ["character_id"], name: "index_prejudices_on_character_id"
   add_index "prejudices", ["identity_id"], name: "index_prejudices_on_identity_id"
 
+  create_table "pseudonymings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "type"
+    t.boolean  "is_primary",   default: false
+  end
+
+  add_index "pseudonymings", ["character_id"], name: "index_pseudonymings_on_character_id"
+  add_index "pseudonymings", ["user_id"], name: "index_pseudonymings_on_user_id"
+
   create_table "qualities", force: :cascade do |t|
     t.string   "name",         limit: 255
     t.string   "slug",         limit: 255
@@ -429,16 +469,6 @@ ActiveRecord::Schema.define(version: 20151014152146) do
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
   add_index "reviews", ["work_id"], name: "index_reviews_on_work_id"
 
-  create_table "roleplayers", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "character_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "roleplayers", ["character_id"], name: "index_roleplayers_on_character_id"
-  add_index "roleplayers", ["user_id"], name: "index_roleplayers_on_user_id"
-
   create_table "settings", force: :cascade do |t|
     t.integer  "work_id",    null: false
     t.integer  "place_id",   null: false
@@ -456,7 +486,6 @@ ActiveRecord::Schema.define(version: 20151014152146) do
     t.datetime "updated_at"
     t.integer  "referencer_id"
     t.string   "referencer_type"
-    t.string   "type"
   end
 
   add_index "sources", ["host_id"], name: "index_sources_on_host_id"
