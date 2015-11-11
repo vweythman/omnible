@@ -1,8 +1,10 @@
 class PlaceDecorator < EditableDecorator
 	delegate_all
 
-	def realness_choices
-		["Actual Place", "Fictitious Place"]
+	# HEADINGS AND IDENTIFICATION
+	# ------------------------------------------------------------
+	def creation_title
+		"Create Place"
 	end
 
 	def editing_title
@@ -13,9 +15,21 @@ class PlaceDecorator < EditableDecorator
 		h.content_tag :h1 do "Edit" end
 	end
 
-	def creation_title
-		"Create Place"
+	# ABOUT
+	# ------------------------------------------------------------
+	def realness_choices
+		["Actual Place", "Fictitious Place"]
 	end
+
+	# RELATED MODELS
+	# ------------------------------------------------------------
+	def list_characters
+		related_models("Tagged By", "taggers", self.characters.decorate)
+	end
+
+	def list_works
+		related_models("Setting/Subject of", "taggers", self.works.decorate)
+	end 
 
 	def list_domains
 		related_places("Contained Within", object.domains.includes(:form))
@@ -25,15 +39,19 @@ class PlaceDecorator < EditableDecorator
 		related_places("Contains", object.subdomains.includes(:form))
 	end
 
+	# PRIVATE
+	# ------------------------------------------------------------
 	private 
 	def related_places(title, places)
-		h2   = h.content_tag :h2 do title end
-		list = h.render partial: "shared/definitions", object: Place.organize(places)
+		related_models(title, "places", PlacesDecorator.decorate(places))
+	end
 
-		if object.subdomains.length > 0
-			h.content_tag :div, class: "related-places" do
-				(h2 + list).html_safe
+	def related_models(title, relator, models)
+		if models.length > 0
+			h.content_tag :div, class: "related-#{relator}" do
+				h.subgrouped_list title, models
 			end
 		end
 	end
+
 end
