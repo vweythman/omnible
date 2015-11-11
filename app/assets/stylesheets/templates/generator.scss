@@ -25,6 +25,9 @@
 }
 input[type="submit"] {
 	@include clickable($moss-darker);
+	margin: 10px;
+	width:  calc(100% - 20px);
+	text-transform: capitalize;
 }
 form {
 	border-top:    3px solid $moss-color;
