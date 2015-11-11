@@ -3,6 +3,7 @@ class WorksController < ApplicationController
 	# FILTERS
 	# ------------------------------------------------------------
 	before_action :begin_work,           only: [:new]
+	before_action :setup_tags,           only: [:create]
 	before_action :find_editable_work,   only: [:edit, :update, :delete]
 	before_action :find_viewable_work, except: [:index, :new, :create, :edit, :update]
 
@@ -101,6 +102,11 @@ class WorksController < ApplicationController
 	# clean index params
 	def index_params
 		params.slice(:date, :sort, :completion, :rating, :rating_min, :rating_max, :page)
+	end
+
+	# set tag creation
+	def setup_tags
+		create_tags(:article, false)
 	end
 
 	# define strong parameters
