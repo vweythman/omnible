@@ -20,23 +20,24 @@
 
 // CREATION BAR
 // .............................................
-.insertion a {
-	width:      calc(100% - 20px);
-	text-align: left;
-	&:hover {
-		background: $moss-lightest;
-		color: $moss-darker;
-	}
-}
 .creation a {
 	max-width: 200px;
 	min-width: 200px;
+}
+.insertion a {
+	text-align: left;
+	width:      calc(100% - 20px);
+}
+.creation a:hover,
+.insertion a:hover {
+	background: $moss-lightest;
+	color: $moss-darker;
 }
 
 // EDIT BAR
 // .............................................
 .alteration {
-	@include embossed($rose-color);
+	@include buttoned($rose-color);
 	
 	border-radius: 5px;
 	display:       inline-block;
