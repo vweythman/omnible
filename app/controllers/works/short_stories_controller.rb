@@ -20,12 +20,13 @@ class Works::ShortStoriesController < WorksController
 	# POST
 	# ............................................................
 	def create
-		@article = ShortStory.new(work_params)
-		content  = params[:short_story][:content]
+		@short  = ShortStory.new(work_params)
+		content = params[:short_story][:content]
 
-		if @article.save && @article.update_content(content)
-			redirect_to @article
+		if @short.save && @short.update_content(content)
+			redirect_to @short
 		else
+			begin_work
 			render action: 'new'
 		end
 	end
@@ -48,8 +49,9 @@ class Works::ShortStoriesController < WorksController
 
 	# FOR NEW :: setup work
 	def begin_work
-		@work = ShortStory.new
-		@work.appearances.build
+		@short ||= ShortStory.new
+		@short = @short.decorate
+		@work  = @short
 	end
 
 	# find all with options from a filter
@@ -58,6 +60,12 @@ class Works::ShortStoriesController < WorksController
 		@works = ShortStoriesDecorator.decorate(@works)
 	end
 
+	# set tag creation
+	def setup_tags
+		create_tags(:short_story, true)
+	end
+
+	# switch to work params
 	def story_to_work_params
 		params[:work] = params[:short_story]
 	end
