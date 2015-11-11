@@ -15,7 +15,7 @@ class Works::ChaptersController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@chapters = @story.chapters.decorate
+		@chapters = @story.chapters.ordered.decorate
 		@story    = @story.decorate
 	end
 
@@ -37,6 +37,7 @@ class Works::ChaptersController < ApplicationController
 	# ............................................................
 	def create
 		@chapter = Chapter.new(chapter_params)
+		@chapter = @chapter.decorate
 
 		if @chapter.save
 			redirect_to [@story, @chapter]
@@ -48,6 +49,7 @@ class Works::ChaptersController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
+		@chapter = @chapter.decorate
 		if @chapter.update(chapter_params)
 			redirect_to [@story, @chapter]
 		else
