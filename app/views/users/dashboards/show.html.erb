@@ -1,0 +1,38 @@
+<% provide :title, "Dashboard" %>
+<%= render 'sidebar' %>
+
+<article>
+	<h1>Hi, <%= @user.name %>.</h1>
+
+	<div class="pen-names">
+		<table>
+			<caption>Pen Names <span class="counter"><%= current_user.pen_names.length %></span></caption>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Works</th>
+				</tr>
+			</thead>
+
+			<tbody id="pen-names-list">
+				<%= render @pen_names %>
+			</tbody>
+		</table>
+		<div id="pen-namer-form" style="display:none;"></div>
+		<%= @pen_names.link_to_creation %>
+	</div>
+
+	<div class="uploads">
+		<h2>Uploads</h2>
+		<ul>
+			<li>Articles      <span class="counter"><%= current_user.uploaded_works.articles.count      %></span></li>
+			<li>Characters    <span class="counter"><%= current_user.uploaded_characters.count          %></span></li>
+			<li>Items         <span class="counter"><%= current_user.uploaded_items.count               %></span></li>
+			<li>Places        <span class="counter"><%= current_user.uploaded_places.count              %></span></li>
+			<li>Stories       <span class="counter"><%= current_user.uploaded_works.stories.count       %></span></li>
+			<li>Short Stories <span class="counter"><%= current_user.uploaded_works.short_stories.count %></span></li>
+		</ul>
+	</div>
+	<%= creation_toolkit "Short_Story", new_polymorphic_path(:short_story) %>
+</article>
+

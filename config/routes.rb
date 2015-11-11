@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'journals/show'
-
-  get 'journals/edit'
-
   # ERROR PAGES
   # ------------------------------------------------------------
   match '/403' => 'errors#403', via: :all
@@ -34,6 +30,11 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   devise_for :users
   resources :users, only: [:show]
+
+  scope module: 'users' do
+    resource :dashboard, only: [:show]
+    resources :pen_namings
+  end
 
   # Interaction routes
   # ------------------------------------------------------------
@@ -76,8 +77,8 @@ Rails.application.routes.draw do
       resources :notes
     end
 
-    resources :articles, :concerns => [:sortable, :dateable, :completeable, :paginatable]
-    resources :story_records, :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :articles,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :story_links, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
     # - list works by related model
     scope module: 'curation' do
@@ -117,6 +118,7 @@ Rails.application.routes.draw do
   scope module: 'descriptors' do
     resources :activities
     resources :tags
+    resources :facets, only: [:index, :show]
     resources :identities
     resources :qualities
     resources :relators

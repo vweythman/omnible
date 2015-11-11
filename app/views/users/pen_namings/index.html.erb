@@ -1,0 +1,8 @@
+<% provide :title, "Dashboard (Pen Names)" %>
+<%= render 'users/dashboards/sidebar' %>
+
+<article>
+	<h1>Pen Names</h1>
+
+	<%= render :partial => "pen_names", :locals => { :caption_heading => "Current" } %>
+</article>

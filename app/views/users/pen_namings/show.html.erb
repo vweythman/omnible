@@ -1,0 +1,12 @@
+<% provide :title, @namer.page_title %>
+<%= render 'users/dashboards/sidebar' %>
+
+
+<article>
+	<h1 id="pen-name-<%= @namer.id %>">
+		Pen Names: <span><%= link_to @namer.name, @namer %></span>
+		<div id="pen-namer-form-for-<%= @namer.id %>" style="display:none;"></div>
+	</h1>
+	<div id="pen-name-edit-bar-for-<%= @namer.id %>"><%= @namer.edit_bar %></div>
+
+</article>

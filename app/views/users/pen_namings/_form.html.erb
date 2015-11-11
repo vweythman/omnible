@@ -1,0 +1,18 @@
+<%= form_for @namer, remote: true do |f| %>
+
+	<% if @namer.errors.full_messages.length > 0 %>
+		<ul>
+			<% @namer.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+	<fieldset>
+		<%= f.fields_for :character do |character_builder| %>			
+			<%= form_field character_builder.label(:name), character_builder.text_field(:name, :placeholder => "Insert Pen Name") %>
+		<% end %>
+	</fieldset>
+
+	<%= f.submit "Submit" %>
+<% end %>
