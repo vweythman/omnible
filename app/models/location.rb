@@ -19,6 +19,6 @@ class Location < ActiveRecord::Base
 	belongs_to :place
 
 	def self.relators
-		['Birthplace', 'Home', 'School', 'Workplace', 'Associated Place']
+		['Genius Loci', 'Personification', 'Birthplace', 'Home', 'School', 'Workplace', 'Resting Place']
 	end
 end
