@@ -4,12 +4,12 @@ module ToolkitHelper
 	# ------------------------------------------------------------
 	def creation_toolkit(name, path_to)
 		if user_signed_in? 
-			render(:partial => "shared/toolkits/createable", :locals => { :titleized_type => name.titleize, :path_to => path_to })
+			render(:partial => "shared/toolkits/createable", :locals => { :titleized_type => name.to_s.titleize, :path_to => path_to })
 		end
 	end
 
 	def inline_creation_toolkit(name, path_to)
-		render(:partial => "shared/toolkits/inline_createable", :locals => { :titleized_type => name.titleize, :path_to => path_to })
+		render(:partial => "shared/toolkits/inline_createable", :locals => { :titleized_type => name.to_s.titleize, :path_to => path_to })
 	end
 
 	# ALTERATION
