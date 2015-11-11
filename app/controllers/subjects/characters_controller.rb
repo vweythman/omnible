@@ -16,7 +16,7 @@ class Subjects::CharactersController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@characters = Character.viewable_for(current_user).order('name').decorate
+		@characters = Character.not_pen_name.viewable_for(current_user).order('name').decorate
 	end
 
 	def show
@@ -92,9 +92,10 @@ class Subjects::CharactersController < ApplicationController
 	# define strong parameters
 	def character_params
 		params.require(:character).permit(:name, :about, :editor_level, :publicity_level, 
-			identifiers_attributes:  [:id, :name,        :_destroy],
-			descriptions_attributes: [:id, :identity_id, :_destroy],
-			possessions_attributes:  [:id, :item_id, :nature, :_destroy],
+			identifiers_attributes:  [:id, :name,                   :_destroy],
+			details_attributes:      [:id, :title,       :content,  :_destroy],
+			descriptions_attributes: [:id, :identity_id,            :_destroy],
+			possessions_attributes:  [:id, :item_id,     :nature,   :_destroy],
 			opinions_attributes:     [:id, :recip_id,    :fondness, :respect, :about, :_destroy],
 			prejudices_attributes:   [:id, :identity_id, :fondness, :respect, :about, :_destroy]
 		)
