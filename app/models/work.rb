@@ -33,7 +33,7 @@ class Work < ActiveRecord::Base
 
 	# CALLBACKS
 	# ------------------------------------------------------------
-	after_initialize :defaults
+	#after_initialize :defaults
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -52,9 +52,10 @@ class Work < ActiveRecord::Base
 	scope :by_chapters,   -> { order("(SELECT COUNT(*) FROM chapters WHERE story_id = works.id) desc")}
 
 	# - Types
-	scope :stories,          -> { where(:type => "Story") }
-	scope :short_stories,    -> { where(:type => "ShortStory") }
-	scope :story_records, -> {where(:type => "ExternalStory") }
+	scope :articles,      -> { where(:type => "Article") }
+	scope :short_stories, -> { where(:type => "ShortStory") }
+	scope :stories,       -> { where(:type => "Story") }
+	scope :story_links,   -> { where(:type => "StoryLinks") }
 
 	# - Categories
 	scope :fiction,    -> { where("type IN (?)", WorksTypeDescriber.fiction.pluck(:name)) }
@@ -74,6 +75,7 @@ class Work < ActiveRecord::Base
 	has_many :respondences, as: :response
 	has_many :taggings
 	has_many :settings
+	has_many :creatorships
 
 	# - Belongs to
 	has_many :anthologies,   :through => :collections
@@ -81,7 +83,8 @@ class Work < ActiveRecord::Base
 	belongs_to :contentable, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
 
 	# - Has
-	has_one  :rating
+	has_many :creators, :through => :creatorships, source: :user
+	has_one  :rating, :inverse_of => :work
 	has_many :tags,   :through => :taggings
 	has_many :places, :through => :settings
 
@@ -89,6 +92,7 @@ class Work < ActiveRecord::Base
 	has_many :main_characters, :through => :appearances
 	has_many :side_characters, :through => :appearances
 	has_many :mentioned_characters, :through => :appearances
+	has_many :people_subjects,      :through => :appearances
 	
 	# - References
 	has_many :identities, ->{uniq}, :through => :characters
@@ -96,11 +100,12 @@ class Work < ActiveRecord::Base
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
 	accepts_nested_attributes_for :appearances, :allow_destroy => true
+	accepts_nested_attributes_for :settings,    :allow_destroy => true
 	accepts_nested_attributes_for :rating,      :allow_destroy => true
 
 	# DELEGATED METHODS
 	# ------------------------------------------------------------
-	delegate :narrative?, to: :contentable
+	delegate :narrative?,   to: :contentable
 	delegate :is_singleton, to: :contentable
 
 	# CLASS METHODS
@@ -116,7 +121,11 @@ class Work < ActiveRecord::Base
 	end
 
 	def self.with_filters(options = {}, user)
-		self.assort(options).viewable_for(user, "works.").eager_load(:tags, :main_characters, :rating, :uploader)
+		self.assort(options).viewable_for(user).with_relationships
+	end
+
+	def self.with_relationships
+		eager_load(:tags, :places, :rating, :main_characters, :contentable, :uploader)
 	end
 
 	# OrderBy - decide on the sort order
@@ -221,13 +230,6 @@ class Work < ActiveRecord::Base
 	# Complete? - self explantory
 	def complete?
 		self.is_complete == 't' || self.is_complete == true
-	end
-
-	# PRIVATE METHODS
-	# ------------------------------------------------------------
-	# Defaults - self explanatory
-	def defaults
-		self.rating ||= Rating.new
 	end
 
 end
