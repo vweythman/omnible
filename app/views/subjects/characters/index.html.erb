@@ -3,9 +3,10 @@
 <div id="main" class="index">
 	<header>
 		<h1>Characters</h1>
-		<%= index_toolkit "Character", new_character_path %>
+		<%= creation_toolkit "Character", new_character_path %>
 	</header>
 
-	<%= render 'list' %>
+	<article><%= @characters.list %></article>
+	
 	<%= render 'subjects/shared/footer' %>
 </div>

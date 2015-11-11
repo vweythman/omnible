@@ -1,10 +1,12 @@
 <% provide(:title, "#{@parent.heading} - Characters" ) %>
+
 <div id="main" class="index">
 	<header>
 		<h1>[<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>] Characters</h1>
 	</header>
 
-	<%= render 'list' %>
+
+	<article><%= @characters.list %></article>
 
 	<footer>
 		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>

@@ -2,7 +2,7 @@
 
 	<fieldset>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name") %>
-		<%= render partial: "shared/radio_collection", locals: {
+		<%= render partial: "shared/forms/radio_collection", locals: {
 				f: f, 
 				collection: Adjective.all,
 				title: "Adjective", 
