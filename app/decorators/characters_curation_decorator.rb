@@ -1,4 +1,4 @@
-class CharactersCurationDecorator < Draper::CollectionDecorator
+class CharactersCurationDecorator < CharactersDecorator
 	def set_parent(parent)
 		@parent = parent
 	end
