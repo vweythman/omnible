@@ -4,23 +4,7 @@
 <article>
 	<h1>Hi, <%= @user.name %>.</h1>
 
-	<div class="pen-names">
-		<table>
-			<caption>Pen Names <span class="counter"><%= current_user.pen_names.length %></span></caption>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Works</th>
-				</tr>
-			</thead>
-
-			<tbody id="pen-names-list">
-				<%= render @pen_names %>
-			</tbody>
-		</table>
-		<div id="pen-namer-form" style="display:none;"></div>
-		<%= @pen_names.link_to_creation %>
-	</div>
+	<%= render :partial => "users/pen_namings/pen_names", :locals => { :caption_heading => "Pen Names" } %>
 
 	<div class="uploads">
 		<h2>Uploads</h2>
