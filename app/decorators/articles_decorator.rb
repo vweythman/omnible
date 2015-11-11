@@ -11,7 +11,7 @@ class ArticlesDecorator < WorksDecorator
 	end
 
 	def creation_path
-		h.index_toolkit "Article", h.new_article_path
+		h.creation_toolkit "Article", h.new_article_path
 	end
 
 end

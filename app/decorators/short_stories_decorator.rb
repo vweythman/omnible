@@ -11,7 +11,7 @@ class ShortStoriesDecorator < WorksDecorator
 	end
 
 	def creation_path
-		h.index_toolkit "Short Story", h.new_short_story_path
+		h.creation_toolkit "Short Story", h.new_short_story_path
 	end
 
 end

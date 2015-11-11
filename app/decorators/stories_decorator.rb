@@ -12,7 +12,7 @@ class StoriesDecorator < WorksDecorator
 	end
 
 	def creation_path
-		h.index_toolkit "Story", h.new_story_path
+		h.creation_toolkit "Story", h.new_story_path
 	end
 
 end
