@@ -21,7 +21,6 @@ class Chapter < ActiveRecord::Base
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
-	validates :story_id, presence: true
 	validates :content, presence: true
 	validates_uniqueness_of :position, :scope => :story_id
 
@@ -37,9 +36,10 @@ class Chapter < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
-	default_scope { order('chapters.position asc') }
-	scope :prev_in_story, ->(story_id, position) { where("story_id = ? AND position < ?", story_id, position) }
-	scope :next_in_story, ->(story_id, position) { where("story_id = ? AND position > ?", story_id, position) }
+	scope :ordered,  -> { order('chapters.position asc') }
+	scope :reversed, -> { order('chapters.position desc') }
+	scope :prev_in_story, ->(story_id, position) { where("story_id = ? AND position < ?", story_id, position).reversed }
+	scope :next_in_story, ->(story_id, position) { where("story_id = ? AND position > ?", story_id, position).ordered }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -77,22 +77,6 @@ class Chapter < ActiveRecord::Base
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	# Heading - defines the main means of addressing the model
-	def heading
-		if title.blank?
-			"Chapter #{self.position}"
-		else
-			title
-		end
-	end
-
-	# CompleteHeading - defines the full chapter heading
-	def complete_heading
-		current_title = "Chapter #{self.position}"
-		current_title.concat " - #{self.title}" unless title.blank?
-		current_title
-	end
-
 	# Prev - finds the previous chapter
 	def prev
 		@prev ||= Chapter.prev_in_story(self.story_id, self.position).first
@@ -162,7 +146,23 @@ class Chapter < ActiveRecord::Base
 
 	# SetPosition - set the correct position if it does not exist
 	def set_position
-		self.position ||= story.newest_chapter_position
+		self.position ||= find_possible_position
+	end
+
+	# FindPossiblePosition - determine what the position could be
+	def find_possible_position
+		story_chapters = self.story.chapters.ordered
+
+		if story_chapters.include? self
+			arr    = story_chapters.map(&:title)
+			first  = story_chapters.first
+			by_arr = Hash[arr.map.with_index.to_a]
+			spot   = by_arr[self.title]
+
+			first.position.nil? ? spot + 1 : first.position + spot
+		else
+			story.newest_chapter_position
+		end
 	end
 
 	def cascade_data
