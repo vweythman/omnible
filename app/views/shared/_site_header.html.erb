@@ -1,7 +1,16 @@
 <header id="site-header">
 	<%= link_to 'omnible', root_url, :class => 'logo' %>
+
 	<div class="actionbar">
-		<%= render 'shared/user_session' %>
+		<p class="account">
+			<% if user_signed_in? %>
+				<%= link_to current_user.name, dashboard_path, class: "user" %>
+				<span class="session"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></span>
+			<% else %>
+				<span class="session"><%= link_to "Sign In", new_user_session_path %> <%= link_to "Sign Up", new_user_registration_path %></span>
+			<% end %>
+		</p>
+
 		<%= render 'shared/site_nav' %>
 	</div>
 </header>

@@ -1,8 +1,0 @@
-<p class="account">
-	<% if user_signed_in? %>
-		<a class="user"><%= current_user.name %></a>
-		<span class="session"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></span>
-	<% else %>
-		<span class="session"><%= link_to "Sign In", new_user_session_path %> <%= link_to "Sign Up", new_user_registration_path %></span>
-	<% end %>
-</p>

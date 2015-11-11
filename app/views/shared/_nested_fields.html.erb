@@ -1,9 +1,0 @@
-<% indx = 0 %>
-<p><%= nesting.partial %></p>
-<p><%= nesting.klass %></p>
-
-<%= f.fields_for nesting.klass do |builder| %>
-	<% nlocals[:f] = builder %>
-	<% nlocals[:selector_id] = indx %>
-	<%= render :partial => nesting.partial, :locals => nlocals %>
-<% end %>
