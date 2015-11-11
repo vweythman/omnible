@@ -76,22 +76,14 @@ form[data-remote="true"] {
 		display: none;
 	}
 }
-.new_pen_naming {
-	width:  90%;
-	input[type="submit"] {
-		@include clickable($fire-dark);
-		font-weight: bolder;
-		text-transform: capitalize;
-	}
+.pen-names input[type="submit"] {
+	@include clickable($fire-dark);
+	padding: 5px;
+	font-weight: bolder;
+	text-transform: capitalize;
 }
-.edit_pen_naming {
-	input[type="submit"] {
-		@include clickable($fire-dark);
-		padding: 5px;
-		color: $page-color;
-		font-weight: bolder;
-		text-transform: capitalize;
-	}
+.edit_pen_naming input[type="submit"] {
+	padding: 5px;
 }
 .pen-names .alteration {
 	margin: 0;
