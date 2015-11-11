@@ -38,6 +38,22 @@ class WorkDecorator < EditableDecorator
 
 	# RELATED MODELS
 	# ------------------------------------------------------------
+	# ALL OR MULTIPLE
+	# ............................................................
+	def all_tags
+		(self.tags + self.characters + self.places).sort_by! { |x| x[:name].downcase }
+	end
+
+	def main_tags_line
+		h.content_tag :p, class: 'tags' do h.cslinks self.all_tags end
+	end
+
+	# CHARACTERS
+	# ............................................................
+	def important_characters
+		work.narrative? ? self.main_characters : self.people_subjects
+	end
+
 	def character_form_list()
 		@all_characters ||= Appearance.organize(self.appearances)
 	end
@@ -53,16 +69,20 @@ class WorkDecorator < EditableDecorator
 		cheading.titleize
 	end
 
-	def location_heading
-		self.narrative? ? "Settings" : "Subject (Location)"
-	end
-
+	# GENERAL TAGS
+	# ............................................................
 	def tag_names
 		self.tags.map(&:name)
+	end	
+
+	# PLACES
+	# ............................................................
+	def location_heading
+		self.narrative? ? "Settings" : "Subject (Location)"
 	end
 
 	def place_names
 		self.places.map(&:name)
 	end
-	
+
 end
