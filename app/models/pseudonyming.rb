@@ -43,4 +43,8 @@ class Pseudonyming < ActiveRecord::Base
 		self.character.save
 	end
 
+	def prime?
+		self.is_primary == 't' || self.is_primary == true
+	end
+
 end
