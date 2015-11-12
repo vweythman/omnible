@@ -14,7 +14,7 @@ class Works::NotesController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@notes = @work.notes
+		@notes = @work.notes.decorate
 		@work  = @work.decorate
 	end
 

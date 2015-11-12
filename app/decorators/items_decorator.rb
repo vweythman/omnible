@@ -29,7 +29,7 @@ class ItemsDecorator < ListableCollectionDecorator
 	end
 
 	def creation_path
-		h.creation_toolkit "Item", h.new_item_path
+		h.creation_toolkit "Item", :item
 	end
 
 	private

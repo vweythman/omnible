@@ -12,37 +12,19 @@ class StoryDecorator < WorkDecorator
 
 	def chapter_creation_link
 		if self.editable?(h.current_user)
-			h.insertion_link("Add Chapter", h.new_story_chapter_path(self))
+			h.prechecked_creation_toolkit("Chapter", [self, :chapter])
 		end
 	end
 
 	def chapter_insertion_link
 		if self.editable?(h.current_user)
-			h.insertion_link("+ New Chapter Here", h.new_story_chapter_path(self))
+			h.insertion_toolkit("Chapter", [self, :chapter])
 		end
 	end
 
 	def current_chapters
 		self.chapters.build if self.chapters.length == 0
 		@current_chapters ||= ChaptersDecorator.decorate(self.chapters)
-	end
-
-	# NOTES
-	# ------------------------------------------------------------
-	def link_to_notes
-		h.link_to "Notes", h.story_notes_path(self)
-	end
-
-	def note_creation_link
-		if self.editable?(h.current_user)
-			h.insertion_link("Add Note", h.new_story_note_path(self))
-		end
-	end
-
-	def note_insertion_link
-		if self.editable?(h.current_user)
-			h.insertion_link("+ New Note Here", h.new_story_note_path(self))
-		end
 	end
 
 	# NAVIGATION

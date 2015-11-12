@@ -4,6 +4,6 @@
 	<% if @chapters.length > 0 %>
 		<%= render 'works/chapters/list' %>
 	<% else %>
-		<%= component_toolkit @work, 'Chapter' %>
+		<%= @story.chapter_insertion_link %>
 	<% end %>
 </div>

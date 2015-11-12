@@ -63,7 +63,7 @@ class AnthologiesController < ApplicationController
 
 	# find by id
 	def find_anthology
-		@anthology = Anthology.find(params[:id])
+		@anthology = Anthology.find(params[:id]).decorate
 	end
 
 	# define strong parameters

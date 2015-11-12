@@ -2,7 +2,7 @@
 
 <div id="main" class="feature">
 	<header>
-		<%= model_toolkit @quality %>
+		<%# edit_bar @quality %>
 		<h1><%= @quality.heading %></h1>
 		<p>created : <%= record_time @quality.created_at %></p>
 		<p><%= @quality.adjective.name unless @quality.adjective.nil?%></p>

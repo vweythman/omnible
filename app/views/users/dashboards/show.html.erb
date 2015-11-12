@@ -18,7 +18,7 @@
 		</ul>
 
 		<% @user.uploadable_types.each do |upload_type| %>
-			<%= creation_toolkit upload_type, new_polymorphic_path(upload_type) %>
+			<%= prechecked_creation_toolkit upload_type, upload_type %>
 		<% end %>
 	</div>
 </article>

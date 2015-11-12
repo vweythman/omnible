@@ -73,7 +73,25 @@ class WorkDecorator < EditableDecorator
 	# ............................................................
 	def tag_names
 		self.tags.map(&:name)
-	end	
+	end
+
+	# NOTES
+	# ------------------------------------------------------------
+	def link_to_notes
+		h.link_to "Notes", h.story_notes_path(self)
+	end
+
+	def note_creation_link
+		if self.editable?(h.current_user)
+			h.prechecked_creation_toolkit("Note", [self, :note])
+		end
+	end
+
+	def note_insertion_link
+		if self.editable?(h.current_user)
+			h.insertion_toolkit("Note", [self, :note])
+		end
+	end
 
 	# PLACES
 	# ............................................................

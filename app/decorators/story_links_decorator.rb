@@ -5,7 +5,7 @@ class StoryLinksDecorator < WorksDecorator
 	end
 
 	def creation_path
-		h.creation_toolkit "Link", h.new_story_link_path
+		h.creation_toolkit "Link", :story_link
 	end
 
 end

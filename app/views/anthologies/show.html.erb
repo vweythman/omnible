@@ -2,7 +2,7 @@
 
 <div id="main" class="feature">
 	<header>
-		<%= model_toolkit @anthology %>
+		<%= @anthology.edit_bar %>
 		<h1><%= @anthology.heading %></h1>
 		<div class="summary"><%= markdown @anthology.summary || "" %></div>
 	</header>

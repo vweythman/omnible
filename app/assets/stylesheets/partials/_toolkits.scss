@@ -5,7 +5,6 @@
 	a {
 		padding: 10px;
 		display: inline-block;
-		background: $fire-dark;
 		color: #FFF;
 		min-width: 50%;
 		text-align: center;
@@ -28,10 +27,13 @@
 	text-align: left;
 	width:      calc(100% - 20px);
 }
-.creation a:hover,
-.insertion a:hover {
-	background: $fire-lightest;
-	color: $fire-darker;
+.creation a,
+.insertion a {
+	background: $moss-dark;
+	&:hover {
+		background: $moss-lightest;
+		color:      $moss-darker;
+	}
 }
 
 // EDIT BAR

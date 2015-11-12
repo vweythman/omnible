@@ -1,7 +1,7 @@
 class CharactersDecorator < ListableCollectionDecorator
 
 	def creation_path
-		h.creation_toolkit "Character", h.new_character_path
+		h.creation_toolkit "Character", :character
 	end
 
 	private

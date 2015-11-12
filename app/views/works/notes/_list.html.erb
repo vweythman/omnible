@@ -12,8 +12,8 @@
 			<td data-label="Creation Date"><%= record_time note.created_at %></td>
 			<td data-label="Update Date"><%= record_time note.updated_at %></td>
 		</tr>
-		<%= toolblock 2, model_toolkit(note) %>
+		<%= toolblock 2, note.edit_bar %>
 	<% end %>
 
-	<%= toolblock 3, component_toolkit(@work, 'Note') %></tr>
+	<%= toolblock 3, @work.note_insertion_link %></tr>
 </table>

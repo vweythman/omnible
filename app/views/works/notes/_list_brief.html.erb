@@ -4,6 +4,6 @@
 	<% if @notes.length > 0 %>
 		<%= render 'works/notes/list' %>
 	<% else %>
-		<%= component_toolkit @work, 'Note' %>
+		<%= @work.note_insertion_link %>
 	<% end %>
 </div>

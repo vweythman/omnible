@@ -11,7 +11,7 @@
 	<article><%= @items.list if @items.can_list? %></article>
 
 	<h2>Places</h2>
-	<%= creation_toolkit('Place', new_place_path) %>
+	<%= creation_toolkit('Place', :place) %>
 	<%= @places.results %>
 
 </div>
