@@ -49,6 +49,10 @@ class Chapter < ActiveRecord::Base
 	# ------------------------------------------------------------
 	delegate :uploader, to: :story
 
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	alias_attribute :about, :summary
+
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	# SwapPositions - swap the positions of two chapters of the same story
