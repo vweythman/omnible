@@ -4,11 +4,11 @@
 		<%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Add Summary", :class=> :minor) %>
 	</fieldset>
 
-	<%= show_link @worknest.heading, @worknest.klass %>
-	<%= content_tag :fieldset, class: 'nested works', id: @worknest.form_id do %>
-		<%= nested_legend @worknest %>
-		<%= nested_fields f, @worknest %>
-		<p><%= link_to_add_association '+ Add Work', f, @worknest.klass %></p>
+	<%= @works.show %>
+	<%= content_tag :fieldset, class: @works.nest_class, id: @works.formid do %>
+		<%= @works.legend %>
+		<%= @works.fields(f) %>
+		<p><%= link_to_add_association "+ Add Work", f, @works.klass, :partial => @works.partial %></p>
 	<% end %>
 
 	<%= f.submit %>
