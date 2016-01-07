@@ -1,16 +1,22 @@
 // APP STYLES
 // ***********************************************
 // IMPORT
+// ===============================================
 //= require jquery-ui/slider
 
 // SETUP
-@import "partials/variables";
-@import "partials/mixins";
+// ===============================================
+@import "variables/sizes";
+@import "variables/colors";
+@import "partials/mixins/general";
+@import "partials/mixins/layout";
 
 // NORMALIZE 
+// ===============================================
 @import "normalize.scss";
 
 // BUILD
+// ===============================================
 @import "main.scss";
 
 /* END */

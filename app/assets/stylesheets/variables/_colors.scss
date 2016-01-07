@@ -1,0 +1,86 @@
+// STYLE VARIABLES: COLORS
+// ***********************************************
+// BASE COLORS
+// ===============================================
+// -- Black & White
+// -----------------------------------------------
+$page-mid: hsl(0, 0%,  50%);
+$page-light:    lighten($page-mid, 15%);
+$page-lighter:  lighten($page-mid, 30%);
+$page-lightest: lighten($page-mid, $one-whole);
+
+$page-dark:     darken($page-mid, $golden-small);
+$page-darker:   darken($page-mid, $golden-minor);
+$page-darkest:  darken($page-mid, $one-whole);
+
+// -- Aliased
+// -----------------------------------------------
+$border-color: $page-lighter;
+$page-color:   $page-lightest;
+
+// LAYOUT COLORS
+// ===============================================
+// -- Prime
+// -----------------------------------------------
+$water-color:    hsl(205, 50%, 52%);
+$water-light:    lighten($water-color, $golden-xtiny);
+$water-lighter:  lighten($water-color, $golden-xsmall);
+$water-lightest: lighten($water-color, $golden-minor);
+
+$water-dark:     darken($water-color,  $golden-xtiny);
+$water-darker:   darken($water-color,  $golden-xsmall);
+$water-darkest:  darken($water-color,  $golden-minor);
+
+$water-text-lightest: lighten($water-color, 50% - $golden-xtiny);
+$water-text-darkest:  darken($water-color,  50% - $golden-xtiny);
+
+$fire-color:    hsl(35, 100%, 56%);
+$fire-light:    lighten($fire-color, $golden-xtiny);
+$fire-lighter:  lighten($fire-color, $golden-xsmall);
+$fire-lightest: lighten($fire-color, $golden-minor);
+
+$fire-dark:     darken($fire-color,  $golden-xtiny);
+$fire-darker:   darken($fire-color,  $golden-xsmall);
+$fire-darkest:  darken($fire-color,  $golden-minor);
+
+$water-text-lightest: lighten($water-color, 50% - $golden-xtiny);
+$water-text-darkest:  darken($water-color,  50% - $golden-xtiny);
+
+// -- Secondary
+// -----------------------------------------------
+$moss-color:    hsl(115, 50%, 50%);
+$moss-light:    lighten($moss-color, $golden-xtiny);
+$moss-lighter:  lighten($moss-color, $golden-xsmall);
+$moss-lightest: lighten($moss-color, $golden-minor);
+
+$moss-dark:     darken($moss-color,  $golden-xtiny);
+$moss-darker:   darken($moss-color,  $golden-xsmall);
+$moss-darkest:  darken($moss-color,  $golden-minor);
+
+$water-text-lightest: lighten($water-color, 50% - $golden-xtiny);
+$water-text-darkest:  darken($water-color,  50% - $golden-xtiny);
+
+$rose-color:    hsl(295, 50%, 56%);
+$rose-light:    lighten($rose-color, $golden-xtiny);
+$rose-lighter:  lighten($rose-color, $golden-xsmall);
+$rose-lightest: lighten($rose-color, $golden-minor);
+
+$rose-dark:     darken($rose-color,  $golden-xtiny);
+$rose-darker:   darken($rose-color,  $golden-xsmall);
+$rose-darkest:  darken($rose-color,  $golden-minor);
+
+$water-text-lightest: lighten($water-color, 50% - $golden-xtiny);
+$water-text-darkest:  darken($water-color,  50% - $golden-xtiny);
+
+// TEXT COLORS
+// ===============================================
+// -- Ratings
+// -----------------------------------------------
+$rating-lowest:  hsl(0,   95%, 25%);
+$rating-low:     hsl(35,  90%, 25%);
+$rating-mid:     hsl(70,  90%, 25%);
+$rating-high:    hsl(105, 90%, 25%);
+$rating-highest: hsl(140, 95%, 25%);
+
+// END
+// ***********************************************/
