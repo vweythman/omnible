@@ -26,8 +26,8 @@ module ContentCollections
 
 	# setup form components
 	def define_components
-		@general_tags = @work.tags.pluck(:name)
-		@characters   = @work.init_characters
+		#@general_tags = @work.tags.pluck(:name)
+		#@characters   = @work.init_characters
 	end
 
 	def add_characters
