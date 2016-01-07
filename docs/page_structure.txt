@@ -1,0 +1,62 @@
+page
+	site-header
+		site-logo
+		site-menu
+		user-interaction
+	site-body
+		page-header
+			notices
+			announcements
+
+		either
+			poster
+			entry
+			archive
+
+		poster-grid
+			grid-panel
+				panel-cell
+					widget
+						widget-header
+						widget-body
+						widget-footer
+					...
+				...
+
+		entry
+			entry-header
+				entry-title
+				entry-meta
+				breadcrumbs
+			entry-body
+				section-content
+			entry-footer
+				entry-interaction
+				see-more
+				path-finder
+
+		archive
+			archive-header
+				archive-title
+				results-count
+				archive-search
+			archive-body
+				archive-results
+					results-header
+						pagination
+					results-body
+						result
+							result-header
+							result-body
+							result-footer
+						result
+						result
+						...
+					results-foooter
+						pagination
+				archive-filters
+	site-footer
+		site-map
+		site-help
+		site-designer
+		contact-info
