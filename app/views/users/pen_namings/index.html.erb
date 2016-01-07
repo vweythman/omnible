@@ -1,8 +1,14 @@
 <% provide :title, "Dashboard (Pen Names)" %>
-<%= render 'users/dashboards/sidebar' %>
 
-<article>
-	<h1>Pen Names</h1>
+<header>
+	<h1>
+		My Dashboard
+		<%= label_span "Pen Names" %>
+	</h1>
+</header>
 
-	<%= render :partial => "pen_names", :locals => { :caption_heading => "Current" } %>
-</article>
+<div class="dashboard-grid">
+	<div class="grid-panel">
+		<div class="panel-cell solo"><%= @pen_names.tableize('Current') %></div>
+	</div>
+</div>

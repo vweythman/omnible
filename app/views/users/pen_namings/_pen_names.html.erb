@@ -1,18 +1,16 @@
-<div class="pen-names">
-	<table>
-		<caption><%= caption_heading %> <span class="counter"><%= current_user.pen_names.length %></span></caption>
+<div class="pen-names management-widget">
+	<table class="editable">
+		<caption><%= caption_heading %> <%= @pen_names.counter %></caption>
 		<thead>
 			<tr>
 				<th>Name</th>
+				<th>Manage</th>
 				<th>Status</th>
-				<th>Works</th>
 			</tr>
 		</thead>
 
-		<tbody id="pen-names-list">
-			<%= render @pen_names %>
-		</tbody>
+		<tbody id="pen-names-list"><%= render @pen_names %></tbody>
 	</table>
-	<div id="pen-namer-form" style="display:none;"></div>
-	<%= inline_creation_toolkit "Pen Name", :pen_naming %>
+	<%= @pen_names.inline_creation %>
+	<%= @pen_names.link_to_creation %>
 </div>

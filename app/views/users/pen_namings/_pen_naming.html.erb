@@ -1,8 +1,14 @@
-<tr>
-	<th id="pen-name-<%= pen_naming.id %>">
-		<span><%= link_to pen_naming.name, pen_naming %></span>
-		<div id="pen-name-edit-bar-for-<%= pen_naming.id %>"><%= pen_naming.edit_bar %></div>
-		<div id="pen-namer-form-for-<%= pen_naming.id %>" style="display:none;"></div>
+<tr id="<%= pen_naming.tagid %>">
+	<th>
+		<span class="pen-title"><%= link_to pen_naming.name, pen_naming %></span>
+		<%= pen_naming.edit_form_div %>
 	</th>
-	<td data-label="Pen Status"><%= pen_naming.status %></td>
+
+	<td data-label="Manage" id="<%= pen_naming.editorid %>">
+		<%= pen_naming.edit_bar %>
+	</td>
+	
+	<td data-label="Pen Status" class="status">
+		<%= pen_naming.status %>
+	</td>
 </tr>

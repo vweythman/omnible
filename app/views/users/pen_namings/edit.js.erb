@@ -1,4 +1,5 @@
-$('#pen-namer-form-for-<%= @namer.id %>').html("<%= j (render 'form') %>");
-$('#pen-namer-form-for-<%= @namer.id %>').slideDown(180);
-$('#pen-name-<%= @namer.id %> span').hide();
-$('#pen-name-edit-bar-for-<%= @namer.id %> .toolkit').hide();
+$('<%= @namer.formid %>').html("<%= j (render 'form') %>");
+$('<%= @namer.formid %>').slideDown(180);
+$('#<%= @namer.tagid %> .pen-title').hide();
+$('#<%= @namer.editorid %>').hide();
+$('#<%= @namer.tagid %> th').attr('colspan', 2);

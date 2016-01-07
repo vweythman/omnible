@@ -1,3 +1,3 @@
-$('#pen-names-list').html("<%= j (render current_user.pen_namings) %>");
+$('#pen-names-list').html("<%= j (render @pen_names) %>");
 $('#pen-namer-form').slideUp(180);
-$('#button_pen_namings_new').show();
+$('#button-pen_namings-new').show();
