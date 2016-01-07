@@ -33,6 +33,7 @@ class WorksController < ApplicationController
 	# ............................................................
 	def create
 		@work = Work.new(work_params)
+		@work.uploader = current_user
 
 		if @work.save
 			redirect_to @work
@@ -86,6 +87,7 @@ class WorksController < ApplicationController
 	def begin_work
 		@work = Work.new
 		@work.appearances.build
+		@work.rating = Rating.new
 	end
 
 	# FOR EDIT & DELETE :: ensures that a editor can edit or delete
@@ -112,8 +114,10 @@ class WorksController < ApplicationController
 	# define strong parameters
 	def work_params
 		params.require(:work).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
-			appearances_attributes: [:id, :character_id, :role, :_destroy],
-			settings_attributes:    [:id, :place_id, :_destroy],
+			skinning_attributes:    [:id, :skin_id, :_destroy],
+			appearances_attributes: [:id, :character_id, :role],
+			taggings_attributes:    [:id, :tag_id],
+			settings_attributes:    [:id, :place_id],
 			rating_attributes:      [:id, :violence, :sexuality, :language]
 		)
 	end
