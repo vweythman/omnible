@@ -30,6 +30,7 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	include Editable
 	include Discussable
+	include Summarizable
 
 	# CALLBACKS
 	# ------------------------------------------------------------
@@ -67,15 +68,19 @@ class Work < ActiveRecord::Base
 	scope :complete,   -> { where("is_complete  = 't'") }
 	scope :incomplete, -> { where("is_complete  = 'f'") }
 
+	scope :local,      -> { where("type IN (?)", WorksTypeDescriber.local.pluck(:name)) }
+	scope :offsite,    -> { where("type IN (?)", WorksTypeDescriber.offsite.pluck(:name)) }
+
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# - Joins
-	has_many :collections
-	has_many :appearances
-	has_many :respondences, as: :response
-	has_many :taggings
-	has_many :settings
-	has_many :creatorships
+	has_many :collections,  dependent: :destroy
+	has_many :appearances,  dependent: :destroy
+	has_many :respondences, dependent: :destroy, as: :response
+	has_many :taggings,     dependent: :destroy
+	has_many :settings,     dependent: :destroy
+	has_many :creatorships, dependent: :destroy
+	has_one  :skinning,     dependent: :destroy
 
 	# - Belongs to
 	has_many :anthologies,   :through => :collections
@@ -83,10 +88,12 @@ class Work < ActiveRecord::Base
 	belongs_to :contentable, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
 
 	# - Has
-	has_many :creators, :through => :creatorships, source: :user
-	has_one  :rating, :inverse_of => :work
-	has_many :tags,   :through => :taggings
-	has_many :places, :through => :settings
+	has_many :creators, :through    => :creatorships, source: :user
+	has_one  :rating,   :inverse_of => :work
+	has_many :tags,     :through    => :taggings
+	has_many :places,   :through    => :settings
+	has_one  :skin,     :through    => :skinning, :inverse_of => :works
+	has_many :sources,  :dependent  => :destroy,  as: :referencer
 
 	has_many :characters,      :through => :appearances
 	has_many :main_characters, :through => :appearances
@@ -102,11 +109,14 @@ class Work < ActiveRecord::Base
 	accepts_nested_attributes_for :appearances, :allow_destroy => true
 	accepts_nested_attributes_for :settings,    :allow_destroy => true
 	accepts_nested_attributes_for :rating,      :allow_destroy => true
+	accepts_nested_attributes_for :skinning,    :allow_destroy => true
+	accepts_nested_attributes_for :sources,     :allow_destroy => true
 
 	# DELEGATED METHODS
 	# ------------------------------------------------------------
 	delegate :narrative?,   to: :contentable
 	delegate :is_singleton, to: :contentable
+	delegate :record?,      to: :contentable
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
@@ -117,7 +127,15 @@ class Work < ActiveRecord::Base
 		cmplt    = options[:completion]
 		rate_options = options.slice(:rating_min, :rating_max, :rating)
 
-		self.ready(cmplt).span(date).order_by(order).joins(:rating).merge(Rating.choose(rate_options)).page(page_num)
+		self.ready(cmplt).span(date).order_by(order).page(page_num).with_rating(rate_options)
+	end
+
+	def self.with_rating(rate_options)
+		unless rate_options.nil? || rate_options.length < 1
+			joins(:rating).merge(Rating.choose(rate_options))
+		else
+			all
+		end
 	end
 
 	def self.with_filters(options = {}, user)
