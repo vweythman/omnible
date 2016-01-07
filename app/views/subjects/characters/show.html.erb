@@ -1,18 +1,17 @@
 <% provide(:title, @character.name) %>
 
-<div id="main" class="feature">
-	<header>
-		<%= @character.edit_bar %>
-		<%= @character.link_to_original %>
+<header>
+	<%= @character.link_to_original %>
 
-		<h1><%= @character.name %></h1>
+	<h1><%= @character.name %></h1>
 
-		<%= @character.list_aliases %>
-		<%= uploaded_by @character.uploader %>
-	</header>
+	<%= @character.list_aliases %>
+	<%= uploaded_by @character.uploader %>
+	<%= @character.edit_bar %>
+</header>
 
+<div class="feature">
 	<%= render 'info' %>
-
 	<footer>
 		<%= @character.replication_bar %>
 		<%= @character.pagination %>
