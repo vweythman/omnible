@@ -1,32 +1,137 @@
-/* SITE CONTENT
-************************************************/
-// VIEWPORT: ALL
-// =============================================
-#site-content {
+// STYLE PARTIAL: PAGE
+// ***********************************************
+// SETUP :: GENERAL IMPORTS
+// ===============================================
+@import "partials/headers/content";
+@import "partials/footer";
+@import "partials/poster_grid";
+@import "partials/alerts";
+@import "partials/toolkits";
+
+// VIEWPORT :: ALL
+// ===============================================
+// -- Layout
+// -----------------------------------------------
+.site-content > header {
 	background: $page-color;
-	overflow:   auto;
-	padding:    0;
+	.notice {
+		margin: 0 $one-twelfth;
+		width:  $one-sixth;
+	}
 }
-#main > footer {
-	text-align: center;
-	padding: 10px;
+.page-body,
+.page-body > header {
+	background: $page-color;
 }
-h1 {
-	font-size:      $heading-size;
-	font-weight:    900;
-	margin:         0;
-	padding:        10px 0;
+.page-body {
+	margin:   0;
+	overflow: auto;
+	padding:  0;
 }
 
-// STYLE IMPORTS
-// .............................................
-@import 'partials/general';
-@import 'partials/alerts';
+// -- Text
+// -----------------------------------------------
+p {
+	margin:  0;
+	padding: 5px 0;
+}
+pre {
+	overflow:    auto;
+	white-space: pre-wrap;
+}
+.date { font-weight: bolder; }
 
-// DATES
-// .............................................
-.date {
+// -- Links
+// -----------------------------------------------
+@include visitation($water-dark);
+a {
+	color: $water-dark;
+
+	&:hover {
+		color:           $page-darker;
+		text-decoration: none;
+	}
+}
+
+// -- Lists
+// -----------------------------------------------
+ul {
+	list-style: none;
+}
+article ol li {
+	padding: 0;
+}
+dl {
+	margin:  0;
+	padding: 0;
+}
+dd {
+	padding: 0 5px;
+}
+dd,
+dt { margin: 0; }
+dt {
+	padding: 1px 5px;
+	padding-top: 10px;
+}
+dt:first-child {
+	padding-top: 0;
+}
+article dd:before, 
+article ul li:before {
+	@include arrowed($fire-dark);
+}
+
+// -- General Footer Types
+// -----------------------------------------------
+.path-finder {
+	background: $water-lighter;
 	font-weight: bolder;
+	margin:      0px auto;
+	padding:     10px 20% 35px 20%;
+	text-align:  center;
+	width:       60%;
+
+	a {
+		text-decoration: none;
+		color: $water-text-darkest;
+
+		&:hover { text-decoration: underline; }
+	}
+}
+.see-more a {
+	background:    $page-darkest;
+	border-radius: 10px;
+	color:         $water-lighter;
+	margin:        15px auto;
+	min-width:     100px;
+	padding:       10px 15px;
+	text-align:    center;
+	width:         $one-fourth;
+
+	&:hover {
+		background: $fire-color;
+		color:      $page-darkest;
+	}
 }
 
-/* END */
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.the-content {
+		margin: 0 auto;
+		width:  calc(66.66% + 20px);
+	}
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	.the-content {
+		margin: 10px auto;
+		width:  $eleven-twelfths;
+	}
+}
+
+// END
+// ************************************************/
