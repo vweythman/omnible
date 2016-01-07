@@ -12,6 +12,19 @@
 			</div>
 		<% end %>
 
+		<% unless @character.connections.empty? %>
+			<h2>Relationships</h2>
+			<table class="relationships">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>People</th>
+					</tr>
+				</thead>
+				<%= @character.connections.rows(@character) %>
+			</table>
+		<% end %>
+
 		<% if @character.viewpoints.length > 0 %>
 			<h2>Opinions and Prejudices</h2>
 			<table class="views">
@@ -48,22 +61,9 @@
 			</table>
 		<% end %>
 
-		<% unless @character.connections.empty? %>
-			<h2>Relationships</h2>
-			<table class="relationships">
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th>People</th>
-					</tr>
-				</thead>
-				<%= @character.connections.rows(@character) %>
-			</table>
-		<% end %>
-
 		<% unless @character.clones.empty? %>
 			<h2>Variants</h2>
-			<%= @character.clone_list %>
+			<%= @character.list_clones %>
 		<% end %>
 	</section>
 </article>
