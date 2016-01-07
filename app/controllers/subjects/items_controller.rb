@@ -13,14 +13,16 @@ class Subjects::ItemsController < ApplicationController
 	# GET
 	# ............................................................
 	def index
-		@items = Item.order('generics.name, items.name').includes(:generic).decorate
+		@items    = Item.order('generics.name, items.name').includes(:generic).decorate
+		@subjects = @items
+		render "subjects/index"
 	end
 
 	def show
 	end
 
 	def new
-		@item = Item.new
+		@item = Item.new.decorate
 	end
 
 	def edit

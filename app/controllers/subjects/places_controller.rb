@@ -11,6 +11,8 @@ class Subjects::PlacesController < ApplicationController
 	# GET
 	# ............................................................
 	def index
+		@subjects = @places
+		render "subjects/index"
 	end
 
 	def show
@@ -66,7 +68,7 @@ class Subjects::PlacesController < ApplicationController
 	end
 
 	def find_places
-		@places = Place.order('forms.name, places.name').includes(:form).decorate
+		@places   = Place.order('forms.name, places.name').includes(:form).decorate
 	end
 
 	# define strong parameters
