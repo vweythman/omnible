@@ -30,10 +30,19 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   devise_for :users
   resources :users, only: [:show]
+  resources :skins
 
   scope module: 'users' do
     resource :dashboard, only: [:show]
-    resources :pen_namings
+    resources :pen_namings do
+      resource :switch, only: [:update], :controller => 'pen_switches'
+    end
+    get  'styles' => 'skins#index', as: :user_skins
+  end
+
+  # ADMIN routes
+  scope module: 'admin' do
+    resource :control, only: [:show]
   end
 
   # Interaction routes
@@ -98,29 +107,30 @@ Rails.application.routes.draw do
   get 'subjects' => 'subjects#index'
   scope module: 'subjects' do
     resources :clones, only: [:edit, :update]
-    post "/clones/:id/" => "clones#create", as: :replicate
-    get '/places/real'   => 'real_places#index',   as: :real_places
-    get '/places/unreal' => 'unreal_places#index', as: :unreal_places
+    post "/clones/:id/"   => "clones#create", as: :replicate
+    get  "/places/real"   => 'real_places#index',   as: :real_places
+    get  "/places/unreal" => 'unreal_places#index', as: :unreal_places
     
     resources :characters
     resources :items
     resources :places
-
 
     scope module: 'curation' do
       get '/identities/:identity_id/characters' => 'identity_characters#index', as: :identity_characters
     end
   end
 
-  # DESCRIPTORS
+  # TAGS & CATEGORIES
   # ------------------------------------------------------------
-  get 'tags' => 'descriptors#index'
-  scope module: 'descriptors' do
-    resources :activities
-    resources :tags
-    resources :facets, only: [:index, :show]
-    resources :identities
-    resources :qualities
+  get 'all_tags' => 'taggings#show'
+
+  scope module: 'taggings' do
+    resources :activities, except: [:new, :create]
+    resources :tags,       except: [:new, :create]
+    resources :identities, except: [:new, :create]
+    resources :qualities,  except: [:new, :create]
+
+    resources :facets
     resources :relators
   end
   
