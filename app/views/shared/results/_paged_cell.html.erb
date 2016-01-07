@@ -1,0 +1,7 @@
+<div class="results">
+	<header><%= paginate results, :window => results.page_window %></header>
+
+	<div class="results-body"><%= results.list %></div>
+
+	<footer><%= paginate results, :window => results.page_window %></footer>
+</div>

@@ -1,17 +1,23 @@
 class ArticlesDecorator < WorksDecorator
 
+	# MODULES
+	# ------------------------------------------------------------
+	include PageCreating
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def title
 		"Articles"
+	end
+
+	def klass
+		:articles
 	end
 
 	def filter_values
 		filters = super
 		filters[:order][:values] << { heading: "Word Count", key: "word-count"}
 		return filters
-	end
-
-	def creation_path
-		h.creation_toolkit "Article", :article
 	end
 
 end

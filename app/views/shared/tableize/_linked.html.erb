@@ -1,0 +1,17 @@
+<table class="tableized">
+
+	<caption><%= table.caption_heading %></caption>
+
+	<thead>
+		<th>Name</th>
+	</thead>
+
+	<tbody>
+		<% table.each do |item| %>
+			<tr>
+				<td><%= link_to item.heading, item %></td>
+			</tr>
+		<% end %>
+	</tbody>
+
+</table>

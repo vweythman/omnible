@@ -1,5 +1,7 @@
 class FictionDecorator < WorksDecorator
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def title
 		"Fiction"
 	end

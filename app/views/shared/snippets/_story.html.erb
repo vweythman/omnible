@@ -1,0 +1,15 @@
+<header data-type="Chaptered Story">
+	<h4><%= link_to story.title_with_count, story %></h4>
+	<%= story.completion_status %>
+
+	<%= story.chapters_status %>
+	<%= story.rated %>
+
+	<div class="about">
+		<%= story.uploaded_by.html_safe %>
+		<%= story.chapters_count_status %>
+	</div>
+</header>
+
+<%= story.summarized %>
+<%= story.snippet_tags_line %>

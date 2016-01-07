@@ -1,26 +1,49 @@
-class WorkDecorator < EditableDecorator
+class WorkDecorator < Draper::Decorator
 
+	# DELEGATION
+	# ------------------------------------------------------------
 	delegate_all
 	decorates_association :rating
 
-	# HEADINGS AND IDENTIFICATION
+	# MODULES
 	# ------------------------------------------------------------
-	def creation_title
-		"Create Work"
+	include Agented
+	include PageEditing
+	include Timestamped
+	include Titleizeable
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- About
+	# ............................................................
+	def klass
+		:work
 	end
 
-	def editing_title
-		title + " (Edit Draft)"
+	def summary
+		object.summary || ""
+	end
+
+	def summarized
+		h.content_tag :div, class: 'summary' do
+			h.markdown self.summary 
+		end unless self.summary.empty?
+	end
+
+	# -- Creating & Editing
+	# ............................................................
+	def creation_title
+		"Create Work"
 	end
 
 	def editor_heading
 		h.content_tag :h1 do "Edit" end
 	end
 
-	# ABOUT
-	# ------------------------------------------------------------
-	def summary
-		object.summary || ""
+	# -- Status
+	# ............................................................
+	def snippet_path
+		'shared/snippets/' + klass.to_s
 	end
 
 	def rated
@@ -36,19 +59,37 @@ class WorkDecorator < EditableDecorator
 		end
 	end
 
-	# RELATED MODELS
-	# ------------------------------------------------------------
-	# ALL OR MULTIPLE
+	def has_skin?
+		self.skin.present? 
+	end
+
+	# -- Tags
 	# ............................................................
 	def all_tags
 		(self.tags + self.characters + self.places).sort_by! { |x| x[:name].downcase }
 	end
 
-	def main_tags_line
+	def all_tags_line
 		h.content_tag :p, class: 'tags' do h.cslinks self.all_tags end
 	end
 
-	# CHARACTERS
+	def main_tags
+		(self.tags + self.main_characters + self.places).sort_by! { |x| x[:name].downcase }
+	end
+
+	def snippet_tags_line
+		t = self.main_tags
+		
+		if t.length > 0
+			h.content_tag :p, class: 'tags' do h.cslinks t end
+		end
+	end
+
+	def tag_names
+		self.tags.map(&:name)
+	end
+
+	# -- Related
 	# ............................................................
 	def important_characters
 		work.narrative? ? self.main_characters : self.people_subjects
@@ -69,18 +110,8 @@ class WorkDecorator < EditableDecorator
 		cheading.titleize
 	end
 
-	# GENERAL TAGS
+	# -- Notes
 	# ............................................................
-	def tag_names
-		self.tags.map(&:name)
-	end
-
-	# NOTES
-	# ------------------------------------------------------------
-	def link_to_notes
-		h.link_to "Notes", h.story_notes_path(self)
-	end
-
 	def note_creation_link
 		if self.editable?(h.current_user)
 			h.prechecked_creation_toolkit("Note", [self, :note])
@@ -93,7 +124,7 @@ class WorkDecorator < EditableDecorator
 		end
 	end
 
-	# PLACES
+	# -- Places
 	# ............................................................
 	def location_heading
 		self.narrative? ? "Settings" : "Subject (Location)"

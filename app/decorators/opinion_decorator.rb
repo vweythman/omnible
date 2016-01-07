@@ -1,7 +1,11 @@
 class OpinionDecorator < ViewpointDecorator
+
+	# DELEGATION
+	# ------------------------------------------------------------
 	delegate_all
 
-	# RecipHeading - gives the heading for the recipient
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def recip_heading
 		recip.name
 	end

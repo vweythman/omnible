@@ -1,6 +1,13 @@
 class ViewpointDecorator < Draper::Decorator
+
+	# DELEGATION
+	# ------------------------------------------------------------
 	delegate_all
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- Tables
+	# ............................................................
 	def row
 		th  = recip_th
 		td1 = fondness_data
@@ -18,6 +25,8 @@ class ViewpointDecorator < Draper::Decorator
 		end
 	end
 
+	# -- Data
+	# ............................................................
 	def fondness_data
 		data_status "Fondness", self.fondness
 	end
@@ -31,6 +40,10 @@ class ViewpointDecorator < Draper::Decorator
 			about
 		end
 	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
 
 	def data_status(data_name, lvl)
 		h.content_tag :td, :data => {:label => data_name}, class: "rating level#{lvl}" do

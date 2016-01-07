@@ -1,34 +1,41 @@
-class PlaceDecorator < EditableDecorator
+class PlaceDecorator < Draper::Decorator
+
+	# DELEGATION
+	# ------------------------------------------------------------
 	delegate_all
 
-	# HEADINGS AND IDENTIFICATION
+	# MODULES
 	# ------------------------------------------------------------
-	def creation_title
-		"Create Place"
+	include Agented
+	include Timestamped
+	include PageEditing
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- About
+	# ............................................................
+	def realness_choices
+		["Actual Place", "Fictitious Place"]
 	end
 
-	def editing_title
-		name + " (Edit Draft)"
+	# -- Creating & Editing
+	# ............................................................
+	def creation_title
+		"Create Place"
 	end
 
 	def editor_heading
 		h.content_tag :h1 do "Edit" end
 	end
-
-	# ABOUT
-	# ------------------------------------------------------------
-	def realness_choices
-		["Actual Place", "Fictitious Place"]
+	
+	def editing_title
+		name + " (Edit Draft)"
 	end
 
-	# RELATED MODELS
-	# ------------------------------------------------------------
+	# -- Lists
+	# ............................................................
 	def list_characters
 		related_models("Tagged By", "taggers", self.characters.decorate)
-	end
-
-	def list_works
-		related_models("Setting/Subject of", "taggers", self.works.decorate)
 	end 
 
 	def list_domains
@@ -39,9 +46,14 @@ class PlaceDecorator < EditableDecorator
 		related_places("Contains", object.subdomains.includes(:form))
 	end
 
-	# PRIVATE
+	def list_works
+		related_models("Setting/Subject of", "taggers", self.works.decorate)
+	end
+
+	# PRIVATE METHODS
 	# ------------------------------------------------------------
-	private 
+	private
+
 	def related_places(title, places)
 		related_models(title, "places", PlacesDecorator.decorate(places))
 	end

@@ -1,0 +1,19 @@
+<table class="tableized">
+
+	<caption><%= table.caption_heading %></caption>
+
+	<thead>
+		<th>Title</th>
+		<th>Uploader</th>
+	</thead>
+
+	<tbody>
+		<% table.each do |item| %>
+			<tr>
+				<th><%= link_to item.heading, item %></th>
+				<td data-label="Uploader"><%= link_to item.uploader.name, item.uploader %></td>
+			</tr>
+		<% end %>
+	</tbody>
+
+</table>

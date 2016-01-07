@@ -1,0 +1,9 @@
+<% listable.each do |time, snippets| %>
+	<h2><%= time %></h2>
+	<% snippets.each do |snippet| %>
+		<article class='snippet'>
+			<%= render :partial => snippet.snippet_path, :object => snippet %>
+		</article>
+		<%= snippet.edit_bar %>
+	<% end %>
+<% end %>

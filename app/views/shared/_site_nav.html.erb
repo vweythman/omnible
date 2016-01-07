@@ -15,15 +15,18 @@
 				<li><%= link_to 'Places', places_path %></li>
 			</ul>
 		</li>
-		<li>
-			<%= link_to drop_arrowed("Tags"), tags_path %>
-			<ul class="submenu">
-				<li><%= link_to 'Activities', activities_path %></li>
-				<li><%= link_to 'Tags', tags_path %></li>
-				<li><%= link_to 'Identities', identities_path %></li>
-				<li><%= link_to 'Qualities', qualities_path %></li>
-				<li><%= link_to 'Relationship Types', relators_path %></li>
-			</ul>
-		</li>
+		
+		<% if user_signed_in? && current_user.admin? %>
+			<li>
+				<%= link_to drop_arrowed("Tags"), all_tags_path %>
+				<ul class="submenu">
+					<li><%= link_to 'Activities', activities_path %></li>
+					<li><%= link_to 'Tags', tags_path %></li>
+					<li><%= link_to 'Identities', identities_path %></li>
+					<li><%= link_to 'Qualities', qualities_path %></li>
+					<li><%= link_to 'Relationship Types', relators_path %></li>
+				</ul>
+			</li>
+		<% end %>
 	</ul>
 </nav>

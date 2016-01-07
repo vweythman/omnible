@@ -1,9 +1,26 @@
-class CharactersDecorator < ListableCollectionDecorator
+class CharactersDecorator < Draper::CollectionDecorator
 
-	def creation_path
-		h.creation_toolkit "Character", :character
+	# MODULES
+	# ------------------------------------------------------------
+	include ListableCollection
+	include PageCreating
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	def title
+		"Characters"
 	end
 
+	def heading
+		"Characters"
+	end
+
+	def klass
+		:characters
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
 	private
 	def list_type
 		:links

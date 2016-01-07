@@ -1,20 +1,20 @@
-class CharacterDecorator < EditableDecorator
+class CharacterDecorator < Draper::Decorator
+
+	# DELEGATION
+	# ------------------------------------------------------------
 	delegate_all
 
-	# HEADINGS
+	# MODULES
 	# ------------------------------------------------------------
-	def heading
-		name
-	end
+	include Agented
+	include NameIdentified
+	include Timestamped
+	include PageEditing
 
-	def creation_title
-		"Create Character"
-	end
-
-	def editing_title
-		name + " (Unsaved Draft)"
-	end
-
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- About
+	# ............................................................
 	def link_to_original
 		if is_a_clone?
 			h.content_tag :p, class: 'announce' do
@@ -23,32 +23,44 @@ class CharacterDecorator < EditableDecorator
 		end
 	end
 
-	# ABOUT
-	# ------------------------------------------------------------
+	def variant_names
+		identifiers.pluck(:name).join(";")
+	end
+
+	# -- Creating & Editing
+	# ............................................................
+	def creation_title
+		"Create Character"
+	end
+
+	def replication_bar
+		dup = h.link_to "Duplicate", h.replicate_path(self), method: :post
+		con = h.link_to("Connect to Original Variant", h.edit_clone_path(self))
+		rol = h.content_tag :a do "Create a Roleplay Copy" end
+
+		links = self.is_a_clone? ? (dup + rol) : (con + dup + rol)
+
+		h.content_tag :nav, class: 'toolkit replication' do
+			links
+		end
+	end
+
+	# -- Lists
+	# ............................................................
 	def list_aliases
 		if identifiers.size > 0
 			h.content_tag :p, class: 'identifiers' do identifiers.pluck(:name).join(", ") end
 		end
 	end
 
-	def variant_names
-		identifiers.pluck(:name).join("; ")
-	end
-
-	def viewpoints
-		if @viewpoints.nil?
-			prejudices  = self.prejudices.includes(:identity).decorate
-			opinions    = self.opinions.includes(:recip).decorate
-			@viewpoints = prejudices + opinions
+	def list_identities
+		identities = self.identities.sorted_alphabetic.decorate
+		if identities.can_list?
+			h.subgrouped_list("Overview", identities)
 		end
-		return @viewpoints
 	end
 
-	def connections
-		@connections ||= InterconnectionsDecorator.decorate(self.interconnections)
-	end
-
-	def clone_list
+	def list_clones
 		h.content_tag :ul, class: "clones" do
 			clones.each do |clone|
 				h.concat descent_tree(clone)
@@ -56,57 +68,12 @@ class CharacterDecorator < EditableDecorator
 		end
 	end
 
-	def descent_tree(clone)
-		clone = clone.decorate
-		link  = h.link_to clone.name, clone
-		node  = clone.clones.empty? ? "" : clone.clone_list
-		h.content_tag :li do
-			link + node
-		end
-	end
-
-	# OPINIONS
-	# ------------------------------------------------------------
-	def public_opinion_status
-		@rep_amt ||= reputations.size
-
-		"Decided by #{@rep_amt} " + "opinion".pluralize(@rep_amt)
-	end
-
-	def public_opinion
-		opinion = ViewpointDecorator.decorate average_reputation
-	end
-
-	def opinion_scatter_data
-		data = [
-			{
-				label: "Opinions",
-				strokeColor: "#559933",
-				data: opinions.uniques.map{|p| {x: p.fondness, y: p.respect, r: p.count} }
-			},
-			{
-				label: "Reputations",
-				strokeColor: "#4095BF",
-				data: reputations.uniques.map{|p| {x: p.fondness, y: p.respect, r: p.count} }
-			}
-		]
-	end
-
-	# ASIDE
-	# ------------------------------------------------------------
 	def list_possessions
 		possessions = PossessionsDecorator.decorate(self.possessions.includes(:item, :generic))
 		possessions.items.html_safe
 	end
 
-	def list_identities
-		identities = self.identities.alphabetic.includes(:facet).decorate
-		if identities.can_list?
-			h.subgrouped_list("Overview", identities)
-		end
-	end
-
-	# RELATED MODELS
+	# -- Pagination
 	# ------------------------------------------------------------
 	def pagination(user = nil)
 		prv = h.content_tag :li, class: 'prev'    do link_to_prev end
@@ -131,16 +98,18 @@ class CharacterDecorator < EditableDecorator
 		end
 	end
 
-	def replication_bar
-		dup = h.link_to "Duplicate", h.replicate_path(self), method: :post
-		con = h.link_to("Connect to Original Variant", h.edit_clone_path(self))
-		rol = h.content_tag :a do "Create a Roleplay Copy" end
+	# -- Status
+	# ............................................................
+	def public_opinion_status
+		@rep_amt ||= reputations.size
 
-		links = self.is_a_clone? ? (dup + rol) : (con + dup + rol)
+		"Decided by #{@rep_amt} " + "opinion".pluralize(@rep_amt)
+	end
 
-		h.content_tag :nav, class: 'toolkit replication' do
-			links
-		end
+	# -- Related
+	# ............................................................
+	def connections
+		@connections ||= InterconnectionsDecorator.decorate(self.interconnections)
 	end
 
 	def current_detail_text
@@ -150,6 +119,59 @@ class CharacterDecorator < EditableDecorator
 
 	def decorated_details
 		CharacterInfosDecorator.decorate(self.details)
+	end
+
+	def opinion_scatter_data
+		data = [
+			{
+				label: "Opinions",
+				strokeColor: "#559933",
+				data: opinions.uniques.map{|p| {x: p.fondness, y: p.respect, r: p.count} }
+			},
+			{
+				label: "Reputations",
+				strokeColor: "#4095BF",
+				data: reputations.uniques.map{|p| {x: p.fondness, y: p.respect, r: p.count} }
+			}
+		]
+	end
+
+	def public_opinion
+		opinion = ViewpointDecorator.decorate average_reputation
+	end
+
+	def relationship_tag_groups
+		i = taggables_group(Relator.lacks_reverse.decorate)
+		l = taggables_group(Relator.unreversible_lefts.decorate,  :left)
+		r = taggables_group(Relator.unreversible_rights.decorate, :right)
+
+		(i.merge l.merge r).sort
+	end
+
+	def viewpoints
+		if @viewpoints.nil?
+			prejudices  = self.prejudices.includes(:identity).decorate
+			opinions    = self.opinions.includes(:recip).decorate
+			@viewpoints = prejudices + opinions
+		end
+		return @viewpoints
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def descent_tree(clone)
+		clone = clone.decorate
+		link  = h.link_to clone.name, clone
+		node  = clone.clones.empty? ? "" : clone.list_clones
+		h.content_tag :li do
+			link + node
+		end
+	end
+
+	def taggables_group(rgroup, direction = nil)
+		rgroup.taggables_list_for(self, direction)
 	end
 
 end

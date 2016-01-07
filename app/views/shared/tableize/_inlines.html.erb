@@ -1,0 +1,17 @@
+<%= content_tag :table, id: table.klass, class: "tableized editable" do %>
+
+	<caption><%= table.caption_heading %></caption>
+	<thead>
+		<th>Name</th>
+		<th>Manage</th>
+	</thead>
+
+	<%= content_tag :tbody, id: table.klass.to_s + "-list" do %>
+		<% table.each do |item| %>
+			<tr>
+				<td><%= link_to item.heading, item %></td>
+				<td><%= item.edit_bar %></td>
+			</tr>
+		<% end %>
+	<% end %>
+<% end %>

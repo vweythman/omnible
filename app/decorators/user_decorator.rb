@@ -1,6 +1,11 @@
 class UserDecorator < Draper::Decorator
+	
+	# DELEGATION
+	# ------------------------------------------------------------
 	delegate_all
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def uploadable_types
 		[:article, :character, :item, :place, :story, :short_story]
 	end
@@ -10,15 +15,15 @@ class UserDecorator < Draper::Decorator
 	end
 
 	def uploaded_articles
-		self.uploaded_works.articles
+		@uploaded_articles ||= ArticlesDecorator.decorate self.uploaded_works.articles
 	end
 	
 	def uploaded_short_stories
-		self.uploaded_works.short_stories
+		@uploaded_short_stories ||= ShortStoriesDecorator.decorate self.uploaded_works.short_stories
 	end
 
 	def uploaded_stories
-		self.uploaded_works.stories
+		@uploaded_stories ||= StoriesDecorator.decorate self.uploaded_works.stories
 	end
 
 end

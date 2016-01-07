@@ -1,27 +1,71 @@
 class IdentitiesDecorator < Draper::CollectionDecorator
 
-	# HEADINGS AND IDENTIFICATION
+	# MODULES
 	# ------------------------------------------------------------
+	include Nestable
+	include DisabledCreation
+	include ListableCollection
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- About
+	# ............................................................
 	def heading
 		"Character Descriptors"
 	end
 
-	def formid
-		"form_identities"
-	end
-
-	# ABOUT
-	# ------------------------------------------------------------
-	def can_list?
-		self.length > 0
+	def index_heading
+		"Character Tags (Identities)"
 	end
 
 	def klass
 		:identities
 	end
 
-	def list
-		h.render partial: "shared/lists/definitions", object: self.organized
+	def organized
+		Identity.organize(object)
+	end
+
+	def show_heading
+		"Descriptors"
+	end
+
+	# -- Lists
+	# ............................................................
+	def can_list?
+		self.length > 0
+	end
+
+	# -- Nestable
+	# ............................................................
+	def fields
+		h.capture do
+			list_possible.each do |facet, list|
+				h.concat h.taggables(facet, list.nil? ? [] : list.map{|i| i.name }, facet.pluralize) 
+			end
+		end
+	end
+
+	def nest_class
+		"tags identities descriptions"
+	end
+
+	# -- Related
+	# ............................................................
+	def facets
+		@facets ||= Facet.all.order(:name)
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def listable
+		self.organized
+	end
+
+	def list_type
+		:definitions
 	end
 
 	def list_possible
@@ -34,18 +78,8 @@ class IdentitiesDecorator < Draper::CollectionDecorator
 		end
 	end
 
-	def organized
-		Identity.organize(object)
-	end
-
-	def field_class
-		"tags identities descriptions"
-	end
-
-	# RELATED MODELS
-	# ------------------------------------------------------------
-	def facets
-		@facets ||= Facet.all.order(:name)
+	def results_content_type
+		:titled_cell
 	end
 
 end

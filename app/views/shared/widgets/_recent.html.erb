@@ -1,0 +1,11 @@
+<div class="recent-widget widget">
+	<header>
+		<h2>Recent <%= collection.klass.to_s.titleize %></h2>
+	</header>
+	<div class="widget-body">
+		<%= collection.recent_body %>
+	</div>
+	<footer class="see-more">
+		<p><%= link_to collection.klass.to_s.titleize, collection.klass %></p>
+	</footer>
+</div>

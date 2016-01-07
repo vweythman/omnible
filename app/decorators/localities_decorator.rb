@@ -1,11 +1,13 @@
 class LocalitiesDecorator < PlaceDecorator
-  
+
+	# MODULES
+	# ------------------------------------------------------------
+	include Nestable
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def heading
 		"Parent Places"
-	end
-
-	def formid
-		"form_localities"
 	end
 
 	def klass

@@ -1,5 +1,7 @@
 class WorksCurationDecorator < WorksDecorator
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def set_parent(parent)
 		@parent = parent
 	end
@@ -11,6 +13,10 @@ class WorksCurationDecorator < WorksDecorator
 	def heading
 		link = h.link_to @parent.heading.titleize, h.polymorphic_path(@parent) 
 		link + " / Works"
+	end
+
+	def creation_path
+		nil
 	end
 
 end

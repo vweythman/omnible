@@ -1,5 +1,7 @@
 class InterconnectionsDecorator < Draper::CollectionDecorator
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def organize(parent)
 		Interconnection.organize(object, parent)
 	end
@@ -21,4 +23,5 @@ class InterconnectionsDecorator < Draper::CollectionDecorator
 			th + td
 		end
 	end
+
 end

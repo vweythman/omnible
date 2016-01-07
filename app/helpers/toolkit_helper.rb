@@ -20,7 +20,7 @@ module ToolkitHelper
 		render(:partial => "shared/toolkits/createable", :locals => { :titleized_type => name.to_s.titleize, :item_type => item_type })
 	end
 
-	# EDITING & ALTERATION
+	# EDITING & DESTROYING
 	# ------------------------------------------------------------
 	def alteration_toolkit(model)
 		if user_signed_in? && model.editable?(current_user)
@@ -32,14 +32,26 @@ module ToolkitHelper
 		render(:partial => "shared/toolkits/inline_alterable", :locals => { :item => model } )
 	end
 
+	def inline_undestroyable_toolkit(model)
+		render(:partial => "shared/toolkits/inline_undestroyable", :locals => { :item => model } )
+	end
+
 	# FORMATING
 	# ------------------------------------------------------------
 	def toolblock(colspan, toolkit)
-		content_tag :tr, class: 'toolblock' do
-			content_tag :td, colspan: colspan do
-				toolkit
-			end
+		render(:partial => "shared/toolkits/table_toolblock", :locals => { :toolkit => toolkit, :colspan => colspan } )
+	end
+
+	# UNSPECIFIED
+	# ------------------------------------------------------------
+	def multi_kit(model_types, toolkit_type = :creation)
+		if user_signed_in? 
+			prechecked_multi_kit(model_types, toolkit_type)
 		end
+	end
+
+	def prechecked_multi_kit(model_types, toolkit_type = :creation)
+		render :partial => "shared/toolkits/multi_#{toolkit_type}_kits", :locals => { :types => model_types }
 	end
 
 end

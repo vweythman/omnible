@@ -17,20 +17,7 @@ module FormHelper
 	def show_link(title, id)
 		content_tag :a, class: 'show', id: "show_#{id}" do "&dArr; View #{title}".html_safe end
 	end
-
-	# OUTPUT existing content for nested field
-	def nested_fields(f, collection, nlocals = {})
-		index = 0
-		f.fields_for collection.klass do |builder|
-			
-			nlocals[:f]           = builder
-			nlocals[:selector_id] = index
-
-			index = index + 1
-			concat render :partial => collection.partial, :locals => nlocals
-		end
-	end
-
+	
 	# FIELDS
 	# ------------------------------------------------------------
 	# OUTPUT form field
@@ -86,7 +73,30 @@ module FormHelper
 
 	# OUTPUT tag text field
 	def taggables(label, list, title = nil, placeholder = nil)
-		form_field label_tag(label, title), text_field_tag(label, list.join(";"), :placeholder => placeholder, class: 'taggables')
+		render :partial => "shared/forms/tag_input_field", :locals => { :label => label, :title => title, :tagline => list.join(";"), :placeholder => placeholder }
+	end
+
+	def boolean_field(f, value, heading = nil)
+		heading = value if heading.nil?
+
+		render :partial => "shared/forms/boolean_field", :locals => { :f => f, :boolean_value => value, :boolean_label => heading }
+	end
+
+	# AJAX EDIT FORM
+	def form_div_for_ajaxed_edit(type, id)
+		content_tag :div, id: edit_form_id(type, id), style: "display:none;" do "" end
+	end
+
+	def form_div_for_ajaxed_creation(type)
+		content_tag :div, class: "creation-block", id: type + "-form", style: "display:none;" do "" end
+	end
+
+	def edit_form_id(type, id)
+		type + "-form-for-" + id.to_s
+	end
+
+	def ajaxed_form_render
+		render :partial => "form", :locals => { :remote => true }
 	end
 
 end

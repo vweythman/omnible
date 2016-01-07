@@ -1,11 +1,13 @@
 class SublocalitiesDecorator < PlaceDecorator
 
+	# MODULES
+	# ------------------------------------------------------------
+	include Nestable
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def heading
 		"Child Places"
-	end
-
-	def formid
-		"form_sublocalities"
 	end
 
 	def klass
@@ -19,6 +21,5 @@ class SublocalitiesDecorator < PlaceDecorator
 	def possible_for(place)
 		@places ||= place.potential_subdomains
 	end
-
 
 end

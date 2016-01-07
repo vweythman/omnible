@@ -1,27 +1,39 @@
 class PossessionsDecorator < Draper::CollectionDecorator
 
-	def klass
-		:possessions
-	end
+	# MODULES
+	# ------------------------------------------------------------
+	include Nestable
 
-	def formid
-		"form_possessions"
-	end
-
-	def partial
-		"subjects/characters/fields/possession_fields"
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- About
+	# ............................................................
+	def can_list?
+		object.length > 0
 	end
 
 	def heading
 		"Items"
 	end
 
-	def can_list?
-		object.length > 0
+	def klass
+		:possessions
 	end
 
-	def possible_possessions
-		@possible ||= Item.all
+	# -- Location
+	# ............................................................
+	def partial
+		"subjects/characters/fields/possession_fields"
+	end
+
+	# -- Related
+	# ............................................................
+	def characters
+		values = ""
+		Possession.organize_characters(object).each do |relator, group|
+			values = values + h.subgrouped_list(relator, CharactersDecorator.decorate(group))
+		end
+		values
 	end
 
 	def items 
@@ -32,12 +44,8 @@ class PossessionsDecorator < Draper::CollectionDecorator
 		values
 	end
 
-	def characters
-		values = ""
-		Possession.organize_characters(object).each do |relator, group|
-			values = values + h.subgrouped_list(relator, CharactersDecorator.decorate(group))
-		end
-		values
+	def possible_possessions
+		@possible ||= Item.all
 	end
 
 end

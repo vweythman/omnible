@@ -1,33 +1,43 @@
 class ChaptersDecorator < Draper::CollectionDecorator
 
-	def meta_title(story)
-		story.title + " - Chapters"
-	end
+	# MODULES
+	# ------------------------------------------------------------
+	include Nestable
 
-	def formid
-		"form_chapters"
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- Identifiers
+	# ............................................................
+	def heading
+		"Chapters"
 	end
 
 	def klass
 		:chapters
 	end
 
-	def heading
-		"Chapters"
+	def meta_title(story)
+		story.title + " - Chapters"
 	end
 
-	def partial
-		'works/shared/nested_chapter_fields'
+	def nest_class
+		"nested textable"
 	end
 
+	# -- Links
+	# ............................................................
 	def link_to_insert_first(story)
 		if story.editable?(h.current_user)
-			heading   = "+ New Chapter Here"
-			insertion = h.link_to heading, h.first_chapter_path(story)
 			h.content_tag :nav, class: 'toolkit insertion' do
-				insertion
+				h.link_to "+ New Chapter Here", h.first_chapter_path(story)
 			end
 		end
+	end
+
+	# -- Location
+	# ............................................................
+	def partial
+		'works/shared/nested_chapter_fields'
 	end
 
 end

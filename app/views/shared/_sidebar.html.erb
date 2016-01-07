@@ -1,0 +1,52 @@
+<aside class="sidebar">
+	<% if current_user.admin? %>
+		<h2>Administration</h2>
+		<ul class="control-group">
+			<li><%= link_to "Control Panel", control_path %></li>
+			<li><%= link_to "Manage Facets", facets_path %></li>
+		</ul>
+	<% end %>
+
+	<h2>Account</h2>
+	<ul class="control-group">
+		<li><%= link_to "Dashboard", dashboard_path %></li>
+		<li><%= link_to "Pen Names", pen_namings_path %></li>
+		<li><%= link_to "Stylesheet Skins", user_skins_path %></li>
+	</ul>
+
+	<h2>Creations and Uploads</h2>
+	<ul class="control-group createables">
+		<li>
+			<h3>Uploaded Works</h3>
+			<ul>
+				<li>Articles      <span class="manager">see all | create one</span></li>
+				<li>Blog Post     <span class="manager">see all | create one</span></li>
+				<li>Music Video   <span class="manager">see all | create one</span></li>
+				<li>Poems         <span class="manager">see all | create one</span></li>
+				<li>Radio Plays   <span class="manager">see all | create one</span></li>
+				<li>Song          <span class="manager">see all | create one</span></li>
+				<li>Short Stories <span class="manager">see all | create one</span></li>
+				<li>Stories       <span class="manager">see all | create one</span></li>
+			</ul>
+		</li>
+
+		<li>
+			<h3>Links</h3>
+			<ul>
+				<li>Fiction Links<span class="manager">see all | create one</span></li>
+			</ul>
+		</li>
+
+
+		<li>
+			<h3>Subjects</h3>
+			<ul>
+				<li>Characters<span class="manager">see all | create one</span></li>
+				<li>Places<span class="manager">see all | create one</span></li>
+				<li>Items<span class="manager">see all | create one</span></li>
+			</ul>
+		</li>
+	</ul>
+
+	<h2>Discussion</h2>
+</aside>

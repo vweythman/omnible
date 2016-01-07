@@ -1,11 +1,17 @@
 class StoryLinksDecorator < WorksDecorator
 
+	# MODULES
+	# ------------------------------------------------------------
+	include PageCreating
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def title
 		"Story Links"
 	end
 
-	def creation_path
-		h.creation_toolkit "Link", :story_link
+	def klass
+		:story_links
 	end
 
 end

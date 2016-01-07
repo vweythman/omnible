@@ -1,5 +1,15 @@
 class StoriesDecorator < WorksDecorator
 
+	# MODULES
+	# ------------------------------------------------------------
+	include PageCreating
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	def klass
+		:stories
+	end
+
 	def title
 		"Stories"
 	end
@@ -9,10 +19,6 @@ class StoriesDecorator < WorksDecorator
 		filters[:order][:values] << { heading: "Word Count",    key: "word-count" }
 		filters[:order][:values] << { heading: "Chapter Count", key: "chapter-count" }
 		return filters
-	end
-
-	def creation_path
-		h.creation_toolkit "Story", :story
 	end
 
 end

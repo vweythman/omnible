@@ -1,0 +1,5 @@
+<div class="multikit">
+	<% types.each do |type| %>
+		<%= prechecked_creation_toolkit (type.respond_to?('each') ? type.last : type), type %>
+	<% end %>
+</div>

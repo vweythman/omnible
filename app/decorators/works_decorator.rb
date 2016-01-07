@@ -1,11 +1,21 @@
-class WorksDecorator < ListableCollectionDecorator
+class WorksDecorator < Draper::CollectionDecorator
 
-	# PAGINATION DELEGATION
+	# DELEGATION
 	# ------------------------------------------------------------
 	delegate :current_page, :total_pages, :limit_value, :entry_name, :total_count, :offset_value, :last_page?
 
-	# ABOUT
+	# MODULES
 	# ------------------------------------------------------------
+	include ChangeSortable
+	include ListableCollection
+	include PanelableCollection
+	include TableableCollection
+	include RecentWidget
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- About
+	# ............................................................
 	def heading
 		title
 	end
@@ -13,13 +23,17 @@ class WorksDecorator < ListableCollectionDecorator
 	def title
 		"Works"
 	end
-	
-	def list
-		h.render partial: list_partial, object: self
+
+	def klass
+		:works
 	end
 
-	# FILTERS
-	# ------------------------------------------------------------
+	def caption_heading
+		title
+	end
+	
+	# -- Aside
+	# ............................................................
 	def for_categories
 		all_link    = h.content_tag :li do link_to_all end
 		other_links = type_links
@@ -62,8 +76,8 @@ class WorksDecorator < ListableCollectionDecorator
 		}
 	end
 
-	# LINKS
-	# ------------------------------------------------------------
+	# -- Links
+	# ............................................................
 	def link_to_all
 		h.link_to "All", h.polymorphic_path(storage_nav[:all])
 	end
@@ -73,8 +87,8 @@ class WorksDecorator < ListableCollectionDecorator
 		links.join.html_safe
 	end
 
-	# PATHS
-	# ------------------------------------------------------------
+	# -- Paths
+	# ............................................................
 	def clean_type_params
 		para = h.params.dup
 		para.delete(:controller)
@@ -83,7 +97,7 @@ class WorksDecorator < ListableCollectionDecorator
 	end
 
 	def creation_path
-		""
+		h.multi_kit types.keys.map {|k| k.to_s.singularize }
 	end
 
 	def external_types
@@ -102,15 +116,33 @@ class WorksDecorator < ListableCollectionDecorator
 		local_types.merge external_types
 	end
 
-	# PRIVATE
+	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
-	def list_type
-		:links
+	def listable
+		sort_by_update
 	end
 
 	def storage_nav
 		{ all: :works, local: "local", offsite: "offsite" }
+	end
+
+	# -- Partial Type
+	# ............................................................
+	def list_type
+		:timed_snippets
+	end
+
+	def table_type
+		:uploaded_entitled
+	end
+
+	def results_type
+		:filtered_panel
+	end
+
+	def results_content_type
+		:paged_cell
 	end
 
 end
