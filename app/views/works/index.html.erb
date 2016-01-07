@@ -1,12 +1,11 @@
 <% provide :title, @works.title %>
 
-<div id="main" class="index">
-	<header>
-		<h1><%= @works.heading %></h1>
-		<%= @works.creation_path %>
-		<p class="count"><%= @works.total_count %> Found</p>
-	</header>
+<header>
+	<h1><%= @works.heading %></h1>
+	<%= @works.found_status %>
+	<%= @works.creation_path %>
+</header>
 
-	<%= render 'works/filter' %>
-	<%= render 'works/results' %>
+<div class="index-body">
+	<%= @works.results %>
 </div>
