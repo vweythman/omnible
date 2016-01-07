@@ -1,19 +1,21 @@
 <% provide(:title, "#{@parent.heading} - Characters" ) %>
 
-<div id="main" class="index">
-	<header>
-		<h1>[<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>] Characters</h1>
-	</header>
+<header>
+	<h1>
+		<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>
+		<%= label_span "Characters" %>
+	</h1>
+</header>
 
+<article class="the-content">
+	<%= @characters.list %>
+</article>
 
-	<article><%= @characters.list %></article>
-
-	<footer>
-		<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
-		<% if @parent.is_subject? %>
-	 		<%= render 'subjects/shared/footer' %>
-		<% else %>
-	 		<%= render 'descriptors/shared/footer' %>
- 		<% end %>
-	</footer>
-</div>
+<footer class="path-finder">
+	<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
+	<% if @parent.is_subject? %>
+ 		<%= render 'subjects/shared/footer' %>
+	<% else %>
+ 		<%= render 'taggings/shared/footer' %>
+		<% end %>
+</footer>

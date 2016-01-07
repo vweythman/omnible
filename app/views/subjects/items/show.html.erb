@@ -1,14 +1,14 @@
 <% provide(:title, @item.name) %>
-<div id="main" class="feature">
-	<header>
-		<%= @item.edit_bar %>
-		<h1><%= @item.name %></h1>
-		<%= @item.description_status %>
-	</header>
 
-	<article>
-		<%= @item.list_related_characters %>
-	</article>
+<header>
+	<h1><%= @item.name %></h1>
+	<%= @item.description_status %>
 
-	<%= render 'subjects/shared/footer' %>
-</div>
+	<%= @item.edit_bar %>
+</header>
+
+<article class="the-content">
+	<%= @item.list_related_characters %>
+</article>
+
+<%= render 'subjects/shared/footer' %>
