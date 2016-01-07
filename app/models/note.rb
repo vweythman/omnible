@@ -33,6 +33,10 @@ class Note < ActiveRecord::Base
 	# ------------------------------------------------------------
 	delegate :uploader, to: :work
 	
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	alias_attribute :about, :summary
+	
 	# METHODS
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
@@ -42,6 +46,21 @@ class Note < ActiveRecord::Base
 		else
 			title
 		end
+	end
+
+	# JustCreated? - self explanatory
+	def just_created?
+		self.updated_at == self.created_at
+	end
+	
+	def word_count
+		body = self.content.downcase.gsub(/[^[:word:]\s]/, '')
+		I18n.transliterate(body).scan(/[a-zA-Z]+/).size
+	end
+
+	# Editable - user is allowed to edit
+	def editable?(user)
+		self.work.editable? user
 	end
 
 	def cascade_data
