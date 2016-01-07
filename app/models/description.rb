@@ -7,8 +7,8 @@
 #  variable        | type        | about
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
-#  anthology_id    | integer     | references anthology
-#  work_id         | integer     | references work
+#  identity_id     | integer     | references identity
+#  character_id    | integer     | references character
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
 # ================================================================================
@@ -44,7 +44,7 @@ class Description < ActiveRecord::Base
 		if list.length > 0
 			Description.transaction do
 				remove  = Description.not_among_for(model, list).destroy_all
-				current = Description.are_among_for(model, list).pluck(:id)
+				current = Description.are_among_for(model, list).pluck(:identity_id)
 
 				to_be_added = list - current
 
