@@ -1,12 +1,19 @@
-<div class='home'>
-	<section>
-		<h2>Anthologies / recently updated</h2>
-		<%= render 'anthologies/list' %>
+<div class="poster poster-grid">
+	<div class="grid-panel">
+		<div class="panel-cell solo">
+			<div class="widget welcome-widget">
+				<h1>welcome to omnible</h1>
+			</div>
+		</div>
+	</div>
 
-	</section>
+	<div class="grid-panel recent-panel">
+		<div class="panel-cell duo">
+			<%= @anthologies.recent_widget %>
+		</div>
 
-	<section>
-		<h2>Works / recently updated</h2>
-		<%= render 'works/list' %>
-	</section>
+		<div class="panel-cell duo">
+			<%= @works.recent_widget %>
+		</div>
+	</div>
 </div>
