@@ -26,15 +26,16 @@ class Possession < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Types
 	def self.types
-		['Owns', 'Creates', 'Destroys', 'Guards', 'Endangered by']
+		['Owns', 'Personifies', 'Creates', 'Destroys', 'Guards', 'Endangered by']
 	end
 
 	def self.inverses
 		{
-			"Owns" => "Possession of",
-			"Creates" => "Creation of",
-			"Destroys" => "Destroyed by",
-			"Guards" => "Guarded by",
+			"Personifies"   => "Personified by",
+			"Owns"          => "Possession of",
+			"Creates"       => "Creation of",
+			"Destroys"      => "Destroyed by",
+			"Guards"        => "Guarded by",
 			"Endangered by" => "Endangers"
 		}
 	end
