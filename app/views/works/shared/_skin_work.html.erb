@@ -1,0 +1,6 @@
+<script type="text/javascript">
+	var parser = new cssjs();
+	var parsed = parser.parseCSS("<%= work.skin.style.squish %>");
+
+	csscode("#inline-skin", parser.applyNamespacing(parsed, '#work-content'));
+</script>
