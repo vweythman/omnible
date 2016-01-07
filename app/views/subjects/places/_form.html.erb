@@ -6,17 +6,17 @@
 		<%= radios_by_string(f, :fictional, @place.realness_choices, f.object.fictional?) %>
 	</fieldset>
 
-	<%= show_link @domains.heading, @domains.klass %>
-	<%= content_tag :fieldset, class: 'nested localities', id: @domains.formid do %>
-		<%= nested_legend @domains %>
-		<%= nested_fields f, @domains %>
+	<%= @domains.show %>
+	<%= content_tag :fieldset, class: @domains.nest_class, id: @domains.formid do %>
+		<%= @domains.legend %>
+		<%= @domains.fields(f) %>
 		<p><%= link_to_add_association "+ Add Place", f, @domains.klass, :partial=> @domains.partial %></p>
 	<% end %>
 
-	<%= show_link @subdomains.heading, @subdomains.klass %>
-	<%= content_tag :fieldset, class: 'nested subdomainslocalities', id: @subdomains.formid do %>
-		<%= nested_legend @subdomains %>
-		<%= nested_fields f, @subdomains %>
+	<%= @subdomains.show %>
+	<%= content_tag :fieldset, class: @subdomains.nest_class, id: @subdomains.formid do %>
+		<%= @subdomains.legend %>
+		<%= @subdomains.fields(f) %>
 		<p><%= link_to_add_association "+ Add Place", f, @subdomains.klass, :partial=> @subdomains.partial %></p>
 	<% end %>
 
