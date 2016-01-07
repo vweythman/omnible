@@ -1,0 +1,57 @@
+// STYLE PARTIAL: TABLES
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+table {
+	margin: 0 auto;
+	width:  calc(100% - 20px);
+}
+caption {
+	font-size:      $text-size + 4px;
+	font-weight:    bolder;
+	padding:        20px 25px;
+	padding-bottom: 10px;
+}
+thead th {
+	padding: 15px 25px;
+	padding-bottom: 5px;
+}
+tbody th {
+	font-weight:    lighter;
+	padding:        10px 0;
+	text-align:     left;
+	vertical-align: top;
+}
+td {
+	padding: 10px 0;
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	thead {
+		display: none;
+	}
+	th, 
+	tr, 
+	td {
+		display: block;
+	}
+	tbody tr {
+		margin: 10px;
+	}
+	th {
+		font-size:      $text-size + 2px;
+		font-weight:    500;
+		padding-bottom: 3px;
+		text-align:     left;
+	}
+	td:before {
+		content:     attr(data-label);
+		display:     block;
+		font-weight: bolder;
+	}
+}
+
+// END
+// ***********************************************/

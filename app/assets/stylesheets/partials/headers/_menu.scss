@@ -1,0 +1,85 @@
+// STYLE PARTIAL: MENU BAR
+// ***********************************************
+// STYLES :: COLORS
+// ===============================================
+.menu a {
+	color: $water-lightest;
+
+	&:visited { color: $water-lightest; }
+	&:hover   { color: $water-light;    }
+}
+.submenu a { background: $page-darkest; }
+
+// VIEWPORT :: ALL
+// ===============================================
+.menu {
+	text-align: center;
+	
+	ul {
+		margin:  0;
+		padding: 0;
+	}
+	a {
+		display:        block;
+		letter-spacing: 2px;
+		padding:        10px;
+		font-variant: small-caps;
+	}
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.menu    { width: $three-fourths; }
+	.submenu { width: (3/4) * (1/4) * (5/6) * 100%; }
+}
+
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.submenu, 
+	.drop-arrow {
+		display: none;
+	}
+	.menu { 
+		display: block;
+		li {
+			width: $one-half;
+			float: left;
+		}
+	}
+}
+
+// VIEWPORT :: NON-MOBILE
+// ===============================================
+@include non-mobile {
+	.drop-arrow {
+		font-size: .68em;
+	}
+	.menu {
+		a { padding: 9px 0; }
+		& > ul > li {
+			width: $one-fourth;
+			float: left;
+		}
+	}
+	.submenu {
+		float:    left;
+		position: absolute;
+
+		a {
+			font-size: .9em;
+			padding:   10px 5px;
+		}
+	}
+}
+
+// VIEWPORT :: TABLET
+// ===============================================
+@include tablet {
+	.menu > ul > li { width: 24.50%; }
+	.submenu        { width: (1/4) * (5/6) * 100%; }
+}
+
+// END
+// ***********************************************/

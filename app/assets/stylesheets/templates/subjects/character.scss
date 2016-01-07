@@ -1,83 +1,36 @@
 /* TEMPLATE: SHOW CHARACTER
-************************************************/
-// SETUP
-// =============================================
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
 @import "application";
+@import "partials/categories/subjects";
+@import "partials/pagination";
+@import "partials/ratings";
 
-// IMPORTS
-// .............................................
-@import 'partials/ratings';
-@import 'partials/character_tables';
-
-// VIEWPORT: ALL
-// =============================================
-.feature {
-	margin: 10px;
-}
-.feature a:hover,
-#site-content > footer a:hover {
-	text-decoration: underline;
-}
-
-// HEADER
-// .............................................
-#main header {
-	padding-bottom: 15px;
-}
-h1 {
-	font: 25px "Segoe UI";
-}
-header p {
-	margin: 0 10px;
-}
-.announce {
-	border-radius: 10px;
-	margin: 0;
-	margin-top: 10px;
-	a {
-		color: $fire-lightest;
-	}
-}
-
-// ARTICLE
-// .............................................
+// VIEWPORT :: ALL
+// ===============================================
+// -- Structural
+// -----------------------------------------------
+// ----- General
+// ...............................................
 article {
-	margin: 10px 0;
 	padding-bottom: 50px;
 	overflow: auto;
 }
-h2 {
-	margin:  5px 0;
-	padding: 7px 10px;
-	font:    22px arial;
+canvas {
+	height:  300px;
+	width:   300px;
+	margin:  10px;
+	display: block;
 }
-section {
-	margin: 0;
-	p {
-		max-width: 900px;
-		margin: 5px 15px;
-	}
-	h2 {
-		@include gradient-back(90deg, $water-lightest, $water-color);
-		padding: 5px 10px;
-		margin:  0;
-		color:   $water-darkest;
-		border-bottom: 4px $water-color solid;
-	}
-}
-h3 {
-	font:   20px arial;
-	margin: 5px;
-}
-.clones {
-	margin: 0;
-	padding: 10px;
+.page-body > header {
+	border-bottom: 3px solid $water-color;
 }
 
-// ASIDE
-// .............................................
+// ----- Aside
+// ...............................................
 aside h2 {
-	@include gradient-back(90deg, $fire-lightest, $page-color);
+	@include gradientized(90deg, $fire-lighter, $fire-lightest);
 	color:   $fire-darker;
 	margin:  0;
 }
@@ -85,37 +38,67 @@ aside dl {
 	padding: 5px 15px;
 	margin-bottom: 15px;
 }
-
-// FOOTERS
-// .............................................
-#main footer {
-	text-align: center;
-	margin: 0;
-	padding: 0;
-}
-#site-content > footer {
-	padding: 20px;
-	text-align: center;
-	font-weight: bolder;
-}
+// ----- Footer
+// ...............................................
 .pagination {
-	list-style:none;
-	overflow: auto;
+	margin: 50px auto 10px auto;
+
 	li {
-		display: inline-block;
-		padding: 10px 0;
-		width: (100% / 3);
-	}
-	.current {
-		font-weight: bolder;
+		width: calc(33.33% - 6px);
 	}
 }
 
-// TOOLKITS
-// .............................................
-@import 'partials/toolkits';
+// -- Header
+// -----------------------------------------------
+header p {
+	margin: 2px 20px;
+	line-height: 1;
+}
+.announce {
+	border-radius: 10px;
+	margin:        10px 0;
+}
+.identifiers {
+	font-style: italic;
+}
+
+// -- Sections
+// -----------------------------------------------
+section {
+	margin: 0;
+	p {
+		max-width: 900px;
+		margin: 5px 15px;
+	}
+	h2 {
+		@include gradientized(90deg, $water-lightest, $water-color);
+		padding: 5px 10px;
+		margin:  0;
+		color:   $water-darkest;
+		border-bottom: 4px $water-color solid;
+	}
+}
+.clones {
+	margin: 0;
+	padding: 10px;
+}
+
+// -- Text
+// -----------------------------------------------
+h2 {
+	margin:  5px 0;
+	padding: 7px 10px;
+	font:    22px arial;
+}
+h3 {
+	font:   20px arial;
+	margin: 5px;
+}
+
+// -- Toolkits
+// -----------------------------------------------
 .replication {
-	@include buttoned($fire-color);
+	@include buttonable($water-color);
 	font-size: .85em;
 	border-radius: 10px;
 	margin:        10px auto;
@@ -139,22 +122,29 @@ aside dl {
 	}
 }
 
-// MOBILE
-// =============================================
+// VIEWPORT :: MOBILE
+// ===============================================
 @include mobile {
 	#main > header { border: none; }
 	aside h2 {
 		border-top: 3px solid $fire-lighter;
 	}
 	aside dl {
-		@include column-counting(2);
+		@include columnable(2);
 	}
 }
 
-// NON-MOBILE
-// =============================================
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	.feature {
+		margin: 0 10px;
+	}
+}
+
+// VIEWPORT :: NON-MOBILE
+// ===============================================
 @include non-mobile {
-	
 	aside {
 		float: right;
 		width: calc(100% - (100% / 1.618) - 10px);
@@ -165,23 +155,5 @@ aside dl {
 	}
 }
 
-// NON-DESKTOP
-// =============================================
-@include non-desktop {
-	.feature {
-		margin: 0 10px;
-	}
-}
-
-/* DESKTOP
-************************************************/
-@include desktop {
-	.feature {
-		max-width: calc(80em - 20px);
-		padding:   0 10px;
-		margin: 0 auto;
-	}
-}
-
-
-/* END */
+/* END
+/* ***********************************************/

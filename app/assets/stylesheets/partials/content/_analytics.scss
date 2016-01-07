@@ -1,0 +1,32 @@
+// STYLE PARTIAL: TABLEIZER
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/tables";
+
+// VIEWPORT :: ALL
+// ===============================================
+.analytics {
+	margin: 15px auto;
+	width:  $three-fourths;
+	border: 1px solid $page-darker;
+	
+	thead th {
+		padding:    15px 10px;
+		background: $fire-lighter;
+		color:      $fire-darkest;
+	}
+	th {
+		padding: 10px;
+	}
+	td {
+		text-align: center;
+	}
+	tfoot {
+		border-top: 2px solid $page-darker;
+		text-align: left;
+	}
+}
+
+// END
+// ************************************************/

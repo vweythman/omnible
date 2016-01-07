@@ -1,0 +1,36 @@
+// STYLE PARTIAL: RELATEABLE TABLES
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+table {
+	margin: 0 auto;
+	width:  calc(100% - 20px);
+}
+thead {
+	background:    desaturate(lighten($fire-lightest, 15%), 20%);
+	border-bottom: 5px solid desaturate($fire-lighter, 20%);
+}
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	th {
+		border-bottom:  3px solid $fire-color;
+		color:          $page-darker;
+		a {
+			color: $water-color;
+		}
+	}
+
+	tbody tr {
+		margin: 10px;
+	}
+	td:before {
+		color: $page-darker;
+	}
+}
+
+// END
+// ***********************************************/
+
+// END
+// ************************************************/

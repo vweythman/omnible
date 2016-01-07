@@ -1,0 +1,22 @@
+/* TEMPLATE: SHOW QUALITY
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+@import "partials/categories/tags";
+@import "partials/forms/radio_buttons";
+
+// STYLES
+// ===============================================
+fieldset {
+	border: none;
+}
+legend {
+	display: none;
+}
+dl {
+	padding: 10px;
+}
+
+/* END
+/* ***********************************************/

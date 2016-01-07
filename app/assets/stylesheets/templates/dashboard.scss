@@ -1,139 +1,145 @@
 /* TEMPLATE: SHOW DASHBOARD
-************************************************/
-// SETUP
-// =============================================
+/* ***********************************************/
+// SETUP :: GENERAL IMPORTS
+// ===============================================
 @import "application";
-@import 'partials/dashboard_sidebar';
-@import 'partials/toolkits';
+@import "partials/counts";
+@import 'partials/forms/inline_form';
+@import "partials/content/tableizer";
 
-// STYLES
-// =============================================
-// GENERAL
-// .............................................
-h1 {
-	padding: 10px;
-	font-weight: lighter;
-	font-size: 35px;
+// VIEWPORT :: ALL
+// ===============================================
+// -- General
+// -----------------------------------------------
+.dashboard-grid {
+	background: $page-color;
+	margin:     10px $one-twelfth;
+	padding:    10px $one-twelfth;
 }
-article > div {
-	margin: 10px auto;
-	width:  90%;
+.page-body {
+	background: $water-lightest;
 
-}
-
-// COUNTERS
-// .............................................
-.counter {
-	color: $water-color;
-	letter-spacing: 1px;
-}
-.counter:before {
-	color: $water-dark;
-	content: "(";
-}
-.counter:after {
-	color: $water-dark;
-	content: ")";
-}
-
-// PEN NAMES
-// .............................................
-.pen-names {
-	table {
-		width: 100%;
-	}
-	caption {
-		padding: 10px 0;
-		font-weight: bolder;
-		text-align: left;
-		font-size: 16px;
-	}
-	thead {
-		padding: 10px;
-		background: $water-dark;
-		color: $water-lightest;
-	}
-	.creation {
-		margin: 0 auto;
-		width: 200px;
-	}
-	th {
-		padding: 5px 10px;
-
+	& > header {
+		border-bottom: 5px solid $fire-darker;
 	}
 }
-td[data-label="Pen Status"] {
-	font-weight: bolder;
+.creation,
+.creation-block {
+	margin: 0 10px;
+}
+.alteration {
+	margin:    5px 0;
+	min-width: 120px;
+	width:     100%;
+}
+h2 {
 	text-align: center;
+	font-size:  18px;
+	margin:     25px 0;
+}
+.editable {
+	margin: 5px 10px;
+
+	tr:nth-child(2n) {
+		background: $water-text-lightest;
+	}
+	tbody th {
+		padding: 5px;
+		vertical-align: middle;
+
+		a {
+			color:   $water-darker;
+			display: block;
+
+			&:hover {
+				color: $water-color;
+			}
+		}
+	}
+}
+.switch {
+	background:      $water-color;
+	border-radius:   10px;
+	color:           $page-color;
+	display:         inline-block;
+	width:           120px;
+	margin:          5px auto;
+	padding:         10px 0;
+	text-decoration: none;
+	&:before {
+		display: block;
+		margin-bottom: 5px;
+	}
+	&:hover {
+		background: $page-color;
+		color:      $water-color;
+	}
+}
+.sortable .header:after {
+	content: "⬩"
+}
+.sortable .headerSortDown:after {
+	content: "▾"
+}
+.sortable .headerSortUp:after {
+	content: "▴"
+}
+
+// -- Management Widget
+// -----------------------------------------------
+.status {
+	font-weight: bolder;
+	text-align:  center;
+	vertical-align: middle;
+
 	span {
 		display: inline-block;
+		margin:  5px;
 		padding: 5px;
-		width: 100px;
 	}
 }
 .default-pen {
-	background: $moss-darker;
-	color: $page-color;
+	background: $moss-lightest;
 }
 .secondary-pen {
-	background: $rose-lighter;
+	background: $rose-lightest;
+}
+.management-widget {
+	padding-bottom: 35px;
+
+	thead {
+		background:     $water-lightest;
+		border-bottom:  5px solid $water-light;
+		padding:        5px 0;
+		vertical-align: bottom;
+	}
+	td {
+		font-weight: bolder;
+		text-align:  center;
+	}
 }
 
-// PEN NAME FORM
-// .............................................
-@import 'partials/forms/general_input';
-form[data-remote="true"] {
-	margin: 10px auto;
-	fieldset {
-		padding: 0;
-		margin:  0;
-		margin-bottom: 5px;
-	}
-	label {
-		display: none;
-	}
-}
-.pen-names input[type="submit"] {
-	@include clickable($fire-dark);
-	padding: 5px;
-	font-weight: bolder;
-	text-transform: capitalize;
-}
-.edit_pen_naming input[type="submit"] {
-	padding: 5px;
-}
-.pen-names .alteration {
-	margin: 0;
-	max-width: 200px;
-}
-.pen-names tbody th {
-	vertical-align: top;
-	overflow:auto;
-	text-align: left;
-	span {
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include desktop {
+	th span a {
 		display: block;
-		min-width: 150px;
-		padding:   10px 5px;
-	}
-	div {
-		padding: 0;
-		min-width: 200px;
-	}
-	div,
-	span {
-		float: left;
-		max-width: 200px;
 	}
 }
 
-
-// UPLOADS
-// .............................................
-.uploads {
-	margin-top: 15px;
-	h2 {
-		font-size: 16px;
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	th {
+		font-size: $text-size;
 	}
+	td:before {
+		background:    $water-lightest;
+		border-bottom: 5px solid $water-light;
+		padding:       5px 0;
+	}
+
 }
 
-/* END */
+/* END
+/* ***********************************************/

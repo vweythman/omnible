@@ -1,97 +1,96 @@
-/* NESTED FIELDS IN FORMS
-************************************************/
-// VIEWPORT: ALL
-// =============================================
-// TOGGLE DISPLAY
-// .............................................
+// STYLE PARTIAL: NESTED FIELDS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+// -- Display Toggles
+// -----------------------------------------------
 .edit .nested, 
 .new .show { 
 	display: none;
 }
 .show { 
-	@include togglable(desaturate($fire-lightest, 20%));
+	@include togglable(desaturate($fire-light, 20%));
 }
 .hide {
-	cursor: pointer;
-	color: $fire-color;
+	cursor:      pointer;
+	color:       $fire-darkest;
+	font-weight: bolder;
 }
 
-// STRUCTURE & HEADINGS
-// .............................................
-.nested, .nested-fields fieldset {
-	border: 1px solid $border-color;
-}
+// -- Structure
+// -----------------------------------------------
 .nested {
+	background: $page-color;
 	margin:     10px;
 	padding:    10px;
-	width: calc(100% - 44px);
-	background: $page-color;
+	width:      calc(100% - 44px);
+
 	label {
-		display: block;
-		padding: 10px;
-		font-weight: bolder;
+		background:  $water-darker;
+		color:       $page-color;
+		display:     block;
+		padding:     10px;
 		font-size:   15px;
-		background: $water-darker;
-		color: $page-color;
-		width: calc(100% - 20px);
+		font-weight: bolder;
+		width:       calc(100% - 20px);
 	}
 	legend {
-		padding:    10px;
 		background: $page-color;
 		border:     1px solid $border-color;
+		padding:    10px;
 	}
 	input, textarea { border-style: solid; }
 }
 .nested-fields {
+	margin:   10px 0;
 	overflow: auto;
-	margin: 10px 0;
+
+	fieldset {
+		background:   #f0f0f0;
+		padding:      10px;
+		margin-bottom: 0;
+		width:         calc(100% - 47px);
+	}
+	p {
+		margin:     0;
+		padding:    0;
+		text-align: right;
+	}
 }
+.nested, 
 .nested-fields fieldset {
-	background: #f0f0f0;
-	padding:    10px;
-	margin-bottom: 0;
-	width: calc(100% - 47px);
-}
-.nested-fields p {
-	margin: 0;
-	padding: 0;
-	text-align: right;
+	border: 1px solid $border-color;
 }
 
-// DYNAMIC INPUT
-// .............................................
-.remove_fields { 
-	@include togglable(desaturate($fire-lighter, 20%));
-	display: inline-block;
-	margin: 0 10px;
-}
-.add_fields    {
-	@include togglable($fire-lightest);
-	display: inline-block;
+// -- Dynamic Fields
+// -----------------------------------------------
+.add_fields {
+	@include togglable($fire-light);
+	display:    inline-block;
 	margin-top: 10px;
 }
-
-// VIEWPORT: DESKTOP
-// =============================================
-@include desktop {
-	
-	.show {
-		margin:    15px auto;
-		width:     50%;
-		max-width: 800px;
-		min-width: 650px;
-	}
-
+.remove_fields { 
+	@include togglable($fire-light);
+	display: inline-block;
+	margin:  0 10px;
 }
 
-// VIEWPORT: NON-DESKTOP
-// =============================================
-@include non-desktop {
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.show {
+		margin: 15px auto;
+		width:  calc(100% - 40px);
+	}
+}
 
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
 	.show {
 		margin: 10px;
 	}
-
 }
 
-/* END */
+// END
+// ************************************************/

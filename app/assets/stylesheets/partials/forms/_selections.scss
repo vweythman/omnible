@@ -1,12 +1,14 @@
-/* SELECTIZE GENERAL
-************************************************/
+// STYLE PARTIAL: SELECTIONS
+// ***********************************************
+// VIEWPORT :: GENERAL
+// ===============================================
 .selectize-control {
 	display:inline-block;
 	width: 100%;
 }
 
-// INPUTS
-// .............................................
+// VIEWPORT :: INPUTS
+// ===============================================
 .selectize-input {
 	@extend input;
 	overflow: visible;
@@ -25,11 +27,11 @@
 	}
 
 	.selectize-control.multi & > div {
-		@include gradient-back(180deg, lighten($fade-color, 55%), lighten($fade-color, 35%));
+		@include gradientized(180deg, lighten($page-dark, 55%), lighten($page-dark, 35%));
 		border-radius: 5px;
 		cursor:     pointer;
 		display:    inline-block;
-		color:      $read-color;
+		color:      $page-darker;
 		padding:    2px 5px;
 		margin:     1px;
 		&.active { 
@@ -58,8 +60,8 @@
 	}	
 }
 
-// GENERAL CONTROL
-// .............................................
+// VIEWPORT :: CONTROL
+// ===============================================
 .selectize-control.single .selectize-input {
 	&, input { cursor: pointer; }
 	&.input-active, &.input-active input { cursor: text; }
@@ -84,4 +86,5 @@
 	}
 }
 
-/* END */
+// END
+// ************************************************/

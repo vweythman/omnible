@@ -1,11 +1,55 @@
-/* ALERTS
-************************************************/
-.alert {
-	@include alert-box(red);
+// STYLE PARTIAL: ALERTS
+// ***********************************************
+// SETUP :: MIXINS
+// ===============================================
+@mixin alertable($box-color, $text-color) {
+	background:  $box-color;
+	color:       $text-color;
+	$link-color: lighten($text-color, 15%);
+
+	a { 
+		color: $link-color;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+	@include visitation($link-color);
 }
-.notice {
-	@include alert-box($water-color);
+
+// VIEWPORT :: ALL
+// ===============================================
+.alert {
+	@include alertable(red, white);
 }
 .announce {
-	@include alert-box($fire-color);
+	@include alertable($fire-lighter, $fire-darkest);
 }
+.notice {
+	@include alertable($water-color, $water-lightest);
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+.alert,
+.announce,
+.notice {
+	font-size:  1.3em;
+	margin:     10px auto;
+	text-align: center;
+}
+.alert {
+	padding: 20px;
+	width:   90%;
+}
+.announce {
+	padding: 10px;
+	width:   50%;
+}
+.notice {
+	padding: 15px;
+	width:   90%;
+}
+
+// END
+// ************************************************/

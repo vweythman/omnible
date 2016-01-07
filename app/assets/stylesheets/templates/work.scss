@@ -1,0 +1,82 @@
+/* TEMPLATE: SHOW WORK
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+@import "partials/completion";
+@import "partials/counts";
+@import "partials/pagination";
+@import "partials/ratings";
+@import "partials/content/comments";
+
+// VIEWPORT :: ALL
+// ===============================================
+// -- General
+// -----------------------------------------------
+.page-body {
+	background: $page-lighter;
+}
+
+// -- Header
+// -----------------------------------------------
+.page-body > header {
+	border-bottom: 5px solid $fire-color;
+	background:    $page-lightest;
+	margin:        0;
+	padding:       10px 0;
+	
+	.about {
+		margin:       0 $one-sixth;
+		padding-left: 0;
+	}
+	.alteration {
+		margin:     0 $one-twelfth;
+		margin-top: 10px;
+		width:      $five-sixths;
+	}
+}
+.multikit {
+	margin: 20px $one-twelfth;
+}
+.related-menu {
+	padding:        25px;
+	padding-bottom: 0;
+	text-align:     center;
+}
+h1 {
+	border-bottom: 5px solid $water-lightest;
+	padding:       5px $one-twelfth;
+	padding-top:   35px;
+}
+
+// -- Content
+// -----------------------------------------------
+article {
+	background: $page-color;
+	margin:     0 $one-twelfth;
+	padding:    20px $one-twelfth;
+}
+h2 {
+	font-size: $heading-size - 5px;
+	margin:    0;
+	padding:   0;
+}
+.the-content {
+	margin: 20px auto;
+	width:  100%;
+}
+.pagination {
+	margin: 20px 0;
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	article {
+		margin-top:    10px;
+		margin-bottom: 10px;
+	}
+}
+
+/* END
+/* ***********************************************/

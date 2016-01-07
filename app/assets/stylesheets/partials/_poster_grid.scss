@@ -1,0 +1,41 @@
+// STYLE PARTIAL: PAGE
+// ***********************************************
+// SETUP :: GENERAL IMPORTS
+// ===============================================
+.poster {
+	margin:   0;
+	padding:  0;
+	overflow: auto;
+	width:    100%;
+}
+.grid-panel {
+	margin:   0;
+	overflow: auto;
+	padding:  0;
+	width:    100%;
+}
+.panel-cell {
+	float:     left;
+	margin:    0;
+	min-width: 80px;
+	padding:   0;
+}
+
+.solo    { width: $one-whole;  }
+.duo     { width: $one-half;   }
+.trio    { width: $one-third;  }
+.quartet { width: $one-fourth; }
+.quintet { width: $one-fifth;  }
+.golden-major { width: $golden-major; }
+.golden-minor { width: $golden-minor; }
+
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.panel-cell { 
+		width: $one-whole !important;
+	}
+}
+
+// END
+// ************************************************/

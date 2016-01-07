@@ -1,0 +1,37 @@
+// STYLE PARTIAL: TABLEIZER
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/tables";
+
+// VIEWPORT :: ALL
+// ===============================================
+.tableized caption {
+	background:    $water-dark;
+	border-bottom: 5px solid desaturate($water-darker, 20%);
+	color:         $water-lightest;
+}
+.tableized thead {
+	background:    desaturate(lighten($fire-lightest, 15%), 20%);
+	border-bottom: 5px solid desaturate($fire-lighter, 20%);
+}
+.tableized tr:nth-child(2n) {
+	background: $water-lightest;
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	.tableized td:before {
+		border-bottom: 5px solid $fire-light;
+		padding:       5px 0;
+		margin-bottom: 5px;
+	}
+	.tableized tbody th {
+		text-align: center;
+		padding:    0;
+	}
+}
+
+// END
+// ************************************************/

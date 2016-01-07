@@ -1,0 +1,91 @@
+// STYLE PARTIAL: SIDEBAR
+// ***********************************************
+// STYLES :: COLORS
+// ===============================================
+.sidebar {
+	background: $water-darkest;
+	color:      $water-lightest;
+
+	a {
+		background: $water-color;
+		color:      $page-color;
+	}
+	h2 {
+		background: $water-color;
+	}
+	h3 {
+		border-bottom: 2px solid $water-darker;
+		color:         $water-lighter;
+	}
+}
+.control-group > li a {
+	background: $water-darker;
+	color:      $water-lighter;
+
+	&:hover {
+		background: $water-darkest;
+		color:      $water-lightest;
+	}
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+.sidebar {
+	display: none;
+}
+
+// VIEWPORT :: NON-MOBILE
+// ===============================================
+@include non-mobile {
+	.sidebar {
+		padding:    0;
+		width:      206px;
+		right:      0;
+		margin-top: 10px;
+		position: absolute;
+
+		.user:hover & {
+			display: block;
+		}
+
+		a  { letter-spacing: 1px; }
+		h2 {
+			font-weight: bolder;
+			padding:     10px;
+		}
+		h3 { padding: 5px 10px; }
+		h2,
+		h3 {
+			font-size: $text-size + 1px;
+			margin:    0;
+		}
+		
+		ul,
+		ul li {
+			margin:  0;
+			padding: 0;
+		}
+	}
+	.control-group > li a {
+		display:    block;
+		padding:    10px 20px;
+	}
+
+	.manager { display: none; }
+	.createables {
+		padding-bottom: 25px;
+
+		li li {
+			padding: 5px 20px;
+
+			&:hover .manager {
+				display:        block;
+				padding:        1px 0;
+				padding-bottom: 5px;
+			}
+		}
+	}
+}
+
+// END
+// ************************************************/

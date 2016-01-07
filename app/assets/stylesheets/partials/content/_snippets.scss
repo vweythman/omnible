@@ -1,0 +1,111 @@
+// STYLE PARTIAL: SNIPPETS
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/completion";
+@import "partials/ratings";
+
+// VIEWPORT :: ALL
+// ===============================================
+// -- General
+// -----------------------------------------------
+.snippet {
+	border: 2px solid $water-dark;
+	margin: 10px 10px 0px;
+	overflow: auto;
+}
+header {
+	padding:  0;
+
+	&:before {
+		float:       left;
+		font-size:   3em;
+		padding:     10px;
+		padding-top: 0;
+		background:  $water-color;
+		color:       $page-color;
+	}
+	&[data-type="Link"]:before {
+		content: "↬";
+	}
+	&[data-type="Chaptered Story"]:before {
+		content: "◫";
+	}
+	&[data-type="Article"]:before,
+	&[data-type="Short Story"]:before {
+		content: "◧";
+	}
+}
+h4 {
+	margin:  0;
+	padding: 10px;
+	padding-left: 67px;
+	border-bottom: 2px solid $water-light;
+}
+
+// -- About
+// -----------------------------------------------
+.summary {
+	font-style: italic;
+	padding:    10px;
+	text-align: center;
+}
+.about {
+	background: $water-color;
+	overflow:   auto;
+	font-weight: bolder;
+	border-bottom: 1px solid $water-color;
+}
+.agents, 
+.chapters-count,
+.time {
+	color:      $page-lightest;
+	padding:    6px 10px;
+	font-size:  .95em;
+	float:      left;
+	margin:     0;
+	a {
+		color: $water-lightest;
+	}
+}
+.tags {
+	text-align: right;
+}
+.ratings span {
+	padding: 4px 10px;
+	padding-bottom: 3px;
+}
+
+// -- Length
+// -----------------------------------------------
+.chapters {
+	text-align: right;
+	margin:     10px;
+	margin-top: 0;
+	padding:    0;
+
+	a {
+		background:  $water-lightest;
+		display:     inline-block;
+		text-align:  center;
+		font-weight: bolder;
+		padding:     5px 10px 10px;
+		width:       20%;
+	}
+}
+
+// -- Toolkit
+// -----------------------------------------------
+.alteration {
+	display: block;
+	border-radius: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin: 0 20px 25px;
+	padding: 0px;
+	width: calc(100% - 46px);
+}
+
+
+// END
+// ***********************************************/

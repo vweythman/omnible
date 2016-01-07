@@ -1,0 +1,31 @@
+/* TEMPLATE: SHOW IDENTITY
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+@import "partials/categories/tags";
+@import "partials/pagination";
+@import "partials/content/analytics";
+
+// VIEWPORT :: ALL
+// ===============================================
+.related-menu {
+	margin: 0 10px;
+
+	a {
+		background:      $moss-lighter;
+		color:           $moss-darkest;
+		display:         inline-block;
+		font-weight:     bolder;
+		padding:         10px;
+		text-decoration: none;
+
+		&:hover {
+			background: $page-lighter;
+			color:      $moss-darker;
+		}
+	}
+}
+
+/* END
+/* ***********************************************/

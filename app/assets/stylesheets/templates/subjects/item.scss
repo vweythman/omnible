@@ -1,33 +1,15 @@
 /* TEMPLATE: SHOW ITEM
-************************************************/
-// SETUP
-// =============================================
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
 @import "application";
-@import 'partials/edit_bar';
+@import "partials/categories/subjects";
 
-h1 {
-	padding: 5px 0;
-}
-h2 {
-	@include gradient-back(90deg, $water-lightest, $water-color);
-	padding: 5px 10px;
-	margin:  0;
-	color:   $water-darkest;
-	border-bottom: 4px $water-color solid;
-}
-
-.feature {
-	max-width: 900px;
-	margin: 0 auto;
-}
-
+// STYLES
+// ===============================================
 .about {
 	padding: 5px 15px;
 }
 
-article {
-	min-height: 10em;
-	margin: 10px 0;
-}
-
-/* END */
+/* END
+/* ***********************************************/

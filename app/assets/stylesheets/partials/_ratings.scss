@@ -1,25 +1,33 @@
-// RATINGS
-// .............................................
-
-// LEVELS
-.level0 { color: $rating-lowest; }
-.level1 { color: $rating-low; }
-.level2 { color: $rating-mid; }
-.level3 { color: $rating-high; }
-.level4 { color: $rating-highest; }
-
-// GENERAL
-.ratings {
-	margin: 0 auto;
-	width:  50%;
-	padding: 2px;
-	font-weight: bolder;
+// STYLE PARTIAL: RATING
+// ***********************************************
+// STYLES :: GENERAL
+// ===============================================
+.avg {
 	text-align: center;
+}
+.rating {
+	font-weight: bolder;
+}
+.ratings {
+	font-weight: bolder;
+	margin:      0 auto;
+	padding:     2px;
+	text-align:  center;
+	width:       70%;
 	span {
-		padding:    10px;
-		display:    inline-block;
-		margin:     1px;
+		display: inline-block;
+		margin:  1px;
+		padding: 10px;
 	}
 }
-.rating { font-weight: bolder; }
-.avg    { text-align:  center; }
+
+// STYLES :: LEVELS
+// ===============================================
+.level0 { color: $rating-lowest;  }
+.level1 { color: $rating-low;     }
+.level2 { color: $rating-mid;     }
+.level3 { color: $rating-high;    }
+.level4 { color: $rating-highest; }
+
+// END
+// ***********************************************/

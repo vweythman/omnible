@@ -1,21 +1,21 @@
-/* TEMPLATE: GENERATOR
-************************************************/
-// SETUP
-// =============================================
+/* TEMPLATE: GENERATE
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
 @import "application";
-
-// STYLE IMPORTS
-// =============================================
-@import 'partials/forms/general';
+@import 'partials/forms/page';
+@import 'partials/forms/dropdown';
 @import 'partials/forms/nested';
 @import 'partials/forms/nested_chapters';
-@import 'partials/forms/radio_buttons';
 @import 'partials/forms/paired_fields';
+@import 'partials/forms/radio_buttons';
 @import 'partials/forms/selections';
-@import 'partials/forms/dropdown';
+@import 'partials/forms/slider';
 
-// VIEWPORT: ALL
-// =============================================
+// VIEWPORT :: ALL
+// ===============================================
+// -- Structural
+// -----------------------------------------------
 .generatable {
 	margin:     0;
 	padding:    0;
@@ -35,21 +35,22 @@ form {
 }
 .primary {
 	margin-bottom: 0;
-}
-.primary fieldset {
-	padding: 10px;
-}
-.primary fieldset ,
-.primary fieldset legend {
-	background: $page-color;
-	border:     1px solid $border-color;
+
+	fieldset {
+		padding: 10px;
+	}
+	fieldset ,
+	fieldset legend {
+		background: $page-color;
+		border:     1px solid $border-color;
+	}
 }
 
-// HEADINGS AND LABELS
-// .............................................
+// -- Headings & Labels
+// -----------------------------------------------
 h1 {
 	background:    $fire-lighter;
-	color:         $fire-darker;
+	color:         $fire-darkest;
 	text-align:    center;
 }
 label { 
@@ -67,8 +68,8 @@ legend {
 	a { font-style: italic; }
 }
 
-// ABOUT
-// .............................................
+// -- About
+// -----------------------------------------------
 .about,
 .about legend {
 	border: 1px solid $border-color;
@@ -82,16 +83,61 @@ legend {
 .about legend {
 	background: $page-color;
 }
+.pick label { 
+	display: block;
+	font-weight: bolder;
+	color: $page-color;
+	background: $water-color;
+	padding: 10px;
+}
 
-// TAGS
-// .............................................
+// -- Restrictions
+// -----------------------------------------------
+.restrictions {
+	padding:    10px;
+	background: $page-color;
+	border:     1px solid $border-color;
+	margin:     10px 0;
+	.decision {
+		overflow: auto;
+	}
+	input {
+		display: inline-block;
+		float: left;
+		margin: 10px;
+		width:  15px;
+		text-align: right;
+	}
+	label {
+		display: inline-block;
+		border: none;
+		color: $page-color;
+		background: $water-color;
+		padding: 10px;
+		width: 50%;
+	}
+}
+
+// -- Slider
+// -----------------------------------------------
+.slider {
+	padding:    10px;
+	background: $page-color;
+	border:     1px solid $border-color;
+}
+
+// -- Tags
+// -----------------------------------------------
 .tags {
 	background: $page-color;
 	border: 1px solid $border-color;
 	margin: 0 auto;
 	padding: 10px;
 	
-	.about & { width: 90%; }
+	.about & {
+		width: calc(100% - 44px);
+		margin: 10px auto;
+	}
 	legend {
 		background: $page-color;
 		border: 1px solid $border-color;
@@ -114,17 +160,8 @@ legend {
 	display: none;
 }
 
-// SLIDER
-// .............................................
-@import 'partials/forms/slider';
-.slider {
-	padding:    10px;
-	background: $page-color;
-	border:     1px solid $border-color;
-}
-
-/* MOBILE
-************************************************/
+// VIEWPORT :: MOBILE
+// ===============================================
 @include mobile {
 	.tags label { 
 		width: calc(100% - 8px);
@@ -136,22 +173,28 @@ legend {
 	}
 }
 
-/* DESKTOP
-************************************************/
+// VIEWPORT :: DESKTOP
+// ===============================================
 @include desktop {
 	.tags label { width: calc(25% - 8px); }
-	.about .taggables {
+	.about .tags .taggables,
+	.tags .taggables {
 		width: 75%;
+	}
+	.other-names {
+		width: calc(100% - 19px);
+		margin: 0 10px 15px;
 	}
 }
 
-/* TABLET
-************************************************/
+// VIEWPORT :: TABLET
+// ===============================================
 @include tablet {
 	.tags label { width: calc(35% - 8px); }
-	.about .taggables {
+	.about .tags .taggables {
 		width: 65%;
 	}
 }
 
-/* END */
+/* END
+/* ***********************************************/

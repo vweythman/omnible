@@ -1,0 +1,72 @@
+// STYLE PARTIAL: SITE HEADER GENERAL
+// ***********************************************
+// IMPORTS
+// ===============================================
+@import "partials/headers/account";
+@import "partials/headers/menu";
+@import "partials/headers/user_sidebar";
+
+// VIEWPORT :: ALL
+// ===============================================
+#site-header {
+	background: $page-darkest;
+	overflow:   auto;
+
+	a  { text-decoration: none; }
+	ul { list-style:      none; }
+}
+.actionbar { margin: 0; }
+.logo {
+	color:          $water-light;
+	font-size:      $logo-size;
+	letter-spacing: 3px;
+	padding:        10px;
+	margin:         0;
+
+	&:visited { color: $water-light;    }
+	&:hover   { color: $water-lighter; }
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.actionbar {
+		margin-left: $one-sixth;
+		width:       $five-sixths;
+	}
+	.logo {
+		display:    block;
+		float:      left;
+		padding:    0;
+		text-align: center;
+		width:      $one-sixth;
+	}
+}
+
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.logo { display: block; }
+}
+
+// VIEWPORT :: TABLET
+// ===============================================
+@include tablet {
+	#site-header { padding: 0; }
+	.actionbar   { margin-left: $one-fifth; }
+	.logo {
+		display:        block;
+		float:          left;
+		letter-spacing: 1px;
+		margin:         0;
+		min-width:      90px;
+		padding:        10px 0;
+		padding-bottom: 25px;
+		text-align:     center;
+		font-size:      1.5rem;
+		width:          $one-fifth;
+	}
+}
+
+// END
+// ***********************************************/

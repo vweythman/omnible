@@ -1,12 +1,11 @@
-/* PAIRED FIELDS IN FORMS
-************************************************/
-// VIEWPORT: NON-MOBILE
-// =============================================
+// STYLE PARTIAL: PAIRED FIELDS
+// ***********************************************
 @include non-mobile {	
 	.pair {
 		overflow: auto;
 		.field {
-			@include split-element(50%);
+			float: left;
+			width: 50%;
 		}
 		input {
 			margin: 1px;
@@ -16,4 +15,5 @@
 	}
 }
 
-/* END */
+// END
+// ************************************************/

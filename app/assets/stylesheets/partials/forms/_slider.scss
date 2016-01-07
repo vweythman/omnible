@@ -1,25 +1,30 @@
-/* SLIDER FIELDS
-************************************************/
-
+// STYLE PARTIAL: SLIDER FIELDS
+// ***********************************************
 .range {
 	margin: 10px 0;
+
 	.label {
+		display:     inline-block;
 		font-weight: bolder;
-		display: inline-block;
-		width: 50%;
-		text-align: right;
+		text-align:  right;
+		width:       50%;
 	}
 	.val {
-		font-weight: lighter;
+    	color:       $water-darker;
 		display:     inline-block;
+		font-weight: lighter;
 		margin:      0 10px;
-    	color: $water-darker;
 	}
 }
 .range-values {
-    width: calc(60% - 20px);
     margin: 10px auto;
-    &, .ui-slider-range { background: $water-color; }
+    width:  calc(60% - 20px);
+
+    &, 
+    .ui-slider-range {
+    	background: $water-color;
+    }
 }
 
-// ******************************************* //
+// END
+// ************************************************/

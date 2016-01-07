@@ -1,0 +1,50 @@
+/* TEMPLATE: SKIN SHOW
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+@import "partials/code/css";
+@import "partials/colors/show";
+@import "partials/content/example";
+@import "partials/content/tableizer";
+
+// STYLES :: COLORS
+// ===============================================
+.styles {
+	background:   $page-color;
+	border-left:  2px solid $moss-color;
+	border-right: 2px solid $moss-color;
+	margin:       0 $one-twentieth;
+	padding:      15px;
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+// -- Previewer
+// -----------------------------------------------
+.code p {
+	padding: 2px 10px;
+	line-height: 1.5;
+}
+.code:before {
+	content: "CSS Stylesheet";
+	margin-bottom: 15px;
+}
+.example:before {
+	content: "Example Content";
+}
+
+// -- Table
+// -----------------------------------------------
+.tableized {
+	margin: 15px;
+	width:  calc(100% - 30px);
+
+	thead th {
+		padding-left: 0;
+		text-align:   left;
+	}
+}
+
+/* END
+/* ***********************************************/

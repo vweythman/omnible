@@ -1,0 +1,29 @@
+// STYLE PARTIAL: COUNT COLORS
+// ***********************************************
+.counter {
+	color:          $water-color;
+	letter-spacing: 1px;
+}
+.counter:before {
+	color:   $water-dark;
+	content: "(";
+}
+.counter:after {
+	color:   $water-dark;
+	content: ")";
+}
+
+.word-count {
+	color:     $page-dark;
+	font-size: .75em;
+}
+.word-count:after,
+.word-count:before {
+	color:     $moss-dark;
+	font-size: 1.2em;
+}
+.word-count:before { content: "["; }
+.word-count:after  { content: "]"; }
+
+// END
+// ************************************************/

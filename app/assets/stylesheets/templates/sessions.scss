@@ -1,11 +1,14 @@
 /* TEMPLATE: SIGN IN AND SIGN UP
-************************************************/
-// SETUP
-// =============================================
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
 @import "application";
+@import "partials/mixins/forms";
 
-// VIEWPORT: ALL
-// =============================================
+// VIEWPORT :: ALL
+// ===============================================
+// -- Structural
+// -----------------------------------------------
 .membership {
 	margin: 40px auto;
 	max-width: 600px;
@@ -16,24 +19,14 @@
 		padding: 10px 20px;
 	}
 }
-
-// STRUCTURE
-// .............................................
 fieldset {
 	border: none;
 	padding: 0;
 	margin: 0;
 }
 
-// HEADINGS AND LABELS
-// .............................................
-h2,
-legend {
-	background:    $fire-darkest;
-	color:         $fire-lightest;
-	padding:       10px;
-	text-align:    center;
-}
+// -- Headings
+// -----------------------------------------------
 h2 {
 	margin: 0;
 }
@@ -41,51 +34,58 @@ legend {
 	width: calc(100% - 20px);
 	margin: 0;
 }
+h2,
+legend {
+	background:    $water-darkest;
+	color:         $water-lightest;
+	padding:       10px;
+	text-align:    center;
+}
 label {
 	color: $page-color;
 	font-weight: bolder;
 	display: block;
 	padding: 10px;
-	border-top: 4px solid $fire-darker;
+	border-top: 4px solid $water-darker;
 	margin: 0;
-	background: $fire-dark;
+	background: $water-dark;
 }
 
-// INPUT
-// .............................................
+// -- Input
+// -----------------------------------------------
 input {
 	padding: 10px;
 	border: none;
-	background: lighten($fire-lightest, 5%);
+	background: lighten($water-lightest, 5%);
 }
 input:not([type="checkbox"]) {
 	width: calc(100% - 20px);
 }
 input[type="submit"] {
+	@include clickable(desaturate($water-darker, 10%));
 	width: calc(100% - 40px);
 	margin: 15px 20px;
-	background: $fire-lightest;
-	border-size: 1px;
 }
 
-// REMEMBER ME
-// .............................................
+// -- Remeber Checkbox
+// -----------------------------------------------
 .rememberable {
-	border-top: 4px solid $fire-darker;
+	border-top: 4px solid $water-darker;
 	overflow: auto;
+
 	input {
-		float: left;
+		float:  left;
 		margin: 10px;
 	}
 	label {
-		border: none;
-		color: $fire-dark;
 		background: $page-color;
+		border:     none;
+		color:      $water-dark;
 	}
 }
 
-// VIEWPORT: DESKTOP
-// =============================================
+// VIEWPORT :: DESKTOP
+// ===============================================
 @include desktop {
 	form {
 		overflow: auto;
@@ -96,4 +96,5 @@ input[type="submit"] {
 	}
 }
 
-/* END */
+/* END
+/* ***********************************************/

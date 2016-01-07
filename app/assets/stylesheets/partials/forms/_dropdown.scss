@@ -1,18 +1,31 @@
-/* DROPDOWN FIELDS
-************************************************/
+// STYLE PARTIAL: DROPDOWN FIELDS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+.selectize-dropdown-content {
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: $micro-height;
+}
 .selectize-dropdown {
-	@include box-sized();
+	// -- General
+	// -----------------------------------------------
+	@include boxable();
 	position:   absolute;
 	z-index:    10;
 	background: $page-color;
 	border:     1px solid $border-color;
 	border-top: 0 none;	
 	margin:     0;
+
 	[data-selectable] {
 		cursor: pointer;
 		overflow: hidden;
 		.highlight { background: $water-lightest; }
 	}
+
+	// -- Header
+	// -----------------------------------------------
 	.optgroup:first-child .optgroup-header {
 		border-top: 0 none;
 	}
@@ -20,6 +33,9 @@
 		color:  $water-darker;
 		cursor: default;
 	}
+
+	// -- TEXT
+	// -----------------------------------------------
 	.active {
 		background-color: $water-lightest;
 		&.create { color: $water-darker; }
@@ -29,10 +45,6 @@
 		padding: 2px;
 	}
 }
-.selectize-dropdown-content {
-	overflow-y: auto;
-	overflow-x: hidden;
-	max-height: $micro-height;
-}
 
-/* END */
+// END
+// ************************************************/

@@ -1,103 +1,15 @@
 /* TEMPLATE: SHOW STORY
-************************************************/
-// SETUP
-// =============================================
-@import "application";
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "templates/work";
+@import "partials/works/fiction";
 
-// VIEWPORT: ALL
-// =============================================
-// HEADER
-// .............................................
-@import 'partials/ratings';
-@import 'partials/edit_bar';
-
-article {
-	margin: 0 auto;
-	max-width: 1000px;
-	header {
-		margin-bottom: 25px;
-		text-align: center;
-	}
-	footer {
-		margin-top: 50px;
-	}
-}
-h1 {
-	font: 25px "Segoe UI";
-}
-.ratings {
-	width: 75%;
-}
-
-// CHAPTER
-// .............................................
+// VIEWPORT :: ALL
+// ===============================================
 .chapter {
-	width: 88.89%;
-	max-width: 800px;
-	margin: 25px auto;
-}
-.chapter header {
-	text-align: left;
-}
-.chapter footer {
-	margin: 25px auto;
-	padding: 3px 0;
-	width: 80%;
-}
-h2 {
-	color: $water-darker;
-	padding: 0 5px;
-	font-size: 20px;
+	padding: 10px 0;
 }
 
-// CONTENT
-// .............................................
-@import 'partials/fiction';
-
-// FOOTER
-// .............................................
-@import 'partials/comments';
-#site-content > footer {
-	padding: 20px;
-	text-align: center;
-	font-weight: bolder;
-}
-
-// MOBILE
-// =============================================
-@include mobile {
-	#site-content > header {
-		margin: 10px;
-	}
-	article {
-		padding: 0 5%;
-	}
-}
-
-// TABLET
-// =============================================
-@include tablet {
-	#site-content > header {
-		margin: 0 10px;
-	}
-	article {
-		padding: 0 10%;
-	}
-}
-
-// DESKTOP
-// =============================================
-@include desktop {
-	#site-content > header {
-		margin: 0 auto;
-		max-width: 1000px;
-		min-width: 850px;
-		width: 90%;
-	}
-	article {
-		padding: 0 25px;
-	}
-}
-
-
-/* END */
+/* END
+/* ***********************************************/

@@ -1,24 +1,82 @@
-/* TOOLKITS
-************************************************/
-.toolkit {
-	margin: 10px 15px;
-	a {
-		padding: 10px;
-		display: inline-block;
-		color: #FFF;
-		min-width: 50%;
-		text-align: center;
-		font-weight: bolder;
-		border-radius: 5px;
-		text-decoration: none !important;
-	}
-}
-.toolblock td {
-	padding: 10px;
+// STYLE PARTIAL: TOOLKITS
+// ***********************************************
+// STYLES :: COLORS
+// ===============================================
+// -- General
+// -----------------------------------------------
+.toolkit a {
+	color: $page-lightest;
 }
 
-// CREATION BAR
-// .............................................
+// -- Alteration
+// -----------------------------------------------
+.alteration {
+	@include buttonable($fire-color);
+}
+
+// Creation & Insertion
+// -----------------------------------------------
+.creation  a,
+.insertion a {
+	background: $moss-dark;
+
+	&:visited { color: $page-lightest; }
+	&:hover   {
+		background: $moss-lightest;
+		color:      $moss-darker;
+	}
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+// -- General
+// -----------------------------------------------
+.toolblock td { padding: 10px; }
+.toolkit {
+	margin: 10px 15px;
+
+	a {
+		border-radius:   5px;
+		display:         inline-block;
+		letter-spacing:  2px;
+		min-width:       50%;
+		padding:         10px;
+		text-align:      center;
+		text-decoration: none !important;
+	}
+	.multikit & {
+		display:     inline-block;
+		margin-left: 0;
+	}
+}
+
+// -- Alteration
+// -----------------------------------------------
+.alteration {
+	border-radius: 5px;
+	display:       inline-block;
+	margin:        0;
+	margin-bottom: 0;
+	overflow:      auto;
+	width:         100%;
+
+	a {
+		background: none;
+		display:    block;
+		float:      left;
+		padding:    10px 0;
+		width:      50%;
+
+		&:hover { border-radius: 0; }
+	}
+	.toolblock & {
+		margin: 10px 15px;
+		width:  calc(100% - 36px);
+	}
+}
+
+// Creation & Insertion
+// -----------------------------------------------
 .creation a {
 	max-width: 200px;
 	min-width: 200px;
@@ -27,44 +85,20 @@
 	text-align: left;
 	width:      calc(100% - 20px);
 }
-.creation a,
-.insertion a {
-	background: $moss-dark;
-	&:hover {
-		background: $moss-lightest;
-		color:      $moss-darker;
+tfoot .creation {
+	margin: 0 auto;
+	width:  200px;
+}
+
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	.alteration {
+		margin: 10px;
+		width:  calc(100% - 20px);
 	}
 }
 
-// EDIT BAR
-// .............................................
-.alteration {
-	@include buttoned($fire-color);
-	
-	border-radius: 5px;
-	display:       inline-block;
-	margin:        10px 0;
-	margin-bottom: 0;
-	overflow:      auto;
-	width:         calc(100% - 6px);
-
-	a {
-		background:     none;
-		display:        block;
-		font-weight:    bolder;
-		float:          left;
-		letter-spacing: 2px;
-		padding:        5px 0;
-		text-align:     center;
-		width:          50%;
-		&:hover {
-			border-radius: 0;
-		}
-	}
-}
-.toolblock .alteration {
-	margin: 10px 15px;
-	width:  calc(100% - 36px);
-}
-
-/* END */
+// END
+// ***********************************************/

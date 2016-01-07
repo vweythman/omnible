@@ -1,42 +1,33 @@
 /* TEMPLATE: SHOW SHORT STORY
-************************************************/
-// SETUP
-// =============================================
-@import "application";
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "templates/work";
+@import "partials/works/fiction";
 
-// VIEWPORT: ALL
-// =============================================
-// HEADER
-// .............................................
-@import 'partials/ratings';
-@import 'partials/edit_bar';
-
-article {
-	margin: 0 auto;
-	max-width: 800px;
-	header {
-		margin-bottom: 25px;
-		text-align: center;
-	}
+// VIEWPORT :: ALL
+// ===============================================
+.page-body > header .about {
+	margin: 0 $one-sixth;
+}
+.status {
+	width: calc(100% / 4 - 20px);
+}
+.page-body > header .alteration {
+	margin: 0 $one-sixth;
+	width:  $two-thirds;
+}
+.multikit {
+	margin: 0;
+}
+.related-menu {
+	padding:        5px;
+	padding-bottom: 0;
+	text-align:     center;
 }
 h1 {
-	font: 25px "Segoe UI";
-}
-.ratings {
-	width: 75%;
-}
-// CONTENT
-// .............................................
-@import 'partials/fiction';
-
-// FOOTER
-// .............................................
-@import 'partials/comments';
-#site-content > footer {
-	padding: 20px;
-	text-align: center;
-	font-weight: bolder;
+	padding: 5px $one-sixth;
 }
 
-
-/* END */
+/* END
+/* ***********************************************/

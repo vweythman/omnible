@@ -1,5 +1,7 @@
-/* RADIO BUTTON GROUPS
-************************************************/
+// STYLE PARTIAL: RADIO BUTTONS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
 .options {
 	margin:     10px auto;
 	padding:    10px 0;
@@ -13,12 +15,6 @@
 	overflow: auto;
 	display: inline-block;
 
-	.field {
-		border:  none;
-		float:   left;
-		padding: 0;
-		margin:  0;
-	}
 	label {
 		background: none;
 		border:     none;
@@ -29,19 +25,27 @@
 		width:      calc(100% - 20px);
 		cursor:     pointer;
 	}
-	input { display: none; }
+	input {
+		display: none;
+	}
+	.field {
+		border:  none;
+		float:   left;
+		padding: 0;
+		margin:  0;
+	}
 }
 
-// NON-DESKTOP
-// =============================================
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
 @include non-desktop {
 	table { width: 100%; }
-	td { text-align: center; }
+	td    { text-align: center; }
 	tr, th, td { display: block; }
 }
 
-// MOBILE
-// =============================================
+// VIEWPORT :: MOBILE
+// ===============================================
 @include mobile {
 	.choice .field {
 		float: none;
@@ -51,4 +55,5 @@
 	}
 }
 
-/* END */
+// END
+// ************************************************/

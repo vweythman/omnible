@@ -1,0 +1,39 @@
+// STYLE PARTIAL: INLINE FORMS
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/forms/general_input";
+@import "partials/mixins/forms";
+
+// STYLES :: COLORS
+// ===============================================
+form[data-remote="true"] input[type="submit"] {
+	@include clickable($fire-dark);
+	
+	&:hover {
+		background: $fire-darker;
+	}
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+form[data-remote="true"] {
+	margin: 10px auto;
+
+	fieldset {
+		margin:        0;
+		margin-bottom: 5px;
+		padding:       0;
+	}
+	label {
+		display: none;
+	}
+	input[type="submit"] {
+		font-weight:    bolder;
+		padding:        10px 5px;
+		text-transform: capitalize;
+	}
+}
+
+// END
+// ************************************************/

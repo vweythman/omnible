@@ -1,0 +1,44 @@
+// STYLE PARTIAL: COMMENTS
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import 'partials/forms/page';
+
+// VIEWPORT :: ALL
+// ===============================================
+// -- Structural
+// -----------------------------------------------
+form {
+	border: 1px solid $border-color;
+	margin: 10px 0;
+}
+fieldset {
+	padding: 0;
+}
+textarea {
+	width: calc(100% - 2px);
+}
+
+// -- Text
+// -----------------------------------------------
+input[type="submit"] {
+	@include clickable(desaturate($fire-darker, 10%));
+	margin: 10px;
+	width:  calc(100% - 20px);
+}
+label {
+	border-bottom: 3px solid $fire-dark;
+	display:       none;
+	font-weight:   bolder;
+	padding:       10px;
+}
+legend {
+	background:     $fire-lighter;
+	font-weight:    bolder;
+	padding:        10px;
+	text-transform: uppercase;
+	width:          calc(100% - 20px);
+}
+
+// END
+// ***********************************************/

@@ -1,0 +1,62 @@
+// STYLE PARTIAL: RECENT
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+.recent-panel {
+	background: $water-darker;
+}
+.recent-widget {
+	min-height: 200px;
+
+	& > header {
+		background:    $fire-color;
+		border-bottom: 5px solid $fire-lighter;
+		margin:        0;
+		padding:       0 5px;
+		padding-top:   25px;
+	}
+	a {
+		text-decoration: none;
+		font-weight:     bolder;
+		display:         block;
+	}
+	h2 {
+		padding: 5px 10px;
+		margin:  0;
+	}
+	.widget-body {
+		padding-top: 8px;
+	}
+}
+.preview {
+	background: $page-color;
+	margin:     0 $golden-micro;
+}
+.preview-title {
+	padding: 0;
+	a {
+		background: $water-light;
+		color:      $page-darkest;
+		padding:    5px;
+
+		&:hover {
+			background: $water-darkest;
+			color:      $water-lighter;
+		}
+	}
+}
+.excerpt {
+	padding: 2px 5px 5px;
+	background: $water-lightest;
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.preview .excerpt {
+		display: none;
+	}
+}
+
+// END
+// ***********************************************/

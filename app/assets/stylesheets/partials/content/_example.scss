@@ -1,0 +1,28 @@
+// STYLE PARTIAL: PREVIEWER
+// ***********************************************
+// STYLES :: COLORS
+// ===============================================
+.previewer {
+	border:  3px solid $water-color;
+
+	&:before {
+		background: $water-color;
+		color:      $page-color;
+	}
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+.previewer {
+	display: block;
+	margin:  15px;
+
+	&:before {
+		display: block;
+		font:    bolder $heading-size - 8px "Segoe UI";
+		padding: 10px;
+	}
+}
+
+// END
+// ************************************************/

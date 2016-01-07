@@ -1,43 +1,53 @@
 /* TEMPLATE: HOME
-************************************************/
-// SETUP
-// =============================================
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
 @import "application";
+@import "partials/content/snippets";
+@import "partials/content/recent";
 
-// VIEWPORT: ALL
-// =============================================
-.home {
-	overflow: auto;
-	& > section {
-		margin: 10px;
-		float: left;
-	}
-}
-h2 {
-	border-bottom: 3px solid $water-color;
-	font-size:     $heading-size - 4;
-	font-weight:   300;
+// VIEWPORT :: ALL
+// ===============================================
+.page-body {
+	background: $page-color;
 }
 
-// SNIPPETS
-// .............................................
-@import 'partials/snippets';
-
-// VIEWPORT: DESKTOP
-// =============================================
+// VIEWPORT :: DESKTOP
+// ===============================================
 @include desktop {
-	.home > section {
-		width: calc(50% - 20px);
+	.welcome-widget {
+		padding:    5em 0;
 	}
 }
 
-// VIEWPORT: TABLET
-// =============================================
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.welcome-widget {
+		display: none;
+	}
+}
+
+// VIEWPORT :: NON-MOBILE
+// ===============================================
+@include non-mobile {
+	.welcome-widget {
+		background: $page-color;
+		color:      $water-color;
+		text-align: center;
+		h1 {
+			font-weight: lighter;
+		}
+	}
+}
+
+// VIEWPORT :: TABLET
+// ===============================================
 @include tablet {
-	.home > section {
-		width: calc(100% - 20px);
+	.welcome-widget {
+		padding: 2em 0;
 	}
 }
 
-
-/* END */
+/* END
+/* ***********************************************/

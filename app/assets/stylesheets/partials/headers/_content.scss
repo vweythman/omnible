@@ -1,0 +1,56 @@
+// STYLE PARTIAL: CONTENT HEADER
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+h1 {
+	font-size:   $heading-size;
+	font-weight: 900;
+	margin:      0;
+
+	.item-label {
+		display:     block;
+		font-family: "Segoe UI";
+		font-size:   $heading-size - 3px;
+		font-weight: 500;
+		padding:     0;
+	}
+}
+.byline {
+	display:     block;
+	font-weight: lighter;
+	font-size:   $heading-size - 3px;
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.page-body > header {
+		margin:      0;
+		padding:     10px $one-sixth;
+		padding-top: 35px;
+	}
+	h1 {
+		padding: 15px 0;
+	}
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	.page-body > header {
+		margin:  0;
+		padding: 10px;
+	}
+	h1 {
+		padding: 15px 10px;
+	}
+}
+
+// VIEWPORT :: TABLET
+// ===============================================
+@include tablet {
+	h1 { text-align: center; }
+}
+
+// END
+// ***********************************************/

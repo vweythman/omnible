@@ -1,0 +1,73 @@
+// STYLE PARTIAL: ACCOUNT BAR
+// ***********************************************
+// STYLES :: COLORS
+// ===============================================
+// VIEWPORT :: ALL
+// ===============================================
+.account {
+	line-height: normal;
+	margin:      0;
+	padding:     10px 0;
+	text-align:  right;
+
+	a {
+		font-weight: bolder;
+		padding:     10px;
+		color:       $water-darkest; 
+	}
+}
+.user {
+	display: inline-block;
+	a {
+		font-weight:    bolder;
+		letter-spacing: 2px;
+		background:     $page-color;
+	}
+	& > a {
+		color: $water-darkest;
+	}
+	&:hover > a {
+		background: $water-color;
+		color:      $page-lightest;
+	}
+}
+.session a {
+	background: $water-light;
+	color:      $page-color;
+
+	&:visited {
+		background: $water-light;
+		color:      $page-color;
+	}
+	&:hover   {
+		background: $water-darker;
+		color:      $water-lightest;
+	}
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.account {
+		float: right;
+		width: $one-fourth;
+	}
+}
+
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.account {
+		display: block;
+		background: $water-lightest;
+	}
+}
+
+// VIEWPORT :: TABLET
+// ===============================================
+@include tablet {
+	.account { background: $water-lighter; }
+}
+
+// END
+// ***********************************************/

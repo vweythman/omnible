@@ -1,43 +1,54 @@
-/* NESTED CHAPTER FIELDS IN FORMS
-************************************************/
-.chapters {
+// STYLE PARTIAL: NESTED CHAPTER FIELDS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+// -- General
+// -----------------------------------------------
+.textable {
 	background: #F9F9F9;
 	label { display: none; }
 }
-form > .chapter,
-.chapters fieldset {
-	border: 1px solid $border-color;
+.textable fieldset,
+form > .chapter {
 	background: #F0F0F0;
-	padding: 0 10px;
-	margin:  0 10px;
-	width: calc(100% - 42px);
+	border:     1px solid $border-color;
+	margin:     0 10px;
+	padding:    0 10px;
+	width:      calc(100% - 42px);
 }
+
+// -- Single Chapter
+// -----------------------------------------------
 .nested .chapter {
 	overflow: auto;
 }
 form > .chapter {
 	margin-top: 10px;
-	legend { width: 100%; }
+
+	legend {
+		width: 100%;
+	}
 }
 .chapter legend {
+	border:  none;
 	padding: 0;
-	border: none;
-	.field {
-		margin: 0;
-	}
+
 	input {
 		margin: 0;
 	}
+	.field {
+		margin: 0;
+	}
 }
 
-// MOBILE
-// =============================================
+// VIEWPORT :: MOBILE
+// ===============================================
 @include mobile {
-
-	.chapters fieldset {
+	.textable fieldset {
 		margin: 0;
 		width: calc(100% - 22px);
 	}
 }
 
-/* END */
+// END
+// ************************************************/

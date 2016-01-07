@@ -1,0 +1,17 @@
+// STYLE PARTIAL: COMPLETION STATUS
+// ***********************************************
+.complete   { background: $water-lightest; }
+.incomplete { color:      $fire-dark;      }
+.status {
+	border-bottom: 4px solid $water-lightest;
+	border-right:  4px solid $water-lightest;
+	float:         left;
+	font-weight:   bolder;
+	min-width:     100px;
+	padding:       5px 10px;
+	text-align:    right;
+	width:         calc(100% / 6 - 20px);
+}
+
+// END
+// ************************************************/

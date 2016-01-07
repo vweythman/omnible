@@ -1,139 +1,23 @@
 /* TEMPLATE: SHOW CHAPTER
-************************************************/
-// SETUP
-// =============================================
-@import "application";
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "templates/work";
+@import "partials/works/fiction";
 
-// VIEWPORT: ALL
-// =============================================
-article {
-	max-width: 800px;
-	margin: 0 auto;
-}
-
-// HEADER
-// .............................................
-@import 'partials/ratings';
-#site-content > header {
-	text-align: center;
-}
-h1 {
-	margin: 0;
-	padding: 5px;
-	font: 25px "Segoe UI";
-}
-h2 {
-	margin: 0;
-	font-size: 22px;
-}
-article header {
-	margin-bottom: 25px;
-}
-.pagination {
-	overflow: auto;
-	list-style: none;
-	padding: 0;
-	li {
-		background: $water-dark;
-		border-radius: 5px;
-		display: inline-block;
-		margin: 1px;
-		font-weight: bolder;
-		width: calc(25% - 2px);
-		&:hover {
-			background: $water-darker;
-		}
-		a {
-			color: $page-color;
-			display: block;
-			padding: 10px;
-		}
-	}
-}
-.next, 
-.last {
-	text-align: right;
-}
-.time {
-	margin: 5px 0;
-	width: 50%;
-	background: $fire-lighter;
-	border-radius: 5px;
-	.date {
-		margin-right: 10px;
-		display: inline-block;
-	}
-}
-.word-count {
-	color: $fade-color;
-	font-style: italic;
-	text-align: center;
-}
-.tags {
-	margin: 0 auto;
+// VIEWPORT :: ALL
+// ===============================================
+article h1 {
+	padding: 10px 0;
 }
 
-// ALTERATION
-// .............................................
-@import 'partials/toolkits';
-.insertion {
-	margin: 0 auto;
-	width: 50%;
-	a {
-		text-align: center;	
-	}
-}
-article .alteration {
-	@include buttoned($fire-lighter);
-}
-
-// CONTENT
-// .............................................
-@import 'partials/fiction';
-
-// FOOTER
-// .............................................
-@import 'partials/comments';
-#site-content > footer {
-	padding: 20px;
-	text-align: center;
-	font-weight: bolder;
-}
-
-// MOBILE
-// =============================================
-@include mobile {
-	#site-content > header {
-		margin: 10px;
-	}
-	article {
-		padding: 0 5%;
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	article h1 {
+		text-align: left;
 	}
 }
 
-// TABLET
-// =============================================
-@include tablet {
-	#site-content > header {
-		margin: 0 10px;
-	}
-	article {
-		padding: 0 10%;
-	}
-}
-
-// DESKTOP
-// =============================================
-@include desktop {
-	#site-content > header {
-		margin: 0 auto;
-		max-width: 1000px;
-		min-width: 850px;
-		width: 90%;
-	}
-	article {
-		padding: 0 25px;
-	}
-}
-
-/* END */
+/* END
+/* ***********************************************/

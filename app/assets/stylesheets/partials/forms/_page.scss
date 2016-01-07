@@ -1,0 +1,40 @@
+// STYLE PARTIAL: FORMS PAGE
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import 'partials/forms/general_input';
+@import "partials/mixins/forms";
+
+// VIEWPORT :: ALL
+// ===============================================
+form {
+	background: #f0f0f0;
+	margin:     0;
+	overflow:   auto;
+	padding:    0px;
+
+	p {
+		padding-bottom: 0;
+	}
+}
+fieldset {
+	border: none;
+	padding: 0;
+	margin: 10px auto;
+	width:  calc(100% - 20px);
+}
+.field { 
+	margin: 10px 0;
+}
+.warning {
+	color: red;
+	padding: 35px;
+}
+.warning,
+.notice {
+	padding: 15px;
+	text-align:  center;
+}
+
+// END
+// ************************************************/
