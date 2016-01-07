@@ -1,9 +1,0 @@
-<%= tool_heading "Chapters", @chapters.length %>
-
-<div class="pieces">
-	<% if @chapters.length > 0 %>
-		<%= render 'works/chapters/list' %>
-	<% else %>
-		<%= @story.chapter_insertion_link %>
-	<% end %>
-</div>

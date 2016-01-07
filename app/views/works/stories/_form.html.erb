@@ -12,11 +12,11 @@
 		<%= render 'works/shared/work_fields', f: f %>
 	</fieldset>
 
-	<%= show_link "Chapters", :chapters %>
-	<%= content_tag :fieldset, class: "nested chapters", id: @story.current_chapters.formid do %>
-		<%= nested_legend @story.current_chapters %>
-		<%= nested_fields f, @story.current_chapters %>
-		<p><%= link_to_add_association "+ Add Chapter", f, :chapters, :partial => @story.current_chapters.partial %></p>
+	<%= @story.current_chapters.show %>
+	<%= content_tag :fieldset, class: @story.current_chapters.nest_class, id: @story.current_chapters.formid do %>
+		<%= @story.current_chapters.legend %>
+		<%= @story.current_chapters.fields(f) %>
+		<p><%= link_to_add_association "+ Add Chapter", f, @story.current_chapters.klass, :partial => @story.current_chapters.partial %></p>
 	<% end %>
 
 	<%= render 'works/shared/work_tag_fields', f: f %>

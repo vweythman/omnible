@@ -1,0 +1,22 @@
+<%= form_for(@link) do |f| %>
+
+	<ul>
+		<% @link.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+
+	<fieldset class="primary">
+
+		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Title") %>
+
+		<%= f.fields_for :sources do |b| %>
+			<%= form_field b.label(:reference), b.text_field(:reference, :placeholder => "Enter Link") %>
+		<% end %>
+
+	</fieldset>
+
+	<%= render 'works/shared/work_tag_fields', f: f %>
+
+	<%= f.submit %>
+<% end %>

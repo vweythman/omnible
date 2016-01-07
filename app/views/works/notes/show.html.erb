@@ -1,33 +1,47 @@
 <% provide(:title, @note.meta_title) %>
 
 <header>
-		<%= @work.edit_bar %>
-		<%= @work.rated %>
-		<h1><%= @work.title %></h1>
+	<h1>
+		<%= @work.title %>
+		<%= @work.byline.html_safe %>
+		<%= label_span @note.heading %>
+	</h1>
+	<%= @work.completion_status %>
+	<%= @work.rated %>
+	<%= @work.createables_links %>
+	
+	<div class="about">
+		<%= @work.summarized %>
+		<%= @work.all_tags_line %>
+	</div>
 
-		<%= @work.uploaded_by.html_safe %>
-		<%= markdown @work.summary %>
-		<%= @work.component_indices %>
-		<p><%= link_to "Whole Story", whole_story_path(@work) %></p>
+	<%= @work.navigation_on_note %>
 </header>
 
 <article role="article">
 	<header>
-		<h2><%= @note.heading %></h2>
+		<h1><%= @note.heading_with_count %></h1>
+		<%= @note.timestamps %>
 		<%= @note.edit_bar %>
 	</header>
 
-	<%= markdown @note.content %>
+	<div class="the-content" id="work-content">
+		<%= markdown @note.content %>
+	</div>
 
 	<footer>
-		<%= @note.edit_bar %>
 		<%= render 'works/shared/discussion' %>
 	</footer>
 </article>
 
-<footer>
+<footer class="path-finder">
 	<p>
+		<%= link_to "All Stories", stories_path %> |
 		<%= link_to "All Fiction", fiction_index_path %> |
 		<%= link_to "All Works", works_path %>
 	</p>
 </footer>
+
+<% if @work.has_skin? %>
+	<%= render 'works/shared/skin_work', work: @work %>
+<% end %>

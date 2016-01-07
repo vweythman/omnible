@@ -1,43 +1,58 @@
 <% provide(:title, @chapter.meta_title) %>
 
-<header>
-	<%= @story.edit_bar %>
+<header id="story-header">
+	<h1>
+		<%= @story.title %>
+		<%= @story.byline.html_safe %>
+		<%= label_span @chapter.positioned_heading %>
+	</h1>
+	<%= @story.completion_status %>
 	<%= @story.rated %>
-	<h1><%= @story.title %></h1>
+	<%= @story.createables_links %>
+	
+	<div class="about">
+		<%= @story.summarized %>
+		<%= @story.all_tags_line %>
+	</div>
 
-	<p><%= @story.chapter_creation_link %></p>
-	<p><%= @story.note_creation_link %></p>
-
-	<%= @story.uploaded_by.html_safe %>
-	<%= @story.main_tags_line %>
-	<%= markdown @story.summary %>
-	<%= @story.component_indices %>
-	<p><%= link_to "Whole Story", whole_story_path(@story) %></p>
+	<%= @story.navigation_on_chapter %>
 </header>
 
 <article role="article">
 	<header>
-		<%= @chapter.edit_bar %>
 		<%= @chapter.pagination %>
-		<h2><%= @chapter.heading %> [<span class="word-count"><%= @chapter.length_status %></span>]</h2>
+		<h1><%= @chapter.heading_with_count %></h1>
 		<%= @chapter.timestamps %>
 		<%= @chapter.summarized %>
+		<%= @chapter.edit_bar %>
 	</header>
 
-	<%= markdown @chapter.content %>
+	<div class="the-content" id="work-content">
+		<%= markdown @chapter.content %>
+	</div>
 
 	<footer>
-		<%= @chapter.edit_bar %>
 		<%= @chapter.pagination %>
+		<%= @chapter.edit_bar %>
 		<%= markdown @chapter.afterward %>
 		<%= render 'works/shared/discussion' %>
 	</footer>
 </article>
 
-<footer>
+<footer class="path-finder">
 	<p>
 		<%= link_to "All Stories", stories_path %> |
 		<%= link_to "All Fiction", fiction_index_path %> |
 		<%= link_to "All Works", works_path %>
 	</p>
 </footer>
+
+<% if @story.has_skin? %>
+	<%= render 'works/shared/skin_work', work: @story %>
+<% end %>
+
+<script type="text/javascript">
+$('#chapter-links').change(function() {
+    window.location.href = $(this).val();
+});
+</script>

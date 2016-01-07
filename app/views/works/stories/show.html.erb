@@ -1,33 +1,43 @@
 <% provide(:title, @story.title) %>
 
+<header>
+	<h1>
+		<%= @story.title %>
+		<%= @story.byline.html_safe %>
+	</h1>
+	<%= @story.completion_status %>
+	<%= @story.rated %>
+
+	<%= @story.createables_links %>
+
+	<div class="about">
+		<%= @story.summarized %>
+		<%= @story.all_tags_line %>
+	</div>
+
+	<%= @story.navigation_on_whole %>
+	<%= @story.edit_bar %>
+</header>
+
 <article role="article">
-	<header>
-		<%= @story.edit_bar %>
-		<%= @story.rated %>
-		<h1><%= @story.title %></h1>
+	<div class="the-content" id="work-content">
+		<% @chapters.each do |chapter| %>
 
-		<%= @story.uploaded_by.html_safe %>
-		<%= @story.component_indices %>
-
-		<%= @story.main_tags_line %>
-		<%= @story.newest_chapter_position.inspect %>
-	</header>
-
-	<% @chapters.each do |chapter| %>
-		<section class="chapter">
-			<h2><%= chapter.positioned_heading %></h2>
-			<%= markdown chapter.content %>
-			<%= chapter.afterward_foot %>
-		</section>
-	<% end %>
+			<section class="chapter">
+				<h2><%= chapter.positioned_heading %></h2>
+				<%= markdown chapter.content %>
+				<%= chapter.afterward_foot %>
+			</section>
+		
+		<% end %>
+	</div>
 
 	<footer>
-		<%= @story.edit_bar %>
 		<%= render 'works/shared/discussion' %>
 	</footer>
 </article>
 
-<footer>
+<footer class="path-finder">
 	<p>
 		<%= link_to "All Stories", stories_path %> |
 		<%= link_to "All Fiction", fiction_index_path %> |

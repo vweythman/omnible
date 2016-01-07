@@ -1,16 +1,24 @@
 <% provide(:title, @chapters.meta_title(@story)) %>
 
-<div id="main" class="index">
-	<article>
-		<h1><%= link_to @story.title, @story %></h1>
-		<%= render 'list_brief' %>
-	</article>
-	
-	<footer>
+<header>
+	<h1>
+		<%= link_to @story.title, @story %>
+		<%= label_span "Chapters" %>
+	</h1>
+</header>
+
+<article class="the-content">
+	<% if @chapters.length > 0 %>
+		<%= render 'works/chapters/list' %>
+	<% else %>
+		<%= @story.chapter_creation_link %>
+	<% end %>
+</article>
+
+<footer class="path-finder">
 	<p>
 		<%= link_to "All Stories", stories_path %> |
 		<%= link_to "All Fiction", fiction_index_path %> |
 		<%= link_to "All Works", works_path %>
 	</p>
-	</footer>
-</div>
+</footer>

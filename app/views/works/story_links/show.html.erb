@@ -1,2 +1,30 @@
-<h1>ExternalStories#show</h1>
-<p>Find me in app/views/story_links/show.html.erb</p>
+<% provide(:title, @link.title) %>
+
+<header>
+	<h1>
+		<%= @link.title %>
+		<%= @link.uploaded_by.html_safe %>
+	</h1>
+
+	<div class="about">
+		<%= @link.all_tags_line %>
+	</div>
+
+	<%= @link.edit_bar %>
+</header>
+
+<div class="the-content">
+	<h2>Links</h2>
+	<ul>
+		<% @link.sources.each do |source| %>
+			<li><%= offsite_link_to source.reference, source.reference %></li>
+		<% end %>
+	</ul>
+</div>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to "All Fiction Links", story_links_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>

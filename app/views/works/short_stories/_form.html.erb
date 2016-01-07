@@ -4,7 +4,10 @@
 
 	<fieldset class="primary">
 		<%= render 'works/shared/work_fields', f: f %>
-		<%= form_field f.label(:content), f.text_area(:content, :placeholder => "Write Story", :class=> :major) %>
+
+		<%= f.fields_for :chapter do |builder| %>
+			<%= form_field builder.label(:content), builder.text_area(:content, :placeholder => "Write Story", :class=> :major) %>
+		<% end %>
 	</fieldset>
 	
 	<%= render 'works/shared/work_tag_fields', f: f %>

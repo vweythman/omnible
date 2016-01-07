@@ -1,24 +1,32 @@
 <% provide(:title, @article.title) %>
 
+<header>
+	<h1>
+		<%= @article.title %>
+		<%= @article.byline.html_safe %>
+	</h1>
+	<%= @article.completion_status %>
+
+	<div class="about">
+		<%= @article.summarized %>
+		<%= @article.all_tags_line %>
+	</div>
+	
+	<%= @article.edit_bar %>
+</header>
+
+
 <article role="article">
-	<header>
-		<%= @article.edit_bar %>
-		<%= @article.rated %>
-		<h1><%= @article.title %></h1>
-
-		<%= @article.uploaded_by.html_safe %>
-		<%= @article.timestamps %>
-	</header>
-
-	<%= markdown @article.content %>
+	<div class="the-content" id="work-content">
+		<%= markdown @article.content %>
+	</div>
 
 	<footer>
-		<%= @article.edit_bar %>
 		<%= render 'works/shared/discussion' %>
 	</footer>
 </article>
 
-<footer>
+<footer class="path-finder">
 	<%= link_to "All Article", articles_path %> |
 	<%= link_to "All Works", works_path %>
 </footer>

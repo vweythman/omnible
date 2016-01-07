@@ -1,9 +1,0 @@
-<%= tool_heading "Notes", @notes.length %>
-
-<div class="pieces">
-	<% if @notes.length > 0 %>
-		<%= render 'works/notes/list' %>
-	<% else %>
-		<%= @work.note_insertion_link %>
-	<% end %>
-</div>

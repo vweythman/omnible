@@ -1,15 +1,22 @@
-<% provide(:title, "Notes") %>
+<% provide(:title, @notes.meta_title(@work)) %>
 
-<div id="main" class="index">
-	<article>
-		<h1><%= link_to @work.title, @work %></h1>
-		<%= render 'list_brief' %>
-	</article>
-	
-	<footer>
-		<p>
-			<%= link_to "All Fiction", fiction_index_path %> |
-			<%= link_to "All Works", works_path %>
-		</p>
-	</footer>
-</div>
+<header>
+	<h1>
+		<%= link_to @work.title, @work %>
+		<%= label_span "Notes" %>
+	</h1>
+</header>
+
+<article class="the-content">
+	<% if @notes.length > 0 %>
+		<%= render 'works/notes/list' %>
+	<% else %>
+		<%= @work.note_creation_link %>
+	<% end %>
+</article>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>
