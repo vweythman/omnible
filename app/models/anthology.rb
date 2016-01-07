@@ -21,6 +21,10 @@ class Anthology < ActiveRecord::Base
 	validates :name, length: { maximum: 250 }, presence: true
 	validates :uploader_id, presence: true
 
+	# MODULES
+	# ------------------------------------------------------------
+	include Summarizable
+
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :recently_updated, ->(num) {order(:updated_at => :desc).limit(num)}
@@ -47,4 +51,9 @@ class Anthology < ActiveRecord::Base
 	def just_created?
 		self.updated_at == self.created_at
 	end
+
+	def editable? user
+		self.uploader == user
+	end
+
 end

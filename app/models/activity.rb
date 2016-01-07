@@ -39,4 +39,8 @@ class Activity < ActiveRecord::Base
 		name
 	end
 
+	def editable? user
+		user.site_owner?
+	end
+
 end
