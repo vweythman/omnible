@@ -3,7 +3,8 @@
 	<fieldset>
 		<%= form_field f.label(:nature, "Type"), f.text_field(:nature, :placeholder => "Name the type of item") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Name of the item") %>
-		<%= form_field label_tag(:descriptions, "Qualities"), text_field_tag(:descriptions, @item.current_tags, :placeholder => "Tag with item's qualities",  :class => 'taggables') %>
+
+		<%= taggables(:descriptions, @item.current_tags, "Qualities", "Tag with item's qualities") %>
 	</fieldset>
 
 	<%= f.submit %>
