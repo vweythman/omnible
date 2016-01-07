@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+=begin
 describers = 
 	WorksTypeDescriber.create(
 		[
@@ -88,6 +89,37 @@ describers =
 				content_type: 'audio',
 				is_record: false,
 				is_creative_expression: true
+			}
+		]
+	)
+=end
+
+categories = 
+	CreatorCategory.create(
+		[
+			{
+				name:     'writer',
+				agentive: 'written by'
+			},
+			{
+				name:     'translator',
+				agentive: 'translated by'
+			},
+			{
+				name:     'illustrator',
+				agentive: 'illustrated by'
+			},
+			{
+				name:     'singer',
+				agentive: 'sung by'
+			},
+			{
+				name:     'composer',
+				agentive: 'composed by'
+			},
+			{
+				name:     'narrator',
+				agentive: 'narrated by'
 			}
 		]
 	)
