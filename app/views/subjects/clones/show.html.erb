@@ -1,7 +1,7 @@
 <div class="notice">
 	<p>You have cloned <%= link_to @original.heading, @original %> and created <%= link_to @character.heading, @character %>. Do you wish to edit your character?</p>
 	
-	<nav class="toolkit">
+	<nav class="toolkit alteration">
 		<%= link_to "Yes", edit_polymorphic_path(@character)%>
 		<%= link_to "No", characters_path %>
 	</nav>
