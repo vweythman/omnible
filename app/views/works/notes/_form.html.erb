@@ -2,8 +2,8 @@
 	<%= f.hidden_field :work_id, :value => @work.id %>
 
 	<fieldset>
-		<%= form_field f.label(:title), f.text_field(:title) %>
-		<%= form_field f.label(:content), f.text_area(:content) %>
+		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Title (Optional)") %>
+		<%= form_field f.label(:content), f.text_area(:content,:placeholder => "Write Content Here") %>
 	</fieldset>
 
 	<%= f.submit %>
