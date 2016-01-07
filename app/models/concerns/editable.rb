@@ -97,6 +97,10 @@ module Editable
 		self.uploader == user
 	end
 
+	def destroyable?(user)
+		uploader?(user)
+	end
+
 	# Editable?
 	# - asks if character can be edited
 	def editable?(editor)
