@@ -21,10 +21,15 @@ class Facet < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	extend FriendlyId
+	include EditableCategory
 
 	# SCOPES
 	# ------------------------------------------------------------
-	default_scope { order('name') }
+	scope :alphabetic,         -> { order('lower(name) ASC') }
+	scope :reverse_alphabetic, -> { order('lower(name) DESC') }
+
+	scope :alphabetic_next, ->(facet) { where('lower(name) > ?', facet.name.downcase).alphabetic         }
+	scope :alphabetic_prev, ->(facet) { where('lower(name) < ?', facet.name.downcase).reverse_alphabetic }
 
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
@@ -32,8 +37,9 @@ class Facet < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :identities, :inverse_of => :facet
+	has_many :identities,   :inverse_of => :facet
 	has_many :descriptions, through: :identities
+	has_many :characters,   through: :descriptions
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -48,6 +54,16 @@ class Facet < ActiveRecord::Base
 			list << h
 		end
 		return list
+	end
+
+	# FacetedNext - next in facet
+	def alphabetic_next
+		@alphabetic_next ||= Facet.alphabetic_next(self).first
+	end
+
+	# FacetedPrev - previous in facet
+	def alphabetic_prev
+		@alphabetic_prev ||= Facet.alphabetic_prev(self).first
 	end
 
 end
