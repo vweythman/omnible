@@ -1,0 +1,20 @@
+<% provide :title, "Admin Panel" %>
+
+<header>
+	<h1>Admin Control Panel</h1>
+</header>
+
+<div class="dashboard-grid">
+	<div class="grid-panel">
+		<div class="panel-cell solo"><%= render 'facets' %></div>
+	</div>
+	<div class="grid-panel">
+		<div class="panel-cell solo"><h2>Relationship Types</h2></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".sortable").tablesorter(); 
+	});
+</script>
