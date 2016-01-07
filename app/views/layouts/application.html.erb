@@ -4,33 +4,28 @@
 	<meta name=viewport content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><%= full_title(yield(:title)) %></title>
-	<%= stylesheet_link_tag page_style_loc(params[:controller], params[:action]) %>
+	<%= stylesheet_link_tag style_location %>
 	<%= javascript_include_tag 'application' %>
 	<%= csrf_meta_tags %>
+	<style type="text/css" id="inline-skin"></style>
 </head>
-<body>
+<body class="<%= page_class %>">
 	<%= render 'shared/site_header' %>
-	
-	<div id="site-content">
-		<% if notice %>
-			<p class="notice"><%= notice %></p>
-		<% end %>
-		<% if alert %>
-			<p class="alert"><%= alert %></p>
-		<% end %>
-		
-		<%= yield %>
+
+	<div class="site-content" id="site-content">
+		<header>
+			<% if notice %>
+				<p class="notice"><%= notice %></p>
+			<% end %>
+			<% if alert %>
+				<p class="alert"><%= alert %></p>
+			<% end %>
+		</header>
+		<div class="page-body">
+			<%= yield %>
+		</div>
 	</div>
 	
 	<%= render 'shared/site_footer' %>
-
-	<script>
-		autosize(document.querySelectorAll('textarea'));
-		
-		$( ".nested" ).on('cocoon:after-insert', function(e, inserted_item) {
-			autosize(document.querySelectorAll('textarea'));
-		});
-	</script>
-
 </body>
 </html>
