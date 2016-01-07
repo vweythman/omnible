@@ -14,16 +14,13 @@ class AnthologiesController < ApplicationController
 	end
 
 	def new
-		@anthology = Anthology.new
-		@works     = Work.order('lower(title)').all
-		@anthology.collections.build
-		define_components
+		@anthology = Anthology.new.decorate
+		set_associations
 	end
 
 	def edit
 		find_anthology
-		@works = Work.order('lower(title)').all
-		define_components
+		set_associations
 	end
 
 	# POST
@@ -34,6 +31,7 @@ class AnthologiesController < ApplicationController
 		if @anthology.save
 			redirect_to @anthology
 		else
+			set_associations
 			render action: 'new'
 		end
 	end
@@ -46,6 +44,7 @@ class AnthologiesController < ApplicationController
 		if @anthology.update(anthology_params)
 			redirect_to @anthology
 		else
+			set_associations
 			render action: 'edit'
 		end
 	end
@@ -71,8 +70,7 @@ class AnthologiesController < ApplicationController
 		params.require(:anthology).permit(:name, :summary, collections_attributes: [:id, :work_id, :_destroy])
 	end
 
-	# setup form components
-	def define_components
-		@worknest = Nest.new("Works", :collections, "collection_fields")
+	def set_associations
+		@works = CollectionsDecorator.decorate(@anthology.works)
 	end
 end
