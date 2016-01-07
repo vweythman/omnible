@@ -1,0 +1,34 @@
+<% provide(:title, @skin.title) %>
+
+<header id="sheet-header">
+	<h1>
+		Stylesheet Skins
+		<%= label_span @skin.heading_with_status %>
+	</h1>
+	<%= alteration_toolkit(@skin) %>
+	<%= @skin.uploaded_by %>
+</header>
+
+<div class="poster-grid styles">
+	<div class="grid-panel">
+		<div class="panel-cell golden-major"><%= @skin.pretty_print_area %></div>
+		<div class="panel-cell golden-minor"><%= @skin.example_area %></div>
+	</div>
+
+	<% if @skin.works.length > 0 %>
+		<div class="grid-panel">
+			<div class="panel-cell solo"><%= @skin.works.decorate.tableize %></div>
+		</div>
+	<% end %>
+</div>
+
+<%= @skin.path_footer %>
+
+<script type="text/javascript">
+	var parser = new cssjs();
+	var parsed = parser.parseCSS("<%= @skin.style.squish %>");
+
+	prettycss("#style-skin", parsed);
+	cssexample("#style-example", parsed);
+	csscode("#inline-skin", parser.applyNamespacing(parsed, '.styles .example'));
+</script>

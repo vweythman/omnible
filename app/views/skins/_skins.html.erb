@@ -1,0 +1,16 @@
+<table class="tableized">
+	<thead>
+		<tr>
+			<th>Style</th>
+			<th>Uploader</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @skins.each do |skin| %>
+			<tr>
+				<th><%= link_to skin.title, skin %></th>
+				<td data-label="Uploader"><%= link_to skin.uploader.name, skin.uploader %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

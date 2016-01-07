@@ -1,0 +1,22 @@
+<div class="skins management-widget">
+	<table class="editable">
+		<caption>
+			Personal Stylesheet Skins
+			<span class="counter"><%= @skins.length %></span>
+		</caption>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Number of Works</th>
+			</tr>
+		</thead>
+
+		<tbody class="management-body" id="skins-list">
+			<% @skins.each do |skin| %>
+				<th><%= link_to skin.title, skin %></th>
+				<td data-label="Number of Works"><%= skin.works.count %></td>
+			<% end %>
+		</tbody>
+	</table>
+	<%= prechecked_creation_toolkit("Stylesheet Skin", :skin) %>
+</div>

@@ -1,0 +1,22 @@
+<%= form_for(@skin) do |f| %>
+
+	<% if @skin.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@skin.errors.count, "error") %> prohibited this skin from being saved:</h2>
+
+			<ul>
+			<% @skin.errors.full_messages.each do |message| %>
+				<li><%= message %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<fieldset>
+		<%= form_field f.label(:title, "Title"), f.text_field(:title, :placeholder => "Write Title") %>
+		<%= form_field f.label(:style, "Stylesheet"), f.text_area(:style) %>
+		<%= form_field f.label(:status, "Publicity"), f.select(:status, options_for_select(Skin.statuses, selected: 'Public')) %>
+	</fieldset>
+
+	<%= f.submit %>
+<% end %>
