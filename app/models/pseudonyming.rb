@@ -20,12 +20,13 @@ class Pseudonyming < ActiveRecord::Base
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :pen_namings, -> { where(:type => "PenNaming") }
-	scope :roleplays,   -> { where(:type => "Roleplay") }
+	scope :roleplays,   -> { where(:type => "Roleplay")  }
+	scope :prime,       -> { where(:is_primary => true)  }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :user
-	belongs_to :character
+	belongs_to :character, dependent: :destroy
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -36,6 +37,12 @@ class Pseudonyming < ActiveRecord::Base
 	delegate :name, to: :character
 	delegate :editable?, to: :character
 
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	def self.prime_nym
+		self.prime.first
+	end
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	def set_uploader
@@ -45,6 +52,10 @@ class Pseudonyming < ActiveRecord::Base
 
 	def prime?
 		self.is_primary == 't' || self.is_primary == true
+	end
+
+	def toggle_prime
+		self.is_primary = !self.is_primary
 	end
 
 end
