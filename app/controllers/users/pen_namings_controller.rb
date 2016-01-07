@@ -6,7 +6,7 @@ class Users::PenNamingsController < ApplicationController
 
 	# FILTERS
 	# ------------------------------------------------------------
-	before_action :find_pen_name, only: [:show, :update, :create]
+	before_action :find_pen_name, only: [:show, :update]
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -28,14 +28,19 @@ class Users::PenNamingsController < ApplicationController
 	end
 
 	def edit
-		@namer = PenNaming.find(params[:id])
+		@namer = PenNaming.find(params[:id]).decorate
 	end
 
 	# POST
 	# ............................................................
 	def create
-		@namer = current_user.pen_namings.create(pen_naming_params)
-		@namer.set_uploader
+		@namer = PenNaming.new(pen_naming_params)
+
+		@namer.user = current_user
+		@namer.save
+		@namer.set_character_behavior
+		@namer.character.save
+		
 		find_pen_names
 	end
 
@@ -49,6 +54,15 @@ class Users::PenNamingsController < ApplicationController
 			end
 		else
 			render action: 'edit'
+		end
+	end
+
+	#
+	def destroy
+		@namer = PenNaming.find(params[:id]).destroy
+		respond_to do |format|
+			format.html { redirect_to dashboard_path }
+			format.json { head :no_content }
 		end
 	end
 
