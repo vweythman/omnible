@@ -13,10 +13,8 @@ module ApplicationHelper
 		end
 	end
 
-	def page_style_loc(controller, action)
-		collector, type   = controller.split('/')
-		dashboard_types   = ['dashboard', 'naming']
-		generator_actions = ['new', 'edit', 'update', 'create']
+	def page_type
+		collector, type = params[:controller].split('/')
 
 		if type.blank?
 			type = collector
@@ -28,11 +26,15 @@ module ApplicationHelper
 				type = last
 			end
 		end
+		return [collector, type.singularize]
+	end
 
-		type = type.singularize
+	def style_location
+		collector, type = page_type()
+		action          = (type == "tagging") ? "index" : params[:action]
 		
 		# DASHBOARD STYLESHEET
-		if dashboard_types.include? type
+		if (["users", "admin"].include? collector) && (collector != type)
 			template_type = "dashboard"
 		
 		# SESSION STYLESHEET
@@ -40,7 +42,7 @@ module ApplicationHelper
 			template_type = "sessions"
 		
 		# EDITING AND CREATING STYLESHEET
-		elsif generator_actions.include? action
+		elsif ['new', 'edit', 'update', 'create'].include? action
 			template_type = "generator"
 
 		# MODEL STYLESHEET
@@ -57,6 +59,11 @@ module ApplicationHelper
 		end
 
 		"templates/" + template_type
+	end
+
+	def page_class
+		x = params[:action]
+		x + "-page"
 	end
 
 	# BODY
@@ -90,6 +97,15 @@ module ApplicationHelper
 		"#{article} #{phrase}".html_safe
 	end
 
+	# OUPUT item label tag
+	def label_span(heading)
+		content_tag :span, class: "item-label" do heading end
+	end
+	
+	def time_label(heading)
+		content_tag :span, class: "time-label" do heading end
+	end
+
 	# Content
 	# ............................................................
 
@@ -118,17 +134,10 @@ module ApplicationHelper
 	def csnames(list)
 		if !list.nil? && list.length > 0
 			r = list.map {|i| i.name }
-			r.join("; ").html_safe
+			r.join(", ").html_safe
 		end
 	end
-
-	def lilinks(links)
-		items = links.map {|i| link_to i.heading, i }
-		content_tag :ul do
-			items.collect {|item| concat(content_tag(:li, item))}
-		end
-	end
-
+	
 	def subgrouped_list(heading, listable)
 		render( :partial => "shared/lists/subgrouped", :locals => { :heading => heading, :listable => listable })
 	end
@@ -143,14 +152,6 @@ module ApplicationHelper
 		end
 	end
 
-	# OUTPUT toolblock class
-	def tool_heading(title, length)
-		tag_class = length < 1 ? "tool-label" : nil
-		content_tag :h2, class: tag_class do
-			title
-		end
-	end
-
 	def list_filters(type, filters)
 		content_tag(:ul) do
 			filters.map do |f|
@@ -160,8 +161,26 @@ module ApplicationHelper
 		end
 	end
 
+	def offsite_link_to(title, path)
+		link_to title, path, class: "offsite-link"
+	end
+
 	def link_to_filter(label, type, key)
 		link_to label, params.merge(type => key)
+	end
+
+	def pagination_list(first_item, prev_item, current_item, next_item, last_item)
+		render(
+			:partial => "shared/lists/pagination_list", 
+			:locals  => 
+			{
+				:first_item   => first_item,
+				:prev_item    => prev_item,
+				:current_item => current_item,
+				:next_item    => next_item,
+				:last_item    => last_item
+			}
+		)
 	end
 
 	# Stats
