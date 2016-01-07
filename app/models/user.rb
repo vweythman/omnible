@@ -48,8 +48,10 @@ class User < ActiveRecord::Base
 
 	# - Has
 	# :: self
+	has_one  :admin_powers,        class_name: "Admin"
 	has_many :pen_names,           through: :pen_namings, source: :character
 	has_many :roleplay_characters, through: :roleplays,   source: :character
+	has_many :skins,               foreign_key: "uploader_id"
 
 	# :: relationships
 	has_many :frienders,      through: :given_friendships
@@ -65,7 +67,7 @@ class User < ActiveRecord::Base
 
 	# :: uploads
 	has_many :uploaded_works,      foreign_key: "uploader_id", class_name: "Work"
-	has_many :uploaded_characters, foreign_key: "uploader_id", class_name: "Character"
+	has_many :uploaded_characters, ->{ Character.not_pen_name }, foreign_key: "uploader_id", class_name: "Character"
 	has_many :uploaded_places,     foreign_key: "uploader_id", class_name: "Place"
 	has_many :uploaded_items,      foreign_key: "uploader_id", class_name: "Item"
 	has_many :uploaded_events,     foreign_key: "uploader_id", class_name: "Event"
@@ -73,10 +75,32 @@ class User < ActiveRecord::Base
 	has_many :editables, through: :edit_invites
 	has_many :viewables, through: :view_invites
 
+	# DELEGATED METHODS
+	# ------------------------------------------------------------
+	delegate :permission_level, to: :admin_powers
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# QUESTIONS
 	# ............................................................
+	# ## USER ABILITY
+	def admin?
+		admin_powers.present? 
+	end
+
+	def manager?
+		admin? && permission_level <= Admin::MANAGER
+	end
+
+	def site_owner?
+		admin? && permission_level == Admin::OWNER
+	end
+
+	def staffer?
+		admin? && permission_level <= Admin::STAFF
+	end
+
+	# ## RELATIONSHIPS
 	# Blocking? - user is blocking another user
 	def blocking?(user)
 		self.blocked_users.include?(user)
