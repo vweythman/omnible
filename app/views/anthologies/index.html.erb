@@ -1,10 +1,10 @@
 <% provide(:title, "Anthologies") %>
 
-<div id="main" class="index">
-	<header>
-		<h1>Anthologies</h1>
-		<%= creation_toolkit("Anthology", :anthology) %>
-	</header>
+<header>
+	<h1>Anthologies</h1>
+	<%= creation_toolkit("Anthology", :anthology) %>
+</header>
 
-	<%= render 'list' %>
+<div class="index-body">
+	<%= @anthologies.results %>
 </div>

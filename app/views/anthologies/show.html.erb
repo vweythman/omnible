@@ -1,12 +1,13 @@
 <% provide(:title, @anthology.heading) %>
 
-<div id="main" class="feature">
-	<header>
-		<%= @anthology.edit_bar %>
-		<h1><%= @anthology.heading %></h1>
-		<div class="summary"><%= markdown @anthology.summary || "" %></div>
-	</header>
+<header>
+	<%= @anthology.edit_bar %>
+	<h1><%= @anthology.heading %></h1>
+	<div class="summary"><%= markdown @anthology.summary || "" %></div>
+</header>
 
-	<%= render 'works/list' %>
-	<%= render 'footer' %>
+<div class="the-content">
+	<%= @works.recent_widget %>
 </div>
+
+<%= render 'footer' %>
