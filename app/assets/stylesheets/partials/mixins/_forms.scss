@@ -1,0 +1,37 @@
+// STYLE PARTIAL: FORMS MIXINS
+// ***********************************************
+@mixin chooseable($color) {
+	@include buttonable($color);
+
+	border-radius: 2px;
+
+	input:checked + label { background: darken($color, 10%); }
+}
+@mixin clickable($color) {
+	@include buttonable($color);
+
+	background:    $color;
+	border:        none;
+	border-radius: 5px;
+	color:         #FFF;
+	font-weight:   bolder;
+	padding:       10px;
+	
+	&:hover  { background: saturate($color, 25%); }
+	&:active { @include buttonable($color); }
+}
+@mixin togglable($color) {
+	cursor:      pointer;
+	background:  $color;
+	color:       black;
+	display:     block;
+	font-weight: 600;
+	padding:     10px;
+	&:hover {
+		background: darken($color, 10%);
+		color:     darken($color, 70%);
+	}
+}
+
+// END
+// ***********************************************/

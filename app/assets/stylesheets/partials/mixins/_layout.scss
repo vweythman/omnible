@@ -1,0 +1,30 @@
+// STYLE PARTIAL: LAYOUT MIXINS
+// ***********************************************
+@mixin mobile {
+	@media (max-width: #{$mobile-max}) { 
+		@content;
+	}
+}
+@mixin non-mobile {
+	@media (min-width: #{$tablet-min}) {
+		@content;
+	}
+}
+@mixin tablet {
+	@media (min-width: #{$tablet-min}) and (max-width: #{$tablet-max}) { 
+		@content;
+	}
+}
+@mixin desktop {
+	@media (min-width: #{$desktop-min}) { 
+		@content;
+	}
+}
+@mixin non-desktop {
+	@media (max-width: #{$tablet-max}) {
+		@content;
+	}
+}
+
+// END
+// ***********************************************/

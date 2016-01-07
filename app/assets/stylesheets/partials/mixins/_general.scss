@@ -1,0 +1,63 @@
+// STYLE PARTIAL: GENERAL MIXINS
+// ***********************************************
+// USED BY :: ANY
+// ===============================================
+@mixin boxable () {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:    border-box;
+	box-sizing:         border-box;
+}
+@mixin buttonable($color) {
+	background:  $color;
+	$text-color: $color;
+
+	@if lightness($color) > 60% { 
+		$text-color: darken($color, 100%);
+	} @else { 
+		$text-color: lighten($color, 100%);
+	}
+
+	a {
+		color: $text-color;
+
+		&:visited {
+			color: $text-color;
+		}
+		&:hover {
+			color:      $text-color;
+			background: darken($color, 5%);
+		}
+	}
+}
+@mixin gradientized($deg, $start, $stop) {
+	background: linear-gradient($deg, $start, $stop);
+}
+
+// USED BY :: LISTS
+// ===============================================
+@mixin columnable($count) {
+	-webkit-column-count: $count;
+	-moz-column-count:    $count;
+	column-count:         $count;
+}
+@mixin columnable_by($width) {
+	-webkit-column-width: $width;
+	-moz-column-width:    $width;
+	column-width:         $width;
+}
+@mixin arrowed($color) {
+	color:       $color;
+	content:     "» ";
+	font-weight: bolder;
+}
+
+// USED BY :: LINKS
+// ===============================================
+@mixin visitation($color) {
+	a:visited {
+		color: desaturate($color, 20%);
+	}
+}
+
+// END
+// ***********************************************/
