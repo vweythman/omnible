@@ -35,18 +35,36 @@ class Tag < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	# joins
+	# - Joins
 	has_many :taggings
 
-	# models that reference tags
-	has_many :works, :through => :taggings
+	# - Belongs to
+	has_many :articles,      -> { Work.articles },       through: :taggings, source: :work
+	has_many :short_stories, -> { Work.short_stories }, through: :taggings, source: :work
+	has_many :stories,       -> { Work.stories },       through: :taggings, source: :work
+	has_many :story_links,   -> { Work.story_links },   through: :taggings, source: :work
+	has_many :works, through: :taggings
 
-	# METHODS
+	# CLASS METHODS
 	# ------------------------------------------------------------
-	# Heading
-	# - defines the main means of addressing the model
+	def self.batch_by_name(str)
+		self.transaction do
+			str.split(";").map do |name|
+				name.strip!
+				tag = Tag.where(name: name).first_or_create
+			end
+		end
+	end
+
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
+	# Heading - defines the main means of addressing the model
 	def heading
 		name
+	end
+
+	def editable? user
+		user.site_owner?
 	end
 
 end
