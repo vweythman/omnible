@@ -28,17 +28,20 @@ class Appearance < ActiveRecord::Base
 	# ------------------------------------------------------------
 	scope :are_among_for, ->(work, cids) { where("work_id = ? AND character_id IN (?)", work.id, cids)}
 	scope :not_among_for, ->(work, cids) { where("work_id = ? AND character_id NOT IN (?)", work.id, cids)}
+	scope :main,      -> { where(role: "main") }
+	scope :side,      -> { where(role: "side") }
+	scope :mentioned, -> { where(role: "mentioned") }
+	scope :subject,   -> { where(role: "subject") }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :character
 	belongs_to :work
 
-	belongs_to :main_character, -> { where("appearances.role = 'main'")}, class_name: "Character", foreign_key: "character_id"
-	belongs_to :side_character, -> { where("appearances.role = 'side'")}, class_name: "Character", foreign_key: "character_id"
-	belongs_to :mentioned_character, -> { where("appearances.role = 'mentioned'")}, class_name: "Character", foreign_key: "character_id"
-
-	belongs_to :people_subject,  -> { where("appearances.role = 'subject'")},   class_name: "Character", foreign_key: "character_id"
+	belongs_to :main_character,      -> { Appearance.main },      class_name: "Character", foreign_key: "character_id"
+	belongs_to :side_character,      -> { Appearance.side },      class_name: "Character", foreign_key: "character_id"
+	belongs_to :mentioned_character, -> { Appearance.mentioned }, class_name: "Character", foreign_key: "character_id"
+	belongs_to :people_subject,      -> { Appearance.subject },   class_name: "Character", foreign_key: "character_id"
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
@@ -73,7 +76,7 @@ class Appearance < ActiveRecord::Base
 					elsif current.role != role
 						current.role = role
 						current.save
-					end				
+					end
 				end
 			}
 			remove = Appearance.not_among_for(model, character_ids).destroy_all
