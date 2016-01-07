@@ -20,10 +20,10 @@ class Works::ShortStoriesController < WorksController
 	# POST
 	# ............................................................
 	def create
-		@short  = ShortStory.new(work_params)
-		content = params[:short_story][:content]
+		@short = ShortStory.new(work_params)
+		@short.uploader = current_user
 
-		if @short.save && @short.update_content(content)
+		if @short.save
 			redirect_to @short
 		else
 			begin_work
@@ -34,9 +34,8 @@ class Works::ShortStoriesController < WorksController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		content = params[:short_story][:content]
 		update_tags(@work)
-		if @work.update(work_params) && @work.update_content(content)
+		if @work.update(work_params)
 			redirect_to @work
 		else
 			render action: 'edit'
@@ -52,6 +51,7 @@ class Works::ShortStoriesController < WorksController
 		@short ||= ShortStory.new
 		@short = @short.decorate
 		@work  = @short
+		@work.rating ||= Rating.new
 	end
 
 	# find all with options from a filter
@@ -65,9 +65,15 @@ class Works::ShortStoriesController < WorksController
 		create_tags(:short_story, true)
 	end
 
-	# switch to work params
-	def story_to_work_params
-		params[:work] = params[:short_story]
+	def work_params
+		params.require(:short_story).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
+			skinning_attributes:    [:id, :skin_id, :_destroy],
+			appearances_attributes: [:id, :character_id, :role],
+			taggings_attributes:    [:id, :tag_id],
+			settings_attributes:    [:id, :place_id],
+			rating_attributes:      [:id, :violence, :sexuality, :language],
+			chapter_attributes:     [:id, :title, :about, :position, :content, :afterward]
+		)
 	end
 
 end

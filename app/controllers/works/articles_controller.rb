@@ -21,6 +21,7 @@ class Works::ArticlesController < WorksController
 	# ............................................................
 	def create
 		@article = Article.new(work_params)
+		@article.uploader = current_user
 		content  = params[:article][:content]
 
 		if @article.save && @article.update_content(content)
@@ -62,6 +63,7 @@ class Works::ArticlesController < WorksController
 		
 		@article = @article.decorate
 		@work    = @article
+		@work.rating ||= Rating.new
 	end
 
 	# set tag creation

@@ -10,25 +10,24 @@ module FacetedWorkTags
 	end
 
 	def appearance_map(grouped_ids)
-		tags = Array.new
-		grouped_ids.map{ |role, ids|
-			ids.each do |id|
-				tags << { :role => role, character_id: id }
-			end
+		tags = grouped_ids.map{ |role, ids|
+			ids.map { |id|
+				{ :role => role, character_id: id }
+			}
 		}
-		return tags
+		tags.flatten
 	end
 
 	def create_tags(work_type, is_narrative)
-		place_ids = find_place_ids
-
-		params[work_type][:settings_attributes]   = map_tags(place_ids, :place_id)
-		params[work_type][:appearance_attributes] = appearance_map(find_characters_ids(is_narrative))
+		params[work_type][:appearances_attributes] = appearance_map(find_character_ids(is_narrative))
+		params[work_type][:settings_attributes]    = map_tags(find_place_ids, :place_id)
+		params[work_type][:taggings_attributes]    = map_tags(find_tag_ids,   :tag_id)
 	end
 
 	def update_tags(model)
 		Setting.update_for(model, find_place_ids)
-		Appearance.update_for(model, find_characters_ids(model.narrative?))
+		Appearance.update_for(model, find_character_ids(model.narrative?))
+		Tagging.update_for(model, find_tag_ids)
 	end
 
 	def find_place_ids
@@ -36,15 +35,23 @@ module FacetedWorkTags
 		Place.batch_by_name(place_names, current_user)
 	end
 
-	def find_characters_ids(is_narrative)
+	def find_character_ids(is_narrative)
 		roles = Appearance.roles_by_type(is_narrative)
 		tags  = Hash.new
 
 		Appearance.transaction do
-			roles.map {|role| tags[role] = Character.batch_by_name(params[role], current_user) }
+			roles.map {|role| 
+				characters_list = Character.line_batch_by_name(params[role], current_user)
+				tags[role]      = characters_list.map{ |i| i.id }
+			}
 		end
 
 		tags
+	end
+
+	def find_tag_ids
+		tags = Tag.batch_by_name params[:tags]
+		tags.map{ |i| i.id }
 	end
 
 end

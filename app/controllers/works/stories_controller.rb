@@ -20,6 +20,7 @@ class Works::StoriesController < WorksController
 	# ............................................................
 	def create
 		@story = Story.new(work_params)
+		@story.uploader = current_user
 
 		if @story.save
 			redirect_to @story
@@ -53,7 +54,14 @@ class Works::StoriesController < WorksController
 
 	# setup work
 	def begin_work
+		@rate = @story.nil? ? Rating.new   : @story.rating
+		@skin = @story.nil? ? Skinning.new : @skin.rating
+
 		@story ||= Story.new
+		@story.uploader = current_user
+		@story.rating   = @rate
+		@story.skinning = @skin
+
 		@story = @story.decorate
 		@work  = @story
 	end
@@ -66,8 +74,10 @@ class Works::StoriesController < WorksController
 	# define strong parameters
 	def work_params
 		params.require(:story).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
-			appearances_attributes: [:id, :character_id, :role, :_destroy],
-			settings_attributes:    [:id, :place_id, :_destroy],
+			skinning_attributes:    [:id, :skin_id, :_destroy],
+			appearances_attributes: [:id, :character_id, :role],
+			taggings_attributes:    [:id, :tag_id],
+			settings_attributes:    [:id, :place_id],
 			rating_attributes:      [:id, :violence, :sexuality, :language],
 			chapters_attributes:    [:id, :title, :about, :position, :content, :afterward]
 		)

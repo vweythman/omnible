@@ -1,5 +1,9 @@
 class Works::StoryLinksController < WorksController
 
+	# FILTERS
+	# ------------------------------------------------------------
+	before_action :find_link, only: [:update]
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GET
@@ -13,6 +17,31 @@ class Works::StoryLinksController < WorksController
 		@link = @work
 	end
 
+	# POST
+	# ............................................................
+	def create
+		@link = StoryLink.new(work_params)
+		@link.uploader = current_user
+
+		if @link.save
+			redirect_to @link
+		else
+			begin_work
+			render action: 'new'
+		end
+	end
+
+	# PATCH/PUT
+	# ............................................................
+	def update
+		update_tags(@work)
+		if @work.update(work_params)
+			redirect_to @work
+		else
+			render action: 'edit'
+		end
+	end
+
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
@@ -23,6 +52,17 @@ class Works::StoryLinksController < WorksController
 		@works = StoryLinksDecorator.decorate(@works)
 	end
 
+	def find_link
+		@work = StoryLink.find(params[:id]).decorate
+	end
+
+	def begin_work
+		@link ||= StoryLink.new
+		@link.sources.build
+		@link  = @link.decorate
+		@work  = @link
+	end
+
 	# set tag creation
 	def setup_tags
 		create_tags(:story_link, true)
@@ -30,9 +70,11 @@ class Works::StoryLinksController < WorksController
 
 	# define strong parameters
 	def work_params
-		params.require(:story_link).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
-			appearances_attributes: [:id, :character_id, :role, :_destroy],
-			settings_attributes:    [:id, :place_id, :_destroy]
+		params.require(:story_link).permit(:title, 
+			appearances_attributes: [:id, :character_id, :role],
+			taggings_attributes:    [:id, :tag_id],
+			settings_attributes:    [:id, :place_id],
+			sources_attributes:     [:id, :reference]
 		)
 	end
 

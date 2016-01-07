@@ -2,7 +2,8 @@ class Works::NotesController < ApplicationController
 
 	# FILTERS
 	# ------------------------------------------------------------
-	before_action :find_viewable_work, except: [:edit, :update]
+	before_action :find_editable_work, only: [:new, :create]
+	before_action :find_viewable_work, except: [:edit, :update, :new, :create]
 	before_action :find_viewable_note, only:   [:edit, :update]
 
 	# MODULES
@@ -35,7 +36,6 @@ class Works::NotesController < ApplicationController
 	# POST
 	# ............................................................
 	def create
-		find_work
 		@note = Note.new(note_params)
 
 		if @note.save
@@ -66,9 +66,7 @@ class Works::NotesController < ApplicationController
 
 	# ensures that a viewer can view
 	def find_viewable_work
-		arr     = params.slice(:story_id, :short_story_id, :journal_id)
-		work_id = arr.first[1]
-		@work   = Work.find(work_id).decorate
+		@work   = Work.find(find_work_id).decorate
 
 		unless @work.viewable? current_user
 			render 'works/restrict'
@@ -81,6 +79,23 @@ class Works::NotesController < ApplicationController
 		unless @work.viewable? current_user
 			render 'works/restrict'
 		end
+	end
+
+	def find_editable_work
+		@work = Work.find(find_work_id).decorate
+
+		unless @work.editable? current_user
+			redirect_to @work
+		end
+	end
+
+	def find_work_id
+		arr     = params.slice(:work_id, :story_id, :short_story_id, :journal_id)
+		work_id = arr.first[1]
+		if work_id.nil?
+			work_id = params[:note][arr.first[1]]
+		end
+		work_id
 	end
 
 	# define strong parameters
