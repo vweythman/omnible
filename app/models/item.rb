@@ -53,7 +53,7 @@ class Item < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
 	def heading
-		name
+		name + " (" + generic.name + ")"
 	end
 
 	# Nature - defines the type name if it exists
@@ -75,6 +75,10 @@ class Item < ActiveRecord::Base
 	def update_tags(list)
 		ItemTag.not_among_for(self.id, list).destroy_all
 		ItemTag.are_among_for(self.id, list).pluck(:quality_id)
+	end
+
+	def editable?(user)
+		user.id == uploader_id
 	end
 
 end
