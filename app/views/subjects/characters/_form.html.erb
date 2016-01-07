@@ -6,55 +6,59 @@
 		<% end %>
 	</ul>
 
-	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
-
 	<fieldset class="heading">
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
 		<%= render 'shared/forms/edit_fields', f: f %>
+
+		<div class="restrictions">
+			<%= boolean_field(f, :allow_clones, "Allow Users to Make Taggable Copies of This Character") %>
+			<%= boolean_field(f, :allow_play,   "Allow Users to Make Roleplayable Copies of This Character") %>
+			<%= boolean_field(f, :can_connect,  "Allow Users to Tag This Character in Relationships") %>
+		</div>
 	</fieldset>
 
 	<fieldset class="about">
 		<legend>About</legend>
 
-		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @character.variant_names, :placeholder => "Add Other Names", class: 'taggables') %>
+		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @character.variant_names, :placeholder => "Add Other Names", class: 'other-names taggables') %>
 
-		<%= show_link "Descriptors", :identities %>
-		<%= content_tag :fieldset, class: @identities.field_class, id: @identities.formid do %>
-			<%= nested_legend @identities %>
-			<% @identities.list_possible.each do |facet, list| %>
-				<%= form_field label_tag(facet, facet), text_field_tag(facet, csnames(list), class: 'taggables') %>
-			<% end %>
+		<%= @text.show %>
+		<%= content_tag :fieldset, class: @text.nest_class, id: @text.formid do %>
+			<%= @text.legend %>
+			<%= @text.fields(f) %>
+			<p><%= link_to_add_association "+ Add Detail", f, @text.klass, :partial => @text.partial %></p>
 		<% end %>
 
-		<%= show_link "Detailed Description", :details %>
-		<%= content_tag :fieldset, class: "nested chapters", id: @character.current_detail_text.formid do %>
-			<%= nested_legend @character.current_detail_text %>
-			<%= nested_fields f, @character.current_detail_text %>
-			<p><%= link_to_add_association "+ Add Detail", f, :details, :partial => @character.current_detail_text.partial %></p>
+		<%= @identities.show %>
+		<%= content_tag :fieldset, class: @identities.nest_class, id: @identities.formid do %>
+			<%= @identities.legend %>
+			<%= @identities.fields %>
 		<% end %>
 
-		<%= show_link "Items", :possessions %>
-		<%= content_tag :fieldset, class: 'nested items', id: @items.formid do %>
-			<%= nested_legend @items %>
-			<%= nested_fields f, @items %>
+		<%= render 'subjects/characters/fields/relationships_tags' %>
+
+		<%= @items.show %>
+		<%= content_tag :fieldset, class:  @items.nest_class, id: @items.formid do %>
+			<%= @items.legend %>
+			<%= @items.fields(f) %>
 			<p><%= link_to_add_association "+ Add Item", f, @items.klass, :partial=> @items.partial %></p>
 		<% end %>
 	</fieldset>
 
-	<fieldset>
+	<fieldset class="about">
 		<legend>Opinions and Prejudices</legend>
 
-		<%= show_link @prejudices.heading, @prejudices.klass %>
-		<%= content_tag :fieldset, class: 'nested identities prejudices', id: @prejudices.formid do %>
-			<%= nested_legend @prejudices %>
-			<%= nested_fields f, @prejudices %>
-			<p><%= link_to_add_association '+ Add Prejudice', f, @prejudices.klass, :partial=> @prejudices.partial %></p>
+		<%= @prejudices.show %>
+		<%= content_tag :fieldset, class:  @prejudices.nest_class, id: @prejudices.formid do %>
+			<%= @prejudices.legend %>
+			<%= @prejudices.fields(f) %>
+			<p><%= link_to_add_association "+ Add Prejudice", f, @prejudices.klass, :partial=> @prejudices.partial %></p>
 		<% end %>
 
-		<%= show_link @opinions.heading, @opinions.klass %>
-		<%= content_tag :fieldset, class: 'nested opinions', id: @opinions.formid do %>
-			<%= nested_legend @opinions %>
-			<%= nested_fields f, @opinions %>
+		<%= @opinions.show %>
+		<%= content_tag :fieldset, class:  @opinions.nest_class, id: @opinions.formid do %>
+			<%= @opinions.legend %>
+			<%= @opinions.fields(f) %>
 			<p><%= link_to_add_association "+ Add Opinion", f, @opinions.klass, :partial=> @opinions.partial %></p>
 		<% end %>
 	</fieldset>
