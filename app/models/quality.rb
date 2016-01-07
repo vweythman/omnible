@@ -50,5 +50,9 @@ class Quality < ActiveRecord::Base
 	def heading
 		name
 	end
+	
+	def editable? user
+		user.staffer?
+	end
 
 end
