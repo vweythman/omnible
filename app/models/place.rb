@@ -22,6 +22,7 @@ class Place < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Documentable
+	include Editable
 	extend Organizable
 
 	# CALLBACKS
@@ -69,7 +70,7 @@ class Place < ActiveRecord::Base
 		names = str.split(";")
 		ids   = Array.new
 
-		Place.transaction do
+		self.transaction do
 			names.each do |name|
 				name.strip!
 				place = Place.where(name: name).first_or_create
@@ -86,7 +87,7 @@ class Place < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
 	def heading
-		"#{form.name.titleize} / #{name}"
+		name + " (" + form.name + ")"
 	end
 
 	# Nature - defines the type name if it exists
