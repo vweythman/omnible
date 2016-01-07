@@ -9,7 +9,7 @@ class Subjects::CharactersController < ApplicationController
 
 	# MODULES
 	# ------------------------------------------------------------
-	include IdentityTagged
+	include CharacterTagged
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -17,6 +17,8 @@ class Subjects::CharactersController < ApplicationController
 	# ............................................................
 	def index
 		@characters = Character.not_pen_name.viewable_for(current_user).order('name').decorate
+		@subjects   = @characters
+		render "subjects/index"
 	end
 
 	def show
@@ -91,22 +93,21 @@ class Subjects::CharactersController < ApplicationController
 
 	# define strong parameters
 	def character_params
-		params.require(:character).permit(:name, :about, :editor_level, :publicity_level, 
+		params.require(:character).permit(:name, :about, :editor_level, :publicity_level,
+			:allow_play, :allow_clones, :can_connect,
 			identifiers_attributes:  [:id, :name,                   :_destroy],
 			details_attributes:      [:id, :title,       :content,  :_destroy],
 			descriptions_attributes: [:id, :identity_id,            :_destroy],
 			possessions_attributes:  [:id, :item_id,     :nature,   :_destroy],
 			opinions_attributes:     [:id, :recip_id,    :fondness, :respect, :about, :_destroy],
-			prejudices_attributes:   [:id, :identity_id, :fondness, :respect, :about, :_destroy]
+			prejudices_attributes:   [:id, :identity_id, :fondness, :respect, :about, :_destroy],
+			left_interconnections_attributes:  [:id, :relator_id, :right_id, :_destroy],
+			right_interconnections_attributes: [:id, :relator_id, :left_id,  :_destroy]
 		)
 	end
 
 	def begin_character
 		@character = Character.new.decorate
-		@character.descriptions.build
-		@character.possessions.build
-		@character.opinions.build
-		@character.prejudices.build
 		set_associations
 	end
 
@@ -114,7 +115,8 @@ class Subjects::CharactersController < ApplicationController
 		@identities = IdentitiesDecorator.decorate(@character.identities)
 		@items      = PossessionsDecorator.decorate(@character.items)
 		@opinions   = OpinionsDecorator.decorate(@character.opinions)
-		@prejudices = PrejudicesDecorator.decorate(@character.opinions)
+		@prejudices = PrejudicesDecorator.decorate(@character.prejudices)
+		@text       = @character.current_detail_text
 	end
 
 end
