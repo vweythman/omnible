@@ -1,27 +1,17 @@
-/* SITE STYLE
-************************************************/
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+// SITE STYLE
+// ***********************************************
+// SETUP :: GENERAL STYLES
+// ===============================================
 body { 
 	background: $water-darkest;
+	color:      $page-darker;
 	font:       $text-size "Arial", sans-serif;
-	color:      $read-color;
 }
 
-// SITE HEADER
-// .............................................
-@import "partials/header";
-
-// SITE PAGE
-// .............................................
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/headers/site";
 @import "partials/page";
 
-// SITE FOOTER
-// .............................................
-#site-footer {
-	background: $water-darkest;
-	color:      $water-color;
-	border-top: $water-color 5px solid;
-	padding:    10px 25px;
-}
-
-/* END */
+// END
+// ************************************************/

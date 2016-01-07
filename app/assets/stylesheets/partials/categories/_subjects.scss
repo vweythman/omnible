@@ -1,0 +1,36 @@
+// STYLE PARTIAL: GENERAL SUBJECT SHOW PAGE
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+.page-body {
+	background: $water-lightest;
+}
+.page-body > header {
+	border-bottom: 3px solid $moss-color;
+}
+.the-content {
+	background:   $page-color;
+	border-left:  3px solid $moss-lighter;
+	border-right: 3px solid $moss-lighter;
+	box-shadow:   0px 0px 1px 0px $moss-color;
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+h1 {
+	border-bottom: 10px $water-color solid;
+}
+article > h2 {
+	@include gradientized(90deg, $water-lightest, $water-color);
+	color:         $water-darkest;
+	border-bottom: 4px $water-color solid;
+	padding:       5px 10px;
+	margin:        0;
+}
+.the-content {
+	min-height:     200px;
+	padding-bottom: 1px;
+}
+
+// END
+// ***********************************************/
