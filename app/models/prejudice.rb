@@ -41,4 +41,8 @@ class Prejudice < ActiveRecord::Base
 		self.identity
 	end
 
+	def identity_name
+		self.identity.name unless identity.nil?
+	end
+
 end
