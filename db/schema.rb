@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110225811) do
+ActiveRecord::Schema.define(version: 20160103172237) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20151110225811) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "admins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "permission_level"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "admins", ["user_id"], name: "index_admins_on_user_id"
 
   create_table "anthologies", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -101,6 +110,7 @@ ActiveRecord::Schema.define(version: 20151110225811) do
     t.boolean  "allow_clones"
     t.boolean  "allow_as_clone"
     t.boolean  "is_fictional",                default: true
+    t.boolean  "can_connect",                 default: true
   end
 
   create_table "collections", force: :cascade do |t|
@@ -134,6 +144,12 @@ ActiveRecord::Schema.define(version: 20151110225811) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "agentive",   default: "by"
+  end
+
+  create_table "creator_categories_works_type_describers", id: false, force: :cascade do |t|
+    t.integer "creator_category_id"
+    t.integer "works_type_describer_id"
   end
 
   create_table "creatorships", force: :cascade do |t|
@@ -478,6 +494,27 @@ ActiveRecord::Schema.define(version: 20151110225811) do
 
   add_index "settings", ["place_id"], name: "index_settings_on_place_id"
   add_index "settings", ["work_id"], name: "index_settings_on_work_id"
+
+  create_table "skinnings", force: :cascade do |t|
+    t.integer  "work_id"
+    t.integer  "skin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "skinnings", ["skin_id"], name: "index_skinnings_on_skin_id"
+  add_index "skinnings", ["work_id"], name: "index_skinnings_on_work_id"
+
+  create_table "skins", force: :cascade do |t|
+    t.integer  "uploader_id"
+    t.text     "style"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "title"
+    t.string   "status",      default: "unpublished"
+  end
+
+  add_index "skins", ["uploader_id"], name: "index_skins_on_uploader_id"
 
   create_table "sources", force: :cascade do |t|
     t.string   "reference",       limit: 255
