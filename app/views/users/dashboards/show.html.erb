@@ -1,25 +1,54 @@
 <% provide :title, "Dashboard" %>
-<%= render 'sidebar' %>
 
-<article>
-	<h1>Hi, <%= @user.name %>.</h1>
+<header>
+	<h1>My Dashboard</h1>
+</header>
 
-	<%= render :partial => "users/pen_namings/pen_names", :locals => { :caption_heading => "Pen Names" } %>
-
-	<div class="uploads">
-		<h2>Uploads</h2>
-		<ul>
-			<li>Articles      <span class="counter"><%= @user.uploaded_articles.count      %></span></li>
-			<li>Characters    <span class="counter"><%= @user.uploaded_characters.count    %></span></li>
-			<li>Items         <span class="counter"><%= @user.uploaded_items.count         %></span></li>
-			<li>Places        <span class="counter"><%= @user.uploaded_places.count        %></span></li>
-			<li>Stories       <span class="counter"><%= @user.uploaded_stories.count       %></span></li>
-			<li>Short Stories <span class="counter"><%= @user.uploaded_short_stories.count %></span></li>
-		</ul>
-
-		<% @user.uploadable_types.each do |upload_type| %>
-			<%= prechecked_creation_toolkit upload_type, upload_type %>
-		<% end %>
+<div class="dashboard-grid">
+	<div class="grid-panel">
+		<div class="panel-cell solo"><%= @pen_names.tableize %></div>
 	</div>
-</article>
+	<div class="grid-panel">
+		<div class="panel-cell solo"><%= render 'users/skins/skins' %></div>
+	</div>
+	<div class="grid-panel">
+		<div class="panel-cell solo">
+			<h2>Uploads</h2>
+			<h3>Subjects</h3>
 
+			
+			<ul>
+				<% @user.uploaded_characters.each do |article| %>
+					<li><%= article.name %></li>
+				<% end %>
+			</ul>
+			<ul>
+				<% @user.uploaded_places.each do |article| %>
+					<li><%= article.name %></li>
+				<% end %>
+			</ul>
+			<ul>
+				<% @user.uploaded_items.each do |article| %>
+					<li><%= article.name %></li>
+				<% end %>
+			</ul>
+
+			<h3>Works</h3>
+			<ul>
+				<% @user.uploaded_articles.each do |article| %>
+					<li><%= article.title %></li>
+				<% end %>
+			</ul>
+			<ul>
+				<% @user.uploaded_stories.each do |article| %>
+					<li><%= article.title %></li>
+				<% end %>
+			</ul>
+			<ul>
+				<% @user.uploaded_short_stories.each do |article| %>
+					<li><%= article.title %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
