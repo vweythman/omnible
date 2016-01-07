@@ -1,0 +1,34 @@
+<% provide(:title, @identity.page_title) %>
+
+<header>
+	<%= content_tag :h1, id: @tag.heading_id do %>
+		<%= @tag.facet_title %>
+		<%= label_span @tag.name %>
+	<% end %>
+
+	<%= @tag.edit_form_div %>
+	<%= @tag.edit_bar %>
+
+	<p><%= @tag.first_use_status %></p>
+</header>
+
+
+<article class="the-content ">
+	<header>
+		<nav class="related-menu">
+			<%= link_to "All Works",      identity_works_path(@identity) %>
+			<%= link_to "All Characters", identity_characters_path(@identity) %>
+		</nav>
+		<%= render 'pagination' %>
+	</header>
+
+	<%= render 'stats' %>
+
+	<footer>
+		<%= render 'pagination' %>
+	</footer>
+
+</article>
+
+<%= render 'taggings/shared/footer' %>
+

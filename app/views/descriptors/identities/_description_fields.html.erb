@@ -1,7 +1,0 @@
-<div class='nested-fields'>
-	<fieldset>
-		<%= form_field f.label(:character_id, "Character"), f.collection_select(:character_id, Character.order('lower(name)').all, :id, :name) %>
-	</fieldset>
-
-	<p><%= link_to_remove_association "- Remove", f %></p>
-</div>

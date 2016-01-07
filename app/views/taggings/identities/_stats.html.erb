@@ -1,0 +1,49 @@
+<div class="panel">
+	<h2>Statistics</h2>
+
+	<table class='analytics'>
+		<caption>Tag Count</caption>
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>Count</th>
+				<th>Percentage</th>
+			</tr>
+		</thead>
+
+		<tr>
+			<th>Characters</th>
+			<td data-label="Count"><%= @identity.use_count %></td>
+			<td data-label="Percentage"><%= pretty_percentage @identity.character_percent %></td>
+		</tr>
+		<tr>
+			<th>Works with <%= @identity.name.titleize %> Characters</th>
+			<td data-label="Count"><%= @identity.works.count %></td>
+			<td data-label="Percentage"><%= pretty_percentage @identity.work_percent %></td>
+		</tr>
+	</table>
+
+	<table class="analytics">
+		<caption>Most Common Mutual Tags</caption>
+		<thead>
+			<th>Other Tag</th>
+			<th>Count</th>
+			<th>Percent of <%= @identity.name.titleize %></th>
+			<th>Percent of Other Tag</th>
+		</thead>
+		<tbody>
+			<% @identity.relatives.each do |identity| %>
+				<tr>
+					<th><%= link_to identity.name, identity %></th>
+					<td data-label="Count"><%= identity.amt %></td>
+					<td data-label="Percentage of <%= @identity.name.titleize %>">
+						<%= pretty_percentage(100.0 * identity.amt / @identity.use_count) %>
+					</td>
+					<td data-label="Percentage of <%= identity.name.titleize %>">
+						<%= pretty_percentage(100.0 * identity.amt / identity.full_count) %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

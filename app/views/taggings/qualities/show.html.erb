@@ -1,0 +1,10 @@
+<% provide(:title, @quality.name) %>
+
+<%= render 'taggings/shared/header' %>
+
+<article class="the-content">
+	<h2>Items</h2>
+	<%= @quality.items.decorate.list %>
+</article>
+
+<%= render 'taggings/shared/footer' %>

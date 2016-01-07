@@ -1,0 +1,13 @@
+<% provide(:title, @tags.index_heading) %>
+
+<header>
+	<h1><%= @tags.index_heading %></h1>
+	<%= @tags.inline_creation %>
+	<%= @tags.creation_path %>
+</header>
+
+<div class="index-body">
+	<%= @tags.simple_results %>
+</div>
+
+<%= render 'taggings/shared/footer' %>

@@ -1,0 +1,27 @@
+<% provide(:title, @facets.index_heading) %>
+
+<header>
+	<h1><%= @facets.index_heading %></h1>
+	<%= @facets.inline_creation %>
+	<%= @facets.creation_path %>
+</header>
+
+<article id="facets-index" class="the-content">
+	<table class="tableized">
+		<thead>
+			<th>Name</th>
+			<th>Number of Identities</th>
+		</thead>
+
+		<tbody>
+			<% @facets.each do |facet| %>
+				<tr>
+					<td><%= link_to facet.heading, facet %></td>
+					<td><%= facet.identities.count %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</article>
+
+<%= render 'taggings/shared/footer' %>

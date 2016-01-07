@@ -1,0 +1,13 @@
+<% remote ||= false %>
+<%= form_for @relator, remote: remote do |f| %>
+
+	<p class='note'>Use gender neutral terms whenever possible.</p>
+
+	<fieldset>
+		<%= form_field f.label(:left_name, 'Relationship'), f.text_field(:left_name, :placeholder => "Name Relationship") %>
+		<%= form_field f.label(:right_name, 'Inverse Relationship'), f.text_field(:right_name, :placeholder => "Name The Inverse Relationship If It Exists") %>
+	</fieldset>
+	
+	<%= f.submit %>
+
+<% end %>

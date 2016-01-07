@@ -1,0 +1,18 @@
+<% remote ||= false %>
+<%= form_for @quality, remote: remote do |f| %>
+
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name") %>
+		<%= render partial: "shared/forms/radio_collection", locals: {
+				f: f, 
+				collection: Adjective.all,
+				title: "Adjective", 
+				value: :adjective_id, 
+				default: @quality.adjective_id
+			}
+		%>
+	</fieldset>
+
+	<%= f.submit %>
+
+<% end %>

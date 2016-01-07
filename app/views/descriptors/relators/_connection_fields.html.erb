@@ -1,8 +1,0 @@
-<div class='nested-fields'>
-	<fieldset class='pair'>
-		<%= form_field f.label(:left_id,  (@relator.left_heading  || "Left Side").titleize), f.collection_select(:left_id,  @characters, :id, :heading) %>
-		<%= form_field f.label(:right_id, (@relator.right_heading || "Right Side").titleize), f.collection_select(:right_id, @characters, :id, :heading) %>
-	</fieldset>
-
-	<p><%= link_to_remove_association "- Remove Relationship", f %></p>
-</div>

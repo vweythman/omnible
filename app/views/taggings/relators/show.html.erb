@@ -1,0 +1,34 @@
+<% provide(:title, @relator.heading.html_safe) %>
+
+<%= render 'taggings/shared/header' %>
+
+<article class="the-content ">
+	<table class="tableized">
+		<caption>Tagged</caption>
+
+		<% if @relator.interconnections.length > 0  && @relator.has_reverse? %>
+			<thead>
+				<tr>
+					<th><%= @relator.left_name.titleize %></th>
+					<th><%= @relator.right_name.titleize %></th>
+				</tr>
+			</thead>
+		<% else %>
+			<thead>
+				<tr>
+					<th><%= @relator.left_name.titleize %></th>
+					<th><%= @relator.left_name.titleize %></th>
+				</tr>
+			</thead>
+		<% end %>
+
+		<% @relator.interconnections.each do |interconnection| %>
+			<tr>
+				<td><%= link_to interconnection.left.name, interconnection.left %></td>
+				<td><%= link_to interconnection.right.name, interconnection.right %></td>
+			</tr>
+		<% end %>
+	</table>
+</article>
+
+<%= render 'taggings/shared/footer' %>

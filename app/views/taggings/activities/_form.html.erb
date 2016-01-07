@@ -1,0 +1,9 @@
+<% remote ||= false %>
+<%= form_for @activity, remote: remote do |f| %>
+
+	<fieldset>
+		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Describe Activity") %>
+	</fieldset>
+	<%= f.submit %>
+
+<% end %>

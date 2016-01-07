@@ -1,9 +1,0 @@
-<footer>
-	<p><%= @identity.facet.name.pluralize %></p>
-	
-	<nav class='directed'>
-		<%= link_to prev_heading(@identity.faceted_prev.name), @identity.faceted_prev unless @identity.faceted_prev.nil? %>
-		<b><%= @identity.name %></b>
-		<%= link_to next_heading(@identity.faceted_next.name), @identity.faceted_next unless @identity.faceted_next.nil?  %>
-	</nav>
-</footer>

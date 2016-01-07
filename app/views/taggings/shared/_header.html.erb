@@ -1,0 +1,9 @@
+<header>
+	<%= content_tag :h1, id: @tag.heading_id do %>
+		<%= @tag.heading %>
+	<% end %>
+	<%= @tag.edit_form_div %>
+	<%= @tag.edit_bar %>
+
+	<p><%= @tag.first_use_status %></p>
+</header>

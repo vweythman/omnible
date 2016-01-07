@@ -1,0 +1,20 @@
+<% provide(:title, 'Tags') %>
+
+<header>
+	<h1>All Tags</h1>
+</header>
+
+<div class="index-body">
+	<div class="grid-panel">
+		<div class="panel-cell trio"><%= @activities.index_content %></div>
+		<div class="panel-cell trio"><%= @tags.index_content %></div>
+		<div class="panel-cell trio"><%= @qualities.index_content %></div>
+	</div>
+
+	<div class="grid-panel">
+		<div class="panel-cell golden-minor"><%= @relators.index_content %></div>
+		<div class="panel-cell golden-major"><%= @identities.index_content %></div>
+	</div>
+</div>
+
+<%= render 'taggings/shared/footer' %>
