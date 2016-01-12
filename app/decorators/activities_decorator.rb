@@ -8,7 +8,7 @@ class ActivitiesDecorator <  Draper::CollectionDecorator
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	def index_heading
-		"Event Tags"
+		"Action Tags"
 	end
 
 	def klass
