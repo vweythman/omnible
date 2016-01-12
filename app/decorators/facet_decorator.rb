@@ -7,6 +7,7 @@ class FacetDecorator < TagDecorator
 	# MODULES
 	# ------------------------------------------------------------
 	include AlphabeticPagination
+	include InlineEditing
 	
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
