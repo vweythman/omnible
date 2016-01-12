@@ -18,7 +18,7 @@ function sort_description(selector, list) {
 $(document).ready(function(){
 
 	// SETUP TOGGLE
-	$(".show").click(function(){
+	$(".show-toggle").click(function(){
 		var id =  $(this).attr('id');
 		id = id.split('_');
 
@@ -26,7 +26,7 @@ $(document).ready(function(){
 		$("#form_"+id[1]).show();
 	});
 
-	$(".hide").click(function(){
+	$(".hide-toggle").click(function(){
 		var id =  $(this).attr('id');
 		id = id.split('_');
 

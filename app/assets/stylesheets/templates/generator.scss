@@ -3,20 +3,69 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
+@import "partials/forms/page_form";
+@import "partials/forms/fieldsets/choose_any";
+@import "partials/forms/fieldsets/nested";
+
+// VIEWPORT :: ALL
+// ===============================================
+h1 {
+	border-bottom: 5px solid $fire-color;
+	background:    $fire-light-major;
+	color:         $fire-darkest-minor;
+	text-align:    center;
+}
+
+.nested legend {
+	background:   $fire-lighter-minor;
+	border-color: $fire-light-major;
+}
+.field {
+	margin: 5px 0;
+}
+.submit-field input {
+	background:   $fire-light-minor;
+	border-color: $fire-light-minor;
+	color:        $fire-darkest-minor;
+
+	&:hover,
+	&:active {
+		background:   $fire-color;
+		border-color: $fire-dark-minor;
+	}
+}
+
+/*
+
+
+@import "partials/forms/fields/dropdown";
+@import "partials/forms/fields/nested";
+@import "partials/forms/fields/nested_chapters";
+@import "partials/forms/fields/paired_fields";
+@import "partials/forms/fields/radio_buttons";
+@import "partials/forms/fields/selections";
+@import "partials/forms/fields/slider";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @import 'partials/forms/page';
-@import 'partials/forms/dropdown';
-@import 'partials/forms/nested';
-@import 'partials/forms/nested_chapters';
-@import 'partials/forms/paired_fields';
-@import 'partials/forms/radio_buttons';
-@import 'partials/forms/selections';
-@import 'partials/forms/slider';
 
 // VIEWPORT :: ALL
 // ===============================================
 // -- Structural
 // -----------------------------------------------
-.generatable {
+.generator {
 	margin:     0;
 	padding:    0;
 	width:      100%;
@@ -24,7 +73,7 @@
 	a:hover { text-decoration: underline; }
 }
 input[type="submit"] {
-	@include clickable($fire-darker);
+	@include clickable($fire-darker-minor);
 	margin: 10px;
 	width:  calc(100% - 20px);
 	text-transform: capitalize;
@@ -49,8 +98,8 @@ form {
 // -- Headings & Labels
 // -----------------------------------------------
 h1 {
-	background:    $fire-lighter;
-	color:         $fire-darkest;
+	background:    $fire-lighter-minor;
+	color:         $fire-darkest-minor;
 	text-align:    center;
 }
 label { 
@@ -64,7 +113,7 @@ legend {
 }
 .ref {
 	background: $page-color;
-	color: $fire-dark;
+	color: $fire-dark-minor;
 	a { font-style: italic; }
 }
 
@@ -144,7 +193,7 @@ legend {
 		margin: 0;
 	}
 	label {
-		color:         $fire-dark;
+		color:         $fire-dark-minor;
 		display:       inline-block;
 		float:         left;
 		font-weight:   bolder;
