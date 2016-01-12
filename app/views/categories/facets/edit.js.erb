@@ -1,0 +1,5 @@
+$('<%= @facet.form_finder %>').html("<%= j (ajaxed_form_render) %>");
+$('<%= @facet.tag_finder  %> .facet-title').hide();
+$('<%= @facet.kit_finder  %>').hide();
+$('<%= @facet.tag_finder  %> th').attr('colspan', 2);
+$('<%= @facet.form_finder %>').slideDown(180);

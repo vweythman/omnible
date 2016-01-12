@@ -1,0 +1,5 @@
+$('<%= @facet.form_finder %>').slideUp(180);
+$('<%= @facet.tag_finder  %> .facet-title a').html("<%= @facet.name %>");
+$('<%= @facet.tag_finder  %> .facet-title').show();
+$('<%= @facet.tag_finder  %> th').attr('colspan', 1);
+$('<%= @facet.kit_finder  %>').show();

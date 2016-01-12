@@ -2,22 +2,27 @@
 
 <header>
 	<h1><%= @facets.index_heading %></h1>
-	<%= @facets.inline_creation %>
-	<%= @facets.creation_path %>
 </header>
 
-<article id="facets-index" class="the-content">
+<article id="facets-index" class="index-body">
 	<table class="tableized">
 		<thead>
 			<th>Name</th>
 			<th>Number of Identities</th>
+			<th>Number of Characters</th>
 		</thead>
 
 		<tbody>
 			<% @facets.each do |facet| %>
 				<tr>
-					<td><%= link_to facet.heading, facet %></td>
-					<td><%= facet.identities.count %></td>
+					<th><%= link_to facet.heading, facet %></th>
+
+					<td data-label="Identities Count">
+						<%= facet.identities.count %>
+					</td>
+					<td data-label="Character Count">
+						<%= facet.characters.count %>
+					</td>
 				</tr>
 			<% end %>
 		</tbody>

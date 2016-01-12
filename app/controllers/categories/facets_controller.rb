@@ -1,4 +1,4 @@
-class Taggings::FacetsController < ApplicationController
+class Categories::FacetsController < ApplicationController
 
 	# FILTERS
 	# ------------------------------------------------------------
@@ -22,6 +22,7 @@ class Taggings::FacetsController < ApplicationController
 
 	def new
 		@facet = Facet.new
+		@facet = @facet.decorate
 	end
 
 	def edit
@@ -49,7 +50,11 @@ class Taggings::FacetsController < ApplicationController
 	# DELETE
 	# ............................................................
 	def destroy
-
+		@facet.destroy
+		respond_to do |format|
+			format.js   { find_facets }
+			format.html { redirect_to facets_path }
+		end
 	end
 
 	# PRIVATE METHODS
@@ -83,12 +88,14 @@ class Taggings::FacetsController < ApplicationController
 		unless @facet.destroyable? current_user
 			redirect_to @facet
 		end
+		@facet = @facet.decorate
 	end
 	
 	def ensure_editable
 		unless @facet.editable? current_user
 			redirect_to @facet
 		end
+		@facet = @facet.decorate
 	end
 
 end
