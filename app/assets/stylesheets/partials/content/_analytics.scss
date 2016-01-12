@@ -9,12 +9,12 @@
 .analytics {
 	margin: 15px auto;
 	width:  $three-fourths;
-	border: 1px solid $page-darker;
+	border: 1px solid $page-darker-major;
 	
 	thead th {
 		padding:    15px 10px;
-		background: $fire-lighter;
-		color:      $fire-darkest;
+		background: $fire-lighter-minor;
+		color:      $fire-darkest-minor;
 	}
 	th {
 		padding: 10px;
@@ -23,7 +23,7 @@
 		text-align: center;
 	}
 	tfoot {
-		border-top: 2px solid $page-darker;
+		border-top: 2px solid $page-darker-major;
 		text-align: left;
 	}
 }

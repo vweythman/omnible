@@ -3,12 +3,12 @@
 // STYLES :: COLORS
 // ===============================================
 .menu a {
-	color: $water-lightest;
+	color: $water-lightest-minor;
 
-	&:visited { color: $water-lightest; }
-	&:hover   { color: $water-light;    }
+	&:visited { color: $water-lightest-minor; }
+	&:hover   { color: $water-light-minor;    }
 }
-.submenu a { background: $page-darkest; }
+.submenu a { background: $page-darkest-major; }
 
 // VIEWPORT :: ALL
 // ===============================================

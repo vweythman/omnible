@@ -1,0 +1,18 @@
+// STYLE PARTIAL: PAGE FORM
+// ************************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/forms/general_form";
+
+// VIEWPORT :: ALL
+// ===============================================
+form {
+	background: $page-lightest-minor;
+}
+.submit-field {
+	margin: 10px;
+	width:  calc(100% - 20px);
+}
+
+// END
+// ************************************************/

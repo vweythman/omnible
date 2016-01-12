@@ -9,13 +9,13 @@
 
 // VIEWPORT :: ALL
 // ===============================================
-// -- Structural
-// -----------------------------------------------
 // ----- General
 // ...............................................
-article {
-	padding-bottom: 50px;
-	overflow: auto;
+.subject-header {
+	border-bottom: 3px solid $water-color;
+}
+.subject-body p {
+	padding: 5px;
 }
 canvas {
 	height:  300px;
@@ -23,29 +23,43 @@ canvas {
 	margin:  10px;
 	display: block;
 }
-.page-body > header {
-	border-bottom: 3px solid $water-color;
+dl {
+	margin-bottom: 25px;
 }
+table {
+	margin:        0;
+	margin-bottom: 10px;
+	width:         100%;
+}
+caption {
+	background:    $water-lightest-minor;
+	color:         $water-darkest-minor;
+	border-bottom: 2px solid $water-lighter-minor;	
+	font-size:     1.25em;
+	padding:       3px 5px;
+	padding-top:   10px;
+}
+th {
+	padding: 5px;
+	vertical-align: top;
 
-// ----- Aside
-// ...............................................
-aside h2 {
-	@include gradientized(90deg, $fire-lighter, $fire-lightest);
-	color:   $fire-darker;
-	margin:  0;
-}
-aside dl {
-	padding: 5px 15px;
-	margin-bottom: 15px;
-}
-// ----- Footer
-// ...............................................
-.pagination {
-	margin: 50px auto 10px auto;
-
-	li {
-		width: calc(33.33% - 6px);
+	thead & {
+		border-bottom: 2px solid $fire-light-minor;
+		padding-top: 10px;
 	}
+	tbody & {
+		border-right: 2px solid $fire-light-minor;
+	}
+}
+tbody {
+	border-bottom: 2px solid $fire-light-minor;
+}
+td {
+	padding: 5px;
+	vertical-align: top;
+}
+.detail {
+	margin-bottom: 20px;
 }
 
 // -- Header
@@ -62,37 +76,14 @@ header p {
 	font-style: italic;
 }
 
-// -- Sections
+// -- Footer
 // -----------------------------------------------
-section {
-	margin: 0;
-	p {
-		max-width: 900px;
-		margin: 5px 15px;
-	}
-	h2 {
-		@include gradientized(90deg, $water-lightest, $water-color);
-		padding: 5px 10px;
-		margin:  0;
-		color:   $water-darkest;
-		border-bottom: 4px $water-color solid;
-	}
-}
-.clones {
-	margin: 0;
-	padding: 10px;
-}
+.pagination {
+	margin: 50px auto 10px auto;
 
-// -- Text
-// -----------------------------------------------
-h2 {
-	margin:  5px 0;
-	padding: 7px 10px;
-	font:    22px arial;
-}
-h3 {
-	font:   20px arial;
-	margin: 5px;
+	li {
+		width: calc(33.33% - 2px);
+	}
 }
 
 // -- Toolkits
@@ -119,39 +110,6 @@ h3 {
 		&:hover {
 			border-radius: 0;
 		}
-	}
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
-	#main > header { border: none; }
-	aside h2 {
-		border-top: 3px solid $fire-lighter;
-	}
-	aside dl {
-		@include columnable(2);
-	}
-}
-
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
-@include non-desktop {
-	.feature {
-		margin: 0 10px;
-	}
-}
-
-// VIEWPORT :: NON-MOBILE
-// ===============================================
-@include non-mobile {
-	aside {
-		float: right;
-		width: calc(100% - (100% / 1.618) - 10px);
-	}
-
-	aside + section {
-		margin-right: 100% - (100% / 1.618);
 	}
 }
 

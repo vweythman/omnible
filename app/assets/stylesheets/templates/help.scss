@@ -1,0 +1,137 @@
+/* TEMPLATE: HOME
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+.panel-cell p {
+	padding:    10px 0;
+	text-align: center;
+}
+
+.lightest-major {
+	color: $page-darkest-major;
+
+	.water { background: $water-lightest-major; }
+	.fire  { background: $fire-lightest-major;  }
+	.moss  { background: $moss-lightest-major;  }
+	.rose  { background: $rose-lightest-major;  }
+	.page  { background: $page-lightest-major;  }
+}
+.lightest-minor {
+	color: $page-darkest-minor;
+
+	.water { background: $water-lightest-minor; }
+	.fire  { background: $fire-lightest-minor;  }
+	.moss  { background: $moss-lightest-minor;  }
+	.rose  { background: $rose-lightest-minor;  }
+	.page  { background: $page-lightest-minor;  }
+}
+
+.lighter-major {
+	color: $page-darker-major;
+
+	.water { background: $water-lighter-major; }
+	.fire  { background: $fire-lighter-major;  }
+	.moss  { background: $moss-lighter-major;  }
+	.rose  { background: $rose-lighter-major;  }
+	.page  { background: $page-lighter-major;  }
+}
+.lighter-minor {
+	color: $page-darker-minor;
+
+	.water { background: $water-lighter-minor; }
+	.fire  { background: $fire-lighter-minor;  }
+	.moss  { background: $moss-lighter-minor;  }
+	.rose  { background: $rose-lighter-minor;  }
+	.page  { background: $page-lighter-minor;  }
+}
+
+.light-major {
+	color: $page-dark-major;
+
+	.water { background: $water-light-major; }
+	.fire  { background: $fire-light-major;  }
+	.moss  { background: $moss-light-major;  }
+	.rose  { background: $rose-light-major;  }
+	.page  { background: $page-light-major;  }
+}
+.light-minor {
+	color: $page-dark-minor;
+
+	.water { background: $water-light-minor; }
+	.fire  { background: $fire-light-minor;  }
+	.moss  { background: $moss-light-minor;  }
+	.rose  { background: $rose-light-minor;  }
+	.page  { background: $page-light-minor;  }
+}
+
+.medium-color {
+	color: $page-medium;
+
+	.water { background: $water-color; }
+	.fire  { background: $fire-color;  }
+	.moss  { background: $moss-color;  }
+	.rose  { background: $rose-color;  }
+	.page  { background: $page-medium;  }
+}
+
+.dark-minor {
+	color: $page-light-minor;
+
+	.water { background: $water-dark-minor; }
+	.fire  { background: $fire-dark-minor;  }
+	.moss  { background: $moss-dark-minor;  }
+	.rose  { background: $rose-dark-minor;  }
+	.page  { background: $page-dark-minor;  }
+}
+.dark-major {
+	color: $page-light-major;
+
+	.water { background: $water-dark-major; }
+	.fire  { background: $fire-dark-major;  }
+	.moss  { background: $moss-dark-major;  }
+	.rose  { background: $rose-dark-major;  }
+	.page  { background: $page-dark-major;  }
+}
+
+.darker-minor {
+	color: $page-lighter-minor;
+
+	.water { background: $water-darker-minor; }
+	.fire  { background: $fire-darker-minor;  }
+	.moss  { background: $moss-darker-minor;  }
+	.rose  { background: $rose-darker-minor;  }
+	.page  { background: $page-darker-minor;  }
+}
+.darker-major {
+	color: $page-lighter-major;
+
+	.water { background: $water-darker-major; }
+	.fire  { background: $fire-darker-major;  }
+	.moss  { background: $moss-darker-major;  }
+	.rose  { background: $rose-darker-major;  }
+	.page  { background: $page-darker-major;  }
+}
+
+.darkest-minor {
+	color: $page-lightest-minor;
+
+	.water { background: $water-darkest-minor; }
+	.fire  { background: $fire-darkest-minor;  }
+	.moss  { background: $moss-darkest-minor;  }
+	.rose  { background: $rose-darkest-minor;  }
+	.page  { background: $page-darkest-minor;  }
+}
+.darkest-major {
+	color: $page-lightest-major;
+
+	.water { background: $water-darkest-major; }
+	.fire  { background: $fire-darkest-major;  }
+	.moss  { background: $moss-darkest-major;  }
+	.rose  { background: $rose-darkest-major;  }
+	.page  { background: $page-darkest-major;  }
+}
+
+
+/* END
+/* ***********************************************/

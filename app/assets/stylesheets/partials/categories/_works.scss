@@ -8,7 +8,7 @@
 // ===============================================
 // -- Structural
 // -----------------------------------------------
-.page-body > footer {
+.page-content > footer {
 	font-weight: bolder;
 	padding:     20px;
 	text-align:  center;
@@ -19,7 +19,7 @@
 // ----- General
 // ...............................................
 .time {
-	background:    $moss-lighter;
+	background:    $moss-lighter-minor;
 
 	border-radius: 5px;
 	margin:        5px 0;
@@ -31,7 +31,7 @@
 	}
 }
 .word-count {
-	color: $page-dark;
+	color: $page-dark-major;
 	
 	font-style: italic;
 	text-align: center;
@@ -48,10 +48,10 @@
 	width:          50%;
 }
 .incomplete {
-	color: $fire-dark;
+	color: $fire-dark-minor;
 }
 .complete {
-	color: $water-dark;
+	color: $water-dark-minor;
 }
 
 // ----- Toolkits
@@ -72,7 +72,7 @@
 // VIEWPORT :: MOBILE
 // ===============================================
 @include mobile {
-	.page-body > header {
+	.page-content > header {
 		margin: 10px;
 	}
 	article {
@@ -83,7 +83,7 @@
 // VIEWPORT :: TABLET
 // ===============================================
 @include tablet {
-	.page-body > header {
+	.page-content > header {
 		margin: 25px;
 	}
 	article {
@@ -94,7 +94,7 @@
 // VIEWPORT :: ALL
 // ===============================================
 @include desktop {
-	.page-body > header {
+	.page-content > header {
 		margin-top: 25px;
 	}
 	article {

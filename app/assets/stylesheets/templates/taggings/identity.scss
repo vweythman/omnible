@@ -13,16 +13,16 @@
 	margin: 0 10px;
 
 	a {
-		background:      $moss-lighter;
-		color:           $moss-darkest;
+		background:      $moss-lighter-minor;
+		color:           $moss-darkest-minor;
 		display:         inline-block;
 		font-weight:     bolder;
 		padding:         10px;
 		text-decoration: none;
 
 		&:hover {
-			background: $page-lighter;
-			color:      $moss-darker;
+			background: $page-lighter-minor;
+			color:      $moss-darker-minor;
 		}
 	}
 }

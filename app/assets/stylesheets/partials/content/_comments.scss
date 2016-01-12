@@ -2,7 +2,7 @@
 // ***********************************************
 // SETUP :: IMPORTS
 // ===============================================
-@import 'partials/forms/page';
+@import "partials/forms/page_form";
 
 // VIEWPORT :: ALL
 // ===============================================
@@ -22,18 +22,18 @@ textarea {
 // -- Text
 // -----------------------------------------------
 input[type="submit"] {
-	@include clickable(desaturate($fire-darker, 10%));
+	@include clickable(desaturate($fire-darker-minor, 10%));
 	margin: 10px;
 	width:  calc(100% - 20px);
 }
 label {
-	border-bottom: 3px solid $fire-dark;
+	border-bottom: 3px solid $fire-dark-minor;
 	display:       none;
 	font-weight:   bolder;
 	padding:       10px;
 }
 legend {
-	background:     $fire-lighter;
+	background:     $fire-lighter-minor;
 	font-weight:    bolder;
 	padding:        10px;
 	text-transform: uppercase;

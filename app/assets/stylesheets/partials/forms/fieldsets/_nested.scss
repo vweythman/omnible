@@ -1,0 +1,182 @@
+// STYLE PARTIAL: NESTED FIELDS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+// -- Toggle
+// -----------------------------------------------
+.show-toggle {
+	background:    $moss-dark-minor;
+	border-radius: 5px;
+	color:         $moss-lightest-minor;
+	display:       none;
+	padding:       10px;
+	text-align:    center;
+	margin:        0 auto;
+	width:         $one-fifth;
+}
+.hide-cell {
+	display: inline-block;
+	margin:  0 10px;
+}
+.hide-toggle {
+	background:    $fire-dark-minor;
+	border-radius: 5px;
+	color:         $fire-lightest-minor;
+	font-weight:   600;
+	padding:       3px 10px;
+	text-align:    center;
+	width:         $one-fifth;
+
+	&:hover,
+	&:active {
+		background: $fire-lightest-minor;
+		color:      $fire-dark-minor;
+	}
+}
+
+// -- Append & Remove
+// -----------------------------------------------
+.add-cell,
+.remove-cell {
+	padding: 0;
+}
+.add-cell {
+	text-align: center;
+	margin-top: 10px;
+}
+.add_fields {
+	background:      $rose-lightest-minor;
+	color:           $rose-dark-minor;
+	display:         inline-block;
+	font-weight:     600;
+	padding:         5px 0;
+	text-decoration: none;
+	width:           $one-half;
+
+	&:hover {
+		background: none;
+		color:      $rose-darker-minor;
+	}
+}
+.remove-cell {
+	text-align: right;
+}
+.remove_fields {
+	background:      $moss-light-minor;
+	color:           $moss-darker-major;
+	display:         block;
+	font-weight:     600;
+	padding:         5px;
+	text-decoration: none;
+
+	&:hover {
+		background: $moss-lighter-minor;
+		color:      $moss-darker-minor;
+	}
+}
+
+// -- Fieldset
+// -----------------------------------------------
+.nested-fields {
+	margin:     10px 0;
+	padding:    0;
+	background: $page-color;
+	.field {
+		margin: 0;
+	}
+}
+/*
+// VIEWPORT :: ALL
+// ===============================================
+// -- Display Toggles
+// -----------------------------------------------
+.edit .nested, 
+.new .show { 
+	display: none;
+}
+.show { 
+	@include togglable(desaturate($fire-light-minor, 20%));
+}
+.hide {
+	cursor:      pointer;
+	color:       $fire-darkest-minor;
+	font-weight: bolder;
+}
+
+// -- Structure
+// -----------------------------------------------
+.nested {
+	background: $page-color;
+	margin:     10px;
+	padding:    10px;
+	width:      calc(100% - 44px);
+
+	label {
+		background:  $water-darker-minor;
+		color:       $page-color;
+		display:     block;
+		padding:     10px;
+		font-size:   15px;
+		font-weight: bolder;
+		width:       calc(100% - 20px);
+	}
+	legend {
+		background: $page-color;
+		border:     1px solid $border-color;
+		padding:    10px;
+	}
+	input, textarea { border-style: solid; }
+}
+.nested-fields {
+	margin:   10px 0;
+	overflow: auto;
+
+	fieldset {
+		background:   #f0f0f0;
+		padding:      10px;
+		margin-bottom: 0;
+		width:         calc(100% - 47px);
+	}
+	p {
+		margin:     0;
+		padding:    0;
+		text-align: right;
+	}
+}
+.nested, 
+.nested-fields fieldset {
+	border: 1px solid $border-color;
+}
+
+// -- Dynamic Fields
+// -----------------------------------------------
+.add_fields {
+	@include togglable($fire-light-minor);
+	display:    inline-block;
+	margin-top: 10px;
+}
+.remove_fields { 
+	@include togglable($fire-light-minor);
+	display: inline-block;
+	margin:  0 10px;
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.show {
+		margin: 15px auto;
+		width:  calc(100% - 40px);
+	}
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include non-desktop {
+	.show {
+		margin: 10px;
+	}
+}
+
+// END
+// ************************************************/

@@ -1,0 +1,23 @@
+// STYLE PARTIAL: MULTI CHECKBOXES
+// ***********************************************
+.choose-any {
+	margin:  10px 0;
+	padding: 5px 0;
+	background: $water-lighter-minor;
+
+	label,
+	input {
+		margin: 5px 10px;
+	}
+	input {
+		display: inline-block;
+		float:   left;
+		width:   13px;
+	}
+	label {
+		color: $water-dark-minor;
+	}
+}
+
+// END
+// ***********************************************/

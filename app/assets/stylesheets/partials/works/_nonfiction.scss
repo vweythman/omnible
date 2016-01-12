@@ -14,31 +14,31 @@ p {
 // -- Headings
 // -----------------------------------------------
 article h2 {
-	border-bottom: 2px solid $water-darkest;
-	color:         $water-dark;
+	border-bottom: 2px solid $water-darkest-minor;
+	color:         $water-dark-minor;
 	font-size:     $text-size + 3px;
 	margin:        0;
 	padding:       5px 10px;
 	padding-top:   25px;
 }
 article h3 {
-	border-bottom:  4px solid $fire-dark;
+	border-bottom:  4px solid $fire-dark-minor;
 	font-size:      $text-size + 3px;
 	padding-bottom: 4px;
 	width:          50%;
 }
 h4 {
-	color:          $water-dark;
+	color:          $water-dark-minor;
 	font-size:      $text-size + 1px;
 	padding-bottom: 4px;
 }
 h5 {
-	color:     $page-darker;
+	color:     $page-darker-major;
 	font-size: $text-size;
 	padding:   5px 0;
 }
 h5:before {
-    color:   $fire-light;
+    color:   $fire-light-minor;
     content: "» ";
 }
 h6 {

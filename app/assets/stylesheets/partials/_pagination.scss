@@ -16,11 +16,11 @@
 		text-decoration: none;
 		
 		&:hover {
-			background: $water-darker;
+			background: $water-darker-minor;
 		}
 	}
 	li {
-		background:    $water-dark;
+		background:    $water-dark-minor;
 		border-radius: 5px;
 		display:       inline-block;
 		font-weight:   bolder;
@@ -34,7 +34,7 @@
 	}
 }
 .pagination-heading {
-	border-bottom: 1px dotted $page-dark;
+	border-bottom: 1px dotted $page-dark-major;
 	font-size:     $heading-size - 8px;
 	font-weight:   bolder;
 	text-align:    center;

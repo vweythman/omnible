@@ -6,8 +6,8 @@
 	min-height: 300px;
 
 	h2 {
-		background:    $fire-lightest;
-		border-bottom: 3px solid $fire-lighter;
+		background:    $fire-lightest-major;
+		border-bottom: 3px solid $fire-lighter-minor;
 		font-size:     $text-size + 3px;
 		font-weight:   300;
 		font-variant:  small-caps;
@@ -29,7 +29,7 @@
 
 			&:hover {
 				background:  $page-color;
-				color:       $water-darker;
+				color:       $water-darker-minor;
 				font-weight: 900;
 			}
 		}

@@ -3,14 +3,14 @@
 // VIEWPORT :: ALL
 // ===============================================
 .recent-panel {
-	background: $water-darker;
+	background: $water-darker-minor;
 }
 .recent-widget {
 	min-height: 200px;
 
 	& > header {
 		background:    $fire-color;
-		border-bottom: 5px solid $fire-lighter;
+		border-bottom: 5px solid $fire-light-minor;
 		margin:        0;
 		padding:       0 5px;
 		padding-top:   25px;
@@ -35,19 +35,19 @@
 .preview-title {
 	padding: 0;
 	a {
-		background: $water-light;
-		color:      $page-darkest;
+		background: $water-light-minor;
+		color:      $page-darkest-major;
 		padding:    5px;
 
 		&:hover {
-			background: $water-darkest;
-			color:      $water-lighter;
+			background: $water-darkest-minor;
+			color:      $water-lighter-minor;
 		}
 	}
 }
 .excerpt {
 	padding: 2px 5px 5px;
-	background: $water-lightest;
+	background: $water-lightest-minor;
 }
 
 // VIEWPORT :: DESKTOP

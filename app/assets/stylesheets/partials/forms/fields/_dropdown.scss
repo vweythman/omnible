@@ -21,7 +21,7 @@
 	[data-selectable] {
 		cursor: pointer;
 		overflow: hidden;
-		.highlight { background: $water-lightest; }
+		.highlight { background: $water-lightest-minor; }
 	}
 
 	// -- Header
@@ -30,17 +30,17 @@
 		border-top: 0 none;
 	}
 	.optgroup-header {
-		color:  $water-darker;
+		color:  $water-darker-minor;
 		cursor: default;
 	}
 
 	// -- TEXT
 	// -----------------------------------------------
 	.active {
-		background-color: $water-lightest;
-		&.create { color: $water-darker; }
+		background-color: $water-lightest-minor;
+		&.create { color: $water-darker-minor; }
 	}
-	.create { color: $water-darkest; }
+	.create { color: $water-darkest-minor; }
 	.option {
 		padding: 2px;
 	}

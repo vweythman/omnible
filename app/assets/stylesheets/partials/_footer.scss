@@ -1,17 +1,17 @@
 // STYLE PARTIAL: SITE FOOTER
 // ***********************************************
 #site-footer {
-	background:     $water-darkest;
+	background:     $water-darkest-minor;
 	border-top:     $water-color 5px solid;
 	color:          $water-color;
 	padding-bottom: 0;
 }
 .ownership-panel .widget {
-	background:  $water-darker;
+	background:  $water-darker-minor;
 	color:       $page-color;
 	margin:      15px;
 	a {
-		color: $water-lighter;
+		color: $water-lighter-minor;
 	}
 }
 .ownership-widget {
@@ -19,10 +19,11 @@
 	padding-top: 5px;
 }
 .credit-widget .widget-title {
-	background: $page-darkest;
+	background: $page-darkest-major;
 }
 .credit-widget p {
 	padding: 10px 15px;
+	margin:  0;
 }
 .social-media-widget {
 	margin:     15px 0;

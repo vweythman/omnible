@@ -10,7 +10,7 @@
 // -- General
 // -----------------------------------------------
 .snippet {
-	border: 2px solid $water-dark;
+	border: 2px solid $water-dark-minor;
 	margin: 10px 10px 0px;
 	overflow: auto;
 }
@@ -40,7 +40,7 @@ h4 {
 	margin:  0;
 	padding: 10px;
 	padding-left: 67px;
-	border-bottom: 2px solid $water-light;
+	border-bottom: 2px solid $water-light-minor;
 }
 
 // -- About
@@ -59,13 +59,13 @@ h4 {
 .agents, 
 .chapters-count,
 .time {
-	color:      $page-lightest;
+	color:      $page-lightest-major;
 	padding:    6px 10px;
 	font-size:  .95em;
 	float:      left;
 	margin:     0;
 	a {
-		color: $water-lightest;
+		color: $water-lightest-minor;
 	}
 }
 .tags {
@@ -85,7 +85,7 @@ h4 {
 	padding:    0;
 
 	a {
-		background:  $water-lightest;
+		background:  $water-lightest-minor;
 		display:     inline-block;
 		text-align:  center;
 		font-weight: bolder;

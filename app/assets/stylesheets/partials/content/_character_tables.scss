@@ -20,7 +20,7 @@ td {
 // -- Relationships
 // -----------------------------------------------
 .relationships thead {
-	@include gradientized(45deg, $fire-lightest, $fire-lighter);
+	@include gradientized(45deg, $fire-lightest-major, $fire-lighter-minor);
 	border-bottom: 3px solid $fire-color;
 }
 .relationships th {
@@ -53,11 +53,11 @@ td {
 // ===============================================
 @include desktop {
 	tr:nth-child(even) {
-		background: $water-lightest;
+		background: $water-lightest-minor;
 		a {
-			color: $water-darker;
+			color: $water-darker-minor;
 		}
-		@include visitation($water-darker);
+		@include visitation($water-darker-minor;);
 	}
 	.relationships {
 		border-bottom: 3px solid $fire-color;

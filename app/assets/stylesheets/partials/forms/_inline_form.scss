@@ -1,39 +1,29 @@
-// STYLE PARTIAL: INLINE FORMS
+// STYLE PARTIAL: INLINE FORM
 // ***********************************************
 // SETUP :: IMPORTS
 // ===============================================
-@import "partials/forms/general_input";
-@import "partials/mixins/forms";
-
-// STYLES :: COLORS
-// ===============================================
-form[data-remote="true"] input[type="submit"] {
-	@include clickable($fire-dark);
-	
-	&:hover {
-		background: $fire-darker;
-	}
-}
+@import "partials/forms/general_form";
 
 // VIEWPORT :: ALL
 // ===============================================
-form[data-remote="true"] {
-	margin: 10px auto;
+.form-grid {
+	padding-top: 10px;
+}
+.submit-field {
+	margin: 10px 0;
 
-	fieldset {
-		margin:        0;
-		margin-bottom: 5px;
-		padding:       0;
-	}
-	label {
-		display: none;
-	}
-	input[type="submit"] {
-		font-weight:    bolder;
-		padding:        10px 5px;
-		text-transform: capitalize;
+	input {
+		background:   $moss-dark-minor;
+		border-color: $moss-dark-minor;
+		color:        $page-color;
+
+		&:hover,
+		&:active {
+			background:   $moss-darkest-minor;
+			border-color: $moss-darkest-minor;
+		}
 	}
 }
 
 // END
-// ************************************************/
+// ***********************************************/

@@ -13,7 +13,7 @@
 	a {
 		font-weight: bolder;
 		padding:     10px;
-		color:       $water-darkest; 
+		color:       $water-darkest-minor; 
 	}
 }
 .user {
@@ -24,24 +24,24 @@
 		background:     $page-color;
 	}
 	& > a {
-		color: $water-darkest;
+		color: $water-darkest-minor;
 	}
 	&:hover > a {
 		background: $water-color;
-		color:      $page-lightest;
+		color:      $page-lightest-major;
 	}
 }
 .session a {
-	background: $water-light;
+	background: $water-light-minor;
 	color:      $page-color;
 
 	&:visited {
-		background: $water-light;
+		background: $water-light-minor;
 		color:      $page-color;
 	}
 	&:hover   {
-		background: $water-darker;
-		color:      $water-lightest;
+		background: $water-darker-minor;
+		color:      $water-lightest-minor;
 	}
 }
 
@@ -59,14 +59,14 @@
 @include mobile {
 	.account {
 		display: block;
-		background: $water-lightest;
+		background: $water-lightest-minor;
 	}
 }
 
 // VIEWPORT :: TABLET
 // ===============================================
 @include tablet {
-	.account { background: $water-lighter; }
+	.account { background: $water-lighter-minor; }
 }
 
 // END

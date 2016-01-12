@@ -3,8 +3,8 @@
 // STYLES :: COLORS
 // ===============================================
 .sidebar {
-	background: $water-darkest;
-	color:      $water-lightest;
+	background: $water-darkest-minor;
+	color:      $water-lightest-minor;
 
 	a {
 		background: $water-color;
@@ -14,17 +14,17 @@
 		background: $water-color;
 	}
 	h3 {
-		border-bottom: 2px solid $water-darker;
-		color:         $water-lighter;
+		border-bottom: 2px solid $water-darker-minor;
+		color:         $water-lighter-minor;
 	}
 }
 .control-group > li a {
-	background: $water-darker;
-	color:      $water-lighter;
+	background: $water-darker-minor;
+	color:      $water-lighter-minor;
 
 	&:hover {
-		background: $water-darkest;
-		color:      $water-lightest;
+		background: $water-darkest-minor;
+		color:      $water-lightest-minor;
 	}
 }
 

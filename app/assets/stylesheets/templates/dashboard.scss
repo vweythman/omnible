@@ -16,11 +16,13 @@
 	margin:     10px $one-twelfth;
 	padding:    10px $one-twelfth;
 }
-.page-body {
-	background: $water-lightest;
+.page-content {
+	background: $water-lightest-minor;
 
 	& > header {
-		border-bottom: 5px solid $fire-darker;
+		border-bottom: 5px solid $fire-dark-minor;
+		padding:       0 $one-twelfth;
+		padding-top:   30px;
 	}
 }
 .creation,
@@ -29,8 +31,11 @@
 }
 .alteration {
 	margin:    5px 0;
-	min-width: 120px;
+	min-width: 180px;
 	width:     100%;
+	a {
+		padding: 5px 0;
+	}
 }
 h2 {
 	text-align: center;
@@ -40,15 +45,12 @@ h2 {
 .editable {
 	margin: 5px 10px;
 
-	tr:nth-child(2n) {
-		background: $water-text-lightest;
-	}
 	tbody th {
 		padding: 5px;
 		vertical-align: middle;
 
 		a {
-			color:   $water-darker;
+			color:   $water-darker-minor;
 			display: block;
 
 			&:hover {
@@ -99,17 +101,17 @@ h2 {
 	}
 }
 .default-pen {
-	background: $moss-lightest;
+	background: $moss-lightest-minor;
 }
 .secondary-pen {
-	background: $rose-lightest;
+	background: $rose-lightest-minor;
 }
 .management-widget {
 	padding-bottom: 35px;
 
 	thead {
-		background:     $water-lightest;
-		border-bottom:  5px solid $water-light;
+		background:     $water-lightest-minor;
+		border-bottom:  5px solid $water-light-minor;
 		padding:        5px 0;
 		vertical-align: bottom;
 	}
@@ -118,12 +120,11 @@ h2 {
 		text-align:  center;
 	}
 }
-
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include desktop {
-	th span a {
-		display: block;
+	tr:nth-child(2n) {
+		background: $water-lightest-major;
 	}
 }
 
@@ -133,12 +134,31 @@ h2 {
 	th {
 		font-size: $text-size;
 	}
-	td:before {
-		background:    $water-lightest;
-		border-bottom: 5px solid $water-light;
-		padding:       5px 0;
+	td:not(.manager-editor):before {
 	}
+	td {
+		padding:    0px;
+	}
+	td:not(.manager-editor) {
+		background: $water-lightest-major;
+		padding-bottom: 5px;
 
+		&:before {
+			background:    $water-lightest-minor;
+			border-bottom: 1px solid $water-light-minor;
+			padding:       5px 0;
+			margin-bottom: 5px;
+		}
+	}
+	.editable tbody th {
+		padding-bottom: 0;
+		padding-top:    10px;
+		text-align:     center;
+		font-weight: bolder;
+	}
+	.alteration {
+		max-width: 200px;
+	}
 }
 
 /* END

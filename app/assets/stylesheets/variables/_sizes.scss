@@ -68,16 +68,18 @@ $one-whole:              60 / 60 * 100%;
 // -- Golden Ratio
 // -----------------------------------------------
 $golden: 1.618;
+
 $golden-major:  100% / $golden;
 $golden-minor:  100% - $golden-major;
 
-$golden-small:  $golden-minor / $golden;
-$golden-xsmall: $golden-minor - $golden-small;
+$golden-little: $golden-minor / $golden;
+$golden-small:  $golden-minor - $golden-little;
 
-$golden-tiny:   $golden-xsmall / $golden;
-$golden-xtiny:  $golden-xsmall - $golden-tiny;
+$golden-tiny:   $golden-small / $golden;
+$golden-mini:   $golden-small - $golden-tiny;
 
-$golden-micro:  $golden-xtiny / $golden;
+$golden-micro:  $golden-mini / $golden;
+
 
 // -- Input
 // -----------------------------------------------
@@ -99,11 +101,11 @@ $def-size:     25px;
 
 $size-0: $def-size * (1 - $golden-major  / 100%);
 $size-1: $def-size * (1 - $golden-minor  / 100%);
-$size-2: $def-size * (1 - $golden-small  / 100%);
-$size-3: $def-size * (1 - $golden-xsmall / 100%);
+$size-2: $def-size * (1 - $golden-little  / 100%);
+$size-3: $def-size * (1 - $golden-small / 100%);
 $size-4: $def-size;
-$size-5: $def-size / (1 - $golden-xsmall / 100%);
-$size-6: $def-size / (1 - $golden-small  / 100%);
+$size-5: $def-size / (1 - $golden-small / 100%);
+$size-6: $def-size / (1 - $golden-little  / 100%);
 $size-7: $def-size / (1 - $golden-minor  / 100%);
 $size-8: $def-size / (1 - $golden-major  / 100%);
 

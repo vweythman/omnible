@@ -9,7 +9,7 @@
 // VIEWPORT :: ALL
 // ===============================================
 #site-header {
-	background: $page-darkest;
+	background: $page-darkest-major;
 	overflow:   auto;
 
 	a  { text-decoration: none; }
@@ -17,14 +17,14 @@
 }
 .actionbar { margin: 0; }
 .logo {
-	color:          $water-light;
+	color:          $water-light-minor;
 	font-size:      $logo-size;
 	letter-spacing: 3px;
 	padding:        10px;
 	margin:         0;
 
-	&:visited { color: $water-light;    }
-	&:hover   { color: $water-lighter; }
+	&:visited { color: $water-light-minor;    }
+	&:hover   { color: $water-lighter-minor; }
 }
 
 // VIEWPORT :: DESKTOP

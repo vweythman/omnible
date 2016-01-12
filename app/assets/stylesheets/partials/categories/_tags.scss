@@ -6,27 +6,27 @@
 
 // VIEWPORT :: ALL
 // ===============================================
-.page-body {
-	background: $water-lightest;
+.page-content {
+	background: $water-lightest-minor;
 }
-.page-body > header {
+.tag-header,
+.category-header {
 	border-bottom: 3px solid $moss-color;
+	padding:       10px calc(100% / 6 - 10px);
 }
-.the-content {
-	background:   $page-color;
-	border-left:  3px solid $moss-lighter;
-	border-right: 3px solid $moss-lighter;
-	box-shadow:   0px 0px 1px 0px $moss-color;
+.page-body {
+	background:     $page-color;
+	border-left:    3px solid $moss-lighter-minor;
+	border-right:   3px solid $moss-lighter-minor;
+	box-shadow:     0px 0px 1px 0px $moss-color;
+	min-height:     200px;
+	padding-bottom: 1px;
 }
 h2 {
-	@include gradientized(90deg, $moss-lightest, $moss-light);
+	@include gradientized(90deg, $moss-lightest-minor, $moss-light-minor);
 	font-size: $heading-size - 4px;
 	margin:    0;
 	padding:   20px 10px;
-}
-.the-content {
-	min-height:     200px;
-	padding-bottom: 1px;
 }
 .pagination {
 	margin: 20px auto;

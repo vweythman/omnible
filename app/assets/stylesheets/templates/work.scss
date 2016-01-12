@@ -13,15 +13,15 @@
 // ===============================================
 // -- General
 // -----------------------------------------------
-.page-body {
-	background: $page-lighter;
+.page-content {
+	background: $page-lighter-minor;
 }
 
 // -- Header
 // -----------------------------------------------
-.page-body > header {
+.page-content > header {
 	border-bottom: 5px solid $fire-color;
-	background:    $page-lightest;
+	background:    $page-lightest-major;
 	margin:        0;
 	padding:       10px 0;
 	
@@ -44,7 +44,7 @@
 	text-align:     center;
 }
 h1 {
-	border-bottom: 5px solid $water-lightest;
+	border-bottom: 5px solid $water-lightest-minor;
 	padding:       5px $one-twelfth;
 	padding-top:   35px;
 }
@@ -61,7 +61,7 @@ h2 {
 	margin:    0;
 	padding:   0;
 }
-.the-content {
+.page-body {
 	margin: 20px auto;
 	width:  100%;
 }

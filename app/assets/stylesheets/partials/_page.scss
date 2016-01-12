@@ -19,11 +19,11 @@
 		width:  $one-sixth;
 	}
 }
-.page-body,
-.page-body > header {
+.page-content,
+.page-content > header {
 	background: $page-color;
 }
-.page-body {
+.page-content {
 	margin:   0;
 	overflow: auto;
 	padding:  0;
@@ -43,12 +43,12 @@ pre {
 
 // -- Links
 // -----------------------------------------------
-@include visitation($water-dark);
+@include visitation($water-dark-minor);
 a {
-	color: $water-dark;
+	color: $water-dark-minor;
 
 	&:hover {
-		color:           $page-darker;
+		color:           $page-darker-major;
 		text-decoration: none;
 	}
 }
@@ -79,13 +79,13 @@ dt:first-child {
 }
 article dd:before, 
 article ul li:before {
-	@include arrowed($fire-dark);
+	@include arrowed($fire-dark-minor);
 }
 
 // -- General Footer Types
 // -----------------------------------------------
 .path-finder {
-	background: $water-lighter;
+	background: $water-lighter-minor;
 	font-weight: bolder;
 	margin:      0px auto;
 	padding:     10px 20% 35px 20%;
@@ -94,15 +94,15 @@ article ul li:before {
 
 	a {
 		text-decoration: none;
-		color: $water-text-darkest;
+		color: $water-dark-major;
 
 		&:hover { text-decoration: underline; }
 	}
 }
 .see-more a {
-	background:    $page-darkest;
+	background:    $page-darkest-major;
 	border-radius: 10px;
-	color:         $water-lighter;
+	color:         $water-lighter-minor;
 	margin:        15px auto;
 	min-width:     100px;
 	padding:       10px 15px;
@@ -111,14 +111,14 @@ article ul li:before {
 
 	&:hover {
 		background: $fire-color;
-		color:      $page-darkest;
+		color:      $page-darkest-major;
 	}
 }
 
 // VIEWPORT :: DESKTOP
 // ===============================================
 @include desktop {
-	.the-content {
+	.page-body {
 		margin: 0 auto;
 		width:  calc(66.66% + 20px);
 	}
@@ -127,7 +127,7 @@ article ul li:before {
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include non-desktop {
-	.the-content {
+	.page-body {
 		margin: 10px auto;
 		width:  $eleven-twelfths;
 	}

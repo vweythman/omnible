@@ -7,13 +7,13 @@
 
 // VIEWPORT :: ALL
 // ===============================================
-.page-body > header .about {
+.page-content > header .about {
 	margin: 0 $one-sixth;
 }
 .status {
 	width: calc(100% / 4 - 20px);
 }
-.page-body > header .alteration {
+.page-content > header .alteration {
 	margin: 0 $one-sixth;
 	width:  $two-thirds;
 }

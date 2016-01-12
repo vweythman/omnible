@@ -1,5 +1,5 @@
 /* TEMPLATE: SIGN IN AND SIGN UP
-/* ***********************************************/
+/* ***********************************************
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
@@ -36,8 +36,8 @@ legend {
 }
 h2,
 legend {
-	background:    $water-darkest;
-	color:         $water-lightest;
+	background:    $water-darkest-minor;
+	color:         $water-lightest-minor;
 	padding:       10px;
 	text-align:    center;
 }
@@ -46,9 +46,9 @@ label {
 	font-weight: bolder;
 	display: block;
 	padding: 10px;
-	border-top: 4px solid $water-darker;
+	border-top: 4px solid $water-darker-minor;
 	margin: 0;
-	background: $water-dark;
+	background: $water-dark-minor;
 }
 
 // -- Input
@@ -56,13 +56,13 @@ label {
 input {
 	padding: 10px;
 	border: none;
-	background: lighten($water-lightest, 5%);
+	background: lighten($water-lightest-minor, 5%);
 }
 input:not([type="checkbox"]) {
 	width: calc(100% - 20px);
 }
 input[type="submit"] {
-	@include clickable(desaturate($water-darker, 10%));
+	@include clickable(desaturate($water-darker-minor;, 10%));
 	width: calc(100% - 40px);
 	margin: 15px 20px;
 }
@@ -70,7 +70,7 @@ input[type="submit"] {
 // -- Remeber Checkbox
 // -----------------------------------------------
 .rememberable {
-	border-top: 4px solid $water-darker;
+	border-top: 4px solid $water-darker-minor;
 	overflow: auto;
 
 	input {
@@ -80,7 +80,7 @@ input[type="submit"] {
 	label {
 		background: $page-color;
 		border:     none;
-		color:      $water-dark;
+		color:      $water-dark-minor;
 	}
 }
 

@@ -23,10 +23,10 @@
 	@include alertable(red, white);
 }
 .announce {
-	@include alertable($fire-lighter, $fire-darkest);
+	@include alertable($fire-lighter-minor, $fire-darkest-minor);
 }
 .notice {
-	@include alertable($water-color, $water-lightest);
+	@include alertable($water-color, $water-lightest-minor);
 }
 
 // VIEWPORT :: ALL

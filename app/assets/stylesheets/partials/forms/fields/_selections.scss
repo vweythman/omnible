@@ -27,15 +27,15 @@
 	}
 
 	.selectize-control.multi & > div {
-		@include gradientized(180deg, lighten($page-dark, 55%), lighten($page-dark, 35%));
+		background:    $page-lighter-minor;
 		border-radius: 5px;
 		cursor:     pointer;
 		display:    inline-block;
-		color:      $page-darker;
+		color:      $page-darker-major;
 		padding:    2px 5px;
 		margin:     1px;
 		&.active { 
-			color: $fire-darker;
+			color: $fire-darker-minor;
 			font-weight: 600;
 		}
 	}

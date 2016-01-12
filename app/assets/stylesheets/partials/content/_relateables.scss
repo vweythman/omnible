@@ -7,15 +7,15 @@ table {
 	width:  calc(100% - 20px);
 }
 thead {
-	background:    desaturate(lighten($fire-lightest, 15%), 20%);
-	border-bottom: 5px solid desaturate($fire-lighter, 20%);
+	background:    desaturate(lighten($fire-lightest-major, 15%), 20%);
+	border-bottom: 5px solid desaturate($fire-lighter-minor, 20%);
 }
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include non-desktop {
 	th {
 		border-bottom:  3px solid $fire-color;
-		color:          $page-darker;
+		color:          $page-darker-major;
 		a {
 			color: $water-color;
 		}
@@ -25,7 +25,7 @@ thead {
 		margin: 10px;
 	}
 	td:before {
-		color: $page-darker;
+		color: $page-darker-major;
 	}
 }
 

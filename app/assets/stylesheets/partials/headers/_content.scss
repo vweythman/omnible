@@ -24,9 +24,8 @@ h1 {
 // VIEWPORT :: DESKTOP
 // ===============================================
 @include desktop {
-	.page-body > header {
+	.page-content > header {
 		margin:      0;
-		padding:     10px $one-sixth;
 		padding-top: 35px;
 	}
 	h1 {
@@ -37,7 +36,7 @@ h1 {
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include non-desktop {
-	.page-body > header {
+	.page-content > header {
 		margin:  0;
 		padding: 10px;
 	}

@@ -5,7 +5,7 @@
 // -- General
 // -----------------------------------------------
 .toolkit a {
-	color: $page-lightest;
+	color: $page-lightest-major;
 }
 
 // -- Alteration
@@ -18,12 +18,12 @@
 // -----------------------------------------------
 .creation  a,
 .insertion a {
-	background: $moss-dark;
+	background: $moss-dark-minor;
 
-	&:visited { color: $page-lightest; }
+	&:visited { color: $page-lightest-major; }
 	&:hover   {
-		background: $moss-lightest;
-		color:      $moss-darker;
+		background: $moss-lightest-minor;
+		color:      $moss-darker-minor;
 	}
 }
 
