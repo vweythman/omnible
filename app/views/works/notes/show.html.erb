@@ -4,7 +4,7 @@
 	<h1>
 		<%= @work.title %>
 		<%= @work.byline.html_safe %>
-		<%= label_span @note.heading %>
+		<%= subtitler @note.heading %>
 	</h1>
 	<%= @work.completion_status %>
 	<%= @work.rated %>
@@ -25,7 +25,7 @@
 		<%= @note.edit_bar %>
 	</header>
 
-	<div class="the-content" id="work-content">
+	<div class="page-body" id="work-content">
 		<%= markdown @note.content %>
 	</div>
 

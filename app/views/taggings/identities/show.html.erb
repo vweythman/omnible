@@ -3,7 +3,7 @@
 <header>
 	<%= content_tag :h1, id: @tag.heading_id do %>
 		<%= @tag.facet_title %>
-		<%= label_span @tag.name %>
+		<%= subtitler @tag.name %>
 	<% end %>
 
 	<%= @tag.edit_form_div %>
@@ -13,7 +13,7 @@
 </header>
 
 
-<article class="the-content ">
+<article class="page-body">
 	<header>
 		<nav class="related-menu">
 			<%= link_to "All Works",      identity_works_path(@identity) %>

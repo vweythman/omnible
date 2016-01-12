@@ -2,8 +2,10 @@
 
 	<caption><%= table.caption_heading %></caption>
 	<thead>
-		<th>Name</th>
-		<th>Manage</th>
+		<tr>
+			<th>Name</th>
+			<th>Manage</th>
+		</tr>
 	</thead>
 
 	<%= content_tag :tbody, id: table.klass.to_s + "-list" do %>

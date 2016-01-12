@@ -1,4 +1,4 @@
-<div id="main" class="new generatable">
+<div id="main" class="new generator">
 	<%= creation_header " Original Character for #{@clone.heading}" %>
 
 	<%= form_for(@replication, url: clone_path(@clone), html: {method: "patch"}) do |f| %>
@@ -9,6 +9,6 @@
 			<%= form_field f.label(:original_id), f.collection_select(:original_id, @characters, :id, :name, {}, :class => 'selectables') %>
 		</fieldset>
 		
-		<%= f.submit "Connect Original and Clone" %>
+		<%= submit_panel f "Connect Original and Clone" %>
 	<% end %>
 </div>

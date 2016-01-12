@@ -3,8 +3,8 @@
 <header id="dash-header">
 	<h1 id="pen-name-<%= @namer.id %>">
 		My Dashboard
-		<%= label_span "Pen Names" %>
-		<%= label_span link_to @namer.name, @namer %>
+		<%= subtitler "Pen Names" %>
+		<%= subtitler link_to @namer.name, @namer %>
 		<%= @namer.edit_form_div %>
 	</h1>
 	<div id="pen-name-edit-bar-for-<%= @namer.id %>"><%= @namer.edit_bar %></div>
@@ -12,6 +12,6 @@
 
 <article>
 
-	<section class="the-content">
+	<section class="page-body">
 	</section>
 </article>

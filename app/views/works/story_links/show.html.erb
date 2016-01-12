@@ -1,6 +1,6 @@
 <% provide(:title, @link.title) %>
 
-<header>
+<header class="work-header">
 	<h1>
 		<%= @link.title %>
 		<%= @link.uploaded_by.html_safe %>
@@ -13,7 +13,7 @@
 	<%= @link.edit_bar %>
 </header>
 
-<div class="the-content">
+<div class="page-body">
 	<h2>Links</h2>
 	<ul>
 		<% @link.sources.each do |source| %>

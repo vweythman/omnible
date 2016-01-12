@@ -1,3 +1,3 @@
-$('#<%= edit_form_id @tag.klass, @tag.id %>').html("<%= j (ajaxed_form_render) %>");
-$('#<%= edit_form_id @tag.klass, @tag.id %>').slideDown(180);
-$('#<%= @tag.klass %>-<%= @tag.id %>').hide();
+$('<%= @tag.form_finder %>').html("<%= j (ajaxed_form_render) %>");
+$('<%= @tag.form_finder %>').slideDown(180);
+$('<%= @tag.tag_finder  %>').hide();

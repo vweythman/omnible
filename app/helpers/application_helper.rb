@@ -98,7 +98,7 @@ module ApplicationHelper
 	end
 
 	# OUPUT item label tag
-	def label_span(heading)
+	def subtitler(heading)
 		content_tag :span, class: "item-label" do heading end
 	end
 	

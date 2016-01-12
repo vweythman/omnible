@@ -1,3 +1,3 @@
-$('#<%= edit_form_id @tag.klass, @tag.id %>').slideUp(180);
-$('#<%= @tag.klass %>-<%= @tag.id %>').show();
-$('#<%= @tag.klass %>-<%= @tag.id %>').html("<%= escape_javascript @tag.heading %>");
+$('<%= @tag.form_finder %>').slideUp(180);
+$('<%= @tag.tag_finder  %>').show();
+$('<%= @tag.tag_finder  %>').html("<%= escape_javascript @tag.heading %>");

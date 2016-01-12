@@ -3,11 +3,11 @@
 <header>
 	<h1>
 		<%= link_to @story.title, @story %>
-		<%= label_span "Chapters" %>
+		<%= subtitler "Chapters" %>
 	</h1>
 </header>
 
-<article class="the-content">
+<article class="page-body">
 	<% if @chapters.length > 0 %>
 		<%= render 'works/chapters/list' %>
 	<% else %>

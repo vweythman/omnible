@@ -1,5 +1,5 @@
-$('<%= @namer.formid %>').slideUp(180);
-$('#<%= @namer.tagid %> .pen-title').show();
-$('#<%= @namer.tagid %> .pen-title a').html("<%= @namer.name %>");
-$('#<%= @namer.tagid %> th').attr('colspan', 1);
-$('#<%= @namer.editorid %>').show();
+$('<%= @namer.form_finder %>').slideUp(180);
+$('<%= @namer.tag_finder  %> .pen-title').show();
+$('<%= @namer.tag_finder  %> .pen-title a').html("<%= @namer.name %>");
+$('<%= @namer.tag_finder  %> th').attr('colspan', 1);
+$('<%= @namer.kit_finder  %>').show();

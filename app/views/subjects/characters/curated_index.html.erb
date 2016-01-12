@@ -3,11 +3,11 @@
 <header>
 	<h1>
 		<%= link_to @parent.heading.titleize, polymorphic_path(@parent) %>
-		<%= label_span "Characters" %>
+		<%= subtitler "Characters" %>
 	</h1>
 </header>
 
-<article class="the-content">
+<article class="page-body">
 	<%= @characters.list %>
 </article>
 
