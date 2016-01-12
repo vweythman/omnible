@@ -1,6 +1,6 @@
 <% provide(:title, @character.name) %>
 
-<header>
+<header class="subject-header">
 	<%= @character.link_to_original %>
 
 	<h1><%= @character.name %></h1>
@@ -10,12 +10,17 @@
 	<%= @character.edit_bar %>
 </header>
 
-<div class="feature">
-	<%= render 'info' %>
-	<footer>
-		<%= @character.replication_bar %>
+<div class="subject-body">
+
+	<div class="info-body">
+		<%= render 'info' %>
+		<footer><%= @character.replication_bar %></footer>
+	</div>
+
+	<footer class="pageable">
 		<%= @character.pagination %>
 	</footer>
+
 </div>
 
 <%= render 'subjects/shared/footer' %>

@@ -1,69 +1,64 @@
-<article>
-	<aside>
-		<%= @character.list_identities %>
-		<%= @character.list_possessions %>
-	</aside>
-
-	<section>
-		<% @character.decorated_details.each do |detail| %>
-			<div>
-				<%= detail.subheading %>
-				<%= markdown detail.content %>
+<div class="info-grid">
+	<div class="grid-panel">
+		<% if @character.has_about? %>
+			<div class="panel-cell golden-major">
+				<%= @character.subarticle %>
+				<%= @character.table_connections %>
 			</div>
+			<% overview_class = "golden-minor" %>
+		<% else %>
+			<% overview_class = "solo" %>
 		<% end %>
 
-		<% unless @character.connections.empty? %>
-			<h2>Relationships</h2>
-			<table class="relationships">
-				<thead>
+		<div class="panel-cell <%= overview_class %>">
+			<%= @character.list_identities %>
+			<%= @character.list_possessions %>
+		</div>
+	</div>
+	<div class="grid-panel">
+		<div class="panel-cell solo">
+			<% if @character.viewpoints.length > 0 %>
+				<h2>Opinions and Prejudices</h2>
+				<table class="views">
+					<thead>
+						<tr>
+							<th>Recipient</th>
+							<th>Fondness</th>
+							<th>Respect</th>
+							<th>Details</th>
+						</tr>
+					</thead>
+					
+					<% @character.viewpoints.each do |view| %>
+						<%= view.row %>
+					<% end %>
+				</table>
+			<% end %>
+			<% if @character.reputations.size > 0 %>
+				<h2>Court of Public Opinion</h2>
+
+				<p class='public-opinion-count'><%= @character.public_opinion_status %></p>
+				<table class="aggregated-views">
+					<thead>
+						<tr>
+							<th>Likability</th>
+							<th>Respect</th>
+						</tr>
+					</thead>
 					<tr>
-						<th>Type</th>
-						<th>People</th>
+						<%= @character.public_opinion.fondness_data %>
+						<%= @character.public_opinion.respect_data %>
 					</tr>
-				</thead>
-				<%= @character.connections.rows(@character) %>
-			</table>
-		<% end %>
-
-		<% if @character.viewpoints.length > 0 %>
-			<h2>Opinions and Prejudices</h2>
-			<table class="views">
-				<thead>
-					<tr>
-						<th>Recipient</th>
-						<th>Fondness</th>
-						<th>Respect</th>
-						<th>Details</th>
-					</tr>
-				</thead>
-				
-				<% @character.viewpoints.each do |view| %>
-					<%= view.row %>
-				<% end %>
-			</table>
-		<% end %>
-
-		<% if @character.reputations.size > 0 %>
-			<h2>Court of Public Opinion</h2>
-
-			<p class='public-opinion-count'><%= @character.public_opinion_status %></p>
-			<table class="aggregated-views">
-				<thead>
-					<tr>
-						<th>Likability</th>
-						<th>Respect</th>
-					</tr>
-				</thead>
-				<tr>
-					<%= @character.public_opinion.fondness_data %>
-					<%= @character.public_opinion.respect_data %>
-				</tr>
-			</table>
-		<% end %>
-
-		<% unless @character.clones.empty? %>
-			<h2>Variants</h2>
-			<%= @character.list_clones %>
-		<% end %>
-	</section>
-</article>
+				</table>
+			<% end %>
+		</div>
+	</div>
+	<div class="grid-panel">
+		<div class="panel-cell solo">
+			<% unless @character.clones.empty? %>
+				<h2>Variants</h2>
+				<%= @character.list_clones %>
+			<% end %>
+		</div>
+	</div>
+</div>
