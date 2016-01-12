@@ -224,6 +224,10 @@ class Character < ActiveRecord::Base
 		self.allow_play == true
 	end
 
+	def has_about?
+		self.interconnections.length > 0 || self.details.length > 0
+	end
+
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
