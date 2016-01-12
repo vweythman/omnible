@@ -3,7 +3,7 @@
 		<h2>Administration</h2>
 		<ul class="control-group">
 			<li><%= link_to "Control Panel", control_path %></li>
-			<li><%= link_to "Manage Facets", facets_path %></li>
+			<li><%= link_to "Manage Facets", control_path(:anchor => "facets-table") %></li>
 		</ul>
 	<% end %>
 
