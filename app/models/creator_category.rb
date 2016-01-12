@@ -24,4 +24,7 @@ class CreatorCategory < ActiveRecord::Base
 	# - Belongs to
 	has_and_belongs_to_many :works_type_describers, inverse_of: :creator_categories
 
+	def work_types
+	end
+
 end
