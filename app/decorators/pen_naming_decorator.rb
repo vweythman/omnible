@@ -19,14 +19,6 @@ class PenNamingDecorator < Draper::Decorator
 		self.prime? ? default_pen : switch_link
 	end
 
-	def tagid
-		"pen-naming-#{self.id}"
-	end
-
-	def editorid
-		"pen-name-edit-bar-for-#{self.id}"
-	end
-
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
