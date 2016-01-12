@@ -134,7 +134,7 @@ class WorksDecorator < Draper::CollectionDecorator
 	end
 
 	def table_type
-		:uploaded_entitled
+		:works
 	end
 
 	def results_type
