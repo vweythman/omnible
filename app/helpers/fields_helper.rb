@@ -82,5 +82,21 @@ module FieldsHelper
 
 		choice output
 	end
+	
+	# OUTPUT radio buttons using string
+	def radios_by_string(f, param, collection, default = "")
+		output = ""
+		collection.each do |v|
+			is_checked = (v == default)
+
+			tagid = "#{param}_#{v.downcase.tr(" ", "_")}"
+			field = f.radio_button(param, v, :checked => is_checked)
+			label = f.label(tagid, v)
+
+			output = output + form_field(field, label)
+		end
+
+		choice output
+	end
 
 end
