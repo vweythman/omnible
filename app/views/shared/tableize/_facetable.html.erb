@@ -1,0 +1,21 @@
+<table>
+	<caption><%= table.caption_heading %></caption>
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th><%= table.collected_type %><th>
+		</tr>
+	</thead>
+	<tbody>
+		<% table.rows.each do |type_name, group| %>
+			<tr>
+				<th>
+					<%= type_name.titleize.pluralize(group) %>
+				</th>
+				<td data-label="<%= table.collected_type %>">
+					<%= cslinks(group) %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

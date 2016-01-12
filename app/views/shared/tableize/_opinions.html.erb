@@ -1,0 +1,18 @@
+<table>
+	<caption><%= table.caption_heading %></caption>
+
+	<thead>
+		<tr>
+			<% table.types.each do |heading| %>
+				<th><%= heading %></th>
+			<% end %>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% table.each do |t| %>
+			<%= t.row %>
+		<% end %>
+	</tbody>
+
+</table>
