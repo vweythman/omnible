@@ -24,7 +24,7 @@ class CharacterDecorator < Draper::Decorator
 	end
 
 	def variant_names
-		identifiers.pluck(:name).join(";")
+		identifiers.pluck(:name)
 	end
 
 	# -- Creating & Editing
@@ -71,6 +71,14 @@ class CharacterDecorator < Draper::Decorator
 	def list_possessions
 		possessions = PossessionsDecorator.decorate(self.possessions.includes(:item, :generic))
 		possessions.items.html_safe
+	end
+
+	def subarticle
+		self.decorated_details.subarticle
+	end
+
+	def table_connections
+		self.connections.faceted_table(self) unless self.connections.empty?
 	end
 
 	# -- Pagination
@@ -149,12 +157,7 @@ class CharacterDecorator < Draper::Decorator
 	end
 
 	def viewpoints
-		if @viewpoints.nil?
-			prejudices  = self.prejudices.includes(:identity).decorate
-			opinions    = self.opinions.includes(:recip).decorate
-			@viewpoints = prejudices + opinions
-		end
-		return @viewpoints
+		@viewpoints ||= merge_viewpoints
 	end
 
 	# PRIVATE METHODS
@@ -172,6 +175,12 @@ class CharacterDecorator < Draper::Decorator
 
 	def taggables_group(rgroup, direction = nil)
 		rgroup.taggables_list_for(self, direction)
+	end
+
+	def merge_viewpoints
+		prejudices  = self.prejudices.includes(:identity).decorate
+		opinions    = self.opinions.includes(:recip).decorate
+		prejudices + opinions
 	end
 
 end
