@@ -24,6 +24,10 @@ class CharacterInfosDecorator < Draper::CollectionDecorator
 		:details
 	end
 
+	def subarticle
+		h.render :partial => "subjects/characters/details", :locals => { details: self }
+	end
+
 	# -- Location
 	# ............................................................
 	def partial
