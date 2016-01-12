@@ -1,19 +1,12 @@
 <div class="poster poster-grid">
+
 	<div class="grid-panel">
-		<div class="panel-cell solo">
-			<div class="widget welcome-widget">
-				<h1>welcome to omnible</h1>
-			</div>
-		</div>
+		<div class="panel-cell solo"><%= render 'welcome' %></div>
 	</div>
 
 	<div class="grid-panel recent-panel">
-		<div class="panel-cell duo">
-			<%= @anthologies.recent_widget %>
-		</div>
-
-		<div class="panel-cell duo">
-			<%= @works.recent_widget %>
-		</div>
+		<div class="panel-cell duo"><%= @anthologies.recent_widget %></div>
+		<div class="panel-cell duo"><%= @works.recent_widget       %></div>
 	</div>
+
 </div>
