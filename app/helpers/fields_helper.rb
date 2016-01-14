@@ -6,14 +6,22 @@ module FieldsHelper
 	# ............................................................
 	# OUTPUT [true/false] checkbox
 	def boolean_field(f, value, heading = nil)
-		heading = value if heading.nil?
-
 		render :partial => "shared/forms/panel/boolean", :locals => { :f => f, :boolean_value => value, :boolean_label => heading }
 	end
 
 	# OUTPUT single line text field
-	def string_panel(f, value,  placeholder = nil)
-		render :partial => "shared/forms/panel/string", :locals => { :f => f, :value => value, :placeholder => placeholder }
+	def input_email(f)
+		render :partial => "shared/forms/panel/email", :locals => { :f => f }
+	end
+
+	# OUTPUT single line text field
+	def input_password(f, value)
+		render :partial => "shared/forms/panel/password", :locals => { :f => f, :value => value }
+	end
+
+	# OUTPUT single line text field
+	def string_panel(f, value,  placeholder = nil, heading = nil)
+		render :partial => "shared/forms/panel/string", :locals => { :f => f, :value => value, :heading => heading, :placeholder => placeholder }
 	end
 
 	# OUTPUT single line text field
@@ -22,8 +30,8 @@ module FieldsHelper
 	end
 
 	# OUTPUT single line text field
-	def submit_panel(f)
-		render :partial => "shared/forms/panel/submit", :locals => { :f => f }
+	def submit_panel(f, heading = nil)
+		render :partial => "shared/forms/panel/submit", :locals => { :f => f, :heading => heading }
 	end
 
 	# OUTPUT text field tags
@@ -46,6 +54,15 @@ module FieldsHelper
 		"shared/forms/nested"
 	end
 
+	# OUTPUT radio buttons
+	def radios(f, p, c, d = 0, o = 0)
+		mx = c.length - 1
+		mn = 0
+		render :partial => "shared/forms/radio_fields", :locals => { 
+			:f => f, :param => p, :collection => c, :mx => mx, :mn => mn, :default => d, :offset => o
+		}
+	end
+
 	# RENDERED FIELDS
 	# ------------------------------------------------------------
 	# OUTPUT form field
@@ -63,26 +80,6 @@ module FieldsHelper
 		end
 	end
 
-	# OUTPUT radio buttons
-	def radios(f, param, collection, default = 0, offset = 0)
-		max = collection.length - 1
-		min = 0
-		output = " "
-
-		(min..max).each do |idx|
-			num        = idx + offset
-			is_checked = idx == default
-
-			tagid = "#{param}_#{idx}"
-			field = f.radio_button(param, num, :checked => is_checked)
-			label = f.label(tagid, collection[idx])
-
-			output = output + form_field(field, label)
-		end
-
-		choice output
-	end
-	
 	# OUTPUT radio buttons using string
 	def radios_by_string(f, param, collection, default = "")
 		output = ""
