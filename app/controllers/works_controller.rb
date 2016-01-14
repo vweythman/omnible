@@ -97,6 +97,8 @@ class WorksController < ApplicationController
 		unless @work.editable? current_user
 			redirect_to @work
 		end
+
+		@work.skinning ||= Skinning.new unless @work.record?
 	end
 
 	# PARAMS

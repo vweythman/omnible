@@ -54,13 +54,12 @@ class Works::StoriesController < WorksController
 
 	# setup work
 	def begin_work
-		@rate = @story.nil? ? Rating.new   : @story.rating
-		@skin = @story.nil? ? Skinning.new : @skin.rating
+		@rate = @story.nil? ? Rating.new : @story.rating
 
 		@story ||= Story.new
 		@story.uploader = current_user
 		@story.rating   = @rate
-		@story.skinning = @skin
+		@story.skinning ||= Skinning.new
 
 		@story = @story.decorate
 		@work  = @story
