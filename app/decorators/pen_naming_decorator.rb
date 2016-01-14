@@ -23,15 +23,15 @@ class PenNamingDecorator < Draper::Decorator
 	# ------------------------------------------------------------
 	private
 	def default_pen
-		h.content_tag :span, class: 'default-pen' do "Default" end
+		h.content_tag :span, class: 'default-pen' do "default".upcase end
 	end
 
 	def secondary_pen
-		h.content_tag :span, class: 'secondary-pen' do "Secondary" end
+		h.content_tag :span, class: 'secondary-pen' do "secondary" end
 	end
 
 	def switch_link
-		h.link_to "Make Default", h.pen_naming_switch_path(self.id), class: "switch", method: :put, remote: true
+		h.link_to "Make Default", h.pen_naming_switch_path(self.id), class: "status-toggle-link", method: :put, remote: true
 	end
 
 end
