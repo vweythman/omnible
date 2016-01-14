@@ -1,29 +1,24 @@
-<div class="new membership">
-  <h2>Log in</h2>
+<h2>Sign in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+	<%= devise_error_messages! %>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field rememberable">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+	<div class="form-grid">
+		<%= input_email    f %>
+		<%= input_password f, :password %>
+	</div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-  <% end %>
-  </article>
-  
-  <footer><%= render "devise/shared/links" %></footer>
-</div>
+	<% if devise_mapping.rememberable? %>
+		<div class="rememberable"><%= boolean_field f, :remember_me %></div>
+	<% end %>
+
+	<div class="grid-panel submit-field">
+		<div class="panel-cell solo"><%= f.submit "Sign Up" %></div>
+	</div>
+
+<% end %>
+
+<footer>
+	<%= render "devise/shared/links" %>
+</footer>

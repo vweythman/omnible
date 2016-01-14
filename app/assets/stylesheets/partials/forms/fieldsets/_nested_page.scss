@@ -1,0 +1,36 @@
+// STYLE PARTIAL: NESTED CHAPTER FIELDS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+.pages-fields {
+	background: none;
+
+	.remove_fields {
+		border-top: none;
+	}
+}
+.page-fields {
+	background: $moss-light-major;
+	border:     1px solid $moss-darker-minor;
+	margin:     0;
+
+	form > & {
+		margin: 0 10px;
+	}
+	input,
+	textarea {
+		border-color: $moss-dark-minor;
+	}
+
+	legend {
+		border:  none;
+		padding: 0;
+		width:   $one-whole;
+	}
+}
+.page-grid .field {
+	margin: 5px 0px;
+}
+
+// END
+// ***********************************************/

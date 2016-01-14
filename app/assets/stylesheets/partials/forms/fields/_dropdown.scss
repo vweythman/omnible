@@ -7,10 +7,12 @@
 	overflow-x: hidden;
 	max-height: $micro-height;
 }
+
 .selectize-dropdown {
 	// -- General
 	// -----------------------------------------------
 	@include boxable();
+
 	position:   absolute;
 	z-index:    10;
 	background: $page-color;
@@ -18,10 +20,9 @@
 	border-top: 0 none;	
 	margin:     0;
 
-	[data-selectable] {
-		cursor: pointer;
+	[data-selectable=""] {
+		cursor:   pointer;
 		overflow: hidden;
-		.highlight { background: $water-lightest-minor; }
 	}
 
 	// -- Header
@@ -36,13 +37,16 @@
 
 	// -- TEXT
 	// -----------------------------------------------
-	.active {
-		background-color: $water-lightest-minor;
-		&.create { color: $water-darker-minor; }
-	}
-	.create { color: $water-darkest-minor; }
+	.active        { background: $water-lightest-minor; }
+	.create        { color: $water-darkest-minor;       }
+	.active.create { color: $water-darker-minor;        }
+	
 	.option {
-		padding: 2px;
+		padding: 7px 5px;
+
+		&:hover {
+			background: $water-lighter-major;
+		}
 	}
 }
 

@@ -13,15 +13,8 @@
 	margin: 10px 0;
 
 	input {
-		background:   $moss-dark-minor;
-		border-color: $moss-dark-minor;
-		color:        $page-color;
-
-		&:hover,
-		&:active {
-			background:   $moss-darkest-minor;
-			border-color: $moss-darkest-minor;
-		}
+		@include submission-look($moss-dark-minor, $page-color);
+		padding: 5px 10px;
 	}
 }
 

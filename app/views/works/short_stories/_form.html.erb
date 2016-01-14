@@ -5,12 +5,12 @@
 	<fieldset class="primary">
 		<%= render 'works/shared/work_fields', f: f %>
 
-		<%= f.fields_for :chapter do |builder| %>
-			<%= form_field builder.label(:content), builder.text_area(:content, :placeholder => "Write Story", :class=> :major) %>
+		<%= f.fields_for :chapter do |b| %>
+			<%= text_panel b, :content, :major, "Write Story" %>
 		<% end %>
 	</fieldset>
 	
 	<%= render 'works/shared/work_tag_fields', f: f %>
 
-	<%= f.submit %>
+	<%= submit_panel f %>
 <% end %>

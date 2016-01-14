@@ -32,6 +32,16 @@
 		color:     darken($color, 70%);
 	}
 }
+@mixin submission-look($bg-color, $txt-color) {
+	background:   $bg-color;
+	border-color: $bg-color;
+	color:        $txt-color;
+
+	&:hover,
+	&:active {
+		background: lighten(saturate($bg-color, $golden-small), $golden-mini);
+	}
+}
 
 // END
 // ***********************************************/

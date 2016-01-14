@@ -1,18 +1,18 @@
-<div class="new membership">
-	<h2>Forgot your password?</h2>
+<h2>Forgot your password?</h2>
 
-	<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-		<%= devise_error_messages! %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+	<%= devise_error_messages! %>
 
-		<div class="field">
-			<%= f.label :email %>
-			<%= f.email_field :email, autofocus: true %>
-		</div>
+	<div class="field">
+		<%= f.label :email %>
+		<%= f.email_field :email, autofocus: true %>
+	</div>
 
-		<div class="actions">
-			<%= f.submit "Send me reset password instructions" %>
-		</div>
-	<% end %>
+	<div class="grid-panel submit-field">
+		<div class="panel-cell solo"><%= f.submit "Send me reset password instructions" %></div>
+	</div>
+<% end %>
 
-	<footer><%= render "devise/shared/links" %></footer>
-</div>
+<footer>
+	<%= render "devise/shared/links" %>
+</footer>

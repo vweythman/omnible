@@ -3,5 +3,5 @@
 		<%= form_field f.label(:subdomain_id, "Place"), f.collection_select(:subdomain_id, @subdomains.possible_for(@place), :id, :heading, {}, :class => 'selectables') %>
 	</fieldset>
 
-	<p><%= link_to_remove_association "- Remove Place", f %></p>
+	<p class="remove-cell"><%= link_to_remove_association "- Remove Place", f %></p>
 </div>

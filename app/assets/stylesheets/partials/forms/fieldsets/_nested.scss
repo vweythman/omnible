@@ -19,13 +19,14 @@
 	margin:  0 10px;
 }
 .hide-toggle {
-	background:    $fire-dark-minor;
-	border-radius: 5px;
-	color:         $fire-lightest-minor;
-	font-weight:   600;
-	padding:       3px 10px;
-	text-align:    center;
-	width:         $one-fifth;
+	background:     $fire-dark-minor;
+	border-radius:  5px;
+	color:          $fire-lightest-minor;
+	font-weight:    600;
+	letter-spacing: 2px;
+	padding:        3px 10px;
+	text-align:     center;
+	width:          $one-fifth;
 
 	&:hover,
 	&:active {
@@ -45,7 +46,9 @@
 	margin-top: 10px;
 }
 .add_fields {
-	background:      $rose-lightest-minor;
+	@include rounded-top(5px);
+
+	background:      $rose-lighter-major;
 	color:           $rose-dark-minor;
 	display:         inline-block;
 	font-weight:     600;
@@ -54,7 +57,7 @@
 	width:           $one-half;
 
 	&:hover {
-		background: none;
+		background: $rose-lightest-minor;
 		color:      $rose-darker-minor;
 	}
 }
@@ -62,16 +65,20 @@
 	text-align: right;
 }
 .remove_fields {
-	background:      $moss-light-minor;
-	color:           $moss-darker-major;
-	display:         block;
+	border-bottom-left-radius: 7px;
+	background:      $moss-dark-major;
+	border:          1px solid $moss-darker-minor;
+	color:           $moss-lightest-major;
+	display:         inline-block;
 	font-weight:     600;
-	padding:         5px;
+	padding:         5px 10px;
 	text-decoration: none;
+	width:           $golden-major;
 
 	&:hover {
-		background: $moss-lighter-minor;
-		color:      $moss-darker-minor;
+		background:   $moss-light-minor;
+		color:        $moss-darkest-minor;
+		border-color: $moss-dark-minor;
 	}
 }
 
@@ -80,7 +87,7 @@
 .nested-fields {
 	margin:     10px 0;
 	padding:    0;
-	background: $page-color;
+	background: $page-lightest-major;
 	.field {
 		margin: 0;
 	}

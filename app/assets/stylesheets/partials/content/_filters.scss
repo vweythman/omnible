@@ -20,18 +20,18 @@
 		font-weight: 600;
 		padding:     8px 0;
 		text-align:  left;
+	}
+	a {
+		@include uniform-look($water-color);
 		
-		a {
-			color:           $water-color;
-			display:         block;
-			padding:         0 15px;
-			text-decoration: none;
+		display:         block;
+		padding:         0 15px;
+		text-decoration: none;
 
-			&:hover {
-				background:  $page-color;
-				color:       $water-darker-minor;
-				font-weight: 900;
-			}
+		&:hover {
+			background:  $page-color;
+			color:       $water-darker-minor;
+			font-weight: 900;
 		}
 	}
 	ul {

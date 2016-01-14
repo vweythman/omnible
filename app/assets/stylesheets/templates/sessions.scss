@@ -1,98 +1,76 @@
 /* TEMPLATE: SIGN IN AND SIGN UP
-/* ***********************************************
+/* ***********************************************/
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "partials/mixins/forms";
+@import "partials/forms/page_form";
 
 // VIEWPORT :: ALL
 // ===============================================
-// -- Structural
-// -----------------------------------------------
-.membership {
-	margin: 40px auto;
-	max-width: 600px;
-	width: 50%;
+h2 {
+	background:     $water-color;
+	border-bottom:  3px solid $water-dark-minor;
+	color:          $water-lightest-minor;
+	letter-spacing: 3px;
+	margin:         0;
+	padding:        10px $one-twelfth;
+	padding-top:    25px;
+	text-transform: lowercase;
+	font-style:     italic;
+}
+form {
+	@include rounded-bottom(5px);
 
-	footer {
-		text-align: center;
-		padding: 10px 20px;
+	box-shadow: 0px 0px 1px 0px $water-lighter-minor;
+	margin:     0 $one-twelfth;
+	width:      $five-sixths;
+}
+legend {
+	width:       calc(100% - 20px);
+	margin-top:  10px;
+	padding:     10px;
+	background:  $water-light-minor;
+	color:       $water-darkest-major;
+	font-weight: 600;
+}
+.form-grid {
+	margin: 0 10px;
+
+	label {
+		font-weight: 600;
+		padding:     8px 0;
 	}
 }
-fieldset {
-	border: none;
-	padding: 0;
-	margin: 0;
+.field {
+	margin: 5px 0;
 }
-
-// -- Headings
-// -----------------------------------------------
-h2 {
-	margin: 0;
+.submit-field input {
+	@include submission-look($water-color, $page-color);
 }
-legend {
-	width: calc(100% - 20px);
-	margin: 0;
-}
-h2,
-legend {
-	background:    $water-darkest-minor;
-	color:         $water-lightest-minor;
-	padding:       10px;
-	text-align:    center;
-}
-label {
-	color: $page-color;
-	font-weight: bolder;
-	display: block;
-	padding: 10px;
-	border-top: 4px solid $water-darker-minor;
-	margin: 0;
-	background: $water-dark-minor;
-}
-
-// -- Input
-// -----------------------------------------------
-input {
-	padding: 10px;
-	border: none;
-	background: lighten($water-lightest-minor, 5%);
-}
-input:not([type="checkbox"]) {
-	width: calc(100% - 20px);
-}
-input[type="submit"] {
-	@include clickable(desaturate($water-darker-minor;, 10%));
-	width: calc(100% - 40px);
-	margin: 15px 20px;
-}
-
-// -- Remeber Checkbox
-// -----------------------------------------------
 .rememberable {
-	border-top: 4px solid $water-darker-minor;
-	overflow: auto;
+	margin: 10px 20px;
 
 	input {
-		float:  left;
-		margin: 10px;
+		width: 13px;
 	}
 	label {
-		background: $page-color;
-		border:     none;
-		color:      $water-dark-minor;
+		display: inline-block;
 	}
+}
+.page-content footer {
+	padding-top:    10px;
+	padding-bottom: 25px;
+	text-align:     center;
 }
 
 // VIEWPORT :: DESKTOP
 // ===============================================
 @include desktop {
-	form {
-		overflow: auto;
-	}
-	fieldset .field {
-		width: 50%;
-		float: left;
+	.form-grid label {
+		background:   $water-lighter-minor;
+		margin-right: 5px;
+		padding:      8px 5px;
+		text-align:   right;
 	}
 }
 

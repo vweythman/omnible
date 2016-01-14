@@ -7,14 +7,12 @@
 	color:       $text-color;
 	$link-color: lighten($text-color, 15%);
 
-	a { 
-		color: $link-color;
-
+	a {
+		@include uniform-look($link-color);
 		&:hover {
 			text-decoration: underline;
 		}
 	}
-	@include visitation($link-color);
 }
 
 // VIEWPORT :: ALL

@@ -1,4 +1,6 @@
-<div class="field pick">
-	<%= f.label(:skin_id, "Choose Skin (Optional)") %>
-	<%= f.collection_select(:skin_id, @work.uploader.skins, :id, :title, :include_blank => true) %>
+<div class="grid-panel simple-selection">
+	<div class="panel-cell golden-minor"><%= f.label(:skin_id, "Choose Skin (Optional)") %></div>
+	<div class="panel-cell golden-major">
+		<%= f.collection_select(:skin_id, @work.uploader.skins, :id, :title, :include_blank => true) %>
+	</div>
 </div>

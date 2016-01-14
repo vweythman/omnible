@@ -1,29 +1,60 @@
 // STYLE PARTIAL: SLIDER FIELDS
 // ***********************************************
+.slider {
+	background: $page-color;
+	border:     1px solid $border-color;
+	margin:     10px 0;
+	padding:    10px;
+	min-height: 100px;
+}
+.range-cell {
+	padding: 10px;
+}
+
 .range {
 	margin: 10px 0;
+	width:  calc(100% - 20px);
 
 	.label {
-		display:     inline-block;
+		display:     block;
 		font-weight: bolder;
 		text-align:  right;
-		width:       50%;
 	}
 	.val {
-    	color:       $water-darker-minor;
-		display:     inline-block;
+		color:       $water-darker-minor;
+		display:     block;
 		font-weight: lighter;
 		margin:      0 10px;
+		text-align:  left;
 	}
 }
 .range-values {
-    margin: 10px auto;
-    width:  calc(60% - 20px);
+	margin: 10px auto;
+	width:  calc(60% - 20px);
 
-    &, 
-    .ui-slider-range {
-    	background: $water-color;
-    }
+	&, 
+	.ui-slider-range {
+		border-color: $moss-dark-minor;
+		background:   $moss-dark-minor;
+	}
+}
+
+.ui-slider-horizontal {
+	width:  $nine-tenths;
+	margin: 0 auto;
+
+	.ui-slider-handle {
+		background:   $moss-color;
+		border-color: $moss-dark-minor;
+	}
+}
+
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.range .label {
+		text-align:  left;
+	}
 }
 
 // END

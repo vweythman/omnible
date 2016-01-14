@@ -1,0 +1,14 @@
+<div class="form-grid select-one">
+	<div class="grid-panel">
+		<% (mn..mx).each do |idx| %>
+
+			<div class="panel-cell">
+				<div class="radio-content">
+					<%= f.radio_button(param, (idx + offset), :checked => (idx == default)) %>
+					<%= f.label("#{param}_#{idx}", collection[idx]) %>
+				</div>
+			</div>
+
+		<% end %>
+	</div>
+</div>

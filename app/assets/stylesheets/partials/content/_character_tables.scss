@@ -54,10 +54,8 @@ td {
 @include desktop {
 	tr:nth-child(even) {
 		background: $water-lightest-minor;
-		a {
-			color: $water-darker-minor;
-		}
-		@include visitation($water-darker-minor;);
+		
+		a { @include uniform-look($water-darker-minor); }
 	}
 	.relationships {
 		border-bottom: 3px solid $fire-color;

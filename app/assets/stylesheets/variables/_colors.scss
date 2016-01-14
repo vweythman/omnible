@@ -15,6 +15,8 @@ $page-lighter-major:  lighten($page-full-dark, 100% - $golden-tiny);
 $page-lightest-minor: lighten($page-full-dark, 100% - $golden-mini);
 $page-lightest-major: lighten($page-full-dark, 100% - $golden-micro);
 
+$page-extreme-light:  lighten($page-full-dark, 100% - $golden-nano);
+
 $page-dark-minor:     lighten($page-full-dark, $golden-minor);
 $page-dark-major:     lighten($page-full-dark, $golden-little);
 $page-darker-minor:   lighten($page-full-dark, $golden-small);
@@ -31,8 +33,8 @@ $page-color:   $page-full-light;
 // ===============================================
 // -- Prime
 // -----------------------------------------------
-$water-full-dark:      hsl(205, 50%, 0%);
-$water-color:          hsl(205, 50%, 50%);
+$water-full-dark:      hsl(195, 55%, 0%);
+$water-color:          hsl(195, 55%, 50%);
 
 $water-light-minor:    lighten($water-full-dark, 100% - $golden-minor);
 $water-light-major:    lighten($water-full-dark, 100% - $golden-little);
@@ -41,12 +43,15 @@ $water-lighter-major:  lighten($water-full-dark, 100% - $golden-tiny);
 $water-lightest-minor: lighten($water-full-dark, 100% - $golden-mini);
 $water-lightest-major: lighten($water-full-dark, 100% - $golden-micro);
 
+$water-extreme-light:  lighten($water-full-dark, 100% - $golden-nano);
+
 $water-dark-minor:     lighten($water-full-dark, $golden-minor);
 $water-dark-major:     lighten($water-full-dark, $golden-little);
 $water-darker-minor:   lighten($water-full-dark, $golden-small);
 $water-darker-major:   lighten($water-full-dark, $golden-tiny);
 $water-darkest-minor:  lighten($water-full-dark, $golden-mini);
 $water-darkest-major:  lighten($water-full-dark, $golden-micro);
+
 
 $fire-full-dark:      hsl(35, 95%, 0%);
 $fire-color:          hsl(35, 95%, 50%);
@@ -57,6 +62,8 @@ $fire-lighter-minor:  lighten($fire-full-dark, 100% - $golden-small);
 $fire-lighter-major:  lighten($fire-full-dark, 100% - $golden-tiny);
 $fire-lightest-minor: lighten($fire-full-dark, 100% - $golden-mini);
 $fire-lightest-major: lighten($fire-full-dark, 100% - $golden-micro);
+
+$fire-extreme-light:  lighten($fire-full-dark, 100% - $golden-nano);
 
 $fire-dark-minor:     lighten($fire-full-dark, $golden-minor);
 $fire-dark-major:     lighten($fire-full-dark, $golden-little);
@@ -77,6 +84,8 @@ $moss-lighter-major:  lighten($moss-full-dark, 100% - $golden-tiny);
 $moss-lightest-minor: lighten($moss-full-dark, 100% - $golden-mini);
 $moss-lightest-major: lighten($moss-full-dark, 100% - $golden-micro);
 
+$moss-extreme-light:  lighten($moss-full-dark, 100% - $golden-nano);
+
 $moss-dark-minor:     lighten($moss-full-dark, $golden-minor);
 $moss-dark-major:     lighten($moss-full-dark, $golden-little);
 $moss-darker-minor:   lighten($moss-full-dark, $golden-small);
@@ -94,6 +103,8 @@ $rose-lighter-minor:  lighten($rose-full-dark, 100% - $golden-small);
 $rose-lighter-major:  lighten($rose-full-dark, 100% - $golden-tiny);
 $rose-lightest-minor: lighten($rose-full-dark, 100% - $golden-mini);
 $rose-lightest-major: lighten($rose-full-dark, 100% - $golden-micro);
+
+$rose-extreme-light:  lighten($rose-full-dark, 100% - $golden-nano);
 
 $rose-dark-minor:     lighten($rose-full-dark, $golden-minor);
 $rose-dark-major:     lighten($rose-full-dark, $golden-little);

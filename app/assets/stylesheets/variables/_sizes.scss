@@ -80,6 +80,8 @@ $golden-mini:   $golden-small - $golden-tiny;
 
 $golden-micro:  $golden-mini / $golden;
 
+$golden-nano:   $golden-mini - $golden-micro;
+
 
 // -- Input
 // -----------------------------------------------

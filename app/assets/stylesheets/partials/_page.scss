@@ -15,8 +15,9 @@
 .site-content > header {
 	background: $page-color;
 	.notice {
-		margin: 0 $one-twelfth;
-		width:  $one-sixth;
+		margin:   0 $one-twelfth;
+		position: absolute;
+		width:    $one-sixth;
 	}
 }
 .page-content,
@@ -43,8 +44,8 @@ pre {
 
 // -- Links
 // -----------------------------------------------
-@include visitation($water-dark-minor);
 a {
+	@include visitable($water-dark-minor);
 	color: $water-dark-minor;
 
 	&:hover {

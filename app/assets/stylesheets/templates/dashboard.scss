@@ -9,7 +9,7 @@
 
 // VIEWPORT :: ALL
 // ===============================================
-// -- General
+// -- LAYOUT & LOOK
 // -----------------------------------------------
 .dashboard-grid {
 	background: $page-color;
@@ -25,6 +25,14 @@
 		padding-top:   30px;
 	}
 }
+h2 {
+	text-align: center;
+	font-size:  18px;
+	margin:     25px 0;
+}
+
+// -- TOOLKITS
+// -----------------------------------------------
 .creation,
 .creation-block {
 	margin: 0 10px;
@@ -37,46 +45,28 @@
 		padding: 5px 0;
 	}
 }
-h2 {
-	text-align: center;
-	font-size:  18px;
-	margin:     25px 0;
-}
+
+// -- USER CONTENT MANAGEMENT
+// -----------------------------------------------
 .editable {
 	margin: 5px 10px;
+}
+.editable-content th {
+	padding: 5px;
+	vertical-align: middle;
 
-	tbody th {
-		padding: 5px;
-		vertical-align: middle;
+	a {
+		@include uniform-look($water-dark-minor);
+		display: block;
 
-		a {
-			color:   $water-darker-minor;
-			display: block;
-
-			&:hover {
-				color: $water-color;
-			}
+		&:hover {
+			color: $water-color;
 		}
 	}
 }
-.switch {
-	background:      $water-color;
-	border-radius:   10px;
-	color:           $page-color;
-	display:         inline-block;
-	width:           120px;
-	margin:          5px auto;
-	padding:         10px 0;
-	text-decoration: none;
-	&:before {
-		display: block;
-		margin-bottom: 5px;
-	}
-	&:hover {
-		background: $page-color;
-		color:      $water-color;
-	}
-}
+
+// -- TABLE SORTER
+// -----------------------------------------------
 .sortable .header:after {
 	content: "⬩"
 }
@@ -87,6 +77,28 @@ h2 {
 	content: "▴"
 }
 
+// -- PEN NAMES TOGGLE
+// -----------------------------------------------
+.status-toggle-link {
+	background:      $water-color;
+	border-radius:   10px;
+	color:           $page-color;
+	display:         inline-block;
+	width:           120px;
+	margin:          5px auto;
+	padding:         10px 0;
+	text-decoration: none;
+
+	&:before {
+		display: block;
+		margin-bottom: 5px;
+	}
+	&:hover {
+		background: $water-lighter-major;
+		color:      $water-dark-minor;
+	}
+}
+
 // -- Management Widget
 // -----------------------------------------------
 .status {
@@ -95,16 +107,13 @@ h2 {
 	vertical-align: middle;
 
 	span {
-		display: inline-block;
+		display: block;
 		margin:  5px;
 		padding: 5px;
 	}
 }
 .default-pen {
-	background: $moss-lightest-minor;
-}
-.secondary-pen {
-	background: $rose-lightest-minor;
+	color: $rose-dark-minor;
 }
 .management-widget {
 	padding-bottom: 35px;
@@ -120,6 +129,7 @@ h2 {
 		text-align:  center;
 	}
 }
+
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include desktop {
@@ -150,11 +160,27 @@ h2 {
 			margin-bottom: 5px;
 		}
 	}
-	.editable tbody th {
-		padding-bottom: 0;
-		padding-top:    10px;
-		text-align:     center;
+	.editable-content th {
+		padding:     0;
+		text-align:  center;
 		font-weight: bolder;
+
+		a {
+			@include uniform-look($water-lightest-major);
+			@include rounded-top(5px);
+
+			background:      $water-dark-minor;
+			border-bottom:   3px solid $water-darker-minor;
+			text-decoration: none;
+			padding:         10px;
+			padding-bottom:  5px;
+			margin:          0;
+			&:hover {
+				background:    $water-color;
+				color:         $water-lightest-minor;
+				border-bottom: 3px solid $water-dark-minor;
+			}
+		}
 	}
 	.alteration {
 		max-width: 200px;

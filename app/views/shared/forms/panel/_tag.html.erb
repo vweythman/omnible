@@ -1,6 +1,4 @@
-<div class="grid-panel">
-	<div class="field tag-input">
-		<%= label_tag(label, title) %>
-		<%= text_field_tag(label, tagline, :placeholder => placeholder, class: 'taggables') %>
-	</div>
+<div class="grid-panel field">
+	<div class="panel-cell golden-minor"><%= label_tag(label, title) %></div>
+	<div class="panel-cell golden-major"><%= text_field_tag(label, tagline, :placeholder => placeholder, class: 'taggables') %></div>
 </div>

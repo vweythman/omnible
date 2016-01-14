@@ -1,88 +1,59 @@
 // STYLE PARTIAL: SELECTIONS
 // ***********************************************
-// VIEWPORT :: GENERAL
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/forms/fields/dropdown";
+
+// STYLE :: GENERAL
 // ===============================================
 .selectize-control {
-	display:inline-block;
-	width: 100%;
+	background: $page-color;
+	display:    inline-block;
+	margin:     0;
+	padding:    0;
+	width:      100%;
 }
-
-// VIEWPORT :: INPUTS
-// ===============================================
+.single .selectize-input,
+.single .selectize-input input {
+	cursor: pointer;
+}
 .selectize-input {
-	@extend input;
-	overflow: visible;
-	$input-item-margin: 0 2px 0 0;
-	width: 100%;
-	
-	&.disabled, &.disabled * {
-		cursor: default !important;
-	}
-	> * {
+	border:  1px solid $border-color;
+	margin:  0;
+	padding: 7px;
+	width:   calc(100% - 16px);
+
+	& > input,
+	& > .item {
 		vertical-align: baseline;
-		display: -moz-inline-stack;
-		display: inline-block;
-		zoom: 1;
+		zoom:           1;
+	}
+	& > input {
+		border:    none;
+		display:   inline-block;
+		max-width: 100%;
+		margin:    0 2px 0 0 !important;
+		padding:   0;
+
+		&::-ms-clear { display: none;            }
+		&:focus      { outline: none !important; }
+	}
+	& > .item {
 		display: inline;
 	}
-
-	.selectize-control.multi & > div {
+	.multi & > .item {
 		background:    $page-lighter-minor;
 		border-radius: 5px;
-		cursor:     pointer;
-		display:    inline-block;
-		color:      $page-darker-major;
-		padding:    2px 5px;
-		margin:     1px;
+		color:         $page-darker-major;
+		cursor:        pointer;
+		display:       inline-block;
+		padding:       2px 5px;
+		margin:        1px;
+
 		&.active { 
 			color: $fire-darker-minor;
 			font-weight: 600;
 		}
-	}
-	.selectize-control.multi &.disabled > div {
-		background: $page-color;
-	}
-	> input {
-		display:     inline-block;
-		padding:     0 !important;
-		min-height:  0 !important;
-		max-height:  none !important;
-		max-width:   100% !important;
-		margin:      $input-item-margin !important;
-		text-indent: 0 !important;
-		border:      0 none !important;
-		background:  none !important;
-		line-height: inherit !important;
-		-webkit-user-select: auto !important;
-
-		&::-ms-clear { display: none; }
-		&:focus { outline: none !important; }
-	}	
-}
-
-// VIEWPORT :: CONTROL
-// ===============================================
-.selectize-control.single .selectize-input {
-	&, input { cursor: pointer; }
-	&.input-active, &.input-active input { cursor: text; }
-}
-.selectize-control.rtl {
-	&.single .selectize-input:after {
-		left:  15px;
-		right: auto;
-	}
-	.selectize-input > input { margin:0 4px 0 -2px; }
-}
-.selectize-control.plugin-drag_drop {
-	&.multi > .selectize-input > div.ui-sortable-placeholder {
-		visibility: visible !important;
-		background: #f2f2f2 !important;
-		background: rgba(0,0,0,0.06) !important;
-		border: 0 none !important;
-	}
-	.ui-sortable-placeholder::after {
-		content: '!';
-		visibility: hidden;
 	}
 }
 

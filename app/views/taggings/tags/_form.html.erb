@@ -2,6 +2,6 @@
 <%= form_for @tag, remote: remote do |f| %>
 
 	<fieldset><%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Tag") %></fieldset>
-	<%= f.submit %>
+	<%= submit_panel f %>
 
 <% end %>

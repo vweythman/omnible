@@ -53,10 +53,24 @@
 
 // USED BY :: LINKS
 // ===============================================
-@mixin visitation($color) {
-	a:visited {
+@mixin visitable($color) {
+	&:visited {
 		color: desaturate($color, 20%);
 	}
+}
+@mixin uniform-look($color) {
+	&,
+	&:visited {
+		color: desaturate($color, 20%);
+	}
+}
+@mixin rounded-top($num) {
+	border-top-left-radius:  $num;
+	border-top-right-radius: $num;
+}
+@mixin rounded-bottom($num) {
+	border-bottom-left-radius:  $num;
+	border-bottom-right-radius: $num;
 }
 
 // END

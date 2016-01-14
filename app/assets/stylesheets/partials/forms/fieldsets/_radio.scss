@@ -1,0 +1,40 @@
+// STYLE PARTIAL: RADIO BUTTONS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+.select-one {
+	background:    $water-light-major;
+	border:        2px solid $water-color;
+	margin:        5px;
+	border-radius: 4px;
+
+	label {
+		padding:    5px;
+		text-align: center;
+	}
+	input {
+		display: none;
+		&:checked + label {
+			color:      $water-lightest-major;
+			background: $water-light-minor;
+		}
+	}
+}
+.rating {
+	margin: 0;
+
+	table {
+		width:  100%;
+		margin: 5px 0;
+	}
+	th {
+		text-align: right;
+		width:      $one-tenth;
+	}
+	.panel-cell {
+		width: $one-fifth;
+	}
+}
+
+// END
+// ************************************************/

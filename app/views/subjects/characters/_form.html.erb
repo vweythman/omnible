@@ -20,48 +20,40 @@
 	<fieldset class="about">
 		<legend>About</legend>
 
-		<%= form_field label_tag(:identifiers, "Variants"), text_field_tag(:identifiers, @character.variant_names, :placeholder => "Add Other Names", class: 'other-names taggables') %>
+		<div class="other-names">
+			<%= taggables(:identifiers, @character.variant_names, "Add Other Names") %>
+		</div>
 
-		<%= @text.show %>
-		<%= content_tag :fieldset, class: @text.nest_class, id: @text.formid do %>
-			<%= @text.legend %>
+		<%= render :layout => nested_partial, :locals => { :models => @text } do %>
 			<%= @text.fields(f) %>
-			<p><%= link_to_add_association "+ Add Detail", f, @text.klass, :partial => @text.partial %></p>
+			<p class="add-cell"><%= link_to_add_association "+ Add Detail", f, @text.klass, :partial => @text.partial %></p>
 		<% end %>
 
-		<%= @identities.show %>
-		<%= content_tag :fieldset, class: @identities.nest_class, id: @identities.formid do %>
-			<%= @identities.legend %>
+		<%= render :layout => nested_partial, :locals => { :models => @identities } do %>
 			<%= @identities.fields %>
 		<% end %>
 
 		<%= render 'subjects/characters/fields/relationships_tags' %>
 
-		<%= @items.show %>
-		<%= content_tag :fieldset, class:  @items.nest_class, id: @items.formid do %>
-			<%= @items.legend %>
+		<%= render :layout => nested_partial, :locals => { :models => @items } do %>
 			<%= @items.fields(f) %>
-			<p><%= link_to_add_association "+ Add Item", f, @items.klass, :partial=> @items.partial %></p>
+			<p class="add-cell"><%= link_to_add_association "+ Add Item", f, @items.klass, :partial=> @items.partial %></p>
 		<% end %>
 	</fieldset>
 
 	<fieldset class="about">
 		<legend>Opinions and Prejudices</legend>
 
-		<%= @prejudices.show %>
-		<%= content_tag :fieldset, class:  @prejudices.nest_class, id: @prejudices.formid do %>
-			<%= @prejudices.legend %>
+		<%= render :layout => nested_partial, :locals => { :models => @prejudices } do %>
 			<%= @prejudices.fields(f) %>
-			<p><%= link_to_add_association "+ Add Prejudice", f, @prejudices.klass, :partial=> @prejudices.partial %></p>
+			<p class="add-cell"><%= link_to_add_association "+ Add Prejudice", f, @prejudices.klass, :partial=> @prejudices.partial %></p>
 		<% end %>
 
-		<%= @opinions.show %>
-		<%= content_tag :fieldset, class:  @opinions.nest_class, id: @opinions.formid do %>
-			<%= @opinions.legend %>
+		<%= render :layout => nested_partial, :locals => { :models => @opinions } do %>
 			<%= @opinions.fields(f) %>
-			<p><%= link_to_add_association "+ Add Opinion", f, @opinions.klass, :partial=> @opinions.partial %></p>
+			<p class="add-cell"><%= link_to_add_association "+ Add Opinion", f, @opinions.klass, :partial=> @opinions.partial %></p>
 		<% end %>
 	</fieldset>
 
-	<%= f.submit %>
+	<%= submit_panel f %>
 <% end %>

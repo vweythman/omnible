@@ -1,8 +1,8 @@
-<fieldset class="chapter">
-	<legend>
-		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Chapter Title") %>
-	</legend>
-	<%= form_field f.label(:about, "Summary"), f.text_area(:about, :placeholder => "Write Chapter Summary", class: "minor") %>
-	<%= form_field f.label(:content), f.text_area(:content, :placeholder => "Write Chapter", class: "major") %>
-	<%= form_field f.label(:afterward), f.text_area(:afterward, :placeholder => "Write Afterward", class: "minor") %>
+<fieldset class="chapter page-fields">
+	<legend><%= string_panel f, :title, "Write Chapter Title" %></legend>
+	<div class="page-grid form-grid">
+		<%= text_panel f, :about,     :minor, "Add Chapter Summary" %>
+		<%= text_panel f, :content,   :major, "Write Chapter"       %>
+		<%= text_panel f, :afterward, :minor, "Write Afterward"     %>
+	</div>
 </fieldset>

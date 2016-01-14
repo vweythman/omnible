@@ -1,0 +1,34 @@
+// STYLE PARTIAL: NESTED TAG FIELDS
+// ***********************************************
+// VIEWPORT :: ALL
+// ===============================================
+.tags {
+	background: $page-extreme-light;
+	border:     1px solid $page-lighter-minor;
+	margin:     10px;
+
+	legend {
+		background: $water-lighter-minor;
+		border:     1px solid $water-light-major;
+		padding:    10px;
+		width:      calc(100% - 22px);
+	}
+	label {
+		color:       $fire-dark-minor;
+		font-weight: 600;
+		text-align:  right;
+		padding:     7px;
+	}
+}
+
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.tags label {
+		padding:     7px 0;
+		text-align:  left;
+	}
+}
+
+// END
+// ***********************************************/

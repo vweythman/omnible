@@ -4,8 +4,13 @@
 // ===============================================
 @import "application";
 @import "partials/forms/page_form";
+@import "partials/forms/fields/selections";
+@import "partials/forms/fields/slider";
 @import "partials/forms/fieldsets/choose_any";
 @import "partials/forms/fieldsets/nested";
+@import "partials/forms/fieldsets/nested_page";
+@import "partials/forms/fieldsets/radio";
+@import "partials/forms/fieldsets/tags";
 
 // VIEWPORT :: ALL
 // ===============================================
@@ -14,9 +19,12 @@ h1 {
 	background:    $fire-light-major;
 	color:         $fire-darkest-minor;
 	text-align:    center;
+	
+	a {
+		color: $fire-extreme-light;
+	}
 }
-
-.nested legend {
+.nested > legend {
 	background:   $fire-lighter-minor;
 	border-color: $fire-light-major;
 }
@@ -24,225 +32,7 @@ h1 {
 	margin: 5px 0;
 }
 .submit-field input {
-	background:   $fire-light-minor;
-	border-color: $fire-light-minor;
-	color:        $fire-darkest-minor;
-
-	&:hover,
-	&:active {
-		background:   $fire-color;
-		border-color: $fire-dark-minor;
-	}
-}
-
-/*
-
-
-@import "partials/forms/fields/dropdown";
-@import "partials/forms/fields/nested";
-@import "partials/forms/fields/nested_chapters";
-@import "partials/forms/fields/paired_fields";
-@import "partials/forms/fields/radio_buttons";
-@import "partials/forms/fields/selections";
-@import "partials/forms/fields/slider";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@import 'partials/forms/page';
-
-// VIEWPORT :: ALL
-// ===============================================
-// -- Structural
-// -----------------------------------------------
-.generator {
-	margin:     0;
-	padding:    0;
-	width:      100%;
-	background: #FFF;
-	a:hover { text-decoration: underline; }
-}
-input[type="submit"] {
-	@include clickable($fire-darker-minor);
-	margin: 10px;
-	width:  calc(100% - 20px);
-	text-transform: capitalize;
-}
-form {
-	border-top:    3px solid $fire-color;
-	border-bottom: 3px solid $fire-color;
-}
-.primary {
-	margin-bottom: 0;
-
-	fieldset {
-		padding: 10px;
-	}
-	fieldset ,
-	fieldset legend {
-		background: $page-color;
-		border:     1px solid $border-color;
-	}
-}
-
-// -- Headings & Labels
-// -----------------------------------------------
-h1 {
-	background:    $fire-lighter-minor;
-	color:         $fire-darkest-minor;
-	text-align:    center;
-}
-label { 
-	display: none;
-}
-legend {
-	font-variant:   small-caps;
-	letter-spacing: 2px;
-	padding:        10px;
-	width:          calc(100% - 20px);
-}
-.ref {
-	background: $page-color;
-	color: $fire-dark-minor;
-	a { font-style: italic; }
-}
-
-// -- About
-// -----------------------------------------------
-.about,
-.about legend {
-	border: 1px solid $border-color;
-	padding: 10px;
-	margin: 10px;
-	width: calc(100% - 40px);
-}
-.about {
-	background: lighten(#F0F0F0, 2%);
-}
-.about legend {
-	background: $page-color;
-}
-.pick label { 
-	display: block;
-	font-weight: bolder;
-	color: $page-color;
-	background: $water-color;
-	padding: 10px;
-}
-
-// -- Restrictions
-// -----------------------------------------------
-.restrictions {
-	padding:    10px;
-	background: $page-color;
-	border:     1px solid $border-color;
-	margin:     10px 0;
-	.decision {
-		overflow: auto;
-	}
-	input {
-		display: inline-block;
-		float: left;
-		margin: 10px;
-		width:  15px;
-		text-align: right;
-	}
-	label {
-		display: inline-block;
-		border: none;
-		color: $page-color;
-		background: $water-color;
-		padding: 10px;
-		width: 50%;
-	}
-}
-
-// -- Slider
-// -----------------------------------------------
-.slider {
-	padding:    10px;
-	background: $page-color;
-	border:     1px solid $border-color;
-}
-
-// -- Tags
-// -----------------------------------------------
-.tags {
-	background: $page-color;
-	border: 1px solid $border-color;
-	margin: 0 auto;
-	padding: 10px;
-	
-	.about & {
-		width: calc(100% - 44px);
-		margin: 10px auto;
-	}
-	legend {
-		background: $page-color;
-		border: 1px solid $border-color;
-		margin: 0;
-	}
-	label {
-		color:         $fire-dark-minor;
-		display:       inline-block;
-		float:         left;
-		font-weight:   bolder;
-		padding:       7px 4px;
-		padding-top:   13px;
-		text-align:    right;
-	}
-}
-.taggables {
-	display: inline-block;
-}
-.edit .about .tags { 
-	display: none;
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
-	.tags label { 
-		width: calc(100% - 8px);
-		border-top: none;
-		border-bottom: 6px solid $border-color;
-	}
-	.taggables {
-		width: 100%;
-	}
-}
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.tags label { width: calc(25% - 8px); }
-	.about .tags .taggables,
-	.tags .taggables {
-		width: 75%;
-	}
-	.other-names {
-		width: calc(100% - 19px);
-		margin: 0 10px 15px;
-	}
-}
-
-// VIEWPORT :: TABLET
-// ===============================================
-@include tablet {
-	.tags label { width: calc(35% - 8px); }
-	.about .tags .taggables {
-		width: 65%;
-	}
+	@include submission-look($fire-light-minor, $fire-darkest-minor);
 }
 
 /* END

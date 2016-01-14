@@ -1,15 +1,14 @@
 <%= form_for(@anthology) do |f| %>
+
 	<fieldset>
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name of Anthology") %>
-		<%= form_field f.label(:summary), f.text_area(:summary, :placeholder => "Add Summary", :class=> :minor) %>
+		<%= string_panel f, :name, "Add Name of Anthology" %>
+		<%= text_panel   f, :summary, :minor, "Add Summary" %>
 	</fieldset>
 
-	<%= @works.show %>
-	<%= content_tag :fieldset, class: @works.nest_class, id: @works.formid do %>
-		<%= @works.legend %>
+	<%= render :layout => nested_partial, :locals => { :models => @works } do %>
 		<%= @works.fields(f) %>
-		<p><%= link_to_add_association "+ Add Work", f, @works.klass, :partial => @works.partial %></p>
+		<p class="add-cell"><%= link_to_add_association "+ Add Work", f, @works.klass, :partial => @works.partial %></p>
 	<% end %>
 
-	<%= f.submit %>
+	<%= submit_panel f %>
 <% end %>

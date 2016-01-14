@@ -12,11 +12,11 @@
 		</div>
 	<% end %>
 
-	<fieldset>
-		<%= form_field f.label(:title, "Title"), f.text_field(:title, :placeholder => "Write Title") %>
-		<%= form_field f.label(:style, "Stylesheet"), f.text_area(:style) %>
+	<fieldset>		
+		<%= form_field f.label(:title, "Title"),      f.text_field(:title, :placeholder => "Write Title")                      %>
+		<%= form_field f.label(:style, "Stylesheet"), f.text_area(:style)                                                      %>
 		<%= form_field f.label(:status, "Publicity"), f.select(:status, options_for_select(Skin.statuses, selected: 'Public')) %>
 	</fieldset>
 
-	<%= f.submit %>
+	<%= submit_panel f %>
 <% end %>

@@ -31,19 +31,6 @@
 		color:      $page-lightest-major;
 	}
 }
-.session a {
-	background: $water-light-minor;
-	color:      $page-color;
-
-	&:visited {
-		background: $water-light-minor;
-		color:      $page-color;
-	}
-	&:hover   {
-		background: $water-darker-minor;
-		color:      $water-lightest-minor;
-	}
-}
 
 // VIEWPORT :: DESKTOP
 // ===============================================
@@ -61,12 +48,36 @@
 		display: block;
 		background: $water-lightest-minor;
 	}
+	.session a,
+	.session a:visited {
+		color: $water-dark-minor;
+	}
+}
+
+// VIEWPORT :: NON-MOBILE
+// ===============================================
+@include non-mobile {
+	.session a {
+		color: $page-color;
+
+		&:visited {
+			color: $page-color;
+		}
+		&:hover {
+			color: $water-light-minor;
+		}
+	}
 }
 
 // VIEWPORT :: TABLET
 // ===============================================
 @include tablet {
-	.account { background: $water-lighter-minor; }
+	.user > a {
+		background: $water-color;
+		color:      $page-color;
+
+		&:visited { color: $page-color; }
+	}
 }
 
 // END

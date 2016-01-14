@@ -3,7 +3,7 @@
 // STYLES :: COLORS
 // ===============================================
 .sidebar {
-	background: $water-darkest-minor;
+	background: $water-dark-major;
 	color:      $water-lightest-minor;
 
 	a {
@@ -14,12 +14,12 @@
 		background: $water-color;
 	}
 	h3 {
-		border-bottom: 2px solid $water-darker-minor;
+		border-bottom: 2px solid $water-dark-minor;
 		color:         $water-lighter-minor;
 	}
 }
 .control-group > li a {
-	background: $water-darker-minor;
+	background: $water-dark-minor;
 	color:      $water-lighter-minor;
 
 	&:hover {
