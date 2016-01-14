@@ -49,10 +49,6 @@ class Chapter < ActiveRecord::Base
 	# ------------------------------------------------------------
 	delegate :uploader, to: :story
 
-	# ATTRIBUTES
-	# ------------------------------------------------------------
-	alias_attribute :about, :summary
-
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	# SwapPositions - swap the positions of two chapters of the same story
@@ -81,6 +77,10 @@ class Chapter < ActiveRecord::Base
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
+	def summary
+		self.about
+	end
+
 	# Prev - finds the previous chapter
 	def prev
 		@prev ||= Chapter.prev_in_story(self.story_id, self.position).first
