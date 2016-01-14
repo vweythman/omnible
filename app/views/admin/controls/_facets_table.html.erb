@@ -11,7 +11,7 @@
 
 	<tbody class="management-body" id="facet-list">
 		<% @facets.each do |facet| %>
-			<tr id="<%= facet.tag_id %>">
+			<tr id="<%= facet.tag_id %>" class="editable-content">
 				<th>
 					<span class="facet-title">
 						<%= link_to facet.heading, facet %>
