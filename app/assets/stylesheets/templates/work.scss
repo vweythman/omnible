@@ -19,32 +19,39 @@
 
 // -- Header
 // -----------------------------------------------
-.page-content > header {
+.work-header {
 	border-bottom: 5px solid $fire-color;
-	background:    $page-lightest-major;
+	background:    $page-extreme-light;
 	margin:        0;
-	padding:       10px 0;
-	
+	padding:       0;
+
+	h1 {
+		background:    $page-lightest-major;
+		border-bottom: 5px solid $water-light-minor;
+	}
+
 	.about {
 		margin:       0 $one-sixth;
 		padding-left: 0;
 	}
+
 	.alteration {
 		margin:     0 $one-twelfth;
 		margin-top: 10px;
 		width:      $five-sixths;
 	}
 }
+
 .multikit {
 	margin: 20px $one-twelfth;
 }
+
 .related-menu {
-	padding:        25px;
-	padding-bottom: 0;
-	text-align:     center;
+	padding:    0 0 10px 0;
+	text-align: center;
 }
+
 h1 {
-	border-bottom: 5px solid $water-lightest-minor;
 	padding:       5px $one-twelfth;
 	padding-top:   35px;
 }
@@ -56,25 +63,31 @@ article {
 	margin:     0 $one-twelfth;
 	padding:    20px $one-twelfth;
 }
+
 h2 {
 	font-size: $heading-size - 5px;
 	margin:    0;
 	padding:   0;
 }
+
 .page-body {
 	margin: 20px auto;
 	width:  100%;
 }
+
 .pagination {
 	margin: 20px 0;
+}
+
+.work-content a { 
+	@include visitable($water-dark-minor);
 }
 
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include non-desktop {
 	article {
-		margin-top:    10px;
-		margin-bottom: 10px;
+		margin-top: 10px;
 	}
 }
 
