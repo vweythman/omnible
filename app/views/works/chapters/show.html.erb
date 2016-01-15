@@ -1,9 +1,9 @@
 <% provide(:title, @chapter.meta_title) %>
 
-<header id="story-header">
+<header id="story-header" class="work-header">
 	<h1>
 		<%= @story.title %>
-		<%= @story.byline.html_safe %>
+		<%= subtitler @story.byline.html_safe %>
 		<%= subtitler @chapter.positioned_heading %>
 	</h1>
 	<%= @story.completion_status %>
@@ -20,11 +20,12 @@
 
 <article role="article">
 	<header>
-		<%= @chapter.pagination %>
+		<%= @chapter.edit_bar %>
 		<h1><%= @chapter.heading_with_count %></h1>
 		<%= @chapter.timestamps %>
+
 		<%= @chapter.summarized %>
-		<%= @chapter.edit_bar %>
+		<%= @chapter.pagination %>
 	</header>
 
 	<div class="page-body" id="work-content">
@@ -33,11 +34,15 @@
 
 	<footer>
 		<%= @chapter.pagination %>
-		<%= @chapter.edit_bar %>
 		<%= markdown @chapter.afterward %>
-		<%= render 'works/shared/discussion' %>
 	</footer>
 </article>
+
+<div class="grid-panel">
+	<div class="panel-cell solo">
+		<%= render 'works/shared/discussion' %>
+	</div>
+</div>
 
 <footer class="path-finder">
 	<p>
