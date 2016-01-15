@@ -8,7 +8,7 @@
 	$link-color: lighten($text-color, 15%);
 
 	a {
-		@include uniform-look($link-color);
+		color: $link-color;
 		&:hover {
 			text-decoration: underline;
 		}

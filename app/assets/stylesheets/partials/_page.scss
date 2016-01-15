@@ -45,7 +45,6 @@ pre {
 // -- Links
 // -----------------------------------------------
 a {
-	@include visitable($water-dark-minor);
 	color: $water-dark-minor;
 
 	&:hover {

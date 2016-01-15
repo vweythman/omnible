@@ -22,8 +22,7 @@
 		text-align:  left;
 	}
 	a {
-		@include uniform-look($water-color);
-		
+		color:           $water-color;
 		display:         block;
 		padding:         0 15px;
 		text-decoration: none;

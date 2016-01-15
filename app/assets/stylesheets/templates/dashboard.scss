@@ -56,7 +56,7 @@ h2 {
 	vertical-align: middle;
 
 	a {
-		@include uniform-look($water-dark-minor);
+		color:   $water-dark-minor;
 		display: block;
 
 		&:hover {
@@ -166,11 +166,11 @@ h2 {
 		font-weight: bolder;
 
 		a {
-			@include uniform-look($water-lightest-major);
 			@include rounded-top(5px);
 
 			background:      $water-dark-minor;
 			border-bottom:   3px solid $water-darker-minor;
+			color:           $water-lightest-major;
 			text-decoration: none;
 			padding:         10px;
 			padding-bottom:  5px;

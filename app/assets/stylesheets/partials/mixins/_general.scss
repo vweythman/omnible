@@ -58,12 +58,6 @@
 		color: desaturate($color, 20%);
 	}
 }
-@mixin uniform-look($color) {
-	&,
-	&:visited {
-		color: desaturate($color, 20%);
-	}
-}
 @mixin rounded-top($num) {
 	border-top-left-radius:  $num;
 	border-top-right-radius: $num;

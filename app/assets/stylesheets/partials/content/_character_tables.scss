@@ -55,7 +55,7 @@ td {
 	tr:nth-child(even) {
 		background: $water-lightest-minor;
 		
-		a { @include uniform-look($water-darker-minor); }
+		a { color: $water-darker-minor; }
 	}
 	.relationships {
 		border-bottom: 3px solid $fire-color;
