@@ -28,7 +28,7 @@ h1 {
 		margin: 0;
 	}
 	h1 {
-		padding: 15px 0;
+		padding: 30px $one-twelfth 5px;
 	}
 }
 
@@ -37,17 +37,10 @@ h1 {
 @include non-desktop {
 	.page-content > header {
 		margin:  0;
-		padding: 10px;
 	}
 	h1 {
 		padding: 15px 10px;
 	}
-}
-
-// VIEWPORT :: TABLET
-// ===============================================
-@include tablet {
-	h1 { text-align: center; }
 }
 
 // END
