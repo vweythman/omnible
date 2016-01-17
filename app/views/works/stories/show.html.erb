@@ -1,27 +1,27 @@
-<% provide(:title, @story.title) %>
+<% provide(:title, @work.title) %>
 
 <header class="work-header">
 	<h1>
-		<%= @story.title %>
-		<%= subtitle @story.byline.html_safe %>
+		<%= @work.title %>
+		<%= subtitle @work.byline.html_safe %>
 	</h1>
-	<%= @story.completion_status %>
-	<%= @story.rated %>
+	<%= @work.completion_status %>
+	<%= @work.rated %>
 
-	<%= @story.createables_links %>
+	<%= @work.createables_links %>
 
 	<div class="about">
-		<%= @story.summarized %>
-		<%= @story.all_tags_line %>
+		<%= @work.summarized %>
+		<%= @work.all_tags_line %>
 	</div>
 
-	<%= @story.navigation_on_whole %>
-	<%= @story.edit_bar %>
+	<%= @work.navigation_on_whole %>
+	<%= @work.edit_bar %>
 </header>
 
 <article role="article">
 	<div class="page-body" id="work-content">
-		<% @chapters.each do |chapter| %>
+		<% @work.current_chapters.each do |chapter| %>
 
 			<section class="chapter">
 				<h2><%= chapter.positioned_heading %></h2>

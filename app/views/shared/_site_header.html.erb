@@ -2,18 +2,7 @@
 	<%= link_to 'omnible', root_url, :class => 'logo' %>
 
 	<div class="actionbar">
-		<div class="account">
-			<% if user_signed_in? %>
-				<div class="user">
-					<%= link_to current_user.name, dashboard_path %>
-					<%= render 'shared/sidebar' %>
-				</div>
-				<span class="session"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></span>
-			<% else %>
-				<span class="session"><%= link_to "Sign In", new_user_session_path %> <%= link_to "Sign Up", new_user_registration_path %></span>
-			<% end %>
-		</div>
-
-		<%= render 'shared/site_nav' %>
+		<%= render 'meta/account' %>
+		<%= render 'meta/menu' %>
 	</div>
 </header>
