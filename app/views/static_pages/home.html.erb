@@ -1,12 +1,7 @@
 <div class="poster poster-grid">
-
-	<div class="grid-panel">
-		<div class="panel-cell solo"><%= render 'welcome' %></div>
-	</div>
-
-	<div class="grid-panel recent-panel">
-		<div class="panel-cell duo"><%= @anthologies.recent_widget %></div>
-		<div class="panel-cell duo"><%= @works.recent_widget       %></div>
-	</div>
-
+	<%= solo_cell do render 'welcome' end %>
+	<%= grid_panel "recent-panel" do %>
+		<%= panel_cell "duo" do @anthologies.recent_widget end %>
+		<%= panel_cell "duo" do @works.recent_widget       end %>
+	<% end %>
 </div>

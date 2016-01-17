@@ -5,49 +5,43 @@
 </header>
 
 <div class="dashboard-grid">
-	<div class="grid-panel">
-		<div class="panel-cell solo"><%= @pen_names.tableize %></div>
-	</div>
-	<div class="grid-panel">
-		<div class="panel-cell solo"><%= render 'users/skins/skins' %></div>
-	</div>
-	<div class="grid-panel">
-		<div class="panel-cell solo">
-			<h2>Uploads</h2>
-			
-			<h3>Subjects</h3>
-			<ul>
-				<% @user.uploaded_characters.each do |article| %>
-					<li><%= article.name %></li>
-				<% end %>
-			</ul>
-			<ul>
-				<% @user.uploaded_places.each do |article| %>
-					<li><%= article.name %></li>
-				<% end %>
-			</ul>
-			<ul>
-				<% @user.uploaded_items.each do |article| %>
-					<li><%= article.name %></li>
-				<% end %>
-			</ul>
+	<%= solo_cell do @pen_names.tableize end %>
+	<%= solo_cell do render 'users/skins/skins' end %>
+	<%= solo_cell do %>
+		<h2>Uploads</h2>
+		
+		<h3>Subjects</h3>
+		<ul>
+			<% @user.uploaded_characters.each do |article| %>
+				<li><%= article.name %></li>
+			<% end %>
+		</ul>
+		<ul>
+			<% @user.uploaded_places.each do |article| %>
+				<li><%= article.name %></li>
+			<% end %>
+		</ul>
+		<ul>
+			<% @user.uploaded_items.each do |article| %>
+				<li><%= article.name %></li>
+			<% end %>
+		</ul>
 
-			<h3>Works</h3>
-			<ul>
-				<% @user.uploaded_articles.each do |article| %>
-					<li><%= article.title %></li>
-				<% end %>
-			</ul>
-			<ul>
-				<% @user.uploaded_stories.each do |article| %>
-					<li><%= article.title %></li>
-				<% end %>
-			</ul>
-			<ul>
-				<% @user.uploaded_short_stories.each do |article| %>
-					<li><%= article.title %></li>
-				<% end %>
-			</ul>
-		</div>
-	</div>
+		<h3>Works</h3>
+		<ul>
+			<% @user.uploaded_articles.each do |article| %>
+				<li><%= article.title %></li>
+			<% end %>
+		</ul>
+		<ul>
+			<% @user.uploaded_stories.each do |article| %>
+				<li><%= article.title %></li>
+			<% end %>
+		</ul>
+		<ul>
+			<% @user.uploaded_short_stories.each do |article| %>
+				<li><%= article.title %></li>
+			<% end %>
+		</ul>
+	<% end %>
 </div>

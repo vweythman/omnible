@@ -5,16 +5,15 @@
 </header>
 
 <div class="index-body">
-	<div class="grid-panel">
-		<div class="panel-cell trio"><%= @activities.index_content %></div>
-		<div class="panel-cell trio"><%= @tags.index_content %></div>
-		<div class="panel-cell trio"><%= @qualities.index_content %></div>
-	</div>
-
-	<div class="grid-panel">
-		<div class="panel-cell golden-minor"><%= @relators.index_content %></div>
-		<div class="panel-cell golden-major"><%= @identities.index_content %></div>
-	</div>
+	<%= grid_panel do %>
+		<%= panel_cell "trio" do @activities.index_content end %>
+		<%= panel_cell "trio" do @tags.index_content       end %>
+		<%= panel_cell "trio" do @qualities.index_content  end %>
+	<% end %>
+	<%= grid_panel do %>
+		<%= panel_cell "golden-minor" do @relators.index_content   end %>
+		<%= panel_cell "golden-major" do @identities.index_content end %>
+	<% end %>
 </div>
 
 <%= render 'taggings/shared/footer' %>

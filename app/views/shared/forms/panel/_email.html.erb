@@ -1,4 +1,4 @@
-<div class="grid-panel field">
-	<div class="panel-cell duo"><%= f.label :email %></div>
-	<div class="panel-cell duo"><%= f.text_field :email, autofocus: true %></div>
-</div>
+<%= grid_panel "field" do %>
+	<%= panel_cell "duo" do f.label :email end %>
+	<%= panel_cell "duo" do f.text_field :email, autofocus: true end %>
+<% end %>

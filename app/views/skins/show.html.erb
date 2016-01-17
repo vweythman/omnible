@@ -9,16 +9,13 @@
 	<%= @skin.uploaded_by %>
 </header>
 
-<div class="poster-grid styles">
-	<div class="grid-panel">
-		<div class="panel-cell golden-major"><%= @skin.pretty_print_area %></div>
-		<div class="panel-cell golden-minor"><%= @skin.example_area %></div>
-	</div>
-
+<div class="styles">
+	<%= grid_panel do %>
+		<%= panel_cell "golden-major" do @skin.pretty_print_area end %>
+		<%= panel_cell "golden-minor" do @skin.example_area      end %>
+	<% end %>
 	<% if @skin.works.length > 0 %>
-		<div class="grid-panel">
-			<div class="panel-cell solo"><%= @skin.works.decorate.tableize %></div>
-		</div>
+		<%= solo_cell do @skin.works.decorate.tableize end %>
 	<% end %>
 </div>
 

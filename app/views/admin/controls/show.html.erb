@@ -5,12 +5,10 @@
 </header>
 
 <div class="dashboard-grid">
-	<div class="grid-panel">
-		<div class="panel-cell solo"><%= render 'facets_cell' %></div>
-	</div>
-	<div class="grid-panel">
-		<div class="panel-cell solo"><h2>Relationship Types</h2></div>
-	</div>
+	<%= solo_cell do render 'facets_cell' end %>
+	<%= solo_cell do %>
+		<h2>Relationship Types</h2>
+	<% end %>
 </div>
 
 <script type="text/javascript">

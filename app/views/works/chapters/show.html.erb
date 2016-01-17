@@ -38,11 +38,9 @@
 	</footer>
 </article>
 
-<div class="grid-panel">
-	<div class="panel-cell solo">
-		<%= render 'works/shared/discussion' %>
-	</div>
-</div>
+<%= solo_cell do %>
+	<%= render 'works/shared/discussion' %>
+<% end %>
 
 <footer class="path-finder">
 	<p>

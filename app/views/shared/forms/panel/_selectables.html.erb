@@ -1,6 +1,6 @@
-<div class="grid-panel">
-	<div class="panel-cell solo field">
-		<div class="field-content"><%= f.label(value) %></div>
-		<div class="field-content"><%= f.collection_select(value, group, :id, :heading, {}, :class => "selectables") %></div>
+<%= solo_cell "field" do %>
+	<div class="field-content"><%= f.label(value) %></div>
+	<div class="field-content">
+		<%= f.collection_select(value, group, :id, :heading, {}, :class => "selectables") %>
 	</div>
-</div>
+<% end %>

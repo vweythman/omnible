@@ -1,15 +1,17 @@
 <div class="form-grid slider">
-	<div class="grid-panel">
-		<div class="panel-cell solo">
-			<div class="range-cell"><div id="editable" class='range-values'></div></div>
+	<%= solo_cell do %>
+		<div class="range-cell">
+			<div id="editable" class='range-values'></div>
 		</div>
-	</div>
-	<div class="grid-panel range">
-		<div class="panel-cell quartet"><span class="label">Editing Level</span></div>
-		<div class="panel-cell quartet"><span id="editor_label" class="val"></span></div>
-		<div class="panel-cell quartet"><span class="label">Viewing Requirements</span></div>
-		<div class="panel-cell quartet"><span id="viewer_label" class="val"></span></div>
-	</div>
+	<% end %>
+
+	<%= grid_panel "range" do %>
+		<%= panel_cell "quartet" do %><span class="label">Editing Level</span><% end %>
+		<%= panel_cell "quartet" do %><span id="editor_label" class="val"></span><% end %>
+		<%= panel_cell "quartet" do %><span class="label">Viewing Requirements</span><% end %>
+		<%= panel_cell "quartet" do %><span id="viewer_label" class="val"></span><% end %>
+	<% end %>
+
 	<%= f.hidden_field :editor_level, id: "editor"    %>
 	<%= f.hidden_field :publicity_level, id: "viewer" %>
 </div>

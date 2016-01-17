@@ -1,10 +1,8 @@
 <div class="form-grid choose-any">
 	<% collection.each do |item| %>
-		<div class="grid-panel">
-			<div class="panel-cell solo">
-				<%= f.check_box value, {:multiple => true}, item.id %>
-				<%= f.label value, item.name, value: item.id %>
-			</div>
-		</div>
+		<%= solo_cell do %>
+			<%= f.check_box value, {:multiple => true}, item.id %>
+			<%= f.label value, item.name, value: item.id %>
+			<% end %>
 	<% end %>
 </div>

@@ -1,20 +1,16 @@
 <div class="comments">
-	<div class="grid-panel">
-		<div class="panel-cell solo">
-			<div class="comments-form">
-				<%= render 'comments/form', comment: @comment %>
-			</div>
+	<%= solo_cell do %>
+		<div class="comments-form">
+			<%= render 'comments/form', comment: @comment %>
 		</div>
-	</div>
+	<% end %>
 
-	<div class="grid-panel">
-		<div class="panel-cell solo comments">
-			<% if @comments.length > 0 %>
-				<h3>Comments</h3>
+	<%= solo_cell "comments" do %>
+		<% if @comments.length > 0 %>
+			<h3>Comments</h3>
 
-				<% @comments.each do |comment| %>
-				<% end %>
+			<% @comments.each do |comment| %>
 			<% end %>
-		</div>
-	</div>
+		<% end %>
+	<% end %>
 </div>

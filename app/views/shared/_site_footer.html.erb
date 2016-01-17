@@ -1,30 +1,8 @@
-<footer id="site-footer" class="poster-grid">
-	<div class="grid-panel ownership-panel">
-		<div class="panel-cell golden-minor">
-			<div class="ownership-widget widget">
-				<p>&copy; V. Weythman</p>
-				<p>2015 - <%= Time.now.year %></p>
-			</div>
-		</div>
-		<div class="panel-cell golden-major">
-			<div class="credit-widget widget">
-				<header>
-					<p class="widget-title">Designer</p>
-				</header>
-				<p>V. Weythman</p>
-				<p><a href="mailto:vweythman@gmail.com">vweythman@gmail.com</a></p>
-			</div>
-		</div>
-	</div>
-	<div class="grid-panel">
-		<div class="panel-cell solo">
-			<div class="social-media-widget widget">
-				<p>
-					<a href="">Facebook</a>
-					<a href="">Google+</a>
-					<a href="">Twitter</a>
-				</p>
-			</div>
-		</div>
-	</div>
+<footer id="site-footer" class="site-meta">
+	<%= grid_panel "ownership-panel" do %>
+		<%= panel_cell "golden-minor" do render "meta/ownership" end %>
+		<%= panel_cell "golden-major" do render "meta/credits" end %>
+	<% end %>
+
+	<%= solo_cell do render "meta/social" end %>
 </footer>

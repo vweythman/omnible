@@ -1,4 +1,4 @@
-<div class="grid-panel filtered">
-	<div class="panel-cell golden-major"><%= results.index_content %></div>
-	<div class="panel-cell golden-minor"><%= results.filters %></div>
-</div>
+<%= grid_panel "filtered" do %>
+	<%= panel_cell "golden-major" do results.index_content end %>
+	<%= panel_cell "golden-minor" do results.filters       end %>
+<% end %>

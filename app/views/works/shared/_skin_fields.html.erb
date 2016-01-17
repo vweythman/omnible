@@ -1,6 +1,8 @@
-<div class="grid-panel simple-selection">
-	<div class="panel-cell golden-minor"><%= f.label(:skin_id, "Choose Skin (Optional)") %></div>
-	<div class="panel-cell golden-major">
+<%= grid_panel "simple-selection" do %>
+	<%= panel_cell "golden-minor" do %>
+		<%= f.label(:skin_id, "Choose Skin (Optional)") %>
+	<% end %>
+	<%= panel_cell "golden-major" do %>
 		<%= f.collection_select(:skin_id, @work.uploader.skins, :id, :title, :include_blank => true) %>
-	</div>
-</div>
+	<% end %>
+<% end %>
