@@ -13,33 +13,40 @@
 .page-content {
 	background: $water-lightest-minor;
 	overflow:   auto;
+}
+.index-header {
+	border-bottom: 3px solid $fire-color;
 
-	& > header {
-		border-bottom: 3px solid $fire-color;
-		padding:       10px $one-twelfth;
+	h1 {
+		background:    $moss-lightest-minor;
+		border-bottom: 3px solid $moss-color;
+	}
+	& > .toolkit {
+		padding: 0 $one-twelfth;
 	}
 }
 .found {
-	margin:      5px 10px;
-	font-weight: bolder;
 	font-size:   1.2em;
+	font-weight: bolder;
+	margin:      0px;
+	padding:     5px $one-twelfth;
 }
 .index-body {
 	background:   $page-color;
 	border-left:  3px solid $water-lighter-minor;
 	border-right: 3px solid $water-lighter-minor;
 	box-shadow:   0px 0px 1px 0px $water-color;
-	margin:       0 $one-twelfth;
+	margin:       0px $one-twelfth;
 }
 .filtered .panel-cell {
 	float: right;
 }
 .results-body {
-	margin: 0;
+	margin: 0px;
 }
 .results {
-	margin:  0;
-	padding: 0;
+	margin:  0px;
+	padding: 0px;
 
 	dl,
 	ul {
@@ -53,7 +60,7 @@
 		border-bottom: 3px solid $fire-lighter-minor;
 		font-size:     $size-1;
 		font-weight:   lighter;
-		margin:        0;
+		margin:        0px;
 		padding:       10px 5px;
 	}
 }
