@@ -42,7 +42,8 @@
 		width:      206px;
 		right:      0;
 		margin-top: 10px;
-		position: absolute;
+		position:   absolute;
+		z-index:    100;
 
 		.user:hover & {
 			display: block;
