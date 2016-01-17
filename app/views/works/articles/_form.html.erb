@@ -3,11 +3,11 @@
 	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
 
 	<fieldset class="primary">
-		<%= render 'works/shared/work_fields', f: f %>
+		<%= render work_fields, f: f %>
 		<%= text_panel f, :content, :major, "Write Article" %>
 	</fieldset>
 	
-	<%= render 'works/shared/work_tag_fields', f: f %>
+	<%= render work_tag_fields, f: f %>
 
 	<%= submit_panel f %>
 <% end %>

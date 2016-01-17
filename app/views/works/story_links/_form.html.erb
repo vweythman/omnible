@@ -7,16 +7,14 @@
 	</ul>
 
 	<fieldset class="primary">
-
-		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Title") %>
+		<%= string_panel f, :title, "Write Title" %>
 
 		<%= f.fields_for :sources do |b| %>
-			<%= form_field b.label(:reference), b.text_field(:reference, :placeholder => "Enter Link") %>
+			<%= string_panel f, :reference, "Enter Link" %>
 		<% end %>
-
 	</fieldset>
 
-	<%= render 'works/shared/work_tag_fields', f: f %>
+	<%= render work_tag_fields, f: f %>
 
 	<%= submit_panel f %>
 <% end %>

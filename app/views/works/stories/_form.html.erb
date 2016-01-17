@@ -9,7 +9,7 @@
 	</ul>
 
 	<fieldset class="primary">
-		<%= render 'works/shared/work_fields', f: f %>
+		<%= render work_fields, f: f %>
 	</fieldset>
 
 	<%= render :layout => nested_partial, :locals => { :models => @story.current_chapters } do %>
@@ -19,7 +19,7 @@
 		</p>
 	<% end %>
 
-	<%= render 'works/shared/work_tag_fields', f: f %>
+	<%= render work_tag_fields, f: f %>
 
 	<%= submit_panel f %>
 <% end %>
