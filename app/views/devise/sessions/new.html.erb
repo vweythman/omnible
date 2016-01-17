@@ -13,10 +13,7 @@
 		<div class="rememberable"><%= boolean_field f, :remember_me %></div>
 	<% end %>
 
-	<div class="grid-panel submit-field">
-		<div class="panel-cell solo"><%= f.submit "Sign In" %></div>
-	</div>
-
+	<%= submit_panel f, "Sign In" %>
 <% end %>
 
 <footer>

@@ -13,10 +13,7 @@
 	<%= input_password f, :password_confirmation %>
 	<%= input_password f, :current_password %>
 
-	<div class="grid-panel submit-field">
-		<div class="panel-cell solo"><%= f.submit "Update" %></div>
-	</div>
-
+	<%= submit_panel f, "Update" %>
 <% end %>
 
 <footer>

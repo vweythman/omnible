@@ -13,17 +13,16 @@
 	<fieldset class="form-grid">
 		<legend>
 			Password 
-			<span class="input-rule">(<%= @minimum_password_length %> characters minimum)</span>
+			<span class="input-rule">
+				(<%= @minimum_password_length %> characters minimum)
+			</span>
 		</legend>
 
 		<%= input_password f, :password %>
 		<%= input_password f, :password_confirmation %>
 	</fieldset>
 
-	<div class="grid-panel submit-field">
-		<div class="panel-cell solo"><%= f.submit "Sign Up" %></div>
-	</div>
-
+	<%= submit_panel f, "Sign Up" %>
 <% end %>
 
 <footer>

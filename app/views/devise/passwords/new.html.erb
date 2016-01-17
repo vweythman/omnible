@@ -8,9 +8,7 @@
 		<%= f.email_field :email, autofocus: true %>
 	</div>
 
-	<div class="grid-panel submit-field">
-		<div class="panel-cell solo"><%= f.submit "Send me reset password instructions" %></div>
-	</div>
+	<%= submit_panel f, "Send me reset password instructions" %>
 <% end %>
 
 <footer>
