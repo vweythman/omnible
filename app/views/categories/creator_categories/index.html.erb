@@ -1,16 +1,11 @@
 <% provide(:title, "Creator Categories") %>
 
-<header>
+<header class="index-header">
 	<h1>Creator Categories</h1>
+	<%= @creatorships.found_status %>
+	<%= creation_toolkit("Category", :creator_category) %>
 </header>
 
 <div class="index-body">
-	<% @creatorships.each do |creator_type| %>
-		<p><%= creator_type.name %> / <%= creator_type.agentive %></p>
-	<% end %>
-
-	<% WorksTypeDescriber.all.each do |describer| %>
-		<%= check_box("creatorship", "work_types", {:multiple => true},describer.id, nil) %>
-		<p><%= describer.name %></p>
-	<% end %>
+	<%= @creatorships.results %>
 </div>
