@@ -15,7 +15,7 @@ module ListableCollection
 	end
 
 	def found_status
-		h.content_tag :p, class: "found" do self.total_count.to_s + " Found" end
+		h.content_tag :p, class: "found" do found_count.to_s + " Found" end
 	end
 
 	def index_content
@@ -60,6 +60,10 @@ module ListableCollection
 
 	def results_type
 		:simple_panel
+	end
+
+	def found_count
+		self.count
 	end
 
 end

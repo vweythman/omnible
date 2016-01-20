@@ -31,7 +31,11 @@ class WorksDecorator < Draper::CollectionDecorator
 	def caption_heading
 		title
 	end
-	
+
+	def found_count
+		self.total_count
+	end
+
 	# -- Aside
 	# ............................................................
 	def for_categories
