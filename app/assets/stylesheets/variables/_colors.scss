@@ -33,8 +33,8 @@ $page-color:   $page-full-light;
 // ===============================================
 // -- Prime
 // -----------------------------------------------
-$water-full-dark:      hsl(195, 55%, 0%);
-$water-color:          hsl(195, 55%, 50%);
+$water-full-dark:      hsl(195, 75%, 0%);
+$water-color:          hsl(195, 75%, 50%);
 
 $water-light-minor:    lighten($water-full-dark, 100% - $golden-minor);
 $water-light-major:    lighten($water-full-dark, 100% - $golden-little);
@@ -53,8 +53,8 @@ $water-darkest-minor:  lighten($water-full-dark, $golden-mini);
 $water-darkest-major:  lighten($water-full-dark, $golden-micro);
 
 
-$fire-full-dark:      hsl(35, 95%, 0%);
-$fire-color:          hsl(35, 95%, 50%);
+$fire-full-dark:      hsl(37, 91%, 0%);
+$fire-color:          hsl(37, 91%, 50%);
 
 $fire-light-minor:    lighten($fire-full-dark, 100% - $golden-minor);
 $fire-light-major:    lighten($fire-full-dark, 100% - $golden-little);
