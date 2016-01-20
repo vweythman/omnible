@@ -27,4 +27,8 @@ class CreatorCategory < ActiveRecord::Base
 	def work_types
 	end
 
+	def heading
+		self.name + " [" + self.agentive + "]"
+	end
+
 end
