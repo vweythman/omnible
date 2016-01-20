@@ -1,6 +1,3 @@
 <% listable.each do |snippet| %>
-	<article class='snippet'>
-		<%= render :partial => snippet.snippet_path, :object => snippet %>
-	</article>
-	<%= snippet.edit_bar %>
+	<%= render :partial => 'shared/snippets/snippet', :object => snippet %>
 <% end %>

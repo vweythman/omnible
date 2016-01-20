@@ -1,0 +1,12 @@
+<article class='snippet <%= snippet.klass %>'>
+	<%= grid_panel do %>
+		<%= panel_cell "ninth-dectet snippet-about" do %>
+			<%= render :partial => snippet.snippet_path, :object => snippet %>
+			<div class="snippet-meta">
+				<%= snippet.summarized %>
+				<%= snippet.snippet_tags_line %>
+			</div>
+		<% end %>
+		<%= panel_cell "dectet snippet-type" do snippet.icon end %>
+	<% end %>
+</article>
