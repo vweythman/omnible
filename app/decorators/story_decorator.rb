@@ -30,6 +30,10 @@ class StoryDecorator < WorkDecorator
 		len = self.chapters.length
 		title + " (" + len.to_s + " " + "Chapter".pluralize(len) + ")"
 	end
+	
+	def icon
+		"◫"
+	end
 
 	# -- Chapters
 	# ............................................................
@@ -73,11 +77,11 @@ class StoryDecorator < WorkDecorator
 	end
 
 	def link_first_chapter
-		h.link_to "First Chapter", [self, self.chapters.ordered.first]
+		h.link_to "First", [self, self.chapters.ordered.first]
 	end
 
 	def link_latest_chapter
-		h.link_to "Latest Chapter", [self, self.chapters.ordered.last]
+		h.link_to "Latest", [self, self.chapters.ordered.last]
 	end
 
 	# -- Navigation

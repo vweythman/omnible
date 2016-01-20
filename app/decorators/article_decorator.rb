@@ -14,4 +14,8 @@ class ArticleDecorator < WorkDecorator
 		"Changed"
 	end
 	
+	def icon
+		"◧"
+	end
+	
 end
