@@ -10,70 +10,59 @@
 // -- General
 // -----------------------------------------------
 .snippet {
-	border: 2px solid $water-dark-minor;
-	margin: 10px 10px 0px;
-	overflow: auto;
+	background: $moss-light-major;
+	overflow:   auto;
 }
-header {
-	padding:  0;
 
-	&:before {
-		float:       left;
-		font-size:   3em;
-		padding:     10px;
-		padding-top: 0;
-		background:  $water-color;
-		color:       $page-color;
-	}
-	&[data-type="Link"]:before {
-		content: "↬";
-	}
-	&[data-type="Chaptered Story"]:before {
-		content: "◫";
-	}
-	&[data-type="Article"]:before,
-	&[data-type="Short Story"]:before {
-		content: "◧";
-	}
+.snippet-type {
+	color:      $moss-color;
+	font-size:  2.0em;
+	text-align: center;
 }
+
 h4 {
-	margin:  0;
-	padding: 10px;
-	padding-left: 67px;
-	border-bottom: 2px solid $water-light-minor;
+	border-bottom: 3px solid $moss-light-minor;
+	margin:        0px;
+	padding:       5px;
 }
 
 // -- About
 // -----------------------------------------------
+.snippet-about {
+	background: $page-color;
+}
+
+.snippet-meta {
+	padding: 0px 5px;
+}
+
 .summary {
 	font-style: italic;
 	padding:    10px;
 	text-align: center;
 }
+
 .about {
-	background: $water-color;
-	overflow:   auto;
+	background:  $moss-lighter-major;
+	color:       $page-darkest-major;
+	font-size:   .95em;
 	font-weight: bolder;
-	border-bottom: 1px solid $water-color;
+	overflow:    auto;
 }
+
 .agents, 
 .chapters-count,
 .time {
-	color:      $page-lightest-major;
-	padding:    6px 10px;
-	font-size:  .95em;
-	float:      left;
-	margin:     0;
-	a {
-		color: $water-lightest-minor;
-	}
+	float:   left;
+	padding: 6px 10px;
 }
+
 .tags {
 	text-align: right;
 }
+
 .ratings span {
-	padding: 4px 10px;
-	padding-bottom: 3px;
+	padding: 4px 10px 3px;
 }
 
 // -- Length
@@ -85,27 +74,38 @@ h4 {
 	padding:    0;
 
 	a {
-		background:  $water-lightest-minor;
+		background:  $water-lighter-minor;
 		display:     inline-block;
 		text-align:  center;
 		font-weight: bolder;
 		padding:     5px 10px 10px;
 		width:       20%;
+		text-decoration: none;
+		&:hover {
+			background: $fire-lighter-major;
+		}
 	}
 }
 
-// -- Toolkit
-// -----------------------------------------------
-.alteration {
-	display: block;
-	border-radius: 10px;
-	margin: 0 20px 25px;
-	padding: 0px;
-	width: calc(100% - 46px);
-	
-	@include rounded-top(0px);
+// VIEWPORT :: MOBILE
+// ===============================================
+@include mobile {
+	.snippet {
+		border-bottom: 3px solid $moss-lighter-minor;
+		margin:        0px 0px 15px 0px;
+	}
+	.snippet-type {
+		display: none;
+	}
 }
 
+// VIEWPORT :: NON-MOBILE
+// ===============================================
+@include non-mobile {
+	.snippet {
+		margin: 15px 10px;
+	}
+}
 
 // END
 // ***********************************************/
