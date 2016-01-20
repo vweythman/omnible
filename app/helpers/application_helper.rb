@@ -20,12 +20,13 @@ module ApplicationHelper
 			type = collector
 		else
 			prepend, last = type.split('_')
-			if last.blank?
+			if (last.blank? || last == collector)
 				type = prepend
-			elsif prepend != 'short'
+			elsif prepend == collector
 				type = last
 			end
 		end
+
 		return [collector, type.singularize]
 	end
 
