@@ -43,6 +43,13 @@
 }
 .results-body {
 	margin: 0px;
+	h2 {
+		background:    $water-lighter-major;
+		border-bottom: 3px solid $water-lighter-minor;
+		margin:        0px;
+		padding:       5px 10px;
+		font-size:     $heading-size - 6px;
+	}
 }
 .results {
 	margin:  0px;
@@ -65,12 +72,16 @@
 	}
 }
 .pagination {
-	padding:        11px 7px;
-	padding-bottom: 7px;
-	text-align:     left;
+	text-align: left;
 
-	header & { border-bottom: 3px solid $fire-lighter-minor; }
-	footer & { border-top:    3px solid $water-dark-minor; }
+	header & {
+		border-bottom: 3px solid $fire-lighter-minor;
+		padding:       11px 7px 7px;
+	}
+	footer & {
+		border-top:    3px solid $water-dark-minor;
+		padding:       7px;
+	}
 }
 .indexable {
 	@include columnable_by(15em);
@@ -84,11 +95,6 @@
 	.page-content > header {
 		margin: 0;
 	}
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
 }
 
 /* END
