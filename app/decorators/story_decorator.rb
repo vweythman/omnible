@@ -30,9 +30,9 @@ class StoryDecorator < WorkDecorator
 		len = self.chapters.length
 		title + " (" + len.to_s + " " + "Chapter".pluralize(len) + ")"
 	end
-	
-	def icon
-		"◫"
+
+	def icon_choice
+		'book'
 	end
 
 	# -- Chapters

@@ -25,9 +25,9 @@ class ShortStoryDecorator < WorkDecorator
 			h.prechecked_multi_kit [[self, :note]]
 		end
 	end
-	
-	def icon
-		"◧"
+
+	def icon_choice
+		'file-text'
 	end
 
 	# -- Navigation

@@ -18,8 +18,8 @@ class StoryLinkDecorator < WorkDecorator
 		end
 	end
 
-	def icon
-		"&#128279;".html_safe
+	def icon_choice
+		'link'
 	end
 
 	# -- Links
