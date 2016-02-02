@@ -6,7 +6,7 @@
 		<% end %>
 	</ul>
 
-	<fieldset class="heading">
+	<fieldset class="primary">
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
 		<%= render 'shared/forms/edit_fields', f: f %>
 
@@ -21,7 +21,7 @@
 		<legend>About</legend>
 
 		<div class="other-names">
-			<%= taggables(:identifiers, @character.variant_names, "Add Other Names") %>
+			<%= taggables(["character", "variations"], @character.variant_names, "Add Other Names") %>
 		</div>
 
 		<%= render :layout => nested_partial, :locals => { :models => @text } do %>

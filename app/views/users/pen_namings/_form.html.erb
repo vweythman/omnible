@@ -8,7 +8,7 @@
 		</ul>
 	<% end %>
 
-	<fieldset>
+	<fieldset class="primary">
 		<%= f.fields_for :character do |character_builder| %>			
 			<%= form_field character_builder.label(:name), character_builder.text_field(:name, :placeholder => "Insert Pen Name") %>
 		<% end %>

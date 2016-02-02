@@ -1,10 +1,10 @@
 <%= form_for(@item) do |f| %>
 
-	<fieldset>
+	<fieldset class="primary">
 		<%= form_field f.label(:nature, "Type"), f.text_field(:nature, :placeholder => "Name the type of item") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Name of the item") %>
 
-		<%= taggables(:descriptions, @item.current_tags, "Qualities", "Tag with item's qualities") %>
+		<%# taggables(["descriptions"], @item.current_tags, "Qualities", "Tag with item's qualities") %>
 	</fieldset>
 
 	<%= submit_panel f %>

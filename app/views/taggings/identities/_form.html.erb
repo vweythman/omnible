@@ -1,7 +1,7 @@
 <% remote ||= false %>
 <%= form_for @identity, remote: remote do |f| %>
 
-	<fieldset>
+	<fieldset class="primary">
 		<%= form_field f.label(:nature), f.text_field(:nature, :placeholder => "Describe the Type of Identity") %>
 		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Name the Identity") %>
 	</fieldset>
