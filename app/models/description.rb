@@ -40,7 +40,10 @@ class Description < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	def self.update_for(model, list)
+	def self.update_for(model, describers, visitor)
+		ident = Identity.faceted_find_by(describers, visitor)
+		list  = ident.map{ |i| i.id }
+
 		if list.length > 0
 			Description.transaction do
 				remove  = Description.not_among_for(model, list).destroy_all
