@@ -3,7 +3,7 @@
 <header>
 	<%= content_tag :h1, id: @tag.heading_id do %>
 		<%= @tag.facet_title %>
-		<%= subtitler @tag.name %>
+		<%= subtitle @tag.name %>
 	<% end %>
 
 	<%= @tag.edit_form_div %>

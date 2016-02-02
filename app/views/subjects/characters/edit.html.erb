@@ -1,8 +1,9 @@
-<% provide(:title, @character.editing_title) %>
+<% provide(:title, @character.title_for_editing) %>
 
 <div id="main" class="edit generator">
-	<h1><%= @character.name %></h1>
+	<h1>
+		<%= @character.name %>
+	</h1>
 	<%= render 'form' %>
 	<%= render 'subjects/shared/footer' %>
 </div>
-

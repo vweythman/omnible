@@ -2,12 +2,12 @@
 
 <header id="dash-header">
 	<h1 id="pen-name-<%= @namer.id %>">
-		My Dashboard
-		<%= subtitler "Pen Names" %>
-		<%= subtitler link_to @namer.name, @namer %>
+		<%= title "My Dashboard" %>
+		<%= subtitle "Pen Names" %>
+		<%= subtitle link_to @namer.name, @namer %>
 		<%= @namer.edit_form_div %>
 	</h1>
-	<div id="pen-name-edit-bar-for-<%= @namer.id %>"><%= @namer.edit_bar %></div>
+	<div id="<%= @namer.kit_id %>"><%= @namer.edit_bar %></div>
 </header>
 
 <article>

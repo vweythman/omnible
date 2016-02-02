@@ -1,6 +1,6 @@
 <%= grid_panel "field" do %>
-	<%= panel_cell "golden-minor" do label_tag(label, title) end %>
+	<%= panel_cell "golden-minor" do label_tag(taggables_label(label), title) end %>
 	<%= panel_cell "golden-major" do %>
-		<%= text_field_tag(label, tagline, :placeholder => placeholder, class: 'taggables') %>
+		<%= text_field_tag(taggables_label(label), tagline, :placeholder => placeholder, class: 'taggables') %>
 	<% end %>
 <% end %>

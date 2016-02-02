@@ -1,7 +1,9 @@
-<div id="main" class="new generator">
-	<%= creation_header 'Item' %>
+<% provide(:title, @item.title_for_creation) %>
 
+<div class="new generator">
+	<h1>
+		<%= @item.title_for_creation %>
+	</h1>
 	<%= render 'form' %>
-	
-	<%= render 'subjects/shared/footer' %>
+	<%= @item.shared_footer %>
 </div>
