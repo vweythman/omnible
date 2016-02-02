@@ -1,26 +1,15 @@
-class Subjects::PlacesController < ApplicationController
+class Subjects::PlacesController < SubjectsController
 
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :find_place,  only: [:show, :edit, :update]
-	before_action :find_places, only: [:index]
-	before_action :set_type,    only: [:create, :update]
+	# ============================================================
+	before_action :place,  only: [:show, :edit, :update]
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GET
-	# ............................................................
-	def index
-		@subjects = @places
-		render "subjects/index"
-	end
-
-	def show
-	end
-
+	# ------------------------------------------------------------
 	def new
-		@place = Place.new
-		@place = @place.decorate
+		@place = Place.new.decorate
 		set_associations
 	end
 
@@ -29,7 +18,7 @@ class Subjects::PlacesController < ApplicationController
 	end
 
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
 		@place = Place.new(place_params)
 
@@ -42,7 +31,7 @@ class Subjects::PlacesController < ApplicationController
 	end
 
 	# PATCH/PUT
-	# ............................................................
+	# ------------------------------------------------------------
 	def update
 		if @place.update(place_params)
 			redirect_to @place
@@ -53,36 +42,34 @@ class Subjects::PlacesController < ApplicationController
 	end
 
 	# DELETE
-	# ............................................................
+	# ------------------------------------------------------------
 	def destroy
+		@place.destroy
+		respond_to do |format|
+			format.js   { subjects }
+			format.html { redirect_to places_path }
+		end
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
 	# find by id
-	def find_place
-		@place = Place.find(params[:id])
-		@place = @place.decorate
-	end
-
-	def find_places
-		@places   = Place.order('forms.name, places.name').includes(:form).decorate
+	def place
+		@place = Place.find(params[:id]).decorate
 	end
 
 	# define strong parameters
 	def place_params
-		params.require(:place).permit(:name, :form_id, :fictional,
+		params.require(:place).permit(:name, :nature, :fictional,
 			localities_attributes:    [:id, :domain_id,    :_destroy],
 			sublocalities_attributes: [:id, :subdomain_id, :_destroy]
 		)
 	end
 
-	# define type
-	def set_type
-		@form = Form.where(name: params[:place][:nature]).first_or_create
-		params[:place][:form_id] = @form.id
+	def subjects
+		@subjects = @places = Place.order_by_form.decorate
 	end
 
 	# define components

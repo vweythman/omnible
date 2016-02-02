@@ -1,8 +1,20 @@
 class SubjectsController < ApplicationController
+
+	# PUBLIC METHODS
+	# ============================================================
 	def index
-		@characters = Character.not_pen_name.viewable_for(current_user)
-		@items      = Item.order('generics.name, items.name').includes(:generic)
-		@places     = Place.order('forms.name, places.name').includes(:form)
-		@subjects   = SubjectsDecorator.decorate(@characters + @items + @places)
+		@subjects = subjects
 	end
+
+	# PRIVATE METHODS
+	# ============================================================
+	private
+	def subjects
+		@characters = Character.not_pen_name.viewable_for(current_user)
+		@items      = Item.order_by_generic
+		@places     = Place.order_by_form
+
+		SubjectsDecorator.decorate(@characters + @items + @places)
+	end
+
 end

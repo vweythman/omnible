@@ -1,18 +1,15 @@
 class Subjects::Curation::IdentityCharactersController < Subjects::CharactersController
 
-	# FILTERS
-	before_action :set_parent, only: [:index]
-
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	include CuratedCharacters
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	def set_parent
-		@parent = Identity.find(params[:identity_id])
+	def character_parent
+		Identity.find(params[:identity_id]).decorate
 	end
 
 end

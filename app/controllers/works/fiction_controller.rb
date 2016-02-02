@@ -4,10 +4,9 @@ class Works::FictionController < WorksController
 	# ------------------------------------------------------------
 	private
 
-	# find all with options from a works_controller filter
-	def find_works
-		@works = Fiction.with_filters(index_params, current_user)
-		@works = FictionDecorator.decorate(@works)
+	# Works :: find all with filtering
+	def works
+		@works = FictionDecorator.decorate(Fiction.with_filters(index_params, current_user))
 	end
 
 end

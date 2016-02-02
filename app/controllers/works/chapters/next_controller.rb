@@ -1,9 +1,13 @@
 class Works::Chapters::NextController < Works::ChaptersController
 
+	# FILTERS
+	# ============================================================
+	before_action :previous_chapter, only: [:create]
+
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
 		@chapter = Chapter.new(chapter_params)
 
@@ -19,14 +23,11 @@ class Works::Chapters::NextController < Works::ChaptersController
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
-	def find_viewable_story
+	
+	def previous_chapter
 		@previous = Chapter.find(params[:chapter_id])
-		@story    = @previous.story
-		unless @story.viewable? current_user
-			render 'works/restrict'
-		end
 	end
 
 end

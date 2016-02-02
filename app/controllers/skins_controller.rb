@@ -1,36 +1,27 @@
 class SkinsController < ApplicationController
 
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :restrict_visibility
-	before_action :set_skin, only: [:show, :edit, :update, :destroy]
+	# ============================================================
+	before_action :can_view?
+	before_action :skins, only: [:index]
+	before_action :skin,  only: [:show, :edit, :update, :destroy]
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GET
-	# ............................................................
-	def index
-		@skins = Skin.general_use
-	end
-
-	def show
-	end
-
+	# ------------------------------------------------------------
 	def new
 		@skin = Skin.new
 	end
 
-	def edit
-	end
-
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
-		@skin = current_user.skins.new(skin_params)
+		@skin = current_user.skins.new(skin_params).decorate
 
 		respond_to do |format|
 			if @skin.save
-				format.html { redirect_to @skin, notice: 'User skin was successfully created.' }
+				format.html { redirect_to @skin,     notice: 'Stylesheet was successfully created.' }
 				format.json { render action: 'show', status: :created, location: @skin }
 			else
 				format.html { render action: 'new' }
@@ -40,11 +31,11 @@ class SkinsController < ApplicationController
 	end
 
 	# PATCH/PUT
-	# ............................................................
+	# ------------------------------------------------------------
 	def update
 		respond_to do |format|
 			if @skin.update(skin_params)
-				format.html { redirect_to @skin, notice: 'User skin was successfully updated.' }
+				format.html { redirect_to @skin, notice: 'Stylesheet was successfully updated.' }
 				format.json { head :no_content }
 			else
 				format.html { render action: 'edit' }
@@ -54,7 +45,7 @@ class SkinsController < ApplicationController
 	end
 
 	# DELETE
-	# ............................................................
+	# ------------------------------------------------------------
 	def destroy
 		@skin.destroy
 		respond_to do |format|
@@ -64,17 +55,21 @@ class SkinsController < ApplicationController
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	def restrict_visibility
+	def can_view?
 		unless user_signed_in?
 			redirect_to root_url
 		end
 	end
 
-	def set_skin
+	def skin
 		@skin = Skin.find(params[:id]).decorate
+	end
+
+	def skins
+		@skins = Skin.general_use
 	end
 
 	def skin_params

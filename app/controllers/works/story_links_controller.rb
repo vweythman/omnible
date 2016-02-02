@@ -1,80 +1,46 @@
 class Works::StoryLinksController < WorksController
 
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :find_link, only: [:update]
-
-	# PUBLIC METHODS
-	# ------------------------------------------------------------
-	# GET
-	# ............................................................
-	def show
-		@link = @work
-		find_comments
-	end
-
-	def edit
-		@link = @work
-	end
-
-	# POST
-	# ............................................................
-	def create
-		@link = StoryLink.new(work_params)
-		@link.uploader = current_user
-
-		if @link.save
-			redirect_to @link
-		else
-			begin_work
-			render action: 'new'
-		end
-	end
-
-	# PATCH/PUT
-	# ............................................................
-	def update
-		update_tags(@work)
-		if @work.update(work_params)
-			redirect_to @work
-		else
-			render action: 'edit'
-		end
-	end
+	# ============================================================
+	before_action :story_link,   only: [:edit, :update, :show]
+	before_action :link_sources, only: [:edit, :update, :create]
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# find all with options from a filter
-	def find_works
-		@works = StoryLink.with_filters(index_params, current_user)
-		@works = StoryLinksDecorator.decorate(@works)
+	# FIND
+	# ------------------------------------------------------------
+	# Work :: find by id
+	def story_link
+		@link = @work
 	end
 
-	def find_link
-		@work = StoryLink.find(params[:id]).decorate
+	# Works :: find all with filtering
+	def works
+		@works = StoryLinksDecorator.decorate(StoryLink.with_filters(index_params, current_user))
 	end
 
-	def begin_work
-		@link ||= StoryLink.new
+	# SET
+	# ------------------------------------------------------------
+	def new_work
+		@work = @link = StoryLink.new.decorate
+		link_sources
+	end
+
+	def link_sources
 		@link.sources.build
-		@link  = @link.decorate
-		@work  = @link
 	end
 
-	# set tag creation
-	def setup_tags
-		create_tags(:story_link, true)
-	end
-
-	# define strong parameters
+	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:story_link).permit(:title, 
-			appearances_attributes: [:id, :character_id, :role],
-			taggings_attributes:    [:id, :tag_id],
-			settings_attributes:    [:id, :place_id],
-			sources_attributes:     [:id, :reference]
+		params.require(:story_link).permit(
+			:title, :visitor, :editor_level, :publicity_level, :placeables, :taggables,
+
+			sources_attributes:  [:id,   :reference],
+			appearables:         [:main, :side,     :mentioned],
+			skinning_attributes: [:id,   :skin_id,  :_destroy],
+			rating_attributes:   [:id,   :violence, :sexuality, :language]
 		)
 	end
 

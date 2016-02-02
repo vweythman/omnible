@@ -1,16 +1,15 @@
 class Taggings::RelatorsController < TaggingsController
 
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :find_tags,          only: [:index]
-	before_action :ensure_createable,  only: [:new, :create]
-	before_action :ensure_editable,    only: [:edit, :update]
-	before_action :ensure_destroyable, only: [:destroy]
+	# ============================================================
+	before_action :tags,         only: [:index]
+	before_action :can_create?,  only: [:new, :create]
+	before_action :can_edit?,    only: [:edit, :update]
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GET
-	# ............................................................
+	# ------------------------------------------------------------
 	def index
 	end
 
@@ -19,13 +18,13 @@ class Taggings::RelatorsController < TaggingsController
 	end
 
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
 		@relator = Relator.new(tag_params)
 
 		if @relator.save
 			respond_to do |format|
-				format.js   { find_tags }
+				format.js   { tags }
 				format.html { redirect_to @relator }
 			end
 		else
@@ -34,41 +33,39 @@ class Taggings::RelatorsController < TaggingsController
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# define strong parameters
+	# CLEAN
+	# ------------------------------------------------------------
+	# TagParams :: define strong parameters
 	def tag_params
 		params.require(:relator).permit(:right_name, :left_name, 
 			interconnections_attributes: [:id, :left_id, :right_id, :_destroy]
 		)
 	end
 
-	# MODEL FIDERS
-	# ............................................................
-	def find_tags
+	# FIND
+	# ------------------------------------------------------------
+	# Tag :: find by id
+	def tag
+		@tag = @relator = Relator.find(params[:id]).decorate
+	end
+	
+	# Tags :: find all
+	def tags
 		@tags = Relator.order('left_name').all.decorate
 	end
 
-	def find_tag
-		@tag = @relator = Relator.find(params[:id]).decorate
-	end
-
-	# USER PERMISSIONS
-	# ............................................................
-	def ensure_createable
+	# PERMIT
+	# ------------------------------------------------------------
+	def can_create?
 		unless Relator.createable? current_user 
 			redirect_to relators_path
 		end
 	end
 	
-	def ensure_destroyable
-		unless @relator.destroyable? current_user
-			redirect_to @relator
-		end
-	end
-	
-	def ensure_editable
+	def can_edit?
 		unless @relator.editable? current_user
 			redirect_to @relator
 		end

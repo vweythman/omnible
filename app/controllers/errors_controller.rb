@@ -1,4 +1,5 @@
 class ErrorsController < ApplicationController
+
 	def 403
 	end
 
@@ -13,4 +14,5 @@ class ErrorsController < ApplicationController
 
 	def 500
 	end
+
 end

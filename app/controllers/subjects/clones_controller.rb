@@ -1,64 +1,72 @@
 class Subjects::ClonesController < ApplicationController
 
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :require_user
+	# ============================================================
+	before_action :original_character, only: [:create]
+	before_action :clone_character,    only: [:edit, :update]
+	before_action :can_create?
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GET
-	# ............................................................
-	def show
-	end
-
+	# ------------------------------------------------------------
 	def edit
-		set_associations
+		@replication       = Replication.new
 		@replication.clone = @clone
 	end
 
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
-		@original  = Character.find(params[:id])
 		@character = @original.replicate(current_user)
-
 		@character.save
 		render 'show'
 	end
 
 	# PATCH/PUT
-	# ............................................................
+	# ------------------------------------------------------------
 	def update
 		@replication = Replication.new(replication_params)
 
 		if @replication.save
 			redirect_to @replication.clone
 		else
-			set_associations
 			render action: 'edit'
 		end
 	end
 	
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# define strong parameters
+	# CLEAN
+	# ------------------------------------------------------------
 	def replication_params
 		params.require(:replication).permit(:original_id, :clone_id)
 	end
 
-	def require_user
-		unless user_signed_in?
-			@character = Character.find(params[:id])
-			redirect_to @character
-		end
+	# FIND
+	# ------------------------------------------------------------
+	def character_selection
+		@found_character = Character.find(params[:id]).decorate
 	end
 
-	def set_associations
-		@clone       = Character.find(params[:id])
-		@replication = Replication.new
-		@characters  = Character.not_among([@clone.name])
+	# SET
+	# ------------------------------------------------------------
+	def clone_character
+		@clone = character_selection
+	end
+
+	def original_character
+		@original = character_selection
+	end
+
+	# PERMIT
+	# ------------------------------------------------------------
+	def can_create?
+		unless user_signed_in?
+			redirect_to @found_character
+		end
 	end
 
 end

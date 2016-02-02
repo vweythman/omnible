@@ -3,17 +3,18 @@
 
 module CuratedWorks
 
-  def index
-    find_works
+	def index
+		@works = works
+		@works.set_parent @parent.decorate
+	end
 
-    @works = WorksCurationDecorator.decorate(@works)
-    @works.set_parent @parent.decorate
+	def works
+		work_parent
+		WorksCurationDecorator.decorate(@parent.works.with_filters(index_params, current_user))
+	end
 
-    render 'works/index'
-  end
-
-  def find_works
-    @works = @parent.works.with_filters(index_params, current_user)
-  end
+	def work_parent
+		nil
+	end
 
 end

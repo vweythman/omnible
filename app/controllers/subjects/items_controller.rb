@@ -1,41 +1,21 @@
-class Subjects::ItemsController < ApplicationController
+class Subjects::ItemsController < SubjectsController
 
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :find_item, only: [:show, :edit, :update]
-
-	# MODULES
-	# ------------------------------------------------------------
-	include Tagged
+	# ============================================================
+	before_action :item, only: [:show, :edit, :update, :destroy]
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GET
-	# ............................................................
-	def index
-		@items    = Item.order('generics.name, items.name').includes(:generic).decorate
-		@subjects = @items
-		render "subjects/index"
-	end
-
-	def show
-	end
-
+	# ------------------------------------------------------------
 	def new
 		@item = Item.new.decorate
 	end
 
-	def edit
-	end
-
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
-		create_tags
-
 		@item = Item.new(item_params)
-		@item.typify params[:item][:nature]
-
 		if @item.save
 			redirect_to @item
 		else
@@ -44,12 +24,8 @@ class Subjects::ItemsController < ApplicationController
 	end
 
 	# PATCH/PUT
-	# ............................................................
+	# ------------------------------------------------------------
 	def update
-		@item.typify params[:item][:nature]
-
-		update_tags
-
 		if @item.update(item_params)
 			redirect_to @item
 		else
@@ -58,46 +34,32 @@ class Subjects::ItemsController < ApplicationController
 	end
 
 	# DELETE
-	# ............................................................
+	# ------------------------------------------------------------
 	def destroy
+		@item.destroy
+		respond_to do |format|
+			format.html { redirect_to items_url }
+			format.json { head :no_content }
+		end
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# SHOW/UPDATE
-	# ............................................................
-	# find by id
-	def find_item
+	# Item :: find by id
+	def item
 		@item = Item.friendly.find(params[:id]).decorate
 	end
 
-	def update_tags
-		list = Quality.batch(params[:descriptions])
-		curr = @item.update_tags(list)
-		set_tags(list - curr)
-	end
-
-	# CREATE
-	# ............................................................
-	def create_tags
-		list = Quality.batch(params[:descriptions])
-		set_tags(list)
-	end
-
-	# CREATE/UPDATE
-	# ............................................................
-	# define descriptions of items
-	def set_tags(list)
-		params[:item][:item_tags_attributes] = build_tags(list, :quality_id)
-	end
-	
-	# define strong parameters
+	# ItemParams :: define strong parameters
 	def item_params
-		params.require(:item).permit(:name, :generic_id,
-			item_tags_attributes: [:id, :quality_id, :_destroy]
-		)
+		params.require(:item).permit(:name, :generic_id, :nature, :descriptions)
+	end
+
+	# Subjects :: find all
+	def subjects
+		@subjects = Item.order_by_generic.decorate
 	end
 
 end

@@ -1,37 +1,31 @@
 class AnthologiesController < ApplicationController
-	
-	# PUBLIC METHODS
-	# ------------------------------------------------------------
-	# GET
-	# ............................................................
-	def index
-		@anthologies = Anthology.order('lower(name)').decorate
-	end
 
+	# FILTERS
+	# ============================================================
+	before_action :anthology,   except: [:index, :new, :create]
+	before_action :anthologies, only:   [:index]
+	before_action :can_edit?,   only:   [:edit, :update, :delete]
+
+	# PUBLIC METHODS
+	# ============================================================
+	# GET
+	# ------------------------------------------------------------
 	def show
-		find_anthology
 		@works = @anthology.works.decorate
 	end
 
 	def new
 		@anthology = Anthology.new.decorate
-		set_associations
-	end
-
-	def edit
-		find_anthology
-		set_associations
 	end
 
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
 		@anthology = Anthology.new(anthology_params)
 
 		if @anthology.save
 			redirect_to @anthology
 		else
-			set_associations
 			render action: 'new'
 		end
 	end
@@ -39,12 +33,9 @@ class AnthologiesController < ApplicationController
 	# PATCH/PUT
 	# ............................................................
 	def update
-		find_anthology
-
 		if @anthology.update(anthology_params)
 			redirect_to @anthology
 		else
-			set_associations
 			render action: 'edit'
 		end
 	end
@@ -52,25 +43,36 @@ class AnthologiesController < ApplicationController
 	# DELETE
 	# ............................................................
 	def destroy
-		@anthology = Anthology.find(params[:id]).destroy
-		redirect_to(:action => 'index')
+		@anthology.destroy
+		respond_to do |format|
+			format.html { redirect_to anthologies_url }
+			format.json { head :no_content }
+		end
 	end
 
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
 
-	# find by id
-	def find_anthology
+	# Anthology :: find by id
+	def anthology
 		@anthology = Anthology.find(params[:id]).decorate
 	end
 
-	# define strong parameters
+	# AnthologyParams :: define strong parameters
 	def anthology_params
 		params.require(:anthology).permit(:name, :summary, collections_attributes: [:id, :work_id, :_destroy])
 	end
 
-	def set_associations
-		@works = CollectionsDecorator.decorate(@anthology.works)
+	# Anthologies :: find all
+	def anthologies
+		@anthologies = Anthology.alphabetic.decorate
 	end
+
+	def can_edit?
+		unless @anthology.editable? current_user
+			redirect_to @anthology
+		end
+	end
+
 end

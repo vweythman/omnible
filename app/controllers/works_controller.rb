@@ -1,39 +1,48 @@
 class WorksController < ApplicationController
 
 	# FILTERS
+	# ============================================================
+	# FIND
 	# ------------------------------------------------------------
-	before_action :begin_work,           only: [:new]
-	before_action :setup_tags,           only: [:create]
-	before_action :find_editable_work,   only: [:edit, :update, :delete]
-	before_action :find_viewable_work, except: [:index, :new, :create, :edit, :update]
+	before_action :work, only: [:show, :edit, :update, :destroy]
+
+	# PERMIT
+	# ------------------------------------------------------------
+	before_action :can_edit?, except: [:index, :show, :new, :create]
+	before_action :can_view?, only:   [:show]
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	include ContentCollections
-	include FacetedWorkTags
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GET
-	# ............................................................
+	# ------------------------------------------------------------
 	def index
-		find_works
+		works
 	end
 
 	def show
+		find_comments
 	end
 
 	def new
+		new_work
+		set_visitor
+		set_skin
 	end
 
 	def edit
+		set_visitor
+		set_skin
 	end
 
 	# POST
-	# ............................................................
+	# ------------------------------------------------------------
 	def create
-		@work = Work.new(work_params)
-		@work.uploader = current_user
+		@work = Work.new(work_params).decorate
+		set_visitor
 
 		if @work.save
 			redirect_to @work
@@ -43,9 +52,10 @@ class WorksController < ApplicationController
 	end
 
 	# PATCH/PUT
-	# ............................................................
+	# ------------------------------------------------------------
 	def update
-		update_tags(@work)
+		work
+		set_visitor
 		if @work.update(work_params)
 			redirect_to @work
 		else
@@ -54,7 +64,7 @@ class WorksController < ApplicationController
 	end
 
 	# DELETE
-	# ............................................................
+	# ------------------------------------------------------------
 	def destroy
 		@work.destroy
 		respond_to do |format|
@@ -64,64 +74,68 @@ class WorksController < ApplicationController
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# CRUD METHODS
-	# ............................................................
-	# FOR INDEX :: find all with options from a filter
-	def find_works
+	# CLEAN
+	# ------------------------------------------------------------
+	# WorkParams :: define strong parameters
+	def work_params
+		params.require(:work).permit(
+			:title,        :summary,         :visitor,
+			:editor_level, :publicity_level, :placeables,   :taggables,
+
+			uploadership:        [:category, :pen_name],
+			skinning_attributes: [:id,       :skin_id,  :_destroy],
+			appearables:         [:main,     :side,     :mentioned, :subject],
+			rating_attributes:   [:id,       :violence, :sexuality, :language]
+		)
+	end
+
+	def index_params
+		params.slice(:date, :sort, :completion, :rating, :rating_min, :rating_max, :page)
+	end
+
+	# FIND
+	# ------------------------------------------------------------
+	# Work :: find by id
+	def work
+		@work = Work.find(params[:id]).decorate
+	end
+
+	# Works :: find all with filtering
+	def works
 		@works = Work.with_filters(index_params, current_user).decorate
 	end
 
-	# FOR SHOW :: ensures that a viewer can view
-	def find_viewable_work
-		@work = Work.find(params[:id]).decorate
+	# SET
+	# ------------------------------------------------------------
+	def new_work
+		@work = Work.new.decorate
+		@work.rating = Rating.new
+	end
 
+	def set_visitor
+		@work.uploader ||= current_user
+		@work.visitor    = current_user
+	end
+
+	def set_skin
+		@work.skinning ||= Skinning.new
+	end
+
+	# PERMIT
+	# ------------------------------------------------------------
+	def can_view?
 		if !@work.viewable? current_user
 			render 'restrict'
 		end
 	end
 
-	# FOR NEW :: setup work
-	def begin_work
-		@work = Work.new
-		@work.appearances.build
-		@work.rating = Rating.new
-	end
-
-	# FOR EDIT & DELETE :: ensures that a editor can edit or delete
-	def find_editable_work
-		@work = Work.find(params[:id]).decorate
-
+	def can_edit?
 		unless @work.editable? current_user
 			redirect_to @work
 		end
-
-		@work.skinning ||= Skinning.new unless @work.record?
-	end
-
-	# PARAMS
-	# ............................................................
-	# clean index params
-	def index_params
-		params.slice(:date, :sort, :completion, :rating, :rating_min, :rating_max, :page)
-	end
-
-	# set tag creation
-	def setup_tags
-		create_tags(:article, false)
-	end
-
-	# define strong parameters
-	def work_params
-		params.require(:work).permit(:title, :uploader_id, :summary, :publicity_level, :editor_level, 
-			skinning_attributes:    [:id, :skin_id, :_destroy],
-			appearances_attributes: [:id, :character_id, :role],
-			taggings_attributes:    [:id, :tag_id],
-			settings_attributes:    [:id, :place_id],
-			rating_attributes:      [:id, :violence, :sexuality, :language]
-		)
 	end
 
 end

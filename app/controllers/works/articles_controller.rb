@@ -1,79 +1,45 @@
 class Works::ArticlesController < WorksController
-	
+
 	# FILTERS
-	# ------------------------------------------------------------
-	before_action :article_to_work_params, only: [:create, :update]
-
-	# PUBLIC METHODS
-	# ------------------------------------------------------------
-	# GET
-	# ............................................................
-	def show
-		@article = @work
-		find_comments
-	end
-
-	def edit
-		@article = @work
-	end
-
-	# POST
-	# ............................................................
-	def create
-		@article = Article.new(work_params)
-		@article.uploader = current_user
-		content  = params[:article][:content]
-
-		if @article.save && @article.update_content(content)
-			redirect_to @article
-		else
-			begin_work
-			render action: 'new'
-		end
-	end
-
-	# PATCH/PUT
-	# ............................................................
-	def update
-		content = params[:article][:content]
-		update_tags(@work)
-		if @work.update(work_params) && @work.update_content(content)
-			redirect_to @work
-		else
-			render action: 'edit'
-		end
-	end
+	# ============================================================
+	before_action :article, except: [:index, :new, :create]
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# find all with options from a filter
-	def find_works
-		@works = Article.with_filters(index_params, current_user)
-		@works = ArticlesDecorator.decorate(@works)
+	# FIND
+	# ------------------------------------------------------------
+	# Work :: find by id
+	def article
+		@article = @work
 	end
 
-	# setup work
-	def begin_work
-		@note      = Note.new
-		@article ||= Article.new
-
-		@article.note ||= @note
-		
-		@article = @article.decorate
-		@work    = @article
-		@work.rating ||= Rating.new
+	# Works :: find all with filtering
+	def works
+		@works = ArticlesDecorator.decorate(Article.with_filters(index_params, current_user))
 	end
 
-	# set tag creation
-	def setup_tags
-		create_tags(:article, false)
+	# SET
+	# ------------------------------------------------------------
+	def new_work
+		@article         = Article.new
+		@article.rating  = Rating.new
+		@article.note    = Note.new
+		@article = @work = @article.decorate
 	end
 
-	# switch to work params
-	def article_to_work_params
-		params[:work] = params[:article]
+	# WorkParams :: define strong parameters
+	def work_params
+		params.require(:article).permit(
+			:title,        :summary,         :visitor,
+			:editor_level, :publicity_level, :placeables,   :taggables,
+
+			appearables:         [:subject],
+			uploadership:        [:category, :pen_name],
+			note_attributes:     [:id,       :title,   :content],
+			skinning_attributes: [:id,       :skin_id, :_destroy]
+		)
 	end
 
 end

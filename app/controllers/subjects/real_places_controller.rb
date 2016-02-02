@@ -1,11 +1,11 @@
 class Subjects::RealPlacesController < Subjects::PlacesController
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
 	def find_places
-		@places = Place.actual.order('forms.name, places.name').includes(:form).decorate
+		@subjects = @places = Place.actual.order_by_form.decorate
 	end
 
 end

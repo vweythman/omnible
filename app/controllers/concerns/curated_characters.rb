@@ -3,17 +3,19 @@
 
 module CuratedCharacters
 
-  def index
-    find_characters
+	def index
+		@subjects = characters
+		@characters.set_parent @parent
+	end
 
-    @characters = CharactersCurationDecorator.decorate(@characters)
-    @characters.set_parent @parent.decorate
+	def characters
+		@parent     = character_parent
+		@characters = @parent.characters.viewable_for(current_user).order('name')
+		CharactersCurationDecorator.decorate(@characters)
+	end
 
-    render 'subjects/characters/index'
-  end
-
-  def find_characters
-    @characters = @parent.characters.viewable_for(current_user).order('name').decorate
-  end
+	def character_parent
+		nil
+	end
 
 end
