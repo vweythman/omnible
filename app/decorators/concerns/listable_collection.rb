@@ -1,6 +1,8 @@
 module ListableCollection
 
-	# OUTPUT
+	# RENDER
+	# ============================================================
+	# BLOCK
 	# ------------------------------------------------------------
 	def list
 		h.render :partial => list_partial, :locals => { listable: listable }
@@ -10,37 +12,29 @@ module ListableCollection
 		h.render partial: filters_partial
 	end
 
-	def results
-		h.render :partial => results_partial, :locals => { results: self }
-	end
-
-	def found_status
-		h.content_tag :p, class: "found" do found_count.to_s + " Found" end
-	end
-
 	def index_content
 		h.render :partial => "shared/results/#{results_content_type}", :locals => { results: self }
+	end
+
+	# PANEL
+	# ------------------------------------------------------------
+	def results
+		h.render :partial => results_partial, :locals => { results: self }
 	end
 
 	def simple_results
 		h.render :partial => "shared/results/default_panel", :locals => { results: self }
 	end
-	
-	# PARTIAL LOCATIONS
+
+	# PARAGRAPH
 	# ------------------------------------------------------------
-	def list_partial
-		"shared/lists/#{list_type}"
+	def found_status
+		h.content_tag :p, class: "found" do found_count.to_s + " Found" end
 	end
 
-	def results_partial
-		"shared/results/#{results_type}"
-	end
-
-	def filters_partial
-		"filters"
-	end
-
-	# DEFAULTS
+	# SET
+	# ============================================================
+	# LIST DEFAULTS
 	# ------------------------------------------------------------
 	def listable
 		self
@@ -50,6 +44,8 @@ module ListableCollection
 		:unordered_list
 	end
 
+	# RESULTS DEFAULTS
+	# ------------------------------------------------------------
 	def page_window
 		2
 	end
@@ -64,6 +60,20 @@ module ListableCollection
 
 	def found_count
 		self.count
+	end
+
+	# PARTIALS
+	# ------------------------------------------------------------
+	def list_partial
+		"shared/lists/#{list_type}"
+	end
+
+	def results_partial
+		"shared/results/#{results_type}"
+	end
+
+	def filters_partial
+		"filters"
 	end
 
 end

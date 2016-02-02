@@ -2,7 +2,7 @@ class LocalitiesDecorator < PlaceDecorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Nestable
+	include NestedFields
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
