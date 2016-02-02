@@ -49,8 +49,9 @@ class User < ActiveRecord::Base
 	# - Has
 	# :: self
 	has_one  :admin_powers,        class_name: "Admin"
-	has_many :pen_names,           through: :pen_namings, source: :character
-	has_many :roleplay_characters, through: :roleplays,   source: :character
+	has_many :all_pens,            through: :pseudonymings, source: :character
+	has_many :pen_names,           through: :pen_namings,   source: :character
+	has_many :roleplay_characters, through: :roleplays,     source: :character
 	has_many :skins,               foreign_key: "uploader_id"
 
 	# :: relationships
