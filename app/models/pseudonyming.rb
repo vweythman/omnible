@@ -26,7 +26,9 @@ class Pseudonyming < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :user
-	belongs_to :character, dependent: :destroy
+	belongs_to :character,          dependent: :destroy
+	has_many   :creatorships,       primary_key: "character_id", foreign_key: "creator_id"
+	has_many   :creator_categories, through: :creatorships
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------
@@ -43,6 +45,10 @@ class Pseudonyming < ActiveRecord::Base
 		self.prime.first
 	end
 
+	def self.prime_character
+		prime_nym.character
+	end
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	def set_uploader
@@ -56,6 +62,10 @@ class Pseudonyming < ActiveRecord::Base
 
 	def toggle_prime
 		self.is_primary = !self.is_primary
+	end
+
+	def heading
+		name
 	end
 
 end
