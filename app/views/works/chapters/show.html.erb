@@ -3,15 +3,15 @@
 <header id="story-header" class="work-header">
 	<h1>
 		<%= @story.title %>
-		<%= subtitler @story.byline.html_safe %>
-		<%= subtitler @chapter.positioned_heading %>
+		<%= subtitle @story.byline.html_safe     %>
+		<%= subtitle @chapter.positioned_heading %>
 	</h1>
 	<%= @story.completion_status %>
-	<%= @story.rated %>
+	<%= @story.rated             %>
 	<%= @story.createables_links %>
 	
 	<div class="about">
-		<%= @story.summarized %>
+		<%= @story.summarized    %>
 		<%= @story.all_tags_line %>
 	</div>
 
@@ -50,9 +50,7 @@
 	</p>
 </footer>
 
-<% if @story.has_skin? %>
-	<%= render 'works/shared/skin_work', work: @story %>
-<% end %>
+<%= @story.skin_content %>
 
 <script type="text/javascript">
 $('#chapter-links').change(function() {

@@ -1,10 +1,12 @@
 <%= form_for [@work, @note] do |f| %>
+
 	<%= f.hidden_field :work_id, :value => @work.id %>
 
 	<fieldset>
-		<%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Title (Optional)") %>
-		<%= form_field f.label(:content), f.text_area(:content,:placeholder => "Write Content Here") %>
+		<%= string_panel f, :title, "Write Title (Optional)" %>
+		<%= text_panel   f, :content, :major, "Write Content" %>
 	</fieldset>
 
 	<%= submit_panel f %>
+
 <% end %>

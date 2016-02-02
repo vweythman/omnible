@@ -1,7 +1,7 @@
-<% provide(:title, @work.creation_title) %>
+<% provide(:title, @work.title_for_creation) %>
 
-<div id="main" class="new generator">
-	<h1><%= @work.creation_title %></h1>
+<div class="new generator">
+	<h1><%= @work.title_for_creation %></h1>
 	<%= render 'form' %>
 </div>
 

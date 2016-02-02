@@ -1,13 +1,14 @@
 <%= form_for(@article) do |f| %>
 
-	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
-
 	<fieldset class="primary">
-		<%= render work_fields, f: f %>
-		<%= text_panel f, :content, :major, "Write Article" %>
+		<%= render @article.primary_fields, f: f %>
+
+		<%= f.fields_for :note do |b| %>
+			<%= text_panel b, :content, :major, "Write Article" %>
+		<% end %>
 	</fieldset>
 	
-	<%= render work_tag_fields, f: f %>
+	<%= render @article.tag_fields, f: f %>
 
 	<%= submit_panel f %>
 <% end %>

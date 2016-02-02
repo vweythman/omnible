@@ -4,7 +4,7 @@
 	<h1>
 		<%= @work.title %>
 		<%= @work.byline.html_safe %>
-		<%= subtitler @note.heading %>
+		<%= subtitle @note.heading %>
 	</h1>
 	<%= @work.completion_status %>
 	<%= @work.rated %>
@@ -42,6 +42,4 @@
 	</p>
 </footer>
 
-<% if @work.has_skin? %>
-	<%= render 'works/shared/skin_work', work: @work %>
-<% end %>
+<%= @work.skin_content %>

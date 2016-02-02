@@ -1,0 +1,11 @@
+<fieldset class="tags about">
+	<legend>Tags</legend>
+
+	<%= taggables([@work.klass, "taggables"], f.object.tag_names, "General Tags") %>
+
+	<% Appearance.roles(f.object).each do |role| %>
+		<%= taggables([@work.klass, "appearables", role], f.object.cohort_names_by(role), f.object.cohort_heading_by(role)) %>
+	<% end %>
+
+	<%= taggables([@work.klass, "placeables"], f.object.place_names, f.object.location_heading) %>
+</fieldset>

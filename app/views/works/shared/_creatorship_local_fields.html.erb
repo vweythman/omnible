@@ -1,0 +1,18 @@
+<fieldset class="agentive-selection">
+	<legend>Pen Name Selection</legend>
+
+	<%= grid_panel do %>
+		<%= panel_cell "duo" do %>
+			<div class="field-content"><%= label_tag("[#{@work.klass}][uploadership][category]", "Creator Category") %></div>
+			<div class="field-content field-selection">
+				<%= select_tag "[#{@work.klass}][uploadership][category]", @work.creatorship_options %>
+			</div>
+		<% end %>
+		<%= panel_cell "duo" do %>
+			<div class="field-content"><%= label_tag("[#{@work.klass}][uploadership][pen_name]", "Pen Name") %></div>
+			<div class="field-content field-selection">
+				<%= select_tag "[#{@work.klass}][uploadership][pen_name]", @work.pseudonym_options %>
+			</div>
+		<% end %>
+	<% end %>
+</fieldset>

@@ -1,16 +1,14 @@
 <%= form_for(@short) do |f| %>
 
-	<%= f.hidden_field :uploader_id,  :value => current_user.id %>
-
 	<fieldset class="primary">
-		<%= render work_fields, f: f %>
+		<%= render @short.primary_fields, f: f %>
 
 		<%= f.fields_for :chapter do |b| %>
 			<%= text_panel b, :content, :major, "Write Story" %>
 		<% end %>
 	</fieldset>
 	
-	<%= render work_tag_fields, f: f %>
+	<%= render @short.tag_fields, f: f %>
 
 	<%= submit_panel f %>
 <% end %>

@@ -1,16 +1,22 @@
 <%= string_panel f, :title, "Write Title" %>
 <%= text_panel   f, :summary, :minor, "Add Summary" %>
 
-<% unless @work.record? %>
+<% if @work.can_skin? %>
 	<%= f.fields_for :skinning do |fdr| %>
 		<%= render 'works/shared/skin_fields', f: fdr %>
 	<% end %>
+
+	<%= render 'works/shared/creatorship_local_fields' %>
+<% else %>
+	<%= render 'works/shared/creatorship_fields' %>
 <% end %>
 
 <%= render 'shared/forms/edit_fields', f: f %>
 
 <% if @work.uploader?(current_user) %>
+
 	<%= f.fields_for :rating do |rating_builder| %>
 		<%= render 'works/shared/rating_fields', f: rating_builder %>
 	<% end %>
+
 <% end %>

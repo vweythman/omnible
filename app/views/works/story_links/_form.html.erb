@@ -10,11 +10,11 @@
 		<%= string_panel f, :title, "Write Title" %>
 
 		<%= f.fields_for :sources do |b| %>
-			<%= string_panel f, :reference, "Enter Link" %>
+			<%= string_panel b, :reference, "Enter Link" %>
 		<% end %>
 	</fieldset>
 
-	<%= render work_tag_fields, f: f %>
+	<%= render @link.tag_fields, f: f %>
 
 	<%= submit_panel f %>
 <% end %>

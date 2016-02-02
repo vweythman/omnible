@@ -1,8 +1,0 @@
-<dl>
-	<dt>Tags</dt>
-	<dd><%= cslinks @tags %></dd>
-	<% @characters.each do |role, cgroup| %>
-		<dt><%= role.titleize %> <%= "Character".pluralize cgroup %></dt>
-		<dd><%= cslinks @characters[role] %></dd>
-	<% end %>
-</dl>

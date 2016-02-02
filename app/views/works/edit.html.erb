@@ -1,10 +1,8 @@
-<% provide(:title, @work.editing_title) %>
+<% provide(:title, @work.title_for_editing) %>
 
-<div id="main" class="edit generator">
-	<%= @work.editor_heading %>
+<div class="edit generator">
+	<h1>Edit</h1>
 	<%= render 'form' %>
 </div>
 
-<script>
-	autosize(document.querySelectorAll('textarea'));
-</script>
+<script>autosize(document.querySelectorAll('textarea'));</script>

@@ -3,7 +3,7 @@
 <header class="work-header">
 	<h1>
 		<%= @short.title %>
-		<%= @short.byline.html_safe %>
+		<%= subtitle @short.byline.html_safe %>
 	</h1>
 	<%= @short.completion_status %>
 	<%= @short.rated %>
@@ -36,3 +36,5 @@
 		<%= link_to "All Works", works_path %>
 	</p>
 </footer>
+
+<%= @work.skin_content %>
