@@ -32,6 +32,10 @@ module ToolkitHelper
 		render(:partial => "shared/toolkits/inline_alterable", :locals => { :item => model } )
 	end
 
+	def inline_alteration_toolblock(model)
+		render(:partial => "shared/toolkits/inline_manager_block", :locals => { :item => model } )
+	end
+
 	def inline_undestroyable_toolkit(model)
 		render(:partial => "shared/toolkits/inline_undestroyable", :locals => { :item => model } )
 	end
