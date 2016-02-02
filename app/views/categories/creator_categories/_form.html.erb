@@ -1,14 +1,17 @@
-<%= form_for(@creatorship) do |f| %>
+<% remote ||= false %>
+<%= form_for @creator_category, remote: remote do |f| %>
 
-	<fieldset class="form-grid">
+	<fieldset class="form-grid primary">
 		<%= string_panel f, :name, "writer, singer, illustrator..." %>
 		<%= string_panel f, :agentive, "written by, sung by, illustrated by... (irregular inflection is hard)" %>
 	</fieldset>
 
-	<fieldset class="nested">
-		<legend>Used By</legend>
-		<%= choose_any f, :work_types, WorksTypeDescriber.all %>
-	</fieldset>
+	<% unless remote %>
+		<fieldset class="nested">
+			<legend>Used By</legend>
+			<%= choose_any f, :work_types, WorksTypeDescriber.all %>
+		</fieldset>
+	<% end %>
 
 	<%= submit_panel f %>
 

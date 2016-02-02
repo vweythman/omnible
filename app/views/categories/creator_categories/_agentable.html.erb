@@ -1,0 +1,6 @@
+<% WorksTypeDescriber.all.order(:name).each do |type| %>
+	<tr>
+		<th><%= type.heading %></th>
+		<%= @creator_category.agentable_block type %>
+	</tr>
+<% end %>

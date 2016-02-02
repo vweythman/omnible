@@ -1,2 +1,29 @@
-<h1>CreatorCategories#show</h1>
-<p>Find me in app/views/creator_categories/show.html.erb</p>
+<% provide(:title, @creator_category.name) %>
+
+<header class="category-header">
+	<h1 id="<%= @creator_category.tag_id %>">
+		<%= title @creator_category.name %>
+		<%= subtitle @creator_category.agentive %>
+	</h1>
+	<%= @creator_category.edit_form_div %>
+	<%= @creator_category.edit_bar %>
+</header>
+
+<div class="page-body">
+
+	<table class="relateable">
+		<caption>Works</caption>
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody id="work-categories" class="relateable-body"><%= render 'agentable' %></tbody>
+	</table>
+
+</div>
+
+<footer class="path-finder">
+	<%= link_to "All Creator Categories", creator_categories_url %>
+</footer>
