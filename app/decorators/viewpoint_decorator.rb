@@ -36,7 +36,7 @@ class ViewpointDecorator < Draper::Decorator
 	end
 
 	def details_data
-		h.content_tag :td, :data => {:label => about == "" ? "" : "Details" } do
+		h.content_tag :td, :class => "details", :data => {:label => about == "" ? "" : "Details" } do
 			about
 		end
 	end
