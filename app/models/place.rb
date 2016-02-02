@@ -23,7 +23,7 @@ class Place < ActiveRecord::Base
 	# ------------------------------------------------------------
 	include Documentable
 	include Editable
-	extend Organizable
+	extend  Organizable
 
 	# CALLBACKS
 	# ------------------------------------------------------------
@@ -32,8 +32,10 @@ class Place < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
-	scope :fictitious, -> { where("fictional = 't'") }
-	scope :actual,     -> { where("fictional = 'f'") }
+	scope :order_by_form, -> { includes(:form).order('forms.name, places.name') }
+	scope :actual,        -> { where("fictional = 'f'") }
+	scope :fictitious,    -> { where("fictional = 't'") }
+
 	scope :not_among,  ->(place_ids) { where("id NOT IN (?)", place_ids) }
 
 	# ASSOCIATIONS
@@ -68,7 +70,7 @@ class Place < ActiveRecord::Base
 
 	def self.batch_by_name(str, user)
 		names = str.split(";")
-		ids   = Array.new
+		list  = Array.new
 
 		self.transaction do
 			names.each do |name|
@@ -76,11 +78,19 @@ class Place < ActiveRecord::Base
 				place = Place.where(name: name).first_or_create
 				place.uploader_id ||= user.id
 				place.save
-				ids << place.id
+				list << place
 			end
 		end
 
-		ids
+		return list
+	end
+
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	attr_accessor :nature
+
+	def nature
+		@nature ||= "unspecified"
 	end
 
 	# PUBLIC METHODS
@@ -143,6 +153,15 @@ class Place < ActiveRecord::Base
 
 		self.editor_level    ||= Editable::PUBLIC
 		self.publicity_level ||= Editable::PUBLIC
+	end
+
+	def typify
+		form = Form.where(name: nature).first_or_create
+		if @nature.nil?
+			self.form ||= form
+		else
+			self.form   = Form.where(name: nature).first_or_create
+		end
 	end
 
 end
