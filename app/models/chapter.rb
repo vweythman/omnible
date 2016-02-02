@@ -27,12 +27,13 @@ class Chapter < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Discussable
+	include Titleizeable
 
 	# CALLBACKS
 	# ------------------------------------------------------------
-	after_create :set_discussion
+	after_create  :set_discussion
 	before_create :set_position
-	after_save :cascade_data
+	after_save    :cascade_data
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -77,6 +78,10 @@ class Chapter < ActiveRecord::Base
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
+	def default_heading
+		"Chapter #{self.position}"
+	end
+
 	def summary
 		self.about
 	end
@@ -173,5 +178,5 @@ class Chapter < ActiveRecord::Base
 		self.story.updated_at = self.updated_at
 		self.story.save
 	end
-
+	
 end

@@ -30,6 +30,7 @@ class Character < ActiveRecord::Base
 	# CALLBACKS
 	# ------------------------------------------------------------
 	before_create :ensure_defaults
+	after_save    :add_tags
 
 	# MODULES
 	# ------------------------------------------------------------
@@ -70,6 +71,7 @@ class Character < ActiveRecord::Base
 	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
 	has_many :right_interconnections, class_name: "Interconnection", dependent: :destroy, foreign_key: "right_id"
 
+	has_one :pseudonyming
 	has_one :pen_naming, ->{ Pseudonyming.pen_namings }, class_name: "Pseudonyming"
 	has_one :roleplay,   ->{ Pseudonyming.roleplays },   class_name: "Pseudonyming"
 
@@ -123,22 +125,34 @@ class Character < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	def self.line_batch_by_name(str, uploader)
-		names = str.split(";")
-		characters = Array.new
-
+	def self.batch_by_name(names, uploader)
 		Character.transaction do 
-			found_characters = names.map { |name| 
+			names.split(";").map { |name| 
 				name.strip!
 				character = Character.where(name: name).first_or_create
 				character.uploader_id ||= uploader.id
 				character.save
-				characters << character
+				character
 			}
 		end
-
-		characters
 	end
+
+	def self.batch_each_person(names, uploader)
+		Character.transaction do 
+			names.split(";").map { |name| 
+				name.strip!
+				character = Character.where(name: name).first_or_create
+				character.uploader_id  ||= uploader.id
+				character.is_fictional ||= false
+				character.save
+				character
+			}
+		end
+	end
+
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	attr_accessor :visitor, :variations, :describers, :related
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -174,6 +188,10 @@ class Character < ActiveRecord::Base
 	# NextCharacter - find next character alphabetically
 	def prev_character(user = nil)
 		@prev_character ||= Character.prev_in_line(self.name).viewable_for(user).first
+	end
+
+	def other_characters
+		Character.not_among([self])
 	end
 
 	# CALC
@@ -221,7 +239,7 @@ class Character < ActiveRecord::Base
 	end
 
 	def fictitious_person?
-		self.allow_play == true
+		self.is_fictional == true
 	end
 
 	def has_about?
@@ -249,6 +267,20 @@ class Character < ActiveRecord::Base
 		else
 			DimensionSet.new(Interconnection.relations_for(self.id).simple_order.includes(:left, :right), [:relator_id, :left_name, :right_name])
 		end
+	end
+
+	def add_tags
+		Identifier.update_for(self, @variations.split(";"))  unless @variations.nil?
+		Description.update_for(self, @describers, @visitor)  unless @describers.nil?
+		Interconnection.update_for(self, @related, @visitor) unless @related.nil?
+	end
+
+	def variations
+		@variations ||= ""
+	end
+
+	def describers
+		@describers ||= []
 	end
 
 end
