@@ -14,6 +14,20 @@
 # ================================================================================
 class CreatorCategory < ActiveRecord::Base
 
+	# VALIDATIONS
+	# ------------------------------------------------------------
+	validates :name, length: { maximum: 250 }, presence: true
+
+	# CALLBACKS
+	# ------------------------------------------------------------
+	before_save :agentize
+
+	# MODULES
+	# ------------------------------------------------------------
+	include EditableCategory
+
+	# ASSOCIATIONS
+	# ------------------------------------------------------------
 	# - Joins
 	has_many :creatorships, inverse_of: :category
 
@@ -24,11 +38,33 @@ class CreatorCategory < ActiveRecord::Base
 	# - Belongs to
 	has_and_belongs_to_many :works_type_describers, inverse_of: :creator_categories
 
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	attr_accessor :work_types
+
 	def work_types
+		work_types ||= works_type_describers.pluck(:id)
 	end
 
+	# PUBLIC METHODS
+	# ------------------------------------------------------------
 	def heading
-		self.name + " [" + self.agentive + "]"
+		self.name
+	end
+
+	def connected? type
+		works_type_describers.include? type
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def agentize
+		types  = WorksTypeDescriber.among(@work_types)
+
+		works_type_describers.delete(works_type_describers - types)
+		works_type_describers << (types - works_type_describers)
 	end
 
 end
