@@ -3,7 +3,7 @@
 <header id="sheet-header">
 	<h1>
 		Stylesheet Skins
-		<%= subtitler @skin.heading_with_status %>
+		<%= subtitle @skin.heading_with_status %>
 	</h1>
 	<%= alteration_toolkit(@skin) %>
 	<%= @skin.uploaded_by %>
@@ -19,8 +19,6 @@
 	<% end %>
 </div>
 
-<%= @skin.path_footer %>
-
 <script type="text/javascript">
 	var parser = new cssjs();
 	var parsed = parser.parseCSS("<%= @skin.style.squish %>");
@@ -29,3 +27,5 @@
 	cssexample("#style-example", parsed);
 	csscode("#inline-skin", parser.applyNamespacing(parsed, '.styles .example'));
 </script>
+
+<%= render 'footer' %>
