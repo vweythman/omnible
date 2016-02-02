@@ -22,7 +22,7 @@ module ApplicationHelper
 			prepend, last = type.split('_')
 			if (last.blank? || last == collector)
 				type = prepend
-			elsif prepend == collector
+			elsif prepend == collector || prepend == "whole"
 				type = last
 			end
 		end
@@ -99,8 +99,13 @@ module ApplicationHelper
 	end
 
 	# OUPUT item label tag
-	def subtitler(heading)
-		content_tag :span, class: "item-label" do heading end
+	def subtitle(heading)
+		content_tag :span, class: "subtitle" do heading end
+	end
+
+	# OUPUT item label tag
+	def title(heading)
+		content_tag :span, class: "title" do heading end
 	end
 	
 	def time_label(heading)
