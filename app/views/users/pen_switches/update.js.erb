@@ -1,3 +1,2 @@
-$('#<%= @curr.tagid %> .status').html("<%= escape_javascript @curr.status %>");
-$('#<%= @name.tagid %> .status').html("<%= escape_javascript @name.status %>");
-
+$('<%= @curr.tag_finder %> .status').html("<%= escape_javascript @curr.status %>");
+$('<%= @name.tag_finder %> .status').html("<%= escape_javascript @name.status %>");
