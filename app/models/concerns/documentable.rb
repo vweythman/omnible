@@ -26,4 +26,8 @@ module Documentable
 		true
 	end
 
+	def heading
+		name
+	end
+
 end
