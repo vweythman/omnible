@@ -1,15 +1,35 @@
 module AlphabeticPagination
 
-	# PUBLIC METHODS
+	# SET
+	# ============================================================
+	def alphabetic_first
+		nil
+	end
+
+	def alphabetic_last
+		nil
+	end
+
+	# CHECK
+	# ============================================================
+	def is_alphabetic_first?
+		alphabetic_first == self
+	end
+
+	def is_alphabetic_last?
+		alphabetic_last == self
+	end
+
+	# RENDER
+	# ============================================================
+	# BLOCK
 	# ------------------------------------------------------------
-	# -- Collected
-	# ............................................................
 	def alphabetic_pagination
 		h.pagination_list(link_to_alphabetic_first, link_to_alphabetic_prev, self.name, link_to_alphabetic_next, link_to_alphabetic_last)
 	end
 
-	# -- Links
-	# ............................................................
+	# LINKS
+	# ------------------------------------------------------------
 	def link_to_alphabetic_first
 		unless self.is_alphabetic_first?
 			h.link_to "&lsaquo; #{alphabetic_first.name}".html_safe, self.alphabetic_first
@@ -34,23 +54,4 @@ module AlphabeticPagination
 		end
 	end
 
-	# -- Questions
-	# ............................................................
-	def is_alphabetic_first?
-		alphabetic_first == self
-	end
-
-	def is_alphabetic_last?
-		alphabetic_last == self
-	end
-
-	# -- Provided
-	# ............................................................
-	def alphabetic_first
-		nil
-	end
-	def alphabetic_last
-		nil
-	end
-	
 end
