@@ -1,6 +1,8 @@
 <% listable.each do |time, snippets| %>
-	<h2><%= time %></h2>
-	<% snippets.each do |snippet| %>
-		<%= render :partial => 'shared/snippets/snippet', :object => snippet %>
-	<% end %>
+	<div class="time-block">
+		<h2><%= time %></h2>
+		<% snippets.each do |snippet| %>
+			<%= render :partial => 'shared/snippets/snippet', :object => snippet %>
+		<% end %>
+	</div>
 <% end %>
