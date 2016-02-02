@@ -54,14 +54,6 @@ module FieldsHelper
 		"shared/forms/nested"
 	end
 
-	def work_fields
-		"works/shared/work_fields"
-	end
-
-	def work_tag_fields
-		"works/shared/work_tag_fields"
-	end
-
 	# OUTPUT radio buttons
 	def radios(f, p, c, d = 0, o = 0)
 		mx = c.length - 1
