@@ -15,6 +15,9 @@ form {
 	width:   100%;
 }
 fieldset {
+	border-color: $border-color;
+}
+.primary {
 	border: none;
 }
 .warning {
@@ -65,17 +68,43 @@ textarea {
 		padding: 10px;
 	}
 }
-.simple-selection label {
-	display:     block;
-	font-weight: 600;
-	text-align:  right;
-	padding:     8px;
+.simple-selection {
+	margin: 5px 0px;
+
+	label {
+		display:     block;
+		font-weight: 600;
+		text-align:  right;
+		padding:     8px;
+	}
+	select {
+		width:   100%;
+		padding: 0;
+		option {
+			padding: 7px;
+		}
+	}
 }
-.simple-selection select {
-	width:   100%;
-	padding: 0;
-	option {
-		padding: 7px;
+.agentive-selection {
+	padding: 5px;
+
+	legend {
+		background:  $page-lightest-major;
+		border:      1px solid $border-color;
+		font-weight: 900;
+		padding:     5px;
+	}
+
+	select {
+		width:   100%;
+		padding: 0;
+		option {
+			padding: 7px;
+		}
+	}
+
+	.field-selection {
+		padding: 5px;
 	}
 }
 
