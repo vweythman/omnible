@@ -19,6 +19,7 @@ class Note < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	include Discussable
+	include Titleizeable
 
 	# CALLBACKS
 	# ------------------------------------------------------------
@@ -66,6 +67,14 @@ class Note < ActiveRecord::Base
 	def cascade_data
 		self.work.updated_at = self.updated_at
 		self.work.save
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def default_heading
+		"Note"
 	end
 
 end
