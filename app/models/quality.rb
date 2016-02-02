@@ -23,7 +23,7 @@ class Quality < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	extend FriendlyId
-	extend NameBatchable
+	include EditableTag
 	include Taggable
 
 	# SCOPES
@@ -41,8 +41,26 @@ class Quality < ActiveRecord::Base
 	has_many :item_tags
 
 	# - Belongs to
-	has_many :items, :through => :item_tags
+	has_many   :items,     :through    => :item_tags
 	belongs_to :adjective, :inverse_of => :qualities
+
+	# CLASS METHODS
+	# ------------------------------------------------------------
+	def self.batch_by_name(str)
+		names = str.split(";")
+		list  = Array.new
+
+		self.transaction do 
+			names.map { |name| 
+				name.strip!
+				model = self.where(name: name).first_or_create
+				model.save
+				list << model
+			}
+		end
+
+		return list
+	end
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
