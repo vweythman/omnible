@@ -6,8 +6,8 @@ class PlaceDecorator < Draper::Decorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Agented
-	include Timestamped
+	include CreativeContent
+	include CreativeContent::Dossier
 	include PageEditing
 
 	# PUBLIC METHODS

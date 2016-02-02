@@ -2,9 +2,9 @@ class IdentitiesDecorator < Draper::CollectionDecorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Nestable
 	include DisabledCreation
 	include ListableCollection
+	include NestedFields
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -36,12 +36,12 @@ class IdentitiesDecorator < Draper::CollectionDecorator
 		self.length > 0
 	end
 
-	# -- Nestable
+	# -- NestedFields
 	# ............................................................
 	def fields
 		h.capture do
 			list_possible.each do |facet, list|
-				h.concat h.taggables(facet, list.nil? ? [] : list.map{|i| i.name }, facet.pluralize) 
+				h.concat h.taggables(["character", "describers", facet], list.nil? ? [] : list.map{|i| i.name }, facet.pluralize) 
 			end
 		end
 	end

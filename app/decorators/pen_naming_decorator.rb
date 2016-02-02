@@ -6,7 +6,7 @@ class PenNamingDecorator < Draper::Decorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include NameIdentified
+	include CreativeContent::Dossier
 	include InlineEditing
 
 	# PUBLIC METHODS

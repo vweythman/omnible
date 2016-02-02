@@ -2,7 +2,7 @@ class PrejudicesDecorator < Draper::CollectionDecorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Nestable
+	include NestedFields
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -37,4 +37,3 @@ class PrejudicesDecorator < Draper::CollectionDecorator
 	end
 
 end
-

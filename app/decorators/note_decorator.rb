@@ -6,11 +6,9 @@ class NoteDecorator < Draper::Decorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Agented
+	include CreativeContent
+	include CreativeContent::Composition
 	include PageEditing
-	include Timestamped
-	include Titleizeable
-	include WordCountable
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -29,14 +27,6 @@ class NoteDecorator < Draper::Decorator
 	def editor_heading
 		link = h.link_to work.title, work
 		h.content_tag :h1, class: 'ref' do "Edit Note of #{link}".html_safe end
-	end
-
-	# PRIVATE METHODS
-	# ------------------------------------------------------------
-	private
-
-	def default_heading
-		"Note"
 	end
 
 end

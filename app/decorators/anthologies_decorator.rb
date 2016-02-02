@@ -2,7 +2,7 @@ class AnthologiesDecorator < Draper::CollectionDecorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include RecentWidget
+	include Widgets::Recent
 	include ListableCollection
 
 	# PUBLIC METHODS

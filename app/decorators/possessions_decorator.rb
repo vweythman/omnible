@@ -2,7 +2,7 @@ class PossessionsDecorator < Draper::CollectionDecorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Nestable
+	include NestedFields
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------

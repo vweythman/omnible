@@ -6,11 +6,9 @@ class ChapterDecorator < Draper::Decorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Agented
+	include CreativeContent
+	include CreativeContent::Composition
 	include PageEditing
-	include Timestamped
-	include Titleizeable
-	include WordCountable
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -82,11 +80,11 @@ class ChapterDecorator < Draper::Decorator
 	# ----- End Points
 	# ------------------------------
 	def first_in_story
-		@first_in_story ||= self.story.chapters.ordered.first
+		@first_in_story ||= ordered_chapters.first
 	end
 
 	def last_in_story
-		@last_in_story ||= self.story.chapters.ordered.last
+		@last_in_story ||= ordered_chapters.last
 	end
 
 	def link_to_first
@@ -138,10 +136,6 @@ class ChapterDecorator < Draper::Decorator
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
-	
-	def default_heading
-		"Chapter #{self.position}"
-	end
 
 	def selectable_chapter_links
 		ht = Hash.new
@@ -149,6 +143,10 @@ class ChapterDecorator < Draper::Decorator
 		cs.map {|c| ht[h.story_chapter_path(self.story, c)] = c.heading }
 		
 		h.select_tag('chapter-links', h.options_from_collection_for_select(ht, :first, :last, selected: h.story_chapter_path(self.story, self)))
+	end
+
+	def ordered_chapters
+		@ordered_chapters ||= self.story.chapters.ordered
 	end
 
 end

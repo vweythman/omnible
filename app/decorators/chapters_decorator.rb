@@ -2,7 +2,7 @@ class ChaptersDecorator < Draper::CollectionDecorator
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Nestable
+	include NestedFields
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -37,7 +37,7 @@ class ChaptersDecorator < Draper::CollectionDecorator
 	# -- Location
 	# ............................................................
 	def partial
-		'works/shared/nested_chapter_fields'
+		'works/chapters/nested_fields'
 	end
 
 end

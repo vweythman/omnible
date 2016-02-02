@@ -1,50 +1,63 @@
 class WorksDecorator < Draper::CollectionDecorator
 
 	# DELEGATION
-	# ------------------------------------------------------------
+	# ============================================================
 	delegate :current_page, :total_pages, :limit_value, :entry_name, :total_count, :offset_value, :last_page?
 
 	# MODULES
-	# ------------------------------------------------------------
-	include ChangeSortable
+	# ============================================================
 	include ListableCollection
 	include PanelableCollection
 	include TableableCollection
-	include RecentWidget
+	include Widgets::Recent
 
 	# PUBLIC METHODS
+	# ============================================================
+	# GET
 	# ------------------------------------------------------------
-	# -- About
-	# ............................................................
-	def heading
-		title
-	end
-
-	def title
-		"Works"
-	end
-
-	def klass
-		:works
-	end
-
 	def caption_heading
 		title
+	end
+
+	def creation_path
+		h.multi_kit types.keys.map {|k| k.to_s.singularize }
 	end
 
 	def found_count
 		self.total_count
 	end
 
-	# -- Aside
-	# ............................................................
-	def for_categories
-		all_link    = h.content_tag :li do link_to_all end
-		other_links = type_links
+	def types
+		local_types.merge external_types
+	end
 
-		h.content_tag :ul do 
-			all_link + other_links
-		end
+	# SET
+	# ------------------------------------------------------------
+	# IDENTIFER
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def heading
+		title
+	end
+
+	def klass
+		:works
+	end
+
+	def title
+		"Works"
+	end
+
+	# SORT
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def clean_type_params
+		para = h.params.dup
+		para.delete(:controller)
+		para.delete(:action)
+		para
+	end
+
+	def external_types
+		{ :story_links => h.story_links_path(clean_type_params) }
 	end
 
 	def filter_values
@@ -80,34 +93,6 @@ class WorksDecorator < Draper::CollectionDecorator
 		}
 	end
 
-	# -- Links
-	# ............................................................
-	def link_to_all
-		h.link_to "All", h.polymorphic_path(storage_nav[:all])
-	end
-
-	def type_links
-		links = self.types.map {|key, p| h.content_tag :li do h.link_to("#{key}".humanize.titleize, p) end }
-		links.join.html_safe
-	end
-
-	# -- Paths
-	# ............................................................
-	def clean_type_params
-		para = h.params.dup
-		para.delete(:controller)
-		para.delete(:action)
-		para
-	end
-
-	def creation_path
-		h.multi_kit types.keys.map {|k| k.to_s.singularize }
-	end
-
-	def external_types
-		{ :story_links => h.story_links_path(clean_type_params) }
-	end
-
 	def local_types
 		{
 			:articles      => h.articles_path(clean_type_params),
@@ -116,37 +101,70 @@ class WorksDecorator < Draper::CollectionDecorator
 		}
 	end
 
-	def types
-		local_types.merge external_types
+	# RENDER
+	# ------------------------------------------------------------
+	def for_categories
+		all_link    = h.content_tag :li do link_to_all end
+		other_links = type_links
+
+		h.content_tag :ul do 
+			all_link + other_links
+		end
+	end
+
+	def link_to_all
+		h.link_to "All", h.polymorphic_path(:works)
+	end
+
+	def type_links
+		self.types.map {|key, p| h.content_tag :li do h.link_to("#{key}".humanize.titleize, p) end }.join.html_safe
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
+
+	# ACT
+	# ------------------------------------------------------------
+	def sort_by_update
+		w = Hash.new
+		dates.map { |t| 
+			w[t] = self.select{|x| h.record_time(x.updated_at) == t}
+		}
+
+		return w
+	end
+
+	def dates
+		self.map { |x| h.record_time x.updated_at }.uniq
+	end
+
+	# SET
+	# ------------------------------------------------------------
+	# LIST
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def listable
 		sort_by_update
 	end
 
-	def storage_nav
-		{ all: :works, local: "local", offsite: "offsite" }
-	end
-
-	# -- Partial Type
-	# ............................................................
 	def list_type
 		:timed_snippets
 	end
 
-	def table_type
-		:works
-	end
-
+	# RESULTS
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def results_type
 		:filtered_panel
 	end
 
 	def results_content_type
 		:paged_cell
+	end
+
+	# TABLE
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def table_type
+		:works
 	end
 
 end
