@@ -72,20 +72,38 @@ class Interconnection < ActiveRecord::Base
 		return list
 	end
 
-	def self.update_for(character, groups_by_direction)
+	def self.update_for(character, list, visitor)
+		groups = Interconnection.related_find_by(list, visitor)
 		character.relation_set
 
 		Interconnection.transaction do
-			groups_by_direction.map {|direction, grouped_ids|
+			groups.map {|direction, grouped_ids|
 				grouped_ids.map {|relateables|
 					rid = relateables[:relator_id].to_i
 					ids = relateables[:list]
-					Interconnection.transaction do
-						Interconnection.update_for_crossroad(direction, character, rid, ids)
-					end
+					Interconnection.update_for_crossroad(direction, character, rid, ids)
 				}
 			}
 		end
+	end
+
+	def self.related_find_by(curr, visitor)
+		tags  = Hash.new
+
+		Interconnection.transaction do
+			curr.map { |direction, group|
+				tags[direction] = Array.new
+
+				group.map { |relator_id, names|
+					tags[direction] << {
+						:relator_id => relator_id, 
+						:list       => Character.batch_by_name(names, visitor).map{ |c| c.id }
+					}
+				}
+			}
+		end
+
+		return tags
 	end
 
 	# PRIVATE CLASS METHODS
