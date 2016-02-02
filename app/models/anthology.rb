@@ -27,7 +27,8 @@ class Anthology < ActiveRecord::Base
 
 	# SCOPES
 	# ------------------------------------------------------------
-	scope :recently_updated, ->(num) {order(:updated_at => :desc).limit(num)}
+	scope :recently_updated, ->(num) { order(:updated_at => :desc).limit(num) }
+	scope :alphabetic,       ->      { order('lower(anthologies.name)') }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
