@@ -6,10 +6,12 @@ table {
 	margin: 0 auto;
 	width:  calc(100% - 20px);
 }
+
 thead {
 	background:    desaturate(lighten($fire-lightest-major, 15%), 20%);
 	border-bottom: 5px solid desaturate($fire-lighter-minor, 20%);
 }
+
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include non-desktop {
@@ -24,13 +26,11 @@ thead {
 	tbody tr {
 		margin: 10px;
 	}
+
 	td:before {
 		color: $page-darker-major;
 	}
 }
-
-// END
-// ***********************************************/
 
 // END
 // ************************************************/

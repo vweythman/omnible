@@ -2,28 +2,30 @@
 // ***********************************************
 // SETUP :: IMPORTS
 // ===============================================
-@import "partials/completion";
-@import "partials/ratings";
+@import "partials/content/status";
 
 // VIEWPORT :: ALL
 // ===============================================
 // -- General
 // -----------------------------------------------
 .snippet {
-	background: $moss-light-major;
-	overflow:   auto;
-}
+	border-left:   15px solid $fire-light-major;
+	border-right:  15px solid $fire-light-major;
+	border-radius: 10px;
+	overflow:      auto;
 
-.snippet-type {
-	color:      $moss-color;
-	font-size:  2.0em;
-	text-align: center;
-}
+	.icon {
+		color: $fire-dark-minor;
+	}
 
-h4 {
-	border-bottom: 3px solid $moss-light-minor;
-	margin:        0px;
-	padding:       5px;
+	h4 {
+		border-bottom: 3px solid $page-light-major;
+		margin:        0px;
+		padding:       5px;
+	}
+}
+.time-block {
+	overflow: auto;
 }
 
 // -- About
@@ -43,7 +45,7 @@ h4 {
 }
 
 .about {
-	background:  $moss-lighter-major;
+	background:  $water-lighter-major;
 	color:       $page-darkest-major;
 	font-size:   .95em;
 	font-weight: bolder;
@@ -91,11 +93,8 @@ h4 {
 // ===============================================
 @include mobile {
 	.snippet {
-		border-bottom: 3px solid $moss-lighter-minor;
-		margin:        0px 0px 15px 0px;
-	}
-	.snippet-type {
-		display: none;
+		margin:       10px;
+		border-width: 5px;
 	}
 }
 

@@ -3,9 +3,9 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "partials/categories/subjects";
+@import "partials/defaults/subjects";
 @import "partials/pagination";
-@import "partials/ratings";
+@import "partials/content/status";
 
 // VIEWPORT :: ALL
 // ===============================================
@@ -47,12 +47,10 @@ th {
 		border-bottom: 2px solid $fire-light-minor;
 		padding-top: 10px;
 	}
-	tbody & {
-		border-right: 2px solid $fire-light-minor;
-	}
 }
 tbody {
 	border-bottom: 2px solid $fire-light-minor;
+	text-align:    center;
 }
 td {
 	padding: 5px;
@@ -60,6 +58,9 @@ td {
 }
 .detail {
 	margin-bottom: 20px;
+}
+.details {
+	text-align: left;
 }
 
 // -- Header
@@ -110,6 +111,14 @@ header p {
 		&:hover {
 			border-radius: 0;
 		}
+	}
+}
+
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	tbody th {
+		border-right: 2px solid $fire-light-minor;
 	}
 }
 

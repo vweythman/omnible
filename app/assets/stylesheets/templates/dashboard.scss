@@ -3,9 +3,9 @@
 // SETUP :: GENERAL IMPORTS
 // ===============================================
 @import "application";
-@import "partials/counts";
-@import 'partials/forms/inline_form';
+@import "partials/content/status";
 @import "partials/content/tableizer";
+@import "partials/forms/inline_form";
 
 // VIEWPORT :: ALL
 // ===============================================
@@ -76,28 +76,6 @@ h2 {
 	content: "▴"
 }
 
-// -- PEN NAMES TOGGLE
-// -----------------------------------------------
-.status-toggle-link {
-	background:      $water-color;
-	border-radius:   10px;
-	color:           $page-color;
-	display:         inline-block;
-	width:           120px;
-	margin:          5px auto;
-	padding:         10px 0;
-	text-decoration: none;
-
-	&:before {
-		display: block;
-		margin-bottom: 5px;
-	}
-	&:hover {
-		background: $water-lighter-major;
-		color:      $water-dark-minor;
-	}
-}
-
 // -- Management Widget
 // -----------------------------------------------
 .status {
@@ -143,37 +121,48 @@ h2 {
 	th {
 		font-size: $text-size;
 	}
-	td:not(.manager-editor):before {
+
+	.manager-editor {
+		display: none;
 	}
+
+	tr {
+		@include rounded-top(10px);
+		@include rounded-bottom(10px);
+		@include gradientized(180deg, $water-dark-minor, $water-lighter-major);
+	}
+
 	td {
-		padding:    0px;
-	}
-	td:not(.manager-editor) {
-		background: $water-lightest-major;
-		padding-bottom: 5px;
+		background: rgba(255, 255, 255, .5);
+		padding:    0px 0px 5px 0px;
 
 		&:before {
-			background:    $water-lightest-minor;
+			background:    rgba(255, 255, 255, .8);
 			border-bottom: 1px solid $water-light-minor;
 			padding:       5px 0;
 			margin-bottom: 5px;
 		}
 	}
-	.editable-content th {
+	.status {
+		padding: 0px 0px 5px 0px;
+	}
+
+	.management-widget th {
+		font-weight: bolder;
 		padding:     0;
 		text-align:  center;
-		font-weight: bolder;
 
 		a {
-			@include rounded-top(5px);
+			@include rounded-top(10px);
 
-			background:      $water-dark-minor;
 			border-bottom:   3px solid $water-darker-minor;
 			color:           $water-lightest-major;
-			text-decoration: none;
+			display:         block;
 			padding:         10px;
 			padding-bottom:  5px;
 			margin:          0;
+			text-decoration: none;
+
 			&:hover {
 				background:    $water-color;
 				color:         $water-lightest-minor;

@@ -3,28 +3,51 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "partials/categories/tags";
+@import "partials/defaults/tags";
 @import "partials/pagination";
 @import "partials/content/analytics";
+@import "partials/content/status";
 
-// STYLES
+// VIEWPORT :: ALL
 // ===============================================
-#distribution {
-	margin: 53px 10px;
-	width:  calc(50% - 20px);
-}
-.stat-distribution {
-	margin: 10px;
-}
-.analytics {
-	width:  calc(50% - 20px);
+.relateable {
 	margin: 0 auto;
-	float:  left;
+	width:  100%;
+
+	caption {
+		background:    $moss-lighter-minor;
+		border-bottom: 4px solid $moss-dark-minor;
+	}
+
+	thead {
+		background:    $moss-lightest-minor;
+		border-bottom: 2px solid $moss-light-major;
+	}
 }
-article div {
-	overflow: auto;
-	
-	p { text-align: center; }
+.relateable-body {
+	text-align: center;
+
+	th {
+		font-weight: bolder;
+		padding-bottom: 0;
+	}
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include desktop {
+	tr:nth-child(2n) {
+		background: $page-lightest-major;
+	}
+}
+
+// VIEWPORT :: NON-DESKTOP
+// ===============================================
+@include tablet {
+	.relateable-body tr {
+		float: left;
+		width: calc(33.33% - 20px);
+	}
 }
 
 /* END

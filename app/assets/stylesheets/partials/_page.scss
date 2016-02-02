@@ -5,8 +5,10 @@
 @import "partials/headers/content";
 @import "partials/footer";
 @import "partials/grid";
-@import "partials/alerts";
-@import "partials/toolkits";
+
+@import "partials/defaults/alerts";
+@import "partials/defaults/toolkits";
+@import "partials/defaults/tables";
 
 // VIEWPORT :: ALL
 // ===============================================

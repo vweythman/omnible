@@ -12,7 +12,7 @@
 .tag-header,
 .category-header {
 	border-bottom: 3px solid $moss-color;
-	padding:       10px calc(100% / 6 - 10px);
+	padding:       10px $one-twelfth;
 }
 .page-body {
 	background:     $page-color;
@@ -25,11 +25,15 @@
 h2 {
 	@include gradientized(90deg, $moss-lightest-minor, $moss-light-minor);
 	font-size: $heading-size - 4px;
-	margin:    0;
+	margin:    0px;
 	padding:   20px 10px;
 }
 .pagination {
 	margin: 20px auto;
+}
+.alteration {
+	margin: 0px $one-twelfth;
+	width:  $five-sixths;
 }
 
 // END
