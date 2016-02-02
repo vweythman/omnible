@@ -146,6 +146,8 @@ Rails.application.routes.draw do
   scope module: 'categories' do
     resources :creator_categories
     resources :facets
+    post   'agentize/:describer_id/:creator_id' => "agentize#create",  as: :create_agent
+    delete 'agentize/:describer_id/:creator_id' => "agentize#destroy", as: :destroy_agent
   end
   
   # STATIC PAGES
