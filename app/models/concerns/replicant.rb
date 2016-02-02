@@ -6,8 +6,8 @@ module Replicant
 	included do
 		has_many :replications, dependent: :destroy, foreign_key: "original_id"
 		has_one  :cloning,      dependent: :destroy, foreign_key: "clone_id", class_name: "Replication"
-		has_one  :original, through: :cloning
-		has_many :clones,   through: :replications
+		has_one  :original,     through:   :cloning
+		has_many :clones,       through:   :replications
 	end
 
 	# Replicate
@@ -50,5 +50,5 @@ module Replicant
 	def is_a_clone?
 		self.original.present?
 	end
+
 end
-	
