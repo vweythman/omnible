@@ -24,10 +24,18 @@ class Prejudice < ActiveRecord::Base
 	validates :fondness,     presence: true
 	validates :respect,      presence: true
 
+	# CALLBACKS
+	# ------------------------------------------------------------
+	before_validation :find_identity, on: :create
+
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :character, :inverse_of => :prejudices
 	belongs_to :identity
+
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	attr_accessor :facet_id, :identity_name
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
@@ -42,7 +50,23 @@ class Prejudice < ActiveRecord::Base
 	end
 
 	def identity_name
-		self.identity.name unless identity.nil?
+		unless identity.nil?
+			@identity_name ||= self.identity.name
+		end
+	end
+
+	def facet_id
+		unless identity.nil?
+			@facet_id ||= self.identity.facet_id
+		end
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def find_identity
+		self.identity = Identity.where(name: @identity_name, facet_id: @facet_id.to_i).first_or_create
 	end
 
 end
