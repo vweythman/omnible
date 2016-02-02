@@ -1,11 +1,5 @@
 class Categories::AgentizeController < ApplicationController
 
-	# FILTERS
-	# ============================================================
-	before_action :creator_category, only: [:create, :destroy]
-	before_action :work_describer,   only: [:create, :destroy]
-	after_action  :update_describer, only: [:create, :destroy]
-
 	# PUBLIC METHODS
 	# ============================================================
 	def create
