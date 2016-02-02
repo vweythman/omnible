@@ -17,6 +17,10 @@ module FormHelper
 		render :partial => "shared/forms/show_toggle", :locals => { :show_id => "show_#{id}", :title => title }
 	end
 
+	def taggables_label(label)
+		label.map{|t| "[#{t}]" }.join("")
+	end
+
 	# AJAX EDIT FORM
 	# ------------------------------------------------------------
 	def form_div_for_ajaxed_edit(type, id)
@@ -28,7 +32,7 @@ module FormHelper
 	end
 
 	def edit_form_id(type, id)
-		type + "-form-for-" + id.to_s
+		type.to_s + "-form-for-" + id.to_s
 	end
 
 	def ajaxed_form_render
