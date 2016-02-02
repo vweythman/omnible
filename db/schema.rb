@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103172237) do
+ActiveRecord::Schema.define(version: 20160125060802) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(version: 20160103172237) do
   end
 
   create_table "creatorships", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "creator_id"
     t.integer  "work_id"
     t.integer  "creator_category_id"
     t.datetime "created_at",          null: false
@@ -161,7 +161,7 @@ ActiveRecord::Schema.define(version: 20160103172237) do
   end
 
   add_index "creatorships", ["creator_category_id"], name: "index_creatorships_on_creator_category_id"
-  add_index "creatorships", ["user_id"], name: "index_creatorships_on_user_id"
+  add_index "creatorships", ["creator_id"], name: "index_creatorships_on_creator_id"
   add_index "creatorships", ["work_id"], name: "index_creatorships_on_work_id"
 
   create_table "descriptions", force: :cascade do |t|
