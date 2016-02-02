@@ -17,6 +17,7 @@ class Identity < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	extend  Organizable
+	include EditableTag
 	include Taggable
 
 	# SCOPES
@@ -69,14 +70,28 @@ class Identity < ActiveRecord::Base
 
 	def self.faceted_line_batch(facet_id, str, uploader)
 		list  = Array.new
-		names = str.split(";")
+
+		str.split(";").each do |name|
+			name.strip!
+			identity = Identity.where(name: name, facet_id: facet_id).first_or_create
+			list << identity
+		end
+
+		return list
+	end
+
+	def self.faceted_find_by(curr, visitor)
+		list = Array.new
+
 		Identity.transaction do
-			names.each do |name|
-				name.strip!
-				identity = Identity.where(name: name, facet_id: facet_id).first_or_create
-				list << identity
+			Facet.all.each do |facet|
+				names      = curr[facet.name]
+				identities = Identity.faceted_line_batch(facet.id, names, visitor)
+
+				list.push(*identities)
 			end
 		end
+
 		return list
 	end
 
