@@ -22,10 +22,15 @@ class Item < ActiveRecord::Base
 	include Documentable
 	extend Organizable
 	extend FriendlyId
-	
-	# NONTABLE VARIABLES
+
+	# CALLBACKS
 	# ------------------------------------------------------------
-	friendly_id :name, :use => :slugged
+	before_validation :typify, on: [:update, :create]
+	before_save       :describe
+
+	# SCOPES
+	# ------------------------------------------------------------
+	scope :order_by_generic, -> { includes(:generic).order('generics.name, items.name') }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -49,6 +54,19 @@ class Item < ActiveRecord::Base
 		self.organize(list)
 	end
 
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	friendly_id :name, :use => :slugged
+	attr_accessor :nature, :descriptions
+
+	def nature
+		@nature ||= ""
+	end
+
+	def descriptions
+		@descriptions ||= ""
+	end
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
@@ -58,17 +76,12 @@ class Item < ActiveRecord::Base
 
 	# Nature - defines the type name if it exists
 	def nature
-		generic.name unless generic.nil?
+		@nature ||= generic.nil? ? "" : generic.name
 	end
 
 	# Linkable - grab what will be used when organizing
 	def linkable
 		self
-	end
-
-	# Typify - set the facet type of the identity
-	def typify(name)
-		self.generic = Generic.where(name: name).first_or_create
 	end
 
 	# UpdateTags - reassess current tag and return ids
@@ -79,6 +92,21 @@ class Item < ActiveRecord::Base
 
 	def editable?(user)
 		user.id == uploader_id
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	private
+
+	def typify
+		self.generic = Generic.where(name: @nature).first_or_create
+	end
+
+	def describe
+		nw_qualities = Quality.batch_by_name(@descriptions)
+
+		self.qualities.delete(self.qualities - nw_qualities)
+		self.qualities <<    (nw_qualities   - self.qualities)
 	end
 
 end

@@ -21,12 +21,13 @@ class Activity < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	extend FriendlyId
+	include EditableTag
 	include Taggable
 
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :not_among, ->(activities) { where("name NOT IN (?)", activities) }
-	scope :are_among, ->(activities) { where("name IN (?)", activities) }
+	scope :are_among, ->(activities) { where("name IN (?)",     activities) }
 
 	# NONTABLE VARIABLES
 	# ------------------------------------------------------------
@@ -37,10 +38,6 @@ class Activity < ActiveRecord::Base
 	# Heading - defines the main means of addressing the model
 	def heading
 		name
-	end
-
-	def editable? user
-		user.site_owner?
 	end
 
 end
