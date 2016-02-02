@@ -12,7 +12,7 @@ class ShortStory < Work
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :notes,    :inverse_of => :work, foreign_key: "work_id"
+	has_many :notes,    :inverse_of => :work,  foreign_key: "work_id"
 	has_one  :chapter,  :inverse_of => :story, foreign_key: "story_id"
 	has_many :comments, :through => :chapter
 
@@ -36,14 +36,6 @@ class ShortStory < Work
 	def update_content(content)
 		self.chapter.content = content
 		chapter.save
-	end
-
-	# ContentDistribution - collects the totals number of chapters and notes
-	def content_distribution
-		@content_distribution ||= {
-			:chapters => 1,
-			:notes    => self.notes.size
-		}
 	end
 
 	# PRIVATE METHODS

@@ -34,6 +34,8 @@ class WorksTypeDescriber < ActiveRecord::Base
 	scope :audible,    -> { where("content_type = 'video' OR content_type = 'audio'") }
 	scope :visual,     -> { where("content_type = 'video' OR content_type = 'picture'") }
 
+	scope :among,      ->(ids) { where("id IN (?)", ids) }
+
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	has_many                :works, foreign_key: "type", primary_key: "name"
@@ -48,6 +50,20 @@ class WorksTypeDescriber < ActiveRecord::Base
 
 	def record?
 		self.is_record == true
+	end
+
+	def heading
+		name.underscore.humanize.titleize
+	end
+
+	def agentize(creator_category)
+		unless creator_categories.include? creator_category
+			creator_categories << creator_category
+		end
+	end
+
+	def deagentize(creator_category)
+		creator_categories.delete(creator_category)
 	end
 
 end

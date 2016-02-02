@@ -31,15 +31,7 @@ class Poem < Work
 
 		return chapter
 	end
-
-	# ContentDistribution - collects the totals number of chapters and notes
-	def content_distribution
-		@content_distribution ||= {
-			:chapters => 1,
-			:notes    => self.notes.size
-		}
-	end
-
+	
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private

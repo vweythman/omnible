@@ -22,6 +22,7 @@ class Tag < ActiveRecord::Base
 	# MODULES
 	# ------------------------------------------------------------
 	extend FriendlyId
+	include EditableTag
 	include Taggable
 	
 	# SCOPES
@@ -65,6 +66,9 @@ class Tag < ActiveRecord::Base
 
 	def editable? user
 		user.site_owner?
+	end
+
+	def destroyable? user
 	end
 
 end

@@ -32,12 +32,4 @@ class Story < Work
 		latest.nil? ? 1 : latest.position + 1
 	end
 
-	# ContentDistribution - collects the totals number of chapters and notes
-	def content_distribution
-		@content_distribution ||= {
-			:chapters => self.chapters.size,
-			:notes    => self.notes.size
-		}
-	end
-
 end
