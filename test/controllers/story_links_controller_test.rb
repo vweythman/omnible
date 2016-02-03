@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Works
-  class StoryRecordsControllerTest < ControllerTestCase
+  class StoryLinksControllerTest < ControllerTestCase
 
     setup do
       @baffle = works(:baffle)
