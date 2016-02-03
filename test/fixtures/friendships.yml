@@ -14,3 +14,13 @@ amiya_to_randa:
   friender: amiya
   friendee: randa
   is_mutual: 'f'
+
+letty_to_becca:
+  friender: letty
+  friendee: becca
+  is_mutual: 'f'
+
+becca_to_tegan:
+  friender: becca
+  friendee: randa
+  is_mutual: 'f'

@@ -7,3 +7,15 @@ sirka_to_amiya:
 amiya_to_sirka:
   blocker: amiya
   blocked: sirka
+
+tegan_to_indra:
+  blocker: tegan
+  blocked: indra
+
+tegan_to_becca:
+  blocker: tegan
+  blocked: becca
+
+letty_to_tegan:
+  blocker: letty
+  blocked: tegan

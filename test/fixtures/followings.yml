@@ -3,3 +3,19 @@
 randa_to_amiya:
   follower: randa
   followed: amiya
+
+sirka_to_letty:
+  follower: sirka
+  followed: letty
+
+letty_to_sirka:
+  follower: letty
+  followed: sirka
+
+becca_to_indra:
+  follower: becca
+  followed: indra
+
+tegan_to_letty:
+  follower: tegan
+  followed: letty

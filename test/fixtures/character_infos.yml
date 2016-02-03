@@ -1,11 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  character_id: 
-  title: MyString
-  content: 
+  character: mary
+  title: epithet
+  content: the rightful child
 
 two:
-  character_id: 
-  title: MyString
-  content: 
+  character: jane
+  title: epithet
+  content: the wrongful heart
+
+two:
+  character: erik
+  title: epithet
+  content: the watchful soul

@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 
-  permission_level: 1
+  user: randa 
+  permission_level: <%= Admin::OWNER %>
 
 two:
-  user_id: 
-  permission_level: 1
+  user: mayra
+  permission_level: <%= Admin::MANAGER %>
+
+three:
+  user: gaven
+  permission_level: <%= Admin::STAFF %>

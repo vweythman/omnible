@@ -1,27 +1,55 @@
 # GENERAL SET OF POTENTIAL USERS
 
+# ADMINS
+# ===================================
 randa:
   name: Randa
-  email: owner@thissite.com
+  email: randa-omnible@example.com
 
+mayra:
+  name: Mayra
+  email: mayra-omnible@example.com
+
+gaven:
+  name: Gaven
+  email: gaven-omnible@example.com
+
+# CONTENT CREATORS
+# ===================================
 sirka:
   name: Sirka
-  email: signupper@signup.com
+  email: sirka@example.com
 
 amiya:
-  name: Cinders
-  email: invited@invite.com
+  name: Amiya
+  email: amiya@example.com
 
 indra:
-  name: indra
-  email: lurker@anonable.com
+  name: Indra
+  email: indra@example.com
+
+# CONTENT VIEWERS
+# ===================================
+becca:
+  name: Becca
+  email: becca@example.com
+
+letty:
+  name: Letty
+  email: letty@example.com
+
+tegan:
+  name: Tegan
+  email: tegan@example.com
 
 # RELATIONSHIPS
-# randa -> sirka    :: FRIENDSHIP
-# sirka -> randa    :: FRIENDSHIP
-
-# amiya -> randa  :: FRIENDSHIP
-# randa -> amiya  :: FOLLOW
-
-# sirka -> amiya  :: BLOCKING
-# amiya -> sirka  :: BLOCKING
+# ===================================
+#  1. (FR & FR) - randa & sirka
+#  2. (FR & NA) - letty & becca
+#  3. (FR & FL) - amiya & randa
+#  4. (FR & BL) - becca & tegan
+#  5. (FL & FL) - sirka & letty
+#  6. (FL & NA) - becca & indra
+#  7. (FL & BL) - tegan & letty
+#  8. (BL & BL) - sirka & amiya 
+#  9. (BL & NA) - tegan & indra

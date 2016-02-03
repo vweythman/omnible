@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  agentive: MyString
+writer:
+  name: writer
+  agentive: written by
+  works_type_describers: article, short_story, story, story_link
 
-two:
-  name: MyString
-  agentive: MyString
+author:
+  name: author
+  agentive: authored by
+  works_type_describers: article, short_story, story, story_link
+
+translator:
+  name: translator
+  agentive: translated by
+  works_type_describers: article, short_story, story, story_link
+  
