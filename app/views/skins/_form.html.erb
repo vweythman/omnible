@@ -12,10 +12,16 @@
 		</div>
 	<% end %>
 
-	<fieldset>		
-		<%= form_field f.label(:title, "Title"),      f.text_field(:title, :placeholder => "Write Title")                      %>
-		<%= form_field f.label(:style, "Stylesheet"), f.text_area(:style)                                                      %>
-		<%= form_field f.label(:status, "Publicity"), f.select(:status, options_for_select(Skin.statuses, selected: 'Public')) %>
+	<fieldset class="primary">
+		<%= string_panel f, :title, "Write Title" %>
+		<%= text_panel   f, :style, :major, "Stylesheet" %>
+
+		<%= solo_cell "field" do %>
+			<div class="field-content"><%= f.label(:status, "Publicity") %></div>
+			<div class="field-content">
+				<%= f.select(:status, options_for_select(Skin.statuses, selected: 'Public')) %>
+			</div>
+		<% end %>
 	</fieldset>
 
 	<%= submit_panel f %>
