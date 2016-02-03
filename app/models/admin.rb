@@ -5,6 +5,7 @@ class Admin < ActiveRecord::Base
 	OWNER   = 0
 	MANAGER = 1
 	STAFF   = 2
+	TESTER  = 3
 	
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -25,7 +26,7 @@ class Admin < ActiveRecord::Base
 	end
 
 	def tester?
-		permission_level == Admin::TESTERS
+		permission_level == Admin::TESTER
 	end
 
 end
