@@ -8,7 +8,6 @@
 # --------------------------------------------------------------------------------
 #  id              | integer     | unique
 #  name            | string      | maximum of 250 characters
-#  about           | text        | can be null
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
 #  uploader_id     | integer     | references user
@@ -268,7 +267,7 @@ class Character < ActiveRecord::Base
 
 	def add_tags
 		Identifier.update_for(self, @variations.split(";"))  unless @variations.nil?
-		Description.update_for(self, @describers, @visitor)  unless @describers.nil?
+		Description.update_for(self, @describers)  unless @describers.nil?
 		Interconnection.update_for(self, @related, @visitor) unless @related.nil?
 	end
 

@@ -40,8 +40,8 @@ class Description < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	def self.update_for(model, describers, visitor)
-		ident = Identity.faceted_find_by(describers, visitor)
+	def self.update_for(model, describers)
+		ident = Identity.faceted_find_by(describers)
 		list  = ident.map{ |i| i.id }
 
 		if list.length > 0

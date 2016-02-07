@@ -68,7 +68,7 @@ class Identity < ActiveRecord::Base
 		Identity.organize(list)
 	end
 
-	def self.faceted_line_batch(facet_id, str, uploader)
+	def self.faceted_line_batch(facet_id, str)
 		list  = Array.new
 
 		str.split(";").each do |name|
@@ -80,13 +80,13 @@ class Identity < ActiveRecord::Base
 		return list
 	end
 
-	def self.faceted_find_by(curr, visitor)
+	def self.faceted_find_by(group)
 		list = Array.new
 
 		Identity.transaction do
 			Facet.all.each do |facet|
-				names      = curr[facet.name]
-				identities = Identity.faceted_line_batch(facet.id, names, visitor)
+				names      = group[facet.name].nil? ? "" : group[facet.name]
+				identities = Identity.faceted_line_batch(facet.id, names)
 
 				list.push(*identities)
 			end
