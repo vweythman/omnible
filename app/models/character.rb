@@ -24,22 +24,22 @@
 class Character < ActiveRecord::Base
 
 	# VALIDATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	validates :name, length: { maximum: 100 }, presence: true
 
 	# CALLBACKS
-	# ------------------------------------------------------------
+	# ============================================================
 	before_create :ensure_defaults
 	after_save    :add_tags
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	include Editable
 	include Documentable
 	include Replicant
 
 	# SCOPES
-	# ------------------------------------------------------------
+	# ============================================================
 	# - General
 	scope :are_among, ->(character_names) { where("name IN (?)", character_names) }
 	scope :not_among, ->(character_names) { where("name NOT IN (?)", character_names) }
@@ -54,7 +54,7 @@ class Character < ActiveRecord::Base
 	scope :prev_in_line, ->(character_name) { where('name < ?', character_name).order('name DESC') }
 
 	# ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	# - Joins
 	has_one  :pseudonyming, dependent: :destroy
 	has_many :appearances,  dependent: :destroy
@@ -100,7 +100,7 @@ class Character < ActiveRecord::Base
 	has_many :anthologies, ->{uniq}, :through => :works
 
 	# NESTED ATTRIBUTION
-	# ------------------------------------------------------------
+	# ============================================================
 	accepts_nested_attributes_for :descriptions, :allow_destroy => true
 	accepts_nested_attributes_for :details,      :allow_destroy => true
 	accepts_nested_attributes_for :identifiers,  :allow_destroy => true
@@ -111,7 +111,7 @@ class Character < ActiveRecord::Base
 	accepts_nested_attributes_for :right_interconnections, :allow_destroy => true
 
 	# DEEP DUPLICATION
-	# ------------------------------------------------------------
+	# ============================================================
 	amoeba do
 		enable
 		include_association :descriptions
@@ -124,7 +124,7 @@ class Character < ActiveRecord::Base
 	end
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	def self.batch_by_name(names, uploader)
 		Character.transaction do 
 			names.split(";").map { |name| 
@@ -151,20 +151,13 @@ class Character < ActiveRecord::Base
 	end
 
 	# ATTRIBUTES
-	# ------------------------------------------------------------
+	# ============================================================
 	attr_accessor :visitor, :variations, :describers, :related
 
 	# PUBLIC METHODS
+	# ============================================================
+	# GETTERS
 	# ------------------------------------------------------------
-	# Heading - defines the main means of addressing the model
-	def heading
-		self.name
-	end
-	
-	def relation_set(use_id = true)
-		@relation_set ||= build_relation_set(use_id)
-	end
-
 	def get_rrset(relator_id)
 		relation_set.end_values(relator_id, self.id)
 	end
@@ -173,13 +166,17 @@ class Character < ActiveRecord::Base
 		relation_set.minor_keys(relator_id)
 	end
 
-	# GETTERS
-	# ............................................................
 	# Interconnections - finds both left and right interconnections
 	def interconnections
 		Interconnection.relations_for(self.id).order(:relator_id).includes(:relator, :left, :right)
 	end
 
+	def other_characters
+		Character.not_among([self])
+	end
+
+	# SETTERS
+	# ------------------------------------------------------------
 	# NextCharacter - find next character alphabetically
 	def next_character(user = nil)
 		@next_character ||= Character.next_in_line(self.name).viewable_for(user).first
@@ -190,12 +187,12 @@ class Character < ActiveRecord::Base
 		@prev_character ||= Character.prev_in_line(self.name).viewable_for(user).first
 	end
 
-	def other_characters
-		Character.not_among([self])
+	def relation_set(use_id = true)
+		@relation_set ||= build_relation_set(use_id)
 	end
 
-	# CALC
-	# ............................................................
+	# CALCULATIONS
+	# ------------------------------------------------------------
 	# ReputationCount - count how many characters have an opinion about the character
 	def reputation_count
 		@repcount ||= self.reputations.size
@@ -223,7 +220,7 @@ class Character < ActiveRecord::Base
 	end
 
 	# QUESTIONS
-	# ............................................................
+	# ------------------------------------------------------------
 	def connectable?(user)
 		self.can_connect || self.uploader_id = user.id
 	end
@@ -247,7 +244,7 @@ class Character < ActiveRecord::Base
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
 	# EnsureDefaults - default behaivor

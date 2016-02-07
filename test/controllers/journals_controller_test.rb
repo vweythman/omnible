@@ -1,14 +1,6 @@
 require 'test_helper'
 
-class JournalsControllerTest < ActionController::TestCase
-  test "should get show" do
-    get :show
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit
-    assert_response :success
-  end
-
+module Works
+	class JournalsControllerTest < ControllerTestCase
+	end
 end

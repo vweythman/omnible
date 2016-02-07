@@ -20,38 +20,38 @@
 class Chapter < ActiveRecord::Base
 
 	# VALIDATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	validates :content, presence: true
 	validates_uniqueness_of :position, :scope => :story_id
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	include Discussable
 	include Titleizeable
 
 	# CALLBACKS
-	# ------------------------------------------------------------
+	# ============================================================
 	after_create  :set_discussion
 	before_create :set_position
 	after_save    :cascade_data
 
 	# SCOPES
-	# ------------------------------------------------------------
+	# ============================================================
 	scope :ordered,  -> { order('chapters.position asc') }
 	scope :reversed, -> { order('chapters.position desc') }
 	scope :prev_in_story, ->(story_id, position) { where("story_id = ? AND position < ?", story_id, position).reversed }
 	scope :next_in_story, ->(story_id, position) { where("story_id = ? AND position > ?", story_id, position).ordered }
 
 	# ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	belongs_to :story, class_name: "Work"
 
 	# DELEGATED METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	delegate :uploader, to: :story
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# SwapPositions - swap the positions of two chapters of the same story
 	def self.swap_positions(left, right)
 		if left.story != right.story
@@ -77,31 +77,34 @@ class Chapter < ActiveRecord::Base
 	end
 
 	# PUBLIC METHODS
+	# ============================================================
+	# GETTERS
 	# ------------------------------------------------------------
 	def default_heading
 		"Chapter #{self.position}"
 	end
 
-	def summary
-		self.about
-	end
-
-	# Prev - finds the previous chapter
-	def prev
-		@prev ||= Chapter.prev_in_story(self.story_id, self.position).first
-	end
-
-	# Next - finds the next chapter
-	def next
-		@next ||= Chapter.next_in_story(self.story_id, self.position).first
-	end
-
-	# WordCount - count the number of words in the chapter contents
 	def word_count
 		body = self.content.downcase.gsub(/[^[:word:]\s]/, '')
 		I18n.transliterate(body).scan(/[a-zA-Z]+/).size
 	end
 
+	# SETTERS
+	# ------------------------------------------------------------
+	def next
+		@next ||= Chapter.next_in_story(self.story_id, self.position).first
+	end
+
+	def prev
+		@prev ||= Chapter.prev_in_story(self.story_id, self.position).first
+	end
+
+	def summary
+		@summary ||= self.about
+	end
+
+	# ACTIONS
+	# ------------------------------------------------------------
 	# MakeRoom - create space for a chapter after this chapter
 	def make_room
 		self.position ||= 0
@@ -139,6 +142,8 @@ class Chapter < ActiveRecord::Base
 		self.position = next_position
 	end
 
+	# QUESTIONS
+	# ------------------------------------------------------------
 	# Editable - user is allowed to edit
 	def editable?(user)
 		self.story.editable? user
@@ -150,15 +155,13 @@ class Chapter < ActiveRecord::Base
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
-	# SetPosition - set the correct position if it does not exist
 	def set_position
 		self.position ||= find_possible_position
 	end
 
-	# FindPossiblePosition - determine what the position could be
 	def find_possible_position
 		story_chapters = self.story.chapters.ordered
 

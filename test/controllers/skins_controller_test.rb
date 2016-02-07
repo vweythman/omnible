@@ -1,49 +1,57 @@
 require 'test_helper'
 
-class SkinsControllerTest < ActionController::TestCase
+class SkinsControllerTest < ControllerTestCase
   setup do
-    @user_skin = user_skins(:one)
+    @letty = users(:letty)
+    @skin  = skins(:one)
   end
 
   test "should get index" do
+    sign_in @letty
     get :index
     assert_response :success
-    assert_not_nil assigns(:user_skins)
+    assert_not_nil assigns(:skins)
   end
 
   test "should get new" do
+    sign_in @letty
     get :new
     assert_response :success
   end
 
-  test "should create user_skin" do
-    assert_difference('UserSkin.count') do
-      post :create, user_skin: { style: @user_skin.style, uploader_id: @user_skin.uploader_id }
+  test "should create skin" do
+    sign_in @letty
+    assert_difference('Skin.count') do
+      post :create, skin: { style: @skin.style, uploader_id: @skin.uploader_id, status: @skin.status }
     end
 
-    assert_redirected_to user_skin_path(assigns(:user_skin))
+    assert_redirected_to skin_path(assigns(:skin))
   end
 
-  test "should show user_skin" do
-    get :show, id: @user_skin
+  test "should show skin" do
+    sign_in @letty
+    get :show, id: @skin
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @user_skin
+    sign_in @letty
+    get :edit, id: @skin
     assert_response :success
   end
 
-  test "should update user_skin" do
-    patch :update, id: @user_skin, user_skin: { style: @user_skin.style, uploader_id: @user_skin.uploader_id }
-    assert_redirected_to user_skin_path(assigns(:user_skin))
+  test "should update skin" do
+    sign_in @letty
+    patch :update, id: @skin, skin: { style: @skin.style, uploader_id: @skin.uploader_id, status: @skin.status }
+    assert_redirected_to skin_path(assigns(:skin))
   end
 
-  test "should destroy user_skin" do
-    assert_difference('UserSkin.count', -1) do
-      delete :destroy, id: @user_skin
+  test "should destroy skin" do
+    sign_in @letty
+    assert_difference('Skin.count', -1) do
+      delete :destroy, id: @skin
     end
 
-    assert_redirected_to user_skins_path
+    assert_redirected_to skins_path
   end
 end

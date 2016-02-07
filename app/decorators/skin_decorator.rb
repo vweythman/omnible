@@ -17,7 +17,7 @@ class SkinDecorator < Draper::Decorator
 	end
 
 	def heading_with_status
-		self.heading + " [" + self.status_type + "]"
+		"#{self.heading} + [#{self.status_type}]"
 	end
 
 	def pretty_print_area

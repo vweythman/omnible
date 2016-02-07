@@ -3,15 +3,25 @@ class SkinsController < ApplicationController
 	# FILTERS
 	# ============================================================
 	before_action :can_view?
-	before_action :skins, only: [:index]
-	before_action :skin,  only: [:show, :edit, :update, :destroy]
 
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
+	def index
+		skins
+	end
+
+	def show
+		skin
+	end
+
 	def new
 		@skin = Skin.new
+	end
+
+	def edit
+		skin
 	end
 
 	# POST
@@ -33,6 +43,7 @@ class SkinsController < ApplicationController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
+		skin
 		respond_to do |format|
 			if @skin.update(skin_params)
 				format.html { redirect_to @skin, notice: 'Stylesheet was successfully updated.' }
@@ -47,7 +58,7 @@ class SkinsController < ApplicationController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
-		@skin.destroy
+		skin.destroy
 		respond_to do |format|
 			format.html { redirect_to skins_url }
 			format.json { head :no_content }

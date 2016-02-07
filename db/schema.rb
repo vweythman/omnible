@@ -142,8 +142,8 @@ ActiveRecord::Schema.define(version: 20160125060802) do
 
   create_table "creator_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "agentive",   default: "by"
   end
 
@@ -506,11 +506,11 @@ ActiveRecord::Schema.define(version: 20160125060802) do
   add_index "skinnings", ["work_id"], name: "index_skinnings_on_work_id"
 
   create_table "skins", force: :cascade do |t|
+    t.string   "title"
     t.integer  "uploader_id"
     t.text     "style"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "title"
     t.string   "status",      default: "unpublished"
   end
 
