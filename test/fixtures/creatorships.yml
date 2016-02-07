@@ -1,11 +1,52 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# ARTICLE
+# ===================================
 one:
-  user_id: 
-  work_id: 
-  nature: MyString
+  creator: sirka_pen
+  work: apologia
+  category: writer
 
 two:
-  user_id: 
-  work_id: 
-  nature: MyString
+  creator: amiya_pen
+  work: theocrat
+  category: author
+
+three:
+  creator: indra_pen
+  work: skywalks
+  category: translator
+
+# SHORT STORY
+# ===================================
+four:
+  creator: roleplay_allen
+  work: calypso
+  category: writer
+
+five:
+  creator: indra_pen
+  work: effaces
+  category: writer
+
+six:
+  creator: roleplay_john
+  work: glamour
+  category: writer
+
+# STORY
+# ===================================
+seven:
+  creator: indra_pen
+  work: heart
+  category: writer
+
+eight:
+  creator: roleplay_jane
+  work: helix
+  category: writer
+
+nine:
+  creator: amiya_pen
+  work: frenzy
+  category: writer

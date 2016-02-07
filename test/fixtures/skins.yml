@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  uploader_id: 
+  uploader: letty 
   style: MyText
+  status: Public
 
 two:
-  uploader_id: 
+  uploader: letty 
   style: MyText
+  status: Public

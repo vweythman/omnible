@@ -35,3 +35,11 @@ story_link:
   is_record:    true
   is_creative_expression: true
   creator_categories: writer, author, translator
+
+poem:
+  name: Poem
+  is_narrative: true
+  is_singleton: true
+  content_type: text
+  is_record:    false
+  is_creative_expression: true

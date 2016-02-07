@@ -1,25 +1,45 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-flight_one:
-  title: Prologue
-  content: blah blah A.C.M.E.
-  about: 
-  afterward: 
-  position: 1
-  story: flight
+# SHORT STORY
+# ===================================
+calypso_content:
+  content: He stood away as they transformed and ran. None looked back.
+  position: 0
+  story: calypso
 
-flight_two:
-  title:
-  content: blah's blah
-  about: And here we end the tale.
-  afterward: Thanks for reading! It's been fun.
+effaces_content:
+  content: The island ate them piece by piece.
+  position: 0
+  story: effaces
+
+glamour_content:
+  content: The fair folk came on the night of the new moon and never left.
+  position: 0
+  story: glamour
+
+# STORY
+# ===================================
+heart_zero:
+  story: heart
+  content: A twist. A turn. They did not meet.
+  position: 0
+
+helix_one:
+  story: helix
+  title: Luckless Love
+  content: Didn't he know then?
+  position: 1
+
+helix_two:
+  story: helix
+  title: The Raven Spoke
+  content: '"You will fail and find nothing." The Raven said. "I will succeed and find everything." The girl answered.'
   position: 2
-  story: flight
 
-offend_titleless:
-  title:
-  position: 1
-  content: blah blah blah. and also blah
-  about: 
-  afterward: 
-  story: offend
+frenzy_zero:
+  story: frenzy
+  title: Prologue
+  content: She would find her true love where the east met the moon.
+  about: This is only the start of an idea.
+  afterward: I want to thank my betas for their hard work.
+  position: 0 

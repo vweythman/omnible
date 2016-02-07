@@ -19,3 +19,7 @@ tegan_to_becca:
 letty_to_tegan:
   blocker: letty
   blocked: tegan
+
+indra_to_sirka:
+  blocker: indra
+  blocked: sirka

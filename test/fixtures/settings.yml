@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  work: flight 
-  place: middle_earth
+  work: glamour
+  place: london
 
 two:
-  work: baffle 
+  work: heart 
   place: actual_earth 
+
+three:
+  work: effaces
+  place: styx

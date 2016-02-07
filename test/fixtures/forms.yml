@@ -8,3 +8,6 @@ river:
 
 country:
   name: country
+
+city:
+  name: city

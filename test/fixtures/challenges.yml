@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+inciter:
   title: MyString
-  uploader_id: 
+  uploader: sirka 
   about: MyText
-  response_level: MyString
+  response_level: <%= Challenge::ANYONE %>
 
-two:
+swarm:
   title: MyString
-  uploader_id: 
+  uploader: letty
   about: MyText
-  response_level: MyString
+  response_level: <%= Challenge::FRIENDS_N_FOLLOWERS %>

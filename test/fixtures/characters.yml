@@ -36,7 +36,7 @@ erik:
 # ROLEPLAY CHARACTERS
 # ===================================
 roleplay_jane:
-  name: Jane
+  name: Player!Jane
   uploader: sirka
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>
@@ -64,22 +64,22 @@ roleplay_allen:
 
 # PEN CHARACTERS
 # ===================================
-# ADMIN PEN'S
+# ADMIN PENS
 # -----------------------------------
 mayra_pen:
   name: mayra's pen
   uploader: mayra
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: true
   allow_clones: false
   allow_as_clone: false
 
 randa_pen:
   name: randa's pen
-  uploader: indra
+  uploader: randa
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: false
   allow_clones: false
   allow_as_clone: false
@@ -88,38 +88,48 @@ gaven_pen:
   name: gaven's pen
   uploader: gaven
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: true
   allow_clones: false
   allow_as_clone: false
 
-# CONTENT CREATOR PEN'S
+# CONTENT CREATOR PENS
 # -----------------------------------
 amiya_pen:
   name: amiya's pen
   uploader: amiya
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: true
   allow_clones: false
   allow_as_clone: false
-
-becca_pen:
-  name: becca's pen
-  uploader: becca
-  editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
-  allow_play: true
-  allow_clones: false
-  allow_as_clone: false
-
 
 indra_pen:
   name: indra's pen
   uploader: indra
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: false
+  allow_clones: false
+  allow_as_clone: false
+
+sirka_pen:
+  name: sirka's pen
+  uploader: sirka
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PERSONAL %>
+  allow_play: false
+  allow_clones: false
+  allow_as_clone: false
+
+# CONTENT VIEWERS PENS
+# -----------------------------------
+becca_pen:
+  name: becca's pen
+  uploader: becca
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PERSONAL %>
+  allow_play: true
   allow_clones: false
   allow_as_clone: false
 
@@ -127,18 +137,8 @@ letty_pen:
   name: letty's pen
   uploader: letty
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: true
-  allow_clones: false
-  allow_as_clone: false
-
-
-sirka_pen:
-  name: sirka's pen
-  uploader: sirka
-  editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
-  allow_play: false
   allow_clones: false
   allow_as_clone: false
 
@@ -146,7 +146,7 @@ tegan_pen:
   name: tegan's pen
   uploader: tegan
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PUBLIC %>
+  publicity_level: <%= Editable::PERSONAL %>
   allow_play: false
   allow_clones: false
   allow_as_clone: false

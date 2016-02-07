@@ -1,26 +1,47 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-flight_main:
-  work: flight
+# ONE
+# ===================================
+calypso_main:
+  work: calypso
   character: mary
   role: main
 
-flight_side:
-  work: flight
+effaces_side: 
+  work: effaces
   character: jane
   role: side
 
-flight_mentioned:
-  work: flight
+glamour_mentioned:
+  work: glamour
   character: erik
-  role: mentioned
+  role: mentioned  
 
-offend_subject:
-  work: offend
-  character: mary
+# TWO OF THE SAME
+# ===================================
+theocrat_subject:
+  work: theocrat
+  character: erik
   role: subject
 
-offend_appearing:
-  work: offend
+theocrat_subject:
+  work: theocrat
+  character: jane
+  role: subject
+
+# ALL DIFFERENT
+# ===================================
+frenzy_main:
+  work: frenzy
+  character: jane
+  role: main
+
+frenzy_side:
+  work: frenzy
   character: erik
-  role: appearing
+  role: side
+
+frenzy_mentioned:
+  work: frenzy
+  character: mary
+  role: mentioned

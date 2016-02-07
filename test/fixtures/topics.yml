@@ -1,12 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-discusser:
-  title: MyString
-  creator_id: 
+discusser_one:
+  title: Discussion about The Unlove
+  creator: indra
   allow_response: false
-  discussed: flight (Work)
+  discussed: heart (Work)
 
-solo:
-  title: MyString
-  creator_id: 
+discusser_two:
+  title: Discussion about Fate of Fortune
+  creator: amiya
+  allow_response: false
+  discussed: calypso (Work)
+
+solo_one:
+  title:   Plans for the Future
+  creator: randa
+  allow_response: false
+
+solo_two:
+  title: Sirka is wrong and I will prove it
+  creator: amiya
+  allow_response: false
+
+solo_three:
+  title: Amiya doesn't know what she's talking about
+  creator: sirka
   allow_response: false

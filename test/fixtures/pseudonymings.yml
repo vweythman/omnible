@@ -1,0 +1,83 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# ROLEPLAY
+# ===================================
+role_one:
+  user: sirka
+  character: roleplay_jane
+  type: "Roleplay"
+  is_primary: false
+
+role_two:
+  user: sirka
+  character: roleplay_john
+  type: "Roleplay"
+  is_primary: false
+
+role_three:
+  user: amiya
+  character: roleplay_allen
+  type: "Roleplay"
+  is_primary: false
+
+# PEN NAMES
+# ===================================
+# ADMIN PENS
+# -----------------------------------
+admin_pen_one:
+  user: mayra
+  character: mayra_pen
+  type: "PenNaming"
+  is_primary: true
+
+admin_pen_two:
+  user: randa
+  character: randa_pen
+  type: "PenNaming"
+  is_primary: true
+
+admin_pen_three:
+  user: gaven
+  character: gaven_pen
+  type: "PenNaming"
+  is_primary: true
+
+# CONTENT CREATOR PENS
+# -----------------------------------
+creator_pen_one:
+  user: amiya
+  character: amiya_pen
+  type: "PenNaming"
+  is_primary: true
+
+creator_pen_two:
+  user: indra
+  character: indra_pen
+  type: "PenNaming"
+  is_primary: true
+
+creator_pen_three:
+  user: sirka
+  character: sirka_pen
+  type: "PenNaming"
+  is_primary: true
+
+# CONTENT VIEWERS PENS
+# -----------------------------------
+viewer_pen_one:
+  user: becca
+  character: becca_pen
+  type: "PenNaming"
+  is_primary: true
+
+viewer_pen_two:
+  user: letty
+  character: letty_pen
+  type: "PenNaming"
+  is_primary: true
+
+viewer_pen_three:
+  user: tegan
+  character: tegan_pen
+  type: "PenNaming"
+  is_primary: true

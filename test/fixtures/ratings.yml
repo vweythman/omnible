@@ -1,31 +1,43 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-clean:
-  work: flight
-  violence: 0
+# SHORT STORY
+# ===================================
+short_major:
+  work: calypso
+  violence:  3
+  sexuality: 2
+  language:  2
+
+short_clean:
+  work: effaces
+  violence:  0
   sexuality: 0
-  language: 0
+  language:  0
 
-minor: 
-  work: baffle
-  violence: 1
+short_medium:
+  work: glamour
+  violence:  2
+  sexuality: 1
+  language:  1
+
+# STORY
+# ===================================
+story_minor:
+  work: heart
+  violence:  1
   sexuality: 0
-  language: 1
+  language:  1
 
-present:
-  work: attend
-  violence: 2
-  sexuality: 1
-  language: 1
-
-major:
-  work: frenzy
-  violence: 3
-  sexuality: 1
-  language: 3
-
-explicit:
-  work: offend 
-  violence: 2
+story_explicit:
+  work: helix 
+  violence:  2
   sexuality: 4
-  language: 4
+  language:  4
+
+story_major:
+  work: frenzy
+  violence:  3
+  sexuality: 1
+  language:  3
+
+# attend - offend - flight

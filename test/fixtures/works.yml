@@ -1,41 +1,110 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-baffle:
-  title: Baffle and Bother
+# ARTICLE
+# ===================================
+apologia:
+  title: OddThought
+  summary: in defense of the villain
   uploader: sirka
-  is_narrative: true
-  editor_level: <%= Editable::EXCEPT_BLOCKED %>
-  publicity_level: <%= Editable::EXCEPT_BLOCKED %>
-  type: ExternalStory
-
-attend:
-  title: Attend and Amend
-  uploader: randa
-  is_narrative: true
-  editor_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
-  publicity_level: <%= Editable::MEMBERS_ONLY %>
-  type: 
-
-frenzy:
-  title: Feeding frenzy
-  uploader: indra
-  is_narrative: true
   editor_level: <%= Editable::PERSONAL %>
-  publicity_level: <%= Editable::PERSONAL %>
-  type:
+  publicity_level: <%= Editable::FRIENDS_ONLY %>
+  type: Article
+  is_complete: true
 
-flight:
-  title: Flight Path
-  uploader: randa
-  is_narrative: true
+theocrat:
+  title: OddThought Counter
+  summary: sirka has no idea what she's talking about
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::EXCEPT_BLOCKED %>
+  type: Article
+  is_complete: true
+
+skywalks:
+  title: Happiness Meta
+  summary: how happy was this character
+  uploader: indra
   editor_level: <%= Editable::FRIENDS_ONLY %>
   publicity_level: <%= Editable::FRIENDS_ONLY %>
-  type: Story
+  type: Article 
+  is_complete: true
 
-offend: 
-  title: Offend Fortune
+# SHORT STORY
+# ===================================
+calypso: 
+  title: Fate of Fortune
+  summary: retelling of greek myth
   uploader: amiya
-  is_narrative: false
-  editor_level: <%= Editable::MEMBERS_ONLY %>
+  editor_level: <%= Editable::FRIENDS_ONLY %>
+  publicity_level: <%= Editable::MEMBERS_ONLY %>
+  type: ShortStory
+  is_complete: true
+
+effaces:
+  title: Shadow of the Cathedral
+  summary: gothic horror romance
+  uploader: indra
+  editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>
   type: ShortStory
+  is_complete: true
+
+glamour:
+  title: Fair Folk
+  summary: dark fairy tale
+  uploader: sirka
+  editor_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: ShortStory
+  is_complete: true
+
+# STORY
+# ===================================
+heart:
+  title: The Unlove
+  uploader: indra
+  editor_level: <%= Editable::EXCEPT_BLOCKED %>
+  publicity_level: <%= Editable::EXCEPT_BLOCKED %>
+  type: Story
+  is_complete: true
+
+helix:
+  title: Attend and Amend
+  uploader: sirka
+  editor_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
+  publicity_level: <%= Editable::MEMBERS_ONLY %>
+  type: Story
+  is_complete: false
+
+frenzy:
+  title: Feeding Frenzy
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PERSONAL %>
+  type: Story
+
+# STORY LINK
+# ===================================
+zoologist:
+  title: Flight Path of the Concord
+  uploader: indra
+  editor_level: <%= Editable::MEMBERS_ONLY %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: StoryLink
+  is_complete: true
+
+windstorm:
+  title: Deadly Storms
+  uploader: sirka
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
+  type: StoryLink
+  is_complete: true
+
+viperfish:
+  title: Fishing
+  uploader: amiya
+  editor_level: <%= Editable::MEMBERS_ONLY %>
+  publicity_level: <%= Editable::MEMBERS_ONLY %>
+  type: StoryLink
+  is_complete: true

@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  original_id: 
-  clone_id: 
-
-two:
-  original_id: 
-  clone_id: 
+  original: jane 
+  clone: roleplay_jane

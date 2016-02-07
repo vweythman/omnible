@@ -3,9 +3,13 @@
 awesome:
   title: My Awesome Idea
   about: MyText
-  user_id: 
+  user:  amiya 
 
 terrible:
   title: This terrible but brillant idea! 
   about: MyText
-  user_id: 
+  user: becca
+
+crazy:
+  title: Someone write this before I do
+  user: indra 

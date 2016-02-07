@@ -3,19 +3,24 @@
 actual_earth:
   name: Earth
   form: planet
-  fictional: 'f'
+  fictional: false
 
 middle_earth:
   name: Middle-Earth
   form: planet 
-  fictional: 't'
+  fictional: true
 
 nile:
   name: Nile River
   form: river
-  fictional: 'f'
+  fictional: false
 
 styx:
   name: Styx
   form: river
-  fictional: 't'
+  fictional: true
+
+london:
+  name: London
+  form: city
+  fictional: false
