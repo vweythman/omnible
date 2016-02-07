@@ -2,10 +2,10 @@
 
 one:
   name: Excalibur
-  generic_id: 1
+  generic: sword
   slug: excalibur
 
 two:
   name: Aegis
-  generic_id: 2
+  generic: shield
   slug: aegis
