@@ -1,0 +1,10 @@
+<div class="form-grid select-one">
+	<% collection.each do |item| %>
+		<%= panel_cell "" do %>
+			<div class="radio-content">
+				<%= f.radio_button(param, item, :checked => (item == default)) %>
+				<%= f.label("#{param}_#{item.downcase.tr(" ", "_")}", item) %>
+			</div>
+		<% end %>
+	<% end %>
+</div>

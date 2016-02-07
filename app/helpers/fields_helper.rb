@@ -63,6 +63,19 @@ module FieldsHelper
 		}
 	end
 
+	def radio_set(f, p, c, t = "Select", d = 0)
+		render :partial => "shared/forms/radio_fieldset", :locals => { 
+			:f => f, :param => p, :collection => c, :default => d, :title => t
+		}
+	end
+
+	# OUTPUT radio buttons using string
+	def radios_by_string(f, p, c, d = "")
+		render :partial => "shared/forms/radio_strings", :locals => { 
+			:f => f, :param => p, :collection => c, :default => d
+		}
+	end
+
 	# RENDERED FIELDS
 	# ------------------------------------------------------------
 	# OUTPUT form field
@@ -78,22 +91,6 @@ module FieldsHelper
 		content_tag :div, class: "choice" do
 			output.html_safe
 		end
-	end
-
-	# OUTPUT radio buttons using string
-	def radios_by_string(f, param, collection, default = "")
-		output = ""
-		collection.each do |v|
-			is_checked = (v == default)
-
-			tagid = "#{param}_#{v.downcase.tr(" ", "_")}"
-			field = f.radio_button(param, v, :checked => is_checked)
-			label = f.label(tagid, v)
-
-			output = output + form_field(field, label)
-		end
-
-		choice output
 	end
 
 end

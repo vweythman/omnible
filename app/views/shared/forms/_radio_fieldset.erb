@@ -1,0 +1,14 @@
+<fieldset class="options">
+	<legend><%= title %></legend>
+	
+	<div class="choice">
+		<% collection.each do |item| %>
+			<%= panel_cell "" do %>
+				<div class="radio-content">
+					<%= f.radio_button(param, item.id, :checked => (item.id == default)) %>
+					<%= f.label("#{param}_#{item.id}", item.name) %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</fieldset>
