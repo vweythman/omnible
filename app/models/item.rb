@@ -71,7 +71,11 @@ class Item < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
 	def heading
-		name + " (" + generic.name + ")"
+		name + " #{generic_heading}"
+	end
+
+	def generic_heading
+		"(" + generic.name + ")" unless generic.nil?
 	end
 
 	# Nature - defines the type name if it exists

@@ -27,7 +27,7 @@ module Documentable
 	end
 
 	def heading
-		name
+		self.name unless self.name.nil?
 	end
 
 end
