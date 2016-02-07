@@ -44,8 +44,8 @@ class PossessionsDecorator < Draper::CollectionDecorator
 		values
 	end
 
-	def possible_possessions
-		@possible ||= Item.all
+	def possible
+		@possible ||= Item.all.includes(:generic)
 	end
 
 end
