@@ -7,7 +7,7 @@ module EditableCategory
 	# ------------------------------------------------------------
 	class_methods do
 		def createable?(user)
-			!user.nil? && user.manager?
+			!user.nil? && user.admin?
 		end
 	end
 
