@@ -128,6 +128,7 @@ Rails.application.routes.draw do
 
     scope module: 'curation' do
       get '/identities/:identity_id/characters' => 'identity_characters#index', as: :identity_characters
+      get '/works/:work_id/characters' => 'work_characters#index', as: :work_characters
     end
   end
 
