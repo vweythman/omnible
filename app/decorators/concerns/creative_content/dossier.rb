@@ -14,7 +14,7 @@ module CreativeContent
 		# SET
 		# ============================================================
 		def title_for_creation
-			@meta_title ||= "Create " + klass
+			@meta_title ||= "Create " + klass.titleize
 		end
 
 		def title_for_editing
