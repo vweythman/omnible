@@ -17,4 +17,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin_restriction
+    unless current_user.admin?
+      redirect_to root_url
+    end
+  end
+
+  def check_editing_of(model)
+    unless model.editable? current_user
+      redirect_to model     
+    end
+  end
+
+  def check_viewing_of(model, redirection = root_url)
+    unless model.viewable? current_user
+      redirect_to redirection     
+    end
+  end
+
 end
