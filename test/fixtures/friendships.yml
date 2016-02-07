@@ -24,3 +24,13 @@ becca_to_tegan:
   friender: becca
   friendee: randa
   is_mutual: 'f'
+
+indra_to_letty:
+  friender: indra
+  friendee: letty
+  is_mutual: 't'
+
+letty_to_indra:
+  friender: indra
+  friendee: letty
+  is_mutual: 't'
