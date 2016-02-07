@@ -2,27 +2,30 @@ class Categories::FacetsController < ApplicationController
 
 	# FILTERS
 	# ============================================================
-	# FIND
-	# ------------------------------------------------------------
-	before_action :facet,  except: [:index, :new, :create]
-	before_action :facets, only:   [:index]
-
 	# PERMIT
 	# ------------------------------------------------------------
-	before_action :can_create?,  only: [:new,  :create]
-	before_action :can_edit?,    only: [:edit, :update]
-	before_action :can_destroy?, only: [:destroy]
+	before_action :can_create?, only: [:new, :create]
 
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
+	def index
+		facets
+	end
+
 	def show
+		facet
 		@identities = @facet.identities.decorate
 	end
 
 	def new
 		@facet = Facet.new.decorate
+	end
+
+	def edit
+		facet
+		can_edit? @facet
 	end
 
 	# POST
@@ -32,7 +35,7 @@ class Categories::FacetsController < ApplicationController
 
 		if @facet.save
 			respond_to do |format|
-				format.js   { find_facets }
+				format.js   { facets }
 				format.html { redirect_to @facet }
 			end
 		else
@@ -43,8 +46,14 @@ class Categories::FacetsController < ApplicationController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
-		if @facet.update(category_params)
-			redirect_to @facet
+		facet
+		can_edit? @facet
+
+		if @facet.update(facet_params)
+			respond_to do |format|
+				format.js   {  }
+				format.html { redirect_to @facet }
+			end
 		else
 			render action: 'edit'
 		end
@@ -53,6 +62,9 @@ class Categories::FacetsController < ApplicationController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		facet
+		can_destroy? @facet
+
 		@facet.destroy
 		respond_to do |format|
 			format.js   { facets }
@@ -86,18 +98,6 @@ class Categories::FacetsController < ApplicationController
 	def can_create?
 		unless Facet.createable? current_user 
 			redirect_to facets_path
-		end
-	end
-	
-	def can_destroy?
-		unless @facet.destroyable? current_user
-			redirect_to @facet
-		end
-	end
-	
-	def can_edit?
-		unless @facet.editable? current_user
-			redirect_to @facet
 		end
 	end
 
