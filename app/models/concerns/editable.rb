@@ -18,8 +18,8 @@ module Editable
 	FRIENDS_N_FOLLOWERS = 2
 
 	# - GENERAL PUBLIC
-	MEMBERS_ONLY   = 3
-	EXCEPT_BLOCKED = 4
+	EXCEPT_BLOCKED = 3
+	MEMBERS_ONLY   = 4
 	PUBLIC         = 5
 
 	# SCOPES AND ASSOCIATIONS
@@ -33,7 +33,7 @@ module Editable
 		scope :follow_viewable, -> { where("#{self.table_name}.publicity_level = ?", FRIENDS_N_FOLLOWERS) }
 
 		# - Conditional Scopes
-		scope :for_anons,     -> { where("#{self.table_name}.publicity_level >= ?", EXCEPT_BLOCKED) }
+		scope :for_anons,     -> { where("#{self.table_name}.publicity_level >= ?", PUBLIC) }
 		scope :unblocked_for, ->(user) { where("#{self.table_name}.uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)",    user.id).semi_viewable }
 		scope :friendlisted,  ->(user) { where("#{self.table_name}.uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = ?)", user.id).friend_viewable }
 		scope :followlisted,  ->(user) { where("#{self.table_name}.uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = ?)",  user.id).follow_viewable.unblocked_for(user) }
@@ -61,18 +61,21 @@ module Editable
 				for_anons
 			else
 				i = user.id
+				user_is_uploader = "#{self.table_name}.uploader_id = #{i}"
+				work_is_public   = "#{self.table_name}.publicity_level = #{PUBLIC}"
+				membership_only  = "#{self.table_name}.publicity_level = #{MEMBERS_ONLY}"
+				user_is_blocked  = "#{self.table_name}.uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i})"
+				user_is_blocker  = "#{self.table_name}.uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i})"
+				except_blocked   = "#{self.table_name}.publicity_level = #{EXCEPT_BLOCKED}"
+				for_friends      = "#{self.table_name}.publicity_level > #{FRIENDS_ONLY - 1} AND #{self.table_name}.publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND #{self.table_name}.uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})"
+				for_followers    = "#{self.table_name}.publicity_level = #{FRIENDS_N_FOLLOWERS} AND #{self.table_name}.uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})"
+
 				# REPLACE WITH OR CHAINING EVENTUALLY
 				self.where("
-					#{self.table_name}.uploader_id = #{i} OR
-					#{self.table_name}.publicity_level = #{PUBLIC} OR (
-						#{self.table_name}.uploader_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = #{i}) AND
-						#{self.table_name}.uploader_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = #{i}) AND (
-							#{self.table_name}.publicity_level = #{EXCEPT_BLOCKED} OR #{self.table_name}.publicity_level = #{MEMBERS_ONLY} OR (
-								#{self.table_name}.publicity_level > #{FRIENDS_ONLY - 1} AND #{self.table_name}.publicity_level < #{FRIENDS_N_FOLLOWERS + 1} AND #{self.table_name}.uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = #{i})
-							) OR (
-								#{self.table_name}.publicity_level = #{FRIENDS_N_FOLLOWERS} AND #{self.table_name}.uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = #{i})
-							)
-						)
+					#{user_is_uploader} OR #{work_is_public} OR #{membership_only} OR 
+					(
+						#{user_is_blocked} AND #{user_is_blocker} AND 
+						(#{except_blocked} OR #{for_friends} OR #{for_followers})
 					)"
 				)
 			end
@@ -80,7 +83,7 @@ module Editable
 	end
 
 	def self.labels
-		['Private', 'Friends', 'Friends & Followers', 'Must Be Signed In', 'Mostly Public (no blocked users)', 'Completely Public']
+		['Private', 'Friends', 'Friends & Followers', 'Site Members (excluding blocked and blocking users)', 'Must Be Signed In', 'Completely Public']
 	end
 
 	# METHODS
@@ -106,7 +109,7 @@ module Editable
 	def editable?(editor)
 		@reader = editor
 		@level  = self.editor_level
-		uploader?(@reader) || for_public? || invited_editor?(@reader) || check_restrictions
+		uploader?(@reader) || for_public? || invited_editor?(@reader) || for_user?
 	end
 
 	# InvitedEditor?
@@ -129,7 +132,7 @@ module Editable
 	# Unblocked?
 	# - viewer is not banned from viewing
 	def unblocked_access?(reader)
-		!self.uploader.blocking?(reader)
+		!self.uploader.blocking?(reader) && !self.uploader.blocked_by?(reader)
 	end
 
 	# Viewable?
@@ -139,7 +142,7 @@ module Editable
 		@reader = reader
 		@level  = self.publicity_level
 
-		uploader?(@reader) || for_public? || invited_viewer?(@reader) || check_restrictions
+		uploader?(@reader) || for_public? || invited_viewer?(@reader) || for_user?
 	end
 
 	# PRIVATE METHODS
@@ -154,7 +157,7 @@ module Editable
 	# CheckRestrictions
 	# - checks various publicity levels
 	def check_restrictions
-		unblocked_access?(@reader) && (semi_public? || for_friendly? || for_following? || for_user?)
+		unblocked_access?(@reader) && (semi_public? || for_friendly? || for_following?)
 	end
 	
 	# ForFriendlyViewer
@@ -172,7 +175,7 @@ module Editable
 	# ForViewingUser
 	# - allows viewing if reader is a user of the site
 	def for_user?
-		@level == Editable::MEMBERS_ONLY && !@reader.nil?
+		!@reader.nil? && (@level == Editable::MEMBERS_ONLY || check_restrictions)
 	end
 
 	# SemiPublic?
