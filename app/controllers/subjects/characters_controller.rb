@@ -1,26 +1,26 @@
 class Subjects::CharactersController < SubjectsController
 
-	# FILTERS
-	# ============================================================
-	# FIND
-	# ------------------------------------------------------------
-	before_action :character,  except: [:index, :new, :create]
-
-	# PERMIT
-	# ------------------------------------------------------------
-	before_action :can_edit?, only: [:edit, :update, :delete]
-	before_action :can_view?, only: [:show]
-
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
-	# ............................................................
+	# ------------------------------------------------------------
+	def index
+		characters
+	end
+
+	def show
+		character
+		can_view? @character, characters_path
+	end
+
 	def new
 		@character = Character.new.decorate
 		associables
 	end
 
 	def edit
+		character
+		can_edit? @character
 		associables
 	end
 
@@ -41,7 +41,10 @@ class Subjects::CharactersController < SubjectsController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
+		character
+		can_edit? @character
 		new_visitor
+
 		if @character.update(character_params)
 			redirect_to @character
 		else
@@ -53,6 +56,9 @@ class Subjects::CharactersController < SubjectsController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		character
+		can_destroy? @character
+
 		@character.destroy
 		respond_to do |format|
 			format.html { redirect_to characters_url }
@@ -68,13 +74,13 @@ class Subjects::CharactersController < SubjectsController
 	# ------------------------------------------------------------
 	def character_params
 		permitted = params.require(:character).permit(
-			:name,         :variations,      :about,
-			:editor_level, :publicity_level, :visitor,
+			:name,         :variations,
+			:editor_level, :publicity_level,
 			:allow_play,   :allow_clones,    :can_connect,
 
 			details_attributes:     [:id, :title,    :content, :_destroy],
 			possessions_attributes: [:id, :item_id,  :nature,  :_destroy],
-			opinions_attributes:    [:id, :fondness, :respect, :about, :recip_id,   :_destroy],
+			opinions_attributes:    [:id, :fondness, :respect, :about, :recip_id, :_destroy],
 			prejudices_attributes:  [:id, :fondness, :respect, :about, :facet_id, :identity_name, :_destroy]
 		)
 		permitted.merge(
@@ -85,7 +91,7 @@ class Subjects::CharactersController < SubjectsController
 
 	# FIND
 	# ------------------------------------------------------------
-	def subjects
+	def characters
 		@subjects = @characters = Character.not_pen_name.viewable_for(current_user).order('name').decorate
 	end
 
@@ -106,20 +112,6 @@ class Subjects::CharactersController < SubjectsController
 		@opinions   = OpinionsDecorator.decorate(@character.opinions)
 		@prejudices = PrejudicesDecorator.decorate(@character.prejudices)
 		@text       = @character.current_detail_text
-	end
-
-	# PERMIT
-	# ------------------------------------------------------------
-	def can_edit?
-		unless @character.editable? current_user
-			redirect_to @character
-		end
-	end
-
-	def can_view?
-		unless @character.viewable? current_user
-			render 'restrict'
-		end
 	end
 
 end

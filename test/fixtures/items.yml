@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+excalibur:
   name: Excalibur
   generic: sword
   slug: excalibur
 
-two:
+aegis:
   name: Aegis
   generic: shield
   slug: aegis

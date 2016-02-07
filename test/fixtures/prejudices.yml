@@ -6,3 +6,10 @@ transphobia:
   fondness: -2
   respect: -2
   about: fear and hate
+
+ageism:
+ character: mary
+ identity: young
+ fondness: -2
+ respect:  -2
+ about: a bitter old woman and proud of it
