@@ -34,7 +34,8 @@ class CharacterDecorator < Draper::Decorator
 
 	def replication_bar
 		dup = h.link_to "Duplicate", h.replicate_path(self), method: :post
-		con = h.link_to("Connect to Original Variant", h.edit_clone_path(self))
+		con = h.link_to("Connect to Original Variant", h.new_clone_path(self))
+		
 		rol = h.content_tag :a do "Create a Roleplay Copy" end
 
 		links = self.is_a_clone? ? (dup + rol) : (con + dup + rol)

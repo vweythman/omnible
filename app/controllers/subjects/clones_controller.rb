@@ -1,16 +1,13 @@
 class Subjects::ClonesController < ApplicationController
 
-	# FILTERS
-	# ============================================================
-	before_action :original_character, only: [:create]
-	before_action :clone_character,    only: [:edit, :update]
-	before_action :can_create?
-
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
-	def edit
+	def new
+		clone_character
+		can_be_a_clone?
+
 		@replication       = Replication.new
 		@replication.clone = @clone
 	end
@@ -18,21 +15,33 @@ class Subjects::ClonesController < ApplicationController
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@character = @original.replicate(current_user)
-		@character.save
-		render 'show'
+		clone_character
+		original_character
+		
+		if connectable?
+			@replication = Replication.new(replication_params)
+
+			if @replication.save
+				redirect_to(@replication.clone)
+			else
+				render action: 'edit'
+			end
+		else
+			redirect_to @clone
+		end
 	end
 
-	# PATCH/PUT
+	# DELETE
 	# ------------------------------------------------------------
-	def update
-		@replication = Replication.new(replication_params)
+	def destroy
+		clone_character
 
-		if @replication.save
-			redirect_to @replication.clone
-		else
-			render action: 'edit'
+		if @clone.decloneable?(current_user)
+			@clone.declone
+			@clone.save
 		end
+
+		redirect_to @clone
 	end
 	
 	# PRIVATE METHODS
@@ -47,25 +56,29 @@ class Subjects::ClonesController < ApplicationController
 
 	# FIND
 	# ------------------------------------------------------------
-	def character_selection
-		@found_character = Character.find(params[:id]).decorate
+	def character_selection(id)
+		@found_character = Character.find(id).decorate
 	end
 
 	# SET
 	# ------------------------------------------------------------
 	def clone_character
-		@clone = character_selection
+		@clone = character_selection(params[:id])
 	end
 
 	def original_character
-		@original = character_selection
+		@original = character_selection(params[:replication][:original_id])
 	end
 
 	# PERMIT
 	# ------------------------------------------------------------
-	def can_create?
-		unless user_signed_in?
-			redirect_to @found_character
+	def connectable?
+		@connectable = @original.cloneable?(current_user) && @clone.can_be_a_clone?(current_user)
+	end
+
+	def can_be_a_clone?
+		unless @clone.can_be_a_clone?(current_user)
+			redirect_to(@clone)
 		end
 	end
 

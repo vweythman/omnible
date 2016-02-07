@@ -220,6 +220,7 @@ class Character < ActiveRecord::Base
 
 	# QUESTIONS
 	# ------------------------------------------------------------
+	# relationship connectable
 	def connectable?(user)
 		self.can_connect || self.uploader_id = user.id
 	end

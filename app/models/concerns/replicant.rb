@@ -10,10 +10,22 @@ module Replicant
 		has_many :clones,       through:   :replications
 	end
 
+	# PUBLIC METHODS
+	# ============================================================
+	# ACTIONS
+	# ------------------------------------------------------------
+	def connect_clone(clone)
+		replica = Replication.create(original_id: self, clone_id: clone.id)
+	end
+
+	def declone
+		self.original = nil
+	end
+
 	# Replicate
 	# - clone character and create interconnection between original and clone
 	def replicate(current_user)
-		unless self.allow_clones
+		unless cloneable?(current_user)
 			return nil
 		end
 
@@ -27,10 +39,12 @@ module Replicant
 		return replica
 	end
 
+	# QUESTIONS
+	# ------------------------------------------------------------
 	# CanBeAClone?
 	# - asks if character can be set as a clone
-	def can_be_a_clone?
-		self.allow_as_clone == 't' || self.allow_as_clone == true
+	def can_be_a_clone?(visitor)
+		self.allow_as_clone || self.uploader_id == visitor.id
 	end
 
 	# HasClone?
@@ -39,16 +53,24 @@ module Replicant
 		self.clones.include?(character)
 	end
 
+	def has_clones?
+		self.clones.size > 0
+	end
+
 	# Cloneable?
 	# - asks whether character can be cloned
-	def cloneable?
-		self.allow_clones == true || self.allow_clones == 't'
+	def cloneable?(visitor)
+		self.allow_clones || self.uploader_id == visitor.id
 	end
 
 	# IsAClone?
 	# - asks if character cloned from another character
 	def is_a_clone?
 		self.original.present?
+	end
+
+	def decloneable?(visitor)
+		can_be_a_clone?(visitor)
 	end
 
 end

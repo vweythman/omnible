@@ -3,3 +3,7 @@
 one:
   original: jane 
   clone: roleplay_jane
+
+two:
+  original: jane
+  clone: roleplay_john

@@ -101,9 +101,9 @@ Rails.application.routes.draw do
     # NARROW curation controllers
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     scope module: 'curation' do
-      get '/characters/:character_id/works'     => 'character_works#index',     as: :character_works
-      get '/tags/:tag_id/works'                 => 'tag_works#index',           as: :tag_works
-      get '/identities/:identity_id/works'      => 'identity_works#index',      as: :identity_works
+      get '/characters/:character_id/works' => 'character_works#index', as: :character_works
+      get '/tags/:tag_id/works'             => 'tag_works#index',       as: :tag_works
+      get '/identities/:identity_id/works'  => 'identity_works#index',  as: :identity_works
     end
   end
   
@@ -117,10 +117,11 @@ Rails.application.routes.draw do
   # ============================================================
   get 'subjects' => 'subjects#index'
   scope module: 'subjects' do
-    resources :clones, only: [:edit, :update]
-    post "/clones/:id/"   => "clones#create", as: :replicate
-    get  "/places/real"   => 'real_places#index',   as: :real_places
-    get  "/places/unreal" => 'unreal_places#index', as: :unreal_places
+    resources :clones, only: [:new, :create, :destroy]
+
+    post "/replicate/:id/" => "replicate#create",    as: :replicate
+    get  "/places/real"    => 'real_places#index',   as: :real_places
+    get  "/places/unreal"  => 'unreal_places#index', as: :unreal_places
     
     resources :characters
     resources :items
@@ -128,7 +129,7 @@ Rails.application.routes.draw do
 
     scope module: 'curation' do
       get '/identities/:identity_id/characters' => 'identity_characters#index', as: :identity_characters
-      get '/works/:work_id/characters' => 'work_characters#index', as: :work_characters
+      get '/works/:work_id/characters'          => 'work_characters#index',     as: :work_characters
     end
   end
 

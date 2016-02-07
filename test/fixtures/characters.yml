@@ -51,7 +51,7 @@ roleplay_john:
   publicity_level: <%= Editable::PUBLIC %>
   allow_play: true
   allow_clones: true
-  allow_as_clone: true
+  allow_as_clone: false
 
 roleplay_allen:
   name: Allen
