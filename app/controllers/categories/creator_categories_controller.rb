@@ -2,8 +2,7 @@ class Categories::CreatorCategoriesController < ApplicationController
 
 	# FILTERS
 	# ============================================================
-	before_action :can_view?
-	before_action :creator_category, only: [:show, :edit, :update, :destroy]
+	before_action :admin_restriction
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -14,17 +13,22 @@ class Categories::CreatorCategoriesController < ApplicationController
 	end
 
 	def show
-		@creator_category.works_type_describers.reload
+		creator_category
+		@creator_category.type_describers.reload
 	end
 
 	def new
 		@creator_category = CreatorCategory.new
 	end
 
+	def edit
+		creator_category
+	end
+
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@creator_category = CreatorCategory.new(facet_params)
+		@creator_category = CreatorCategory.new(category_params)
 
 		if @creator_category.save
 			respond_to do |format|
@@ -39,8 +43,13 @@ class Categories::CreatorCategoriesController < ApplicationController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
+		creator_category
+
 		if @creator_category.update(category_params)
-			redirect_to @creator_category
+			respond_to do |format|
+				format.js   { }
+				format.html { redirect_to @creator_category }
+			end
 		else
 			render action: 'edit'
 		end
@@ -49,10 +58,11 @@ class Categories::CreatorCategoriesController < ApplicationController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
-		@creator_category.destory
+		creator_category
+
+		@creator_category.destroy
 		respond_to do |format|
 			format.html { redirect_to creator_categories_url }
-			format.json { head :no_content }
 		end
 	end
 
@@ -74,14 +84,6 @@ class Categories::CreatorCategoriesController < ApplicationController
 
 	def creator_categories
 		@creator_categories = CreatorCategory.all.order(:name).decorate
-	end
-
-	# PERMIT
-	# ------------------------------------------------------------
-	def can_view?
-		unless user_signed_in? && current_user.site_owner?
-			redirect_to root_url
-		end
 	end
 
 end

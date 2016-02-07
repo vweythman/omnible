@@ -91,7 +91,7 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	has_many :anthologies,   :through => :collections
 	has_many :callers,       :through => :respondences
-	belongs_to :contentable, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
+	belongs_to :type_describer, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
 
 	# HAS
 	# ------------------------------------------------------------
@@ -112,7 +112,7 @@ class Work < ActiveRecord::Base
 	# REFERENCES
 	# ------------------------------------------------------------
 	has_many :identities, ->{uniq}, :through => :characters
-	has_many :creator_categories,   :through => :contentable
+	has_many :creator_categories,   :through => :type_describer
 
 	# NESTED ATTRIBUTION
 	# ============================================================
@@ -124,9 +124,9 @@ class Work < ActiveRecord::Base
 
 	# DELEGATED METHODS
 	# ============================================================
-	delegate :narrative?,   to: :contentable
-	delegate :is_singleton, to: :contentable
-	delegate :record?,      to: :contentable
+	delegate :narrative?,   to: :type_describer
+	delegate :is_singleton, to: :type_describer
+	delegate :record?,      to: :type_describer
 
 	# CLASS METHODS
 	# ============================================================
@@ -153,7 +153,7 @@ class Work < ActiveRecord::Base
 	end
 
 	def self.with_relationships
-		eager_load(:tags, :places, :rating, :main_characters, :contentable, :uploader)
+		eager_load(:tags, :places, :rating, :main_characters, :type_describer, :uploader)
 	end
 
 	# FILTER ELEMENTS

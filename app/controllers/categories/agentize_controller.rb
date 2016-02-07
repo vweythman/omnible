@@ -35,7 +35,7 @@ class Categories::AgentizeController < ApplicationController
 	end
 
 	def reload_describer
-		@creator_category.works_type_describers.reload
+		@creator_category.type_describers.reload
 
 		if @describer.save
 			respond_to do |format|

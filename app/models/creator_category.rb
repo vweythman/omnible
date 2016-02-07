@@ -36,14 +36,14 @@ class CreatorCategory < ActiveRecord::Base
 	has_many :works, through: :creatorships
 
 	# - Belongs to
-	has_and_belongs_to_many :works_type_describers, inverse_of: :creator_categories
+	has_and_belongs_to_many :type_describers, class_name: "WorksTypeDescriber", inverse_of: :creator_categories
 
 	# ATTRIBUTES
 	# ------------------------------------------------------------
 	attr_accessor :work_types
 
 	def work_types
-		work_types ||= works_type_describers.pluck(:id)
+		work_types ||= type_describers.pluck(:id)
 	end
 
 	# PUBLIC METHODS
@@ -53,7 +53,7 @@ class CreatorCategory < ActiveRecord::Base
 	end
 
 	def connected? type
-		works_type_describers.include? type
+		type_describers.include? type
 	end
 
 	# PRIVATE METHODS
@@ -63,8 +63,8 @@ class CreatorCategory < ActiveRecord::Base
 	def agentize
 		types  = WorksTypeDescriber.among(@work_types)
 
-		works_type_describers.delete(works_type_describers - types)
-		works_type_describers << (types - works_type_describers)
+		type_describers.delete(type_describers - types)
+		type_describers << (types - type_describers)
 	end
 
 end
