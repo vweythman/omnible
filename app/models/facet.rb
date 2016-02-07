@@ -43,6 +43,10 @@ class Facet < ActiveRecord::Base
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
+	def heading
+		@heading ||= name
+	end
+
 	# Piedata - organizes facet data for use in pie charts
 	def piedata
 		list  = Array.new
