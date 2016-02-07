@@ -3,73 +3,55 @@ require 'test_helper'
 class CharacterTest < ActiveSupport::TestCase
 
   setup do
-    @mary = characters(:mary)
-    @jane = characters(:jane)
-    @erik = characters(:erik)
+    @roleplay_allen = characters(:roleplay_allen) # PUBLIC - amiya
+    @erik = characters(:erik) # EXCEPT_BLOCKED             - amiya
+    @jane = characters(:jane) # PUBLIC                     - sirka
+    @roleplay_john  = characters(:roleplay_john) # PUBLIC  - sirka
+    @mary = characters(:mary) # PERSONAL                   - randa
+    @roleplay_jane  = characters(:roleplay_jane) # PUBLIC  - sirka
 
-    @randa = users(:randa)
     @sirka = users(:sirka)
     @amiya = users(:amiya)
   end
 
-  test "should have heading the same as name" do
-    assert_equal @mary.name, @mary.heading
-    assert_equal @erik.name, @erik.heading
-    assert_not_equal @mary.heading, @erik.heading
+  # CLASS METHODS TESTS
+  # ============================================================
+  test "should create/find characters by name" do
+    @names      = "Lily;Ethan"
+    @list       = @names.split(";")
+    @characters = Character.batch_by_name(@names, @sirka)
+    @all_names  = @characters.map(&:name)
+    assert @all_names.include?("Lily"), @all_names
   end
 
-  test "should be subject" do
-    assert @jane.is_subject?
-    assert @erik.is_subject?
+  test "should create/find nonfictional characters by name" do
   end
 
-  test "should have creator" do
-    assert @mary.creator? @randa
-    assert @jane.creator? @sirka
-    assert @erik.creator? @amiya
-  end
+  # PUBLIC METHODS TESTS
+  # ============================================================
+  # GETTERS
+  # ------------------------------------------------------------
 
-  test "should be cloneable" do
-    assert_equal true, @mary.allow_clones
-    assert @mary.cloneable?
-  end
-
-  test "should create a clone" do
-    @mary2 = @mary.replicate(@amiya)
-
-    assert_not_equal nil, @mary2
-    
-    assert_equal @amiya, @mary2.uploader
-    assert_equal @mary, @mary2.original
-    assert @mary2.save
-
-    @mary.reload
-    assert @mary.has_clone? @mary2
-  end
-
-  test "should not create a clone" do
-    assert_not @erik.cloneable?
-    assert_equal nil, @erik.replicate(@amiya)
-  end
-
+  # SETTERS
+  # ------------------------------------------------------------
   test "should get next" do
-    assert_equal @jane, @erik.next_character(@sirka)
-    assert_equal @mary, @jane.next_character(@randa)
-    assert_not_equal @erik, @mary.next_character(@amiya)
+    assert_equal @erik, @roleplay_allen.next_character(@amiya)
+  end
 
-    # when publically viewable
-    assert_equal @jane, @erik.next_character
+  test "should skip blocked next" do
+    assert_equal @jane, @roleplay_allen.next_character(@sirka)
   end
 
   test "should get prev" do
-    assert_equal @erik, @jane.prev_character(@amiya)
-    assert_equal @jane, @mary.prev_character(@sirka)
-    assert_not_equal @mary, @erik.prev_character(@randa)
-
-    # when publically viewable
-    assert_equal @erik, @jane.prev_character
+    assert_equal @jane, @roleplay_john.prev_character(@sirka)
   end
 
+  test "should skip private prev" do
+    assert_equal @roleplay_john, @roleplay_jane.prev_character(@amiya)
+  end
+
+  # CALCULATIONS
+  # ------------------------------------------------------------
   test "should count reputations" do
     assert_equal 2, @mary.reputation_count
     assert_equal 2, @jane.reputation_count
@@ -85,6 +67,5 @@ class CharacterTest < ActiveSupport::TestCase
     respect = ((Judgemental::NEUTRAL + Judgemental::HIGH) / 2).round
     assert_equal respect, @mary.avgerage_respect
   end
-
 
 end
