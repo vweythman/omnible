@@ -1,19 +1,25 @@
 class Categories::AgentizeController < ApplicationController
 
+	# FILTERS
+	# ============================================================
+	before_action :admin_restriction
+
 	# PUBLIC METHODS
 	# ============================================================
 	def create
 		creator_category
 		work_describer
+
 		@describer.agentize @creator_category
-		update_describer
+		reload_describer
 	end
 
 	def destroy
 		creator_category
 		work_describer
+
 		@describer.deagentize @creator_category
-		update_describer
+		reload_describer
 	end
 
 	# PRIVATE METHODS
@@ -28,7 +34,7 @@ class Categories::AgentizeController < ApplicationController
 		@describer = WorksTypeDescriber.find(params[:describer_id])
 	end
 
-	def update_describer
+	def reload_describer
 		@creator_category.works_type_describers.reload
 
 		if @describer.save
