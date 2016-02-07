@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :name
   end
+
+  # PERMIT
+  # ============================================================
+  # Membership
+  # ------------------------------------------------------------
   def signed_restriction
     unless user_signed_in?
       redirect_to root_url
@@ -23,13 +28,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_editing_of(model)
+  # Model
+  # ------------------------------------------------------------
+  def can_destroy?(model)
+    unless model.destroyable? current_user
+      redirect_to model     
+    end
+  end
+
+  def can_edit?(model)
     unless model.editable? current_user
       redirect_to model     
     end
   end
 
-  def check_viewing_of(model, redirection = root_url)
+  def can_view?(model, redirection = root_url)
     unless model.viewable? current_user
       redirect_to redirection     
     end
