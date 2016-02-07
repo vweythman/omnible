@@ -2,8 +2,9 @@ require 'test_helper'
 
 class StoryTest < ActiveSupport::TestCase
   setup do
-    @flight = works(:flight)
-    @baffle = works(:baffle)
+    @heart  = works(:heart)
+    @helix  = works(:helix)
+    @frenzy = works(:frenzy)
   end
   
   test "should start chapters at 1" do
