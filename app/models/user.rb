@@ -104,7 +104,11 @@ class User < ActiveRecord::Base
 	# ## RELATIONSHIPS
 	# Blocking? - user is blocking another user
 	def blocking?(user)
-		self.blocked_users.include?(user)
+		self.blocked_users.include? user
+	end
+
+	def blocked_by?(user)
+		self.blockers.include? user
 	end
 
 	# Following? - user is following another user
