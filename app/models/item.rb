@@ -13,6 +13,8 @@
 #  updated_at      | datetime    | must be later or equal to created_at
 #  slug            | string      | used for friendly url
 #  uploader_id     | integer     | references user
+#  publicity_level | integer     | default: 0
+#  editor_level    | integer     | default: 0
 # ================================================================================
 
 class Item < ActiveRecord::Base
@@ -22,6 +24,7 @@ class Item < ActiveRecord::Base
 	include Documentable
 	extend Organizable
 	extend FriendlyId
+	include Editable
 
 	# CALLBACKS
 	# ------------------------------------------------------------
@@ -60,7 +63,7 @@ class Item < ActiveRecord::Base
 	attr_accessor :nature, :descriptions
 
 	def nature
-		@nature ||= ""
+		@nature ||= "unspecified"
 	end
 
 	def descriptions

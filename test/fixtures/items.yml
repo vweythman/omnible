@@ -4,8 +4,14 @@ excalibur:
   name: Excalibur
   generic: sword
   slug: excalibur
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
 
 aegis:
   name: Aegis
   generic: shield
   slug: aegis
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>

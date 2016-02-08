@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125060802) do
+ActiveRecord::Schema.define(version: 20160207193229) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -142,8 +142,8 @@ ActiveRecord::Schema.define(version: 20160125060802) do
 
   create_table "creator_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "agentive",   default: "by"
   end
 
@@ -298,12 +298,14 @@ ActiveRecord::Schema.define(version: 20160125060802) do
   add_index "item_tags", ["quality_id"], name: "index_item_descriptions_on_quality_id"
 
   create_table "items", force: :cascade do |t|
-    t.string   "name",        limit: 255, null: false
+    t.string   "name",            limit: 255,             null: false
     t.integer  "generic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",        limit: 255
+    t.string   "slug",            limit: 255
     t.integer  "uploader_id"
+    t.integer  "publicity_level",             default: 0
+    t.integer  "editor_level",                default: 0
   end
 
   add_index "items", ["generic_id"], name: "index_items_on_generic_id"
@@ -506,11 +508,11 @@ ActiveRecord::Schema.define(version: 20160125060802) do
   add_index "skinnings", ["work_id"], name: "index_skinnings_on_work_id"
 
   create_table "skins", force: :cascade do |t|
-    t.string   "title"
     t.integer  "uploader_id"
     t.text     "style"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "title"
     t.string   "status",      default: "unpublished"
   end
 

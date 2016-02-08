@@ -1,21 +1,32 @@
 class Subjects::ItemsController < SubjectsController
 
-	# FILTERS
-	# ============================================================
-	before_action :item, only: [:show, :edit, :update, :destroy]
-
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
+	def index
+		items
+	end
+
+	def show
+		item
+		can_view? @item, items_path
+	end
+
 	def new
 		@item = Item.new.decorate
+	end
+
+	def edit
+		item
+		can_edit? @item
 	end
 
 	# POST
 	# ------------------------------------------------------------
 	def create
 		@item = Item.new(item_params)
+
 		if @item.save
 			redirect_to @item
 		else
@@ -26,6 +37,9 @@ class Subjects::ItemsController < SubjectsController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
+		item
+		can_edit? @item
+
 		if @item.update(item_params)
 			redirect_to @item
 		else
@@ -36,6 +50,9 @@ class Subjects::ItemsController < SubjectsController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		item
+		can_destroy? @item
+
 		@item.destroy
 		respond_to do |format|
 			format.html { redirect_to items_url }
@@ -54,12 +71,12 @@ class Subjects::ItemsController < SubjectsController
 
 	# ItemParams :: define strong parameters
 	def item_params
-		params.require(:item).permit(:name, :generic_id, :nature, :descriptions)
+		params.require(:item).permit(:name, :nature, :descriptions)
 	end
 
 	# Subjects :: find all
-	def subjects
-		@subjects = Item.order_by_generic.decorate
+	def items
+		@subjects = @items = Item.order_by_generic.decorate
 	end
 
 end

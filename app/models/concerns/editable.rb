@@ -25,6 +25,7 @@ module Editable
 	# SCOPES AND ASSOCIATIONS
 	# ------------------------------------------------------------
 	included do
+		# SCOPES
 		# - Levels of Visibility
 		scope :public_viewable, -> { where("#{self.table_name}.publicity_level = ?", PUBLIC) }
 		scope :semi_viewable,   -> { where("#{self.table_name}.publicity_level = ?", EXCEPT_BLOCKED) }
@@ -38,6 +39,7 @@ module Editable
 		scope :friendlisted,  ->(user) { where("#{self.table_name}.uploader_id IN (SELECT friender_id FROM friendships WHERE friendee_id = ?)", user.id).friend_viewable }
 		scope :followlisted,  ->(user) { where("#{self.table_name}.uploader_id IN (SELECT followed_id FROM followings WHERE follower_id = ?)",  user.id).follow_viewable.unblocked_for(user) }
 
+		# ASSOCIATIONS
 		# - Joins
 		has_many :edit_invites, dependent: :destroy, as: :editable
 		has_many :view_invites, dependent: :destroy, as: :viewable
