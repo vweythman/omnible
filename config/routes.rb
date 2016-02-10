@@ -72,7 +72,10 @@ Rails.application.routes.draw do
 
     # NARROW stories
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    get '/stories/:id/whole' => 'whole_story#show', as: :whole_story
+    get '/stories/:id/whole'    => 'whole_story#show', as: :whole_story
+    get '/works/:id/upcoming'   => 'upcoming#show',    as: :upcoming_work
+    get '/works/:id/restricted' => 'restricted#show',  as: :restricted_work
+
     resources :stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
       resources :notes
       resources :chapters
