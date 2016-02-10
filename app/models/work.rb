@@ -35,6 +35,7 @@ class Work < ActiveRecord::Base
 
 	# CALLBACKS
 	# ============================================================
+	before_validation :set_default,     on: [:update, :create]
 	before_validation :update_tags,     on: [:update, :create]
 	after_save        :update_creators, on: [:update, :create]
 
@@ -81,7 +82,7 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	has_many :collections,  dependent: :destroy
 	has_many :appearances,  dependent: :destroy
-	has_many :respondences, dependent: :destroy, as: :response
+	has_many :respondences, dependent: :destroy, foreign_key: "response_id"
 	has_many :taggings,     dependent: :destroy
 	has_many :settings,     dependent: :destroy
 	has_many :creatorships, dependent: :destroy
@@ -303,6 +304,12 @@ class Work < ActiveRecord::Base
 		unless up_cat.nil?
 			editor_creatorize(up_cat, up_nam, visitor)
 		end
+	end
+
+	def set_default
+		self.type ||= "Story"
+		self.editor_level    ||= Editable::PERSONAL
+		self.publicity_level ||= Editable::PUBLIC
 	end
 
 	# GENERAL TAGS

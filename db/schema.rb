@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207193229) do
+ActiveRecord::Schema.define(version: 20160210101929) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -470,7 +470,7 @@ ActiveRecord::Schema.define(version: 20160207193229) do
   end
 
   add_index "respondences", ["caller_id", "caller_type"], name: "index_challenge_responses_on_caller_id_and_caller_type"
-  add_index "respondences", ["response_id"], name: "index_challenge_responses_on_response_id_and_response_type"
+  add_index "respondences", ["response_id"], name: "index_respondences_on_response_id"
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "work_id"
