@@ -4,7 +4,7 @@ class Subjects::UnrealPlacesController < Subjects::PlacesController
 	# ============================================================
 	private
 
-	def find_places
+	def places
 		@subjects = @places = Place.fictitious.order_by_form.decorate
 	end
 

@@ -4,7 +4,7 @@ class Subjects::RealPlacesController < Subjects::PlacesController
 	# ============================================================
 	private
 
-	def find_places
+	def places
 		@subjects = @places = Place.actual.order_by_form.decorate
 	end
 
