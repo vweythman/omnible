@@ -2,15 +2,14 @@ class Taggings::RelatorsController < TaggingsController
 
 	# FILTERS
 	# ============================================================
-	before_action :tags,         only: [:index]
-	before_action :can_create?,  only: [:new, :create]
-	before_action :can_edit?,    only: [:edit, :update]
+	before_action :can_create?, only: [:new, :create]
 
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
 	def index
+		relators
 	end
 
 	def new
@@ -40,9 +39,7 @@ class Taggings::RelatorsController < TaggingsController
 	# ------------------------------------------------------------
 	# TagParams :: define strong parameters
 	def tag_params
-		params.require(:relator).permit(:right_name, :left_name, 
-			interconnections_attributes: [:id, :left_id, :right_id, :_destroy]
-		)
+		params.require(:relator).permit(:right_name, :left_name)
 	end
 
 	# FIND
@@ -53,8 +50,8 @@ class Taggings::RelatorsController < TaggingsController
 	end
 	
 	# Tags :: find all
-	def tags
-		@tags = Relator.order('left_name').all.decorate
+	def relators
+		@relators = @tags = Relator.order('left_name').all.decorate
 	end
 
 	# PERMIT
@@ -65,10 +62,4 @@ class Taggings::RelatorsController < TaggingsController
 		end
 	end
 	
-	def can_edit?
-		unless @relator.editable? current_user
-			redirect_to @relator
-		end
-	end
-
 end
