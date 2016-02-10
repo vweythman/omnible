@@ -1,0 +1,18 @@
+<header class="work-header">
+	<h1>
+		<%= @work.title %>
+		<%= @work.byline.html_safe %>
+	</h1>
+	<%= @work.completion_status %>
+
+	<%= @work.edit_bar %>
+</header>
+
+<article class="about">
+	<%= @work.summarized %>
+	<%= @work.all_tags_line %>
+</article>
+
+<footer class="path-finder">
+	<%= link_to "All Works", works_path %>
+</footer>
