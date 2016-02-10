@@ -16,7 +16,7 @@ class Taggings::ActivitiesController < TaggingsController
 
 	# Tags :: find all
 	def tags
-		@tags = Activity.all.decorate
+		@tags = @activities = Activity.all.decorate
 	end
 
 end

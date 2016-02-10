@@ -11,12 +11,12 @@ class Taggings::IdentitiesController < TaggingsController
 	
 	# TagParams :: define strong parameters
 	def tag_params
-		params.require(:identity).permit(:name, :facet_id, :nature)
+		params.require(:identity).permit(:name, :nature)
 	end
 
 	# Tags :: find all
 	def tags
-		@tags = Identity.sorted_alphabetic.decorate
+		@tags = @identities = Identity.sorted_alphabetic.decorate
 	end
 	
 end

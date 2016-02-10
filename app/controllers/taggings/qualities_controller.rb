@@ -16,7 +16,7 @@ class Taggings::QualitiesController < TaggingsController
 
 	# Tags :: find all
 	def tags
-		@tags = Quality.order(:name).decorate
+		@tags = @qualities = Quality.order(:name).decorate
 	end
 
 end
