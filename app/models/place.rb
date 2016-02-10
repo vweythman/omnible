@@ -27,8 +27,9 @@ class Place < ActiveRecord::Base
 
 	# CALLBACKS
 	# ------------------------------------------------------------
-	after_save :build_place_relationships
-	before_create :ensure_defaults
+	before_validation :typify, on: [:update, :create]
+	after_save        :build_place_relationships
+	before_create     :ensure_defaults
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -90,7 +91,10 @@ class Place < ActiveRecord::Base
 	attr_accessor :nature
 
 	def nature
-		@nature ||= "unspecified"
+		if @nature.nil?
+			@nature = self.form.name unless self.form.nil?
+		end
+		@nature
 	end
 
 	# PUBLIC METHODS
@@ -98,11 +102,6 @@ class Place < ActiveRecord::Base
 	# Heading - defines the main means of addressing the model
 	def heading
 		name + " (" + form.name + ")"
-	end
-
-	# Nature - defines the type name if it exists
-	def nature
-		self.form.name unless self.form.nil?
 	end
 
 	# Linkable - grab what will be used when organizing
@@ -149,19 +148,14 @@ class Place < ActiveRecord::Base
 	# EnsureDefaults - default behaivor
 	def ensure_defaults
 		self.fictional ||= true
-		self.form_id   ||= 16
 
 		self.editor_level    ||= Editable::PUBLIC
 		self.publicity_level ||= Editable::PUBLIC
 	end
 
 	def typify
-		form = Form.where(name: nature).first_or_create
-		if @nature.nil?
-			self.form ||= form
-		else
-			self.form   = Form.where(name: nature).first_or_create
-		end
+		nm = nature.nil? ? "unspecified" : nature
+		self.form = Form.where(name: nm).first_or_create
 	end
 
 end
