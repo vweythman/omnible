@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  content: MyText
-  work_id: 
+# ARTICLE
+# ===================================
+apologia_content:
+  content: I must defend his character.
+  work: apologia
 
-two:
-  title: MyString
-  content: MyText
-  work_id: 
+theocrat_content:
+  content: I will count the ways that Sirka is *wrong*.
+  work: theocrat
+
+skywalks_content:
+  content: I am not involved and I would rather talk about something else.
+  work: skywalks
