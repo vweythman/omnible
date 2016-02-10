@@ -2,7 +2,7 @@
 <%= form_for @activity, remote: remote do |f| %>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Describe Activity") %>
+		<%= string_panel f, :name, "Add Name of Activity" %>
 	</fieldset>
 	<%= submit_panel f %>
 

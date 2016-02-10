@@ -2,15 +2,8 @@
 <%= form_for @quality, remote: remote do |f| %>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Name") %>
-		<%= render partial: "shared/forms/radio_collection", locals: {
-				f: f, 
-				collection: Adjective.all,
-				title: "Adjective", 
-				value: :adjective_id, 
-				default: @quality.adjective_id
-			}
-		%>
+		<%= string_panel f, :name, "Add Name" %>
+		<%= radio_set(f, :adjective_id, Adjective.all, "Adjective", @quality.adjective_id) %>
 	</fieldset>
 
 	<%= submit_panel f %>
