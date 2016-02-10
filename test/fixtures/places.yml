@@ -4,6 +4,9 @@ actual_earth:
   name: Earth
   form: planet
   fictional: false
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
 
 middle_earth:
   name: Middle-Earth
