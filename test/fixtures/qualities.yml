@@ -2,7 +2,7 @@
 
 red:
   name: red
-  adjective: color
+  adjective: size # test fixing this
 
 big:
   name: big
