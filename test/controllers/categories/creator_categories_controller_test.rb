@@ -60,13 +60,20 @@ module Categories
     # ============================================================
     test "should create category and redirect" do
       sign_in @randa
-      assert_equal 3, CreatorCategory.count
 
       assert_difference('CreatorCategory.count') do
         post :create, creator_category: { name: 'composer', agentive: 'composed by' }, format: 'html'
       end
 
       assert_redirected_to creator_category_path(assigns(:creator_category))
+    end
+
+    test "should not create" do
+      sign_in @sirka
+
+      assert_no_difference('CreatorCategory.count') do
+        post :create, creator_category: { name: 'composer', agentive: 'composed by' }, format: 'html'
+      end
     end
 
     test "should create category and grab list" do

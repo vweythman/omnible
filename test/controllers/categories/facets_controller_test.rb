@@ -96,6 +96,14 @@ module Categories
       assert_redirected_to facets_path
     end
 
+    test "should not create" do
+      sign_in @sirka
+
+      assert_no_difference('Facet.count') do
+        post :create, facet: { name: 'status' }, format: 'html'
+      end
+    end
+
     # PATCH/PUT
     # ============================================================
     test "should update facet and redirect" do
@@ -137,6 +145,14 @@ module Categories
 
       assert_response :success
       assert_not_nil assigns(:facets)
+    end
+
+    test "should not destroy facet" do
+      sign_in @sirka
+
+      assert_no_difference('Facet.count') do
+        delete :destroy, id: @age
+      end
     end
 
   end
