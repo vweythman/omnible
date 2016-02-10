@@ -20,6 +20,10 @@ class Identity < ActiveRecord::Base
 	include EditableTag
 	include Taggable
 
+	# CALLBACKS
+	# ------------------------------------------------------------
+	before_validation :typify, on: [:update, :create]
+
 	# SCOPES
 	# ------------------------------------------------------------
 	# - Search
@@ -95,6 +99,10 @@ class Identity < ActiveRecord::Base
 		return list
 	end
 
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	attr_accessor :nature
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# GETTERS // SELF
@@ -169,6 +177,20 @@ class Identity < ActiveRecord::Base
 	# ............................................................
 	def editable? user
 		user.staffer?
+	end
+
+	def viewable? user
+		true
+		# for now
+		# quarantined identities will not be viewable
+	end
+
+	# PRIVATE METHODS
+	# ------------------------------------------------------------
+	def typify
+		if !@nature.nil? && (facet.nil? || facet.name != @nature)
+			self.facet = Facet.where(name: @nature).first_or_create
+		end
 	end
 	
 end
