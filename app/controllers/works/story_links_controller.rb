@@ -1,10 +1,5 @@
 class Works::StoryLinksController < WorksController
 
-	# FILTERS
-	# ============================================================
-	before_action :story_link,   only: [:edit, :update, :show]
-	before_action :link_sources, only: [:edit, :update, :create]
-
 	# PRIVATE METHODS
 	# ============================================================
 	private
@@ -12,7 +7,8 @@ class Works::StoryLinksController < WorksController
 	# FIND
 	# ------------------------------------------------------------
 	# Work :: find by id
-	def story_link
+	def work
+		super
 		@link = @work
 	end
 
@@ -23,6 +19,10 @@ class Works::StoryLinksController < WorksController
 
 	# SET
 	# ------------------------------------------------------------
+	def created_work
+		@work = StoryLink.new(work_params).decorate
+	end
+
 	def new_work
 		@work = @link = StoryLink.new.decorate
 		link_sources

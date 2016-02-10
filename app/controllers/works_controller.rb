@@ -1,16 +1,5 @@
 class WorksController < ApplicationController
 
-	# FILTERS
-	# ============================================================
-	# FIND
-	# ------------------------------------------------------------
-	before_action :work, only: [:show, :edit, :update, :destroy]
-
-	# PERMIT
-	# ------------------------------------------------------------
-	before_action :can_edit?, except: [:index, :show, :new, :create]
-	before_action :can_view?, only:   [:show]
-
 	# MODULES
 	# ============================================================
 	include ContentCollections
@@ -24,6 +13,12 @@ class WorksController < ApplicationController
 	end
 
 	def show
+		work
+
+		cannot_view? @work do
+			render 'works/restricted/show'
+		end
+
 		find_comments
 	end
 
@@ -34,6 +29,12 @@ class WorksController < ApplicationController
 	end
 
 	def edit
+		work
+
+		cannot_edit? @work do
+			return
+		end
+
 		set_visitor
 		set_skin
 	end
@@ -41,7 +42,7 @@ class WorksController < ApplicationController
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@work = Work.new(work_params).decorate
+		created_work
 		set_visitor
 
 		if @work.save
@@ -55,7 +56,13 @@ class WorksController < ApplicationController
 	# ------------------------------------------------------------
 	def update
 		work
+
+		cannot_edit? @work do
+			return
+		end
+
 		set_visitor
+
 		if @work.update(work_params)
 			redirect_to @work
 		else
@@ -66,7 +73,14 @@ class WorksController < ApplicationController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		work
+
+		cannot_destroy? @work do
+			return
+		end
+
 		@work.destroy
+
 		respond_to do |format|
 			format.html { redirect_to works_url }
 			format.json { head :no_content }
@@ -82,7 +96,7 @@ class WorksController < ApplicationController
 	# WorkParams :: define strong parameters
 	def work_params
 		params.require(:work).permit(
-			:title,        :summary,         :visitor,
+			:title,        :summary,
 			:editor_level, :publicity_level, :placeables,   :taggables,
 
 			uploadership:        [:category, :pen_name],
@@ -110,6 +124,10 @@ class WorksController < ApplicationController
 
 	# SET
 	# ------------------------------------------------------------
+	def created_work
+		@work = Work.new(work_params).decorate
+	end
+
 	def new_work
 		@work = Work.new.decorate
 		@work.rating = Rating.new
@@ -122,20 +140,6 @@ class WorksController < ApplicationController
 
 	def set_skin
 		@work.skinning ||= Skinning.new
-	end
-
-	# PERMIT
-	# ------------------------------------------------------------
-	def can_view?
-		if !@work.viewable? current_user
-			render 'restrict'
-		end
-	end
-
-	def can_edit?
-		unless @work.editable? current_user
-			redirect_to @work
-		end
 	end
 
 end

@@ -1,9 +1,5 @@
 class Works::ArticlesController < WorksController
 
-	# FILTERS
-	# ============================================================
-	before_action :article, except: [:index, :new, :create]
-
 	# PRIVATE METHODS
 	# ============================================================
 	private
@@ -11,13 +7,18 @@ class Works::ArticlesController < WorksController
 	# FIND
 	# ------------------------------------------------------------
 	# Work :: find by id
-	def article
+	def work
+		super
 		@article = @work
 	end
 
 	# Works :: find all with filtering
 	def works
 		@works = ArticlesDecorator.decorate(Article.with_filters(index_params, current_user))
+	end
+
+	def created_work
+		@work = Article.new(work_params).decorate
 	end
 
 	# SET
@@ -31,9 +32,12 @@ class Works::ArticlesController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
+		puts
+		puts params.keys
+		puts
 		params.require(:article).permit(
 			:title,        :summary,         :visitor,
-			:editor_level, :publicity_level, :placeables,   :taggables,
+			:editor_level, :publicity_level, :placeables, :taggables,
 
 			appearables:         [:subject],
 			uploadership:        [:category, :pen_name],

@@ -1,4 +1,10 @@
 class JournalsController < ApplicationController
-  def show
-  end
+
+	# PRIVATE METHODS
+	# ============================================================
+	def work
+		super
+		@journal = @work
+	end
+
 end

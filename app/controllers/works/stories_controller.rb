@@ -5,7 +5,7 @@ class Works::StoriesController < WorksController
 	# GET
 	# ------------------------------------------------------------
 	def show
-		find_comments
+		work
 		if @story.chapters.length > 0
 			redirect_to [@story, @story.chapters.first]
 		else
@@ -21,7 +21,8 @@ class Works::StoriesController < WorksController
 	# ------------------------------------------------------------
 	# Work :: find by id
 	def work
-		@story = @work = Work.find(params[:id]).decorate
+		super
+		@story = @work
 	end
 
 	# Works :: find all with filtering
@@ -31,6 +32,10 @@ class Works::StoriesController < WorksController
 
 	# SET
 	# ------------------------------------------------------------
+	def created_work
+		@work = Story.new(work_params).decorate
+	end
+
 	def new_work
 		@work = @story = Story.new.decorate
 	end

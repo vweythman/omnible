@@ -1,9 +1,5 @@
 class Works::ShortStoriesController < WorksController
 
-	# FILTERS
-	# ============================================================
-	before_action :short_story, except: [:index, :new, :create]
-
 	# PRIVATE METHODS
 	# ============================================================
 	private
@@ -11,7 +7,8 @@ class Works::ShortStoriesController < WorksController
 	# FIND
 	# ------------------------------------------------------------
 	# Work :: find by id
-	def short_story
+	def work
+		super
 		@short = @work
 	end
 
@@ -22,6 +19,10 @@ class Works::ShortStoriesController < WorksController
 
 	# SET
 	# ------------------------------------------------------------
+	def created_work
+		@work = ShortStory.new(work_params).decorate
+	end
+
 	def new_work
 		@work = @short = ShortStory.new.decorate
 	end
