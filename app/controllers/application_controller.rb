@@ -23,28 +23,42 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_restriction
-    unless current_user.admin?
+    unless user_signed_in? && current_user.admin?
       redirect_to root_url
     end
   end
 
   # Model
   # ------------------------------------------------------------
-  def can_destroy?(model)
-    unless model.destroyable? current_user
-      redirect_to model     
-    end
-  end
-
   def can_edit?(model)
     unless model.editable? current_user
-      redirect_to model     
+      redirect_to model
     end
   end
 
   def can_view?(model, redirection = root_url)
     unless model.viewable? current_user
-      redirect_to redirection     
+      redirect_to redirection
+    end
+  end
+
+  def cannot_destroy?(model)
+    unless model.destroyable? current_user
+      redirect_to model
+      yield
+    end
+  end
+
+  def cannot_edit?(model)
+    unless model.editable? current_user
+      redirect_to model
+      yield
+    end
+  end
+
+  def cannot_view?(model)
+    unless model.viewable? current_user
+      yield
     end
   end
 
