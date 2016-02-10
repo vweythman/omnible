@@ -20,7 +20,11 @@ class Subjects::CharactersController < SubjectsController
 
 	def edit
 		character
-		can_edit? @character
+
+		cannot_edit? @character do
+			return
+		end
+
 		associables
 	end
 
@@ -42,7 +46,11 @@ class Subjects::CharactersController < SubjectsController
 	# ------------------------------------------------------------
 	def update
 		character
-		can_edit? @character
+
+		cannot_edit? @character do
+			return
+		end
+
 		new_visitor
 
 		if @character.update(character_params)
@@ -57,9 +65,13 @@ class Subjects::CharactersController < SubjectsController
 	# ------------------------------------------------------------
 	def destroy
 		character
-		can_destroy? @character
+
+		cannot_destroy? @character do
+			return
+		end
 
 		@character.destroy
+
 		respond_to do |format|
 			format.html { redirect_to characters_url }
 			format.json { head :no_content }

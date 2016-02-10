@@ -47,7 +47,11 @@ class Categories::FacetsController < ApplicationController
 	# ------------------------------------------------------------
 	def update
 		facet
-		can_edit? @facet
+
+		cannot_edit? @facet do
+			redirect_to @facet
+			return
+		end
 
 		if @facet.update(facet_params)
 			respond_to do |format|
@@ -63,9 +67,13 @@ class Categories::FacetsController < ApplicationController
 	# ------------------------------------------------------------
 	def destroy
 		facet
-		can_destroy? @facet
+
+		cannot_destroy? @facet do
+			return
+		end
 
 		@facet.destroy
+
 		respond_to do |format|
 			format.js   { facets }
 			format.html { redirect_to facets_path }

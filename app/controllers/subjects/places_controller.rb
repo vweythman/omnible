@@ -1,20 +1,27 @@
 class Subjects::PlacesController < SubjectsController
 
-	# FILTERS
-	# ============================================================
-	before_action :place,  only: [:show, :edit, :update]
-
 	# PUBLIC METHODS
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
+	def index
+		places
+	end
+
 	def new
 		@place = Place.new.decorate
 		set_associations
 	end
 
 	def edit
+		place
+		can_edit? @place
 		set_associations
+	end
+
+	def show
+		place
+		can_view? @place
 	end
 
 	# POST
@@ -33,6 +40,12 @@ class Subjects::PlacesController < SubjectsController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
+		place
+
+		cannot_edit? @place do
+			return
+		end
+
 		if @place.update(place_params)
 			redirect_to @place
 		else
@@ -44,6 +57,12 @@ class Subjects::PlacesController < SubjectsController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		place
+
+		cannot_destroy? @place do
+			return
+		end
+
 		@place.destroy
 		respond_to do |format|
 			format.js   { subjects }
@@ -62,13 +81,14 @@ class Subjects::PlacesController < SubjectsController
 
 	# define strong parameters
 	def place_params
-		params.require(:place).permit(:name, :nature, :fictional,
+		params.require(:place).permit(:name, :nature,
+			:publicity_level, :editor_level, :fictional,
 			localities_attributes:    [:id, :domain_id,    :_destroy],
 			sublocalities_attributes: [:id, :subdomain_id, :_destroy]
 		)
 	end
 
-	def subjects
+	def places
 		@subjects = @places = Place.order_by_form.decorate
 	end
 

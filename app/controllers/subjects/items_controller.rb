@@ -26,6 +26,7 @@ class Subjects::ItemsController < SubjectsController
 	# ------------------------------------------------------------
 	def create
 		@item = Item.new(item_params)
+		@item.uploader = current_user
 
 		if @item.save
 			redirect_to @item
@@ -38,7 +39,10 @@ class Subjects::ItemsController < SubjectsController
 	# ------------------------------------------------------------
 	def update
 		item
-		can_edit? @item
+
+		cannot_edit? @item do
+			return
+		end
 
 		if @item.update(item_params)
 			redirect_to @item
@@ -51,9 +55,13 @@ class Subjects::ItemsController < SubjectsController
 	# ------------------------------------------------------------
 	def destroy
 		item
-		can_destroy? @item
+
+		cannot_destroy? @item do
+			return
+		end
 
 		@item.destroy
+
 		respond_to do |format|
 			format.html { redirect_to items_url }
 			format.json { head :no_content }
@@ -71,7 +79,7 @@ class Subjects::ItemsController < SubjectsController
 
 	# ItemParams :: define strong parameters
 	def item_params
-		params.require(:item).permit(:name, :nature, :descriptions)
+		params.require(:item).permit(:name, :nature, :editor_level, :publicity_level, :descriptions)
 	end
 
 	# Subjects :: find all
