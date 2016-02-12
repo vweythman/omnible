@@ -24,7 +24,7 @@ class Note < ActiveRecord::Base
 	# CALLBACKS
 	# ------------------------------------------------------------
 	after_create :set_discussion
-	after_save :cascade_data
+	#after_save :cascade_data
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -65,8 +65,10 @@ class Note < ActiveRecord::Base
 	end
 
 	def cascade_data
-		self.work.updated_at = self.updated_at
-		self.work.save
+		if self.work.updated_at != self.updated_at
+			self.work.updated_at = self.updated_at
+			self.work.save
+		end
 	end
 
 	# PRIVATE METHODS

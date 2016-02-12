@@ -7,8 +7,8 @@ class Article < Nonfiction
 	
 	# CALLBACKS
 	# ------------------------------------------------------------
+	after_save    :contentize, on: [:update, :create]
 	before_create :set_categories
-	after_initialize :add_note
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -19,12 +19,12 @@ class Article < Nonfiction
 	# ------------------------------------------------------------
 	delegate :content, to: :note
 
-	# PUBLIC METHODS
+	# ATTRIBUTES
 	# ------------------------------------------------------------
-	# UpdateContent - change content of note
-	def update_content(content)
-		self.note.content = content
-		note.save
+	attr_accessor :article_content
+
+	def article_content
+		@article_content ||= ""
 	end
 
 	# PRIVATE METHODS
@@ -36,7 +36,10 @@ class Article < Nonfiction
 		self.is_complete = true
 	end
 
-	def add_note
+	def contentize
 		self.note ||= Note.new
+		self.note.content = article_content
+		note.save
 	end
+
 end

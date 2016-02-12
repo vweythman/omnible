@@ -32,16 +32,13 @@ class Works::ArticlesController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
-		puts
-		puts params.keys
-		puts
 		params.require(:article).permit(
-			:title,        :summary,         :visitor,
-			:editor_level, :publicity_level, :placeables, :taggables,
+			:title,        :article_content, :taggables,
+			:editor_level, :publicity_level, :placeables,
+			:summary,
 
 			appearables:         [:subject],
 			uploadership:        [:category, :pen_name],
-			note_attributes:     [:id,       :title,   :content],
 			skinning_attributes: [:id,       :skin_id, :_destroy]
 		)
 	end

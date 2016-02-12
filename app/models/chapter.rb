@@ -178,8 +178,10 @@ class Chapter < ActiveRecord::Base
 	end
 
 	def cascade_data
-		self.story.updated_at = self.updated_at
-		self.story.save
+		if self.story.updated_at != self.updated_at
+			self.story.updated_at = self.updated_at
+			self.story.save
+		end
 	end
 	
 end
