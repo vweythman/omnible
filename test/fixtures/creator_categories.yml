@@ -15,3 +15,7 @@ translator:
   agentive: translated by
   type_describers: article, short_story, story, story_link
   
+editor:
+  name: editor
+  agentive: adited by
+  type_describers: journal, article

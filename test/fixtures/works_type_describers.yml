@@ -3,11 +3,20 @@
 article:
   name: Article
   is_narrative: false
+  is_singleton: true
+  content_type: text
+  is_record:    false
+  is_creative_expression: false
+  creator_categories: writer, author, translator, editor
+
+journal:
+  name: Journal
+  is_narrative: false
   is_singleton: false
   content_type: text
   is_record:    false
   is_creative_expression: false
-  creator_categories: writer, author, translator
+  creator_categories: writer, author, translator, editor
 
 short_story:
   name: ShortStory
