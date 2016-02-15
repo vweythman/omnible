@@ -117,7 +117,7 @@ module ApplicationHelper
 
 	# OUTPUT markdown content
 	def markdown(text)
-		Kramdown::Document.new(text, :auto_ids => false, :parse_block_html => true).to_html.html_safe
+		Kramdown::Document.new((text.nil? ? "" : text), :auto_ids => false, :parse_block_html => true).to_html.html_safe
 	end
 	
 	# OUTPUT formated time string
