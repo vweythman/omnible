@@ -1,3 +1,5 @@
 class JournalDecorator < WorkDecorator
-	# Inherits from WorkDecorator
+	def klass
+		:journal
+	end
 end
