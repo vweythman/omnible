@@ -29,6 +29,35 @@ skywalks:
   type: Article 
   is_complete: true
 
+# JOURNAL
+# ===================================
+gunrunner:
+  title: Pointless Collection of Thoughts
+  summary: I putting this together
+  uploader: sirka
+  editor_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
+  publicity_level: <%= Editable::EXCEPT_BLOCKED %>
+  type: Journal
+  is_complete: false
+
+absurdist:
+  title: Unicorn Hoof for Sale
+  summary: what am I even doing
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: Journal
+  is_complete: false
+
+rainfalls:
+  title: Measure of Rainfall
+  summary: welcome to the drought
+  uploader: indra
+  editor_level: <%= Editable::FRIENDS_ONLY %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: Journal 
+  is_complete: false
+
 # SHORT STORY
 # ===================================
 calypso: 
