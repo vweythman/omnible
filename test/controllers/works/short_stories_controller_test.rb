@@ -58,7 +58,7 @@ module Works
         post :create, short_story: {
           title: @glamour.title,
           summary: @glamour.summary,
-          short_story_content: "Save me from more writing."
+          story_content: "Save me from more writing."
         }
       end
 
@@ -72,7 +72,7 @@ module Works
       patch :update, id: @effaces.id, short_story: {
         title: @glamour.title,
         summary: @glamour.summary,
-        short_story_content: "Save me from more writing."
+        story_content: "Save me from more writing."
       }
       assert_redirected_to short_story_path(@effaces)
     end

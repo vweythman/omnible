@@ -38,6 +38,7 @@ class Works::StoriesController < WorksController
 
 	def new_work
 		@work = @story = Story.new.decorate
+		@work.rating = Rating.new
 	end
 
 	# define strong parameters

@@ -25,6 +25,7 @@ class Works::ShortStoriesController < WorksController
 
 	def new_work
 		@work = @short = ShortStory.new.decorate
+		@work.rating = Rating.new
 	end
 
 	# WorkParams :: define strong parameters

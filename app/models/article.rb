@@ -24,7 +24,11 @@ class Article < Nonfiction
 	attr_accessor :article_content
 
 	def article_content
-		@article_content ||= ""
+		if self.note.nil?
+			@article_content ||= ""
+		else
+			@article_content ||= self.note.content
+		end
 	end
 
 	# PRIVATE METHODS

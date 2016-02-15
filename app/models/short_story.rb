@@ -7,8 +7,8 @@ class ShortStory < Work
 
 	# CALLBACKS
 	# ------------------------------------------------------------
+	before_save   :contentize, on: [:update, :create]
 	before_create :set_categories
-	after_initialize :add_chapter
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -21,15 +21,26 @@ class ShortStory < Work
 	delegate :content,   to: :chapter
 	delegate :afterward, to: :chapter
 
+	# ATTRIBUTES
+	# ------------------------------------------------------------
+	attr_accessor :story_content
+
+	def story_content
+		if self.chapter.nil?
+			@story_content ||= ""
+		else
+			@story_content ||= self.chapter.content
+		end
+	end
+
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# NewChapter - creates a new chapter
 	def new_chapter
-		chapter = Chapter.new
-		chapter.story    = self
-		chapter.position = 1
+		self.chapter = Chapter.new
+		self.chapter.position = 1
 
-		return chapter
+		return self.chapter
 	end
 
 	# UpdateContent - change the story's content
@@ -49,9 +60,10 @@ class ShortStory < Work
 		self.is_complete  = true
 	end
 
-	def add_chapter
+	def contentize
 		self.chapter ||= Chapter.new
 		self.chapter.position = 1
+		self.chapter.content = @story_content
 	end
 
 end
