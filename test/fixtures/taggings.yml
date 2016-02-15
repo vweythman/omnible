@@ -1,9 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  work_id: 
-  tag_id: 
+  work: calypso
+  tag: magic_returns
 
 two:
-  work_id: 
-  tag_id: 
+  work: glamour 
+  tag: happy_ending
+
+three:
+  work: glamour 
+  tag: magic_returns
+

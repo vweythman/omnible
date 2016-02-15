@@ -1,33 +1,57 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# AGE
 young:
   name: young
   facet: age 
+
+# characters: mary
+# works: calpyso, frenzy
 
 old:
   name: old
   facet: age
 
+# characters: erik
+# works: glamour, theocrat, frenzy
+
 teen:
   name: teen
   facet: age
 
+# SPECIES
 human:
   name: human
   facet: species 
 
+# characters: jane
+# works: effaces, theocrat, frenzy
+
+# GENDER
 man:
   name: man
   facet: gender
+
+# characters: erik
+# works: glamour, theocrat, frenzy
 
 woman:
   name: woman
   facet: gender
 
+# characters: mary, jane
+# works: calpyso, effaces, theocrat, frenzy
+
 cisgender:
   name: cisgender
   facet: gender
 
+# characters: erik, mary
+# works: calpyso, glamour, theocrat, frenzy
+
 transgender:
   name: transgender
   facet: gender
+
+# characters: jane
+# works: effaces, theocrat, frenzy

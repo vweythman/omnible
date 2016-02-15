@@ -12,6 +12,11 @@ mary_gender1:
   character: mary
   identity: woman
 
+mary_gender2:
+  character: mary
+  identity: cisgender
+
+
 jane_species:
   character: jane
   identity: human
@@ -24,9 +29,14 @@ jane_gender2:
   character: jane
   identity: transgender
 
+
 erik_gender1:
   character: erik
   identity: man
+
+erik_gender2:
+  character: erik
+  identity: cisgender
 
 old_erik:
   character: erik

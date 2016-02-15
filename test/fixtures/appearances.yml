@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# ONE
+# DIFFERENT ROLES; DIFFERENT WORKS
 # ===================================
 calypso_main:
   work: calypso
@@ -17,7 +17,7 @@ glamour_mentioned:
   character: erik
   role: mentioned  
 
-# TWO OF THE SAME
+# SAME ROLE; DIFFERENT WORKS
 # ===================================
 theocrat_subject:
   work: theocrat
@@ -29,7 +29,7 @@ theocrat_subject:
   character: jane
   role: subject
 
-# ALL DIFFERENT
+# DIFFERENT ROLES; SAME WORK
 # ===================================
 frenzy_main:
   work: frenzy
