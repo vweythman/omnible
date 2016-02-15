@@ -7,7 +7,7 @@ module Taggings
     # ============================================================
     setup do
       @randa = users(:randa)
-      @one   = tags(:one)
+      @one   = tags(:happy_ending)
     end
 
     # GET
