@@ -33,7 +33,7 @@ class Works::StoriesController < WorksController
 	# SET
 	# ------------------------------------------------------------
 	def created_work
-		@work = Story.new(work_params).decorate
+		@work = @story = Story.new(work_params).decorate
 	end
 
 	def new_work

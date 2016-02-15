@@ -20,7 +20,7 @@ class Works::StoryLinksController < WorksController
 	# SET
 	# ------------------------------------------------------------
 	def created_work
-		@work = StoryLink.new(work_params).decorate
+		@work = @link = StoryLink.new(work_params).decorate
 	end
 
 	def new_work

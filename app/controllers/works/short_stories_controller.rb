@@ -20,7 +20,7 @@ class Works::ShortStoriesController < WorksController
 	# SET
 	# ------------------------------------------------------------
 	def created_work
-		@work = ShortStory.new(work_params).decorate
+		@work = @short = ShortStory.new(work_params).decorate
 	end
 
 	def new_work
@@ -30,14 +30,13 @@ class Works::ShortStoriesController < WorksController
 	# WorkParams :: define strong parameters
 	def work_params
 		params.require(:short_story).permit(
-			:title,        :summary,         :visitor,
+			:title,        :story_content,   :summary,
 			:editor_level, :publicity_level, :placeables,   :taggables,
 
 			uploadership:        [:category, :pen_name],
 			appearables:         [:main,     :side,     :mentioned],
 			skinning_attributes: [:id,       :skin_id,  :_destroy],
 			rating_attributes:   [:id,       :violence, :sexuality, :language],
-			chapter_attributes:  [:id,       :title,    :about,     :position, :content, :afterward]
 		)
 	end
 

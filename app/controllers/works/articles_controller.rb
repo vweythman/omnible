@@ -17,12 +17,12 @@ class Works::ArticlesController < WorksController
 		@works = ArticlesDecorator.decorate(Article.with_filters(index_params, current_user))
 	end
 
-	def created_work
-		@work = Article.new(work_params).decorate
-	end
-
 	# SET
 	# ------------------------------------------------------------
+	def created_work
+		@work = @article = Article.new(work_params).decorate
+	end
+
 	def new_work
 		@article         = Article.new
 		@article.rating  = Rating.new
