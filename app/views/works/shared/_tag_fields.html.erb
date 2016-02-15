@@ -1,3 +1,9 @@
+<% if @work.uploader?(current_user) %>
+	<%= f.fields_for :rating do |rating_builder| %>
+		<%= render 'works/shared/rating_fields', f: rating_builder %>
+	<% end %>
+<% end %>
+
 <fieldset class="tags about">
 	<legend>Tags</legend>
 
