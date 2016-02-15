@@ -34,3 +34,13 @@ letty_to_indra:
   friender: indra
   friendee: letty
   is_mutual: 't'
+
+gaven_to_mayra:
+  friender: gaven
+  friendee: mayra
+  is_mutual: 't'
+
+mayra_to_gaven:
+  friender: mayra
+  friendee: gaven
+  is_mutual: 't'
