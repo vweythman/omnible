@@ -8,7 +8,7 @@ class Works::Curation::CharacterWorksController < WorksController
 	# ============================================================
 	private
 
-	def work_parent
+	def works_parent
 		@parent = Character.find(params[:character_id])
 	end
 

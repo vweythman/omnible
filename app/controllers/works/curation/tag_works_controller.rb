@@ -8,7 +8,7 @@ class Works::Curation::TagWorksController < WorksController
 	# ============================================================
 	private
 
-	def work_parent
+	def works_parent
 		@parent = Tag.friendly.find(params[:tag_id])
 	end
 

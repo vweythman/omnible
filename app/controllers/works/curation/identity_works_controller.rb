@@ -8,7 +8,7 @@ class Works::Curation::IdentityWorksController < WorksController
 	# ============================================================
 	private
 
-	def work_parent
+	def works_parent
 		@parent = Identity.find(params[:identity_id])
 	end
 
