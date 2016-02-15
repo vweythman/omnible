@@ -13,3 +13,17 @@ theocrat_content:
 skywalks_content:
   content: I am not involved and I would rather talk about something else.
   work: skywalks
+
+# JOURNAL
+# ===================================
+gunrunner_article:
+  content: tester is tired and just wishes to test content
+  work: gunrunner
+
+absurdist_article:
+  content: tester is tired and just wishes to test content
+  work: absurdist
+
+rainfalls_article:
+  content: tester is tired and just wishes to test content
+  work: rainfalls
