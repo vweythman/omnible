@@ -1,13 +1,4 @@
 class Works::ChaptersController < ApplicationController
-	
-	# FILTERS
-	# ============================================================
-	before_action :story,    only:   [:index, :new, :create]
-	before_action :chapters, only:   [:index]
-	before_action :chapter,  except: [:index, :new, :create]
-
-	before_action :can_view?, only:   [:index, :show]
-	before_action :can_edit?, except: [:index, :show]
 
 	# MODULES
 	# ============================================================
@@ -17,18 +8,41 @@ class Works::ChaptersController < ApplicationController
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
+	def index
+		chapters
+		restricted_story
+	end
+
 	def show
+		chapter
 		find_chapter_comments
+		restricted_story
 	end
 
 	def new
-		@chapter = @story.new_chapter.decorate
+		story
+		cannot_edit? @story do
+			return
+		end
+		@chapter = Chapter.new.decorate
+	end
+
+	def edit
+		chapter
+		cannot_edit? @story do
+			return
+		end
 	end
 
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@chapter = Chapter.new(chapter_params).decorate
+		story
+		cannot_edit? @story do
+			return
+		end
+
+		@chapter = @story.chapters.new(chapter_params).decorate
 
 		if @chapter.save
 			redirect_to [@story, @chapter]
@@ -40,7 +54,11 @@ class Works::ChaptersController < ApplicationController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
-		@chapter = @chapter.decorate
+		chapter
+		cannot_edit? @story do
+			return
+		end
+
 		if @chapter.update(chapter_params)
 			redirect_to [@story, @chapter]
 		else
@@ -51,6 +69,11 @@ class Works::ChaptersController < ApplicationController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		chapter
+		cannot_edit? @story do
+			return
+		end
+
 		@chapter.destroy
 		respond_to do |format|
 			format.html { redirect_to @story }
@@ -66,35 +89,30 @@ class Works::ChaptersController < ApplicationController
 	# ------------------------------------------------------------
 	# define strong parameters
 	def chapter_params
-		params.require(:chapter).permit(:title, :story_id, :about, :position, :content, :afterward)
+		params.require(:chapter).permit(:title, :about, :position, :content, :afterward)
 	end
 
 	# FIND
 	# ------------------------------------------------------------
 	def story
-		@story = Story.find(params[:story_id]).decorate
+		@work = @story = Story.find(params[:story_id]).decorate
 	end
 
 	def chapter
 		@chapter = Chapter.find(params[:id]).decorate
-		@story   = @chapter.story.decorate
+		@work    = @story = @chapter.story.decorate
 	end
 
-	def chapters		
+	def chapters
+		story	
 		@chapters = @story.chapters.decorate
 	end
 
 	# PERMIT
 	# ------------------------------------------------------------
-	def can_edit?
-		unless @story.editable? current_user
-			redirect_to [@story, @chapter]
-		end
-	end
-
-	def can_view?
-		unless @story.viewable? current_user
-			render 'works/restrict'
+	def restricted_story
+		cannot_view? @story do
+			render 'works/restricted/show'
 		end
 	end
 

@@ -1,14 +1,5 @@
 class Works::NotesController < ApplicationController
 
-	# FILTERS
-	# ============================================================
-	before_action :work,  only:   [:index, :new, :create]
-	before_action :notes, only:   [:index]
-	before_action :note,  except: [:index, :new, :create]
-
-	before_action :can_view?, only:   [:index, :show]
-	before_action :can_edit?, except: [:index, :show]
-
 	# MODULES
 	# ============================================================
 	include ContentCollections
@@ -17,18 +8,40 @@ class Works::NotesController < ApplicationController
 	# ============================================================
 	# GET
 	# ------------------------------------------------------------
+	def index
+		notes
+		restrict_access
+	end
+
 	def show
+		note
 		find_note_comments
+		restrict_access
 	end
 
 	def new
+		work
+		cannot_edit? @work do
+			return
+		end
 		@note = Note.new.decorate
+	end
+
+	def edit
+		note
+		cannot_edit? @work do
+			return
+		end
 	end
 
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@note = Note.new(note_params).decorate
+		work
+		cannot_edit? @work do
+			return
+		end
+		@note = @work.notes.new(note_params).decorate
 
 		if @note.save
 			redirect_to [@work, @note]
@@ -40,6 +53,11 @@ class Works::NotesController < ApplicationController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
+		note
+		cannot_edit? @work do
+			return
+		end
+
 		if @note.update(note_params)
 			redirect_to [@note.work, @note]
 		else
@@ -50,7 +68,13 @@ class Works::NotesController < ApplicationController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
+		note
+		cannot_edit? @work do
+			return
+		end
+
 		@note.destroy
+
 		respond_to do |format|
 			format.html { redirect_to @work }
 			format.json { head :no_content }
@@ -68,42 +92,37 @@ class Works::NotesController < ApplicationController
 		params.require(:note).permit(:title, :work_id, :content)
 	end
 
-	def show_params
+	def work_params
 		params.slice(:work_id, :story_id, :short_story_id, :journal_id)
 	end
 
 	# FIND
 	# ------------------------------------------------------------
-	def work
-		@work = Work.find(work_id).decorate
-	end
-
 	def note
 		@note = Note.find(params[:id]).decorate
 		@work = @note.work.decorate
 	end
 
-	def notes		
+	def notes
+		work	
 		@notes = @work.notes.decorate
 	end
 
+	def work
+		@work = Work.find(work_id).decorate
+	end
+
 	def work_id
-		work = show_params.first
+		work = work_params.first
 
 		work.last.nil? ? params[:note][work.first] : work.last
 	end
 
 	# PERMIT
 	# ------------------------------------------------------------
-	def can_edit?
-		unless @work.editable? current_user
-			redirect_to [@work, @note]
-		end
-	end
-
-	def can_view?
-		unless @work.viewable? current_user
-			render 'works/restrict'
+	def restrict_access
+		cannot_view? @work do
+			render 'works/restricted/show'
 		end
 	end
 
