@@ -3,6 +3,8 @@ require 'test_helper'
 module Categories
   class AgentizeControllerTest < ControllerTestCase
 
+    # SETUP
+    # ============================================================
     setup do
       @sirka   = users(:sirka)
       @randa   = users(:randa)
@@ -13,12 +15,10 @@ module Categories
       @writer  = creator_categories(:writer)
     end
 
-    test "should redirect" do
-      sign_in @sirka
-      post :create, describer_id: @poem.id, creator_id: @writer.id
-      assert_redirected_to root_path
-    end
 
+
+    # CAN
+    # ============================================================
     test "should create connection" do
       sign_in @randa
 
@@ -41,6 +41,16 @@ module Categories
       assert_not_nil assigns(:describer)
       assert_not_nil assigns(:creator_category)
       assert_equal count - 1, assigns(:describer).creator_categories(:reload).size
+    end
+
+
+
+    # CANNOT
+    # ============================================================
+    test "should redirect" do
+      sign_in @sirka
+      post :create, describer_id: @poem.id, creator_id: @writer.id
+      assert_redirected_to root_path
     end
 
   end
