@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class PenNamingsControllerTest < ControllerTestCase
+
   setup do
-    @letty = users(:letty)
+    @letty      = users(:letty)
     @controller = Users::PenNamingsController.new
   end
 

@@ -2,7 +2,7 @@ class Users::SkinsController < ApplicationController
 
 	# FILTERS
 	# ============================================================
-	before_action :is_signed_in? only: [:index]
+	before_action :is_signed_in?, only: [:index]
 
 	# PUBLIC METHODS
 	# ============================================================

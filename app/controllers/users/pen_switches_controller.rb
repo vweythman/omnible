@@ -5,17 +5,21 @@ class Users::PenSwitchesController < ApplicationController
 	def update
 		@name = PenNaming.find(params[:pen_naming_id])
 		@curr = current_user.pen_namings.prime_nym
-		
-		@name.toggle_prime
-		@curr.toggle_prime
 
-		PenNaming.transaction do 
-			@name.save
-			@curr.save
+		if @name.user == @curr.user
+			@name.toggle_prime
+			@curr.toggle_prime
+
+			PenNaming.transaction do 
+				@name.save
+				@curr.save
+			end
+
+			@name = @name.decorate
+			@curr = @curr.decorate
+		else
+			redirect_to root_url
 		end
-
-		@name = @name.decorate
-		@curr = @curr.decorate
 	end
 
 end

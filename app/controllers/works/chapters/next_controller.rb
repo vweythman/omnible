@@ -1,33 +1,28 @@
 class Works::Chapters::NextController < Works::ChaptersController
 
-	# FILTERS
-	# ============================================================
-	before_action :previous_chapter, only: [:create]
-
 	# PUBLIC METHODS
 	# ============================================================
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@chapter = Chapter.new(chapter_params)
+		@previous = Chapter.find(params[:chapter_id])
+		@story    = @previous.story
+		cannot_edit? @story do
+			return
+		end
+
+		@chapter = @story.chapters.new(chapter_params)
 
 		Chapter.transaction do
 			@chapter.place_after @previous
 			
 			if @chapter.save
-				redirect_to [@work, @chapter]
+				redirect_to [@story, @chapter]
 			else
+				@chapter = @chapter.decorate
 				render action: 'new'
 			end
 		end
-	end
-
-	# PRIVATE METHODS
-	# ============================================================
-	private
-	
-	def previous_chapter
-		@previous = Chapter.find(params[:chapter_id])
 	end
 
 end

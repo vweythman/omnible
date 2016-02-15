@@ -62,6 +62,12 @@ creator_pen_three:
   type: "PenNaming"
   is_primary: true
 
+creator_pen_four:
+  user: amiya
+  character: amiya_pen2
+  type: "PenNaming"
+  is_primary: false
+
 # CONTENT VIEWERS PENS
 # -----------------------------------
 viewer_pen_one:

@@ -3,7 +3,9 @@
 folktales:
   name: Collection of Folktales
   uploader: becca
+  summary: foobar
 
 greek_myths:
   name: Greek Myths
   uploader: letty
+  summary: foobar

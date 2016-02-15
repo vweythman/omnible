@@ -110,6 +110,15 @@ amiya_pen:
   allow_clones: false
   allow_as_clone: false
 
+amiya_pen2:
+  name: amiya's seconday pen
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PERSONAL %>
+  allow_play: true
+  allow_clones: false
+  allow_as_clone: false
+
 indra_pen:
   name: indra's pen
   uploader: indra

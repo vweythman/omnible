@@ -21,7 +21,8 @@ class AnthologiesController < ApplicationController
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@anthology = Anthology.new(anthology_params)
+		@anthology = Anthology.new(anthology_params).decorate
+		@anthology.uploader = current_user
 
 		if @anthology.save
 			redirect_to @anthology
