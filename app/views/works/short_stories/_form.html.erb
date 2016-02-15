@@ -2,10 +2,7 @@
 
 	<fieldset class="primary">
 		<%= render @short.primary_fields, f: f %>
-
-		<%= f.fields_for :chapter do |b| %>
-			<%= text_panel b, :content, :major, "Write Story" %>
-		<% end %>
+		<%= text_panel f, :story_content, :major, "Write Story" %>
 	</fieldset>
 	
 	<%= render @short.tag_fields, f: f %>
