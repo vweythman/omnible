@@ -154,7 +154,7 @@ class Work < ActiveRecord::Base
 	end
 
 	def self.with_relationships
-		eager_load(:tags, :places, :rating, :main_characters, :type_describer, :uploader)
+		eager_load(:characters, :tags, :places, :rating, :type_describer, :uploader)
 	end
 
 	# FILTER ELEMENTS
