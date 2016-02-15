@@ -1,18 +1,23 @@
 class ErrorsController < ApplicationController
 
-	def 403
+	def e403
+		render '403'
 	end
 
-	def 404
+	def e404
+		render '404'
 	end
 
-	def 406
+	def e406
+		render '406'
 	end
 
-	def 422
+	def e422
+		render '422'
 	end
 
-	def 500
+	def e500
+		render '500'
 	end
 
 end

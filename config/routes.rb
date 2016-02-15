@@ -2,11 +2,11 @@ Rails.application.routes.draw do
 
   # ERROR PAGES
   # ============================================================
-  match '/403' => 'errors#403', via: :all
-  match '/404' => 'errors#404', via: :all
-  match '/406' => 'errors#406', via: :all
-  match '/422' => 'errors#422', via: :all
-  match '/500' => 'errors#500', via: :all
+  match '/403' => 'errors#e403', via: :all
+  match '/404' => 'errors#e404', via: :all
+  match '/406' => 'errors#e406', via: :all
+  match '/422' => 'errors#e422', via: :all
+  match '/500' => 'errors#e500', via: :all
   
   # CONCERNS
   # ============================================================
@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   scope module: 'works' do
 
     resources :articles,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :journals,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :story_links, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
     # NARROW narrative type
