@@ -40,4 +40,39 @@ story_major:
   sexuality: 1
   language:  3
 
-# attend - offend - flight
+# VIOLENCE
+# 0
+#   - effaces
+# 1
+#   - heart
+# 2
+#   - helix
+#   - glamour
+# 3
+#   - frenzy
+#   - calypso
+
+# SEXUALITY
+# 0
+#   - effaces
+#   - heart
+# 1
+#   - glamour
+#   - frenzy
+# 2
+#   - calypso
+# 4
+#   - helix
+
+# PROFANITY
+# 0
+#   - effaces
+# 1
+#   - glamour
+#   - heart
+# 2
+#   - calypso
+# 3
+#   - frenzy
+# 4
+#   - helix

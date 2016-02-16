@@ -107,7 +107,11 @@ class WorksController < ApplicationController
 	end
 
 	def index_params
-		params.slice(:date, :sort, :completion, :rating, :rating_min, :rating_max, :page)
+		params.slice(
+			:date,    :sort,       :completion, :page, 
+			:vrating, :srating,    :prating,
+			:rating,  :rating_min, :rating_max
+		)
 	end
 
 	# FIND

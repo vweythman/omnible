@@ -1,4 +1,4 @@
-class StoriesDecorator < WorksDecorator
+class StoriesDecorator < FictionDecorator
 
 	# MODULES
 	# ------------------------------------------------------------

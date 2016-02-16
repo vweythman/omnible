@@ -144,9 +144,10 @@ class Work < ActiveRecord::Base
 		order    = options[:sort]
 		page_num = options[:page]
 		cmplt    = options[:completion]
-		rate_options = options.slice(:rating_min, :rating_max, :rating)
+		rate_at_options     = options.slice(:vrating, :srating,    :prating)
+		rate_within_options = options.slice(:rating,  :rating_min, :rating_max)
 
-		self.ready(cmplt).span(date).order_by(order).page(page_num).with_rating(rate_options)
+		self.ready(cmplt).span(date).order_by(order).page(page_num).with_rating(rate_at_options).within_rating(rate_within_options)
 	end
 
 	def self.with_filters(options = {}, user)
@@ -203,6 +204,14 @@ class Work < ActiveRecord::Base
 	def self.with_rating(rate_options)
 		unless rate_options.nil? || rate_options.length < 1
 			joins(:rating).merge(Rating.choose(rate_options))
+		else
+			all
+		end
+	end
+
+	def self.within_rating(rate_options)
+		unless rate_options.nil? || rate_options.length < 1
+			joins(:rating).merge(Rating.within_range(rate_options))
 		else
 			all
 		end

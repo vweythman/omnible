@@ -34,6 +34,9 @@ class Rating < ActiveRecord::Base
 	scope :at_least_for, ->(column, level) { where("? >= ?", column, level)}
 	scope :at_most_for,  ->(column, level) { where("? <= ?", column, level)}
 	scope :between_for,  ->(column, min, max) { at_least_for(column, min).at_most_for(column, max) }
+	scope :violence_at,  ->(level) { where("violence  = ?", level) }
+	scope :sexuality_at, ->(level) { where("sexuality = ?", level) }
+	scope :language_at,  ->(level) { where("language  = ?", level) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -55,7 +58,34 @@ class Rating < ActiveRecord::Base
 	end
 
 	# Choose - find by range if it exists
-	def self.choose(range = {})
+	def self.choose(selectables = {})
+		v = selectables[:vrating]
+		p = selectables[:prating]
+		s = selectables[:srating]
+
+		if (selectables.length == 3)
+			violence_at(v).sexuality_at(s).language_at(p)
+		elsif selectables.length == 2
+			if v.nil?
+				sexuality_at(s).language_at(p)
+			elsif p.nil?
+				violence_at(v).sexuality_at(s)
+			else
+				violence_at(v).language_at(p)
+			end
+		elsif !v.nil?
+			violence_at(v)
+		elsif !p.nil?
+			language_at(p)
+		elsif !s.nil?
+			sexuality_at(s)
+		else
+			all
+		end
+	end
+
+	# Choose - find by range if it exists
+	def self.within_range(range = {})
 		min    = range[:rating_min] || 0
 		max    = range[:rating_max] || 4
 		choice = range[:rating] || nil
