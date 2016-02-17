@@ -20,7 +20,7 @@
 class WorksTypeDescriber < ActiveRecord::Base
 
 	# SCOPES
-	# ------------------------------------------------------------
+	# ============================================================
 	scope :fiction,    -> { where(is_creative_expression: true) }
 	scope :nonfiction, -> { where(is_creative_expression: false) }
 
@@ -37,25 +37,14 @@ class WorksTypeDescriber < ActiveRecord::Base
 	scope :among,      ->(ids) { where("id IN (?)", ids) }
 
 	# ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	has_many                :works, foreign_key: "type", primary_key: "name"
 	has_and_belongs_to_many :creator_categories, inverse_of: :works_type_describers
 
 	# PUBLIC METHODS
+	# ============================================================
+	# ACTIONS
 	# ------------------------------------------------------------
-	# Narrative? - fiction vs. non-fiction
-	def narrative?
-		self.is_narrative == 't' || self.is_narrative == true
-	end
-
-	def record?
-		self.is_record == true
-	end
-
-	def heading
-		name.underscore.humanize.titleize
-	end
-
 	def agentize(creator_category)
 		unless creator_categories.include? creator_category
 			creator_categories << creator_category
@@ -64,6 +53,23 @@ class WorksTypeDescriber < ActiveRecord::Base
 
 	def deagentize(creator_category)
 		creator_categories.delete(creator_category)
+	end
+
+	# GETTERS
+	# ------------------------------------------------------------
+	def heading
+		name.underscore.humanize.titleize
+	end
+
+	# QUESTIONS
+	# ------------------------------------------------------------
+	# Narrative? - fiction vs. non-fiction
+	def narrative?
+		self.is_narrative == 't' || self.is_narrative == true
+	end
+
+	def record?
+		self.is_record == true
 	end
 
 end

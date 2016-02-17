@@ -307,11 +307,11 @@ class Work < ActiveRecord::Base
 	private
 
 	def update_creators
-		up_cat = uploadership[:category]
-		up_nam = uploadership[:pen_name]
+		up_cat_id = uploadership[:category]
+		up_nam_id = uploadership[:pen_name]
 
-		unless up_cat.nil?
-			editor_creatorize(up_cat, up_nam, visitor)
+		unless up_cat_id.nil?
+			editor_creatorize(up_cat_id, up_nam_id, visitor)
 		end
 	end
 
