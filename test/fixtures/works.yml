@@ -111,6 +111,7 @@ frenzy:
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PERSONAL %>
   type: Story
+  is_complete: false
 
 # STORY LINK
 # ===================================
