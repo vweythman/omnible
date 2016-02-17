@@ -9,10 +9,7 @@
 // -- General
 // -----------------------------------------------
 .snippet {
-	border-left:   15px solid $fire-light-major;
-	border-right:  15px solid $fire-light-major;
-	border-radius: 10px;
-	overflow:      auto;
+	overflow: auto;
 
 	.icon {
 		color: $fire-dark-minor;

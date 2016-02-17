@@ -107,7 +107,7 @@ class WorksDecorator < Draper::CollectionDecorator
 		all_link    = h.content_tag :li do link_to_all end
 		other_links = type_links
 
-		h.content_tag :ul do 
+		h.content_tag :ul, class: "type-categories" do 
 			all_link + other_links
 		end
 	end

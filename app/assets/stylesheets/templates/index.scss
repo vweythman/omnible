@@ -13,6 +13,7 @@
 	background: $water-lightest-minor;
 	overflow:   auto;
 }
+
 .index-header {
 	border-bottom: 3px solid $fire-color;
 
@@ -24,11 +25,30 @@
 		padding: 0 $one-twelfth;
 	}
 }
+
 .found {
 	font-size:   1.2em;
 	font-weight: bolder;
 	margin:      0px;
 	padding:     5px $one-twelfth;
+}
+
+.type-categories {
+	margin:  0;
+	padding: 0 $one-twelfth;
+
+	li {
+		display: inline-block;
+		padding: 10px 15px 5px 0px;
+	}
+	a {
+		color:       $water-color;
+		font-weight: 900;
+
+		&:hover {
+			color: $water-darker-minor;
+		}
+	}
 }
 
 // FILTERS
@@ -78,9 +98,11 @@
 	box-shadow:   0px 0px 1px 0px $water-color;
 	margin:       0px $one-twelfth;
 }
+
 .filtered .panel-cell {
 	float: right;
 }
+
 .results-body {
 	margin: 0px;
 	h2 {
@@ -91,6 +113,7 @@
 		font-size:     $heading-size - 6px;
 	}
 }
+
 .results {
 	margin:  0px;
 	padding: 0px;
@@ -111,6 +134,7 @@
 		padding:       10px 5px;
 	}
 }
+
 .pagination {
 	text-align: left;
 
@@ -123,6 +147,7 @@
 		padding:       7px;
 	}
 }
+
 .indexable {
 	@include columnable_by(15em);
 	margin:  0;

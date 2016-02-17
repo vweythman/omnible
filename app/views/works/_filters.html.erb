@@ -1,9 +1,4 @@
 <aside class='filters'>
-	<div>
-		<h2>Types of Works</h2>
-		<%= @works.for_categories %>
-	</div>
-
 	<% @works.filter_values.each do |key, group| %>
 		<div>
 			<h2><%= group[:title] %></h2>
