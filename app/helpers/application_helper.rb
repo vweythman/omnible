@@ -44,15 +44,11 @@ module ApplicationHelper
 		
 		# EDITING AND CREATING STYLESHEET
 		elsif ['new', 'edit', 'update', 'create'].include? action
-			template_type = "generator"
+			template_type = "forms"
 
 		# MODEL STYLESHEET
 		elsif action == 'show'
-			if collector.singularize != type
-				template_type = collector + '/' + type
-			else
-				template_type = type
-			end
+			template_type = collector.singularize
 		
 		# INDEX STYLESHEET
 		else
@@ -89,32 +85,8 @@ module ApplicationHelper
 		"#{title} &rsaquo;".html_safe
 	end
 
-	# Headings
-	# ............................................................
-
-	# OUTPUT correct article
-	def indefinite_article(phrase)
-		article = strip_tags(phrase).lstrip.chop =~ /^[FMNRS][^AEIOUa-z]|^[AEIOUaeiou]/ ? "An" : "A"
-		"#{article} #{phrase}".html_safe
-	end
-
-	# OUPUT item label tag
-	def subtitle(heading)
-		content_tag :span, class: "subtitle" do heading end
-	end
-
-	# OUPUT item label tag
-	def title(heading)
-		content_tag :span, class: "title" do heading end
-	end
-	
-	def time_label(heading)
-		content_tag :span, class: "time-label" do heading end
-	end
-
 	# Content
 	# ............................................................
-
 	# OUTPUT markdown content
 	def markdown(text)
 		Kramdown::Document.new((text.nil? ? "" : text), :auto_ids => false, :parse_block_html => true).to_html.html_safe
