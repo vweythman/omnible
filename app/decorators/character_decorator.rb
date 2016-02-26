@@ -1,19 +1,19 @@
 class CharacterDecorator < Draper::Decorator
 
 	# DELEGATION
-	# ------------------------------------------------------------
+	# ============================================================
 	delegate_all
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	include CreativeContent
 	include CreativeContent::Dossier
 	include PageEditing
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# -- About
-	# ............................................................
+	# ------------------------------------------------------------
 	def link_to_original
 		if is_a_clone?
 			h.content_tag :p, class: 'announce' do
@@ -24,6 +24,10 @@ class CharacterDecorator < Draper::Decorator
 
 	def variant_names
 		identifiers.pluck(:name)
+	end
+
+	def icon_choice
+		'smile'
 	end
 
 	# -- Creating & Editing
@@ -161,7 +165,7 @@ class CharacterDecorator < Draper::Decorator
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
 	def descent_tree(clone)

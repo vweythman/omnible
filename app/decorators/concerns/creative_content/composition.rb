@@ -13,10 +13,6 @@ module CreativeContent
 
 		# SET
 		# ============================================================
-		def icon_choice
-			'file-empty'
-		end
-
 		def length_status
 			@length_status ||= h.number_with_delimiter(self.word_count, :delimiter => ",") + " Words"
 		end
@@ -45,10 +41,6 @@ module CreativeContent
 			h.content_tag :td, :data => {:label => "Word Count"} do
 				length_status
 			end
-		end
-
-		def icon
-			h.content_tag :span, class: "icon-#{icon_choice} icon" do '' end
 		end
 
 	end

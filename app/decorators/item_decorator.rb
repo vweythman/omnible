@@ -24,6 +24,10 @@ class ItemDecorator < Draper::Decorator
 		end
 	end
 
+	def icon_choice
+		'diamonds'
+	end
+
 	# -- Lists
 	# ............................................................
 	def list_qualities

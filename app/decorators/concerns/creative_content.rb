@@ -16,6 +16,10 @@ module CreativeContent
 
 	# SET
 	# ============================================================
+	def icon_choice
+		'file-empty'
+	end
+
 	def started_label
 		"Uploaded"
 	end
@@ -50,6 +54,10 @@ module CreativeContent
 	# ------------------------------------------------------------
 	def byline
 		h.content_tag :span, class: 'byline' do by_uploader end
+	end
+
+	def icon
+		h.content_tag :span, class: "icon-#{icon_choice} icon" do '' end
 	end
 
 	# TABLE DATA

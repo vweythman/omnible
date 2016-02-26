@@ -30,7 +30,7 @@ class FacetsDecorator < Draper::CollectionDecorator
 	end
 
 	def admin_table
-		h.render "admin/controls/facets_table"
+		h.render "categories/facets/facets_table"
 	end
 
 	# PRIVATE METHODS
