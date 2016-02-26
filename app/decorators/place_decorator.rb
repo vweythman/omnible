@@ -18,6 +18,10 @@ class PlaceDecorator < Draper::Decorator
 		["Actual Place", "Fictitious Place"]
 	end
 
+	def icon_choice
+		'earth'
+	end
+
 	# -- Creating & Editing
 	# ............................................................
 	def creation_title
