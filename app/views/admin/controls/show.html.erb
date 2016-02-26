@@ -1,14 +1,15 @@
 <% provide :title, "Admin Panel" %>
 
-<header>
-	<h1>Admin Control Panel</h1>
+<header class="dashboard-header">
+	<h1>Admin Panel</h1>
 </header>
 
 <div class="dashboard-grid">
-	<%= solo_cell do render 'facets_cell' end %>
-	<%= solo_cell do %>
-		<h2>Relationship Types</h2>
-	<% end %>
+	<h3 class="action-title">Categories</h3>
+	<ul class="action-group">
+		<li><%= link_to "Identities", facets_path %></li>
+		<li><%= link_to "Creators", creator_categories_path %></li>
+	</ul>
 </div>
 
 <script type="text/javascript">
