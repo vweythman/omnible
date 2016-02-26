@@ -3,19 +3,15 @@
 writer:
   name: writer
   agentive: written by
-  type_describers: article, short_story, story, story_link
 
 author:
   name: author
   agentive: authored by
-  type_describers: article, short_story, story, story_link
 
 translator:
   name: translator
   agentive: translated by
-  type_describers: article, short_story, story, story_link
-  
+
 editor:
   name: editor
   agentive: adited by
-  type_describers: journal, article

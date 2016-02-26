@@ -20,7 +20,7 @@ class WorkTest < ActiveSupport::TestCase
   # GETTERS
   # ------------------------------------------------------------
   test "heading should be the same as title" do
-  	assert_equal @heart.title, @heart.heading
+  	assert_equal @story.title, @story.heading
   end
 
   # QUESTIONS

@@ -152,7 +152,7 @@ module Categories
       assert_no_difference('Facet.count') do
         post :create, facet: { name: 'status' }, format: 'html'
       end
-      assert_redirected_to facets_path
+      assert_redirected_to root_path
     end
 
     # DESTROY

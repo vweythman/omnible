@@ -66,7 +66,7 @@ class WorksTypeDescriberTest < ActiveSupport::TestCase
   end
 
   test "should not be record" do
-    assert_not @story.narrative?
+    assert_not @story.record?
   end
 
 end

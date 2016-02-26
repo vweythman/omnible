@@ -102,7 +102,7 @@ module Categories
       {
         name: @writer.name,
         agentive: @writer.agentive,
-        work_types: [@writer.type_describers.pluck(:id)]
+        work_types: [@writer.describers.pluck(:id)]
       }
       assert_redirected_to creator_category_path(assigns(:creator_category))
     end
@@ -120,7 +120,7 @@ module Categories
 
       assert_response :success
       assert_not_nil assigns(:creator_category)
-      assert_empty assigns(:creator_category).type_describers
+      assert_empty assigns(:creator_category).describers
     end
 
     test "should update category with new describer" do
@@ -147,7 +147,7 @@ module Categories
       {
         name: @writer.name,
         agentive: @writer.agentive,
-        work_types: [@writer.type_describers.pluck(:id) - [@article]] 
+        work_types: [@writer.describers.pluck(:id) - [@article]] 
       }
 
       assert_response :success

@@ -1,0 +1,92 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# =========
+wb1:
+  creator_category: author
+  describer: article
+  prime: true
+
+wb2:
+  creator_category: author
+  describer: journal
+  prime: false
+
+wb3:
+  creator_category: author
+  describer: short_story
+  prime: false
+
+wb4:
+  creator_category: author
+  describer: story
+  prime: true
+
+wb5:
+  creator_category: author
+  describer: story_link
+  prime: true
+
+
+# =========
+wb6:
+  creator_category: editor
+  describer: article
+  prime: false
+
+wb7:
+  creator_category: editor
+  describer: journal
+  prime: false
+
+
+# =========
+wb8:
+  creator_category: writer
+  describer: article
+  prime: false
+
+wb9:
+  creator_category: writer
+  describer: journal
+  prime: false
+
+wb10:
+  creator_category: writer
+  describer: short_story
+  prime: false
+
+wb11:
+  creator_category: writer
+  describer: story
+  prime: false
+
+wb12:
+  creator_category: writer
+  describer: story_link
+  prime: false
+
+# =========
+wb13:
+  creator_category: translator
+  describer: article
+  prime: false
+
+wb14:
+  creator_category: translator
+  describer: journal
+  prime: false
+
+wb15:
+  creator_category: translator
+  describer: short_story
+  prime: false
+
+wb16:
+  creator_category: translator
+  describer: story
+  prime: false
+
+wb17:
+  creator_category: translator
+  describer: story_link
+  prime: false
