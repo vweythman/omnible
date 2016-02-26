@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210101929) do
+ActiveRecord::Schema.define(version: 20160226043136) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -590,6 +590,17 @@ ActiveRecord::Schema.define(version: 20160210101929) do
 
   add_index "view_invites", ["user_id"], name: "index_view_invites_on_user_id"
   add_index "view_invites", ["viewable_type", "viewable_id"], name: "index_view_invites_on_viewable_type_and_viewable_id"
+
+  create_table "work_bylinings", force: :cascade do |t|
+    t.integer  "creator_id"
+    t.integer  "describer_id"
+    t.boolean  "prime",        default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "work_bylinings", ["creator_id"], name: "index_work_bylinings_on_creator_id"
+  add_index "work_bylinings", ["describer_id"], name: "index_work_bylinings_on_describer_id"
 
   create_table "works", force: :cascade do |t|
     t.string   "title",           limit: 255
