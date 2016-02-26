@@ -14,7 +14,7 @@ class Categories::CreatorCategoriesController < ApplicationController
 
 	def show
 		creator_category
-		@creator_category.type_describers.reload
+		@creator_category.describers.reload
 	end
 
 	def new

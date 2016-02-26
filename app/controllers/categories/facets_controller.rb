@@ -4,6 +4,7 @@ class Categories::FacetsController < ApplicationController
 	# ============================================================
 	# PERMIT
 	# ------------------------------------------------------------
+	before_action :admin_restriction
 	before_action :can_create?, only: [:new, :create]
 
 	# PUBLIC METHODS
