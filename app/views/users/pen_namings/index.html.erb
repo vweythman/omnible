@@ -1,11 +1,5 @@
-<% provide :title, "Dashboard (Pen Names)" %>
-
-<header>
-	<h1>
-		My Dashboard
-		<%= subtitle "Pen Names" %>
-	</h1>
-</header>
+<% provide :title, "My Pen Names" %>
+<%= dashboard_header ["Pen Names"] %>
 
 <div class="dashboard-grid">
 	<%= solo_cell do @pen_names.tableize('Current') end %>

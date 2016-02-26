@@ -1,11 +1,5 @@
-<% provide :title, "Dashboard (Stylesheets)" %>
-
-<header>
-	<h1>
-		My Dashboard
-		<%= subtitle "Stylesheet Skins" %>
-	</h1>
-</header>
+<% provide :title, "My Stylesheets" %>
+<%= dashboard_header ["Stylesheet Skins"] %>
 
 <div class="dashboard-grid">
 	<%= solo_cell do render 'skins' end %>

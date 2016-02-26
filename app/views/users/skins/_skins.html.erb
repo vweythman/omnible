@@ -13,8 +13,10 @@
 
 		<tbody class="management-body" id="skins-list">
 			<% @skins.each do |skin| %>
+			<tr class="editable-content">
 				<th><%= link_to skin.title, skin %></th>
 				<td data-label="Number of Works"><%= skin.works.count %></td>
+			</tr>
 			<% end %>
 		</tbody>
 	</table>

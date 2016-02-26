@@ -1,8 +1,5 @@
-<% provide :title, "Dashboard" %>
-
-<header>
-	<h1>My Dashboard</h1>
-</header>
+<% provide :title, "My Dashboard" %>
+<%= dashboard_header %>
 
 <div class="dashboard-grid">
 	<%= solo_cell do @pen_names.tableize end %>
@@ -12,7 +9,7 @@
 		
 		<h3>Subjects</h3>
 		<ul>
-			<% @user.uploaded_characters.each do |article| %>
+			<% @user.characters.each do |article| %>
 				<li><%= article.name %></li>
 			<% end %>
 		</ul>
