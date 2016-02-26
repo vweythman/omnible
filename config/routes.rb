@@ -34,6 +34,18 @@ Rails.application.routes.draw do
 
   scope module: 'users' do
     resource :dashboard, only: [:show]
+    resources :uploads,  only: [:index]
+
+    namespace :uploads do
+      resources :articles,      only: [:show, :index]
+      resources :characters,    only: [:show, :index]
+      resources :items,         only: [:show, :index]
+      resources :links,         only: [:show, :index]
+      resources :places,        only: [:show, :index]
+      resources :short_stories, only: [:show, :index]
+      resources :stories,       only: [:show, :index]
+    end
+
     resources :pen_namings do
       resource :switch, only: [:update], :controller => 'pen_switches'
     end
@@ -44,6 +56,7 @@ Rails.application.routes.draw do
   # ============================================================
   scope module: 'admin' do
     resource :control, only: [:show]
+    get 'admin' => 'controls#show', as: :admin
   end
 
   # Interaction routes
@@ -106,6 +119,7 @@ Rails.application.routes.draw do
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     scope module: 'curation' do
       get '/characters/:character_id/works' => 'character_works#index', as: :character_works
+      get '/users/:user_id/works'           => 'user_works#index',      as: :user_works
       get '/tags/:tag_id/works'             => 'tag_works#index',       as: :tag_works
       get '/identities/:identity_id/works'  => 'identity_works#index',  as: :identity_works
     end
