@@ -87,6 +87,11 @@ textarea {
 }
 .agentive-selection {
 	padding: 5px;
+	margin:  5px 0;
+
+	@include mobile {
+		margin: 0;
+	}
 
 	legend {
 		background:  $page-lightest-major;

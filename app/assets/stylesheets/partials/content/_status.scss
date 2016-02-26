@@ -40,11 +40,11 @@
 	}
 }
 .true {
-	background: fade-out($stoplight-go, .6);
+	color: $stoplight-go
 }
 
 .false {
-	background: fade-out($stoplight-stop, .55);
+	color: $stoplight-stop;
 }
 
 // STYLES :: COUNTS
@@ -136,21 +136,14 @@
 		}
 	}
 
-	.true & {
-		background: $stoplight-stop;
-	}
-
-	.false & {
-		background: $stoplight-go;
-	}
 	.enabler-status & {
+		color:     $page-darker-minor;
+		font-size: 0.95em;
+		padding:   6px 0;
 		width:     90px;
-		padding:   4px 0;
-		font-size: .90em;
 	}
 	.enabler-status &:hover {
 		background: $page-lighter-major;
-		color:      $page-darker-minor;
 	}
 }
 

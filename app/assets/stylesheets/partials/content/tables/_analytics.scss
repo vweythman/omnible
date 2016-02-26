@@ -1,9 +1,13 @@
-// STYLE PARTIAL: TABLEIZER
+// STYLE PARTIAL: ANALYTICS
 // ***********************************************
 .analytics {
 	margin: 15px auto;
 	width:  $three-fourths;
-	border: 1px solid $page-darker-major;
+	border: 2px solid $page-dark-minor;
+
+	caption {
+		padding: 5px;
+	}
 	
 	thead th {
 		padding:    15px 10px;

@@ -3,39 +3,7 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import 'partials/content/snippets';
-
-// VIEWPORT :: ALL
-// ===============================================
-h1 {
-	font: 25px "Segoe UI";
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
-	#main {
-		margin: 0 10px;
-	}
-}
-
-// VIEWPORT :: TABLET
-// ===============================================
-@include tablet {
-	#main {
-		margin: 0 auto;
-		width:  90%;
-	}
-}
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	#main {
-		margin: 0 auto;
-		max-width: 800px;
-	}
-}
+@import "partials/content/snippets";
 
 /* END
 /* ***********************************************/

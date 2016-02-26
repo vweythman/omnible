@@ -3,14 +3,14 @@
 // VIEWPORT :: ALL
 // ===============================================
 .recent-panel {
-	background: $water-darker-minor;
+	background: $water-color;
 }
 .recent-widget {
 	min-height: 200px;
 
 	& > header {
-		background:    $fire-color;
-		border-bottom: 5px solid $fire-light-minor;
+		background:    $fire-lighter-minor;
+		border-bottom: 5px solid $fire-color;
 		margin:        0;
 		padding:       0 5px;
 		padding-top:   25px;
@@ -46,8 +46,8 @@
 	}
 }
 .excerpt {
-	padding: 2px 5px 5px;
-	background: $water-lightest-minor;
+	padding:    2px 5px 5px;
+	background: $page-lighter-minor, .8;
 }
 
 // VIEWPORT :: DESKTOP

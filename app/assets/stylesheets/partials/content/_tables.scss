@@ -34,6 +34,18 @@ td {
 	padding: 10px 0;
 }
 
+// TABLE SORTER
+// -----------------------------------------------
+.sortable .header:after {
+	content: "⬩"
+}
+.sortable .headerSortDown:after {
+	content: "▾"
+}
+.sortable .headerSortUp:after {
+	content: "▴"
+}
+
 // VIEWPORT :: NON-DESKTOP
 // ===============================================
 @include non-desktop {

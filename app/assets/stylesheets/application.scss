@@ -11,12 +11,13 @@
 @import "partials/mixins/general";
 @import "partials/mixins/layout";
 
-// NORMALIZE 
+// NORMALIZE
 // ===============================================
 @import "normalize.scss";
 
 // BUILD
 // ===============================================
-@import "main.scss";
+@import "partials/site";
+@import "partials/page";
 
 /* END */

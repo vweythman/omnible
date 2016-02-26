@@ -35,5 +35,13 @@ h1 {
 	@include submission-look($fire-light-minor, $fire-darkest-minor);
 }
 
+// VIEWPORT :: DESKTOP
+// ===============================================
+@include desktop {
+	.user a {
+		background: $fire-light-major;
+	}
+}
+
 /* END
 /* ***********************************************/

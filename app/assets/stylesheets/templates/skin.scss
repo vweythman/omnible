@@ -5,8 +5,11 @@
 @import "application";
 @import "partials/code/css";
 @import "partials/content/example";
-@import "partials/content/tableizer";
+@import "partials/content/tables/results";
 
+.sheet-header {
+	border-bottom-color: $rose-dark-minor;
+}
 // STYLES :: COLORS
 // ===============================================
 .styles {

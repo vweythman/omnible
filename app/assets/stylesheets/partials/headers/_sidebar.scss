@@ -1,0 +1,127 @@
+// STYLE PARTIAL: SIDEBAR
+// ***********************************************
+// SETUP :: MIXINS
+// ===============================================
+@mixin control-colors($titleColor, $titleBack, $hoverBack) {
+	.control-title {
+		color:      $titleColor;
+		background: $titleBack;
+	}
+	.control-group > li > a {
+		background: none;
+
+		&:hover { background: $hoverBack; }
+	}
+}
+@mixin action-colors($titleColor, $titleBorder) {
+	.action-title {
+		color:        $titleColor;
+		border-color: $titleBorder;
+	}
+	.action-group a {
+		background: none;
+	}
+}
+
+// SECTION :: ALL
+// ===============================================
+.site-header .sidebar {
+	display:    none;
+	margin-top: 10px;
+	padding:    0;
+	position:   absolute;
+	right:      0;
+	width:      206px;
+	z-index:    100;
+}
+
+.sidebar {
+	display:    none;
+	background: $water-dark-minor;
+	color:      $water-lightest-minor;
+
+	@include non-mobile {
+		.user:hover & { display: block; }
+	}
+
+	a {
+		background:      none;
+		font-size:       .9em;
+		color:           $page-lightest-minor;
+		font-weight:     bolder;
+		text-decoration: none;
+	}
+	ul,
+	li {
+		margin:  0;
+		padding: 0;
+	}
+	@include control-colors($fire-darker-minor, $fire-light-minor, rgba(255, 255, 255, .2));
+	@include action-colors($water-lighter-minor, $water-color);
+}
+.dashboard-grid .sidebar {
+	display:block;
+}
+
+// SECTION :: HEADER
+// ===============================================
+.control-title {
+	text-align:  left;
+	font-size:   1.25em;
+	margin:      0px;
+	padding:     10px 15px 5px;
+	font-weight: bolder;
+}
+.action-title {
+	border-style:        solid;
+	border-bottom-width: 4px;
+	border-top:          none;
+	border-left:         none;
+	border-right:        none;
+	font-size:           .9em;
+	letter-spacing:      2px;
+	margin:              0px;
+	padding:             7px 15px;
+}
+
+// SECTION :: BODY
+// ===============================================
+.control-group {
+	text-align: left;
+	
+	& > li > a {
+		display:   block;
+		font-size: .9em;
+		padding:   5px 15px;
+	}
+}
+.action-group {
+	text-align: right;
+
+	a {
+		padding: 5px 10px;
+		display: block;
+	}
+}
+
+.createables li li {
+	padding: 2px 10px;
+
+	.manager { display: none; }
+
+	&:hover .manager {
+		display: block;
+		padding: 2px 0;
+		padding-bottom: 10px;
+
+		a {
+			padding:   0;
+			margin:    0;
+			display:   inline-block;
+			font-size: .8em;
+		}
+	}
+}
+
+// END
+// ************************************************/

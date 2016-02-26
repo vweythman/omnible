@@ -17,18 +17,6 @@
 
 // VIEWPORT :: ALL
 // ===============================================
-.alert {
-	@include alertable(red, white);
-}
-.announce {
-	@include alertable($fire-lighter-minor, $fire-darkest-minor);
-}
-.notice {
-	@include alertable($water-color, $water-lightest-minor);
-}
-
-// VIEWPORT :: ALL
-// ===============================================
 .alert,
 .announce,
 .notice {
@@ -39,14 +27,20 @@
 .alert {
 	padding: 20px;
 	width:   90%;
+
+	@include alertable(red, white);
 }
 .announce {
 	padding: 10px;
 	width:   50%;
+
+	@include alertable($fire-lighter-minor, $fire-darkest-minor);
 }
 .notice {
 	padding: 15px;
 	width:   90%;
+
+	@include alertable($water-color, $water-lightest-minor);
 }
 
 // END

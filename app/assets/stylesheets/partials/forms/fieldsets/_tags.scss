@@ -13,20 +13,30 @@
 		padding:    10px;
 		width:      calc(100% - 22px);
 	}
-	label {
-		color:       $fire-dark-minor;
-		font-weight: 600;
-		text-align:  right;
-		padding:     7px;
+}
+.taggables-label {
+	background:   $fire-light-major;
+	border:       1px solid $fire-light-minor;
+	color:        $fire-dark-major;
+	font-weight:  600;
+	margin-right: 4px;
+	padding:      7px;
+	text-align:   right;
+
+	.tag-input:hover & {
+		background:   $fire-lighter-minor;
+		border-color: $fire-light-major;
 	}
 }
 
 // VIEWPORT :: MOBILE
 // ===============================================
 @include mobile {
-	.tags label {
-		padding:     7px 0;
-		text-align:  left;
+	.taggables-label {
+		padding:       7px;
+		text-align:    left;
+		margin-right:  0px;
+		margin-bottom: 2px;
 	}
 }
 

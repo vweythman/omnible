@@ -1,0 +1,96 @@
+// STYLE PARTIAL: ANALYTICS
+// ***********************************************
+.editable {
+	margin: 5px 10px;
+
+	thead {
+		background:     $fire-lightest-minor;
+		border-bottom:  5px solid $fire-light-minor;
+		padding:        5px 0;
+		vertical-align: bottom;
+	}
+	td {
+		font-weight: bolder;
+		text-align:  center;
+	}
+
+	@include desktop {
+		tr:nth-child(2n) {
+			background: $water-lightest-major;
+		}
+	}
+
+	@include non-desktop {
+		.manager-editor {
+			display: none;
+		}
+
+		td {
+			background: rgba(255, 255, 255, .5);
+			padding:    0px 0px 5px 0px;
+
+			&:before {
+				background:    rgba(255, 255, 255, .8);
+				border-bottom: 2px solid $fire-light-minor;
+				padding:       5px 0;
+				margin-bottom: 5px;
+			}
+		}
+	}
+}
+
+.editable-content {
+	th {
+		padding: 5px;
+		vertical-align: middle;
+
+		a {
+			color:   $water-dark-minor;
+			display: block;
+
+			&:hover {
+				color: $water-color;
+			}
+		}
+	}
+
+	@include non-desktop {
+		@include rounded-top(10px);
+		@include rounded-bottom(10px);
+		@include gradientized(180deg, $fire-color, $fire-lighter-major);
+		float: left;
+
+		th {
+			font-size: $text-size;
+			font-weight: bolder;
+			padding:     0;
+			text-align:  center;
+
+			a {
+				@include rounded-top(10px);
+
+				border-bottom:   3px solid $fire-dark-minor;
+				color:           $fire-lightest-major;
+				display:         block;
+				padding:         10px;
+				padding-bottom:  5px;
+				margin:          0;
+				text-decoration: none;
+
+				&:hover {
+					background:    $fire-color;
+					color:         $fire-lightest-minor;
+					border-bottom: 3px solid $fire-dark-minor;
+				}
+			}
+		}
+	}
+
+	@include tablet {
+		width: calc(33.33% - 20px);
+	}
+
+	@include mobile {
+		width: calc(50% - 20px);
+	}
+}

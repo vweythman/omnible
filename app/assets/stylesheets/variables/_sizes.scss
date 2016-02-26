@@ -69,6 +69,7 @@ $one-whole:              60 / 60 * 100%;
 // -----------------------------------------------
 $golden: 1.618;
 
+
 $golden-major:  100% / $golden;
 $golden-minor:  100% - $golden-major;
 
@@ -82,6 +83,7 @@ $golden-micro:  $golden-mini / $golden;
 
 $golden-nano:   $golden-mini - $golden-micro;
 
+$golden-large:  $golden-major + $golden-little;
 
 // -- Input
 // -----------------------------------------------

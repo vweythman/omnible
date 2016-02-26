@@ -1,0 +1,67 @@
+/* TEMPLATE: SHOW CREATORSHIP
+/* ***********************************************/
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+@import "partials/forms/inline_form";
+@import "partials/forms/fields/switch";
+@import "partials/pagination";
+@import "partials/content/status";
+@import "partials/content/tables/analytics";
+@import "partials/content/tables/relateables";
+
+// SECTION :: ALL
+// ===============================================
+.page-content {
+	background: $water-lightest-minor;
+}
+
+// SECTION :: HEADER
+// ===============================================
+.category-header {
+	border-bottom-color: $water-color;
+}
+.alteration {
+	margin: 0px $one-twelfth;
+	width:  $five-sixths;
+}
+.editor-block { margin: 0px 10px; }
+
+// SECTION :: BODY
+// ===============================================
+.page-body {
+	min-height: 200px;
+	padding:    10px 0;
+}
+
+.pagination {
+	margin:  0 auto;
+	padding: 10px;
+}
+
+.relateable,
+.stat-distribution {
+	background: $page-color;
+
+	p {
+		text-align: center;
+	}
+}
+
+.analytics {
+	margin: 10px;
+}
+
+#distribution {
+	margin: 53px auto;
+	display:block;
+}
+.connection {
+	padding:    10px;
+	overflow:   auto;
+
+	@include toggle-button(30px, 2px, 0.9s, $stoplight-go, $page-light-minor);
+}
+
+/* END
+/* ***********************************************/

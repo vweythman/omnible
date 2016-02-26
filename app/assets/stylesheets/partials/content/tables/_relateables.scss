@@ -1,13 +1,5 @@
-/* TEMPLATE: SHOW CREATORSHIP
-/* ***********************************************/
-// SETUP :: IMPORTS
-// ===============================================
-@import "application";
-@import "partials/defaults/tags";
-@import "partials/pagination";
-@import "partials/content/analytics";
-@import "partials/content/status";
-
+// STYLE PARTIAL: RELATEABLE TABLES
+// ***********************************************
 // VIEWPORT :: ALL
 // ===============================================
 .relateable {
@@ -31,6 +23,12 @@
 		font-weight: bolder;
 		padding-bottom: 0;
 	}
+	@include tablet {
+		tr {
+			float: left;
+			width: calc(33.33% - 20px);
+		}
+	}
 }
 
 // VIEWPORT :: NON-DESKTOP
@@ -41,14 +39,5 @@
 	}
 }
 
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
-@include tablet {
-	.relateable-body tr {
-		float: left;
-		width: calc(33.33% - 20px);
-	}
-}
-
-/* END
-/* ***********************************************/
+// END
+// ************************************************/

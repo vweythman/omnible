@@ -2,49 +2,43 @@
 // ***********************************************
 // SETUP :: GENERAL IMPORTS
 // ===============================================
-@import "partials/headers/content";
-@import "partials/footer";
 @import "partials/grid";
+@import "partials/headers/page";
+@import "partials/content/alerts";
+@import "partials/content/tables";
+@import "partials/content/toolkits";
 
-@import "partials/defaults/alerts";
-@import "partials/defaults/toolkits";
-@import "partials/defaults/tables";
-
-// VIEWPORT :: ALL
+// SECTION :: ALL
 // ===============================================
-// -- Layout
-// -----------------------------------------------
+.page-content {
+	background: $page-color;
+	margin:     0;
+	overflow:   auto;
+	padding:    0;
+}
+
+// SECTION :: HEADER
+// ===============================================
 .site-content > header {
 	background: $page-color;
+
 	.notice {
 		margin:   0 $one-twelfth;
 		position: absolute;
 		width:    $one-sixth;
 	}
 }
-.page-content,
-.page-content > header {
-	background: $page-color;
-}
-.page-content {
-	margin:   0;
-	overflow: auto;
-	padding:  0;
+
+// SECTION :: BODY
+// ===============================================
+// -- Layout
+// -----------------------------------------------
+.page-body,
+.index-body {
+	margin: 10px $one-twelfth;
 }
 
 // -- Text
-// -----------------------------------------------
-p {
-	margin:  0;
-	padding: 5px 0;
-}
-pre {
-	overflow:    auto;
-	white-space: pre-wrap;
-}
-.date { font-weight: bolder; }
-
-// -- Links
 // -----------------------------------------------
 a {
 	color: $water-dark-minor;
@@ -54,9 +48,14 @@ a {
 		text-decoration: none;
 	}
 }
-
-// -- Lists
-// -----------------------------------------------
+p {
+	margin:  0;
+	padding: 5px 0;
+}
+pre {
+	overflow:    auto;
+	white-space: pre-wrap;
+}
 ul {
 	list-style: none;
 }
@@ -79,13 +78,21 @@ dt {
 dt:first-child {
 	padding-top: 0;
 }
-article dd:before, 
-article ul li:before {
+.indexable dd:before, 
+.indexable li:before {
+	font-size:   12px;
+	margin-left: -12px;
+
 	@include arrowed($fire-dark-minor);
 }
+.indexable li {
+	padding: 0px 15px 5px;
+}
 
-// -- General Footer Types
-// -----------------------------------------------
+.date { font-weight: bolder; }
+
+// SECTION :: FOOTER
+// ===============================================
 .path-finder {
 	background: $water-lighter-minor;
 	font-weight: bolder;
@@ -102,7 +109,7 @@ article ul li:before {
 	}
 }
 .see-more a {
-	background:    $page-darkest-major;
+	background:    $page-dark-major;
 	border-radius: 10px;
 	color:         $water-lighter-minor;
 	margin:        15px auto;
@@ -114,24 +121,6 @@ article ul li:before {
 	&:hover {
 		background: $fire-color;
 		color:      $page-darkest-major;
-	}
-}
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.page-body {
-		margin: 0 auto;
-		width:  calc(66.66% + 20px);
-	}
-}
-
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
-@include non-desktop {
-	.page-body {
-		margin: 10px auto;
-		width:  $eleven-twelfths;
 	}
 }
 

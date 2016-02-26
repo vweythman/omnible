@@ -1,0 +1,121 @@
+// STYLE PARTIAL: SITE STYLES
+// ***********************************************
+// IMPORTS
+// ===============================================
+@import "partials/headers/account";
+@import "partials/headers/menu";
+@import "partials/headers/sidebar";
+
+// SECTION :: ALL
+// ===============================================
+body {
+	background: $water-darker-minor;
+	color:      $page-darker-major;
+	font:       $text-size "Arial", sans-serif;
+}
+
+// SECTION :: HEADER
+// ===============================================
+.site-header {
+	overflow: auto;
+
+	@include tablet {
+		padding: 0;
+	}
+
+	a  { text-decoration: none; }
+	ul { list-style:      none; }
+}
+
+.logo {
+	color:          $water-light-minor;
+	font-size:      $logo-size;
+	letter-spacing: 3px;
+	margin:         0;
+	padding:        10px;
+
+	&:hover   {
+		color: $water-lighter-minor;
+	}
+
+	@include desktop {
+		display:    block;
+		float:      left;
+		padding:    0;
+		text-align: center;
+		width:      $one-sixth;
+	}
+	@include tablet {
+		display:        block;
+		float:          left;
+		letter-spacing: 1px;
+		min-width:      90px;
+		padding:        10px 0;
+		padding-bottom: 25px;
+		text-align:     center;
+		font-size:      1.5rem;
+		width:          $one-fifth;
+	}
+}
+
+.actionbar {
+	margin: 0;
+
+	@include desktop {
+		margin-left: $one-sixth;
+		width:       $five-sixths;
+	}
+	@include tablet {
+		margin-left: $one-fifth;
+	}
+}
+
+// SECTION :: FOOTER
+// ===============================================
+.site-footer {
+	color:          $water-color;
+	padding-bottom: 0;
+}
+
+.site-meta .widget {
+	background:  $water-dark-minor;
+	color:       $page-color;
+	margin:      15px;
+
+	a { color: $water-lighter-minor; }
+}
+
+.credit-widget .widget-title {
+	background: $page-darker-major;
+}
+
+.credit-widget p {
+	padding: 10px 15px;
+	margin:  0;
+}
+
+.ownership-widget {
+	padding: 15px;
+}
+
+.social-media-widget {
+	margin:     15px 0;
+	padding:    7px;
+	text-align: center;
+	
+	a {
+		background:      $water-darker-minor;
+		border-radius:   1em;
+		display:         inline-block;
+		padding:         1em;
+		text-decoration: none;
+
+		&:hover {
+			color:      $page-color;
+			background: none;
+		}
+	}
+}
+
+// END
+// ************************************************/

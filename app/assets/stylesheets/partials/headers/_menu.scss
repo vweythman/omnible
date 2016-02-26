@@ -1,72 +1,47 @@
 // STYLE PARTIAL: MENU BAR
 // ***********************************************
-// STYLES :: COLORS
-// ===============================================
-.menu a {
-	color: $water-lightest-minor;
-
-	&:visited { color: $water-lightest-minor; }
-	&:hover   { color: $water-light-minor;    }
-}
-.submenu a { background: $page-darkest-major; }
-
-// VIEWPORT :: ALL
+// SECTION :: ALL
 // ===============================================
 .menu {
 	text-align: center;
 	
-	ul {
-		margin:  0;
-		padding: 0;
+	@include desktop {
+		width: $three-fourths;
 	}
-	a {
-		display:        block;
-		letter-spacing: 2px;
-		padding:        10px;
-		font-variant: small-caps;
-	}
-}
-.submenu {
-	z-index: 100;
-}
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.menu    { width: $three-fourths; }
-	.submenu { width: (3/4) * (1/4) * (5/6) * 100%; }
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
-	.submenu, 
-	.drop-arrow {
-		display: none;
-	}
-	.menu { 
+	@include mobile {
 		display: block;
+
 		li {
 			width: $one-half;
 			float: left;
 		}
 	}
+
+	a {
+		color:          $water-lightest-minor;
+		display:        block;
+		font-variant:   small-caps;
+		letter-spacing: 2px;
+		padding:        10px;
+
+		&:visited { color: $water-lightest-minor; }
+		&:hover   { color: $water-light-minor;    }
+	}
+	ul {
+		margin:  0;
+		padding: 0;
+	}
 }
 
-// VIEWPORT :: NON-MOBILE
-// ===============================================
-@include non-mobile {
-	.drop-arrow {
-		font-size: .68em;
+.submenu {
+	@include gradientized(180deg, $water-darker-minor, $water-dark-major);
+
+	z-index: 100;
+
+	@include desktop {
+		width: (3/4) * (1/4) * (5/6) * 100%; 
 	}
-	.menu {
-		a { padding: 9px 0; }
-		& > ul > li {
-			width: $one-fourth;
-			float: left;
-		}
-	}
-	.submenu {
+	@include non-mobile {
 		float:    left;
 		position: absolute;
 
@@ -75,13 +50,34 @@
 			padding:   10px 5px;
 		}
 	}
+	@include tablet {
+		width: (1/4) * (5/6) * 100%;
+	}
 }
 
-// VIEWPORT :: TABLET
+// VIEWPORT SPECIFIC
 // ===============================================
+@include mobile {
+	.submenu, 
+	.drop-arrow {
+		display: none;
+	}
+}
+@include non-mobile {
+	.drop-arrow {
+		font-size: .68em;
+	}
+	.menu a {
+		padding: 9px 0;
+	}
+	.menu > ul > li {
+		width: $one-fourth;
+		float: left;
+	}
+
+}
 @include tablet {
 	.menu > ul > li { width: 24.50%; }
-	.submenu        { width: (1/4) * (5/6) * 100%; }
 }
 
 // END

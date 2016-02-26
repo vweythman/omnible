@@ -1,8 +1,6 @@
 // STYLE PARTIAL: ACCOUNT BAR
 // ***********************************************
-// STYLES :: COLORS
-// ===============================================
-// VIEWPORT :: ALL
+// SECTION :: ALL
 // ===============================================
 .account {
 	line-height: normal;
@@ -10,52 +8,54 @@
 	padding:     10px 0;
 	text-align:  right;
 
+	@include desktop {
+		float: right;
+		width: $one-fourth;
+	}
+	@include mobile {
+		background: $water-dark-minor;
+		display:    block;
+	}
+
 	a {
 		font-weight: bolder;
 		padding:     10px;
 		color:       $water-darkest-minor; 
 	}
 }
+
 .user {
 	display: inline-block;
+
 	a {
 		font-weight:    bolder;
-		letter-spacing: 2px;
 		background:     $page-color;
 	}
-	& > a {
+
+	.logged-in {
+		letter-spacing: 2px;
 		color: $water-darkest-minor;
+
+		@include non-desktop {
+			background: $water-dark-minor;
+			color:      $page-color;
+		}
 	}
-	&:hover > a {
-		background: $water-color;
-		color:      $page-lightest-major;
+
+	&:hover .logged-in {
+		background: $fire-light-minor;
 	}
 }
 
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.account {
-		float: right;
-		width: $one-fourth;
-	}
-}
-
-// VIEWPORT :: MOBILE
+// VIEWPORT SPECIFIC
 // ===============================================
 @include mobile {
-	.account {
-		display: block;
-		background: $water-lightest-minor;
-	}
 	.session a,
 	.session a:visited {
-		color: $water-dark-minor;
+		color: $water-lighter-minor;
 	}
 }
 
-// VIEWPORT :: NON-MOBILE
-// ===============================================
 @include non-mobile {
 	.session a {
 		color: $page-color;
@@ -66,17 +66,6 @@
 		&:hover {
 			color: $water-light-minor;
 		}
-	}
-}
-
-// VIEWPORT :: TABLET
-// ===============================================
-@include tablet {
-	.user > a {
-		background: $water-color;
-		color:      $page-color;
-
-		&:visited { color: $page-color; }
 	}
 }
 

@@ -6,46 +6,25 @@
 @import "partials/content/snippets";
 @import "partials/content/recent";
 
-// VIEWPORT :: ALL
+// SECTION :: ALL
 // ===============================================
 .page-content {
 	background: $page-color;
 }
 
-// VIEWPORT :: DESKTOP
+// SECTION :: BODY
 // ===============================================
-@include desktop {
-	.welcome-widget {
-		padding:    5em 0;
-	}
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
-	.welcome-widget {
-		display: none;
-	}
-}
-
-// VIEWPORT :: NON-MOBILE
-// ===============================================
-@include non-mobile {
-	.welcome-widget {
+.welcome-widget {
+	@include desktop { padding: 5em 0; }
+	@include tablet  { padding: 2em 0; }
+	@include mobile  { display: none; }
+	@include non-mobile {
 		background: $page-color;
 		color:      $water-color;
 		text-align: center;
 		h1 {
 			font-weight: lighter;
 		}
-	}
-}
-
-// VIEWPORT :: TABLET
-// ===============================================
-@include tablet {
-	.welcome-widget {
-		padding: 2em 0;
 	}
 }
 

@@ -4,11 +4,12 @@
 // ===============================================
 @import "partials/forms/general_form";
 
-// VIEWPORT :: ALL
+// STYLES
 // ===============================================
 .form-grid {
 	padding-top: 10px;
 }
+
 .submit-field {
 	margin: 10px 0;
 
@@ -16,6 +17,9 @@
 		@include submission-look($moss-dark-minor, $page-color);
 		padding: 5px 10px;
 	}
+}
+.field {
+	padding: 4px 0px;
 }
 
 // END

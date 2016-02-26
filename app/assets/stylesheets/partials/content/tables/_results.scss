@@ -1,35 +1,35 @@
-// STYLE PARTIAL: TABLEIZER
+// STYLE PARTIAL: RESULTS
 // ***********************************************
-// VIEWPORT :: ALL
+// SECTION :: HEADER
 // ===============================================
-.tableized caption {
+.tableized-results caption {
 	background:    $water-dark-minor;
 	border-bottom: 5px solid desaturate($water-darker-minor, 20%);
 	color:         $water-lightest-minor;
 }
-.tableized thead {
+
+.tableized-results thead {
 	background:    desaturate(lighten($fire-lightest-major, 15%), 20%);
 	border-bottom: 5px solid desaturate($fire-lighter-minor, 20%);
 }
 
-// VIEWPORT :: DESKTOP
+// SECTION :: BODY
 // ===============================================
 @include desktop {
-	.tableized tr:nth-child(2n) {
+	.tableized-results tr:nth-child(2n) {
 		background: $water-lightest-minor;
 	}
 }
 
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
 @include non-desktop {
-	.tableized td:not(.manager-editor):before {
+	.tableized-results td:not(.manager-editor):before {
 		border-bottom:  1px solid $fire-light-minor;
 		margin-bottom:  2px;
 		padding:        5px 0;
 		padding-bottom: 2px;
 	}
-	.tableized tbody th {
+
+	.tableized-results tbody th {
 		text-align: center;
 		padding:    0;
 	}

@@ -7,18 +7,16 @@
 @import "partials/content/status";
 @import "partials/content/comments";
 
-// VIEWPORT :: ALL
+// SECTION :: ALL
 // ===============================================
-// -- General
-// -----------------------------------------------
 .page-content {
 	background: $page-lighter-minor;
 }
 
-// -- Header
-// -----------------------------------------------
+// SECTION :: HEADER
+// ===============================================
 .work-header {
-	border-bottom: 5px solid $fire-color;
+	border-bottom-color: $rose-dark-minor;
 	background:    $page-extreme-light;
 	margin:        0;
 	padding:       0;
@@ -32,16 +30,11 @@
 		margin:       0 $one-twelfth;
 		padding-left: 0;
 	}
-
 	.alteration {
 		margin:     0 $one-twelfth;
 		margin-top: 10px;
 		width:      $five-sixths;
 	}
-}
-
-.multikit {
-	margin: 0px $one-twelfth;
 }
 
 .related-menu {
@@ -54,18 +47,32 @@ h1 {
 	padding-top:   35px;
 }
 
-// -- Content
-// -----------------------------------------------
+
+// SECTION :: BODY
+// ===============================================
 article {
 	background: $page-color;
 	margin:     0 $one-twelfth;
 	padding:    20px $one-twelfth;
+
+	@include non-desktop {
+		margin-top: 10px;
+	}
+
+	p { line-height: 1.5; }
 }
 
 h2 {
 	font-size: $heading-size - 5px;
 	margin:    0;
 	padding:   0;
+}
+hr {
+	background: $fire-color;
+	border:     none;
+	padding:    1px;
+	margin: 25px auto;
+	width:   45%;
 }
 
 .page-body {
@@ -79,14 +86,6 @@ h2 {
 
 .work-content a { 
 	@include visitable($water-dark-minor);
-}
-
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
-@include non-desktop {
-	article {
-		margin-top: 10px;
-	}
 }
 
 /* END

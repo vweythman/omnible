@@ -1,13 +1,15 @@
 // STYLE PARTIAL: GENERAL PAGINATION
 // ***********************************************
-// VIEWPORT :: ALL
-// ===============================================
 .pagination {
 	list-style: none;
 	margin:     0 auto;
 	padding:    0;
 	overflow:   auto;
 	width:      100%;
+
+	@include mobile {
+		header & { display: none; }
+	}
 
 	a {
 		color:   $page-color;
@@ -19,6 +21,7 @@
 			background: $water-darker-minor;
 		}
 	}
+
 	li {
 		background:    $water-dark-minor;
 		border-radius: 5px;
@@ -26,13 +29,20 @@
 		font-weight:   bolder;
 		margin:        1px;
 		width:         calc(20% - 6px);
+
+		@include mobile {
+			display: block;
+			width:   calc(100% - 6px);
+		}
 	}
+
 	.current {
 		background: $page-color;
 		padding:    10px 0;
 		text-align: center;
 	}
 }
+
 .pagination-heading {
 	border-bottom: 1px dotted $page-dark-major;
 	font-size:     $heading-size - 8px;
@@ -40,21 +50,10 @@
 	text-align:    center;
 	margin:        10px 5px;
 }
+
 .next,
 .last {
 	text-align: right;
-}
-
-// VIEWPORT :: MOBILE
-// ===============================================
-@include mobile {
-	.pagination li {
-		display: block;
-		width:   calc(100% - 6px);
-	}
-	header .pagination {
-		display: none;
-	}
 }
 
 // END
