@@ -15,15 +15,15 @@ class UserDecorator < Draper::Decorator
 	end
 
 	def uploaded_articles
-		@uploaded_articles ||= ArticlesDecorator.decorate self.uploaded_works.articles
+		@uploaded_articles ||= ArticlesDecorator.decorate self.works.articles
 	end
 	
 	def uploaded_short_stories
-		@uploaded_short_stories ||= ShortStoriesDecorator.decorate self.uploaded_works.short_stories
+		@uploaded_short_stories ||= ShortStoriesDecorator.decorate self.works.short_stories
 	end
 
 	def uploaded_stories
-		@uploaded_stories ||= StoriesDecorator.decorate self.uploaded_works.stories
+		@uploaded_stories ||= StoriesDecorator.decorate self.works.stories
 	end
 
 end
