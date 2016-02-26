@@ -1,2 +1,4 @@
 $('<%= @creator_category.kit_finder %>').hide();
 $('<%= @creator_category.tag_finder %>').hide();
+$('<%= @creator_category.form_finder %>').html("<%= j (ajaxed_form_render) %>");
+$('<%= @creator_category.form_finder %>').slideDown(180);

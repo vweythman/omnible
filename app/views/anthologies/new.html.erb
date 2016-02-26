@@ -1,8 +1,6 @@
 <% provide(:title, "Create Anthology") %>
 
-<div class="new">
-	<h1>Create Anthology</h1>
+<%= creation_block("Create Anthology") do %>
 	<%= render 'form' %>
-</div>
-
-<%= render 'footer' %>
+	<%= render 'footer' %>
+<% end %>

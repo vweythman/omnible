@@ -1,6 +1,7 @@
 <% provide(:title, "Create Identity Category") %>
 
-<div id="main" class="new generator">
-	<h1>Create Identity Category (Facet)</h1>
+<%= creation_block("Create Identity Category (Facet)") do %>
 	<%= render 'form' %>
-</div>
+<% end %>
+
+<%= render 'categories/footer' %>

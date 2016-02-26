@@ -1,11 +1,7 @@
 <% provide(:title, @character.title_for_creation) %>
 
-<div class="new generator">
-	<h1>
-		<%= @character.title_for_creation %>
-	</h1>
+<%= creation_block(@character.title_for_creation) do %>
 	<%= render 'form' %>
 	<%= @character.shared_footer %>
-</div>
-
+<% end %>
 <script>autosize(document.querySelectorAll('textarea'));</script>

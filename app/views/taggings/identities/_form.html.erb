@@ -2,8 +2,8 @@
 <%= form_for @identity, remote: remote do |f| %>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:nature), f.text_field(:nature, :placeholder => "Describe the Type of Identity") %>
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Name the Identity") %>
+		<%= string_panel f, :nature, "Describe Type" %>
+		<%= string_panel f, :name,   "Write Name"    %>
 	</fieldset>
 
 	<%= submit_panel f %>

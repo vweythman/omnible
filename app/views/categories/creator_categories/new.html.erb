@@ -1,7 +1,7 @@
 <% provide(:title, "New Creator Category") %>
 
-<h1>New Creator Category</h1>
-
-<div class="generator new">
+<%= creation_block("New Creator Category") do %>
 	<%= render 'form' %>
-</div>
+<% end %>
+
+<%= render 'categories/footer' %>

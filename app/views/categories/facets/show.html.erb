@@ -1,45 +1,50 @@
 <% provide(:title, @facet.name) %>
 
 <header class="category-header">
-	<h1><%= @facet.name %></h1>
+	<h1>
+		Admin Panel
+		<%= subtitle @facet.name %>
+	</h1>
 </header>
 
 <article class="page-body">
-	<header>
-		<%= @facet.alphabetic_pagination %>
-	</header>
+	<header><%= @facet.alphabetic_pagination %></header>
+	<% piedata = @facet.piedata %>
+	
+	<%= grid_panel "stat-distribution" do %>
+		<%= panel_cell "golden-minor" do %>
+			<table class="analytics">
+				<caption>Distribution of Characters by <%= @facet.name.titleize %></caption>
 
-	<div class="stat-distribution">
-		<% piedata = @facet.piedata %>
-		<table class="analytics">
-			<caption>Distribution of Characters by <%= @facet.name.titleize %></caption>
-			<thead>
-				<th>Identity</th>
-				<th>Count</th>
-			</thead>
-			<% piedata.each do |group| %>
-			<tr>
-				<th><%= group[:label] %></th>
-				<td data-label="Count"><%= group[:value] %></td>
-			</tr>
-			<% end %>
-		</table>
-		<canvas id="distribution"></canvas>
-		<p>Chart of Character Distribution</p>
-	</div>
+				<thead>
+					<th>Identity</th>
+					<th>Count</th>
+				</thead>
 
-	<script type="text/javascript">
-		var data = <%= piedata.to_json.to_s.html_safe %>;
-		var ctx = document.getElementById("distribution").getContext("2d");
-		var distribution = new Chart(ctx).Pie(data, {
-			tooltipFillColor: "rgba(0,0,0,1)"
-		});
-	</script>
-	<footer>
-		<%= @facet.alphabetic_pagination %>
-	</footer>
+				<% piedata.each do |group| %>
+				<tr>
+					<th><%= group[:label] %></th>
+					<td data-label="Count"><%= group[:value] %></td>
+				</tr>
+				<% end %>
+			</table>
+		<% end %>
+
+		<%= panel_cell "golden-major" do %>
+			<canvas id="distribution"></canvas>
+			<p>Chart of Character Distribution</p>
+		<% end %>
+	<% end %>
+
+	<footer><%= @facet.alphabetic_pagination %>	</footer>
 </article>
 
-<footer class="path-finder">
-	<%= link_to "Facets", facets_path %>
-</footer>
+<footer class="path-finder"><%= link_to "Facets", facets_path %></footer>
+
+<script type="text/javascript">
+	var data = <%= piedata.to_json.to_s.html_safe %>;
+	var ctx = document.getElementById("distribution").getContext("2d");
+	var distribution = new Chart(ctx).Pie(data, {
+		tooltipFillColor: "rgba(0,0,0,1)"
+	});
+</script>

@@ -7,7 +7,7 @@
 	</ul>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Character Name") %>
+		<%= string_panel f, :name, "Name Character" %>
 		<%= render 'shared/forms/edit_fields', f: f %>
 
 		<div class="restrictions">

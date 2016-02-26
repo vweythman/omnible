@@ -1,9 +1,6 @@
 <% provide(:title, @place.title_for_creation) %>
 
-<div class="new generator">
-	<h1>
-		<%= @place.title_for_creation %>
-	</h1>
+<%= creation_block(@place.title_for_creation) do %>
 	<%= render 'form' %>
-	<%= @place.shared_footer %>
-</div>
+	<%= render 'subjects/shared/footer' %>
+<% end %>

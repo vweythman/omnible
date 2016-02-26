@@ -1,8 +1,6 @@
-<div id="main" class="edit generator">
-  <%= edit_header 'Item', @item.name %>
+<% provide(:title, @item.title_for_editing) %>
 
-  <%= render 'form' %>
-  
-  <%= render 'subjects/shared/footer' %>
-</div>
-
+<%= editing_block("Edit") do %>
+	<%= render 'form' %>
+	<%= render 'subjects/shared/footer' %>
+<% end %>

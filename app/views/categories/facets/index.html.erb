@@ -1,32 +1,21 @@
 <% provide(:title, @facets.index_heading) %>
 
-<header>
-	<h1><%= @facets.index_heading %></h1>
+<header class="index-header">
+	<h1>
+		Admin Panel
+		<%= subtitle @facets.index_heading %>
+	</h1>
+
+	<%= @facets.inline_creation %>
+	<%= @facets.creation_path %>
 </header>
 
-<article id="facets-index" class="index-body">
-	<table class="tableized">
-		<thead>
-			<th>Name</th>
-			<th>Number of Identities</th>
-			<th>Number of Characters</th>
-		</thead>
+<div class="results">
+	<%= solo_cell "facets management-widget" do %>
+		<div id="facets-index">
+			<%= render 'facets_table' %>
+		</div>
+	<% end %>
+</div>
 
-		<tbody>
-			<% @facets.each do |facet| %>
-				<tr>
-					<th><%= link_to facet.heading, facet %></th>
-
-					<td data-label="Identities Count">
-						<%= facet.identities.count %>
-					</td>
-					<td data-label="Character Count">
-						<%= facet.characters.count %>
-					</td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-</article>
-
-<%= render 'taggings/shared/footer' %>
+<%= render 'categories/footer' %>

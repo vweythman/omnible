@@ -1,8 +1,6 @@
 <% provide(:title, @place.editing_title) %>
 
-<div id="main" class="edit generator">
-	<%= @place.editor_heading %>
+<%= editing_block("Edit") do %>
 	<%= render 'form' %>
 	<%= render 'subjects/shared/footer' %>
-</div>
-
+<% end %>

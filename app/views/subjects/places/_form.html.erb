@@ -1,8 +1,8 @@
 <%= form_for(@place) do |f| %>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:nature, "Type"), f.text_field(:nature, :placeholder => "Add Type of Place") %>
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Place Name") %>
+		<%= string_panel f, :nature, "Describe Type" %>
+		<%= string_panel f, :name,   "Name Place"    %>
 		<%= radios_by_string(f, :fictional, @place.realness_choices, f.object.fictional?) %>
 	</fieldset>
 

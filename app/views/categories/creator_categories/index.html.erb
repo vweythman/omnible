@@ -1,7 +1,10 @@
 <% provide(:title, "Creator Categories") %>
 
 <header class="index-header">
-	<h1>Creator Categories</h1>
+	<h1>
+		Admin Panel
+		<%= subtitle "Creator Categories" %>
+	</h1>
 	<%= @creator_categories.found_status %>
 	<%= creation_toolkit("Category", :creator_category) %>
 </header>
@@ -9,3 +12,5 @@
 <div class="index-body">
 	<%= @creator_categories.results %>
 </div>
+
+<%= render 'categories/footer' %>

@@ -1,9 +1,7 @@
 <% provide(:title, @character.title_for_editing) %>
 
-<div id="main" class="edit generator">
-	<h1>
-		<%= @character.name %>
-	</h1>
+<%= editing_block("Edit") do %>
 	<%= render 'form' %>
 	<%= render 'subjects/shared/footer' %>
-</div>
+<% end %>
+<script>autosize(document.querySelectorAll('textarea'));</script>

@@ -1,8 +1,6 @@
 <% provide(:title, "Edit Anthology") %>
 
-<div class="edit">
-	<h1>Edit Anthology</h1>
+<%= editing_block("Edit Anthology") do %>
 	<%= render 'form' %>
-</div>
-
-<%= render 'footer' %>
+	<%= render 'footer' %>
+<% end %>

@@ -1,19 +1,16 @@
 <div class='nested-fields'>
 	<fieldset>
 		<legend>Prejudice</legend>
-		<div class='pair'>
-			<% facet_label    = f.label(:facet_id, "Facet") %>
-			<% name           = (f.object.identity.nil? ? "" : f.object.identity.name) %>
-			<% identity_label = f.label(:identity_name, "Type of Person") %>
 
-			<% facet_collection    = f.collection_select(:facet_id, @prejudices.facets, :id, :name, { :selected => (f.object.identity.nil? ? "state" : f.object.identity.facet.id) }, { :class=>'selector' } ) %>
-			<%= f.hidden_field :identity_id %>
-			<% identity_collection = f.text_field(:identity_name) %>
-
-			<%= form_field facet_label, facet_collection %>
-			<%= form_field identity_label, identity_collection %>
-		</div>
-
+		<% oi = f.object.identity %>
+		<%= grid_panel do %>
+			<%= panel_cell "duo" do %>
+				<%= selection_panel(f, :facet_id,  @prejudices.facets, (oi.nil? ? "state" : oi.facet_id)) %>
+			<% end %>
+			<%= panel_cell "duo" do %>
+				<%= string_panel f, :identity_name, "Type of Person" %>
+			<% end %>
+		<% end %>
 		<%= render 'subjects/characters/fields/viewpoint_fields', f: f %>
 	</fieldset>
 

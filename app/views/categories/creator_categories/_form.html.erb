@@ -12,7 +12,7 @@
 			<%= choose_any f, :work_types, WorksTypeDescriber.all %>
 		</fieldset>
 	<% else %>
-		<%= f.hidden_field :work_types, value: @creator_category.work_type_describers.pluck(:id) %>
+		<%= f.hidden_field :work_types, value: @creator_category.describers.pluck(:id) %>
 	<% end %>
 
 	<%= submit_panel f %>

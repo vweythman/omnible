@@ -2,7 +2,7 @@
 <%= form_for @tag, remote: remote do |f| %>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:name), f.text_field(:name, :placeholder => "Add Tag") %>
+		<%= string_panel f, :name, "Name" %>
 	</fieldset>
 	<%= submit_panel f %>
 

@@ -1,7 +1,6 @@
 <%= provide(:title, "Basis for #{@clone.name}") %>
 
-<div id="main" class="edit generator">
-	<h1>Basis for <%= @clone.name %></h1>
+<%= creation_block("Basis for #{@clone.name}") do %>
 	<%= render 'form' %>
 	<%= render 'subjects/shared/footer' %>
-</div>
+<% end %>

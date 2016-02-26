@@ -4,8 +4,8 @@
 	<p class='note'>Use gender neutral terms whenever possible.</p>
 
 	<fieldset class="primary">
-		<%= form_field f.label(:left_name, 'Relationship'), f.text_field(:left_name, :placeholder => "Name Relationship") %>
-		<%= form_field f.label(:right_name, 'Inverse Relationship'), f.text_field(:right_name, :placeholder => "Name The Inverse Relationship If It Exists") %>
+		<%= string_panel f, :left_name,  "Name Relationship" %>
+		<%= string_panel f, :right_name, "Name The Inverse Relationship If It Exists" %>
 	</fieldset>
 	
 	<%= submit_panel f %>

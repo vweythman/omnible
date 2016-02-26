@@ -1,6 +1,7 @@
 <% provide(:title, "Edit Facet") %>
 
-<div id="main" class="edit generator">
-	<h1>Edit Facet</h1>
+<%= editing_block("Edit Category (Facet)") do %>
 	<%= render 'form' %>
-</div>
+<% end %>
+
+<%= render 'categories/footer' %>

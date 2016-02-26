@@ -1,7 +1,10 @@
 <div class='nested-fields'>
 	<fieldset class="chapter">
-		<legend><%= form_field f.label(:title), f.text_field(:title, :placeholder => "Write Description Title") %></legend>
-		<%= form_field f.label(:content), f.text_area(:content, :placeholder => "Write Description Text", class: :minor) %>
+		<legend>
+			<%= string_panel f, :title, "Write Title" %>
+		</legend>
+
+		<%= text_panel f, :content, :minor, "Add Description" %>
 	</fieldset>
 
 	<p class="remove-cell"><%= link_to_remove_association "- Remove Description", f %></p>

@@ -1,7 +1,6 @@
 <% provide(:title, @tag.title_for_editing) %>
 
-<div id="main" class="edit generator">
-	<h1>Edit</h1>
+<%= editing_block("Edit") do %>
 	<%= render 'form' %>
 	<%= render 'taggings/shared/footer' %>
-</div>
+<% end %>

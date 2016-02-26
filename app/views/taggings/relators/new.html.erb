@@ -1,7 +1,5 @@
 <% provide(:title, "New Relationship Type") %>
 
-<div id="main" class="new generator">
-	<h1>Create Relationship Type</h1>
+<%= creation_block("Create Relationship Type") do %>
 	<%= render 'form' %>
-	<%= render 'taggings/shared/footer' %>
-</div>
+<% end %>

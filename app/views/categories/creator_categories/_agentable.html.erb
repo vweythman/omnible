@@ -1,6 +1,25 @@
 <% WorksTypeDescriber.all.order(:name).each do |type| %>
 	<tr>
 		<th><%= type.heading %></th>
-		<%= @creator_category.agentable_block type %>
+		<td class="connection">
+			<%= toggle_panel "category", type.id, @creator_category.connected?(type) %>
+		</td>
 	</tr>
 <% end %>
+<script type="text/javascript">
+$('.switch-button .switch').click(function() {
+
+	if ($(this).is(':checked')) {
+		$.ajax({
+			type: "POST",
+			url: "/agentize/" + $(this).data('toggle-id') + "/" + <%= @creator_category.id %>
+		});
+	} else {
+		$.ajax({
+			type: "DELETE",
+			url: "/agentize/" + $(this).data('toggle-id') + "/" + <%= @creator_category.id %>
+		});
+	}
+
+});
+</script>

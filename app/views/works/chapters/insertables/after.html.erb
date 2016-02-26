@@ -1,9 +1,0 @@
-<div id="main" class="new generator">
-	<%= creation_header "New Chapter for #{link_to @work.title, @work}" %>
-
-	<%= form_for [@work, @previous, @chapter], :url => work_chapter_insert_path do |f| %>
-		<%= render 'works/chapters/form_fields', f: f %>
-	<% end %>
-	
-	<footer><%= link_to @work.title, @work %></footer>
-</div>
