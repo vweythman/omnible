@@ -1,0 +1,34 @@
+<%  provide :title, "My Uploads" %>
+<%= dashboard_header ["Uploads"] %>
+
+<div class="dashboard-grid">
+	<%= solo_cell do %>
+		<table class="editable sortable">
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Title/Name</th>
+					<th>Uploaded</th>
+					<th>Editing</th>
+					<th>Visibility</th>
+				</tr>
+			</thead>
+			<% @uploads.each do |upload| %>
+			<% upload = upload.decorate %>
+				<tr>
+					<td><%= upload.icon %><span style="display:none;"><%= upload.nature.titleize %></span></td>
+					<th><%= upload.heading %></th>
+					<td><%= record_time upload.created_at %></td>
+					<td><%= upload.editablity %></td>
+					<td><%= upload.publicity %></td>
+				</tr>
+			<% end %>
+		</table>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".sortable").tablesorter();
+	});
+</script>
