@@ -19,4 +19,8 @@ class WorksCurationDecorator < WorksDecorator
 		nil
 	end
 
+	def for_categories
+		nil
+	end
+
 end

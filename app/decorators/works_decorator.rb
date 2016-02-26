@@ -93,6 +93,13 @@ class WorksDecorator < Draper::CollectionDecorator
 		}
 	end
 
+	def category_types
+		{
+			:fiction       => h.fiction_index_path(clean_type_params),
+			:nonfiction    => h.nonfiction_index_path(clean_type_params)
+		}
+	end
+
 	def local_types
 		{
 			:articles      => h.articles_path(clean_type_params),
@@ -113,11 +120,13 @@ class WorksDecorator < Draper::CollectionDecorator
 	end
 
 	def link_to_all
-		h.link_to "All", h.polymorphic_path(:works)
+		h.link_to "All Works", h.polymorphic_path(:works)
 	end
 
 	def type_links
-		self.types.map {|key, p| h.content_tag :li do h.link_to("#{key}".humanize.titleize, p) end }.join.html_safe
+		(self.category_types.merge self.types).map {|key, p|
+			h.content_tag :li do h.link_to("#{key}".humanize.titleize, p) end 
+		}.join.html_safe
 	end
 
 	# PRIVATE METHODS

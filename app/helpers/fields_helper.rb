@@ -30,6 +30,11 @@ module FieldsHelper
 	end
 
 	# OUTPUT single line text field
+	def selection_panel(f, value, group, s = nil)
+		render :partial => "shared/forms/panel/selectables", :locals => { :f => f, :value => value, :group => group, :selected_value => s}
+	end
+
+	# OUTPUT single line text field
 	def submit_panel(f, heading = nil)
 		render :partial => "shared/forms/panel/submit", :locals => { :f => f, :heading => heading }
 	end
@@ -41,6 +46,10 @@ module FieldsHelper
 
 	def text_panel(f, value, size, placeholder = nil)
 		render :partial => "shared/forms/panel/text", :locals => { :f => f, :value => value, :size => size, :placeholder => placeholder }
+	end
+
+	def toggle_panel(group, id, is_checked)
+		render :partial => "shared/forms/panel/toggle", :locals => { val: "#{group}-#{id}", id: id, is_checked: is_checked }
 	end
 
 	# -- GROUPS

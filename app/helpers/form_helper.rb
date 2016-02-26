@@ -1,5 +1,21 @@
 module FormHelper
-	
+
+	# PAGE FORMS
+	# ------------------------------------------------------------
+	def creation_block(title)
+		content_tag :div, class: "generator new" do
+			concat (content_tag :h1, class: "form-title" do title end)
+			yield
+		end
+	end
+
+	def editing_block(title)
+		content_tag :div, class: "generator edit" do
+			concat (content_tag :h1, class: "form-title" do title end)
+			yield
+		end
+	end
+
 	# FIELDSETS
 	# ------------------------------------------------------------
 	# OUTPUT nested fields heading
@@ -24,7 +40,7 @@ module FormHelper
 	# AJAX EDIT FORM
 	# ------------------------------------------------------------
 	def form_div_for_ajaxed_edit(type, id)
-		content_tag :div, id: edit_form_id(type, id), style: "display:none;" do "" end
+		content_tag :div, class: "editor-block", id: edit_form_id(type, id), style: "display:none;" do "" end
 	end
 
 	def form_div_for_ajaxed_creation(type)
