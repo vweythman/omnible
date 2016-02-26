@@ -248,6 +248,9 @@ class Work < ActiveRecord::Base
 	def heading
 		title
 	end
+	def nature
+		self.class.to_s
+	end
 
 	def organized_characters
 		@organized_characters ||= Appearance.organize(self.appearances.includes(:character))

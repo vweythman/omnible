@@ -3,8 +3,8 @@ require 'active_support/concern'
 module Editable
 	extend ActiveSupport::Concern
 
-	# CONSTANT TYPES
-	# ------------------------------------------------------------
+	# CONSTANTS
+	# ============================================================
 	# - ADMIN
 	MANAGER = -2
 	STAFF   = -1
@@ -23,7 +23,7 @@ module Editable
 	PUBLIC         = 5
 
 	# SCOPES AND ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	included do
 		# SCOPES
 		# - Levels of Visibility
@@ -51,12 +51,12 @@ module Editable
 	end
 
 	# VARIABLES
-	# ------------------------------------------------------------
+	# ============================================================
 	attr_accessor :reader
 	attr_accessor :level
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	class_methods do
 		def viewable_for(user)
 			if user.nil?
@@ -88,102 +88,93 @@ module Editable
 		['Private', 'Friends', 'Friends & Followers', 'Site Members (excluding blocked and blocking users)', 'Must Be Signed In', 'Completely Public']
 	end
 
-	# METHODS
+	# PUBLIC METHODS
+	# ============================================================
+	# GETTERS 
 	# ------------------------------------------------------------
-	# Creator?
-	# - reader is the creator
-	def creator?(user)
-		# when pennames and authors
+	def publicity
+		Editable::labels[self.publicity_level]
 	end
 
-	# Uploader?
-	# - reader is the creator
-	def uploader?(user)
-		self.uploader == user
+	def editablity
+		Editable::labels[self.editor_level]
 	end
 
-	def destroyable?(user)
-		uploader?(user)
-	end
-
-	# Editable?
-	# - asks if character can be edited
+	# QUESTIONS 
+	# ------------------------------------------------------------
+	# Editing
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def editable?(editor)
 		@reader = editor
 		@level  = self.editor_level
-		uploader?(@reader) || for_public? || invited_editor?(@reader) || for_user?
+		for_the_public? || uploader?(@reader) || invited_editor?(@reader) || for_users?
 	end
 
-	# InvitedEditor?
-	# - viewer is on invite list
 	def invited_editor?(editor)
 		self.invited_editors.include?(editor)
 	end
-	
-	# InvitedToView?
-	# - viewer is on invite list
-	def invited_viewer?(reader)
-		self.invited_viewers.include?(reader)
-	end
 
-	# JustCreated? - self explanatory
-	def just_created?
-		self.updated_at == self.created_at
-	end
-
-	# Unblocked?
-	# - viewer is not banned from viewing
-	def unblocked_access?(reader)
-		!self.uploader.blocking?(reader) && !self.uploader.blocked_by?(reader)
-	end
-
-	# Viewable?
-	# - asks if character is publically viewable or owned by 
-	#   current user
+	# Viewing
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def viewable?(reader)
 		@reader = reader
 		@level  = self.publicity_level
 
-		uploader?(@reader) || for_public? || invited_viewer?(@reader) || for_user?
+		for_the_public? || uploader?(@reader) || invited_viewer?(@reader) || for_users?
+	end
+
+	def invited_viewer?(reader)
+		self.invited_viewers.include?(reader)
+	end
+
+	# Destroying
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def destroyable?(user)
+		uploader?(user)
+	end
+
+	# Users
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def creator?(user)
+		# when pennames and authors
+	end
+
+	def uploader?(user)
+		self.uploader == user
+	end
+
+	# Model
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def just_created?
+		self.updated_at == self.created_at
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
-	# ForPublicViewing?
-	# - checks if publically viewable or semi-public
-	def for_public?
-		@level == Editable::PUBLIC
+
+	def accessible_for?(reader)
+		!self.uploader.blocking?(reader) && !self.uploader.blocked_by?(reader)
 	end
 
-	# CheckRestrictions
-	# - checks various publicity levels
-	def check_restrictions
-		unblocked_access?(@reader) && (semi_public? || for_friendly? || for_following?)
+	def for_followers?
+		@level == Editable::FRIENDS_N_FOLLOWERS && self.uploader.followed_by?(@reader)
 	end
-	
-	# ForFriendlyViewer
-	# - allows viewing if reader is a friend
-	def for_friendly?
+
+	def for_friends?
 		@level >= Editable::FRIENDS_ONLY && @level <= Editable::FRIENDS_N_FOLLOWERS && self.uploader.friend?(@reader)
 	end
 
-	# ForFollowingViewer
-	# - allows viewing if reader is a follower
-	def for_following?
-		@level == Editable::FRIENDS_N_FOLLOWERS && self.uploader.follower?(@reader)
+	def for_the_public?
+		@level == Editable::PUBLIC
 	end
 
-	# ForViewingUser
-	# - allows viewing if reader is a user of the site
-	def for_user?
-		!@reader.nil? && (@level == Editable::MEMBERS_ONLY || check_restrictions)
-	end
-
-	# SemiPublic?
-	# - check if can be viewed
-	def semi_public?
+	def for_unbanned_users?
 		@level == Editable::EXCEPT_BLOCKED
+	end
+
+	def for_users?
+		!@reader.nil? && (@level == Editable::MEMBERS_ONLY || (accessible_for?(@reader) && (for_unbanned_users? || for_friends? || for_followers?)))
 	end
 
 end

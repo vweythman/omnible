@@ -30,4 +30,8 @@ module Documentable
 		self.name unless self.name.nil?
 	end
 
+	def nature
+		self.class.to_s
+	end
+
 end

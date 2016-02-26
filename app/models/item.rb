@@ -21,9 +21,9 @@ class Item < ActiveRecord::Base
 
 	# MODULES
 	# ------------------------------------------------------------
-	include Documentable
-	extend Organizable
 	extend FriendlyId
+	extend Organizable
+	include Documentable
 	include Editable
 
 	# CALLBACKS

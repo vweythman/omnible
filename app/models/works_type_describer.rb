@@ -38,8 +38,9 @@ class WorksTypeDescriber < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ============================================================
-	has_many                :works, foreign_key: "type", primary_key: "name"
-	has_and_belongs_to_many :creator_categories, inverse_of: :works_type_describers
+	has_many :works,         foreign_key: "type", primary_key: "name"
+	has_many :work_bylinings, foreign_key: "describer_id", primary_key: "id"
+	has_many :creator_categories, through: :work_bylinings
 
 	# PUBLIC METHODS
 	# ============================================================
