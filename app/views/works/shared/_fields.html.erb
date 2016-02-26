@@ -2,19 +2,28 @@
 	<%= panel_cell "duo" do %>
 		<%= string_panel f, :title, "Write Title" %>
 		<%= text_panel   f, :summary, :minor, "Add Summary" %>
+		<%= render @work.record? ? 'works/shared/creatorship_fields' : 'works/shared/creatorship_local_fields' %>
 	<% end %>
 
 	<%= panel_cell "duo" do %>
+
+<div class="grid-panel simple-selection">
+	<div class="panel-cell golden-minor">
+		<label for="lang">Language</label>
+	</div>
+	<div class="panel-cell golden-major">
+		<select name="lang" id="language">
+			<option value="1">English</option>
+			<option value="2">Spanish</option>
+		</select>
+	</div>
+</div>
 		<% if @work.can_skin? %>
 			<%= f.fields_for :skinning do |fdr| %>
 				<%= render 'works/shared/skin_fields', f: fdr %>
 			<% end %>
-
-			<%= render 'works/shared/creatorship_local_fields' %>
-		<% else %>
-			<%= render 'works/shared/creatorship_fields' %>
 		<% end %>
+
 	<% end %>
 <% end %>
-
 <%= render 'shared/forms/edit_fields', f: f %>
