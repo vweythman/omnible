@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226043136) do
+ActiveRecord::Schema.define(version: 20160226052433) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -145,11 +145,6 @@ ActiveRecord::Schema.define(version: 20160226043136) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "agentive",   default: "by"
-  end
-
-  create_table "creator_categories_works_type_describers", id: false, force: :cascade do |t|
-    t.integer "creator_category_id"
-    t.integer "works_type_describer_id"
   end
 
   create_table "creatorships", force: :cascade do |t|
