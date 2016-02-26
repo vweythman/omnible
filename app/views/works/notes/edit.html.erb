@@ -1,11 +1,9 @@
-<% provide(:title, @note.editing_title) %>
+<% provide(:title, @note.title_for_editing) %>
 
-<div id="main" class="edit generator">
-	<%= @note.editor_heading %>
+<%= editing_block("Edit") do %>
 	<%= render 'form' %>
-</div>
+<% end %>
 
 <script>
 	autosize(document.querySelectorAll('textarea'));
 </script>
-

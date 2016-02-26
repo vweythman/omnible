@@ -1,5 +1,9 @@
-<div id="main" class="new generator">
-	<%= creation_header "Note for #{link_to @work.title, @work}" %>
+<% provide(:title, "New Note") %>
 
+<%= creation_block("New") do %>
 	<%= render 'form' %>
-</div>
+<% end %>
+
+<script>
+	autosize(document.querySelectorAll('textarea'));
+</script>
