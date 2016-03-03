@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  story_id: 
-  branch_id: 
+  story: hope 
+  trunk: hope1
 
 two:
-  story_id: 
-  branch_id: 
+  story: aqua 
+  trunk: aqua1
+
+three:
+  story: zinc 
+  trunk: zinc1

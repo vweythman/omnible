@@ -5,17 +5,39 @@ class BranchingStoryTest < ActiveSupport::TestCase
     @hope = works(:hope)
     @aqua = works(:aqua)
     @zinc = works(:zinc)
+
+    @hope1 = branches(:hope1)
   end
   
-  test "should count branchings" do
-    puts
-    puts @hope.branches.pluck(:title)
-    @hope.branches.each do |branch|
-      puts branch.parent_branchings.count
-    end
-    puts
-    puts @hope.parent_branchings.count
-    
+  # TESTS :: CLASS METHODS
+  # ============================================================
+  test "should sort by average branching" do
+    story_titles = BranchingStory.by_average_branching.pluck(:title)
+    assert_equal @hope.title, story_titles.first
+    assert_equal @aqua.title, story_titles.last
   end
 
+  test "should sort number of branches" do
+    stories = BranchingStory.by_branches
+    assert_equal @hope, stories.first
+    assert_equal @aqua, stories.last
+  end
+
+  # TESTS :: PUBLIC METHODS
+  # ============================================================
+  test "should get average branching" do
+    assert_equal 2.0, @zinc.average_branching
+  end
+
+  test "should start count at one or greater" do
+    assert_equal 0, @aqua.parent_nodes.count
+    assert_equal 1, @aqua.parentable_node_count
+
+    assert_equal 3, @hope.parent_nodes.count
+    assert_equal 3, @hope.parentable_node_count
+  end
+
+  test "should have starting branch" do
+    assert_equal @hope1, @hope.trunk
+  end
 end

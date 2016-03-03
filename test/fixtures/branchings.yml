@@ -29,3 +29,18 @@ h6:
   heading: MyString
   parent_node: hope2b
   child_node: hope3a
+
+h7:
+  heading: MyString
+  parent_node: hope2a
+  child_node: hope2c
+
+z1:
+  heading: MyString
+  parent_node: zinc1
+  child_node: zinc2a
+
+z2:
+  heading: MyString
+  parent_node: zinc1
+  child_node: zinc2b

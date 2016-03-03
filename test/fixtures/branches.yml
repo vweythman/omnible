@@ -1,5 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# HOPE
+# ===================================
 # START => 1
 hope1:
   title: The journey begins
@@ -18,7 +20,7 @@ hope2b:
   content: MyText
   story: hope
 
-# 1 & 2b => 2c (END)
+# 1 & 2a & 2b => 2c (END)
 hope2c:
   title: find defeat
   content: MyText
@@ -30,3 +32,26 @@ hope3a:
   content: MyText
   story: hope
 
+# AQUA
+# ===================================
+aqua1:
+  title: get on the boat
+  content: MyText
+  story: aqua
+
+# ZINC
+# ===================================
+zinc1:
+  title: enter the bar
+  content: MyText
+  story: zinc
+
+zinc2a:
+  title: start a fight
+  content: MyText
+  story: zinc
+
+zinc2b:
+  title: start a fight
+  content: MyText
+  story: zinc

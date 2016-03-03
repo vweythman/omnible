@@ -116,7 +116,7 @@ frenzy:
 # BRANCHING STORY
 # ===================================
 hope:
-  title: This is a title
+  title: save the princess
   uploader: indra
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>
@@ -124,7 +124,7 @@ hope:
   is_complete: false
 
 aqua:
-  title: This is a title
+  title: fall
   uploader: sirka
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>
@@ -132,7 +132,7 @@ aqua:
   is_complete: false
 
 zinc:
-  title: This is a title
+  title: start of madness
   uploader: amiya
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>

@@ -13,10 +13,14 @@
 # ================================================================================
 
 class Branching < ActiveRecord::Base
+
+	# ASSOCIATIONS
+	# ============================================================
 	belongs_to :parent_node, class_name: "Branch"
 	belongs_to :child_node, class_name: "Branch"
 
-
+	# PUBLIC METHODS
+	# ============================================================
 	def root(h, pn, cn = Branch.new)
 		self.heading     = h
 		self.parent_node = pn
