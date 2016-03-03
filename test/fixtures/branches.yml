@@ -1,0 +1,32 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# START => 1
+hope1:
+  title: The journey begins
+  content: MyText
+  story: hope
+
+# 1 => 2a
+hope2a:
+  title: go to the castle
+  content: MyText
+  story: hope
+
+# 1 => 2b
+hope2b:
+  title: go to the forest
+  content: MyText
+  story: hope
+
+# 1 & 2b => 2c (END)
+hope2c:
+  title: find defeat
+  content: MyText
+  story: hope
+
+# 2a & 2b => 3a (END)
+hope3a:
+  title: find success
+  content: MyText
+  story: hope
+

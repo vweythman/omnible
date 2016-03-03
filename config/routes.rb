@@ -78,13 +78,14 @@ Rails.application.routes.draw do
     resources :articles,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :journals,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :story_links, :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :branching_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
     # NARROW narrative type
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     resources :fiction,    only: [:index], :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :nonfiction, only: [:index], :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
-    # NARROW stories
+    # NARROW chaptered stories
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     get '/stories/:id/whole'    => 'whole_story#show', as: :whole_story
     get '/works/:id/upcoming'   => 'upcoming#show',    as: :upcoming_work

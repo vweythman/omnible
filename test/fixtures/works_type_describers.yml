@@ -47,3 +47,11 @@ poem:
   content_type: text
   is_record:    false
   is_creative_expression: true
+
+branching_story:
+  name: BranchingStory
+  is_narrative: true
+  is_singleton: false
+  content_type: text
+  is_record:    false
+  is_creative_expression: true

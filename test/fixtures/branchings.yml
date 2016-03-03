@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+h1:
+  heading: MyString
+  parent_node: hope1
+  child_node: hope2a
+
+h2:
+  heading: MyString
+  parent_node: hope1
+  child_node: hope2b
+
+h3:
+  heading: MyString
+  parent_node: hope1
+  child_node: hope2c
+
+h4:
+  heading: MyString
+  parent_node: hope2b
+  child_node: hope2c
+
+h5:
+  heading: MyString
+  parent_node: hope2a
+  child_node: hope3a
+
+h6:
+  heading: MyString
+  parent_node: hope2b
+  child_node: hope3a

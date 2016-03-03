@@ -5,6 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+describers = 
+	WorksTypeDescriber.create(
+		[
+			{ 
+				name: 'BranchingStory',
+				is_narrative: true,
+				is_singleton: false,
+				content_type: 'text',
+				is_record: false,
+				is_creative_expression: true
+			}
+		]
+	)
 
 =begin
 describers = 
@@ -43,7 +56,7 @@ describers =
 				is_creative_expression: true
 			}, 
 			{
-				name: 'ExternalStory',
+				name: 'StoryLink',
 				is_narrative: true,
 				is_singleton: false,
 				content_type: 'text',
@@ -92,34 +105,5 @@ describers =
 			}
 		]
 	)
-=end
 
-categories = 
-	CreatorCategory.create(
-		[
-			{
-				name:     'writer',
-				agentive: 'written by'
-			},
-			{
-				name:     'translator',
-				agentive: 'translated by'
-			},
-			{
-				name:     'illustrator',
-				agentive: 'illustrated by'
-			},
-			{
-				name:     'singer',
-				agentive: 'sung by'
-			},
-			{
-				name:     'composer',
-				agentive: 'composed by'
-			},
-			{
-				name:     'narrator',
-				agentive: 'narrated by'
-			}
-		]
-	)
+=end

@@ -87,7 +87,7 @@ glamour:
   type: ShortStory
   is_complete: true
 
-# STORY
+# CHAPTERED STORY
 # ===================================
 heart:
   title: The Unlove
@@ -111,6 +111,32 @@ frenzy:
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PERSONAL %>
   type: Story
+  is_complete: false
+
+# BRANCHING STORY
+# ===================================
+hope:
+  title: This is a title
+  uploader: indra
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: BranchingStory
+  is_complete: false
+
+aqua:
+  title: This is a title
+  uploader: sirka
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: BranchingStory
+  is_complete: false
+
+zinc:
+  title: This is a title
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: BranchingStory
   is_complete: false
 
 # STORY LINK

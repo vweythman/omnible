@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226052433) do
+ActiveRecord::Schema.define(version: 20160303015527) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -64,6 +64,25 @@ ActiveRecord::Schema.define(version: 20160226052433) do
 
   add_index "blocks", ["blocked_id"], name: "index_blocks_on_blocked_id"
   add_index "blocks", ["blocker_id"], name: "index_blocks_on_blocker_id"
+
+  create_table "branches", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "story_id"
+  end
+
+  add_index "branches", ["story_id"], name: "index_branches_on_story_id"
+
+  create_table "branchings", force: :cascade do |t|
+    t.string  "heading",        null: false
+    t.integer "parent_node_id"
+    t.integer "child_node_id"
+  end
+
+  add_index "branchings", ["child_node_id"], name: "index_branchings_on_child_node_id"
+  add_index "branchings", ["parent_node_id"], name: "index_branchings_on_parent_node_id"
 
   create_table "challenges", force: :cascade do |t|
     t.string   "title",          limit: 255
@@ -524,6 +543,16 @@ ActiveRecord::Schema.define(version: 20160226052433) do
 
   add_index "sources", ["host_id"], name: "index_sources_on_host_id"
   add_index "sources", ["referencer_type", "referencer_id"], name: "index_sources_on_referencer_type_and_referencer_id"
+
+  create_table "story_roots", force: :cascade do |t|
+    t.integer  "story_id"
+    t.integer  "trunk_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "story_roots", ["story_id"], name: "index_story_roots_on_story_id"
+  add_index "story_roots", ["trunk_id"], name: "index_story_roots_on_trunk_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "work_id"
