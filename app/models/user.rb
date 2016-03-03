@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 	# :: uploads
 	has_many :works,               foreign_key: "uploader_id", class_name: "Work"
 	has_many :characters, ->{ Character.not_pen_name }, foreign_key: "uploader_id", class_name: "Character"
-	has_many :uploaded_places,     foreign_key: "uploader_id", class_name: "Place"
+	has_many :places,     foreign_key: "uploader_id", class_name: "Place"
 	has_many :uploaded_items,      foreign_key: "uploader_id", class_name: "Item"
 	has_many :uploaded_events,     foreign_key: "uploader_id", class_name: "Event"
 
@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 	# GETTERS
 	# ------------------------------------------------------------
 	def all_uploads
-		self.works.local + self.characters + self.uploaded_places + self.uploaded_items
+		self.works.local + self.characters + self.places + self.uploaded_items
 	end
 
 	# ACTIONS
