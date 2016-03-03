@@ -1,11 +1,16 @@
 module ContentHelper
 
-	def dashboard_header(s = [])
+	def dashboard_header(subs = [], hid = nil)
 		content_tag :header, class: "dashboard-header" do
-			content_tag :h1 do
-				concat "My Dashboard"
-				concat subtitles(s)
-			end
+			concat dash_heading subs, hid
+			yield if block_given?
+		end
+	end
+
+	def dash_heading(s, hid)
+		content_tag :h1, id: hid do
+			concat "My Dashboard"
+			concat subtitles(s)
 		end
 	end
 

@@ -11,16 +11,15 @@
 // SECTION :: ALL
 // ===============================================
 .page-content {
-	background: $page-color;
-	margin:     0;
-	overflow:   auto;
-	padding:    0;
+	margin:   0;
+	overflow: auto;
+	padding:  0;
 }
 
 // SECTION :: HEADER
 // ===============================================
 .site-content > header {
-	background: $page-color;
+	background: $water-dark-minor;
 
 	.notice {
 		margin:   0 $one-twelfth;
@@ -29,11 +28,21 @@
 	}
 }
 
+.found {
+	font-size:   1.2em;
+	font-weight: bolder;
+	margin:      0px;
+	padding:     5px $one-twelfth;
+}
+
 // SECTION :: BODY
 // ===============================================
 // -- Layout
 // -----------------------------------------------
-.page-body,
+.page-body {
+	margin: 25px $one-twelfth;
+}
+
 .index-body {
 	margin: 10px $one-twelfth;
 }
@@ -67,7 +76,7 @@ dl {
 	padding: 0;
 }
 dd {
-	padding: 0 5px;
+	padding: 0px 25px;
 }
 dd,
 dt { margin: 0; }
@@ -94,7 +103,8 @@ dt:first-child {
 // SECTION :: FOOTER
 // ===============================================
 .path-finder {
-	background: $water-lighter-minor;
+	color:       $water-color;
+	background:  $water-dark-minor;
 	font-weight: bolder;
 	margin:      0px auto;
 	padding:     10px 20% 35px 20%;
@@ -103,13 +113,13 @@ dt:first-child {
 
 	a {
 		text-decoration: none;
-		color: $water-dark-major;
+		color: $water-lighter-major;
 
 		&:hover { text-decoration: underline; }
 	}
 }
 .see-more a {
-	background:    $page-dark-major;
+	background:    $page-darker-major;
 	border-radius: 10px;
 	color:         $water-lighter-minor;
 	margin:        15px auto;

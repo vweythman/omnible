@@ -3,16 +3,14 @@
 
 	<%= grid_panel do %>
 		<%= panel_cell "duo" do %>
-			<div class="field-content"><%= label_tag("[#{@work.klass}][uploadership][category]", "Creator Category") %></div>
-			<div class="field-content field-selection">
-				<%= select_tag "[#{@work.klass}][uploadership][category]", @work.creatorship_options %>
-			</div>
+			<%= simple_selection_panel "[#{@work.klass}][uploadership][category]", @work.creatorship_options, "Creator Category" %>
 		<% end %>
 		<%= panel_cell "duo" do %>
-			<div class="field-content"><%= label_tag("[#{@work.klass}][uploadership][pen_name]", "Pen Name") %></div>
-			<div class="field-content field-selection">
-				<%= select_tag "[#{@work.klass}][uploadership][pen_name]", @work.pseudonym_options %>
-			</div>
+			<% if @create_as.nil? %>
+				<%= simple_selection_panel "[#{@work.klass}][uploadership][pen_name]", @work.pseudonym_options, "Pen Name" %>
+			<% else %>
+				<p><b>Create as <%= link_to @create_as.name, @create_as %><b></p>
+			<% end %>
 		<% end %>
 	<% end %>
 </fieldset>

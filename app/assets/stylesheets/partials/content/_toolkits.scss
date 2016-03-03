@@ -26,6 +26,9 @@
 		padding:         10px;
 		text-align:      center;
 		text-decoration: none !important;
+		&:before {
+			padding-right: 5px;
+		}
 	}
 }
 

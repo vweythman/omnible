@@ -16,7 +16,7 @@ class CharacterDecorator < Draper::Decorator
 	# ------------------------------------------------------------
 	def link_to_original
 		if is_a_clone?
-			h.content_tag :p, class: 'announce' do
+			h.content_tag :p, class: 'basis' do
 				"Based Upon: #{h.link_to(original.name, original)}".html_safe
 			end
 		end

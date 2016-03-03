@@ -27,7 +27,7 @@ class Locality < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :domain, class_name: "Place"
+	belongs_to :domain,    class_name: "Place"
 	belongs_to :subdomain, class_name: "Place"
 	
 	# CLASS METHODS

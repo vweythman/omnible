@@ -10,7 +10,7 @@
 	a {
 		color: $link-color;
 		&:hover {
-			text-decoration: underline;
+			text-decoration: none;
 		}
 	}
 }
@@ -34,7 +34,7 @@
 	padding: 10px;
 	width:   50%;
 
-	@include alertable($fire-lighter-minor, $fire-darkest-minor);
+	@include alertable($fire-light-minor, $fire-darkest-minor);
 }
 .notice {
 	padding: 15px;

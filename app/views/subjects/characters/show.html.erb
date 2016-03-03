@@ -1,13 +1,14 @@
 <% provide(:title, @character.name) %>
 
 <header class="subject-header">
+	<h1>
+		<%= @character.name %>
+		<%= subtitle @character.list_aliases %>
+	</h1>
 	<%= @character.link_to_original %>
-
-	<h1><%= @character.name %></h1>
-
-	<%= @character.list_aliases %>
-	<%= uploaded_by @character.uploader %>
 	<%= @character.edit_bar %>
+
+	<%= uploaded_by @character.uploader %>
 </header>
 
 <div class="subject-body">

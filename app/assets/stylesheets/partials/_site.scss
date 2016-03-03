@@ -18,6 +18,7 @@ body {
 // ===============================================
 .site-header {
 	overflow: auto;
+	background: $water-dark-major;
 
 	@include tablet {
 		padding: 0;
@@ -104,15 +105,15 @@ body {
 	text-align: center;
 	
 	a {
-		background:      $water-darker-minor;
+		background:      $water-darker-major;
 		border-radius:   1em;
 		display:         inline-block;
 		padding:         1em;
 		text-decoration: none;
 
 		&:hover {
-			color:      $page-color;
-			background: none;
+			color:      $water-light-major;
+			background: $water-darker-minor;
 		}
 	}
 }

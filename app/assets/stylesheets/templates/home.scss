@@ -9,7 +9,7 @@
 // SECTION :: ALL
 // ===============================================
 .page-content {
-	background: $page-color;
+	background: $water-darker-minor;
 }
 
 // SECTION :: BODY
@@ -19,8 +19,8 @@
 	@include tablet  { padding: 2em 0; }
 	@include mobile  { display: none; }
 	@include non-mobile {
-		background: $page-color;
-		color:      $water-color;
+		background: $water-darker-minor;
+		color:      $water-light-minor;
 		text-align: center;
 		h1 {
 			font-weight: lighter;

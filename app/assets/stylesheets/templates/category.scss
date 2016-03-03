@@ -10,17 +10,21 @@
 @import "partials/content/tables/analytics";
 @import "partials/content/tables/relateables";
 
+// SECTION :: COLORS
+// ===============================================
+$page:           $moss-dark-minor;
+$border:         $moss-dark-major;
+$header:         $water-dark-minor;
+$heading:        $water-dark-minor;
+$content-shadow: 0px 0px 10px $moss-darker-minor;
+
 // SECTION :: ALL
 // ===============================================
-.page-content {
-	background: $water-lightest-minor;
-}
+@include page-look($page, $border);
+@include header-look($header, $heading, $border);
 
 // SECTION :: HEADER
 // ===============================================
-.category-header {
-	border-bottom-color: $water-color;
-}
 .alteration {
 	margin: 0px $one-twelfth;
 	width:  $five-sixths;
@@ -60,7 +64,7 @@
 	padding:    10px;
 	overflow:   auto;
 
-	@include toggle-button(30px, 2px, 0.9s, $stoplight-go, $page-light-minor);
+	@include toggle-button(30px, 2px, 0.5s, $stoplight-go, $page-light-minor);
 }
 
 /* END

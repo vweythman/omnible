@@ -19,6 +19,10 @@ class PenNamingDecorator < Draper::Decorator
 		self.prime? ? default_pen : switch_link
 	end
 
+	def bylines
+		@bylines ||= creatorships.joins(:category, :work).order("creator_categories.name ASC, works.title ASC")
+	end
+
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private

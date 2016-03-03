@@ -1,25 +1,41 @@
 // STYLE PARTIAL: CONTENT HEADER
 // ***********************************************
+// SETUP :: MIXINS
+// ===============================================
+@mixin page-look($page-background, $page-border) {
+	.page-content { background: $page-background; }
+	.path-finder  { border-top: 7px solid $page-border; }
+}
+
+@mixin header-look($header-background, $heading-background, $page-border) {
+	.page-content > header {
+		background:    $header-background;
+		border-bottom: 7px solid $page-border;
+	}
+	h1 {
+		background: $heading-background;
+	}
+
+	@include desktop {
+		.logged-in {
+			background: $heading-background;
+		}
+	}
+}
+
 // VIEWPORT :: ALL
 // ===============================================
 // STRUCTURE
 // -----------------------------------------------
 .page-content > header {
-	background:          $page-color;
-	border-bottom-width: 3px;
-	border-bottom-style: solid;
-	margin:              0;
-	padding:             0;
-}
-.dashboard-header {
-	border-bottom-color: $fire-light-minor;
-}
-.subject-header {
-	border-bottom-color: $water-color;
-}
-.tag-header, 
-.category-header {
-	border-bottom-color: $moss-color;
+	-moz-box-sizing: border-box;
+	box-sizing:      border-box;
+	color:   $page-color;
+	margin:  0;
+	padding: 0;
+	a {
+		color: $page-color;
+	}
 }
 
 // HEADINGS
@@ -37,12 +53,10 @@ h6 {
 }
 h1 {
 	font-size: $heading-size;
+	padding:   15px $one-twelfth 5px;
 
 	@include desktop {
-		padding: 60px $one-twelfth 5px;
-	}
-	@include non-desktop {
-		padding: 15px 10px;
+		padding-top: 60px;
 	}
 }
 h2 {

@@ -140,6 +140,12 @@ class WorksController < ApplicationController
 	def set_visitor
 		@work.uploader ||= current_user
 		@work.visitor    = current_user
+
+		if params[:create_as].nil?
+			@create_as = nil
+		else
+			@create_as = current_user.pseudonymings.find_by_id(params[:create_as])
+		end
 	end
 
 	def set_skin

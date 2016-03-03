@@ -4,16 +4,28 @@
 // ===============================================
 .menu {
 	text-align: center;
+
+	li ul {
+		display: none;
+	}
 	
 	@include desktop {
 		width: $three-fourths;
 	}
+
 	@include mobile {
 		display: block;
 
 		li {
 			width: $one-half;
 			float: left;
+		}
+	}
+	@include non-mobile {
+		display: block;
+
+		li:hover ul {
+			display: block;
 		}
 	}
 
@@ -34,9 +46,8 @@
 }
 
 .submenu {
-	@include gradientized(180deg, $water-darker-minor, $water-dark-major);
-
-	z-index: 100;
+	background: $water-dark-major;
+	z-index: 200;
 
 	@include desktop {
 		width: (3/4) * (1/4) * (5/6) * 100%; 

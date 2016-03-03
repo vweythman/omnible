@@ -3,7 +3,7 @@
 # type of non-narrative work
 # see Work for table variables
 
-class Article < Nonfiction
+class Article < Work
 	
 	# CALLBACKS
 	# ------------------------------------------------------------

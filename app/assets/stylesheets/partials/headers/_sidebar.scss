@@ -2,7 +2,7 @@
 // ***********************************************
 // SETUP :: MIXINS
 // ===============================================
-@mixin control-colors($titleColor, $titleBack, $hoverBack) {
+@mixin control-colors($titleColor, $titleBack, $hoverColor) {
 	.control-title {
 		color:      $titleColor;
 		background: $titleBack;
@@ -10,7 +10,10 @@
 	.control-group > li > a {
 		background: none;
 
-		&:hover { background: $hoverBack; }
+		&:hover {
+			color:      $hoverColor;
+			background: rgba(255, 255, 255, .2);
+		}
 	}
 }
 @mixin action-colors($titleColor, $titleBorder) {
@@ -32,12 +35,12 @@
 	position:   absolute;
 	right:      0;
 	width:      206px;
-	z-index:    100;
+	z-index:    300;
 }
 
 .sidebar {
 	display:    none;
-	background: $water-dark-minor;
+	background: $water-dark-major;
 	color:      $water-lightest-minor;
 
 	@include non-mobile {
@@ -56,8 +59,8 @@
 		margin:  0;
 		padding: 0;
 	}
-	@include control-colors($fire-darker-minor, $fire-light-minor, rgba(255, 255, 255, .2));
-	@include action-colors($water-lighter-minor, $water-color);
+	@include control-colors($fire-darker-minor, $fire-light-minor, $water-lightest-minor);
+	@include action-colors($water-lighter-minor, $water-dark-minor);
 }
 .dashboard-grid .sidebar {
 	display:block;
@@ -114,11 +117,16 @@
 		padding: 2px 0;
 		padding-bottom: 10px;
 
+		p { padding: 0; }
 		a {
 			padding:   0;
 			margin:    0;
 			display:   inline-block;
 			font-size: .8em;
+			&:hover {
+				text-decoration: underline;
+				color: $water-lightest-major;
+			}
 		}
 	}
 }

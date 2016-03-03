@@ -8,36 +8,20 @@
 @import "partials/content/tables/results";
 @import "partials/content/tables/manager";
 
-// SECTION :: ALL
+// SECTION :: COLORS
 // ===============================================
-.page-content {
-	background: $water-lightest-minor;
-	overflow:   auto;
-}
+$page:           $water-light-minor;
+$border:         $water-color;
+$header:         $water-dark-minor;
+$heading:        $moss-dark-minor;
+$content-shadow: 0px 0px 10px $water-darker-minor;
 
 // SECTION :: HEADER
 // ===============================================
-.index-header {
-	border-bottom-color: $water-color;
-
-	h1 {
-		background:    $moss-lightest-minor;
-		border-bottom: 3px solid $moss-color;
-	}
-
-	.creation-block { margin: 0px 10px; }
-
-	& > .toolkit {
-		margin:  10px 0;
-		padding: 0 $one-twelfth;	
-	}
-}
-
-.found {
-	font-size:   1.2em;
-	font-weight: bolder;
-	margin:      0px;
-	padding:     5px $one-twelfth;
+.index-header .creation-block { margin: 0px 10px; }
+.index-header > .toolkit {
+	margin:  10px 0;
+	padding: 0 $one-twelfth;
 }
 
 .type-categories {
@@ -49,50 +33,31 @@
 		padding: 10px 15px 5px 0px;
 	}
 	a {
-		color:       $water-color;
+		color:       $water-lightest-minor;
 		font-weight: 900;
 
 		&:hover {
-			color: $water-darker-minor;
+			color: $fire-light-minor;
 		}
 	}
 }
-
+.index-body {
+	background: $water-darker-major;
+	padding:    10px;
+}
 
 // SECTION :: BODY
 // ===============================================
-// SECTION :: FOOTER
-// ===============================================
-
-
-
-
-
-
-
-
-
-
-
-
-// VIEWPORT :: ALL
-// ===============================================
-// GENERAL
-// -----------------------------------------------
-
-
-
-
-
 // FILTERS
 // -----------------------------------------------
 .filters {
 	margin:     10px;
 	min-height: 300px;
-	background: $fire-lightest-major;
+	background: $page-color;
+	box-shadow: $content-shadow;
 
 	h2 {
-		background:    $fire-light-major;
+		background:    $fire-light-minor;
 		border-bottom: 3px solid $fire-dark-minor;
 		font-size:     $text-size + 1px;
 		font-weight:   300;
@@ -137,14 +102,14 @@
 
 .pagination {
 	padding:    10px;
-	background: $fire-dark-major;
-	color:      $page-color;
+	background: $fire-light-minor;
+	color:      $page-darkest-minor;
 
-	header & { border-bottom: 3px solid $fire-darker-minor; }
-	footer & { border-top:    3px solid $fire-darker-minor; }
+	header & { border-bottom: 3px solid $fire-dark-minor; }
+	footer & { border-top:    3px solid $fire-dark-minor; }
 
 	a {
-		color: $fire-lighter-minor;
+		color: $page-darker-minor;
 	}
 }
 
@@ -152,6 +117,7 @@
 	margin:     10px;
 	padding:    0px;
 	background: $page-color;
+	box-shadow: $content-shadow;
 
 	dl,
 	ul {
@@ -165,22 +131,6 @@
 		background:    $water-lighter-minor;
 		border-bottom: 3px solid $water-dark-minor;
 		padding:       5px 10px;
-	}
-}
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.user a {
-		background: $moss-lightest-minor;
-	}
-}
-
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
-@include non-desktop {
-	.page-content > header {
-		margin: 0;
 	}
 }
 

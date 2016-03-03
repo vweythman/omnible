@@ -1,0 +1,13 @@
+<% provide :title, "My Uploads" %>
+<%= dashboard_header ["Uploads", @character.name] do %>
+	<dl>
+		<dt>Created:</dt>
+		<dd><%= record_time @character.created_at %></dd>
+		<dt>Updated:</dt>
+		<dd><%= record_time @character.updated_at %></dd>
+	</dl>
+<% end %>
+
+<div class="dashboard-grid">
+
+</div>

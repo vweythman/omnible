@@ -11,7 +11,7 @@ class StoriesDecorator < FictionDecorator
 	end
 
 	def title
-		"Stories"
+		"Chaptered Stories"
 	end
 
 	def filter_values

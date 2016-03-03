@@ -7,7 +7,11 @@ class Users::Uploads::ItemsController < Users::UploadsController
 	end
 
 	def show
-		@upload = current_user.all_uploads.sort_by! { |x| x.heading.downcase }
+		@item = Item.find(params[:id]).decorate
+
+		unless @item.uploader? current_user
+			redirect_to root_url
+		end
 	end
 
 end

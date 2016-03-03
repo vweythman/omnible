@@ -26,12 +26,17 @@ module FieldsHelper
 
 	# OUTPUT single line text field
 	def selectables(f, value, group)
-		render :partial => "shared/forms/panel/selectables", :locals => { :f => f, :value => value, :group => group }
+		render :partial => "shared/forms/panel/selection", :locals => { :f => f, :value => value, :group => group, :select_class => "selectables", :selected_value => nil }
 	end
 
 	# OUTPUT single line text field
-	def selection_panel(f, value, group, s = nil)
-		render :partial => "shared/forms/panel/selectables", :locals => { :f => f, :value => value, :group => group, :selected_value => s}
+	def selection_panel(f, value, group, s = nil, sc = nil)
+		render :partial => "shared/forms/panel/selection", :locals => { :f => f, :value => value, :group => group, :selected_value => s, :select_class => sc}
+	end
+
+	# OUTPUT single line text field
+	def simple_selection_panel(value, options, t = nil)
+		render :partial => "shared/forms/panel/simple_selection", :locals => { :value => value, :options => options, :title => t }
 	end
 
 	# OUTPUT single line text field

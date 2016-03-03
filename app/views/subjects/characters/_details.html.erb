@@ -1,6 +1,8 @@
 <% details.each do |detail| %>
-	<div class="detail">
-		<%= detail.subheading %>
-		<%= markdown detail.content %>
-	</div>
+	<% if !detail.content.nil? && detail.content != "" %>
+		<div class="detail">
+			<%= detail.subheading %>
+			<%= markdown detail.content %>
+		</div>
+	<% end %>
 <% end %>

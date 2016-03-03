@@ -17,8 +17,8 @@ class Users::PenNamingsController < ApplicationController
 	end
 
 	def new
-		@namer = PenNaming.new
-		@namer.new_character
+		@pen = PenNaming.new
+		@pen.new_character
 	end
 
 	def edit
@@ -28,12 +28,12 @@ class Users::PenNamingsController < ApplicationController
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@namer = PenNaming.new(pen_naming_params)
+		@pen = PenNaming.new(pen_naming_params)
 
-		@namer.user = current_user
-		@namer.save
-		@namer.set_character_behavior
-		@namer.character.save
+		@pen.user = current_user
+		@pen.save
+		@pen.set_character_behavior
+		@pen.character.save
 		
 		pen_names
 	end
@@ -43,10 +43,10 @@ class Users::PenNamingsController < ApplicationController
 	def update
 		pen_name
 		can_show_view?
-		if @namer.update(pen_naming_params)
+		if @pen.update(pen_naming_params)
 			respond_to do |format|
 				format.js
-				format.html { redirect_to @namer }
+				format.html { redirect_to @pen }
 			end
 		else
 			render action: 'edit'
@@ -56,7 +56,7 @@ class Users::PenNamingsController < ApplicationController
 	#
 	def destroy
 		pen_name
-		@namer.destroy
+		@pen.destroy
 
 		respond_to do |format|
 			format.html { redirect_to dashboard_path }
@@ -74,7 +74,7 @@ class Users::PenNamingsController < ApplicationController
 	end
 
 	def pen_name
-		@namer = PenNaming.find(params[:id]).decorate
+		@pen = PenNaming.find(params[:id]).decorate
 	end
 
 	# define strong parameters
@@ -89,7 +89,7 @@ class Users::PenNamingsController < ApplicationController
 	end
 
 	def can_show_view?
-		unless @namer.user.id == current_user.id
+		unless @pen.user.id == current_user.id
 			redirect_to new_user_session_path
 		end
 	end

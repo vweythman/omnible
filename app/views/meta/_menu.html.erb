@@ -1,30 +1,32 @@
 <nav class="menu">
 	<ul>
-		<li><%= link_to drop_arrowed("Works"), works_path %>
+		<li><%= link_to drop_arrowed(t("Works")), works_path %>
 			<ul class="submenu">
 				<li><%= link_to 'Fiction', fiction_index_path %></li>
 				<li><%= link_to 'Nonfiction', nonfiction_index_path %></li>
 			</ul>
 		</li>
-		<li><%= link_to 'Anthologies', anthologies_path %> </li>
+		<li><%= link_to t('Anthologies'), anthologies_path %> </li>
 		<li>
-			<%= link_to drop_arrowed("Subjects"), subjects_path %>
+			<%= link_to drop_arrowed(t("Subjects")), subjects_path %>
 			<ul class="submenu">
-				<li><%= link_to 'Characters', characters_path %></li>
-				<li><%= link_to 'Items', items_path %></li>
-				<li><%= link_to 'Places', places_path %></li>
+				<li><%= link_to t('Characters'), characters_path %></li>
+				<li><%= link_to t('Items'), items_path %></li>
+				<li><%= link_to t('Places'), places_path %></li>
 			</ul>
 		</li>
 		
 		<% if user_signed_in? && current_user.admin? %>
 			<li>
-				<%= link_to drop_arrowed("Tags"), all_tags_path %>
+				<%= link_to drop_arrowed(t("Tags")), all_tags_path %>
 				<ul class="submenu">
-					<li><%= link_to 'Activities', activities_path %></li>
-					<li><%= link_to 'Tags', tags_path %></li>
-					<li><%= link_to 'Identities', identities_path %></li>
-					<li><%= link_to 'Qualities', qualities_path %></li>
-					<li><%= link_to 'Relationship Types', relators_path %></li>
+					<li><%= link_to t('Activities'), activities_path %></li>
+					<li><%= link_to t('Tags'), tags_path %></li>
+					<li><%= link_to t('Identities'), identities_path %></li>
+					<li><%= link_to t('Qualities'), qualities_path %></li>
+					<li><%= link_to t("Creator Categories"), creator_categories_path %></li>
+					<li><%= link_to t('Relationships Categories'), relators_path %></li>
+					<li><%= link_to t("Identities Categories"), facets_path %></li>
 				</ul>
 			</li>
 		<% end %>

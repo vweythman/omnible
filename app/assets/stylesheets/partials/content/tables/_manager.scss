@@ -26,12 +26,11 @@
 		}
 
 		td {
-			background: rgba(255, 255, 255, .5);
+			background: rgba(255, 255, 255, .9);
 			padding:    0px 0px 5px 0px;
 
 			&:before {
-				background:    rgba(255, 255, 255, .8);
-				border-bottom: 2px solid $fire-light-minor;
+				background:    $fire-light-minor;
 				padding:       5px 0;
 				margin-bottom: 5px;
 			}
@@ -58,8 +57,12 @@
 		@include rounded-top(10px);
 		@include rounded-bottom(10px);
 		@include gradientized(180deg, $fire-color, $fire-lighter-major);
+		box-shadow: 0px 0px 5px $fire-darkest-major;
 		float: left;
 
+		td:last-child {
+			@include rounded-bottom(10px);
+		}
 		th {
 			font-size: $text-size;
 			font-weight: bolder;

@@ -12,11 +12,26 @@
 @import "partials/forms/fieldsets/radio";
 @import "partials/forms/fieldsets/tags";
 
+// SECTION :: COLORS
+// ===============================================
+$header:         $fire-light-major;
+$heading:        $fire-light-major;
+$content-shadow: 0px 0px 10px $page-darker-minor;
+
+// SECTION :: ALL
+// ===============================================
+@include header-look($header, $heading, $fire-color);
+
+@include desktop {
+	.logged-in {
+		color: $page-darkest-minor;
+	}
+}
+
 // VIEWPORT :: ALL
 // ===============================================
 h1 {
 	border-bottom: 5px solid $fire-color;
-	background:    $fire-light-major;
 	color:         $fire-darkest-minor;
 	text-align:    center;
 	

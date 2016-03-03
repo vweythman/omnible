@@ -35,7 +35,7 @@ module ApplicationHelper
 		action          = (type == "tagging") ? "index" : params[:action]
 		
 		# DASHBOARD STYLESHEET
-		if (["users", "admin"].include? collector) && (collector != type)
+		if ((["users", "admin"].include? collector) && (collector != type) || collector == "categories" && action == "index")
 			template_type = "dashboard"
 		
 		# SESSION STYLESHEET

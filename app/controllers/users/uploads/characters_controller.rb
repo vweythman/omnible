@@ -7,9 +7,9 @@ class Users::Uploads::CharactersController < Users::UploadsController
 	end
 
 	def show
-		@character = Character.find(params[:id]).decorate
+		@character = current_user.characters.find_by_id(params[:id]).decorate
 
-		unless @character.uploader? current_user
+		unless @character.nil?
 			redirect_to root_url
 		end
 	end

@@ -1,9 +1,11 @@
 <% provide(:title, @anthology.heading) %>
 
 <header>
-	<%= @anthology.edit_bar %>
 	<h1><%= @anthology.heading %></h1>
-	<div class="summary"><%= markdown @anthology.summary || "" %></div>
+	<div class="summary">
+		<%= markdown @anthology.summary || "" %>
+	</div>
+	<%= @anthology.edit_bar %>
 </header>
 
 <div class="page-body">

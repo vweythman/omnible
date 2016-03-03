@@ -11,7 +11,7 @@
 }
 
 .submit-field {
-	margin: 10px 0;
+	margin: 0px;
 
 	input {
 		@include submission-look($moss-dark-minor, $page-color);
@@ -21,6 +21,25 @@
 .field {
 	padding: 4px 0px;
 }
+.primary {
+    padding: 0px;
+}
+header .editor-block {
+	margin: 0 auto;
+	width:  calc(90% - 20px);
+
+	form {
+		-moz-box-sizing: border-box;
+		box-sizing:      border-box;
+		background: $page-lightest-minor;
+		color:      $page-darkest-minor;
+		margin:     0px 10px;
+		padding:    15px;
+		width:      calc(100% - 20px);
+		border-top: 25px solid $water-dark-minor;
+	}
+}
+
 
 // END
 // ***********************************************/

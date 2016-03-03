@@ -20,7 +20,6 @@
 	a {
 		font-weight: bolder;
 		padding:     10px;
-		color:       $water-darkest-minor; 
 	}
 }
 
@@ -28,24 +27,20 @@
 	display: inline-block;
 
 	a {
-		font-weight:    bolder;
-		background:     $page-color;
+		font-weight: bolder;
 	}
-
-	.logged-in {
-		letter-spacing: 2px;
-		color: $water-darkest-minor;
-
-		@include non-desktop {
-			background: $water-dark-minor;
-			color:      $page-color;
-		}
-	}
-
 	&:hover .logged-in {
+		color:      $page-darkest-minor; 
 		background: $fire-light-minor;
 	}
 }
+
+.logged-in {
+	background:     $water-darker-minor;
+	color:          $page-lightest-minor;
+	letter-spacing: 2px;
+}
+
 
 // VIEWPORT SPECIFIC
 // ===============================================

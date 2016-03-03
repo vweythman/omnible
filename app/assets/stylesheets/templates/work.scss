@@ -7,44 +7,41 @@
 @import "partials/content/status";
 @import "partials/content/comments";
 
-// SECTION :: ALL
-// ===============================================
-.page-content {
-	background: $page-lighter-minor;
-}
-
 // SECTION :: HEADER
 // ===============================================
-.work-header {
-	border-bottom-color: $rose-dark-minor;
-	background:    $page-extreme-light;
-	margin:        0;
-	padding:       0;
+.page-content > header {
 
 	h1 {
-		background:    $page-lightest-major;
-		border-bottom: 5px solid $water-light-minor;
+		border-bottom: 7px solid $water-light-major;
 	}
 
 	.about {
+		color:        $page-lightest-minor;
 		margin:       0 $one-twelfth;
 		padding-left: 0;
+		a { color: $water-lightest-minor; }
 	}
 	.alteration {
 		margin:     0 $one-twelfth;
 		margin-top: 10px;
 		width:      $five-sixths;
 	}
-}
 
-.related-menu {
-	padding:    0 0 10px 0;
-	text-align: center;
+	.related-menu {
+		padding:    0 0 10px 0;
+		text-align: center;
+		a { color: $water-lightest-minor; }
+	}
 }
 
 h1 {
 	padding:       5px $one-twelfth;
 	padding-top:   35px;
+}
+.ratings span {
+	margin:        5px 0;
+	background:    $page-color;
+	border-radius: 10px;
 }
 
 
@@ -52,11 +49,20 @@ h1 {
 // ===============================================
 article {
 	background: $page-color;
-	margin:     0 $one-twelfth;
+	margin:     20px $one-twelfth;
 	padding:    20px $one-twelfth;
 
 	@include non-desktop {
-		margin-top: 10px;
+		margin-top: 25px;
+	}
+
+	.toolkit {
+		margin: 10px 0 0;
+	}
+	h1 {
+		margin:     0 -15px;
+		padding:    15px;
+		background: $page-lighter-major;
 	}
 
 	p { line-height: 1.5; }

@@ -14,27 +14,24 @@
 	</div>
 
 	<%= @short.navigation_on_short %>
+
+	<%= @short.edit_bar %>
+	<%= @short.createables_links %>
 </header>
 
 <article role="article">
-	<header>
-		<%= @short.edit_bar %>
-		<%= @short.createables_links %>
-	</header>
-	
-	<div class="page-body" id="work-content">
-		<%= markdown @short.content %>
-	</div>
-
-	<footer><%= render 'works/shared/discussion' %></footer>
+	<div class="page-body" id="work-content"><%= markdown @short.content %></div>
 </article>
 
-<footer class="path-finder">
-	<p>
-		<%= link_to "All Short Stories", short_stories_path %> |
-		<%= link_to "All Fiction", fiction_index_path %> |
-		<%= link_to "All Works", works_path %>
-	</p>
+<footer>
+	<%= render 'works/shared/discussion' %>
+	<div class="path-finder">
+		<p>
+			<%= link_to "All Short Stories", short_stories_path %> |
+			<%= link_to "All Fiction", fiction_index_path %> |
+			<%= link_to "All Works", works_path %>
+		</p>
+	</div>
 </footer>
 
 <%= @work.skin_content %>

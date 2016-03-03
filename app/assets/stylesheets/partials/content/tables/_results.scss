@@ -2,6 +2,10 @@
 // ***********************************************
 // SECTION :: HEADER
 // ===============================================
+.tableized-results {
+	background: $page-color;
+	border:     10px solid $page-color;
+}
 .tableized-results caption {
 	background:    $water-dark-minor;
 	border-bottom: 5px solid desaturate($water-darker-minor, 20%);
@@ -23,7 +27,6 @@
 
 @include non-desktop {
 	.tableized-results td:not(.manager-editor):before {
-		border-bottom:  1px solid $fire-light-minor;
 		margin-bottom:  2px;
 		padding:        5px 0;
 		padding-bottom: 2px;

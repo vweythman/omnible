@@ -7,17 +7,24 @@
 @import "partials/content/example";
 @import "partials/content/tables/results";
 
-.sheet-header {
-	border-bottom-color: $rose-dark-minor;
-}
 // STYLES :: COLORS
 // ===============================================
 .styles {
-	background:   $page-color;
-	border-left:  2px solid $moss-color;
-	border-right: 2px solid $moss-color;
-	margin:       0 $one-twentieth;
-	padding:      15px;
+	margin:  0 $one-twelfth 25px;
+	padding: 15px;
+	background: $water-darker-major;
+}
+.previewer {
+	background: $page-color;
+}
+.toolkit,
+.agents {
+	margin: 5px $one-twelfth;
+}
+@include desktop {
+	.logged-in {
+		background: $water-darker-minor;
+	}
 }
 
 // VIEWPORT :: ALL
@@ -38,7 +45,7 @@
 
 // -- Table
 // -----------------------------------------------
-.tableized {
+.tableized-results {
 	margin: 15px;
 	width:  calc(100% - 30px);
 

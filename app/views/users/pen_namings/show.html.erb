@@ -1,17 +1,39 @@
-<% provide :title, @namer.page_title %>
+<% provide :title, @pen.page_title %>
 
-<header class="dashboard-header">
-	<h1 id="pen-name-<%= @namer.id %>">
-		<%= title "My Dashboard" %>
-		<%= subtitle "Pen Names" %>
-		<%= subtitle link_to @namer.name, @namer %>
-		<%= @namer.edit_form_div %>
-	</h1>
-	<div id="<%= @namer.kit_id %>"><%= @namer.edit_bar %></div>
-</header>
+<%= dashboard_header(["Pen Names", link_to(@pen.name, @pen)], @pen.heading_id) do %>
+	<%= @pen.edit_form_div %>
+	<%= @pen.edit_bar %>
+<% end %>
 
-<article>
+<article class="dashboard-grid">
+	<p><b><%= @pen.bylines.length %> Works</b></p>
+	<% if @pen.bylines.empty? %>
+		<p>Go out and make something!</p>
+	<% end %>
 
-	<section class="page-body">
-	</section>
+	<div class="create-as">
+		<p>As <%= @pen.name %></p>
+		<ul>
+			<li class="icon icon-file-empty"><%= link_to "create an article", new_article_path(create_as: @pen.id) %></li>
+			<li class="icon icon-book"><%= link_to "create a chaptered story", new_story_path(create_as: @pen.id) %></li>
+			<li class="icon icon-file-text"><%= link_to "create a short story", new_short_story_path(create_as: @pen.id) %></li>
+		</ul>
+	</div>
+
+	<% @pen.bylines.each do |byline| %>
+		<h2><%= byline.category.name.titleize %> of <%= link_to byline.work.title, byline.work %></h2>
+		<div class="work-meta">
+			<%= alteration_toolkit(byline.work) %>
+			<dl>
+				<dt>Created</dt>
+				<dd><%= record_time byline.work.created_at %></dd>
+				<dt>Updated</dt>
+				<dd><%= record_time byline.work.updated_at %></dd>
+			</dl>
+			<%= markdown byline.work.summary %>
+		</div>
+	<% end %>
 </article>
+<footer class="path-finder">
+	<%= link_to "Pen Names", pen_namings_path %>
+</footer>

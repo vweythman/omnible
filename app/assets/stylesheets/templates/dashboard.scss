@@ -8,43 +8,93 @@
 @import "partials/content/tables/manager";
 @import "partials/forms/inline_form";
 
-// VIEWPORT :: ALL
+// SECTION :: COLORS
 // ===============================================
-// -- LAYOUT & LOOK
-// -----------------------------------------------
-.page-content {
-	background: $water-lightest-minor;
-}
-.dashboard-grid {
-	background: $page-color;
-	margin:     10px $one-twelfth;
-	padding:    10px $one-twelfth;
+$page:           $water-darker-minor;
+$border:         $water-dark-major;
+$header:         $water-dark-minor;
+$heading:        $water-dark-minor;
+$content-shadow: 0px 0px 10px $page-darker-minor;
+
+// SECTION :: ALL
+// ===============================================
+@include page-look($page, $border);
+@include header-look($header, $heading, $border);
+
+// SECTION :: HEADER
+// ===============================================
+.creation,
+.creation-block {
+	margin: 0 auto;
+
+	.index-header & {
+		margin: 5px $one-twelfth;
+	}
 }
 
+.alteration {
+	margin:    5px $one-twelfth;
+	min-width: $five-sixths;
+
+	@include non-desktop {
+		margin:    5px 10px;
+		min-width: calc(100% - 20px);
+	}
+}
+
+// SECTION :: BODY
+// ===============================================
+// BODY :: ALL
+// -----------------------------------------------
+.dashboard-grid,
+.index-body {
+	background: $page-color;
+	margin:     25px $one-twelfth;
+	padding:    10px 25px;
+	box-shadow: $content-shadow;
+
+	b {
+		display:    block;
+		background: $page-lighter-minor;
+		padding:    10px 5px;
+	}
+	.creation {
+		text-align: center;
+	}
+}
 h2 {
 	text-align: center;
 	font-size:  18px;
-	margin:     25px 0;
+	margin:     35px 0 10px;
 }
 
-// -- TOOLKITS
-// -----------------------------------------------
-.creation,
-.creation-block {
-	margin: 0 10px;
-}
-.alteration {
-	margin:    5px 0;
-	min-width: 180px;
-	width:     100%;
-	a {
-		padding: 5px 0;
+.create-as {
+	padding: 0px 0;
+
+	ul {
+		margin:  0 10px;
+		padding: 0;
 	}
+
+	li {
+		color:   $water-dark-major;
+		padding: 5px 0;
+
+		&:before {
+			padding: 0 10px;
+		}
+	}
+}
+
+// BODY :: TABLE
+// -----------------------------------------------
+.default-pen {
+	color: $rose-dark-minor;
 }
 
 .editable-content {
 	@include tablet {
-		width: calc(50 - 20px);
+		width: calc(50% - 20px);
 	}
 
 	@include mobile {
@@ -52,12 +102,18 @@ h2 {
 	}
 }
 
-// -- Management Widget
-// -----------------------------------------------
+.management-widget {
+	padding-bottom: 35px;
+}
+
 .status {
-	font-weight: bolder;
-	text-align:  center;
+	font-weight:    bolder;
+	text-align:     center;
 	vertical-align: middle;
+
+	@include non-desktop {
+		padding: 0px 0px 5px 0px;
+	}
 
 	span {
 		display: block;
@@ -65,26 +121,50 @@ h2 {
 		padding: 5px;
 	}
 }
-.default-pen {
-	color: $rose-dark-minor;
-}
-.management-widget {
-	padding-bottom: 35px;
-}
 
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
+// BODY :: LIST
+// -----------------------------------------------
+.work-meta {
+	color:    $page-darker-minor;
+	margin:   0px $one-twelfth 50px;
+	overflow: auto;
 
-// VIEWPORT :: NON-DESKTOP
-// ===============================================
-@include non-desktop {
+	.toolkit {
+		display:   block;
+		float:     right;
+		margin:    5px auto;
+		min-width: 100px;
+		width:     calc(100% / 3);
 
-	.status {
-		padding: 0px 0px 5px 0px;
+		a {
+			padding: 5px 0px;
+			width:   calc(100%);
+		}
+
+		@include mobile {
+			float: none;
+		}
 	}
 
-	.alteration {
-		max-width: 200px;
+	dl {
+		box-shadow: 0px 0px 5px $page-light-minor;
+		margin:     5px;
+		padding:    10px;
+		width:      calc(100% / 3);
+
+		@include mobile {
+			margin: 10px auto;
+			width: calc(100% / 4 * 3);
+		}
+
+	}
+
+	dt {
+		padding: 0;
+		font-weight: bolder;
+	}
+	dd {
+		padding: 5px 0;
 	}
 }
 

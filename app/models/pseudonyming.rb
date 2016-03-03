@@ -29,6 +29,7 @@ class Pseudonyming < ActiveRecord::Base
 	belongs_to :character,          dependent: :destroy
 	has_many   :creatorships,       primary_key: "character_id", foreign_key: "creator_id"
 	has_many   :creator_categories, through: :creatorships
+	has_many   :works,              through: :creatorships
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------

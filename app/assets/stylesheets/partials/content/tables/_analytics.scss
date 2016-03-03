@@ -3,7 +3,6 @@
 .analytics {
 	margin: 15px auto;
 	width:  $three-fourths;
-	border: 2px solid $page-dark-minor;
 
 	caption {
 		padding: 5px;
@@ -11,8 +10,9 @@
 	
 	thead th {
 		padding:    15px 10px;
-		background: $fire-lighter-minor;
-		color:      $fire-darkest-minor;
+		background: $page-lighter-minor;
+		color:      $page-darkest-minor;
+		border-bottom: 5px solid $page-dark-minor;
 	}
 	th {
 		padding: 10px;
@@ -21,8 +21,33 @@
 		text-align: center;
 	}
 	tfoot {
-		border-top: 2px solid $page-darker-major;
+		border-top: 2px solid $page-dark-minor;
 		text-align: left;
+	}
+
+	@include non-desktop {
+		tbody th {
+			background:    $page-lighter-minor;
+			border-bottom: 5px solid $page-dark-minor;
+			color:         $page-darkest-minor;
+		}
+
+		td {
+			text-align: left;
+			padding:    5px;
+		}
+
+		tfoot {
+			overflow: auto;
+
+			th,
+			td {
+				display: inline-block;
+				float:   left;
+				padding: 5px;
+				width:   calc(50% - 10px);
+			}
+		}
 	}
 }
 
