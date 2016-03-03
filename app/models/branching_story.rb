@@ -28,11 +28,11 @@ class BranchingStory < Work
 	# ============================================================
 	# JOINS
 	# ------------------------------------------------------------
-	has_one :story_root, foreign_key: "story_id"
+	has_one :story_root, foreign_key: "story_id", dependent: :destroy
 
 	# HAS
 	# ------------------------------------------------------------
-	has_many :branches, inverse_of: :story, foreign_key: "story_id"
+	has_many :branches, inverse_of: :story, foreign_key: "story_id", dependent: :destroy
 	has_one  :trunk,    through:    :story_root
 
 	has_many :parent_branchings, through: :branches
@@ -40,6 +40,11 @@ class BranchingStory < Work
 
 	has_many :parent_nodes, ->{uniq}, through: :parent_branchings
 	has_many :child_nodes,  through: :child_branchings
+
+	# NESTED ATTRIBUTION
+	# ============================================================
+	accepts_nested_attributes_for :story_root
+	accepts_nested_attributes_for :trunk
 
 	# CLASS METHODS
 	# ============================================================

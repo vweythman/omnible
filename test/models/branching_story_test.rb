@@ -12,13 +12,13 @@ class BranchingStoryTest < ActiveSupport::TestCase
   # TESTS :: CLASS METHODS
   # ============================================================
   test "should sort by average branching" do
-    story_titles = BranchingStory.by_average_branching.pluck(:title)
+    story_titles = BranchingStory.order_by("average-branchings").pluck(:title)
     assert_equal @hope.title, story_titles.first
     assert_equal @aqua.title, story_titles.last
   end
 
   test "should sort number of branches" do
-    stories = BranchingStory.by_branches
+    stories = BranchingStory.order_by("branches-count")
     assert_equal @hope, stories.first
     assert_equal @aqua, stories.last
   end

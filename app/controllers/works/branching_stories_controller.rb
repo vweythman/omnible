@@ -35,11 +35,13 @@ class Works::BranchingStoriesController < WorksController
 			:title,        :summary,         :visitor,
 			:editor_level, :publicity_level, :placeables,   :taggables,
 
-			uploadership:        [:category, :pen_name],
-			appearables:         [:main,     :side,     :mentioned],
-			skinning_attributes: [:id,       :skin_id,  :_destroy],
-			rating_attributes:   [:id,       :violence, :sexuality, :language],
-			branches_attributes: [:id,       :title,    :content]
+			uploadership:          [:category, :pen_name],
+			appearables:           [:main,     :side,     :mentioned],
+			skinning_attributes:   [:id,       :skin_id,  :_destroy],
+			rating_attributes:     [:id,       :violence, :sexuality, :language],
+			story_root_attributes: [:id,
+				trunk_attributes: [:id, :title, :content]
+			]
 		)
 	end
 
