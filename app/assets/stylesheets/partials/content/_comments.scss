@@ -6,6 +6,10 @@
 
 // VIEWPORT :: ALL
 // ===============================================
+.comments {
+	width:  $two-thirds;
+	margin: 10px auto 15px;
+}
 .comments-form {
 	margin: 10px;
 	fieldset {
@@ -18,7 +22,7 @@ form {
 }
 
 legend {
-	border-bottom: 3px solid $fire-dark-major;
+	border-bottom: 3px solid $fire-light-major;
 	font-weight:   600;
 	padding:       10px 0 2px 0;
 	width:         100%;

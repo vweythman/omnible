@@ -51,6 +51,7 @@ article {
 	background: $page-color;
 	margin:     20px $one-twelfth;
 	padding:    20px $one-twelfth;
+	box-shadow: 0px 0px 10px $water-darkest-minor;
 
 	@include non-desktop {
 		margin-top: 25px;
@@ -89,9 +90,16 @@ hr {
 .pagination {
 	margin: 20px 0;
 }
-
-.work-content a { 
-	@include visitable($water-dark-minor);
+.branching li {
+	color: $moss-dark-major;
+	padding: 2px 10px;
+	a {
+		color: $moss-dark-major;
+		padding: 0px 15px;
+	}
+	&:before {
+		margin: 0px -10px;
+	}
 }
 
 /* END

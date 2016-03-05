@@ -24,6 +24,10 @@ fieldset {
 	color:   red !important;
 	padding: 35px;
 }
+ul {
+	padding: 0;
+	margin:  0;
+}
 
 // -- Fields
 // -----------------------------------------------
@@ -33,6 +37,7 @@ label {
 input,
 select,
 textarea {
+	color:   $page-darkest-major;
 	border:  1px solid $border-color;
 	margin:  0;
 	padding: 7px;
@@ -60,12 +65,17 @@ textarea {
 .nested {
 	background: $page-lightest-major;
 	border:     1px solid $border-color;
-	margin:     0 10px;
+	margin:     10px;
+	margin-top: 0;
 	padding:    0 10px;
+
 	legend {
 		border:  1px solid $border-color;
 		width:   calc(100% - 22px);
 		padding: 10px;
+	}
+	.field {
+		margin: 10px 0;
 	}
 }
 .simple-selection {
@@ -111,11 +121,36 @@ textarea {
 	.field-selection {
 		padding: 5px;
 	}
+	p {
+		border:      1px solid $border-color;
+		font-weight: bolder;
+		margin:      10px 5px;
+		padding:     8px 10px;
+
+		@include mobile {
+			padding:    5px;
+			margin:     0px 5px;
+			margin-top: 5px;
+		}
+	}
 }
 
 .primary > .field select {
 	width:   100%;
 	padding: 7px;
+}
+
+.text-field label {
+	display:    block;
+	background: white;
+	padding:    2px 7px;
+	border:     1px solid $border-color;
+	border-bottom-style: dashed;
+	font-weight:  bolder;
+}
+.text-field input,
+.text-field textarea {
+	border-top: none;
 }
 
 // END

@@ -10,16 +10,17 @@
 	}
 }
 .page-fields {
-	background: $page-light-major;
-	border:     1px solid $moss-darker-minor;
+	background: $page-lightest-minor;
+	border:     1px solid $page-lighter-minor;
 	margin:     0;
 
 	form > & {
 		margin: 0 10px;
 	}
+	label,
 	input,
 	textarea {
-		border-color: $page-dark-minor;
+		border-color: $page-lighter-minor;
 	}
 
 	legend {

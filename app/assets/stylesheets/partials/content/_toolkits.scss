@@ -92,5 +92,32 @@ tfoot .creation {
 	width:  200px;
 }
 
+.interaction {
+	@include buttonable($moss-dark-minor);
+
+	font-size: .85em;
+	border-radius: 10px;
+	margin:        10px auto;
+	margin-bottom: 0;
+	overflow:      auto;
+	width:         20%;
+	min-width:     200px;
+
+	a {
+		background:     none;
+		display:        block;
+		font-weight:    bolder;
+		float:          left;
+		letter-spacing: 1px;
+		padding:        5px 0;
+		text-align:     center;
+		width:          100%;
+		&:hover {
+			border-radius: 0;
+		}
+	}
+}
+
+
 // END
 // ***********************************************/

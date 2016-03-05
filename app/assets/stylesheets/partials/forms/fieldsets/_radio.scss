@@ -32,9 +32,13 @@
 		text-align: right;
 		width:      $one-tenth;
 	}
-	.panel-cell {
+	.select-one .panel-cell {
 		width: $one-fifth;
 	}
+}
+.rating-title {
+	padding:     10px;
+	font-weight: bolder;
 }
 
 // END
