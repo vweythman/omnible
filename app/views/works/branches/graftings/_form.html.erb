@@ -1,0 +1,9 @@
+<% remote ||= false %>
+<%= form_for [@parent_branch, @branching], :url => graft_branch_path do |f| %>
+	<fieldset class="primary">
+		<%= string_panel f, :heading, "Write Link" %>
+		<%= simple_selection_panel "[branching][child_node_id]", @parent_branch.graftable_options, "Branches" %>
+	</fieldset>
+
+	<%= submit_panel f, "Create" %>
+<% end %>

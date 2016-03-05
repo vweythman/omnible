@@ -1,0 +1,27 @@
+<%= form_for(@story) do |f| %>
+
+	<ul>
+		<% @story.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+
+	<fieldset class="primary">
+		<%= render @story.primary_fields, f: f %>
+	</fieldset>
+
+	<fieldset class='nested'>
+		<legend>First Branch</legend>
+
+		<%= f.fields_for :story_root do |srt| %>
+			<%= srt.fields_for :trunk do |tk| %>
+				<%= string_panel tk, :title, "Write Title"             %>
+				<%= text_panel   tk, :content, :major, "Write Content" %>
+			<% end %>
+		<% end %>
+	</fieldset>
+
+	<%= render @story.tag_fields, f: f %>
+
+	<%= submit_panel f %>
+<% end %>

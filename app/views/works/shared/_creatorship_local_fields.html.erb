@@ -2,15 +2,9 @@
 	<legend>Pen Name Selection</legend>
 
 	<%= grid_panel do %>
+		<%= panel_cell "duo" do @work.choose_creator_category     end %>
 		<%= panel_cell "duo" do %>
-			<%= simple_selection_panel "[#{@work.klass}][uploadership][category]", @work.creatorship_options, "Creator Category" %>
-		<% end %>
-		<%= panel_cell "duo" do %>
-			<% if @create_as.nil? %>
-				<%= simple_selection_panel "[#{@work.klass}][uploadership][pen_name]", @work.pseudonym_options, "Pen Name" %>
-			<% else %>
-				<p><b>Create as <%= link_to @create_as.name, @create_as %><b></p>
-			<% end %>
+		 <%= simple_selection_panel "[#{@work.klass}][uploadership][pen_name]", @work.pseudonym_options(@create_as), "Pen Name" %>
 		<% end %>
 	<% end %>
 </fieldset>

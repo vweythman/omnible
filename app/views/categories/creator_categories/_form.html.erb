@@ -2,8 +2,8 @@
 <%= form_for @creator_category, remote: remote do |f| %>
 
 	<fieldset class="form-grid primary">
-		<%= string_panel f, :name, "writer, singer, illustrator..." %>
-		<%= string_panel f, :agentive, "written by, sung by, illustrated by... (irregular inflection is hard)" %>
+		<%= string_panel f, :name, "writer, singer, illustrator...", "Name" %>
+		<%= string_panel f, :agentive, "written by, sung by, illustrated by...", "Inflected Form" %>
 	</fieldset>
 
 	<% unless remote %>

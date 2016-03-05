@@ -14,9 +14,18 @@
 	<div class="create-as">
 		<p>As <%= @pen.name %></p>
 		<ul>
-			<li class="icon icon-file-empty"><%= link_to "create an article", new_article_path(create_as: @pen.id) %></li>
-			<li class="icon icon-book"><%= link_to "create a chaptered story", new_story_path(create_as: @pen.id) %></li>
-			<li class="icon icon-file-text"><%= link_to "create a short story", new_short_story_path(create_as: @pen.id) %></li>
+			<li class="icon icon-file-empty">
+				<%= link_to "create an article", new_article_path(create_as: @pen.id) %>
+			</li>
+			<li class="icon icon-book">
+				<%= link_to "create a chaptered story", new_story_path(create_as: @pen.id) %>
+			</li>
+			<li class="icon icon-tree">
+				<%= link_to "create a branching story", new_branching_story_path(create_as: @pen.id) %>
+			</li>
+			<li class="icon icon-file-text">
+				<%= link_to "create a short story", new_short_story_path(create_as: @pen.id) %>
+			</li>
 		</ul>
 	</div>
 
@@ -34,6 +43,7 @@
 		</div>
 	<% end %>
 </article>
+
 <footer class="path-finder">
 	<%= link_to "Pen Names", pen_namings_path %>
 </footer>

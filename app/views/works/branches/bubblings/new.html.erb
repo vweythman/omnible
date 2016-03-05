@@ -1,0 +1,9 @@
+<% provide(:title, "New Branch") %>
+
+<%= creation_block("New Branch") do %>
+	<%= render 'form' %>
+<% end %>
+
+<script>
+	autosize(document.querySelectorAll('textarea'));
+</script>

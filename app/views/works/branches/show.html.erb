@@ -1,0 +1,62 @@
+<% provide(:title, @work.title) %>
+
+<header class="work-header">
+	<h1><%= @work.title %></h1>
+	<%= @work.completion_status %>
+	<%= @work.rated %>
+
+	<div class="about">
+		<%= @work.summarized %>
+		<%= @work.all_tags_line %>
+	</div>
+</header>
+
+<article role="article">
+	<header>
+		<% if @branch.parent_nodes.length > 0 && !@branch.is_trunk? %>
+			<h3>Return:</h3>
+			<ul class="branching">
+				<% @branch.parent_nodes.each do |parent| %>
+					<li class="icon icon-leaf"><%= link_to parent.title, [@work, parent] %></li>
+				<% end %>			
+			</ul>
+		<% end %>
+	</header>
+
+	<div class="page-body" id="work-content">
+		<h2><%= @branch.title %></h2>
+		<%= markdown @branch.content %>
+	</div>
+
+	<footer>
+		<% if @branch.child_branchings.length > 0 %>
+			<h3>Choose:</h3>
+			<ul class="branching">
+				<% @branch.child_branchings.each do |branching| %>
+					<li class="icon icon-leaf"><%= link_to branching.heading, [@work, branching.child_node] %></li>
+				<% end %>			
+			</ul>
+		<% else %>
+			<p>The End.</p>
+		<% end %>
+
+		<% if @work.editable? current_user %>
+			<div class="toolkit interaction">
+				<%= link_to "+ New Branch", branch_bubble_path(@branch) %>
+				<%= link_to( "+ Graft to Existing Branch", graft_branch_path(@branch), remote: true ) if @branch.graftable? %>
+			</div>
+		<% end %>
+
+	</footer>
+</article>
+
+<footer>
+	<%# render 'works/shared/discussion' %>
+	<div class="path-finder">
+		<p><%= link_to "All Branching Stories", branching_stories_path %></p>
+		<p><%= link_to "All Fiction", fiction_index_path %></p>
+		<p><%= link_to "All Works", works_path %></p>
+	</div>
+</footer>
+
+<%= @work.skin_content %>
