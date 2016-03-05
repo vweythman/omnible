@@ -124,7 +124,7 @@ hope:
   is_complete: false
 
 aqua:
-  title: fall
+  title: falling leaves
   uploader: sirka
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>

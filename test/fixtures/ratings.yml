@@ -40,6 +40,26 @@ story_major:
   sexuality: 1
   language:  3
 
+# BRANCHING STORY
+# ===================================
+branching_minor:
+  work: hope
+  violence:  1
+  sexuality: 1
+  language:  0
+
+branching_major:
+  work: aqua
+  violence:  3
+  sexuality: 2
+  language:  3
+
+branching_clean:
+  work: zinc
+  violence:  0
+  sexuality: 0
+  language:  0
+
 # VIOLENCE
 # 0
 #   - effaces

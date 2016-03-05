@@ -65,6 +65,11 @@ wb12:
   describer: story_link
   prime: false
 
+wb12:
+  creator_category: writer
+  describer: branching_story
+  prime: true
+
 # =========
 wb13:
   creator_category: translator
