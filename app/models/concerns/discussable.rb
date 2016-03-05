@@ -4,6 +4,7 @@ module Discussable
 	extend ActiveSupport::Concern
 
 	included do
+		before_create :set_discussion
 		has_one  :topic,    :inverse_of => :discussed, as: :discussed
 		has_many :comments, :through => :topic
 	end
@@ -15,7 +16,7 @@ module Discussable
 			topic.creator   = self.uploader
 			topic.title     = "#{self.class.to_s} Discussion"
 			topic.discussed = self
-			topic.save
 		end
 	end
+
 end

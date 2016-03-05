@@ -50,6 +50,7 @@ module Works
 
       assert_not_nil assigns(:story)
       assert_not_nil assigns(:chapter)
+      assert_not_nil assigns(:chapter).topic
       assert_equal assigns(:story), assigns(:chapter).story
       assert_redirected_to story_chapter_path(assigns(:story).id, assigns(:chapter).id)
     end

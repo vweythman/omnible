@@ -31,7 +31,6 @@ class Chapter < ActiveRecord::Base
 
 	# CALLBACKS
 	# ============================================================
-	after_create  :set_discussion
 	before_create :set_position
 	after_save    :cascade_data
 

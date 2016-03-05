@@ -17,29 +17,28 @@
 class Note < ActiveRecord::Base
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	include Discussable
 	include Titleizeable
 
 	# CALLBACKS
-	# ------------------------------------------------------------
-	after_create :set_discussion
+	# ============================================================
 	#after_save :cascade_data
 
 	# ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	belongs_to :work
 
 	# DELEGATED METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	delegate :uploader, to: :work
 	
 	# ATTRIBUTES
-	# ------------------------------------------------------------
+	# ============================================================
 	alias_attribute :about, :summary
 	
 	# METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# Heading - defines the main means of addressing the model
 	def heading
 		if title.empty?
@@ -64,16 +63,16 @@ class Note < ActiveRecord::Base
 		self.work.editable? user
 	end
 
+	# PRIVATE METHODS
+	# ============================================================
+	private
+
 	def cascade_data
 		if self.work.updated_at != self.updated_at
 			self.work.updated_at = self.updated_at
 			self.work.save
 		end
 	end
-
-	# PRIVATE METHODS
-	# ------------------------------------------------------------
-	private
 
 	def default_heading
 		"Note"
