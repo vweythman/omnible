@@ -78,7 +78,6 @@ Rails.application.routes.draw do
     resources :articles,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :journals,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :story_links, :concerns => [:sortable, :dateable, :completeable, :paginatable]
-    resources :branching_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
     # NARROW narrative type
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,6 +107,19 @@ Rails.application.routes.draw do
       # ............................................................
       get  'chapters/:chapter_id/new-next' => "next#new", as: :insert_chapter
       post 'chapters/:chapter_id/new-next' => "next#create"
+    end
+
+    # NARROW branching stories
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    resources :branching_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
+      resources :branches, except: [:new, :create]
+    end
+    scope module: 'branches' do
+      get  'branches/:branch_id/bubble' => 'bubblings#new', as: :branch_bubble
+      post 'branches/:branch_id/bubble' => "bubblings#create"
+      
+      get  'branches/:branch_id/graft' => 'graftings#new', as: :graft_branch
+      post 'branches/:branch_id/graft' => "graftings#create"
     end
 
     # NARROW short stories
