@@ -1,5 +1,9 @@
 class StoryRoot < ActiveRecord::Base
 
+	# VALIDATIONS
+	# ============================================================
+	validates_uniqueness_of :story_id
+
 	# ASSOCIATIONS
 	# ============================================================
 	belongs_to :story, class_name: "Work"

@@ -44,7 +44,6 @@ class BranchingStory < Work
 	# NESTED ATTRIBUTION
 	# ============================================================
 	accepts_nested_attributes_for :story_root
-	accepts_nested_attributes_for :trunk
 
 	# CLASS METHODS
 	# ============================================================
