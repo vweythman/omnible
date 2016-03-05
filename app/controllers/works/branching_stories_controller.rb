@@ -9,7 +9,8 @@ class Works::BranchingStoriesController < WorksController
 	# Work :: find by id
 	def work
 		super
-		@story = @work
+		@story  = @work
+		@branch = @story.trunk.decorate
 	end
 
 	# Works :: find all with filtering
@@ -26,6 +27,7 @@ class Works::BranchingStoriesController < WorksController
 	def new_work
 		@story         = BranchingStory.new
 		@story.rating  = Rating.new
+		@story.trunk   = Branch.new
 		@story = @work = @story.decorate
 	end
 
