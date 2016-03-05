@@ -21,6 +21,7 @@ module FieldsHelper
 
 	# OUTPUT single line text field
 	def string_panel(f, value,  placeholder = nil, heading = nil)
+		heading = placeholder if heading.nil?
 		render :partial => "shared/forms/panel/string", :locals => { :f => f, :value => value, :heading => heading, :placeholder => placeholder }
 	end
 

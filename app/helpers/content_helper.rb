@@ -9,7 +9,7 @@ module ContentHelper
 
 	def dash_heading(s, hid)
 		content_tag :h1, id: hid do
-			concat "My Dashboard"
+			concat "Your Dashboard"
 			concat subtitles(s)
 		end
 	end
