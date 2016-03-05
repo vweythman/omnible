@@ -1,35 +1,40 @@
 // STYLE PARTIAL: COMMENTS
 // ***********************************************
-// SETUP :: IMPORTS
-// ===============================================
-@import "partials/forms/page_form";
-
 // VIEWPORT :: ALL
 // ===============================================
 .comments {
 	width:  $two-thirds;
 	margin: 10px auto 15px;
+
+	form {
+		background: $page-lightest-minor;
+		border: 1px solid $border-color;
+	}
+
+	legend {
+		border-bottom: 3px solid $fire-light-major;
+		font-weight:   600;
+		padding:       10px 0 2px 0;
+		width:         100%;
+	}
+
+	input[type="submit"] {
+		@include submission-look($fire-light-minor, $page-darker-minor);
+	}
+
+	.submit-field {
+		margin: 10px;
+		width:  calc(100% - 20px);
+
+		input { padding: 10px; }
+	}
 }
+
 .comments-form {
 	margin: 10px;
 	fieldset {
 		border: none;
 	}
-}
-
-form {
-	border: 1px solid $border-color;
-}
-
-legend {
-	border-bottom: 3px solid $fire-light-major;
-	font-weight:   600;
-	padding:       10px 0 2px 0;
-	width:         100%;
-}
-
-input[type="submit"] {
-	@include submission-look($fire-light-minor, $page-darker-minor);
 }
 
 // END

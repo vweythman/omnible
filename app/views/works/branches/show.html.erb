@@ -29,24 +29,28 @@
 	</div>
 
 	<footer>
-		<% if @branch.child_branchings.length > 0 %>
-			<h3>Choose:</h3>
-			<ul class="branching">
-				<% @branch.child_branchings.each do |branching| %>
-					<li class="icon icon-leaf"><%= link_to branching.heading, [@work, branching.child_node] %></li>
-				<% end %>			
-			</ul>
-		<% else %>
-			<p>The End.</p>
-		<% end %>
+		<div class="branching">
+			<% if @branch.child_branchings.length > 0 %>
+				<h3>Choose:</h3>
 
-		<% if @work.editable? current_user %>
-			<div class="toolkit interaction">
-				<%= link_to "+ New Branch", branch_bubble_path(@branch) %>
-				<%= link_to( "+ Graft to Existing Branch", graft_branch_path(@branch), remote: true ) if @branch.graftable? %>
-			</div>
-			<div id="branching-form"></div>
-		<% end %>
+				<ul>
+					<% @branch.child_branchings.each do |branching| %>
+						<li class="icon icon-leaf"><%= link_to branching.heading, [@work, branching.child_node] %></li>
+					<% end %>			
+				</ul>
+			<% else %>
+				<p>The End.</p>
+			<% end %>
+
+			<% if @work.editable? current_user %>
+				<div class="toolkit interaction">
+					<%= link_to "+ New Branch", branch_bubble_path(@branch) %>
+					<%= link_to( "+ Graft to Existing Branch", graft_branch_path(@branch), remote: true ) if @branch.graftable? %>
+				</div>
+
+				<div id="branching-form"></div>
+			<% end %>
+		</div>
 
 	</footer>
 </article>
