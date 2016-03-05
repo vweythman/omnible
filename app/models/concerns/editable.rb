@@ -85,7 +85,7 @@ module Editable
 	end
 
 	def self.labels
-		['Private', 'Friends', 'Friends & Followers', 'Site Members (excluding blocked and blocking users)', 'Must Be Signed In', 'Completely Public']
+		['Private', 'Friends', 'Friends & Followers', 'Must Be Signed In & Not Blocked', 'Must Be Signed In', 'Public']
 	end
 
 	# PUBLIC METHODS
