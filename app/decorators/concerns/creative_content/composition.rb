@@ -31,6 +31,26 @@ module CreativeContent
 
 		# RENDER
 		# ============================================================
+		def choose_creator_category
+			if multiple_creator_categories?
+				h.simple_selection_panel "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
+			else
+				@category = self.creator_categories.first
+				h.capture do
+					h.concat(agentive_line)
+					h.concat(h.hidden_field_tag("[#{self.klass}][uploadership][category]", @category.id))
+				end
+			end
+		end
+
+		def agentive_line
+			h.content_tag :p do @category.agentive.titleize end
+		end
+
+		def creating_as(creator)
+			h.content_tag :p do h.link_to(creator.name, creator).html_safe end
+		end
+
 		def length_span
 			h.content_tag :span, class: "word-count" do
 				length_status

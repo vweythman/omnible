@@ -21,6 +21,10 @@ class IdentityDecorator < TagDecorator
 	end
 
 	def heading
+		facet_title + " :: " + name.titleize
+	end
+
+	def faceted_heading
 		facet_link + ": " + name.titleize
 	end
 

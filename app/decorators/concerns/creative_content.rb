@@ -1,5 +1,11 @@
 module CreativeContent
 
+	# CHECK
+	# ============================================================
+	def multiple_creator_categories?
+		creator_categories_count > 1
+	end
+
 	# GET
 	# ============================================================
 	def time_started
@@ -12,6 +18,10 @@ module CreativeContent
 
 	def by_uploader
 		("By " + h.link_to(uploader.name, uploader)).html_safe
+	end
+
+	def creator_categories_count
+		@creator_categories_count ||= self.creator_categories.size
 	end
 
 	# SET
@@ -30,6 +40,17 @@ module CreativeContent
 
 	# RENDER
 	# ============================================================
+	# FORM DATA
+	# ------------------------------------------------------------
+	def creatorship_options
+		h.options_for_select(self.creator_categories.pluck(:name, :id))
+	end
+
+	def pseudonym_options(creator = nil)
+		default_choice = creator.nil? ? self.uploader.pseudonymings.prime_character.id : creator.id
+		h.options_for_select(self.uploader.all_pens.pluck(:name, :id), default_choice)
+	end
+
 	# PARAGRAPHS
 	# ------------------------------------------------------------
 	def uploaded_by

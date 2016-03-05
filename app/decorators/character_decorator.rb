@@ -44,7 +44,7 @@ class CharacterDecorator < Draper::Decorator
 
 		links = self.is_a_clone? ? (dup + rol) : (con + dup + rol)
 
-		h.content_tag :nav, class: 'toolkit replication' do
+		h.content_tag :nav, class: 'toolkit interaction' do
 			links
 		end
 	end

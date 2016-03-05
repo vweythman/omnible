@@ -110,14 +110,6 @@ class WorkDecorator < Draper::Decorator
 		end
 	end
 
-	def pseudonym_options
-		h.options_for_select(self.uploader.all_pens.pluck(:name, :id), self.uploader.pseudonymings.prime_character.id)
-	end
-
-	def creatorship_options
-		h.options_for_select(self.creator_categories.pluck(:name, :id))
-	end
-
 	# NOTES
 	# ------------------------------------------------------------
 	def note_creation_link

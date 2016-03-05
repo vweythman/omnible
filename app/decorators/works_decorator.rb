@@ -104,7 +104,8 @@ class WorksDecorator < Draper::CollectionDecorator
 		{
 			:articles      => h.articles_path(clean_type_params),
 			:stories       => h.stories_path(clean_type_params),
-			:short_stories => h.short_stories_path(clean_type_params)
+			:branching_stories => h.branching_stories_path(clean_type_params),
+			:short_stories => h.short_stories_path(clean_type_params),
 		}
 	end
 

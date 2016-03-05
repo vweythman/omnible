@@ -3,11 +3,15 @@ class BranchingStoryDecorator < WorkDecorator
 	# PUBLIC METHODS
 	# ============================================================
 	def klass
-		:article
+		:branching_story
 	end
 
 	def most_recent_label
 		"Changed"
+	end
+
+	def icon_choice
+		'tree'
 	end
 
 end

@@ -11,7 +11,7 @@ class WorksCurationDecorator < WorksDecorator
 	end
 
 	def heading
-		link = h.link_to @parent.heading.titleize, h.polymorphic_path(@parent) 
+		link = h.link_to @parent.heading, h.polymorphic_path(@parent) 
 		link + h.subtitle("Works")
 	end
 
