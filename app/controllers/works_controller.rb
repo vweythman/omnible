@@ -144,7 +144,7 @@ class WorksController < ApplicationController
 		if params[:create_as].nil?
 			@create_as = nil
 		else
-			@create_as = current_user.pseudonymings.find_by_id(params[:create_as])
+			@create_as = current_user.pseudonymings.find_by_id(params[:create_as]).character
 		end
 	end
 
