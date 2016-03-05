@@ -51,8 +51,8 @@ module FormHelper
 		type.to_s + "-form-for-" + id.to_s
 	end
 
-	def ajaxed_form_render
-		render :partial => "form", :locals => { :remote => true }
+	def ajaxed_form_render(form_partial = "form")
+		render :partial => form_partial, :locals => { :remote => true }
 	end
 
 end

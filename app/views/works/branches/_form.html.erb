@@ -1,0 +1,15 @@
+<%= form_for(@branch) do |f| %>
+
+	<ul>
+		<% @branch.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+
+	<fieldset class="primary">
+		<%= string_panel f, :title, "Write Title"             %>
+		<%= text_panel   f, :content, :major, "Write Content" %>
+	</fieldset>
+
+	<%= submit_panel f %>
+<% end %>

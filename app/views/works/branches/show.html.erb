@@ -45,6 +45,7 @@
 				<%= link_to "+ New Branch", branch_bubble_path(@branch) %>
 				<%= link_to( "+ Graft to Existing Branch", graft_branch_path(@branch), remote: true ) if @branch.graftable? %>
 			</div>
+			<div id="branching-form"></div>
 		<% end %>
 
 	</footer>

@@ -20,6 +20,10 @@ class Branch < ActiveRecord::Base
 	# ============================================================
 	validates :content, presence: true
 
+	# MODULES
+	# ============================================================
+	include Discussable
+
 	# ASSOCIATIONS
 	# ============================================================
 	# JOIN
