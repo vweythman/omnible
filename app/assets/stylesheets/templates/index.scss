@@ -140,6 +140,10 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 	}
 }
 
+.branches {
+	margin: 0 10px;
+}
+
 .branch {
 	padding-bottom: 25px;
 
@@ -150,7 +154,12 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 	}
 
 	h2 {
-		background: $water-lightest-major;
+		color: $page-color;
+		background:          $water-dark-minor;
+		border-bottom-color: $water-dark-major;
+		a {
+			color: $page-color;
+		}
 	}
 
 	ul {
@@ -177,7 +186,6 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 		}
 	}
 	h3 {
-		border-bottom: 2px solid $moss-dark-minor;
 		padding:       5px 0 3px;
 		margin:        5px 0;
 	}

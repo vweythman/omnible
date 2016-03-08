@@ -19,7 +19,7 @@ class BranchingDecorator < Draper::Decorator
 	end
 
 	def go_to
-		lbl =  h.content_tag :b do "Go To: " end
+		lbl =  h.content_tag :b do "Goes To: " end
 		lnk = h.link_to self.child_node.title, [self.child_node.story, self.child_node]
 		(lbl + lnk).html_safe
 	end
