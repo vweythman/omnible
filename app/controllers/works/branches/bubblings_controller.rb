@@ -1,4 +1,4 @@
-class Works::Branches::BubblingsController < WorksController
+class Works::Branches::BubblingsController < ApplicationController
 
 	# PUBLIC METHODS
 	# ============================================================

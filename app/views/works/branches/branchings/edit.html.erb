@@ -1,0 +1,9 @@
+<% provide(:title, "Edit") %>
+
+<%= editing_block("Edit") do %>
+	<%= render 'form' %>
+<% end %>
+
+<script>
+	autosize(document.querySelectorAll('textarea'));
+</script>

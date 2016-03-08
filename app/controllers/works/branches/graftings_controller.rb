@@ -1,4 +1,4 @@
-class Works::Branches::GraftingsController < WorksController
+class Works::Branches::GraftingsController < ApplicationController
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -9,14 +9,15 @@ class Works::Branches::GraftingsController < WorksController
 		@branching = Branching.new
 	end
 
-	def edit
-	end
-
 	# POST
 	# ------------------------------------------------------------
 	def create
 		parent_branch
 		child_branch
+
+		cannot_edit? @parent_branch.story do
+			return
+		end
 
 		if @parent_branch.can_graft_to? @child_branch
 			@branching = @parent_branch.child_branchings.new(branching_params)

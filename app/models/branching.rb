@@ -22,10 +22,15 @@ class Branching < ActiveRecord::Base
 	# ============================================================
 	belongs_to :parent_node, class_name: "Branch", inverse_of: :child_branchings
 	belongs_to :child_node,  class_name: "Branch", inverse_of: :parent_branchings
+	has_one    :story, through: :parent_node
 
 	# NESTED ATTRIBUTION
 	# ============================================================
 	accepts_nested_attributes_for :child_node
+
+	# DELEGATED METHODS
+	# ============================================================
+	delegate :editable?, to: :story
 
 	# PUBLIC METHODS
 	# ============================================================

@@ -122,7 +122,7 @@ Rails.application.routes.draw do
       get  'branches/:branch_id/graft' => 'graftings#new', as: :graft_branch
       post 'branches/:branch_id/graft' => "graftings#create"
 
-      resources :branchings, only: [:edit, :update, :delete], controller: "graftings"
+      resources :branchings, only: [:edit, :update, :destroy]
     end
 
     # NARROW short stories

@@ -1,0 +1,12 @@
+<%= form_for(@branching) do |f| %>
+
+	<fieldset class="branch page-fields">
+		<legend><%= string_panel f, :heading, "Write Link" %></legend>
+
+		<div class="page-grid form-grid">
+		<%= simple_selection_panel "[branching][child_node_id]", @branching.grafting_options(@parent_branch), "Branches" %>
+		</div>
+	</fieldset>
+
+	<%= submit_panel f, "Update" %>
+<% end %>
