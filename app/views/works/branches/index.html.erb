@@ -1,0 +1,55 @@
+<% provide(:title, @work.title) %>
+
+<header class="work-header">
+	<h1>
+		<%= link_to @work.title, @work %>
+		<%= subtitle "Branches" %>
+	</h1>
+</header>
+
+<div class="index-body">
+	<div class="results branches">
+
+		<% @branches.includes(:child_branchings, :child_nodes).decorate.each do |branch| %>
+			<div class="branch">
+				<%= solo_cell do %>
+					<h2 class="branch-title">
+						<b>Branch:</b>
+						<%= link_to branch.title, [@work, branch] %>
+					</h2>
+					<ul>
+						<li><b>Updated</b> <%= record_time branch.updated_at %></li>
+						<li><b>Created</b> <%= record_time branch.created_at %></li>
+					</ul>
+					<%= branch.edit_bar %>
+				<% end %>
+
+				<% branch.child_branchings.decorate.each do |branching| %>
+					<div class="child-branch">
+						<h3>Child Branch</h3>
+
+						<%= grid_panel do %>
+							<%= panel_cell branch.child_index_width do branching.quoted_heading end %>
+							<%= panel_cell branch.child_index_width do branching.go_to end %>
+							<% if @is_editable %>
+								<%= panel_cell "trio" do %>
+									<%= branching.edit_bar %>
+								<% end %>
+							<% end %>
+						<% end %>
+					</div>
+				<% end %>
+
+				<%= render 'interaction_toolkit', branch: branch %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<footer>
+	<div class="path-finder">
+		<p><%= link_to "All Branching Stories", branching_stories_path %></p>
+		<p><%= link_to "All Fiction", fiction_index_path %></p>
+		<p><%= link_to "All Works", works_path %></p>
+	</div>
+</footer>

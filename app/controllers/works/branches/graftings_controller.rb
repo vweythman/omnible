@@ -9,6 +9,9 @@ class Works::Branches::GraftingsController < WorksController
 		@branching = Branching.new
 	end
 
+	def edit
+	end
+
 	# POST
 	# ------------------------------------------------------------
 	def create

@@ -63,9 +63,9 @@ module Works
         post :create, branching_story: {
           title:   @aqua.title,
           summary: @aqua.summary,
-          story_root_attributes: {
-            trunk_attributes: { title: "fight for the right", content: "test this content." }
-          }
+          branches_attributes: [
+            { title: "fight for the right", content: "test this content."}
+          ]
       }
       end
 

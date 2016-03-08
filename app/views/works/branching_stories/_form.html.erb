@@ -11,13 +11,14 @@
 	</fieldset>
 
 	<fieldset class='nested'>
-		<legend>First Branch</legend>
+		<legend>
+			<% @story.trunk.id.nil? ? "First Branch" : "Branches" %>
+		</legend>
 
-		<%= f.fields_for :story_root do |srt| %>
-			<%= srt.fields_for :trunk do |tk| %>
-				<%= string_panel tk, :title, "Write Title"             %>
-				<%= text_panel   tk, :content, :major, "Write Content" %>
-			<% end %>
+		<%= f.fields_for :branches do |branch| %>
+			<div class="branch">
+				<%= render 'works/branches/form_fields', f: branch %>
+			</div>
 		<% end %>
 	</fieldset>
 

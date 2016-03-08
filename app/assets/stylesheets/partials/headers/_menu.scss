@@ -13,6 +13,11 @@
 		width: $three-fourths;
 	}
 
+	@include tablet {
+		overflow:   auto;
+		margin-top: 5px;
+	}
+
 	@include mobile {
 		display: block;
 
@@ -62,7 +67,7 @@
 		}
 	}
 	@include tablet {
-		width: (1/4) * (5/6) * 100%;
+		width: $one-fourth;
 	}
 }
 
@@ -79,7 +84,7 @@
 		font-size: .68em;
 	}
 	.menu a {
-		padding: 9px 0;
+		padding: 12px 0 8px;
 	}
 	.menu > ul > li {
 		width: $one-fourth;

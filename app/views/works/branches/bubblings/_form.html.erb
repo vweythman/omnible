@@ -1,10 +1,10 @@
 <%= form_for [@parent_branch, @branching], :url => branch_bubble_path do |f| %>
 	<fieldset class="branch page-fields">
 		<legend><%= string_panel f, :heading, "Write Link" %></legend>
+
 		<div class="page-grid form-grid">
 			<%= f.fields_for :child_node do |branch_builder| %>
-				<%= string_panel branch_builder, :title, "Write Title"             %>
-				<%= text_panel   branch_builder, :content, :major, "Write Content" %>
+				<%= render 'works/branches/form_fields', f: branch_builder %>
 			<% end %>	
 		</div>
 	</fieldset>

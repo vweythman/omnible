@@ -6,7 +6,7 @@
 	margin: 10px $one-twelfth;
 }
 
-.toolblock td { padding: 10px; }
+.toolblock td { padding: 5px 0; }
 
 .toolkit {
 	margin:    10px 15px;
@@ -50,8 +50,9 @@
 	}
 
 	.toolblock & {
-		margin: 10px 15px;
-		width:  calc(100% - 36px);
+		margin:    0px;
+		max-width: 100%;
+		width:     100%;
 	}
 
 	a {
@@ -76,6 +77,11 @@
 		background: $moss-lightest-minor;
 		color:      $moss-darker-minor;
 	}
+}
+
+.toolblock .insertion {
+	margin:    0px;
+	max-width: 100%;
 }
 
 .creation a {
@@ -114,6 +120,18 @@ tfoot .creation {
 		width:          100%;
 		&:hover {
 			border-radius: 0;
+		}
+	}
+
+	.toolblock & {
+		min-width: 100%;
+		width:     100%;
+
+		@include desktop {
+			a {
+				padding: 10px 0;
+				width:   50%;
+			}
 		}
 	}
 }

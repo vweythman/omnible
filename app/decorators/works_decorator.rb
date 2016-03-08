@@ -28,7 +28,8 @@ class WorksDecorator < Draper::CollectionDecorator
 	end
 
 	def types
-		local_types.merge external_types
+		#local_types.merge external_types
+		local_types
 	end
 
 	# SET

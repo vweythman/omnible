@@ -16,6 +16,7 @@ class Works::Branches::BubblingsController < WorksController
 		parent_branch
 
 		@branching = @parent_branch.child_branchings.new(branching_params)
+		@branching.storify_child
 
 		if @branching.save
 			redirect_to [@story, @branching.child_node]

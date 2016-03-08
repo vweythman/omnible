@@ -1,5 +1,29 @@
 class Works::BranchingStoriesController < WorksController
 
+	# PUBLIC METHODS
+	# ============================================================
+	# POST
+	# ------------------------------------------------------------
+	def create
+		created_work
+		set_visitor
+
+		Work.transaction do
+			if @work.save
+				@branch     = @work.branches.first
+				@work.trunk = @branch
+
+				if @work.save
+					redirect_to @work
+				else
+					render action: 'new'
+				end
+			else
+				render action: 'new'
+			end
+		end
+	end
+
 	# PRIVATE METHODS
 	# ============================================================
 	private
@@ -41,6 +65,7 @@ class Works::BranchingStoriesController < WorksController
 			appearables:           [:main,     :side,     :mentioned],
 			skinning_attributes:   [:id,       :skin_id,  :_destroy],
 			rating_attributes:     [:id,       :violence, :sexuality, :language],
+			branches_attributes:   [:id, :title, :content],
 			story_root_attributes: [:id,
 				trunk_attributes: [:id, :title, :content]
 			]

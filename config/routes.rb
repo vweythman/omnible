@@ -114,12 +114,15 @@ Rails.application.routes.draw do
     resources :branching_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
       resources :branches, except: [:new, :create]
     end
+
     scope module: 'branches' do
       get  'branches/:branch_id/bubble' => 'bubblings#new', as: :branch_bubble
       post 'branches/:branch_id/bubble' => "bubblings#create"
       
       get  'branches/:branch_id/graft' => 'graftings#new', as: :graft_branch
       post 'branches/:branch_id/graft' => "graftings#create"
+
+      resources :branchings, only: [:edit, :update, :delete], controller: "graftings"
     end
 
     # NARROW short stories
@@ -143,6 +146,7 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   resources :chapters, except: [:index, :new, :show], :controller => 'works/chapters'
   resources :notes,    except: [:index, :new, :show], :controller => 'works/notes'
+  resources :branches, except: [:index, :new, :show], :controller => 'works/branches'
 
   # SUBJECTS
   # ============================================================

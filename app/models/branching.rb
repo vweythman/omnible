@@ -27,10 +27,6 @@ class Branching < ActiveRecord::Base
 	# ============================================================
 	accepts_nested_attributes_for :child_node
 
-	# CALLBACKS
-	# ============================================================
-	before_create :storify_child
-
 	# PUBLIC METHODS
 	# ============================================================
 	def storify_child

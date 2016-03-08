@@ -21,6 +21,7 @@ class BranchTest < ActiveSupport::TestCase
     branching = @aqua1.bubble("head over here")
     branching.child_node.title   = "test"
     branching.child_node.content = "also test"
+    branching.storify_child
 
     branching.save
     @aqua1.reload
@@ -39,6 +40,7 @@ class BranchTest < ActiveSupport::TestCase
     }
 
     branching = @aqua1.child_branchings.new(branch_values)
+    branching.storify_child
 
     branching.save
     @aqua1.reload

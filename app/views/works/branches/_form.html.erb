@@ -7,8 +7,7 @@
 	</ul>
 
 	<fieldset class="primary">
-		<%= string_panel f, :title, "Write Title"             %>
-		<%= text_panel   f, :content, :major, "Write Content" %>
+		<%= render 'works/branches/form_fields', f: f %>
 	</fieldset>
 
 	<%= submit_panel f %>

@@ -43,6 +43,7 @@ h1 {
 	margin:        5px 0;
 	background:    $page-color;
 	border-radius: 10px;
+    font-size: .85em;
 }
 
 
@@ -111,6 +112,20 @@ hr {
 .branching form {
 	background: $page-lightest-minor;
 	padding:    10px;
+
+	.primary-panel {
+		margin-bottom: 10px;
+	}
+
+	select {
+		margin: 0px 0px 0px 10px;
+		width:  calc(100% - 10px);
+
+		@include mobile {
+			margin: 0;
+			width: 100%;
+		}
+	}
 }
 
 /* END

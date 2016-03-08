@@ -42,7 +42,7 @@ body {
 	@include desktop {
 		display:    block;
 		float:      left;
-		padding:    0;
+		padding:    1px 0px;
 		text-align: center;
 		width:      $one-sixth;
 	}
@@ -51,8 +51,7 @@ body {
 		float:          left;
 		letter-spacing: 1px;
 		min-width:      90px;
-		padding:        10px 0;
-		padding-bottom: 25px;
+		padding:        10px 0 0px;
 		text-align:     center;
 		font-size:      1.5rem;
 		width:          $one-fifth;
@@ -65,9 +64,6 @@ body {
 	@include desktop {
 		margin-left: $one-sixth;
 		width:       $five-sixths;
-	}
-	@include tablet {
-		margin-left: $one-fifth;
 	}
 }
 

@@ -1,0 +1,8 @@
+<% if branch.editable? current_user %>
+	<div id="branching-form"></div>
+
+	<div class="toolkit interaction">
+		<%= link_to "New Branch", branch_bubble_path(branch), class:"icon icon-leaf" %>
+		<%= link_to( "Graft to Existing Branch", graft_branch_path(branch), remote: true , class:"icon icon-leaf") if branch.graftable? %>
+	</div>
+<% end %>

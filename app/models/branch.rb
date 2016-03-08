@@ -45,6 +45,11 @@ class Branch < ActiveRecord::Base
 	# ============================================================
 	accepts_nested_attributes_for :child_branchings
 
+	# DELEGATED METHODS
+	# ============================================================
+	delegate :uploader, to: :story
+	delegate :editable?, to: :story
+
 	# PUBLIC METHODS
 	# ============================================================
 	# ACTIONS
@@ -81,6 +86,12 @@ class Branch < ActiveRecord::Base
 			self.parent_branchings << branching
 			return branching
 		end
+	end
+
+	# GETTERS
+	# ------------------------------------------------------------
+	def heading
+		title
 	end
 
 	# QUESTIONS

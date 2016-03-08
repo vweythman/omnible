@@ -89,8 +89,11 @@ module CreativeContent
 		end
 	end
 
-	def updated_at_data
-		h.content_tag :td, :data => {:label => "Update Date"} do
+	def updated_at_data(spn = {})
+		rw = spn[:rowspan].nil? ? 1 : spn[:rowspan]
+		cl = spn[:colspan].nil? ? 1 : spn[:colspan]
+
+		h.content_tag :td, :rowspan => rw, colspan: cl, :data => {:label => "Update Date"} do
 			h.record_time self.updated_at
 		end
 	end

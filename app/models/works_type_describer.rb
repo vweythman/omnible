@@ -27,7 +27,7 @@ class WorksTypeDescriber < ActiveRecord::Base
 	scope :chaptered,  -> { where(is_singleton: false) }
 	scope :oneshot,    -> { where(is_singleton: true) }
 
-	scope :offsite,    -> { where(is_record: true) }
+	scope :offsite,    -> { where(is_record: true)  }
 	scope :local,      -> { where(is_record: false) }
 
 	scope :textual,    -> { where("content_type = 'text'") }

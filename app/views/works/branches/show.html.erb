@@ -8,7 +8,9 @@
 	<div class="about">
 		<%= @work.summarized %>
 		<%= @work.all_tags_line %>
+		<%= link_to "All Branches", branching_story_branches_path(@work) %>
 	</div>
+	<%= @work.edit_bar %>
 </header>
 
 <article role="article">
@@ -30,7 +32,7 @@
 
 	<footer>
 		<div class="branching">
-			<% if @branch.child_branchings.length > 0 %>
+			<% if @branch.has_children? %>
 				<h3>Choose:</h3>
 
 				<ul>
@@ -42,14 +44,7 @@
 				<p>The End.</p>
 			<% end %>
 
-			<% if @work.editable? current_user %>
-				<div class="toolkit interaction">
-					<%= link_to "+ New Branch", branch_bubble_path(@branch) %>
-					<%= link_to( "+ Graft to Existing Branch", graft_branch_path(@branch), remote: true ) if @branch.graftable? %>
-				</div>
-
-				<div id="branching-form"></div>
-			<% end %>
+			<%= render 'works/branches/interaction_toolkit', branch: @branch %>
 		</div>
 
 	</footer>
