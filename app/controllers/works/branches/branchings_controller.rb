@@ -37,6 +37,11 @@ class Works::Branches::BranchingsController < ApplicationController
 			return
 		end
 
+		unless @branching.can_uproot?
+			redirect_to @work
+			return
+		end
+
 		@branching.destroy
 		redirect_to branching_story_branches_path(@work)
 	end

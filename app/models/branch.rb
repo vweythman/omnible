@@ -112,4 +112,8 @@ class Branch < ActiveRecord::Base
 		!story_root.nil?
 	end
 
+	def can_uproot?
+		parent_branchings.count > 1 || is_trunk?
+	end
+
 end

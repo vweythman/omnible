@@ -30,7 +30,8 @@ class Branching < ActiveRecord::Base
 
 	# DELEGATED METHODS
 	# ============================================================
-	delegate :editable?, to: :story
+	delegate :editable?,   to: :story
+	delegate :can_uproot?, to: :child_node
 
 	# PUBLIC METHODS
 	# ============================================================
