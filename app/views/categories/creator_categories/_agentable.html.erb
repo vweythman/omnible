@@ -1,11 +1,23 @@
-<% WorksTypeDescriber.all.order(:name).each do |type| %>
-	<tr>
-		<th><%= type.heading %></th>
-		<td class="connection">
-			<%= toggle_panel "category", type.id, @creator_category.connected?(type) %>
-		</td>
-	</tr>
-<% end %>
+<table class="relateable">
+	<caption>Works</caption>
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody id="work-categories" class="relateable-body">
+		<% WorksTypeDescriber.all.order(:name).each do |type| %>
+			<tr>
+				<th><%= link_to type.heading, work_category_path(type) %></th>
+				<td class="connection">
+					<%= toggle_panel "category", type.id, @creator_category.connected?(type) %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
 <script type="text/javascript">
 $('.switch-button .switch').click(function() {
 

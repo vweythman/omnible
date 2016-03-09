@@ -2,56 +2,56 @@
 
 article:
   name: Article
-  is_narrative: false
-  is_singleton: true
   content_type: text
+  is_singleton: true
   is_record:    false
-  is_creative_expression: false
+  status: Nonfiction
 
 journal:
   name: Journal
-  is_narrative: false
-  is_singleton: false
   content_type: text
   is_record:    false
-  is_creative_expression: false
+  is_singleton: false
+  status: Nonfiction
 
 short_story:
   name: ShortStory
-  is_narrative: true
-  is_singleton: false
   content_type: text
   is_record:    false
-  is_creative_expression: true
+  is_singleton: false
+  status: Fictional Narrative
 
 story:
   name: Story
-  is_narrative: true
-  is_singleton: true
   content_type: text
   is_record:    false
-  is_creative_expression: true
+  is_singleton: true
+  status: Fictional Narrative
 
 story_link:
   name: StoryLink
-  is_narrative: true
-  is_singleton: false
   content_type: text
   is_record:    true
-  is_creative_expression: true
+  is_singleton: false
+  status: Fictional Narrative
 
 poem:
   name: Poem
-  is_narrative: true
-  is_singleton: true
   content_type: text
   is_record:    false
-  is_creative_expression: true
+  is_singleton: true
+  status: Creative Expression
 
 branching_story:
   name: BranchingStory
-  is_narrative: true
-  is_singleton: false
   content_type: text
   is_record:    false
-  is_creative_expression: true
+  is_singleton: false
+  status: Fictional Narrative
+
+record:
+  name: Record
+  content_type: data
+  is_singleton: true
+  is_record:    true
+  status: Nonfiction

@@ -19,10 +19,15 @@
 
 class WorksTypeDescriber < ActiveRecord::Base
 
+	# VALIDATIONS
+	# ============================================================
+	validates :name, uniqueness: true
+
 	# SCOPES
 	# ============================================================
-	scope :fiction,    -> { where(is_creative_expression: true) }
-	scope :nonfiction, -> { where(is_creative_expression: false) }
+	scope :fiction,    -> { where("status IN ('Fictional Narrative', 'Creative Expression')") }
+	scope :nonfiction, -> { where(status: "Nonfiction") }
+	scope :narrative,  -> { where(status: "Fictional Narrative") }
 
 	scope :chaptered,  -> { where(is_singleton: false) }
 	scope :oneshot,    -> { where(is_singleton: true) }
@@ -38,9 +43,10 @@ class WorksTypeDescriber < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ============================================================
-	has_many :works,         foreign_key: "type", primary_key: "name"
+	has_many :works,          foreign_key: "type",         primary_key: "name"
 	has_many :work_bylinings, foreign_key: "describer_id", primary_key: "id"
-	has_many :creator_categories, through: :work_bylinings
+	has_many :uploaders, ->{uniq}, through: :works
+	has_many :creator_categories,  through: :work_bylinings
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -66,7 +72,7 @@ class WorksTypeDescriber < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Narrative? - fiction vs. non-fiction
 	def narrative?
-		self.is_narrative == 't' || self.is_narrative == true
+		self.status == "Fictional Narrative"
 	end
 
 	def record?

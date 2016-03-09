@@ -1,0 +1,31 @@
+<table class="relateable">
+	<caption>Creator Categories</caption>
+	<tbody class="relateable-body">
+	<% CreatorCategory.all.decorate.each do |category| %>
+		<tr>
+			<th><%= link_to category.name, category %></th>
+			<td class="connection">
+				<%= toggle_panel "category", category.id, category.connected?(@work_category) %>
+			</td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<script type="text/javascript">
+$('.switch-button .switch').click(function() {
+
+	if ($(this).is(':checked')) {
+		$.ajax({
+			type: "POST",
+			url: "/agentize/" + <%= @work_category.id %> + "/" + $(this).data('toggle-id')
+		});
+	} else {
+		$.ajax({
+			type: "DELETE",
+			url: "/agentize/" + <%= @work_category.id %> + "/" + $(this).data('toggle-id')
+		});
+	}
+
+});
+</script>

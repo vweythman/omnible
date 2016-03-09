@@ -1,0 +1,26 @@
+<% provide(:title, @work_category.heading) %>
+
+<header class="category-header">
+	<h1>
+		Admin Panel
+		<%= subtitle @work_category.heading %>
+	</h1>
+</header>
+
+
+<div class="page-body">
+	<%= grid_panel "stat-distribution" do %>
+		<%= panel_cell "golden-minor" do %>
+			<div class="usage">
+				<h2>Usage</h2>
+				<p><%= @in_use_count %> <b><%= @work_category.heading.pluralize @in_use_count %></b></p>
+				<p><%= @used_by_count %> <b><%= "Uploader".pluralize @used_by_count %></b></p>
+			</div>
+		<% end %>
+
+		<%= panel_cell "golden-major" do render 'agentable' end %>
+
+	<% end %>
+</div>
+
+<%= render 'categories/footer' %>

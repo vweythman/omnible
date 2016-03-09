@@ -51,12 +51,12 @@ class WorksTypeDescriberTest < ActiveSupport::TestCase
   # ------------------------------------------------------------
   test "should be narrative" do
     assert @story.narrative?
-    assert @poem.narrative?
     assert @short_story.narrative?
     assert @story_link.narrative?
   end
 
   test "should not be narrative" do
+    assert_not @poem.narrative?
     assert_not @article.narrative?
     assert_not @journal.narrative?
   end
