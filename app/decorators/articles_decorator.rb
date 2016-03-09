@@ -17,7 +17,7 @@ class ArticlesDecorator < WorksDecorator
 	def filter_values
 		filters = super
 		filters[:order][:values] << { heading: "Word Count", key: "word-count"}
-		return filters
+		filters.except!(:completion)
 	end
 
 end
