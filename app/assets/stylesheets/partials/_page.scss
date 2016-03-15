@@ -91,11 +91,12 @@ dt:first-child {
 .indexable li:before {
 	font-size:   12px;
 	margin-left: -12px;
-
-	@include arrowed($fire-dark-minor);
 }
 .indexable li {
 	padding: 0px 15px 5px;
+}
+.indexable-data {
+	@include arrowed($fire-dark-minor);
 }
 
 .date { font-weight: bolder; }
