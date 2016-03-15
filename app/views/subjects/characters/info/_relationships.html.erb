@@ -1,0 +1,19 @@
+<div class="widget relationship-widget">
+	<table>
+		<caption>Relationship</caption>
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>People<th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @character.connections.rows do |title, links| %>
+				<tr>
+					<th><%= title %></th>
+					<td><%= links %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

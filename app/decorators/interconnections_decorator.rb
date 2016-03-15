@@ -1,26 +1,21 @@
 class InterconnectionsDecorator < Draper::CollectionDecorator
 
-	# MODULES
-	# ------------------------------------------------------------
-	include TableableCollection
+	# PUBLIC METHODS
+	# ============================================================
+	attr_accessor :person
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
-	def faceted_table(parent)
-		@visitor = parent
-		tableize
-	end
-
+	# ============================================================
 	def organize
-		Interconnection.organize(object, visitor)
+		Interconnection.organize(object, person)
 	end
 
 	def rows
-		@rows ||= self.organize
-	end
-
-	def visitor
-		@visitor ||= nil
+		self.organize.map do |type_name, group|
+			title = type_name.titleize.pluralize(group)
+			links = h.cslinks(group)
+			yield(title, links)
+		end
 	end
 
 	def collected_type

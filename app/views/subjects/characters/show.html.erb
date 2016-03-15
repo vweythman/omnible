@@ -2,26 +2,39 @@
 
 <header class="subject-header">
 	<h1>
-		<%= @character.name %>
-		<%= subtitle @character.list_aliases %>
+		<%= @character.name                    %>
+		<%= subtitle @character.alias_headline %>
 	</h1>
-	<%= @character.link_to_original %>
-	<%= @character.edit_bar %>
-
+	<%= @character.link_to_original     %>
+	<%= @character.edit_bar             %>
 	<%= uploaded_by @character.uploader %>
 </header>
 
 <div class="subject-body">
-
 	<div class="info-body">
-		<%= render 'info' %>
-		<footer><%= @character.replication_bar %></footer>
+		<div class="info-grid">
+			<%= grid_panel do %>
+				<%= panel_cell "golden-major" do %>
+					<%= @character.subarticle        %>
+					<%= @character.possessions_cell  %>
+					<%= @character.network           %>
+				<% end %>
+				<%= panel_cell "golden-minor" do %>
+					<%= @character.identity_sidebar %>
+				<% end %>
+			<% end %>
+			<%= @character.personal_opinion_panel %>
+			<%= @character.public_opinion_panel   %>
+			<%= @character.clones_panel           %>
+		</div>
+		<footer>
+			<%= @character.replication_bar %>
+		</footer>
 	</div>
 
 	<footer class="pageable">
 		<%= @character.pagination %>
 	</footer>
-
 </div>
 
 <%= render 'subjects/shared/footer' %>
