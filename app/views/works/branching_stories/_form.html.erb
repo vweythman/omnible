@@ -12,7 +12,7 @@
 
 	<fieldset class='nested'>
 		<legend>
-			<% @story.trunk.id.nil? ? "First Branch" : "Branches" %>
+			<%= @story.trunk.nil? ? "First Branch" : "Branches" %>
 		</legend>
 
 		<%= f.fields_for :branches do |branch| %>

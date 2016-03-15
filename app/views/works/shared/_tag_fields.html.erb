@@ -7,11 +7,28 @@
 <fieldset class="tags about">
 	<legend>Tags</legend>
 
-	<%= taggables([@work.klass, "taggables"], f.object.tag_names, "General Tags") %>
+	<%= taggables([@work.klass, "taggables"], @work.tag_names, "General Tags") %>
 
-	<% Appearance.roles(f.object).each do |role| %>
-		<%= taggables([@work.klass, "appearables", role], f.object.cohort_names_by(role), f.object.cohort_heading_by(role)) %>
+	<% Appearance.tag_labels(@work).each do |role| %>
+		<%= taggables [@work.klass, "appearables", role[:label]], @work.cohort_names_by(role[:label]), role[:heading] %>
 	<% end %>
+	<%= taggables([@work.klass, "placeables"], @work.place_names, @work.location_heading) %>
 
-	<%= taggables([@work.klass, "placeables"], f.object.place_names, f.object.location_heading) %>
+	<fieldset class="tags works">
+		<legend>Related Work Tags</legend>
+		<div class="clarify">
+			<p>Tag in whichever way best disambiguates the work from other works.</p>
+			<ul>
+				<li>Fire and Ice</li>
+				<li>Fire and Ice (Poem)</li>
+				<li>Fire and Ice / Robert Frost</li>
+				<li>Fire and Ice (Poem) / Robert Frost</li>
+			</ul>
+		</div>
+
+		<% WorkConnection.tag_labels(@work).each do |group| %>
+			<%= taggables [@work.klass, "relateables", group[:label]], @work.organized_work_titles_by(group[:label]), group[:heading] %>
+		<% end %>
+	</fieldset>
+
 </fieldset>
