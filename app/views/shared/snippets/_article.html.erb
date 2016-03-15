@@ -4,6 +4,12 @@
 	<br>
 	<%= subtitle article.byline %>
 </h4>
+
 <div class="about">
 	<%= article.uploaded_by.html_safe %>
+</div>
+
+<div class="snippet-meta">
+	<%= article.summarized %>
+	<%= article.snippet_tags_line %>
 </div>
