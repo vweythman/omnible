@@ -101,13 +101,12 @@ tfoot .creation {
 .interaction {
 	@include buttonable($moss-dark-minor);
 
-	font-size: .85em;
+	font-size:     .85em;
 	border-radius: 10px;
 	margin:        10px auto;
 	margin-bottom: 0;
 	overflow:      auto;
-	width:         20%;
-	min-width:     200px;
+	width:         25%;
 
 	a {
 		background:     none;
