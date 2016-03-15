@@ -25,6 +25,12 @@ class CharacterTest < ActiveSupport::TestCase
   end
 
   test "should create/find nonfictional characters by name" do
+
+  end
+
+  test "should create nonfictional character" do
+    character = Character.create_person("Martha", @erik.uploader)
+    assert_not character.fictitious_person?
   end
 
   # PUBLIC METHODS TESTS
