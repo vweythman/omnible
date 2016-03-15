@@ -40,6 +40,7 @@ class Works::StoryLinksController < WorksController
 			sources_attributes:  [:id,   :reference],
 			appearables:         [:main, :side,     :mentioned],
 			skinning_attributes: [:id,   :skin_id,  :_destroy],
+			relateables:         [:main, :setting,  :mentioned, :characters],
 			rating_attributes:   [:id,   :violence, :sexuality, :language]
 		)
 	end

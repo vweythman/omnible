@@ -48,9 +48,10 @@ class Works::StoriesController < WorksController
 			:editor_level, :publicity_level, :placeables,   :taggables,
 
 			uploadership:        [:category, :pen_name],
-			appearables:         [:main,     :side,     :mentioned],
 			skinning_attributes: [:id,       :skin_id,  :_destroy],
+			appearables:         [:main,     :side,     :mentioned],
 			rating_attributes:   [:id,       :violence, :sexuality, :language],
+			relateables:         [:main,     :setting,  :mentioned, :characters],
 			chapters_attributes: [:id,       :title,    :about,     :position, :content, :afterward]
 		)
 	end

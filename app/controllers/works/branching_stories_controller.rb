@@ -49,9 +49,8 @@ class Works::BranchingStoriesController < WorksController
 	end
 
 	def new_work
-		@story         = BranchingStory.new
-		@story.rating  = Rating.new
-		@story.trunk   = Branch.new
+		@story = BranchingStory.new
+		@story.branches.build
 		@story = @work = @story.decorate
 	end
 
@@ -65,10 +64,8 @@ class Works::BranchingStoriesController < WorksController
 			appearables:           [:main,     :side,     :mentioned],
 			skinning_attributes:   [:id,       :skin_id,  :_destroy],
 			rating_attributes:     [:id,       :violence, :sexuality, :language],
-			branches_attributes:   [:id, :title, :content],
-			story_root_attributes: [:id,
-				trunk_attributes: [:id, :title, :content]
-			]
+			relateables:           [:main,     :setting,  :mentioned, :characters],
+			branches_attributes:   [:id, :title, :content]
 		)
 	end
 

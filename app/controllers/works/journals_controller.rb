@@ -34,6 +34,7 @@ class Works::JournalsController < WorksController
 			:editor_level, :placeables, :publicity_level,
 
 			appearables:         [:subject],
+			relateables:         [:subject],
 			uploadership:        [:category, :pen_name],
 			skinning_attributes: [:id,       :skin_id, :_destroy]
 		)

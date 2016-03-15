@@ -102,7 +102,8 @@ class WorksController < ApplicationController
 			uploadership:        [:category, :pen_name],
 			skinning_attributes: [:id,       :skin_id,  :_destroy],
 			appearables:         [:main,     :side,     :mentioned, :subject],
-			rating_attributes:   [:id,       :violence, :sexuality, :language]
+			rating_attributes:   [:id,       :violence, :sexuality, :language],
+			relateables:         [:main,     :setting,  :mentioned, :characters, :subject]
 		)
 	end
 
@@ -123,7 +124,7 @@ class WorksController < ApplicationController
 
 	# Works :: find all with filtering
 	def works
-		@works = Work.with_filters(index_params, current_user).decorate
+		@works = Work.local.with_filters(index_params, current_user).decorate
 	end
 
 	# SET

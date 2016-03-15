@@ -38,6 +38,7 @@ class Works::ArticlesController < WorksController
 			:summary,
 
 			appearables:         [:subject],
+			relateables:         [:subject],
 			uploadership:        [:category, :pen_name],
 			skinning_attributes: [:id,       :skin_id, :_destroy]
 		)
