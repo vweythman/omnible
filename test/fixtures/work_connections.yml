@@ -1,0 +1,52 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# DIFFERENT GROUP; DIFFERENT WORKS
+# ===================================
+apologia_subject:
+  work: viperfish
+  tagging_work: apologia
+  nature: subject
+
+calypso_general:
+  work: windstorm
+  tagging_work: calypso
+  nature: general
+
+heart_using_characters:
+  work: helix
+  tagging_work: heart
+  nature: characters
+
+hope_mentioned:
+  work: heart
+  tagging_work: hope
+  nature: mentioned
+
+effaces_using_setting:
+  work: glamour
+  tagging_work: effaces
+  nature: setting
+
+# SAME GROUP; DIFFERENT WORKS
+# ===================================
+aqua_using_setting:
+  work: zoologist
+  tagging_work: aqua
+  nature: setting
+
+zinc_using_setting:
+  work: zoologist
+  tagging_work: zinc
+  nature: setting
+
+# DIFFERENT GROUP; SAME WORK
+# ===================================
+glamour_using_characters:
+  work: do
+  tagging_work: glamour
+  nature: characters
+
+glamour_using_setting:
+  work: mi
+  tagging_work: glamour
+  nature: setting

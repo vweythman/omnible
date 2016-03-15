@@ -58,6 +58,35 @@ rainfalls:
   type: Journal 
   is_complete: false
 
+# RECORD
+# ===================================
+do:
+  title: Dada
+  summary: I putting this together
+  uploader: indra
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: Record
+  is_complete: true
+
+re:
+  title: Recall
+  summary: what am I even doing
+  uploader: sirka
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: Record
+  is_complete: true
+
+mi:
+  title: Minute
+  summary: welcome to the drought
+  uploader: amiya
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+  type: Record 
+  is_complete: true
+
 # SHORT STORY
 # ===================================
 calypso: 

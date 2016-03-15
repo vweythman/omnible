@@ -30,6 +30,10 @@ module Documentable
 		self.name unless self.name.nil?
 	end
 
+	def tag_heading
+		heading
+	end
+
 	def nature
 		self.class.to_s
 	end

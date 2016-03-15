@@ -75,7 +75,8 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   scope module: 'works' do
 
-    resources :articles,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    resources :records,     :concerns => [:sortable]
+    resources :articles,    :concerns => [:sortable, :dateable, :paginatable]
     resources :journals,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
     resources :story_links, :concerns => [:sortable, :dateable, :completeable, :paginatable]
 
@@ -127,7 +128,7 @@ Rails.application.routes.draw do
 
     # NARROW short stories
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    resources :short_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
+    resources :short_stories, :concerns => [:sortable, :dateable, :paginatable] do
       resources :notes
     end
 
@@ -182,6 +183,7 @@ Rails.application.routes.draw do
 
   scope module: 'categories' do
     resources :creator_categories
+    resources :work_categories, only: [:index, :show]
     resources :facets
     post   'agentize/:describer_id/:creator_id' => "agentize#create",  as: :create_agent
     delete 'agentize/:describer_id/:creator_id' => "agentize#destroy", as: :destroy_agent

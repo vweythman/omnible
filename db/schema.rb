@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308222316) do
+ActiveRecord::Schema.define(version: 20160311232549) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -458,6 +458,16 @@ ActiveRecord::Schema.define(version: 20160308222316) do
 
   add_index "ratings", ["work_id"], name: "index_ratings_on_work_id"
 
+  create_table "record_metadata", force: :cascade do |t|
+    t.integer  "work_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "record_metadata", ["work_id"], name: "index_record_metadata_on_work_id"
+
   create_table "relators", force: :cascade do |t|
     t.string   "left_name",  limit: 255
     t.string   "right_name", limit: 255
@@ -625,6 +635,17 @@ ActiveRecord::Schema.define(version: 20160308222316) do
 
   add_index "work_bylinings", ["creator_id"], name: "index_work_bylinings_on_creator_id"
   add_index "work_bylinings", ["describer_id"], name: "index_work_bylinings_on_describer_id"
+
+  create_table "work_connections", force: :cascade do |t|
+    t.integer  "tagged_id"
+    t.integer  "tagger_id"
+    t.string   "nature"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "work_connections", ["tagged_id"], name: "index_work_connections_on_tagged_id"
+  add_index "work_connections", ["tagger_id"], name: "index_work_connections_on_tagger_id"
 
   create_table "works", force: :cascade do |t|
     t.string   "title",           limit: 255

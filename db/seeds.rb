@@ -5,103 +5,66 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-describers = 
-	WorksTypeDescriber.create(
-		[
-			{ 
-				name: 'BranchingStory',
-				is_narrative: true,
-				is_singleton: false,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: true
-			}
-		]
-	)
 
 =begin
 describers = 
 	WorksTypeDescriber.create(
 		[
-			{ 
-				name: 'Article',
-				is_narrative: false,
+			{
+				name: "Article",
+				content_type: "text",
 				is_singleton: true,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: false
-			}, 
-			{ 
-				name: 'Journal',
-				is_narrative: false,
-				is_singleton: false,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: false
-			}, 
+				is_record:    false,
+				status: "Nonfiction"
+			},
 			{
-				name: 'Story',
-				is_narrative: true,
+				name: "Journal",
+				content_type: "text",
+				is_record:    false,
 				is_singleton: false,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: true
-			}, 
+				status: "Nonfiction"
+			},
 			{
-				name: 'ShortStory',
-				is_narrative: true,
+				name: "ShortStory",
+				content_type: "text",
+				is_record:    false,
+				is_singleton: false,
+				status: "Fictional Narrative"
+			},
+			{
+				name: "Story",
+				content_type: "text",
+				is_record:    false,
 				is_singleton: true,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: true
-			}, 
+				status: "Fictional Narrative"
+			},
 			{
-				name: 'StoryLink',
-				is_narrative: true,
+				name: "StoryLink",
+				content_type: "text",
+				is_record:    true,
 				is_singleton: false,
-				content_type: 'text',
-				is_record: true,
-				is_creative_expression: true
-			}, 
+				status: "Fictional Narrative"
+			},
 			{
-				name: 'Poem',
-				is_narrative: false,
+				name: "Poem",
+				content_type: "text",
+				is_record:    false,
+				is_singleton: true,
+				status: "Creative Expression"
+			},
+			{
+				name: "BranchingStory,"
+				content_type: "text",
+				is_record:    false,
 				is_singleton: false,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: true
-			}, 
+				status: "Fictional Narrative"
+			},
 			{
-				name: 'Biography',
-				is_narrative: true,
-				is_singleton: false,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: false
-			}, 
-			{
-				name: 'Lyrics',
-				is_narrative: false,
+				name: "Record",
+				content_type: "data",
 				is_singleton: true,
-				content_type: 'text',
-				is_record: false,
-				is_creative_expression: true
-			}, 
-			{
-				name: 'Podcast',
-				is_narrative: false,
-				is_singleton: true,
-				content_type: 'audio',
-				is_record: false,
-				is_creative_expression: false
-			}, 
-			{
-				name: 'Song',
-				is_narrative: true,
-				is_singleton: true,
-				content_type: 'audio',
-				is_record: false,
-				is_creative_expression: true
+				is_record:    true,
+				status: "Nonfiction"
 			}
 		]
 	)

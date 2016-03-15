@@ -63,21 +63,27 @@ class WorkDecorator < Draper::Decorator
 	# GET
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def all_tags
-		@all_tags  ||= (self.tags + self.characters + self.places).sort_by! { |x| x[:name].downcase }
+		@all_tags  ||= (self.tags + self.characters + self.places + self.works).sort_by! { |x| x.heading.downcase }
 	end
 
 	def cohorted_characters
-		@cohorted_characters  ||= Appearance.organize(self.appearances)
+		@cohorted_characters ||= Appearance.organize(self.appearances)
+	end
+
+	def organized_works
+		@organized_works ||= WorkConnection.organize(self.tagged_connections)
 	end
 
 	def cohort_names_by(role)
 		character_group = cohorted_characters.with_indifferent_access[role]
 
-		if character_group.nil?
-			[]
-		else
-			character_group.map(&:name)
-		end
+		character_group.nil? ? [] : character_group.map(&:name)
+	end
+
+	def organized_work_titles_by(group)
+		grouped_works = organized_works.with_indifferent_access[group]
+
+		grouped_works.nil? ? [] : grouped_works.map(&:title)
 	end
 
 	def main_tags
@@ -86,10 +92,6 @@ class WorkDecorator < Draper::Decorator
 
 	# SET
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def cohort_heading_by(role)
-		(self.narrative? ? role + " Characters" : role + " (People)").titleize
-	end
-
 	def important_characters
 		@important_characters ||= work.narrative? ? self.main_characters : self.people_subjects
 	end

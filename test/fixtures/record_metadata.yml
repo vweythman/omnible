@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work: do
+  key: medium
+  value: Film
+
+two:
+  work: re
+  key: medium
+  value: Myth
+
+three:
+  work: mi
+  key: medium
+  value: Novel
