@@ -46,38 +46,36 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 	margin:     10px $one-twelfth;
 
 	p {
-		padding: 5px;
+		line-height: 1.5;
+		padding:     5px 15px;
+	}
+
+	.widget {
+		background: $page-color;
+		margin: 10px;
 	}
 }
+
 .info-body {
-	margin: 10px;
+	margin-bottom: 10px;
 }
-.info-grid {
-	background: $page-color;
+
+.relationship-widget {
+	padding-bottom: 10px;
 }
 
 // BODY :: HEADER
 // -----------------------------------------------
-h2 {
-	margin:      0;
-	padding:     3px 0;
-	padding-top: 6px;
-	font-weight: lighter;
-	font-size:   1.20em;
-
-	.panel-cell & {
-		padding:     4px;
-		padding-top: 10px;
-	}
-	.golden-minor & {
-		background: $moss-lighter-minor;
-		color:      $moss-darkest-minor;	
-	}
-	.golden-major &,
-	.solo & {
-		background: $water-light-minor;
-		color:      $water-darkest-minor;		
-	}
+caption,
+.subheading {
+	background:    $water-lightest-minor;
+	color:         $water-darkest-minor;
+	border-bottom: 2px solid $water-lighter-minor;	
+	font-family:   "Arial", sans-serif;
+	font-size:     1.25em;
+	font-weight:   600;
+	padding:       3px 5px;
+	padding-top:   10px;
 }
 
 // BODY :: CONTENT
@@ -90,7 +88,8 @@ canvas {
 }
 
 dl {
-	margin-bottom: 25px;
+	padding: 10px;
+	padding-bottom: 25px;
 }
 
 table {
@@ -99,22 +98,13 @@ table {
 	width:         100%;
 }
 
-caption {
-	background:    $water-lightest-minor;
-	color:         $water-darkest-minor;
-	border-bottom: 2px solid $water-lighter-minor;	
-	font-size:     1.25em;
-	padding:       3px 5px;
-	padding-top:   10px;
-}
-
 th {
 	padding: 5px;
 	vertical-align: top;
 
 	thead & {
 		border-bottom: 2px solid $fire-light-minor;
-		padding-top: 10px;
+		padding-top:   10px;
 	}
 }
 
@@ -133,20 +123,24 @@ td {
 }
 
 .detail {
-	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
+
 .details {
-	text-align: left;
+	padding: 0 5px 15px;
+	text-align:  left;
+	line-height: 1.5;
 }
 
 // BODY :: FOOTER
 // -----------------------------------------------
 .pagination li {
-	width: calc(33.33% - 10px);
 	margin: 0 5px;
+	width:  calc(33.33% - 10px);
+
 	@include mobile {
-		width:  calc(100% - 10px);
 		margin: 5px;
+		width:  calc(100% - 10px);
 	}
 }
 

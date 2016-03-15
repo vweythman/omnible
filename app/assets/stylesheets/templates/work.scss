@@ -10,42 +10,67 @@
 
 // SECTION :: HEADER
 // ===============================================
-.page-content > header {
-
-	h1 {
-		border-bottom: 7px solid $water-light-major;
-	}
-
-	.about {
-		color:        $page-lightest-minor;
-		margin:       0 $one-twelfth;
-		padding-left: 0;
-		a { color: $water-lightest-minor; }
-	}
-	.alteration {
-		margin:     0 $one-twelfth;
-		margin-top: 10px;
-		width:      $five-sixths;
-	}
-
-	.related-menu {
-		padding:    0 0 10px 0;
-		text-align: center;
-		a { color: $water-lightest-minor; }
-	}
-}
-
 h1 {
-	padding:       5px $one-twelfth;
-	padding-top:   35px;
+	padding:     5px $one-twelfth;
+	padding-top: 35px;
 }
+
+.work-header h1 {
+	border-bottom: 7px solid $water-dark-major;
+}
+
+.record-header h1 {
+	border-bottom: none;
+}
+
+.complete   {
+	background:    $water-darker-major;
+	border-bottom: 4px solid $water-dark-major;
+	border-right:  4px solid $water-dark-major;
+	color:         $water-light-minor;
+}
+
+.incomplete {
+	background:    $fire-darker-major;
+	border-bottom: 4px solid $fire-darker-minor;
+	border-right:  4px solid $fire-darker-minor;
+	color:         $fire-dark-minor;
+}
+
+.work-header .about {
+	color:        $page-lightest-minor;
+	margin:       0 $one-twelfth;
+	padding-left: 0;
+
+	a {
+		color: $water-lightest-minor;
+	}
+}
+
+.work-header .alteration {
+	margin:     0 $one-twelfth;
+	margin-top: 10px;
+	width:      $five-sixths;
+}
+
+.work-header .related-menu {
+	padding:    0 0 10px 0;
+	text-align: center;
+	a { color: $water-lightest-minor; }
+}
+
 .ratings span {
 	margin:        5px 0;
-	background:    $page-color;
+	color:         $page-color;
 	border-radius: 10px;
-    font-size: .85em;
+    font-size:     .85em;
 }
 
+.level0 { background: $rating-lowest;  }
+.level1 { background: $rating-low;     }
+.level2 { background: $rating-mid;     }
+.level3 { background: $rating-high;    }
+.level4 { background: $rating-highest; }
 
 // SECTION :: BODY
 // ===============================================
@@ -75,6 +100,28 @@ article {
 	p { line-height: 1.5; }
 }
 
+.record-info {
+	padding: 10px;
+	margin:  15px $one-twelfth;
+
+	.characters li {
+		color: $fire-dark-minor;
+	}
+
+	.places li {
+		color: $moss-dark-minor;
+	}
+
+	.indexable li {
+		padding: 5px 25px;
+	}
+	.indexable li::before {
+		font-size:   16px;
+		margin-left: -20px;
+		padding:     0 5px;
+	}
+}
+
 h2 {
 	font-size: $heading-size - 5px;
 	margin:    0;
@@ -92,9 +139,14 @@ hr {
 	margin: 20px auto;
 	width:  100%;
 }
+.summary-cell {
+	background: $fire-lighter-minor;
 
-// SECTION :: BODY
-// ===============================================
+	h2, p {
+		padding: 0 10px;
+	}
+}
+
 .pagination {
 	margin: 20px 0;
 }
