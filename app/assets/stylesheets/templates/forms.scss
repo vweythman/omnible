@@ -25,10 +25,11 @@ $content-shadow: 0px 0px 10px $page-darker-minor;
 @include desktop {
 	.logged-in {
 		color: $page-darkest-minor;
+		background: $fire-light-major;
 	}
 }
 
-// VIEWPORT :: ALL
+// SECTION :: HEADER
 // ===============================================
 h1 {
 	border-bottom: 5px solid $fire-color;
@@ -39,6 +40,9 @@ h1 {
 		color: $fire-extreme-light;
 	}
 }
+
+// SECTION :: BODY
+// ===============================================
 .nested > legend {
 	background:   $fire-lighter-minor;
 	border-color: $fire-light-major;
@@ -49,12 +53,13 @@ h1 {
 .submit-field input {
 	@include submission-look($fire-light-minor, $fire-darkest-minor);
 }
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.user a {
-		background: $fire-light-major;
+.clarify {
+	font-weight: bolder;
+	ul {
+		padding: 10px 0 15px;
+	}
+	li {
+		padding: 2px 25px;
 	}
 }
 
