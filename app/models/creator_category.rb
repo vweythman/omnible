@@ -62,10 +62,12 @@ class CreatorCategory < ActiveRecord::Base
 	private
 
 	def agentize
-		types  = WorksTypeDescriber.among(@work_types)
+		unless work_types.nil?
+			types  = WorksTypeDescriber.among(@work_types)
 
-		describers.delete(describers - types)
-		describers << (types - describers)
+			describers.delete(describers - types)
+			describers << (types - describers)
+		end
 	end
 
 end

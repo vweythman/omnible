@@ -17,34 +17,43 @@
 class Appearance < ActiveRecord::Base
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	extend Organizable
 
 	# VALIDATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	validates_uniqueness_of :character_id, :scope => :work_id
 
 	# SCOPES
+	# ============================================================
+	# SELECT
 	# ------------------------------------------------------------
-	scope :are_among_for, ->(work, cids) { where("work_id = ? AND character_id IN (?)", work.id, cids)}
-	scope :not_among_for, ->(work, cids) { where("work_id = ? AND character_id NOT IN (?)", work.id, cids)}
-	scope :main,      -> { where(role: "main") }
-	scope :side,      -> { where(role: "side") }
-	scope :mentioned, -> { where(role: "mentioned") }
-	scope :subject,   -> { where(role: "subject") }
+	scope :are_among_for, ->(work, cids) { where("work_id = ? AND character_id IN (?)",     work.id, cids) }
+	scope :not_among_for, ->(work, cids) { where("work_id = ? AND character_id NOT IN (?)", work.id, cids) }
+
+	# SUBTYPES
+	# ------------------------------------------------------------
+	scope :main_character, -> { where(role: "main")      }
+	scope :side,           -> { where(role: "side")      }
+	scope :mentioned,      -> { where(role: "mentioned") }
+	scope :subject,        -> { where(role: "subject")   }
 
 	# ASSOCIATIONS
+	# ============================================================
+	# BELONGS TO
 	# ------------------------------------------------------------
 	belongs_to :character
 	belongs_to :work
 
-	belongs_to :main_character,      -> { Appearance.main },      class_name: "Character", foreign_key: "character_id"
-	belongs_to :side_character,      -> { Appearance.side },      class_name: "Character", foreign_key: "character_id"
-	belongs_to :mentioned_character, -> { Appearance.mentioned }, class_name: "Character", foreign_key: "character_id"
-	belongs_to :people_subject,      -> { Appearance.subject },   class_name: "Character", foreign_key: "character_id"
+	# SUBTYPES
+	# ------------------------------------------------------------
+	belongs_to :main_character,      -> { Appearance.main_character }, class_name: "Character", foreign_key: "character_id"
+	belongs_to :side_character,      -> { Appearance.side },           class_name: "Character", foreign_key: "character_id"
+	belongs_to :mentioned_character, -> { Appearance.mentioned },      class_name: "Character", foreign_key: "character_id"
+	belongs_to :people_subject,      -> { Appearance.subject },        class_name: "Character", foreign_key: "character_id"
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# Roles - defines and collects the types of appearances
 	def self.roles(work)
 		self.roles_by_type(work.narrative?)
@@ -52,9 +61,37 @@ class Appearance < ActiveRecord::Base
 
 	def self.roles_by_type(is_narrative)
 		if is_narrative
-			['main', 'side', 'mentioned']
+			narrative_labels
 		else
-			['subject']
+			nonfiction_labels
+		end
+	end
+
+	def self.narrative_labels
+		['main', 'side', 'mentioned']
+	end
+
+	def self.nonfiction_labels
+		['subject']
+	end
+
+	def self.tag_labels(work)
+		if work.narrative?
+			labels = narrative_labels
+			labels.map { |label|
+				{
+					:label   => label,
+					:heading => "#{label.titleize} Characters"
+				}
+			}
+		else
+			labels = nonfiction_labels
+			labels.map { |label|
+				{
+					:label   => label,
+					:heading => "#{label.titleize} (People)"
+				}
+			}
 		end
 	end
 
@@ -84,7 +121,7 @@ class Appearance < ActiveRecord::Base
 	end
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# Type - defines the type name if it exists
 	def nature
 		self.role

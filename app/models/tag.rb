@@ -24,6 +24,7 @@ class Tag < ActiveRecord::Base
 	extend FriendlyId
 	include EditableTag
 	include Taggable
+	include AsNameableTag
 	
 	# SCOPES
 	# ------------------------------------------------------------
@@ -48,19 +49,18 @@ class Tag < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	def self.batch_by_name(str)
-		self.transaction do
-			str.split(";").map do |name|
-				name.strip!
-				tag = Tag.where(name: name).first_or_create
-			end
-		end
+	def tag_creation(name, uploader = nil)
+		tag = Tag.where(name: name).first_or_create
 	end
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
 	def heading
+		name
+	end
+
+	def tag_heading
 		name
 	end
 

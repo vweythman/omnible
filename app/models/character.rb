@@ -36,12 +36,14 @@ class Character < ActiveRecord::Base
 	include Editable
 	include Documentable
 	include Replicant
+	include AsNameableTag
 
 	# SCOPES
 	# ============================================================
 	# - General
-	scope :are_among, ->(character_names) { where("name IN (?)", character_names) }
-	scope :not_among, ->(character_names) { where("name NOT IN (?)", character_names) }
+	scope :alphabetical, -> { order("lower(characters.name) asc") }
+	scope :are_among,    ->(character_names) { where("name IN (?)", character_names) }
+	scope :not_among,    ->(character_names) { where("name NOT IN (?)", character_names) }
 
 	# - Specific Through Associations
 	scope :not_pen_name,   -> { where('characters.id NOT IN (?)', Pseudonyming.pen_namings.pluck(:character_id)) }
@@ -61,10 +63,10 @@ class Character < ActiveRecord::Base
 	has_many :memberships,  dependent: :destroy
 	has_many :possessions,  dependent: :destroy
 
-	has_many :main_appearances,    -> { Appearance.main }
-	has_many :mentions,            -> { Appearance.mentioned }
-	has_many :side_appearances,    -> { Appearance.side }
-	has_many :subject_appearances, -> { Appearance.subject }
+	has_many :main_appearances,    -> { Appearance.main_character }, class_name: "Appearance"
+	has_many :mentions,            -> { Appearance.mentioned },      class_name: "Appearance"
+	has_many :side_appearances,    -> { Appearance.side },           class_name: "Appearance"
+	has_many :subject_appearances, -> { Appearance.subject },        class_name: "Appearance"
 
 	has_many :reputations,            class_name: "Opinion",         dependent: :destroy, foreign_key: "recip_id"
 	has_many :left_interconnections,  class_name: "Interconnection", dependent: :destroy, foreign_key: "left_id"
@@ -81,10 +83,10 @@ class Character < ActiveRecord::Base
 	has_many :groups,     through: :memberships
 	has_many :works,      through: :appearances
 
-	has_many :main_in,      through: :main_appearances
-	has_many :mentioned_in, through: :mentions
-	has_many :side_in,      through: :side_appearances
-	has_many :subject_in,   through: :subject_appearances
+	has_many :main_in,      through: :main_appearances,    source: :work
+	has_many :mentioned_in, through: :mentions,            source: :work
+	has_many :side_in,      through: :side_appearances,    source: :work
+	has_many :subject_in,   through: :subject_appearances, source: :work
 
 	# - Has
 	has_many :details, dependent: :destroy, class_name: "CharacterInfo"
@@ -124,29 +126,8 @@ class Character < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ============================================================
-	def self.batch_by_name(names, uploader)
-		Character.transaction do 
-			names.split(";").map { |name| 
-				name.strip!
-				character = Character.where(name: name).first_or_create
-				character.uploader_id ||= uploader.id
-				character.save
-				character
-			}
-		end
-	end
-
-	def self.batch_each_person(names, uploader)
-		Character.transaction do 
-			names.split(";").map { |name| 
-				name.strip!
-				character = Character.where(name: name).first_or_create
-				character.uploader_id  ||= uploader.id
-				character.is_fictional ||= false
-				character.save
-				character
-			}
-		end
+	def self.create_person(name, uploader)
+		Character.create(name: name, is_fictional: false, uploader_id: uploader.id)
 	end
 
 	# ATTRIBUTES

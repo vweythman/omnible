@@ -24,6 +24,7 @@ class Place < ActiveRecord::Base
 	include Documentable
 	include Editable
 	extend  Organizable
+	include AsNameableTag
 
 	# CALLBACKS
 	# ------------------------------------------------------------
@@ -36,6 +37,7 @@ class Place < ActiveRecord::Base
 	scope :order_by_form, -> { includes(:form).order('forms.name, places.name') }
 	scope :actual,        -> { where("fictional = 'f'") }
 	scope :fictitious,    -> { where("fictional = 't'") }
+	scope :alphabetical,  -> { order("lower(places.name) asc") }
 
 	scope :not_among,  ->(place_ids) { where("id NOT IN (?)", place_ids) }
 
@@ -67,23 +69,6 @@ class Place < ActiveRecord::Base
 	# - creates an list of all identities organized by form
 	def self.organized_all(list = Place.order(:name).includes(:form))
 		Place.organize(list)
-	end
-
-	def self.batch_by_name(str, user)
-		names = str.split(";")
-		list  = Array.new
-
-		self.transaction do
-			names.each do |name|
-				name.strip!
-				place = Place.where(name: name).first_or_create
-				place.uploader_id ||= user.id
-				place.save
-				list << place
-			end
-		end
-
-		return list
 	end
 
 	# ATTRIBUTES

@@ -26,18 +26,18 @@ class Work < ActiveRecord::Base
 	# ============================================================
 	validates :title, length: { maximum: 250 }, presence: true
 
+	# CALLBACKS
+	# ============================================================
+	before_validation :set_default, on: [:update, :create]
+
 	# MODULES
 	# ============================================================
 	include Discussable
 	include Editable
 	include Summarizable
 	include Titleizeable
-
-	# CALLBACKS
-	# ============================================================
-	before_validation :set_default,     on: [:update, :create]
-	before_validation :update_tags,     on: [:update, :create]
-	after_save        :update_creators, on: [:update, :create]
+	include AsTitleableTag
+	include Recordable
 
 	# SCOPES
 	# ============================================================
@@ -81,53 +81,25 @@ class Work < ActiveRecord::Base
 	# JOINS
 	# ------------------------------------------------------------
 	has_many :collections,  dependent: :destroy
-	has_many :appearances,  dependent: :destroy
 	has_many :respondences, dependent: :destroy, foreign_key: "response_id"
-	has_many :taggings,     dependent: :destroy
-	has_many :settings,     dependent: :destroy
-	has_many :creatorships, dependent: :destroy
 	has_one  :skinning,     dependent: :destroy
 
 	# BELONGS TO
 	# ------------------------------------------------------------
-	has_many :anthologies,   :through => :collections
-	has_many :callers,       :through => :respondences
-	belongs_to :type_describer, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
+	has_many :anthologies, through: :collections
+	has_many :callers,     through: :respondences
 
 	# HAS
 	# ------------------------------------------------------------
-	has_many :creators, :through    => :creatorships, source: :user
-	has_one  :rating,   :inverse_of => :work
-	has_one  :skin,     :through    => :skinning, :inverse_of => :works
-	has_many :sources,  :dependent  => :destroy,  as: :referencer
-
-	has_many :characters, ->{uniq}, :through => :appearances
-	has_many :places,     ->{uniq}, :through => :settings
-	has_many :tags,       ->{uniq}, :through => :taggings
-
-	has_many :main_characters,      :through => :appearances
-	has_many :side_characters,      :through => :appearances
-	has_many :mentioned_characters, :through => :appearances
-	has_many :people_subjects,      :through => :appearances
+	has_one  :rating,  :inverse_of => :work
+	has_one  :skin,    :through    => :skinning, :inverse_of => :works
+	has_many :sources, :dependent  => :destroy,  as: :referencer
 	
-	# REFERENCES
-	# ------------------------------------------------------------
-	has_many :identities, ->{uniq}, :through => :characters
-	has_many :creator_categories,   :through => :type_describer
-
 	# NESTED ATTRIBUTION
 	# ============================================================
-	accepts_nested_attributes_for :appearances, :allow_destroy => true
-	accepts_nested_attributes_for :settings,    :allow_destroy => true
 	accepts_nested_attributes_for :rating,      :allow_destroy => true
 	accepts_nested_attributes_for :skinning,    :allow_destroy => true
 	accepts_nested_attributes_for :sources,     :allow_destroy => true
-
-	# DELEGATED METHODS
-	# ============================================================
-	delegate :narrative?,   to: :type_describer
-	delegate :is_singleton, to: :type_describer
-	delegate :record?,      to: :type_describer
 
 	# CLASS METHODS
 	# ============================================================
@@ -217,30 +189,6 @@ class Work < ActiveRecord::Base
 		end
 	end
 
-	# ATTRIBUTES
-	# ============================================================
-	attr_accessor :visitor, :appearables, :placeables, :taggables, :uploadership
-
-	def appearables
-		@appearables ||= { :main => "", :side => "", :mentioned => "", :subject => "" }
-	end
-
-	def placeables
-		@placeables ||= ""
-	end
-
-	def taggables
-		@taggables ||= ""
-	end
-
-	def uploadership
-		@uploadership ||= { :category => nil, :pen_name => nil }
-	end
-
-	def visitor
-		@visitor ||= nil
-	end
-
 	# PUBLIC METHODS
 	# ============================================================
 	# GETTERS
@@ -248,54 +196,19 @@ class Work < ActiveRecord::Base
 	def heading
 		title
 	end
+
 	def nature
 		self.class.to_s
-	end
-
-	def organized_characters
-		@organized_characters ||= Appearance.organize(self.appearances.includes(:character))
 	end
 
 	def rated
 		self.rating.heading
 	end
 
-	def place_names
-		self.places.map(&:name)
-	end
-
-	def tag_names
-		self.tags.map(&:name)
-	end
-
 	# ACTIONS
 	# ------------------------------------------------------------
-	def init_characters
-		lst = Appearance.init_hash(self)
-		appearances = self.appearances.joins(:character)
-		appearances.each do |character|
-			lst[character.role] ||= Array.new
-			lst[character.role] << character.name
-		end
-		return lst
-	end
-
 	def rate(v, s, l)
 		Rating.create(work_id: self.id, violence: v, sexuality: s, language: l)
-	end
-
-	def creatorize(catid, nameid)
-		Creatorship.create(creator_category_id: catid, creator_id: nameid, work_id: self.id)
-	end
-
-	def editor_creatorize(catid, nameid, editor)
-		editor_pen = self.creatorships.are_among_for(editor.all_pens.pluck(:id)).first
-
-		if editor_pen.nil?
-			creatorize(catid, nameid)
-		elsif nameid != editor_pen.id
-			editor_pen.update(creator_category_id: catid, creator_id: nameid)
-		end
 	end
 
 	# QUESTIONS
@@ -305,61 +218,20 @@ class Work < ActiveRecord::Base
 		self.is_complete == 't' || self.is_complete == true
 	end
 
+	# DELEGATED METHODS
+	# ============================================================
+	delegate :narrative?,   to: :type_describer
+	delegate :is_singleton, to: :type_describer
+	delegate :record?,      to: :type_describer
+
 	# PRIVATE METHODS
 	# ============================================================
+	# ============================================================
 	private
-
-	def update_creators
-		up_cat_id = uploadership[:category]
-		up_nam_id = uploadership[:pen_name]
-
-		unless up_cat_id.nil?
-			editor_creatorize(up_cat_id, up_nam_id, visitor)
-		end
-	end
-
 	def set_default
-		self.type ||= "Story"
+		self.type            ||= "Record"
 		self.editor_level    ||= Editable::PERSONAL
 		self.publicity_level ||= Editable::PUBLIC
-	end
-
-	# GENERAL TAGS
-	# ------------------------------------------------------------
-	def update_tags
-		organize_tags(self.places, Place.batch_by_name(placeables, visitor))
-		organize_tags(self.tags, Tag.batch_by_name(taggables))
-
-		if self.narrative?
-			find_main_characters appearables[:main]
-			find_side_characters appearables[:side]
-			find_mentioned_characters appearables[:mentioned]
-		else
-			find_people_subjects appearables[:subject]
-		end
-	end
-
-	def organize_tags(old_tags, new_tags)
-		old_tags.delete(old_tags - new_tags)
-		old_tags <<    (new_tags - old_tags)
-	end
-
-	# CHARACTER TAGS
-	# ------------------------------------------------------------
-	def find_main_characters(names)
-		organize_tags(self.main_characters, Character.batch_by_name(names, visitor))
-	end
-
-	def find_mentioned_characters(names)
-		organize_tags(self.mentioned_characters, Character.batch_by_name(names, visitor))
-	end
-
-	def find_side_characters(names)
-		organize_tags(self.side_characters, Character.batch_by_name(names, visitor))
-	end
-
-	def find_people_subjects(names)
-		organize_tags(self.people_subjects, Character.batch_by_name(names, visitor))
 	end
 
 end
