@@ -105,7 +105,7 @@ module ApplicationHelper
 
 	# OUTPUT comma separated links
 	def cslinks(links)
-		r = links.map {|i| link_to i.name, i }
+		r = links.map {|i| link_to i.heading, i }
 		r.join(", ").html_safe
 	end
 
