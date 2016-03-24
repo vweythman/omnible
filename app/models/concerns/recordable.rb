@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Recordable
 	extend ActiveSupport::Concern
 
+
 	# INCLUSION
 	# ============================================================
 	included do
@@ -14,7 +15,7 @@ module Recordable
 		# SCOPES
 		# ------------------------------------------------------------
 		scope :seek_with_creator, ->(creator_name) { joins(:creators).where("characters.name IN (?)", creator_name) }
-		scope :seek_with_type,    ->(type_name) { includes(:metadata).where("((key = 'medium' AND value = ?) OR type = ?)", type_name, type_name.split(' ').collect(&:capitalize).join).references(:metadata)}
+		scope :seek_with_type,    ->(type_name)    { joins('LEFT OUTER JOIN "record_metadata" ON "record_metadata"."work_id" = "works"."id"').where("((key = 'medium' AND value = ?) OR type = ?)", type_name, type_name.split(' ').collect(&:capitalize).join) }
 
 		# ASSOCIATIONS
 		# ------------------------------------------------------------
@@ -28,17 +29,24 @@ module Recordable
 		has_many :tagged_connections,  class_name: "WorkConnection", dependent: :destroy, foreign_key: "tagger_id"
 		has_many :tagging_connections, class_name: "WorkConnection", dependent: :destroy, foreign_key: "tagged_id"
 
-		has_many :general_tagging_connections,   -> { WorkConnection.general   },  class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :set_in_tagging_connections,    -> { WorkConnection.set_in    },  class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :cast_from_tagging_connections, -> { WorkConnection.cast_from },  class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :mentioned_tagging_connections, -> { WorkConnection.mentioned },  class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :subject_tagging_connections,   -> { WorkConnection.subject   },  class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :main_appearances,      -> { Appearance.main_character }, class_name: "Appearance"
+		has_many :side_appearances,      -> { Appearance.side },           class_name: "Appearance"
+		has_many :mentioned_appearances, -> { Appearance.mentioned },      class_name: "Appearance"
+		has_many :subject_appearances,   -> { Appearance.subject },        class_name: "Appearance"
 
-		has_many :general_tagged_connections,   -> { WorkConnection.general   },  class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :set_in_tagged_connections,    -> { WorkConnection.set_in    },  class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :cast_from_tagged_connections, -> { WorkConnection.cast_from },  class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :mentioned_tagged_connections, -> { WorkConnection.mentioned },  class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :subject_tagged_connections,   -> { WorkConnection.subject   },  class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :general_tagging_connections,   -> { WorkConnection.general    }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :set_in_tagging_connections,    -> { WorkConnection.set_in     }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :cast_from_tagging_connections, -> { WorkConnection.cast_from  }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :mentioned_tagging_connections, -> { WorkConnection.mentioned  }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :subject_tagging_connections,   -> { WorkConnection.subject    }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :reference_tagging_connections, -> { WorkConnection.referenced }, class_name: "WorkConnection", foreign_key: "tagged_id"
+
+		has_many :general_tagged_connections,   -> { WorkConnection.general    }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :set_in_tagged_connections,    -> { WorkConnection.set_in     }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :cast_from_tagged_connections, -> { WorkConnection.cast_from  }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :mentioned_tagged_connections, -> { WorkConnection.mentioned  }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :subject_tagged_connections,   -> { WorkConnection.subject    }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :reference_tagged_connections, -> { WorkConnection.referenced }, class_name: "WorkConnection", foreign_key: "tagger_id"
 
 		# BELONGS TO
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,30 +55,35 @@ module Recordable
 
 		# HAS
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		has_many :metadata, foreign_key: "work_id", class_name: "RecordMetadatum"
+		has_many :metadata, foreign_key: "work_id", class_name: "RecordMetadatum", dependent: :destroy
 		has_many :creators, :through => :creatorships
 
 		has_many :characters, ->{uniq}, :through => :appearances
-		has_many :places,     ->{uniq}, :through => :settings
-		has_many :tags,       ->{uniq}, :through => :taggings
 		has_many :works,      ->{uniq}, :through => :tagged_connections
 
-		has_many :main_characters,      :through => :appearances
-		has_many :side_characters,      :through => :appearances
-		has_many :mentioned_characters, :through => :appearances
-		has_many :people_subjects,      :through => :appearances
+		has_many :places,     ->{uniq}, :through => :settings, extend: TagWithUploadable
+		has_many :tags,       ->{uniq}, :through => :taggings, extend: TagWithUploadable
 
-		has_many :general_works,        :through => :general_tagged_connections
-		has_many :set_in_works,         :through => :set_in_tagged_connections
-		has_many :cast_from_works,      :through => :cast_from_tagged_connections
-		has_many :mentioned_works,      :through => :mentioned_tagged_connections
-		has_many :work_subjects,        :through => :subject_tagged_connections
+		has_many :main_characters,      :through => :main_appearances,      extend: TagWithUploadable
+		has_many :side_characters,      :through => :side_appearances,      extend: TagWithUploadable
+		has_many :mentioned_characters, :through => :mentioned_appearances, extend: TagWithUploadable
+		has_many :people_subjects,      :through => :subject_appearances,   extend: TagWithUploadable
 
-		has_many :general_in, through: :general_tagging_connections,   source: :tagging_work
-		has_many :setting_of, through: :set_in_tagging_connections,    source: :tagging_work
-		has_many :cast_for,   through: :cast_from_tagging_connections, source: :tagging_work
-		has_many :mentioner,  through: :mentioned_tagging_connections, source: :tagging_work
-		has_many :subject_of, through: :subject_tagged_connections,    source: :tagging_work
+		has_many :general_works,   :through => :general_tagged_connections,   extend: TagWithWork
+		has_many :set_in_works,    :through => :set_in_tagged_connections,    extend: TagWithWork
+		has_many :cast_from_works, :through => :cast_from_tagged_connections, extend: TagWithWork
+		has_many :mentioned_works, :through => :mentioned_tagged_connections, extend: TagWithWork
+
+		has_many :work_subjects,   :through => :subject_tagged_connections,   extend: TagWithWork
+		has_many :work_references, :through => :reference_tagged_connections, extend: TagWithWork
+
+		has_many :general_in,    through: :general_tagging_connections,   source: :tagging_work
+		has_many :setting_of,    through: :set_in_tagging_connections,    source: :tagging_work
+		has_many :cast_for,      through: :cast_from_tagging_connections, source: :tagging_work
+		has_many :mentioner,     through: :mentioned_tagging_connections, source: :tagging_work
+
+		has_many :subject_of,    through: :subject_tagging_connections,   source: :tagging_work
+		has_many :reference_for, through: :reference_tagging_connections, source: :tagging_work
 
 		# REFERENCES
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -91,7 +104,7 @@ module Recordable
 	end
 
 	def relateables
-		@relateables ||= {:main => "", :mentioned => "", :subject => "", :setting => "", :characters => ""}
+		@relateables  ||= {:general => "", :mentioned => "", :subject => "", :setting => "", :characters => "", :reference => ""}
 	end
 
 	def taggables
@@ -128,6 +141,10 @@ module Recordable
 
 	def categorized_type
 		self.type.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').titleize
+	end
+
+	def tag_heading
+		title + " [#{categorized_type}]"
 	end
 
 	# ACTIONS
@@ -179,13 +196,14 @@ module Recordable
 			find_side_characters      appearables[:side]
 			find_mentioned_characters appearables[:mentioned]
 
-			find_main_works      relateables[:main]
+			find_general_works   relateables[:general]
 			find_set_in_works    relateables[:setting]
 			find_cast_from_works relateables[:characters]
 			find_mentioned_works relateables[:mentioned]
 		else
 			find_people_subjects appearables[:subject]
 			find_work_subjects   relateables[:subject]
+			find_work_subjects   relateables[:reference]
 		end
 	end
 
@@ -236,7 +254,7 @@ module Recordable
 
 	# Work TAGS
 	# ------------------------------------------------------------
-	def find_main_works(titles)
+	def find_general_works(titles)
 		old_tags     = self.general_works
 		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
 		organize_tags(old_tags, current_tags)
@@ -262,6 +280,12 @@ module Recordable
 
 	def find_work_subjects(titles)
 		old_tags     = self.work_subjects
+		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
+		organize_tags(old_tags, current_tags)
+	end
+
+	def find_work_references(titles)
+		old_tags     = self.work_references
 		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
 		organize_tags(old_tags, current_tags)
 	end
