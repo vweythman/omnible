@@ -28,11 +28,12 @@ class WorkConnection < ActiveRecord::Base
 	# ============================================================
 	# SUBTYPES
 	# ------------------------------------------------------------
-	scope :general,    -> { where(nature: "general") }
+	scope :general,    -> { where(nature: "general")    }
 	scope :set_in,     -> { where(nature: "setting")    }
 	scope :cast_from,  -> { where(nature: "characters") }
 	scope :mentioned,  -> { where(nature: "mentioned")  }
 	scope :subject,    -> { where(nature: "subject")    }
+	scope :referenced, -> { where(nature: "reference")  }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -43,28 +44,29 @@ class WorkConnection < ActiveRecord::Base
 
 	# SUBTYPES
 	# ------------------------------------------------------------
-	belongs_to :general_work,   -> { WorkConnection.general   },  class_name: "Work", foreign_key: "tagged_id"
-	belongs_to :set_in_work,    -> { WorkConnection.set_in    },  class_name: "Work", foreign_key: "tagged_id"
-	belongs_to :cast_from_work, -> { WorkConnection.cast_from },  class_name: "Work", foreign_key: "tagged_id"
-	belongs_to :mentioned_work, -> { WorkConnection.mentioned },  class_name: "Work", foreign_key: "tagged_id"
-	belongs_to :work_subject,   -> { WorkConnection.subject   },  class_name: "Work", foreign_key: "tagged_id"
+	belongs_to :general_work,   -> { WorkConnection.general    }, class_name: "Work", foreign_key: "tagged_id"
+	belongs_to :set_in_work,    -> { WorkConnection.set_in     }, class_name: "Work", foreign_key: "tagged_id"
+	belongs_to :cast_from_work, -> { WorkConnection.cast_from  }, class_name: "Work", foreign_key: "tagged_id"
+	belongs_to :mentioned_work, -> { WorkConnection.mentioned  }, class_name: "Work", foreign_key: "tagged_id"
+	belongs_to :work_subject,   -> { WorkConnection.subject    }, class_name: "Work", foreign_key: "tagged_id"
+	belongs_to :work_reference, -> { WorkConnection.referenced }, class_name: "Work", foreign_key: "tagged_id"
 
 	# CLASS METHODS
 	# ============================================================
 	def self.labels(is_narrative)
 		if is_narrative
-			['main', 'setting', 'characters', 'mentioned']
+			narrative_labels
 		else
-			['subject']
+			nonfiction_labels
 		end
 	end
 
 	def self.narrative_labels
-		['main', 'setting', 'characters', 'mentioned']
+		['general', 'setting', 'characters', 'mentioned']
 	end
 
 	def self.nonfiction_labels
-		['subject']
+		['subject', 'reference']
 	end
 
 	def self.tag_labels(work)
