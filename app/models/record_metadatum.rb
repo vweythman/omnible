@@ -17,6 +17,8 @@
 
 class RecordMetadatum < ActiveRecord::Base
 
+	validates_uniqueness_of :key, :scope => :work_id
+
 	# SCOPES
 	# ============================================================
 	scope :mediums, -> { where(key: "medium") }
