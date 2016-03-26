@@ -61,7 +61,10 @@ module Works
 
       assert_difference('Work.count') do
         post :create, story_link: {
-          title: @viperfish.title
+          title: @viperfish.title,
+          sources_attributes: [
+            {reference: "http://www.example.com"}
+          ]
         }
       end
 
@@ -90,4 +93,5 @@ module Works
     end
 
   end
+
 end
