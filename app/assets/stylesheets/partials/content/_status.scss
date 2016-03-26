@@ -2,30 +2,74 @@
 // ***********************************************
 // STYLES :: COMPLETION
 // ===============================================
+.completion-status {
+	float:      left;
+	text-align: right;
+	width:      calc(100% / 6 - 20px);
+
+	.show-page & {
+		background:    none;
+		border-bottom: 2px solid $water-dark-major;
+		border-right:  2px solid $water-dark-major;
+		border-left:   none;
+	}
+}
+
 .complete   {
-	background:    $water-lighter-minor;
-	border-bottom: 4px solid $water-light-major;
-	border-right:  4px solid $water-light-major;
+	background:    $water-lightest-minor;
+	border-bottom: 3px solid $page-lighter-minor;
+	border-right:  3px solid $page-lighter-minor;
+	border-left:   3px solid $page-lighter-minor;
 	color:         $water-darker-minor;
+
+	.show-page & { color: $water-light-minor; }
 }
 
 .incomplete {
 	background:    $fire-lightest-minor;
-	border-bottom: 4px solid $fire-light-major;
-	border-right:  4px solid $fire-light-major;
+	border-bottom: 3px solid $page-lighter-minor;
+	border-right:  3px solid $page-lighter-minor;
+	border-left:   3px solid $page-lighter-minor;
 	color:         $fire-dark-minor;
+
+	.show-page & { color: $fire-dark-minor; }
+}
+
+.hiatus {
+	background:    $page-lightest-major;
+	border-bottom: 3px solid $page-lighter-minor;
+	border-right:  3px solid $page-lighter-minor;
+	border-left:   3px solid $page-lighter-minor;
+	color:         $page-dark-minor;
+
+	.show-page & { color: $fire-lightest-minor; }
+}
+
+.upcoming {
+	background:    $moss-lightest-minor;
+	border-bottom: 3px solid $moss-lighter-minor;
+	border-right:  3px solid $moss-lighter-minor;
+	border-left:   3px solid $moss-lighter-minor;
+	color:         $moss-dark-minor;
+}
+
+.abandoned {
+	background:    $rating-lowest;
+	border-bottom: 3px solid $page-lighter-minor;
+	border-right:  3px solid $page-lighter-minor;
+	border-left:   3px solid $page-lighter-minor;
+	color:         $page-lightest-minor;
+
+	.show-page & {
+		background: $page-darkest-minor;
+		color:      $rating-lowest;
+	}
 }
 
 .status {
 	font-weight: bolder;
 	min-width:   100px;
 	padding:     5px 10px;
-}
-
-.completion-status {
-	float:      left;
-	text-align: right;
-	width:      calc(100% / 6 - 20px);
 }
 
 // STYLES :: BOOLEAN
