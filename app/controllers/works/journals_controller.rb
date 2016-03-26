@@ -29,15 +29,7 @@ class Works::JournalsController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:journal).permit(
-			:title,        :summary,    :taggables,
-			:editor_level, :placeables, :publicity_level,
-
-			appearables:         [:subject],
-			relateables:         [:subject],
-			uploadership:        [:category, :pen_name],
-			skinning_attributes: [:id,       :skin_id, :_destroy]
-		)
+		base_work_params(:journal)
 	end
 
 end

@@ -56,17 +56,9 @@ class Works::BranchingStoriesController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:branching_story).permit(
-			:title,        :summary,         :visitor,
-			:editor_level, :publicity_level, :placeables,   :taggables,
-
-			uploadership:          [:category, :pen_name],
-			appearables:           [:main,     :side,     :mentioned],
-			skinning_attributes:   [:id,       :skin_id,  :_destroy],
-			rating_attributes:     [:id,       :violence, :sexuality, :language],
-			relateables:           [:main,     :setting,  :mentioned, :characters],
-			branches_attributes:   [:id, :title, :content]
-		)
+		based_permitted = base_work_params(:branching_story)
+		story_permitted = params.require(:branching_story).permit(branches_attributes: [:id, :title, :content])
+		based_permitted.merge story_permitted
 	end
 
 end

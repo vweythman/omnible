@@ -8,16 +8,8 @@ class Works::ShortStoriesController < WorksController
 	# ------------------------------------------------------------
 	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:short_story).permit(
-			:title,        :story_content,   :summary,
-			:editor_level, :publicity_level, :placeables,   :taggables,
-
-			uploadership:        [:category, :pen_name],
-			appearables:         [:main,     :side,     :mentioned],
-			skinning_attributes: [:id,       :skin_id,  :_destroy],
-			rating_attributes:   [:id,       :violence, :sexuality, :language],
-			relateables:         [:main,     :setting,  :mentioned, :characters],
-		)
+		based_permitted = base_work_params(:short_story)
+		based_permitted.merge(:story_content => params[:short_story][:story_content])
 	end
 
 	# FIND

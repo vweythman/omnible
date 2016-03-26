@@ -43,17 +43,9 @@ class Works::StoriesController < WorksController
 
 	# define strong parameters
 	def work_params
-		params.require(:story).permit(
-			:title,        :summary,         :visitor,
-			:editor_level, :publicity_level, :placeables,   :taggables,
-
-			uploadership:        [:category, :pen_name],
-			skinning_attributes: [:id,       :skin_id,  :_destroy],
-			appearables:         [:main,     :side,     :mentioned],
-			rating_attributes:   [:id,       :violence, :sexuality, :language],
-			relateables:         [:main,     :setting,  :mentioned, :characters],
-			chapters_attributes: [:id,       :title,    :about,     :position, :content, :afterward]
-		)
+		based_permitted = base_work_params(:story)
+		story_permitted = params.require(:story).permit(chapters_attributes: [:id, :title, :about, :position, :content, :afterward])
+		based_permitted.merge story_permitted
 	end
 
 end

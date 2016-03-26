@@ -35,8 +35,7 @@ class WorksController < ApplicationController
 			return
 		end
 
-		set_visitor
-		set_skin
+		set_editables
 	end
 
 	# POST
@@ -95,15 +94,19 @@ class WorksController < ApplicationController
 	# ------------------------------------------------------------
 	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:work).permit(
-			:title,        :summary,
-			:editor_level, :publicity_level, :placeables,   :taggables,
+		base_work_params
+	end
+
+	def base_work_params(type = :work)
+		params.require(type).permit(
+			:title,        :summary,         :visitor,    :status,
+			:editor_level, :publicity_level, :placeables, :taggables, 
 
 			uploadership:        [:category, :pen_name],
 			skinning_attributes: [:id,       :skin_id,  :_destroy],
 			appearables:         [:main,     :side,     :mentioned, :subject],
 			rating_attributes:   [:id,       :violence, :sexuality, :language],
-			relateables:         [:main,     :setting,  :mentioned, :characters, :subject]
+			relateables:         [:general,  :setting,  :mentioned, :characters, :subject, :reference]
 		)
 	end
 
@@ -124,7 +127,7 @@ class WorksController < ApplicationController
 
 	# Works :: find all with filtering
 	def works
-		@works = Work.local.with_filters(index_params, current_user).decorate
+		@works = Work.onsite.with_filters(index_params, current_user).decorate
 	end
 
 	# SET
@@ -136,6 +139,11 @@ class WorksController < ApplicationController
 	def new_work
 		@work = Work.new.decorate
 		@work.rating = Rating.new
+	end
+
+	def set_editables
+		set_visitor
+		set_skin
 	end
 
 	def set_visitor

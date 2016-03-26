@@ -32,16 +32,8 @@ class Works::ArticlesController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:article).permit(
-			:title,        :article_content, :taggables,
-			:editor_level, :publicity_level, :placeables,
-			:summary,
-
-			appearables:         [:subject],
-			relateables:         [:subject],
-			uploadership:        [:category, :pen_name],
-			skinning_attributes: [:id,       :skin_id, :_destroy]
-		)
+		based_permitted = base_work_params(:article)
+		based_permitted.merge(:article_content => params[:article][:article_content])
 	end
 
 end

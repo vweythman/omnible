@@ -34,15 +34,9 @@ class Works::StoryLinksController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
-		params.require(:story_link).permit(
-			:title, :visitor, :editor_level, :publicity_level, :placeables, :taggables,
-
-			sources_attributes:  [:id,   :reference],
-			appearables:         [:main, :side,     :mentioned],
-			skinning_attributes: [:id,   :skin_id,  :_destroy],
-			relateables:         [:main, :setting,  :mentioned, :characters],
-			rating_attributes:   [:id,   :violence, :sexuality, :language]
-		)
+		based_permitted = base_work_params(:story_link)
+		story_permitted = params.require(:story_link).permit(sources_attributes: [:id, :reference])
+		based_permitted.merge story_permitted
 	end
 
 end

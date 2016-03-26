@@ -11,10 +11,9 @@ class Works::RecordsController < WorksController
 	# CLEAN
 	# ------------------------------------------------------------
 	def work_params
-		params.require(:record).permit(:title, :summary, :placeables,
-			creatorships: [:category, :name], appearables: [:subject],
-			relateables:  [:subject]
-		)
+		based_permitted  = base_work_params(:record)
+		record_permitted = params.require(:record).permit(medium_datum_attributes: [:id, :value])
+		based_permitted.merge record_permitted
 	end
 
 	# FIND
@@ -27,7 +26,7 @@ class Works::RecordsController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = WorksDecorator.decorate(Record.with_filters(index_params, current_user))
+		@works = WorksDecorator.decorate(Record.with_filters(index_params, current_user).includes(:metadata))
 	end
 
 	# SET
@@ -37,7 +36,16 @@ class Works::RecordsController < WorksController
 	end
 
 	def new_work
-		@work = @record = Record.new.decorate
+		@work = @record    = Record.new.decorate
+		@work.medium_datum = RecordMetadatum.new
+	end
+
+	def set_editables
+		super
+
+		if @work.medium_datum.nil?
+			@work.medium_datum = RecordMetadatum.new
+		end
 	end
 
 end
