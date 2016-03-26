@@ -70,10 +70,10 @@ class Work < ActiveRecord::Base
 	scope :chaptered,  -> { where("type IN (?)", WorksTypeDescriber.chaptered.pluck(:name)) }
 	scope :oneshot,    -> { where("type IN (?)", WorksTypeDescriber.oneshot.pluck(:name))   }
 	
-	scope :complete,   -> { where("is_complete  = 't'") }
-	scope :incomplete, -> { where("is_complete  = 'f'") }
+	scope :complete,   -> { where(status: 'complete')   }
+	scope :incomplete, -> { where(status: 'incomplete') }
 
-	scope :local,      -> { where("type IN (?)", WorksTypeDescriber.local.pluck(:name))   }
+	scope :onsite,     -> { where("type IN (?)", WorksTypeDescriber.onsite.pluck(:name))  }
 	scope :offsite,    -> { where("type IN (?)", WorksTypeDescriber.offsite.pluck(:name)) }
 
 	# ASSOCIATIONS
@@ -97,12 +97,26 @@ class Work < ActiveRecord::Base
 	
 	# NESTED ATTRIBUTION
 	# ============================================================
-	accepts_nested_attributes_for :rating,      :allow_destroy => true
-	accepts_nested_attributes_for :skinning,    :allow_destroy => true
-	accepts_nested_attributes_for :sources,     :allow_destroy => true
+	accepts_nested_attributes_for :rating,   :allow_destroy => true
+	accepts_nested_attributes_for :skinning, :allow_destroy => true
+	accepts_nested_attributes_for :sources,  :allow_destroy => true
 
 	# CLASS METHODS
 	# ============================================================
+	# VALUES
+
+	def self.public_status_labels
+		['incomplete', 'upcoming', 'complete', 'hiatus', 'abandoned']
+	end
+
+	def self.hidden_status_labels
+		['unknown']
+	end
+
+	def self.all_status_labels
+		public_status_labels + hidden_status_labels
+	end
+
 	# SELECTION
 	# ------------------------------------------------------------
 	# Any :: random selection
@@ -220,9 +234,10 @@ class Work < ActiveRecord::Base
 
 	# DELEGATED METHODS
 	# ============================================================
-	delegate :narrative?,   to: :type_describer
-	delegate :is_singleton, to: :type_describer
-	delegate :record?,      to: :type_describer
+	delegate :narrative?,        to: :type_describer
+	delegate :oneshot?,          to: :type_describer
+	delegate :record?,           to: :type_describer
+	delegate :onsite_multishot?, to: :type_describer
 
 	# PRIVATE METHODS
 	# ============================================================
