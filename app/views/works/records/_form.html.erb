@@ -9,6 +9,10 @@
 	<fieldset class="primary">
 		<%= string_panel f, :title, "Write Title" %>
 		<%= text_panel   f, :summary, :minor, "Add Summary" %>
+
+		<%= f.fields_for :medium_datum do |b| %>
+			<%= string_panel b, :value, "Medium" %>
+		<% end %>
 	</fieldset>
 
 	<fieldset class="tags about">
