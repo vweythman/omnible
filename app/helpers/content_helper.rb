@@ -28,6 +28,13 @@ module ContentHelper
 		"#{article} #{phrase}".html_safe
 	end
 
+	def metadata(ky, val)
+		key_string = content_tag :b, class: "key" do (ky) end
+		content_tag :p do
+			"#{key_string} #{val}".html_safe
+		end
+	end
+
 	# OUPUT item label tag
 	def subtitle(heading)
 		content_tag :span, class: "subtitle" do heading end
