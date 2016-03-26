@@ -1,15 +1,21 @@
 <% provide(:title, @place.name) %>
 
-<header class="subject-header">
+<header class="subject-header show-header">
 	<h1><%= @place.heading %></h1>
+
+	<div class="metadata">
+		<p><b class="key">Form:</b> <%= @place.form.name %></p>
+	</div>
 	<%= @place.edit_bar %>
 </header>
 
-<article>
-	<%= @place.list_domains %>
-	<%= @place.list_subdomains %>
-	<%= @place.list_works %>
-	<%= @place.list_characters %>
-</article>
+<div class="subject-body">
+	<div class="widget">
+		<%= @place.list_domains %>
+		<%= @place.list_subdomains %>
+		<%= @place.list_works %>
+		<%= @place.list_characters %>
+	</div>
+</div>
 
 <%= render 'subjects/shared/footer' %>
