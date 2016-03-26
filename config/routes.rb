@@ -135,10 +135,19 @@ Rails.application.routes.draw do
     # NARROW curation controllers
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     scope module: 'curation' do
-      get '/characters/:character_id/works' => 'character_works#index', as: :character_works
-      get '/users/:user_id/works'           => 'user_works#index',      as: :user_works
-      get '/tags/:tag_id/works'             => 'tag_works#index',       as: :tag_works
-      get '/identities/:identity_id/works'  => 'identity_works#index',  as: :identity_works
+      get '/characters/:character_id/works' => 'character_works#index',     as: :character_works
+      get '/users/:user_id/works'           => 'user_works#index',          as: :user_works
+      get '/tags/:tag_id/works'             => 'tag_works#index',           as: :tag_works
+      get '/identities/:identity_id/works'  => 'identity_works#index',      as: :identity_works
+      get '/works/:work_id/works'           => 'works_tagging_works#index', as: :tagging_works
+
+      get '/articles/:work_id/works'          => 'works_tagging_works#index'
+      get '/branching_stories/:work_id/works' => 'works_tagging_works#index'
+      get '/journals/:work_id/works'          => 'works_tagging_works#index'
+      get '/records/:work_id/works'           => 'works_tagging_works#index'
+      get '/short_stories/:work_id/works'     => 'works_tagging_works#index'
+      get '/stories/:work_id/works'           => 'works_tagging_works#index'
+      get '/story_links/:work_id/works'       => 'works_tagging_works#index'
     end
   end
   

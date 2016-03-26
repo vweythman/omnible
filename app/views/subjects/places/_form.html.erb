@@ -6,15 +6,13 @@
 		<%= radios_by_string(f, :fictional, @place.realness_choices, f.object.fictional?) %>
 	</fieldset>
 
-	<%= render :layout => nested_partial, :locals => { :models => @domains } do %>
-		<%= @domains.fields(f) %>
-		<p class="add-cell"><%= link_to_add_association "+ Add Place", f, @domains.klass, :partial=> @domains.partial %></p>
-	<% end %>
-
-	<%= render :layout => nested_partial, :locals => { :models => @subdomains } do %>
-		<%= @subdomains.fields(f) %>
-		<p class="add-cell"><%= link_to_add_association "+ Add Place", f, @subdomains.klass, :partial=> @subdomains.partial %></p>
-	<% end %>
+	<fieldset class="tags about">
+		<legend>Related Places</legend>
+		<%= solo_cell do %>
+			<%= taggables(['place', "domains"],    @place.domain_names,    "Contained Within") %>
+			<%= taggables(['place', "subdomains"], @place.subdomain_names, "Contains")         %>
+		<% end %>
+	</fieldset>
 
 	<%= submit_panel f %>
 

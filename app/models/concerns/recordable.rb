@@ -3,7 +3,6 @@ require 'active_support/concern'
 module Recordable
 	extend ActiveSupport::Concern
 
-
 	# INCLUSION
 	# ============================================================
 	included do
@@ -61,21 +60,21 @@ module Recordable
 		has_many :characters, ->{uniq}, :through => :appearances
 		has_many :works,      ->{uniq}, :through => :tagged_connections
 
-		has_many :places,     ->{uniq}, :through => :settings, extend: TagWithUploadable
-		has_many :tags,       ->{uniq}, :through => :taggings, extend: TagWithUploadable
+		has_many :places,     ->{uniq}, :through => :settings
+		has_many :tags,       ->{uniq}, :through => :taggings
 
-		has_many :main_characters,      :through => :main_appearances,      extend: TagWithUploadable
-		has_many :side_characters,      :through => :side_appearances,      extend: TagWithUploadable
-		has_many :mentioned_characters, :through => :mentioned_appearances, extend: TagWithUploadable
-		has_many :people_subjects,      :through => :subject_appearances,   extend: TagWithUploadable
+		has_many :main_characters,      :through => :main_appearances
+		has_many :side_characters,      :through => :side_appearances
+		has_many :mentioned_characters, :through => :mentioned_appearances
+		has_many :people_subjects,      :through => :subject_appearances
 
-		has_many :general_works,   :through => :general_tagged_connections,   extend: TagWithWork
-		has_many :set_in_works,    :through => :set_in_tagged_connections,    extend: TagWithWork
-		has_many :cast_from_works, :through => :cast_from_tagged_connections, extend: TagWithWork
-		has_many :mentioned_works, :through => :mentioned_tagged_connections, extend: TagWithWork
+		has_many :general_works,   :through => :general_tagged_connections
+		has_many :set_in_works,    :through => :set_in_tagged_connections
+		has_many :cast_from_works, :through => :cast_from_tagged_connections
+		has_many :mentioned_works, :through => :mentioned_tagged_connections
 
-		has_many :work_subjects,   :through => :subject_tagged_connections,   extend: TagWithWork
-		has_many :work_references, :through => :reference_tagged_connections, extend: TagWithWork
+		has_many :work_subjects,   :through => :subject_tagged_connections
+		has_many :work_references, :through => :reference_tagged_connections
 
 		has_many :general_in,    through: :general_tagging_connections,   source: :tagging_work
 		has_many :setting_of,    through: :set_in_tagging_connections,    source: :tagging_work

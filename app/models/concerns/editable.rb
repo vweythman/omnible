@@ -6,8 +6,9 @@ module Editable
 	# CONSTANTS
 	# ============================================================
 	# - ADMIN
-	MANAGER = -2
-	STAFF   = -1
+	MANAGER   = -3
+	STAFF     = -2
+	MODLOCKED = -1
 
 	# - USER
 	PRIVATE  = 0
