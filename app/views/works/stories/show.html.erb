@@ -24,7 +24,7 @@
 		<% @work.current_chapters.each do |chapter| %>
 
 			<section class="chapter">
-				<h2><%= chapter.positioned_heading %></h2>
+				<h1><%= chapter.positioned_heading %></h1>
 				<%= markdown chapter.content %>
 				<%= chapter.afterward_foot %>
 			</section>
