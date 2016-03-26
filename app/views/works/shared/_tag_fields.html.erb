@@ -7,28 +7,46 @@
 <fieldset class="tags about">
 	<legend>Tags</legend>
 
-	<%= taggables([@work.klass, "taggables"], @work.tag_names, "General Tags") %>
+	<%= grid_panel do %>
+		<%= panel_cell "golden-major" do %>
+			<%= taggables([@work.klass, "taggables"], @work.tag_names, "General Tags") %>
 
-	<% Appearance.tag_labels(@work).each do |role| %>
-		<%= taggables [@work.klass, "appearables", role[:label]], @work.cohort_names_by(role[:label]), role[:heading] %>
-	<% end %>
-	<%= taggables([@work.klass, "placeables"], @work.place_names, @work.location_heading) %>
+			<% Appearance.tag_labels(@work).each do |role| %>
+				<%= taggables [@work.klass, "appearables", role[:label]], @work.cohort_names_by(role[:label]), role[:heading] %>
+			<% end %>
+			<%= taggables([@work.klass, "placeables"], @work.place_names, @work.location_heading) %>
 
-	<fieldset class="tags works">
-		<legend>Related Work Tags</legend>
-		<div class="clarify">
-			<p>Tag in whichever way best disambiguates the work from other works.</p>
-			<ul>
-				<li>Fire and Ice</li>
-				<li>Fire and Ice (Poem)</li>
-				<li>Fire and Ice / Robert Frost</li>
-				<li>Fire and Ice (Poem) / Robert Frost</li>
-			</ul>
-		</div>
+			<fieldset class="tags works">
+				<legend>Related Work Tags</legend>
 
-		<% WorkConnection.tag_labels(@work).each do |group| %>
-			<%= taggables [@work.klass, "relateables", group[:label]], @work.organized_work_titles_by(group[:label]), group[:heading] %>
+						<% WorkConnection.tag_labels(@work).each do |group| %>
+							<%= taggables [@work.klass, "relateables", group[:label]], @work.organized_work_titles_by(group[:label]), group[:heading] %>
+						<% end %>
+			</fieldset>
 		<% end %>
-	</fieldset>
+
+		<%= panel_cell "golden-minor" do %>
+			<div class="clarify">
+				<p>Tag in whichever way disambiguates</p>
+				<p>Characters</p>
+				<ul>
+					<li>Harry Potter</li>
+					<li>Slytherin!Harry Potter</li>
+					<li>Nemo (Little Nemo)</li>
+					<li>Nemo (Finding Nemo)</li>
+				</ul>
+
+				<p>Works:</p>
+				<ul>
+					<li>Fire and Ice</li>
+					<li>Fire and Ice [Poem]</li>
+					<li>Fire and Ice / Robert Frost</li>
+					<li>Fire and Ice [Poem] / Robert Frost</li>
+					<li>Star Wars [Film Series]</li>
+					<li>Star Wars [Franchise]</li>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
 
 </fieldset>
