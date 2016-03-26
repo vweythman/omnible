@@ -14,23 +14,37 @@ $header:         $water-dark-minor;
 $heading:        $water-color;
 $content-shadow: 0px 0px 10px $water-darker-minor;
 
-// SECTION :: ALL
+$header-gutter:      $one-twelfth;
+$header-width:       100% - (2 * $header-gutter);
+$header-negate:      $header-gutter / $header-width * 100%;
+$full-header-margin: ($header-negate * -1);
+
+$page-gutter:    $one-sixth;
+$article-gutter: $page-gutter / 2;
+$article-width:  100% - 2 * $page-gutter;
+$article-negate: $page-gutter / $article-width * 100%;
+$content-negate: $article-negate / 2;
+
+// SECTION :: HEADER
 // ===============================================
+.show-header {
+	padding: 0 $header-gutter;
+	h1 {
+		margin:  0 $full-header-margin;
+		padding: 35px $header-negate 5px;
+	}
+}
+
 .subject-header > p {
 	margin:       0 $one-twelfth;
 	padding-left: 0;
 	line-height:  1;
 }
-.subject-header .basis {
-	color:     $fire-light-minor;
-	font-size: 1.3em;
-	margin:    0 $one-twelfth;
-}
+
 .alteration {
-	margin:     0 $one-twelfth;
-	margin-top: 10px;
-	width:      $five-sixths;
+	margin: 10px 0px 0px;
 }
+
 .identifiers {
 	font-style: italic;
 }
@@ -40,10 +54,7 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 // BODY :: ALL
 // -----------------------------------------------
 .subject-body {
-	background: $water-darker-major;
-	min-height: 200px;
-	padding:    10px;
-	margin:     10px $one-twelfth;
+	margin: 10px $one-twelfth;
 
 	p {
 		line-height: 1.5;
@@ -52,8 +63,11 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 
 	.widget {
 		background: $page-color;
-		margin: 10px;
+		margin:     10px;
 	}
+}
+.general .widget {
+	margin:     10px 10px 20px
 }
 
 .info-body {

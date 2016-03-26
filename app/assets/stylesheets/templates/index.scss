@@ -44,8 +44,12 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 .page-body,
 .index-body {
 	background: $water-darker-major;
-	padding:    10px 0px;
-
+}
+.page-body {
+	padding: 10px 0px;
+}
+.index-body {
+	padding: 10px;
 }
 
 .page-body .tableized-results tr:nth-child(2n) {

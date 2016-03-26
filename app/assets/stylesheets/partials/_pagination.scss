@@ -28,11 +28,11 @@
 		display:       inline-block;
 		font-weight:   bolder;
 		margin:        1px;
-		width:         calc(20% - 6px);
+		width:         calc(20% - 2px);
 
 		@include mobile {
 			display: block;
-			width:   calc(100% - 6px);
+			width:   calc(100% - 2px);
 		}
 	}
 

@@ -117,11 +117,11 @@ $rose-darkest-major:  lighten($rose-full-dark, $golden-micro);
 // ===============================================
 // -- Ratings
 // -----------------------------------------------
-$rating-lowest:  hsl(0,   95%, 25%);
-$rating-low:     hsl(35,  90%, 25%);
-$rating-mid:     hsl(70,  90%, 25%);
-$rating-high:    hsl(105, 90%, 25%);
-$rating-highest: hsl(140, 95%, 25%);
+$rating-lowest:  hsl(0,  95%, 60%);
+$rating-low:     hsl(0,  80%, 50%);
+$rating-mid:     hsl(0,   0%, 40%);
+$rating-high:    hsl(98, 45%, 30%);
+$rating-highest: hsl(98, 80%, 20%);
 
 $stoplight-stop: hsl(0,   95%, 34%);
 $stoplight-go:   hsl(101, 94%, 25%);

@@ -55,8 +55,11 @@ h1 {
 }
 .clarify {
 	font-weight: bolder;
+	padding: 5px 10px;
+	margin: 5px;
+	background: $page-light-major;
 	ul {
-		padding: 10px 0 15px;
+		padding: 0px 0px 5px;
 	}
 	li {
 		padding: 2px 25px;

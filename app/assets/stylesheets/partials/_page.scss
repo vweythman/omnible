@@ -35,6 +35,14 @@
 	padding:     5px $one-twelfth;
 }
 
+.metadata {
+	font-size: 1.3em;
+
+	.key {
+		color: $fire-light-minor;
+	}
+}
+
 // SECTION :: BODY
 // ===============================================
 // -- Layout
@@ -45,6 +53,12 @@
 
 .index-body {
 	margin: 10px $one-twelfth;
+}
+
+.subject-body {
+	background: $water-darker-major;
+	min-height: 200px;
+	padding:    10px;
 }
 
 // -- Text
@@ -100,6 +114,16 @@ dt:first-child {
 }
 
 .date { font-weight: bolder; }
+
+.curation {
+	margin:  0px;
+	padding: 20px;
+
+	li:before {
+		padding: 0 6px;
+	}
+}
+
 
 // SECTION :: FOOTER
 // ===============================================
