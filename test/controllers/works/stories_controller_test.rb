@@ -64,6 +64,29 @@ module Works
       assert_redirected_to story_path(assigns(:story))
     end
 
+    test "should create story with chapters" do
+      sign_in @letty
+
+      assert_difference('Chapter.count', 2) do
+        post :create, story: {
+          title: @frenzy.title,
+          summary: @frenzy.summary,
+          chapters_attributes: [
+            {
+              title: "Chapter 1",
+              content: "The queen returns."
+            },
+            {
+              title: "Chapter 1",
+              content: "The queen leaves."
+            }
+          ]
+        }
+      end
+
+      assert_redirected_to story_path(assigns(:story))
+    end
+
     # PATCH/PUT
     # ============================================================
     test "should update story" do
