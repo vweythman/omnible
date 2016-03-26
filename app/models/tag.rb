@@ -49,7 +49,7 @@ class Tag < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ------------------------------------------------------------
-	def tag_creation(name, uploader = nil)
+	def self.tag_creation(name, uploader = nil)
 		tag = Tag.where(name: name).first_or_create
 	end
 
