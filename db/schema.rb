@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311232549) do
+ActiveRecord::Schema.define(version: 20160322141726) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -657,19 +657,18 @@ ActiveRecord::Schema.define(version: 20160311232549) do
     t.boolean  "is_complete",                 default: false
     t.integer  "editor_level"
     t.string   "type"
+    t.string   "status"
   end
 
   add_index "works", ["uploader_id"], name: "index_works_on_uploader_id"
 
   create_table "works_type_describers", force: :cascade do |t|
-    t.string   "name",                                   null: false
-    t.boolean  "is_narrative",           default: true,  null: false
-    t.boolean  "is_singleton",           default: true,  null: false
-    t.string   "content_type",           default: "t",   null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "is_record",              default: false, null: false
-    t.boolean  "is_creative_expression", default: true,  null: false
+    t.string   "name",                         null: false
+    t.boolean  "is_singleton", default: true,  null: false
+    t.string   "content_type", default: "t",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "is_record",    default: false, null: false
     t.string   "status"
   end
 
