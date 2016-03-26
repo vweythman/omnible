@@ -18,7 +18,7 @@ module CreativeContent
 		end
 
 		def status_label
-			@status_label ||= complete? ? "Complete" : "Incomplete"
+			@status_label ||= status.titleize
 		end
 
 		def title_for_creation
