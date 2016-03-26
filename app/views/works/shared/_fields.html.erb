@@ -7,17 +7,26 @@
 
 	<%= panel_cell "duo" do %>
 
-<div class="grid-panel simple-selection">
-	<div class="panel-cell golden-minor">
-		<label for="lang">Language</label>
-	</div>
-	<div class="panel-cell golden-major">
-		<select name="lang" id="language">
-			<option value="1">English</option>
-			<option value="2">Spanish</option>
-		</select>
-	</div>
-</div>
+		<%= grid_panel "simple-selection" do %>
+			<%= panel_cell "golden-minor" do %>
+				<label for="lang">Language</label>
+			<% end %>
+
+			<%= panel_cell "golden-major" do %>
+				<select name="lang" id="language">
+					<option value="1">English</option>
+					<option value="2">Spanish</option>
+				</select>
+			<% end %>
+		<% end %>
+
+		<% if @work.onsite_multishot? %>
+			<%= grid_panel "simple-selection" do %>
+				<%= panel_cell "golden-minor" do f.label(:status) end %>
+				<%= panel_cell "golden-major" do f.select(:status, options_for_select(Work.public_status_labels, @work.status)) end %>
+			<% end %>
+		<% end %>
+
 		<% if @work.can_skin? %>
 			<%= f.fields_for :skinning do |fdr| %>
 				<%= render 'works/shared/skin_fields', f: fdr %>
@@ -26,4 +35,5 @@
 
 	<% end %>
 <% end %>
+
 <%= render 'shared/forms/edit_fields', f: f %>
