@@ -147,7 +147,7 @@ module ApplicationHelper
 		link_to label, params.merge(type => key)
 	end
 
-	def pagination_list(first_item, prev_item, current_item, next_item, last_item)
+	def full_pagination_list(first_item, prev_item, current_item, next_item, last_item)
 		render(
 			:partial => "shared/lists/pagination_list", 
 			:locals  => 
