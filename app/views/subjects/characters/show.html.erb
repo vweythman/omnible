@@ -1,26 +1,29 @@
 <% provide(:title, @character.name) %>
 
-<header class="subject-header">
+<header class="subject-header show-header">
 	<h1>
 		<%= @character.name                    %>
 		<%= subtitle @character.alias_headline %>
 	</h1>
-	<%= @character.link_to_original     %>
-	<%= @character.edit_bar             %>
-	<%= uploaded_by @character.uploader %>
+	<div class="metadata">
+		<%= @character.link_to_original %>
+		<%= metadata("Uploaded By:", link_to(@character.uploader.name, @character.uploader)) %>
+	</div>
+	<%= @character.edit_bar %>
 </header>
 
 <div class="subject-body">
 	<div class="info-body">
 		<div class="info-grid">
+			<%= solo_cell do render @character.info_folder + "find" end %>
 			<%= grid_panel do %>
-				<%= panel_cell "golden-major" do %>
+				<%= panel_cell "golden-minor" do %>
+					<%= @character.identity_sidebar %>
+				<% end %>
+				<%= panel_cell "general golden-major" do %>
 					<%= @character.subarticle        %>
 					<%= @character.possessions_cell  %>
 					<%= @character.network           %>
-				<% end %>
-				<%= panel_cell "golden-minor" do %>
-					<%= @character.identity_sidebar %>
 				<% end %>
 			<% end %>
 			<%= @character.personal_opinion_panel %>
@@ -28,12 +31,12 @@
 			<%= @character.clones_panel           %>
 		</div>
 		<footer>
-			<%= @character.replication_bar %>
+			<%= render @character.info_folder + "replication" %>
 		</footer>
 	</div>
 
 	<footer class="pageable">
-		<%= @character.pagination %>
+		<%= render @character.info_folder + "pagination" %>
 	</footer>
 </div>
 
