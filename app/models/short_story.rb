@@ -57,7 +57,7 @@ class ShortStory < Work
 	# ............................................................
 	# set default categories
 	def set_categories
-		self.is_complete  = true
+		self.status = 'complete'
 	end
 
 	def contentize
