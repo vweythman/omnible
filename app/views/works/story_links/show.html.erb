@@ -1,6 +1,6 @@
 <% provide(:title, @link.title) %>
 
-<header class="work-header">
+<header class="work-header record-header">
 	<h1>
 		<%= @link.title %>
 		<%= @link.uploaded_by.html_safe %>
@@ -13,13 +13,15 @@
 	<%= @link.edit_bar %>
 </header>
 
-<div class="page-body">
-	<h2>Links</h2>
-	<ul>
-		<% @link.sources.each do |source| %>
-			<li><%= offsite_link_to source.reference, source.reference %></li>
-		<% end %>
-	</ul>
+<div class="subject-body">
+	<div class="widget">
+		<h2 class="subheading">Links</h2>
+		<ul class="indexable">
+			<% @link.sources.each do |source| %>
+				<li class="icon icon-link"><%= offsite_link_to source.reference, source.reference %></li>
+			<% end %>
+		</ul>
+	</div>
 </div>
 
 <footer class="path-finder">
