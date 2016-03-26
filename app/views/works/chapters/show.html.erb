@@ -21,12 +21,12 @@
 
 <article role="article">
 	<header>
+		<%= @chapter.pagination %>
 		<h1><%= @chapter.heading_with_count %></h1>
 		<%= @chapter.edit_bar %>
 		<%= @chapter.timestamps %>
 
 		<%= @chapter.summarized %>
-		<%= @chapter.pagination %>
 	</header>
 
 	<div class="page-body" id="work-content">

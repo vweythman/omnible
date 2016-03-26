@@ -1,0 +1,10 @@
+<div class="full-pagination">
+	<%= full_pagination_list(
+		chapter.link_to_first, 
+		chapter.link_to_prev, 
+		"Current Chapter", 
+		chapter.link_to_next, 
+		chapter.link_to_last
+	) %>
+	<%= chapter.all_links_selection %>
+</div>

@@ -6,15 +6,14 @@
 		<%= @article.byline.html_safe %>
 	</h1>
 	<%= @article.completion_status %>
+	<%= @article.edit_bar %>
 
 	<div class="about">
 		<%= @article.summarized %>
 		<%= @article.all_tags_line %>
 	</div>
 	
-	<%= @article.edit_bar %>
 </header>
-
 
 <article role="article">
 	<div class="page-body" id="work-content">
