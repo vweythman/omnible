@@ -45,8 +45,12 @@ class CharacterDecorator < Draper::Decorator
 		@current_details ||= decorated_details
 	end
 
+	def filtered_details
+		@filtered_details ||= decorated_details.select{|d| d.has_content? }
+	end
+
 	def decorated_details
-		@decorated_details ||= CharacterInfosDecorator.decorate(self.details).select{|d| d.has_content? }
+		@decorated_details ||= CharacterInfosDecorator.decorate(self.details)
 	end
 
 	def decorated_possessions
@@ -112,9 +116,7 @@ class CharacterDecorator < Draper::Decorator
 
 	def link_to_original
 		if is_a_clone?
-			h.content_tag :p, class: 'basis' do
-				"Based Upon: #{h.link_to(original.name, original)}".html_safe
-			end
+			h.metadata("Based Upon:", h.link_to(original.name, original))
 		end
 	end
 
@@ -144,10 +146,6 @@ class CharacterDecorator < Draper::Decorator
 		h.render( :partial => (info_folder+"sidebar"), :locals => { :heading => "Overview", :listable => identification_list }) if identification_list.can_list?
 	end
 
-	def pagination
-		h.render(info_folder + "pagination")
-	end
-
 	def personal_opinion_panel
 		h.render(info_folder + "personal_opinion") if self.viewpoints.length > 0
 	end
@@ -160,12 +158,8 @@ class CharacterDecorator < Draper::Decorator
 		h.render(info_folder + "public_opinion") if reputations.size > 0
 	end
 
-	def replication_bar
-		h.render info_folder + "replication"
-	end
-	
 	def subarticle
-		h.render(info_folder + "subarticle", details: self.decorated_details)
+		h.render(info_folder + "subarticle", details: self.filtered_details)
 	end
 
 	def network

@@ -25,7 +25,7 @@ module AlphabeticPagination
 	# BLOCK
 	# ------------------------------------------------------------
 	def alphabetic_pagination
-		h.pagination_list(link_to_alphabetic_first, link_to_alphabetic_prev, self.name, link_to_alphabetic_next, link_to_alphabetic_last)
+		h.full_pagination_list(link_to_alphabetic_first, link_to_alphabetic_prev, self.name, link_to_alphabetic_next, link_to_alphabetic_last)
 	end
 
 	# LINKS

@@ -61,15 +61,7 @@ class ChapterDecorator < Draper::Decorator
 	# ------------------------------
 	def pagination
 		if self.story.chapters.length > 1
-			midpoint  = all_links_selection
-			
-			strtpoint = link_to_first
-			endpoint  = link_to_last
-
-			prvpoint  = link_to_prev
-			nxtpoint  = link_to_next
-			
-			h.pagination_list(strtpoint, prvpoint, midpoint, nxtpoint, endpoint)
+			h.render 'works/chapters/pagination', chapter: self
 		end
 	end
 
