@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
 	# GETTERS
 	# ------------------------------------------------------------
 	def all_uploads
-		self.works.local + self.characters + self.places + self.uploaded_items
+		self.works.onsite + self.characters + self.places + self.uploaded_items
 	end
 
 	# ACTIONS
