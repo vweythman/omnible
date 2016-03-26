@@ -33,7 +33,7 @@ class WorksTypeDescriber < ActiveRecord::Base
 	scope :oneshot,    -> { where(is_singleton: true) }
 
 	scope :offsite,    -> { where(is_record: true)  }
-	scope :local,      -> { where(is_record: false) }
+	scope :onsite,     -> { where(is_record: false) }
 
 	scope :textual,    -> { where("content_type = 'text'") }
 	scope :audible,    -> { where("content_type = 'video' OR content_type = 'audio'") }
@@ -77,6 +77,14 @@ class WorksTypeDescriber < ActiveRecord::Base
 
 	def record?
 		self.is_record == true
+	end
+
+	def oneshot?
+		self.is_singleton == true
+	end
+
+	def onsite_multishot?
+		self.is_singleton == false && self.is_record == false
 	end
 
 end
