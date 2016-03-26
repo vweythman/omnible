@@ -37,7 +37,7 @@ class IdentityDecorator < TagDecorator
 	# ----- General
 	# ------------------------------
 	def faceted_pagination
-		h.pagination_list(link_to_first, link_to_prev, self.name, link_to_next, link_to_last)
+		h.full_pagination_list(link_to_first, link_to_prev, self.name, link_to_next, link_to_last)
 	end
 
 	def alphabetic_first
