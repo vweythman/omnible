@@ -2,16 +2,12 @@ class WorksCurationDecorator < WorksDecorator
 
 	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	def set_parent(parent)
-		@parent = parent
-	end
-
 	def title
-		@parent.heading + " - Works"
+		object.proxy_association.owner.heading + " - Works"
 	end
 
 	def heading
-		link = h.link_to @parent.heading, h.polymorphic_path(@parent) 
+		link = h.link_to object.proxy_association.owner.heading, h.polymorphic_path(object.proxy_association.owner) 
 		link + h.subtitle("Works")
 	end
 

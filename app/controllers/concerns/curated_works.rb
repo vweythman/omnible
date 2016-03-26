@@ -5,7 +5,6 @@ module CuratedWorks
 
 	def index
 		works
-		@works.set_parent @parent.decorate
 	end
 
 	def works
