@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602203610) do
+ActiveRecord::Schema.define(version: 20160608051702) do
 
   create_table "adjectives", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -559,14 +559,15 @@ ActiveRecord::Schema.define(version: 20160602203610) do
   add_index "story_roots", ["trunk_id"], name: "index_story_roots_on_trunk_id"
 
   create_table "taggings", force: :cascade do |t|
-    t.integer  "work_id"
+    t.integer  "tagger_id"
     t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tagger_type"
   end
 
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["work_id"], name: "index_taggings_on_work_id"
+  add_index "taggings", ["tagger_id"], name: "index_taggings_on_tagger_id"
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
