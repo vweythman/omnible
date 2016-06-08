@@ -4,21 +4,21 @@
 module ContentCollections
 	
 	def find_comments
-		@comments = @work.comments
+		@comments = @work.comments.ordered.includes(:creator)
 		@comment  = Comment.new
 
 		@comment.topic = @work.topic
 	end
 
 	def find_chapter_comments
-		@comments = @chapter.comments
+		@comments = @chapter.comments.ordered.includes(:creator)
 		@comment  = Comment.new
 
 		@comment.topic = @chapter.topic
 	end
 
 	def find_note_comments
-		@comments = @note.comments
+		@comments = @note.comments.ordered.includes(:creator)
 		@comment  = Comment.new
 
 		@comment.topic = @note.topic

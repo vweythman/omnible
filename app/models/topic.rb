@@ -29,10 +29,18 @@ class Topic < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Heading - defines the main means of addressing the model
 	def heading
-		if self.discussed.nil?
+		if self.discussed_id.nil?
 			self.title
 		else
 			"Comments"
+		end
+	end
+
+	def full_heading
+		if self.discussed_id.nil?
+			self.title
+		else
+			"Comments about #{discussed.heading}" 
 		end
 	end
 

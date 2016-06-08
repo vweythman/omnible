@@ -1,0 +1,10 @@
+<%= page_widget title, type: "duo", id: "place-#{type}" do %>
+	<% list.each do |label, localities| %>
+		<h3><%= label.titleize %></h3>
+		<p><%= cslinks localities %></p>
+	<% end %>
+
+	<% if list.empty? %>
+		<p>None.</p>
+	<% end %>
+<% end %>

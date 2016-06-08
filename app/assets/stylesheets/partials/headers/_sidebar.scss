@@ -26,6 +26,10 @@
 	}
 }
 
+@mixin side-reveal() {
+	&:hover .sidebar { display: block; }
+}
+
 // SECTION :: ALL
 // ===============================================
 .site-header .sidebar {
@@ -41,11 +45,7 @@
 .sidebar {
 	display:    none;
 	background: $water-dark-major;
-	color:      $water-lightest-minor;
-
-	@include non-mobile {
-		.user:hover & { display: block; }
-	}
+	color:      contrastable($water-dark-major);
 
 	a {
 		background:      none;

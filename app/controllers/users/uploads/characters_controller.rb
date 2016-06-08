@@ -3,7 +3,7 @@ class Users::Uploads::CharactersController < Users::UploadsController
 	# PUBLIC METHODS
 	# ============================================================
 	def index
-		@uploads = current_user.characters
+		@uploads = current_user.characters.alphabetical
 	end
 
 	def show

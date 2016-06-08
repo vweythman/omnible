@@ -14,15 +14,13 @@ $header:         $water-dark-minor;
 $heading:        $water-color;
 $content-shadow: 0px 0px 10px $water-darker-minor;
 
-$header-gutter:      $one-twelfth;
-$header-width:       100% - (2 * $header-gutter);
-$header-negate:      $header-gutter / $header-width * 100%;
-$full-header-margin: ($header-negate * -1);
+$header-gutter: $one-twelfth;
+$header-negate: gutter-negate($header-gutter);
+$header-margin: ($header-negate * -1);
 
 $page-gutter:    $one-sixth;
 $article-gutter: $page-gutter / 2;
-$article-width:  100% - 2 * $page-gutter;
-$article-negate: $page-gutter / $article-width * 100%;
+$article-negate: gutter-negate($page-gutter);
 $content-negate: $article-negate / 2;
 
 // SECTION :: HEADER
@@ -30,7 +28,7 @@ $content-negate: $article-negate / 2;
 .show-header {
 	padding: 0 $header-gutter;
 	h1 {
-		margin:  0 $full-header-margin;
+		margin:  0 $header-margin;
 		padding: 35px $header-negate 5px;
 	}
 }
@@ -64,27 +62,20 @@ $content-negate: $article-negate / 2;
 	.widget {
 		background: $page-color;
 		margin:     10px;
+
+		h3 { margin: 0px 10px; }
 	}
 }
-.general .widget {
-	margin:     10px 10px 20px
-}
 
-.info-body {
-	margin-bottom: 10px;
-}
-
-.relationship-widget {
-	padding-bottom: 10px;
-}
+.general .widget     { margin: 10px 10px 20px; }
+.info-body           { margin-bottom: 10px;    }
+.relationship-widget { padding-bottom: 10px;   }
 
 // BODY :: HEADER
 // -----------------------------------------------
 caption,
 .subheading {
-	background:    $water-lightest-minor;
-	color:         $water-darkest-minor;
-	border-bottom: 2px solid $water-lighter-minor;	
+	@include simple-brand($water-lightest-minor, $water-lighter-minor, 2px);
 	font-family:   "Arial", sans-serif;
 	font-size:     1.25em;
 	font-weight:   600;
@@ -122,22 +113,10 @@ th {
 	}
 }
 
-tbody {
-	text-align: center;
-
-	@include desktop {
-		border-bottom: 2px solid $fire-light-minor;
-		th { border-right: 2px solid $fire-light-minor; }
-	}
-}
-
+tbody { text-align: center; }
 td {
 	padding: 5px;
 	vertical-align: top;
-}
-
-.detail {
-	padding-bottom: 20px;
 }
 
 .details {
@@ -145,18 +124,34 @@ td {
 	text-align:  left;
 	line-height: 1.5;
 }
+.detail { padding-bottom: 20px; }
+
+.page-widget ul,
+.page-widget .snippet {
+	padding: 15px;
+}
 
 // BODY :: FOOTER
 // -----------------------------------------------
-.pagination li {
-	margin: 0 5px;
-	width:  calc(33.33% - 10px);
+@include pagination-blocks($water-dark-minor, $water-darkest-minor, $water-darker-minor, $one-third);
 
-	@include mobile {
-		margin: 5px;
-		width:  calc(100% - 10px);
+// VIEWPORT
+// ===============================================
+@include page-desktop() {
+	tbody {
+		border-bottom: 2px solid $fire-light-minor;
+
+		th {
+			border-right: 2px solid $fire-light-minor;
+		}
 	}
 }
+@include page-mobile() {}
+@include page-non-mobile() {}
+@include page-non-desktop() {
+	@include tb-modularize();
+}
+@include page-tablet() {}
 
 /* END
 /* ***********************************************/

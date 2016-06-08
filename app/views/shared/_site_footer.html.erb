@@ -1,8 +1,34 @@
 <footer class="site-footer">
 	<%= grid_panel "site-meta" do %>
-		<%= panel_cell "golden-minor" do render "meta/ownership" end %>
-		<%= panel_cell "golden-major" do render "meta/credits" end %>
+		<%= panel_cell "golden-minor" do %>
+
+			<div class="ownership-widget widget">
+				<p>&copy; V. Weythman</p>
+				<p>2015 - <%= Time.now.year %></p>
+			</div>
+
+		<% end %>
+
+		<%= panel_cell "golden-major" do %>
+
+			<div class="credit-widget widget">
+				<p class="widget-title">Designer</p>
+				<p>V. Weythman</p>
+				<p><a href="mailto:vweythman@gmail.com">vweythman@gmail.com</a></p>
+			</div>
+
+		<% end %>
 	<% end %>
 
-	<%= solo_cell do render "meta/social" end %>
+	<%= solo_cell do %>
+
+		<div class="social-media-widget widget">
+			<p>
+				<a href="" class="icon icon-facebook"></a>
+				<a href="" class="icon icon-google-plus"></a>
+				<a href="" class="icon icon-twitter"></a>
+			</p>
+		</div>
+
+	<% end %>
 </footer>

@@ -7,3 +7,11 @@ happy_ending:
 magic_returns:
   name: magic returns
   slug: magic-returns
+
+red:
+  name: red
+  slug: red
+
+big:
+  name: big
+  slug: big

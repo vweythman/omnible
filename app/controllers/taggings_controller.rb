@@ -62,11 +62,9 @@ class TaggingsController < ApplicationController
 
 	# Tags :: find all
 	def tags
-		@activities = Activity.order(:name).decorate
 		@tags       = Tag.order(:name).decorate
 		@identities = Identity.sorted_alphabetic.decorate
 		@relators   = Relator.order(:left_name).decorate
-		@qualities  = Quality.order(:name).decorate
 		@tag        = @tags.first
 	end
 

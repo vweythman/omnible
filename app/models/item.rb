@@ -60,7 +60,7 @@ class Item < ActiveRecord::Base
 	# ATTRIBUTES
 	# ------------------------------------------------------------
 	friendly_id :name, :use => :slugged
-	attr_accessor :nature, :descriptions
+	attr_accessor :visitor, :nature, :descriptions
 
 	def nature
 		@nature ||= "unspecified"
@@ -68,6 +68,10 @@ class Item < ActiveRecord::Base
 
 	def descriptions
 		@descriptions ||= ""
+	end
+
+	def visitor
+		@visitor ||= nil
 	end
 
 	# PUBLIC METHODS
@@ -110,7 +114,7 @@ class Item < ActiveRecord::Base
 	end
 
 	def describe
-		nw_qualities = Quality.batch_by_name(@descriptions)
+		nw_qualities = Tag.batch_by_name(@descriptions, @visitor)
 
 		self.qualities.delete(self.qualities - nw_qualities)
 		self.qualities <<    (nw_qualities   - self.qualities)

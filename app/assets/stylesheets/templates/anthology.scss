@@ -31,5 +31,19 @@ header p {
 	box-shadow: $content-shadow;
 }
 
+// SECTION :: VIEWPORTS
+// ===============================================
+@include page-desktop() {}
+
+@include page-mobile() {
+	@include mobile-snippet();
+}
+
+@include page-non-mobile() {
+	@include non-mobile-snippet();
+}
+
+@include page-tablet() {}
+
 /* END
 /* ***********************************************/

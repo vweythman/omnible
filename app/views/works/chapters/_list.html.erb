@@ -8,22 +8,21 @@
 		</tr>
 	</thead>
 	
-	<%= toolblock 4, @chapters.link_to_insert_first(@story) %>
+	<%= toolblock 5, @chapters.link_to_insert_first(@story) %>
 
 	<% @chapters.each do |chapter| %>
-		<tr>
-			<th rowspan="2"><%= chapter.position %>. <%= link_to chapter.heading, [@story, chapter] %></th>
+		<tr class="chapter-info">
+			<th><%= chapter.position %>. <%= link_to chapter.heading, [@story, chapter] %></th>
 			<%= chapter.creation_data %>
 			<%= chapter.updated_at_data %>
 			<%= chapter.length_data %>
+			<td><%= chapter.edit_bar %></td>
 		</tr>
 		
-		<%= toolblock 3, chapter.edit_bar %>
-
 		<% if chapter.position < @chapters.length %>
-			<%= toolblock 4, chapter.link_to_insert_next %>
+			<%= toolblock 5, chapter.link_to_insert_next %>
 		<% end %>
 	<% end %>
 
-	<%= toolblock 4, @story.chapter_insertion_link %></tr>
+	<%= toolblock 5, @story.chapter_insertion_link %></tr>
 </table>

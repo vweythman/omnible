@@ -140,6 +140,10 @@ class Work < ActiveRecord::Base
 		self.assort(options).viewable_for(user).with_relationships
 	end
 
+	def self.viewable_recent_for(user, count = 10)
+		recently_updated(count).viewable_for(user).with_relationships
+	end
+
 	def self.with_relationships
 		eager_load(:characters, :tags, :places, :rating, :type_describer, :uploader)
 	end
@@ -211,12 +215,20 @@ class Work < ActiveRecord::Base
 		title
 	end
 
+	def categorized_type
+		self.type.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').titleize
+	end
+
 	def nature
 		self.class.to_s
 	end
 
 	def rated
 		self.rating.heading
+	end
+
+	def tag_heading
+		title + " [#{categorized_type}]"
 	end
 
 	# ACTIONS

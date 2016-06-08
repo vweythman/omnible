@@ -5,32 +5,17 @@
 @import "application";
 @import "partials/code/css";
 @import "partials/content/example";
-@import "partials/content/tables/results";
 
-// STYLES :: COLORS
+// SECTION :: ALL
 // ===============================================
-.styles {
-	margin:  0 $one-twelfth 25px;
-	padding: 15px;
-	background: $water-darker-major;
-}
-.previewer {
-	background: $page-color;
-}
-.toolkit,
-.agents {
-	margin: 5px $one-twelfth;
-}
-@include desktop {
-	.logged-in {
-		background: $water-darker-minor;
-	}
-}
-
-// VIEWPORT :: ALL
-// ===============================================
-// -- Previewer
+// HEADER
 // -----------------------------------------------
+.toolkit, .agents { margin: 5px $one-twelfth; }
+
+// BODY
+// -----------------------------------------------
+@include tableized-results($page-color, $water-dark-minor, $fire-lightest-major, $water-dark-major, 5px);
+
 .code p {
 	padding: 2px 10px;
 	line-height: 1.5;
@@ -39,20 +24,47 @@
 	content: "CSS Stylesheet";
 	margin-bottom: 15px;
 }
+
 .example:before {
 	content: "Example Content";
 }
 
-// -- Table
-// -----------------------------------------------
-.tableized-results {
-	margin: 15px;
-	width:  calc(100% - 30px);
+.previewer {
+	background: $page-color;
+}
 
-	thead th {
-		padding-left: 0;
-		text-align:   left;
+.styles {
+	margin:  0 $one-twelfth 25px;
+	padding: 15px;
+	background: $water-darker-major;
+}
+
+// SECTION :: VIEWPORTS
+// ===============================================
+@include page-desktop() {
+	.logged-in {
+		background: $water-darker-minor;
 	}
+
+	@include indexed-banding($water-lightest-minor);
+}
+
+@include page-mobile() {
+
+}
+
+@include page-non-desktop {
+	.tableized-results {
+		@include tb-modularize();
+	}
+}
+
+@include page-non-mobile() {
+
+}
+
+@include page-tablet() {
+
 }
 
 /* END

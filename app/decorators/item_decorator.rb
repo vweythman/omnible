@@ -19,9 +19,7 @@ class ItemDecorator < Draper::Decorator
 	end
 
 	def description_status
-		h.content_tag :p, class: 'about' do
-			h.indefinite_article("#{list_qualities} #{self.generic.name}")
-		end
+		h.metadata self.generic.name.titleize + ":", list_qualities
 	end
 
 	def icon_choice
@@ -34,9 +32,12 @@ class ItemDecorator < Draper::Decorator
 		h.cslinks(self.qualities)
 	end
 
-	def list_related_characters
-		possessions = PossessionsDecorator.decorate(self.possessions.includes(:item, :generic))
-		possessions.characters.html_safe if possessions.can_list?
+	def decorated_possessions
+		@decorated_possessions ||= PossessionsDecorator.decorate(self.possessions.includes(:character))
+	end
+
+	def possessors
+		decorated_possessions.organize_characters
 	end
 
 end

@@ -2,20 +2,18 @@
 // ***********************************************
 // SECTION :: ALL
 // ===============================================
+@mixin mobile-friendly-account($bg) {
+	.account {
+		background: $water-dark-minor;
+		display:    block;
+	}
+}
+
 .account {
 	line-height: normal;
 	margin:      0;
 	padding:     10px 0;
 	text-align:  right;
-
-	@include desktop {
-		float: right;
-		width: $one-fourth;
-	}
-	@include mobile {
-		background: $water-dark-minor;
-		display:    block;
-	}
 
 	a {
 		font-weight: bolder;
@@ -39,29 +37,6 @@
 	background:     $water-darker-minor;
 	color:          $page-lightest-minor;
 	letter-spacing: 2px;
-}
-
-
-// VIEWPORT SPECIFIC
-// ===============================================
-@include mobile {
-	.session a,
-	.session a:visited {
-		color: $water-lighter-minor;
-	}
-}
-
-@include non-mobile {
-	.session a {
-		color: $page-color;
-
-		&:visited {
-			color: $page-color;
-		}
-		&:hover {
-			color: $water-light-minor;
-		}
-	}
 }
 
 // END

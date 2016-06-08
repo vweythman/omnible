@@ -31,7 +31,6 @@ class WorkConnection < ActiveRecord::Base
 	scope :general,    -> { where(nature: "general")    }
 	scope :set_in,     -> { where(nature: "setting")    }
 	scope :cast_from,  -> { where(nature: "characters") }
-	scope :mentioned,  -> { where(nature: "mentioned")  }
 	scope :subject,    -> { where(nature: "subject")    }
 	scope :referenced, -> { where(nature: "reference")  }
 
@@ -47,7 +46,6 @@ class WorkConnection < ActiveRecord::Base
 	belongs_to :general_work,   -> { WorkConnection.general    }, class_name: "Work", foreign_key: "tagged_id"
 	belongs_to :set_in_work,    -> { WorkConnection.set_in     }, class_name: "Work", foreign_key: "tagged_id"
 	belongs_to :cast_from_work, -> { WorkConnection.cast_from  }, class_name: "Work", foreign_key: "tagged_id"
-	belongs_to :mentioned_work, -> { WorkConnection.mentioned  }, class_name: "Work", foreign_key: "tagged_id"
 	belongs_to :work_subject,   -> { WorkConnection.subject    }, class_name: "Work", foreign_key: "tagged_id"
 	belongs_to :work_reference, -> { WorkConnection.referenced }, class_name: "Work", foreign_key: "tagged_id"
 
@@ -62,7 +60,7 @@ class WorkConnection < ActiveRecord::Base
 	end
 
 	def self.narrative_labels
-		['general', 'setting', 'characters', 'mentioned']
+		['general', 'setting', 'characters', 'reference']
 	end
 
 	def self.nonfiction_labels

@@ -1,4 +1,4 @@
-<table class="relateable">
+<table class="relateable switch-board">
 	<caption>Works</caption>
 	<thead>
 		<tr>
@@ -6,11 +6,11 @@
 			<th>Status</th>
 		</tr>
 	</thead>
-	<tbody id="work-categories" class="relateable-body">
+	<tbody id="work-categories" class="relateable-body switch-board-body">
 		<% WorksTypeDescriber.all.order(:name).each do |type| %>
 			<tr>
 				<th><%= link_to type.heading, work_category_path(type) %></th>
-				<td class="connection">
+				<td class="switch-state">
 					<%= toggle_panel "category", type.id, @creator_category.connected?(type) %>
 				</td>
 			</tr>

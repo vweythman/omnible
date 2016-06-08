@@ -1,0 +1,17 @@
+<header class="work-header">
+	<h1>
+		<%= @discussed.heading %>
+		<%= subtitle "Discussion" %>
+	</h1>
+</header>
+
+<article class="comments discussion" role="article">
+	<div class="comments-content">
+		<h2 class="comments-heading">Comments</h2>
+		<%= render 'comments/nested_comments', comments: @comments, merged: false %>
+	</div>
+</article>
+
+<div class="comments-form">
+	<%= render 'comments/form', comment: @topic.comments.new %>
+</div>

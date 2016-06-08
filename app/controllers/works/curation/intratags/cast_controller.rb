@@ -1,4 +1,4 @@
-class Works::Curation::WorksTaggingWorksController < WorksController
+class Works::Curation::Intratags::SubjectController < WorksController
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -12,7 +12,7 @@ class Works::Curation::WorksTaggingWorksController < WorksController
 
 	def works
 		works_parent
-		@works = WorksCurationDecorator.decorate(@parent.tagging_works.with_filters(index_params, current_user))
+		@works = WorksCurationDecorator.decorate(@parent.cast_for.with_filters(index_params, current_user))
 	end
 
 	def works_parent

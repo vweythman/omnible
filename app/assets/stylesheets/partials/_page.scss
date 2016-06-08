@@ -8,24 +8,20 @@
 @import "partials/content/tables";
 @import "partials/content/toolkits";
 
+// SETUP :: MIXINS
+// ===============================================
+@mixin simple-brand($bg, $bdr, $size) {
+	background:    $bg;
+	border-bottom: $size solid $bdr;
+	color:         contrastable($bg);
+}
+
 // SECTION :: ALL
 // ===============================================
 .page-content {
 	margin:   0;
 	overflow: auto;
 	padding:  0;
-}
-
-// SECTION :: HEADER
-// ===============================================
-.site-content > header {
-	background: $water-dark-minor;
-
-	.notice {
-		margin:   0 $one-twelfth;
-		position: absolute;
-		width:    $one-sixth;
-	}
 }
 
 .found {
@@ -59,6 +55,11 @@
 	background: $water-darker-major;
 	min-height: 200px;
 	padding:    10px;
+}
+.notice {
+	margin:   0 $one-twelfth;
+	position: absolute;
+	width:    $one-sixth;
 }
 
 // -- Text
@@ -109,7 +110,7 @@ dt:first-child {
 .indexable li {
 	padding: 0px 15px 5px;
 }
-.indexable-data {
+.indexable-data:before {
 	@include arrowed($fire-dark-minor);
 }
 
@@ -156,6 +157,46 @@ dt:first-child {
 	&:hover {
 		background: $fire-color;
 		color:      $page-darkest-major;
+	}
+}
+
+// SECTION :: VIEWPORT SPECIFIC
+// ===============================================
+@mixin page-desktop() {
+	@include site-desktop($one-sixth, $three-fourths)  {
+		h1 {
+			padding-top: 60px;
+		}
+		.toolblock .interaction a {
+			padding: 10px 0;
+			width:   50%;
+		}
+		@content;
+	}
+}
+
+@mixin page-mobile() {
+	@include site-mobile($water-dark-minor, $one-half) {
+		@include mobilize-cell();
+		@content;
+	}
+}
+
+@mixin page-non-desktop() {
+	@include site-non-desktop {
+		@content;
+	}
+}
+
+@mixin page-non-mobile() {
+	@include site-non-mobile($water-light-minor, $one-fourth) {
+		@content;
+	}
+}
+
+@mixin page-tablet() {
+	@include site-tablet($one-fourth) {
+		@content;
 	}
 }
 

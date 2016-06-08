@@ -1,59 +1,62 @@
 // STYLE PARTIAL: GENERAL PAGINATION
 // ***********************************************
-.pagination {
-	list-style: none;
-	margin:     0 auto;
-	padding:    0;
-	overflow:   auto;
-	width:      100%;
-
-	@include mobile {
-		header & { display: none; }
-	}
-
-	a {
-		color:   $page-color;
-		display: block;
-		padding: 10px;
-		text-decoration: none;
-		
-		&:hover {
-			background: $water-darker-minor;
-		}
-	}
-
-	li {
-		background:    $water-dark-minor;
-		border-radius: 5px;
-		display:       inline-block;
-		font-weight:   bolder;
-		margin:        1px;
-		width:         calc(20% - 2px);
-
-		@include mobile {
-			display: block;
-			width:   calc(100% - 2px);
-		}
-	}
-
-	.current {
-		background: $page-color;
+@mixin pagination-blocks($block-bg, $current-bg, $hover-bg, $size) {
+	.pagination {
+		list-style: none;
+		margin:     0 auto;
 		padding:    10px 0;
-		text-align: center;
+		overflow:   auto;
+		width:      100%;
+
+		a {
+			color:   contrastable($block-bg);
+			display: block;
+			padding: 10px;
+			text-decoration: none;
+			
+			&:hover {
+				background:    $hover-bg;
+				border-radius: 4px;
+				color:         contrastable($hover-bg);
+			}
+		}
+
+		li {
+			background:    $block-bg;
+			border-radius: 5px;
+			display:       inline-block;
+			font-weight:   bolder;
+			margin:        0 10px 0 0px;
+			width:         calc(#{$size} - 10px);
+		}
+
+		li:last-child {
+			margin: 0;
+			width:  $size;
+		}
+
+		.current {
+			background: $current-bg;
+			color:      contrastable($current-bg);
+			padding:    10px 0;
+			text-align: center;
+		}
+	}
+
+	.next,
+	.last {
+		text-align: right;
 	}
 }
 
-.pagination-heading {
-	border-bottom: 1px dotted $page-dark-major;
-	font-size:     $heading-size - 8px;
-	font-weight:   bolder;
-	text-align:    center;
-	margin:        10px 5px;
-}
+@mixin mobilize-pagination() {
+	header .pagination { display: none; }
 
-.next,
-.last {
-	text-align: right;
+	.pagination li {
+		display: block;
+		margin:  5px !important;
+		width:   calc(100% - 10px) !important;
+	}
 }
 
 // END

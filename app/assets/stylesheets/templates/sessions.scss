@@ -44,9 +44,7 @@ legend {
 .field {
 	margin: 5px 0;
 }
-.submit-field input {
-	@include submission-look($fire-color, $page-color);
-}
+.submit-field input { @include submission-look($fire-color, $page-color); }
 .rememberable {
 	margin: 10px 20px;
 
@@ -65,7 +63,7 @@ legend {
 
 // VIEWPORT :: DESKTOP
 // ===============================================
-@include desktop {
+@include page-desktop() {
 	.form-grid label {
 		background:   $water-lighter-minor;
 		margin-right: 5px;
@@ -73,6 +71,9 @@ legend {
 		text-align:   right;
 	}
 }
+@include page-mobile() {}
+@include page-non-mobile() {}
+@include page-tablet() {}
 
 /* END
 /* ***********************************************/

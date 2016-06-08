@@ -1,17 +1,52 @@
 <header class="work-header">
 	<h1>
-		<%= @work.title %>
-		<%= @work.byline.html_safe %>
+		<%= link_to @work.title, @work %>
+		<%= subtitle @work.byline.html_safe %>
 	</h1>
-	<%= @work.completion_status %>
+
+	<div class="metadata">
+		<%= metadata(@work.categorized_type, '') %>
+		<%= metadata("Completion:",  @work.status_label) %>
+	</div>
 
 	<%= @work.edit_bar %>
 </header>
 
-<article class="about">
-	<%= @work.summarized %>
-	<%= @work.all_tags_line %>
-</article>
+<div class="subject-body">
+
+	<%= solo_cell do %>
+		<div class="summary-cell widget">
+			<h2 class="subheading summary-heading">Summary</h2>
+			<%= markdown @work.summarized %>
+		</div>
+	<% end %>
+
+	<%= page_widget "Tags" do %>
+		<h3>General</h3>
+		<p><b><%= @work.tags.length %> Found</b></p>
+		<p><%= cslinks @work.tags %></p>
+
+		<h3>Places</h3>
+		<p><b><%= @work.places.length %> Found</b></p>
+		<p><%= cslinks @work.places %></p>
+
+		<% Appearance.tag_labels(@work).each do |role| %>
+			<% characters = @work.cohort_group_by role[:label] %>
+
+			<h3><%= role[:heading] %></h3>
+			<p><b><%= characters.length %> Found</b></p>
+			<p><%= cslinks characters %></p>
+		<% end %>
+
+		<% WorkConnection.tag_labels(@work).each do |role| %>
+			<% works = @work.organized_works_by role[:label] %>
+
+			<h3><%= role[:heading] %></h3>
+			<p><b><%= works.length %> Found</b></p>
+			<p><%= cslinks works %></p>
+		<% end %>
+	<% end %>
+</div>
 
 <footer class="path-finder">
 	<%= link_to t("All Works"), works_path %>

@@ -95,13 +95,10 @@ textarea {
 		}
 	}
 }
+
 .agentive-selection {
 	padding: 5px;
 	margin:  5px 0;
-
-	@include mobile {
-		margin: 0;
-	}
 
 	legend {
 		background:  $page-lightest-major;
@@ -121,17 +118,12 @@ textarea {
 	.field-selection {
 		padding: 5px;
 	}
+
 	p {
 		border:      1px solid $border-color;
 		font-weight: bolder;
 		margin:      10px 5px;
 		padding:     8px 10px;
-
-		@include mobile {
-			padding:    5px;
-			margin:     0px 5px;
-			margin-top: 5px;
-		}
 	}
 }
 
@@ -151,6 +143,27 @@ textarea {
 .text-field input,
 .text-field textarea {
 	border-top: none;
+}
+
+@mixin mobilized-forms() {
+	.agentive-selection {
+		margin: 0;
+
+		p {
+			padding:    5px;
+			margin:     0px 5px;
+			margin-top: 5px;
+		}
+	}
+	.taggables-label {
+		padding:       7px;
+		text-align:    left;
+		margin-right:  0px;
+		margin-bottom: 2px;
+	}
+	.range .label {
+		text-align:  left;
+	}
 }
 
 // END

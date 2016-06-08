@@ -15,7 +15,7 @@ class IdentitiesDecorator < Draper::CollectionDecorator
 	end
 
 	def index_heading
-		"Character Tags (Identities)"
+		"Character Tags"
 	end
 
 	def klass

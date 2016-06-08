@@ -51,11 +51,16 @@
 </article>
 
 <footer>
-	<%# render 'works/shared/discussion' %>
 	<div class="path-finder">
-		<p><%= link_to "All Branching Stories", branching_stories_path %></p>
-		<p><%= link_to "All Fiction", fiction_index_path %></p>
-		<p><%= link_to "All Works", works_path %></p>
+		<p>
+			<%= link_to "Discuss Branch", branch_discussion_path(@branch) %> | 
+			<%= link_to "See All Story Discussion", brachning_story_discussion_path(@work) %>
+		</p>
+		<p>
+			<%= link_to "All Branching Stories", branching_stories_path %> | 
+			<%= link_to "All Fiction", fiction_index_path %> | 
+			<%= link_to "All Works", works_path %>
+		</p>
 	</div>
 </footer>
 

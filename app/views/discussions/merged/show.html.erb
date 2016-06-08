@@ -1,0 +1,21 @@
+<% provide(:title, @discussed.heading + " | Discussion") %>
+
+<header class="work-header">
+	<h1>
+		<%= @discussed.heading %>
+		<%= subtitle "Discussion" %>
+	</h1>
+	<div class="metadata">
+		<%= metadata("Category:", @discussed.categorized_type) %>
+	</div>
+</header>
+
+<article class="comments discussion" role="article">
+	<div class="comments-content">
+		<% types = @comments.map(&:topic).map(&:discussed_type).uniq %>
+		<%= render 'comments/nested_comments', 
+			comments: @comments, 
+			merged: types != @discussed.type
+		%>
+	</div>
+</article>

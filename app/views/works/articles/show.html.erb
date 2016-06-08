@@ -21,13 +21,16 @@
 	</div>
 
 	<footer>
-		<%= render 'works/shared/discussion' %>
+		<%= render 'comments/discussion' %>
 	</footer>
 </article>
 
 <footer class="path-finder">
-	<%= link_to "All Article", articles_path %> |
-	<%= link_to "All Works", works_path %>
+	<p><%= link_to "Discuss", article_discussion_path(@article) %></p>
+	<p>
+		<%= link_to "All Article", articles_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
 </footer>
 
 <%= @work.skin_content %>

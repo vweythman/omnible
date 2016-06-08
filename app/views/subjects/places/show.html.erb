@@ -4,18 +4,47 @@
 	<h1><%= @place.heading %></h1>
 
 	<div class="metadata">
-		<p><b class="key">Form:</b> <%= @place.form.name %></p>
+		<%= metadata("Form:",  @place.form_status)    %>
+		<%= metadata("Staus:", @place.reality_status) %>
 	</div>
 	<%= @place.edit_bar %>
 </header>
 
 <div class="subject-body">
-	<div class="widget">
-		<%= @place.list_domains %>
-		<%= @place.list_subdomains %>
-		<%= @place.list_works %>
-		<%= @place.list_characters %>
-	</div>
+	<%= page_widget "Recent Works" do %>
+		<% if @place.works.empty? %>
+			<p>None.</p>
+		<% else %>
+			<% @place.works.viewable_recent_for(current_user).decorate.each do |work| %>
+				<%= render snippet_partial, snippet: work %>
+			<% end %>
+		<% end %>	
+	<% end %>
+
+	<%= page_widget "Recent Characters" do %>
+		<% if @place.characters.empty? %>
+			<p>None.</p>
+		<% else %>
+			<ul>
+				<% @place.characters.each do |character| %>
+					<li><%= link_to character.name, character %></li>
+				<% end %>
+			</ul>
+		<% end %>
+	<% end %>
+
+	<%= grid_panel do %>
+		<%= render 'localities',
+			list: @place.organized_domains,
+			title: "Contained Within",
+			type: :domains
+		%>
+		<%= render 'localities',
+			list: @place.organized_subdomains,
+			title: "Contains",
+			type: :subdomains
+		%>
+	<% end %>
 </div>
 
 <%= render 'subjects/shared/footer' %>

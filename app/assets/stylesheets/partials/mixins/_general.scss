@@ -9,13 +9,7 @@
 }
 @mixin buttonable($color) {
 	background:  $color;
-	$text-color: $color;
-
-	@if lightness($color) > 60% { 
-		$text-color: darken($color, 100%);
-	} @else { 
-		$text-color: lighten($color, 100%);
-	}
+	$text-color: contrastable($color);
 
 	a {
 		color: $text-color;
@@ -31,6 +25,18 @@
 }
 @mixin gradientized($deg, $start, $stop) {
 	background: linear-gradient($deg, $start, $stop);
+}
+
+@function contrastable($bg) {
+	$color: lighten($bg, 100%);
+	@if lightness($bg) > 60% { 
+		$color: darken($bg, 100%);
+	}
+	@return $color
+}
+
+@function gutter-negate($margin) {
+	@return $margin / (100% - (2 * $margin)) * 100%
 }
 
 // USED BY :: LISTS

@@ -102,11 +102,11 @@ class WorksController < ApplicationController
 			:title,        :summary,         :visitor,    :status,
 			:editor_level, :publicity_level, :placeables, :taggables, 
 
-			uploadership:        [:category, :pen_name],
-			skinning_attributes: [:id,       :skin_id,  :_destroy],
-			appearables:         [:main,     :side,     :mentioned, :subject],
-			rating_attributes:   [:id,       :violence, :sexuality, :language],
-			relateables:         [:general,  :setting,  :mentioned, :characters, :subject, :reference]
+			uploadership:        [:category,   :pen_name],
+			skinning_attributes: [:id,         :skin_id,  :_destroy],
+			appearables:         [:main,       :side,     :mentioned, :subject],
+			rating_attributes:   [:id,         :violence, :sexuality, :language],
+			relateables:         [:characters, :general,  :setting,   :subject, :reference]
 		)
 	end
 

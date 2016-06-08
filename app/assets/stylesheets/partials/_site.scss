@@ -17,12 +17,9 @@ body {
 // SECTION :: HEADER
 // ===============================================
 .site-header {
-	overflow: auto;
+	padding:    0;
+	overflow:   auto;
 	background: $water-dark-major;
-
-	@include tablet {
-		padding: 0;
-	}
 
 	a  { text-decoration: none; }
 	ul { list-style:      none; }
@@ -38,33 +35,10 @@ body {
 	&:hover   {
 		color: $water-lighter-minor;
 	}
-
-	@include desktop {
-		display:    block;
-		float:      left;
-		padding:    1px 0px;
-		text-align: center;
-		width:      $one-sixth;
-	}
-	@include tablet {
-		display:        block;
-		float:          left;
-		letter-spacing: 1px;
-		min-width:      90px;
-		padding:        10px 0 0px;
-		text-align:     center;
-		font-size:      1.5rem;
-		width:          $one-fifth;
-	}
 }
 
 .actionbar {
 	margin: 0;
-
-	@include desktop {
-		margin-left: $one-sixth;
-		width:       $five-sixths;
-	}
 }
 
 // SECTION :: FOOTER
@@ -111,6 +85,119 @@ body {
 			color:      $water-light-major;
 			background: $water-darker-minor;
 		}
+	}
+}
+
+// SECTION :: VIEWPORT SPECIFIC
+// ===============================================
+@mixin site-desktop($ls, $ms) {
+	@include desktop {
+		.logo {
+			padding:    1px 0px;
+			width:      $ls;
+		}
+		.actionbar {
+			margin-left: $ls;
+			width:       100% - $ls;
+		}
+		.account {
+			float: right;
+		}
+		.menu {
+			width: $ms;
+		}
+		.submenu {
+			width: (3/4) * (1/4) * (5/6) * 100%; 
+		}
+		@content;
+	}
+}
+
+@mixin site-mobile($bg, $mis) {
+	@include mobile {
+		@include mobile-friendly-account($bg);
+		@include hide-arrow();
+		.session a {
+			color: lighten($bg, $golden-major);
+		}
+		.menu {
+			display: block;
+
+			li {
+				width: $mis;
+				float: left;
+			}
+		}
+		@content;
+	}
+}
+
+@mixin site-non-desktop() {
+	@include non-desktop {
+		@content;
+	}
+}
+
+@mixin site-non-mobile($hover-color, $mis) {
+	@include non-mobile {
+		.logo {
+			display:    block;
+			float:      left;
+			text-align: center;
+		}
+		.user { @include side-reveal(); }
+
+		.session a {
+			color: lighten($hover-color, $golden-major);
+			&:hover { color: $hover-color; }
+		}
+
+		.menu {
+			display: block;
+
+			li:hover ul {
+				display: block;
+			}
+			a {
+				padding: 12px 0 8px;
+			}
+			& > ul > li {
+				width: $mis;
+				float: left;
+			}
+		}
+		.submenu {
+			float:    left;
+			position: absolute;
+
+			a {
+				font-size: .9em;
+				padding:   10px 5px;
+			}
+		}
+		.drop-arrow {
+			font-size: .68em;
+		}
+		@content;
+	}
+}
+
+@mixin site-tablet($sms) {
+	@include tablet {
+		.logo {
+			font-size: 1.5rem;
+			min-width: 90px;
+			padding:   10px 10px 0px;
+		}
+		.menu {
+			overflow:   auto;
+			margin-top: 5px;
+			& > ul > li { width: 24.50%; }
+		}
+		.submenu {
+			width: $sms;
+		}
+		@content;
 	}
 }
 

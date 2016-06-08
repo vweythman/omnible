@@ -1,29 +1,49 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 actual_earth:
-  name: Earth
-  form: planet
-  fictional: false
-  uploader: amiya
-  editor_level: <%= Editable::PERSONAL %>
+  name:            Earth
+  form:            planet
+  fictional:       false
+  uploader:        amiya
+  editor_level:    <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::PUBLIC %>
 
 middle_earth:
-  name: Middle-Earth
-  form: planet 
-  fictional: true
+  name:       Middle-Earth
+  form:       planet 
+  fictional:  true
+  uploader:        becca
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
 
 nile:
-  name: Nile River
-  form: river
+  name:      Nile River
+  form:      river
   fictional: false
+  uploader:        letty
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
 
 styx:
-  name: Styx
-  form: river
+  name:      Styx
+  form:      river
   fictional: true
+  uploader:        amiya
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
 
 london:
-  name: London
-  form: city
+  name:      London
+  form:      city
   fictional: false
+  uploader:        amiya
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+
+england:
+  name:      England
+  form:      country
+  fictional: false
+  uploader:        amiya
+  editor_level:    <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>

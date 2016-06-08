@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  domain_id: 
-  subdomain_id: 
+  domain:    actual_earth
+  subdomain: london
 
 two:
-  domain_id: 
-  subdomain_id: 
+  domain:    england
+  subdomain: london
+
+three:
+  domain:    actual_earth
+  subdomain: england

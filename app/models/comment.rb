@@ -24,4 +24,9 @@ class Comment < ActiveRecord::Base
 	acts_as_nested_set
 	belongs_to :topic
 	belongs_to :creator, :polymorphic => true
+
+	scope :ordered, -> { order('topic_id ASC, lft ASC, rgt DESC') }
+	scope :chronological, -> { order("comments.created_at ASC") }
+	scope :truncate_at, ->(depth) { where('depth <= ?', depth).includes(:topic, :creator) }
+
 end

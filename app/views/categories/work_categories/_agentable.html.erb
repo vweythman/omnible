@@ -1,15 +1,17 @@
-<table class="relateable">
+<table class="relateable switch-board">
 	<caption>Creator Categories</caption>
-	<tbody class="relateable-body">
+	<tbody class="relateable-body switch-board-body">
+
 	<% CreatorCategory.all.decorate.each do |category| %>
 		<tr>
 			<th><%= link_to category.name, category %></th>
-			<td class="connection">
+			<td class="switch-state">
 				<%= toggle_panel "category", category.id, category.connected?(@work_category) %>
 			</td>
 		</tr>
 	<% end %>
 	</tbody>
+
 </table>
 
 <script type="text/javascript">

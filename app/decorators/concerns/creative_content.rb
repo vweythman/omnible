@@ -17,7 +17,7 @@ module CreativeContent
 	end
 
 	def by_uploader
-		("By " + h.link_to(uploader.name, uploader)).html_safe
+		("Uploaded By " + h.link_to(uploader.name, uploader)).html_safe
 	end
 
 	def creator_categories_count

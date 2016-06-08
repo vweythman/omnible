@@ -38,6 +38,11 @@ module AsNameableTag
 			[unchanged_tags, new_names_list]
 		end
 
+		def mergeable_tag_names(old_tags, new_names)
+			unchanged_tags, new_names_list = updated_tag_values(old_tags, new_names)
+			yield(unchanged_tags, new_names_list)
+		end
+
 	end
 
 end

@@ -4,5 +4,10 @@
 // ===============================================
 @import "application";
 
+@include page-desktop() {}
+@include page-mobile() {}
+@include page-non-mobile() {}
+@include page-tablet() {}
+
 /* END
 /* ***********************************************/

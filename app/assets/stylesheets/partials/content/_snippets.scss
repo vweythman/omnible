@@ -87,18 +87,16 @@
 	}
 }
 
-// VIEWPORT :: MOBILE
+// VIEWPORTS
 // ===============================================
-@include mobile {
+@mixin mobile-snippet {
 	.snippet {
 		margin:       10px;
 		border-width: 5px;
 	}
 }
 
-// VIEWPORT :: NON-MOBILE
-// ===============================================
-@include non-mobile {
+@mixin non-mobile-snippet {
 	.snippet {
 		margin: 15px 30px;
 	}

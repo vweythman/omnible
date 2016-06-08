@@ -10,13 +10,11 @@ class Subjects::PlacesController < SubjectsController
 
 	def new
 		@place = Place.new.decorate
-		set_associations
 	end
 
 	def edit
 		place
 		can_edit? @place
-		set_associations
 	end
 
 	def show
@@ -28,11 +26,11 @@ class Subjects::PlacesController < SubjectsController
 	# ------------------------------------------------------------
 	def create
 		@place = Place.new(place_params)
+		set_visitor
 
 		if @place.save
 			redirect_to @place
 		else
-			set_associations
 			render action: 'new'
 		end
 	end
@@ -41,6 +39,7 @@ class Subjects::PlacesController < SubjectsController
 	# ------------------------------------------------------------
 	def update
 		place
+		set_visitor
 
 		cannot_edit? @place do
 			return
@@ -49,7 +48,6 @@ class Subjects::PlacesController < SubjectsController
 		if @place.update(place_params)
 			redirect_to @place
 		else
-			set_associations
 			render action: 'edit'
 		end
 	end
@@ -64,6 +62,7 @@ class Subjects::PlacesController < SubjectsController
 		end
 
 		@place.destroy
+
 		respond_to do |format|
 			format.js   { subjects }
 			format.html { redirect_to places_path }
@@ -74,27 +73,29 @@ class Subjects::PlacesController < SubjectsController
 	# ============================================================
 	private
 
+	# define strong parameters
+	def place_params
+		params.require(:place).permit(
+			:name, 
+			:uptree,          :downtree,
+			:nature,          :fictionality, 
+			:domainables,     :subdomainables, 
+			:publicity_level, :editor_level, :visitor, 
+		)
+	end
+
 	# find by id
 	def place
 		@place = Place.find(params[:id]).decorate
-	end
-
-	# define strong parameters
-	def place_params
-		params.require(:place).permit(:name, :nature,
-			:publicity_level, :editor_level, :fictional,
-			localities_attributes:    [:id, :domain_id,    :_destroy],
-			sublocalities_attributes: [:id, :subdomain_id, :_destroy]
-		)
 	end
 
 	def places
 		@subjects = @places = Place.order_by_form.decorate
 	end
 
-	# define components
-	def set_associations
-		@subdomains = SublocalitiesDecorator.decorate(@place.sublocalities)
-		@domains    = LocalitiesDecorator.decorate(@place.localities)
+	def set_visitor
+		@place.uploader ||= current_user
+		@place.visitor    = current_user
 	end
+
 end

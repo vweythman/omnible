@@ -23,6 +23,6 @@ class ItemTag < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :item
-	belongs_to :quality
+	belongs_to :quality, class_name: "Tag"
 
 end

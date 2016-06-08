@@ -2,17 +2,92 @@
 // ***********************************************
 // VIEWPORT :: ALL
 // ===============================================
-.comments {
-	width:  $fifty-nine-sixtieths;
-	margin: 0 auto;
+@mixin distanced-comment($pad, $marg) {
+	.comment {
+		padding-left:   0px;
+		padding-right:  0px;
+		padding-bottom: 0px;
+		padding-top:    0px;
+	}
+	.comment .comment {
+		margin-left:   $marg;
+		margin-right:  0px;
+		margin-bottom: 0px;
+		margin-top:    0px;
+	}
+}
+
+// GROUPED
+.discussion {
+	background: $fire-light-major;
+	border:     1px solid $fire-color;
+	padding:    2px;
+}
+
+.comments-heading {
+	@include simple-brand($fire-light-major, $fire-light-minor, 2px);
+	padding: 15px 5px 5px;
+}
+
+.comments-content {
+	background: $page-color;
+	border:     2px solid $fire-color;
+}
+
+// SINGLETON
+.comment {
+	.comments-heading + & {
+		border: none;
+	}
+	.comment {
+		border-left: 2px solid $fire-lighter-minor;
+	}
+	& + .comment {
+		border-top: 2px solid $fire-lighter-minor;
+	}
+}
+.comment-action-bar {
+	border-bottom: 2px solid $fire-lighter-minor;
+
+	.childless &,
+	.hidden-children & {
+		border-bottom: none;
+	}
+}
+
+.comment-response {
+	padding: 5px 10px;
+}
+
+.comment-speaker {
+	color: $fire-color;
+	float: left;
+	padding-right: 5px;
+}
+
+.comment-action-bar {
+	font-size: 0.7em;
+	padding:   0px 10px 10px;
+	a {
+		padding:         0px 5px 0px 0px;
+		text-decoration: none;
+	}
+}
+
+// FORM
+.comments-form {
+	padding: 10px calc(25% / 2);
 
 	form {
 		background: $page-lightest-minor;
-		border: 1px solid $border-color;
+		border:     2px solid $water-darker-major;
+	}
+	fieldset {
+		border: none;
 	}
 
 	legend {
-		border-bottom: 3px solid $fire-light-major;
+		border-bottom: 3px solid $page-light-major;
 		font-weight:   600;
 		padding:       10px 0 2px 0;
 		width:         100%;
@@ -27,13 +102,6 @@
 		width:  calc(100% - 20px);
 
 		input { padding: 10px; }
-	}
-}
-
-.comments-form {
-	margin: 10px;
-	fieldset {
-		border: none;
 	}
 }
 

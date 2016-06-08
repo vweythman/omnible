@@ -131,7 +131,7 @@ class ChapterDecorator < Draper::Decorator
 
 	def selectable_chapter_links
 		ht = Hash.new
-		cs = self.story.chapters.select(:title, :id).decorate
+		cs = self.story.chapters.ordered.select(:title, :id).decorate
 		cs.map {|c| ht[h.story_chapter_path(self.story, c)] = c.heading }
 		
 		h.select_tag('chapter-links', h.options_from_collection_for_select(ht, :first, :last, selected: h.story_chapter_path(self.story, self)))

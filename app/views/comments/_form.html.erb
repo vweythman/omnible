@@ -1,4 +1,5 @@
-<%= form_for(comment) do |f| %>
+<% remote ||= false %>
+<%= form_for(comment, remote: remote) do |f| %>
 
 	<%= f.hidden_field :topic_id,  :value => comment.topic_id  %>
 	<%= f.hidden_field :parent_id, :value => comment.parent_id %>

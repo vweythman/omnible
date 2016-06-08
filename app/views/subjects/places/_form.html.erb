@@ -1,16 +1,34 @@
 <%= form_for(@place) do |f| %>
 
+	<ul>
+		<% @place.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+
 	<fieldset class="primary">
 		<%= string_panel f, :nature, "Describe Type" %>
 		<%= string_panel f, :name,   "Name Place"    %>
-		<%= radios_by_string(f, :fictional, @place.realness_choices, f.object.fictional?) %>
+		<%= radios_by_string f, :fictionality, @place.realness_choices, @place.current_realness %>
 	</fieldset>
 
 	<fieldset class="tags about">
 		<legend>Related Places</legend>
 		<%= solo_cell do %>
-			<%= taggables(['place', "domains"],    @place.domain_names,    "Contained Within") %>
-			<%= taggables(['place', "subdomains"], @place.subdomain_names, "Contains")         %>
+			<%= taggables(['place', "domainables"],    @place.domain_names,    "Contained Within") %>
+			<%= taggables(['place', "subdomainables"], @place.subdomain_names, "Contains")         %>
+		<% end %>
+
+		<%= grid_panel do %>
+			<%= panel_cell "duo" do %>
+				<%= boolean_field(f, :uptree, "automatically tag with parents of the parent places.") %>
+				<%= boolean_field(f, :downtree, "automatically tag with children of the children places.") %>
+			<% end %>
+			<%= panel_cell "duo" do %>
+				<div class="clarify">
+					<p>Example: If the Solar System contains Earth and Earth contains Europe, then the Solar System probably contains Europe.</p>
+				</div>
+			<% end %>
 		<% end %>
 	</fieldset>
 

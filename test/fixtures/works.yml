@@ -10,6 +10,7 @@ apologia:
   publicity_level: <%= Editable::FRIENDS_ONLY %>
   type: Article
   is_complete: true
+  status: complete
 
 theocrat:
   title: OddThought Counter
@@ -19,6 +20,7 @@ theocrat:
   publicity_level: <%= Editable::EXCEPT_BLOCKED %>
   type: Article
   is_complete: true
+  status: complete
 
 skywalks:
   title: Happiness Meta
@@ -28,6 +30,7 @@ skywalks:
   publicity_level: <%= Editable::FRIENDS_ONLY %>
   type: Article 
   is_complete: true
+  status: complete
 
 # JOURNAL
 # ===================================
@@ -39,6 +42,7 @@ gunrunner:
   publicity_level: <%= Editable::EXCEPT_BLOCKED %>
   type: Journal
   is_complete: false
+  status: incomplete
 
 absurdist:
   title: Unicorn Hoof for Sale
@@ -48,6 +52,7 @@ absurdist:
   publicity_level: <%= Editable::PUBLIC %>
   type: Journal
   is_complete: false
+  status: incomplete
 
 rainfalls:
   title: Measure of Rainfall
@@ -57,6 +62,7 @@ rainfalls:
   publicity_level: <%= Editable::PUBLIC %>
   type: Journal 
   is_complete: false
+  status: incomplete
 
 # RECORD
 # ===================================
@@ -68,6 +74,7 @@ do:
   publicity_level: <%= Editable::PUBLIC %>
   type: Record
   is_complete: true
+  status: unknown
 
 re:
   title: Recall
@@ -77,6 +84,7 @@ re:
   publicity_level: <%= Editable::PUBLIC %>
   type: Record
   is_complete: true
+  status: unknown
 
 mi:
   title: Minute
@@ -86,6 +94,7 @@ mi:
   publicity_level: <%= Editable::PUBLIC %>
   type: Record 
   is_complete: true
+  status: unknown
 
 # SHORT STORY
 # ===================================
@@ -97,6 +106,7 @@ calypso:
   publicity_level: <%= Editable::MEMBERS_ONLY %>
   type: ShortStory
   is_complete: true
+  status: complete
 
 effaces:
   title: Shadow of the Cathedral
@@ -106,6 +116,7 @@ effaces:
   publicity_level: <%= Editable::PUBLIC %>
   type: ShortStory
   is_complete: true
+  status: complete
 
 glamour:
   title: Fair Folk
@@ -115,6 +126,7 @@ glamour:
   publicity_level: <%= Editable::PUBLIC %>
   type: ShortStory
   is_complete: true
+  status: complete
 
 # CHAPTERED STORY
 # ===================================
@@ -125,6 +137,7 @@ heart:
   publicity_level: <%= Editable::EXCEPT_BLOCKED %>
   type: Story
   is_complete: true
+  status: incomplete
 
 helix:
   title: Attend and Amend
@@ -133,6 +146,7 @@ helix:
   publicity_level: <%= Editable::MEMBERS_ONLY %>
   type: Story
   is_complete: false
+  status: incomplete
 
 frenzy:
   title: Feeding Frenzy
@@ -141,6 +155,7 @@ frenzy:
   publicity_level: <%= Editable::PERSONAL %>
   type: Story
   is_complete: false
+  status: hiatus
 
 # BRANCHING STORY
 # ===================================
@@ -151,6 +166,7 @@ hope:
   publicity_level: <%= Editable::PUBLIC %>
   type: BranchingStory
   is_complete: false
+  status: abandoned
 
 aqua:
   title: falling leaves
@@ -159,6 +175,7 @@ aqua:
   publicity_level: <%= Editable::PUBLIC %>
   type: BranchingStory
   is_complete: false
+  status: incomplete
 
 zinc:
   title: start of madness
@@ -167,6 +184,7 @@ zinc:
   publicity_level: <%= Editable::PUBLIC %>
   type: BranchingStory
   is_complete: false
+  status: incomplete
 
 # STORY LINK
 # ===================================
@@ -177,6 +195,7 @@ zoologist:
   publicity_level: <%= Editable::PUBLIC %>
   type: StoryLink
   is_complete: true
+  status: unknown
 
 windstorm:
   title: Deadly Storms
@@ -185,6 +204,7 @@ windstorm:
   publicity_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
   type: StoryLink
   is_complete: true
+  status: unknown
 
 viperfish:
   title: Fishing
@@ -193,3 +213,4 @@ viperfish:
   publicity_level: <%= Editable::MEMBERS_ONLY %>
   type: StoryLink
   is_complete: true
+  status: unknown

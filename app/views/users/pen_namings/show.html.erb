@@ -23,9 +23,12 @@
 	</div>
 
 	<% @pen.bylines.each do |byline| %>
-		<h2><%= byline.category.name.titleize %> of <%= link_to byline.work.title, byline.work %></h2>
+		<h2>
+			<%= byline.category.name.titleize %> of 
+			<%= link_to byline.work.title, byline.work %>
+		</h2>
+
 		<div class="work-meta">
-			<%= alteration_toolkit(byline.work) %>
 			<dl>
 				<dt>Created</dt>
 				<dd><%= record_time byline.work.created_at %></dd>
@@ -33,6 +36,7 @@
 				<dd><%= record_time byline.work.updated_at %></dd>
 			</dl>
 			<%= markdown byline.work.summary %>
+			<%= alteration_toolkit byline.work %>
 		</div>
 	<% end %>
 </article>

@@ -18,7 +18,6 @@ class Locality < ActiveRecord::Base
 	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates_uniqueness_of :subdomain_id, :scope => :domain_id
-	validate :reality_enforcement
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -56,17 +55,6 @@ class Locality < ActiveRecord::Base
 		}
 
 		Locality.create inserts
-	end
-
-	# PRIVATE METHODS
-	# ------------------------------------------------------------
-	private
-
-	# RealityEnforcement - real places cannot be the subdomain of fictional places
-	def reality_enforcement
-		if (self.domain.fictional? && !self.subdomain.fictional?)
-			errors.add(:subdomain, "fictitious places cannot be the parent place of real places")
-		end
 	end
 
 end

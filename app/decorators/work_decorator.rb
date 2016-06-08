@@ -70,20 +70,26 @@ class WorkDecorator < Draper::Decorator
 		@cohorted_characters ||= Appearance.organize(self.appearances)
 	end
 
-	def organized_works
-		@organized_works ||= WorkConnection.organize(self.tagged_connections)
+	def cohort_group_by(role)
+		found = cohorted_characters.with_indifferent_access[role]
+		found = found.nil? ? [] : found.sort_by! { |x| x[:name].downcase }
 	end
 
 	def cohort_names_by(role)
-		character_group = cohorted_characters.with_indifferent_access[role]
+		cohort_group_by(role).map(&:name)
+	end
 
-		character_group.nil? ? [] : character_group.map(&:name)
+	def organized_works
+		@organized_works ||= WorkConnection.organize(self.intratagged)
+	end
+
+	def organized_works_by(group)
+		found = organized_works.with_indifferent_access[group]
+		found = found.nil? ? [] : found
 	end
 
 	def organized_work_titles_by(group)
-		grouped_works = organized_works.with_indifferent_access[group]
-
-		grouped_works.nil? ? [] : grouped_works.map(&:title)
+		organized_works_by(group).map(&:title)
 	end
 
 	def main_tags

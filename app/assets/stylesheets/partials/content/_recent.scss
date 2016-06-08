@@ -51,13 +51,5 @@
 	background: $water-darker-minor;
 }
 
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include desktop {
-	.preview .excerpt {
-		display: none;
-	}
-}
-
 // END
 // ***********************************************/

@@ -9,7 +9,7 @@ class Subjects::ItemsController < SubjectsController
 	end
 
 	def show
-		item
+		find_item
 		can_view? @item, items_path
 	end
 
@@ -18,7 +18,7 @@ class Subjects::ItemsController < SubjectsController
 	end
 
 	def edit
-		item
+		find_item
 		can_edit? @item
 	end
 
@@ -27,6 +27,7 @@ class Subjects::ItemsController < SubjectsController
 	def create
 		@item = Item.new(item_params)
 		@item.uploader = current_user
+		set_visitor
 
 		if @item.save
 			redirect_to @item
@@ -38,7 +39,8 @@ class Subjects::ItemsController < SubjectsController
 	# PATCH/PUT
 	# ------------------------------------------------------------
 	def update
-		item
+		find_item
+		set_visitor
 
 		cannot_edit? @item do
 			return
@@ -54,7 +56,7 @@ class Subjects::ItemsController < SubjectsController
 	# DELETE
 	# ------------------------------------------------------------
 	def destroy
-		item
+		find_item
 
 		cannot_destroy? @item do
 			return
@@ -73,7 +75,7 @@ class Subjects::ItemsController < SubjectsController
 	private
 
 	# Item :: find by id
-	def item
+	def find_item
 		@item = Item.friendly.find(params[:id]).decorate
 	end
 
@@ -85,6 +87,10 @@ class Subjects::ItemsController < SubjectsController
 	# Subjects :: find all
 	def items
 		@subjects = @items = Item.order_by_generic.decorate
+	end
+
+	def set_visitor
+		@work.visitor = current_user
 	end
 
 end

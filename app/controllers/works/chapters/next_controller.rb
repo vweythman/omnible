@@ -5,8 +5,8 @@ class Works::Chapters::NextController < Works::ChaptersController
 	# POST
 	# ------------------------------------------------------------
 	def create
-		@previous = Chapter.find(params[:chapter_id])
-		@story    = @previous.story
+		previous_chapter
+		story
 		cannot_edit? @story do
 			return
 		end
@@ -23,6 +23,27 @@ class Works::Chapters::NextController < Works::ChaptersController
 				render action: 'new'
 			end
 		end
+	end
+
+	def new
+		previous_chapter
+		story
+		cannot_edit? @story do
+			return
+		end
+		@chapter = Chapter.new.decorate
+	end
+
+	# PRIVATE METHODS
+	# ============================================================
+	private
+
+	def previous_chapter
+		@previous = Chapter.find(params[:chapter_id])
+	end
+
+	def story
+		@story = @previous.story
 	end
 
 end

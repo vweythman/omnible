@@ -3,10 +3,12 @@
 // VIEWPORT :: ALL
 // ===============================================
 .select-one {
-	background:    $water-light-major;
-	border:        2px solid $water-color;
-	margin:        5px;
+	background:    $water-dark-minor;
+	border:        2px solid $water-dark-minor;
 	border-radius: 4px;
+	color:         $water-lightest-minor;
+	display:       inline-block;
+	margin:        5px;
 	overflow:      auto;
 
 	label {
@@ -16,8 +18,8 @@
 	input {
 		display: none;
 		&:checked + label {
-			color:      $water-lightest-major;
-			background: $water-light-minor;
+			color:      $water-darker-minor;
+			background: $water-light-major;
 		}
 	}
 }

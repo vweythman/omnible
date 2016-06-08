@@ -15,15 +15,15 @@ Rails.application.routes.draw do
   end
 
   concern :sortable do 
-    get '(sort/:sort)', :action => :index, :on => :collection
+    get '(sort/:sort)', :action => :index, :on => :collection, :as => :sorted
   end
 
   concern :dateable do 
-    get '(date/:date)', :action => :index, :on => :collection
+    get '(date/:date)', :action => :index, :on => :collection, :as => :dated
   end
 
   concern :completeable do 
-    get '(completion/:completion)', :action => :index, :on => :collection
+    get '(completion/:completion)', :action => :index, :on => :collection, as: :stateful
   end
 
   # USER routes
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     resources :pen_namings do
       resource :switch, only: [:update], :controller => 'pen_switches'
     end
-    get  'styles' => 'skins#index', as: :user_skins
+    get 'styles' => 'skins#index', as: :user_skins
   end
 
   # ADMIN routes
@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   # Interaction routes
   # ============================================================
   resources :comments
+  get '/comments/:id/respond' => 'comments#new', as: :comment_on_comment
 
   # COLLECTION routes
   # ============================================================
@@ -74,11 +75,21 @@ Rails.application.routes.draw do
   # TYPES works types
   # ------------------------------------------------------------
   scope module: 'works' do
+    work_simple_types = [:records, :articles, :journals, :story_links]
+    work_types        = [:articles, :brachning_stories, :journals, :records, :short_stories, :stories, :story_links]
 
-    resources :records,     :concerns => [:sortable]
-    resources :articles,    :concerns => [:sortable, :dateable, :paginatable]
-    resources :journals,    :concerns => [:sortable, :dateable, :completeable, :paginatable]
-    resources :story_links, :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    work_simple_types.each do |type|
+      resources type, :concerns => [:sortable, :dateable, :completeable, :paginatable]
+    end
+
+    work_types.each do |type|
+      get '/' + type.to_s + '/:id/discuss', :action => :show, :controller => "merged_discussions", as: type.to_s.singularize + '_discussion'
+    end
+
+    # NARROW access
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    get '/works/:id/upcoming'   => 'upcoming#show',    as: :upcoming_work
+    get '/works/:id/restricted' => 'restricted#show',  as: :restricted_work
 
     # NARROW narrative type
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,13 +98,11 @@ Rails.application.routes.draw do
 
     # NARROW chaptered stories
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    get '/stories/:id/whole'    => 'whole_story#show', as: :whole_story
-    get '/works/:id/upcoming'   => 'upcoming#show',    as: :upcoming_work
-    get '/works/:id/restricted' => 'restricted#show',  as: :restricted_work
+    get '/stories/:id/whole' => 'whole_story#show', as: :whole_story
 
     resources :stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
-      resources :notes
       resources :chapters
+      resources :notes
     end
 
     # NARROW chapters
@@ -114,6 +123,7 @@ Rails.application.routes.draw do
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     resources :branching_stories, :concerns => [:sortable, :dateable, :completeable, :paginatable] do
       resources :branches, except: [:new, :create]
+      resource  :discuss,  only: [:show], :controller => "merged_discussions"
     end
 
     scope module: 'branches' do
@@ -135,28 +145,35 @@ Rails.application.routes.draw do
     # NARROW curation controllers
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     scope module: 'curation' do
-      get '/characters/:character_id/works' => 'character_works#index',     as: :character_works
-      get '/users/:user_id/works'           => 'user_works#index',          as: :user_works
-      get '/tags/:tag_id/works'             => 'tag_works#index',           as: :tag_works
-      get '/identities/:identity_id/works'  => 'identity_works#index',      as: :identity_works
-      get '/works/:work_id/works'           => 'works_tagging_works#index', as: :tagging_works
+      get '/characters/:character_id/works' => 'character_works#index', as: :character_works
+      get '/users/:user_id/works'           => 'user_works#index',      as: :user_works
+      get '/tags/:tag_id/works'             => 'tag_works#index',       as: :tag_works
+      get '/identities/:identity_id/works'  => 'identity_works#index',  as: :identity_works
+      get '/works/:work_id/works'           => 'works_intratags#index', as: :intratags
 
-      get '/articles/:work_id/works'          => 'works_tagging_works#index'
-      get '/branching_stories/:work_id/works' => 'works_tagging_works#index'
-      get '/journals/:work_id/works'          => 'works_tagging_works#index'
-      get '/records/:work_id/works'           => 'works_tagging_works#index'
-      get '/short_stories/:work_id/works'     => 'works_tagging_works#index'
-      get '/stories/:work_id/works'           => 'works_tagging_works#index'
-      get '/story_links/:work_id/works'       => 'works_tagging_works#index'
+      work_types.each do |type|
+        get '/' + type.to_s + '/:work_id/works' => 'works_intratags#index'
+      end
+
+      scope module: 'intratags' do
+        ([:works] + work_types).each do |type|
+          get '/' + type.to_s + '/:work_id/works-with-cast' => 'cast#index',      as: type.to_s + '_archetyped_in'
+          get '/' + type.to_s + '/:work_id/as-mythos'       => 'general#index',   as: type.to_s + '_as_mythos'
+          get '/' + type.to_s + '/:work_id/as-setting'      => 'setting#index',   as: type.to_s + '_as_setting'
+          get '/' + type.to_s + '/:work_id/as-subject'      => 'subject#index',   as: type.to_s + '_as_subject'
+          get '/' + type.to_s + '/:work_id/as-reference'    => 'reference#index', as: type.to_s + '_as_reference'
+        end
+      end
     end
   end
-  
 
   # TYPE work elements
   # ------------------------------------------------------------
-  resources :chapters, except: [:index, :new, :show], :controller => 'works/chapters'
-  resources :notes,    except: [:index, :new, :show], :controller => 'works/notes'
-  resources :branches, except: [:index, :new, :show], :controller => 'works/branches'
+  work_elements = [:chapters, :notes, :branches]
+  work_elements.each do |type|
+    resources type, except: [:index, :new, :show], :controller => 'works/' + type.to_s
+    get '/' + type.to_s + '/:id/discuss', :action => :show, :controller => "discussions", as: type.to_s.singularize + '_discussion'
+  end
 
   # SUBJECTS
   # ============================================================
@@ -183,7 +200,6 @@ Rails.application.routes.draw do
   get 'all_tags' => 'taggings#show'
 
   scope module: 'taggings' do
-    resources :activities, except: [:new, :create]
     resources :tags,       except: [:new, :create]
     resources :identities, except: [:new, :create]
     resources :qualities,  except: [:new, :create]

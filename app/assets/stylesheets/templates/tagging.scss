@@ -5,8 +5,6 @@
 @import "application";
 @import "partials/pagination";
 @import "partials/forms/inline_form";
-@import "partials/content/tables/results";
-@import "partials/content/tables/analytics";
 
 // SECTION :: COLORS
 // ===============================================
@@ -40,9 +38,6 @@ $content-shadow: 0px 0px 10px $moss-darker-minor;
 	margin:         25px $one-twelfth;
 }
 
-.pagination {
-	margin: 20px auto;
-}
 
 .related-menu {
 	margin: 0 10px;
@@ -64,7 +59,7 @@ $content-shadow: 0px 0px 10px $moss-darker-minor;
 
 h2 {
 	background: $moss-light-minor;
-	font-size: $heading-size - 4px;
+	font-size: 2;
 	margin:    0px;
 	padding:   20px 10px;
 }
@@ -77,6 +72,51 @@ legend {
 dl {
 	padding: 10px;
 }
+
+@include tally($rose-color, $rose-lighter-minor, 4px);
+@include tableized-results($page-color, $water-dark-minor, $moss-lightest-major, $water-dark-major, 5px);
+
+@include pagination-blocks($moss-lighter-minor, $page-color, $moss-dark-major, $one-fifth);
+
+.pagination-heading {
+	border-bottom: 1px dotted $page-dark-major;
+	font-size:     $heading-size - 8px;
+	font-weight:   bolder;
+	text-align:    center;
+	margin:        10px 5px;
+}
+
+.pagination {
+	padding: 0px 0px 10px;
+	width:   calc(100% - 20px);
+}
+
+// SECTION :: VIEWPORTS
+// ===============================================
+@include page-desktop() {
+	@include indexed-banding($water-lightest-minor);
+	.logged-in {
+		background: $heading;
+	}
+}
+
+@include page-mobile() {
+	@include mobilized-forms();
+	@include mobilize-pagination();
+}
+
+@include page-non-desktop {
+	.tableized-results { @include tb-modularize(); }
+	.show-page tr {
+		padding-bottom: 15px;
+
+		@include rowbanding($water-lightest-minor);
+	}
+}
+
+@include page-non-mobile() {}
+
+@include page-tablet() {}
 
 /* END
 /* ***********************************************/

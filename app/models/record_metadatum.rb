@@ -21,8 +21,9 @@ class RecordMetadatum < ActiveRecord::Base
 
 	# SCOPES
 	# ============================================================
-	scope :mediums, -> { where(key: "medium") }
-	scope :medium,  -> { mediums.pluck(:value).first }
+	scope :mediums,    -> { where(key: "medium") }
+	scope :medium,     -> { mediums.pluck(:value).first }
+	scope :alphabetic, -> { order(:value) }
 
 	# ASSOCIATIONS
 	# ============================================================

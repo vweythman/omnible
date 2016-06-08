@@ -15,12 +15,6 @@
 	h1 {
 		background: $heading-background;
 	}
-
-	@include desktop {
-		.logged-in {
-			background: $heading-background;
-		}
-	}
 }
 
 // VIEWPORT :: ALL
@@ -51,17 +45,12 @@ h6 {
 h1 {
 	font-size: $heading-size;
 	padding:   15px $one-twelfth 5px;
-
-	@include desktop {
-		padding-top: 60px;
-	}
 }
 h2 {
 	font-size:   $heading-size - 6px;
 	font-weight: lighter;
 	margin:      0px;
 }
-
 .subtitle {
 	display:     block;
 	font-size:   0.8em;

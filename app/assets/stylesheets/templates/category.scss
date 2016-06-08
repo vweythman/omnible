@@ -7,8 +7,6 @@
 @import "partials/forms/fields/switch";
 @import "partials/pagination";
 @import "partials/content/status";
-@import "partials/content/tables/analytics";
-@import "partials/content/tables/relateables";
 
 // SECTION :: COLORS
 // ===============================================
@@ -38,39 +36,60 @@ $content-shadow: 0px 0px 10px $moss-darker-minor;
 	padding:    10px 0;
 }
 
-.pagination {
-	margin:  0 auto;
-	padding: 10px;
-}
 
-.relateable,
 .stat-distribution {
-	background: $page-color;
-
-	p {
-		text-align: center;
-	}
-}
-
-.analytics {
-	margin: 10px;
+	background: white;
+	p { text-align: center; }
 }
 
 #distribution {
-	margin: 53px auto;
-	display:block;
+	margin:    53px auto;
+	display:   block;
+	max-width: 100%;
 }
-.connection {
+
+.switch-state {
 	padding:    10px;
 	overflow:   auto;
 
 	@include toggle-button(30px, 2px, 0.5s, $stoplight-go, $page-light-minor);
 }
+
 .usage h2 {
 	background:    $moss-lighter-minor none repeat scroll 0% 0%;
 	border-bottom: 4px solid $moss-dark-minor;
 	font-weight:   bolder;
 	padding:       21px 25px 6px;
+}
+
+@include pagination-blocks($moss-darker-minor, $page-color, $moss-dark-major, $one-fifth);
+@include switch-board($moss-dark-major, $moss-dark-minor, 6px);
+@include tally($page-color, $page-lighter-minor, 4px);
+
+// VIEWPORT
+// ===============================================
+@include page-desktop() {
+	.logged-in {
+		background: $heading;
+	}
+	.switch-board tr { @include rowbanding($page-lightest-major); }
+}
+
+@include page-mobile() {
+	@include mobilized-forms();
+	@include mobilize-pagination();
+}
+
+@include page-non-desktop {
+	.switch-board { @include tb-modularize(); }
+}
+@include page-non-mobile() {}
+
+@include page-tablet() {
+	.switch-board tr {
+		float: left;
+		width: calc(33.33% - 20px);
+	}
 }
 
 /* END

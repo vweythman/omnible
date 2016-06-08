@@ -2,7 +2,7 @@
 	<% if user_signed_in? %>
 		<div class="user">
 			<%= link_to current_user.name, dashboard_path, class: "logged-in" %>
-			<%= render 'meta/sidebar' %>
+			<%= render 'shared/sidebar' %>
 		</div>
 		<span class="session"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></span>
 	<% else %>

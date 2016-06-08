@@ -22,34 +22,32 @@ module Recordable
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		has_many :creatorships, dependent: :destroy
 		has_many :appearances,  dependent: :destroy
-		has_many :taggings,     dependent: :destroy
+		has_many :taggings,     dependent: :destroy, as: :tagger
 		has_many :settings,     dependent: :destroy
 
-		has_many :tagged_connections,  class_name: "WorkConnection", dependent: :destroy, foreign_key: "tagger_id"
-		has_many :tagging_connections, class_name: "WorkConnection", dependent: :destroy, foreign_key: "tagged_id"
+		has_many :intratagged,   class_name: "WorkConnection", dependent: :destroy, foreign_key: "tagger_id"
+		has_many :intrataggings, class_name: "WorkConnection", dependent: :destroy, foreign_key: "tagged_id"
 
 		has_many :main_appearances,      -> { Appearance.main_character }, class_name: "Appearance"
 		has_many :side_appearances,      -> { Appearance.side },           class_name: "Appearance"
 		has_many :mentioned_appearances, -> { Appearance.mentioned },      class_name: "Appearance"
 		has_many :subject_appearances,   -> { Appearance.subject },        class_name: "Appearance"
 
-		has_many :general_tagging_connections,   -> { WorkConnection.general    }, class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :set_in_tagging_connections,    -> { WorkConnection.set_in     }, class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :cast_from_tagging_connections, -> { WorkConnection.cast_from  }, class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :mentioned_tagging_connections, -> { WorkConnection.mentioned  }, class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :subject_tagging_connections,   -> { WorkConnection.subject    }, class_name: "WorkConnection", foreign_key: "tagged_id"
-		has_many :reference_tagging_connections, -> { WorkConnection.referenced }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :general_intrataggings,   -> { WorkConnection.general    }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :set_in_intrataggings,    -> { WorkConnection.set_in     }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :cast_from_intrataggings, -> { WorkConnection.cast_from  }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :subject_intrataggings,   -> { WorkConnection.subject    }, class_name: "WorkConnection", foreign_key: "tagged_id"
+		has_many :reference_intrataggings, -> { WorkConnection.referenced }, class_name: "WorkConnection", foreign_key: "tagged_id"
 
-		has_many :general_tagged_connections,   -> { WorkConnection.general    }, class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :set_in_tagged_connections,    -> { WorkConnection.set_in     }, class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :cast_from_tagged_connections, -> { WorkConnection.cast_from  }, class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :mentioned_tagged_connections, -> { WorkConnection.mentioned  }, class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :subject_tagged_connections,   -> { WorkConnection.subject    }, class_name: "WorkConnection", foreign_key: "tagger_id"
-		has_many :reference_tagged_connections, -> { WorkConnection.referenced }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :general_intratagged,   -> { WorkConnection.general    }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :set_in_intratagged,    -> { WorkConnection.set_in     }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :cast_from_intratagged, -> { WorkConnection.cast_from  }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :subject_intratagged,   -> { WorkConnection.subject    }, class_name: "WorkConnection", foreign_key: "tagger_id"
+		has_many :reference_intratagged, -> { WorkConnection.referenced }, class_name: "WorkConnection", foreign_key: "tagger_id"
 
 		# BELONGS TO
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		has_many   :tagging_works,  through: :tagging_connections
+		has_many   :tagging_works,  through: :intrataggings
 		belongs_to :type_describer, class_name: "WorksTypeDescriber", foreign_key: "type", primary_key: "name"
 
 		# HAS
@@ -58,7 +56,7 @@ module Recordable
 		has_many :creators, :through => :creatorships
 
 		has_many :characters, ->{uniq}, :through => :appearances
-		has_many :works,      ->{uniq}, :through => :tagged_connections
+		has_many :works,      ->{uniq}, :through => :intratagged
 
 		has_many :places,     ->{uniq}, :through => :settings
 		has_many :tags,       ->{uniq}, :through => :taggings
@@ -68,21 +66,17 @@ module Recordable
 		has_many :mentioned_characters, :through => :mentioned_appearances
 		has_many :people_subjects,      :through => :subject_appearances
 
-		has_many :general_works,   :through => :general_tagged_connections
-		has_many :set_in_works,    :through => :set_in_tagged_connections
-		has_many :cast_from_works, :through => :cast_from_tagged_connections
-		has_many :mentioned_works, :through => :mentioned_tagged_connections
+		has_many :general_works,   :through => :general_intratagged
+		has_many :set_in_works,    :through => :set_in_intratagged
+		has_many :cast_from_works, :through => :cast_from_intratagged
+		has_many :work_subjects,   :through => :subject_intratagged
+		has_many :work_references, :through => :reference_intratagged
 
-		has_many :work_subjects,   :through => :subject_tagged_connections
-		has_many :work_references, :through => :reference_tagged_connections
-
-		has_many :general_in,    through: :general_tagging_connections,   source: :tagging_work
-		has_many :setting_of,    through: :set_in_tagging_connections,    source: :tagging_work
-		has_many :cast_for,      through: :cast_from_tagging_connections, source: :tagging_work
-		has_many :mentioner,     through: :mentioned_tagging_connections, source: :tagging_work
-
-		has_many :subject_of,    through: :subject_tagging_connections,   source: :tagging_work
-		has_many :reference_for, through: :reference_tagging_connections, source: :tagging_work
+		has_many :general_in,    through: :general_intrataggings,   source: :tagging_work
+		has_many :setting_of,    through: :set_in_intrataggings,    source: :tagging_work
+		has_many :cast_for,      through: :cast_from_intrataggings, source: :tagging_work
+		has_many :subject_of,    through: :subject_intrataggings,   source: :tagging_work
+		has_many :reference_for, through: :reference_intrataggings, source: :tagging_work
 
 		# REFERENCES
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,19 +89,19 @@ module Recordable
 	attr_accessor :visitor, :appearables, :placeables, :taggables, :uploadership, :relateables
 
 	def appearables
-		@appearables  ||= { :main => "", :side => "", :mentioned => "", :subject => "" }
+		@appearables  ||= { :main => nil, :side => nil, :mentioned => nil, :subject => nil }
 	end
 
 	def placeables
-		@placeables   ||= ""
+		@placeables   ||= nil
 	end
 
 	def relateables
-		@relateables  ||= {:general => "", :mentioned => "", :subject => "", :setting => "", :characters => "", :reference => ""}
+		@relateables  ||= {:general => nil, :subject => nil, :setting => nil, :characters => nil, :reference => nil}
 	end
 
 	def taggables
-		@taggables    ||= ""
+		@taggables    ||= nil
 	end
 
 	def uploadership
@@ -136,14 +130,6 @@ module Recordable
 
 	def tag_names
 		self.tags.map(&:name)
-	end
-
-	def categorized_type
-		self.type.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').titleize
-	end
-
-	def tag_heading
-		title + " [#{categorized_type}]"
 	end
 
 	# ACTIONS
@@ -188,21 +174,21 @@ module Recordable
 	# ------------------------------------------------------------
 	def update_tags
 		updated_place_tags(placeables)
-		updated_general_tags(taggables)
+		updated_tag_tags(taggables)
 
 		if self.narrative?
-			find_main_characters      appearables[:main]
-			find_side_characters      appearables[:side]
-			find_mentioned_characters appearables[:mentioned]
+			updated_character_tags self.main_characters, appearables[:main]
+			updated_character_tags self.side_characters, appearables[:side]
+			updated_character_tags self.mentioned_characters, appearables[:mentioned]
 
-			find_general_works   relateables[:general]
-			find_set_in_works    relateables[:setting]
-			find_cast_from_works relateables[:characters]
-			find_mentioned_works relateables[:mentioned]
+			updated_work_tags self.general_works, relateables[:general]
+			updated_work_tags self.set_in_works, relateables[:setting]
+			updated_work_tags self.cast_from_works, relateables[:characters]
+			updated_work_tags self.work_references, relateables[:reference]
 		else
-			find_people_subjects appearables[:subject]
-			find_work_subjects   relateables[:subject]
-			find_work_subjects   relateables[:reference]
+			updated_character_tags self.people_subjects, appearables[:subject]
+			updated_work_tags self.work_subjects, relateables[:subject]
+			updated_work_tags self.work_references, relateables[:reference]
 		end
 	end
 
@@ -214,79 +200,27 @@ module Recordable
 	# SPECIFIC TAG TYPES
 	# ------------------------------------------------------------
 	def updated_place_tags(names)
-		old_tags     = self.places
-		current_tags = Place.merged_tag_names(old_tags, names, visitor)
-		organize_tags(old_tags, current_tags)
+		unless names.nil?
+			old_tags     = self.places
+			current_tags = Place.merged_tag_names(old_tags, names, visitor)
+			organize_tags(old_tags, current_tags)
+		end
 	end
 
-	def updated_general_tags(names)
-		old_tags     = self.tags
-		current_tags = Tag.merged_tag_names(old_tags, names, visitor)
-		organize_tags(old_tags, current_tags)
+	def updated_tag_tags(names)
+		unless names.nil?
+			old_tags     = self.tags
+			current_tags = Tag.merged_tag_names(old_tags, names, visitor)
+			organize_tags(old_tags, current_tags)
+		end
 	end
 
-	# CHARACTER TAGS
-	# ------------------------------------------------------------
-	def find_main_characters(names)
-		old_tags     = self.main_characters
-		current_tags = Character.merged_tag_names(old_tags, names, visitor)
-		organize_tags(old_tags, current_tags)
+	def updated_character_tags(old_tags, names)
+		organize_tags(old_tags, Character.merged_tag_names(old_tags, names, visitor)) unless names.nil?
 	end
 
-	def find_mentioned_characters(names)
-		old_tags     = self.mentioned_characters
-		current_tags = Character.merged_tag_names(old_tags, names, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_side_characters(names)
-		old_tags     = self.side_characters
-		current_tags = Character.merged_tag_names(old_tags, names, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_people_subjects(names)
-		old_tags     = self.people_subjects
-		current_tags = Character.merged_tag_names(old_tags, names, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	# Work TAGS
-	# ------------------------------------------------------------
-	def find_general_works(titles)
-		old_tags     = self.general_works
-		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_set_in_works(titles)
-		old_tags     = self.set_in_works
-		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_cast_from_works(titles)
-		old_tags     = self.cast_from_works
-		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_mentioned_works(titles)
-		old_tags     = self.mentioned_works
-		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_work_subjects(titles)
-		old_tags     = self.work_subjects
-		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
-		organize_tags(old_tags, current_tags)
-	end
-
-	def find_work_references(titles)
-		old_tags     = self.work_references
-		current_tags = Work.merged_tag_names(old_tags, titles, visitor)
-		organize_tags(old_tags, current_tags)
+	def updated_work_tags(old_tags, titles)
+		organize_tags(old_tags, Work.merged_tag_names(old_tags, titles, visitor)) unless titles.nil?
 	end
 
 end

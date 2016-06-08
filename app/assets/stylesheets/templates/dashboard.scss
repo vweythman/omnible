@@ -4,8 +4,6 @@
 // ===============================================
 @import "application";
 @import "partials/content/status";
-@import "partials/content/tables/results";
-@import "partials/content/tables/manager";
 @import "partials/forms/inline_form";
 
 // SECTION :: COLORS
@@ -19,10 +17,11 @@ $content-shadow: 0px 0px 10px $page-darker-minor;
 // SECTION :: ALL
 // ===============================================
 @include page-look($page, $border);
-@include header-look($header, $heading, $border);
 
 // SECTION :: HEADER
 // ===============================================
+@include header-look($header, $heading, $border);
+
 .creation,
 .creation-block {
 	margin: 0 auto;
@@ -33,19 +32,18 @@ $content-shadow: 0px 0px 10px $page-darker-minor;
 }
 
 .alteration {
-	margin:    5px $one-twelfth;
-	min-width: $five-sixths;
-
-	@include non-desktop {
-		margin:    5px 10px;
-		min-width: calc(100% - 20px);
-	}
+	margin:    5px 10px;
+	min-width: calc(100% - 20px);
 }
 
-// SECTION :: BODY
+h2 {
+	text-align: center;
+	font-size:  18px;
+	margin:     35px 0px 0px;
+}
+
+// SECTION :: BODY :: ALL
 // ===============================================
-// BODY :: ALL
-// -----------------------------------------------
 .dashboard-grid,
 .index-body {
 	background: $page-color;
@@ -62,12 +60,9 @@ $content-shadow: 0px 0px 10px $page-darker-minor;
 		text-align: center;
 	}
 }
-h2 {
-	text-align: center;
-	font-size:  18px;
-	margin:     35px 0 10px;
-}
 
+// SECTION :: BODY :: LISTS
+// ===============================================
 .create-as {
 	padding: 0px 0;
 
@@ -86,20 +81,39 @@ h2 {
 	}
 }
 
-// BODY :: TABLE
-// -----------------------------------------------
-.default-pen {
-	color: $rose-dark-minor;
+.work-meta {
+	color:    $page-darker-minor;
+	margin:   0px $one-twelfth 50px;
+
+	.toolkit {
+		display: block;
+		margin:  5px auto;
+	}
+
+	dl {
+		margin:  0 10px;
+		padding: 0;
+	}
+
+	dt {
+		padding: 0;
+		font-weight: bolder;
+	}
+
+	p { margin: 0 10px; }
 }
 
-.editable-content {
-	@include tablet {
-		width: calc(50% - 20px);
-	}
+// SECTION :: BODY :: TABLES
+// ===============================================
+.editable {
+	font-weight: bolder;
+	td { text-align:  center; }
 
-	@include mobile {
-		width: calc(100% - 20px);
-	}
+	@include theading($page-color, $fire-lightest-minor, $fire-lighter-minor, 5px);
+}
+
+.default-pen {
+	color: $rose-dark-minor;
 }
 
 .management-widget {
@@ -111,10 +125,6 @@ h2 {
 	text-align:     center;
 	vertical-align: middle;
 
-	@include non-desktop {
-		padding: 0px 0px 5px 0px;
-	}
-
 	span {
 		display: block;
 		margin:  5px;
@@ -122,46 +132,41 @@ h2 {
 	}
 }
 
-// BODY :: LIST
-// -----------------------------------------------
-.work-meta {
-	color:    $page-darker-minor;
-	margin:   0px $one-twelfth 50px;
-	overflow: auto;
+// SECTION :: VIEWPORTS
+// ===============================================
+@include page-desktop() {
+	tr { @include rowbanding($water-lightest-major); }
+	.logged-in {
+		background: $heading;
+	}
+}
 
-	.toolkit {
-		display: block;
-		margin:  5px auto;
+@include page-mobile() {
+	@include mobilized-forms();
+	.editable-content { width: calc(100% - 20px); }
+}
 
-		a {
-			padding: 5px 0px;
-			width:   calc(100%);
-		}
+@include page-non-desktop {
+	@include tb-modularize();
 
-		@include mobile {
-			float: none;
-		}
+	.editable .manager-editor { display: none; }
+
+	.editable-content {
+		@include modularized-dossier($fire-light-minor);
+		.item-type { display:none; }
 	}
 
-	dl {
-		box-shadow: 0px 0px 5px $page-light-minor;
-		margin:     5px;
-		padding:    10px;
-
-		@include mobile {
-			margin: 10px auto;
-			width: calc(100% / 4 * 3);
-		}
-
+	.status {
+		padding: 0px 0px 5px 0px;
 	}
+}
 
-	dt {
-		padding: 0;
-		font-weight: bolder;
-	}
-	dd {
-		padding: 5px 0;
-	}
+@include page-non-mobile() {
+
+}
+
+@include page-tablet() {
+	.editable-content { width: calc( 50% - 20px); }
 }
 
 /* END

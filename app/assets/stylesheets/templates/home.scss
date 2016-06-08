@@ -3,7 +3,6 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "partials/content/snippets";
 @import "partials/content/recent";
 
 // SECTION :: ALL
@@ -12,13 +11,16 @@
 	background: $water-darker-minor;
 }
 
-// SECTION :: BODY
-// ===============================================
-.welcome-widget {
-	@include desktop { padding: 5em 0; }
-	@include tablet  { padding: 2em 0; }
-	@include mobile  { display: none; }
-	@include non-mobile {
+@include page-desktop() {
+	.welcome-widget { padding: 5em 0; }
+}
+
+@include page-mobile() {
+	.welcome-widget { display: none; }
+}
+
+@include page-non-mobile() {
+	.welcome-widget {
 		background: $water-darker-minor;
 		color:      $water-light-minor;
 		text-align: center;
@@ -26,6 +28,11 @@
 			font-weight: lighter;
 		}
 	}
+}
+
+@include page-tablet() {
+	.welcome-widget { padding: 2em 0; }
+
 }
 
 /* END

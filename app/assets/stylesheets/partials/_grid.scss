@@ -2,6 +2,10 @@
 // ***********************************************
 // GENERAL
 // ===============================================
+@mixin mobilize-cell() {
+	.panel-cell { width: $one-whole !important; }
+}
+
 .poster {
 	margin:   0;
 	padding:  0;
@@ -18,10 +22,6 @@
 	float:   left;
 	margin:  0;
 	padding: 0;
-
-	@include mobile {
-		width: $one-whole !important;
-	}
 }
 
 .solo    { width: $one-whole;  }
@@ -34,6 +34,7 @@
 
 .golden-major  { width: $golden-major;  }
 .golden-minor  { width: $golden-minor;  }
+
 .golden-large  { width: $golden-large;  }
 .golden-small  { width: $golden-small;  }
 

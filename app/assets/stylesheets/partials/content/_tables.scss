@@ -1,20 +1,30 @@
 // STYLE PARTIAL: TABLES
 // ***********************************************
-// VIEWPORT :: ALL
+// SETUP :: BASE
 // ===============================================
 table {
-	margin: 0 auto;
-	width:  calc(100% - 20px);
-}
+	margin: 0;
+	width:  100%;
 
-caption {
-	font-size:      $text-size + 4px;
-	font-weight:    bolder;
-	padding:        20px 25px 10px 25px;
+	caption {
+		font-size:   1.3em;
+		font-weight: bolder;
+		padding:     20px 25px 10px 25px;
+	}
+
+	thead {
+		vertical-align: bottom;
+
+		th { padding: 15px 25px 5px 25px; }
+	}
 }
 
 tbody {
-	text-align:     left;
+	text-align: left;
+
+	tr {
+		background: $page-color;
+	}
 }
 
 th {
@@ -34,21 +44,98 @@ td {
 	padding: 10px 0;
 }
 
-// TABLE SORTER
-// -----------------------------------------------
-.sortable .header:after {
-	content: "⬩"
-}
-.sortable .headerSortDown:after {
-	content: "▾"
-}
-.sortable .headerSortUp:after {
-	content: "▴"
+// TYPE :: SORTABLE AND EDITABLE
+// ===============================================
+.sortable .header:after         { content: "⬩" }
+.sortable .headerSortDown:after { content: "▾" }
+.sortable .headerSortUp:after   { content: "▴" }
+
+// MIXINS :: SLICES
+// ===============================================
+@mixin rowbanding($even-bg) {
+	&:nth-child(2n) {
+		background: $even-bg;
+	}
 }
 
-// VIEWPORT :: NON-DESKTOP
+@mixin theading($cap, $th, $bdr-color, $bdr-size) {
+	caption { @include simple-brand($cap, $bdr-color, $bdr-size);      }
+	thead   { @include simple-brand($th, darken($th, 10%), $bdr-size); }
+}
+
+// MIXINS :: EDITABLE
 // ===============================================
-@include non-desktop {
+@mixin modularized-dossier($bg) {
+	@include gradientized(180deg, $bg, lighten($bg, 20%));
+	border-radius: 10px;
+	box-shadow:    0px 0px 5px $bg;
+	float:         left;
+
+	th {
+		font-weight: bolder;
+		padding:     0;
+		text-align:  center;
+
+		a {
+			@include rounded-top(10px);
+			border-bottom:   3px solid darken($bg, 10%);
+			color:           contrastable($bg);
+			display:         block;
+			margin:          0;
+			text-decoration: none;
+
+			&:hover {
+				background: darken($bg, 15%);
+				color:      contrastable(darken($bg, 25%));
+			}
+		}
+	}
+	th a,
+	.subheading {
+		margin:  0px;
+		padding: 10px 10px 5px;
+	}
+
+	td {
+		background: fade-out($page-color, .4);
+		padding:    0px 0px 5px 0px;
+		font-weight: lighter;
+
+		&:before {
+			background:    lighten($bg, 20%);
+			padding:       7px 0 2px;
+			margin-bottom: 5px;
+		}
+		&:last-child {
+			@include rounded-bottom(10px);
+		}
+	}
+}
+
+// MIXINS :: RUNNING TOTALS
+// ===============================================
+@mixin tally($cap-bg, $hd-bg, $bdr-sz) {
+	.analytics {
+		margin: 15px auto;
+		width:  $three-fourths;
+
+		@include theading($cap-bg, $hd-bg, darken($hd-bg, 15%), $bdr-sz);
+
+		tbody {	text-align: center; }
+
+		tfoot {
+			text-align: center;
+			border-top: $bdr-sz solid darken($hd-bg, 15%);
+			th {
+				padding: 10px;
+			}
+		}
+	}
+}
+
+// MIXINS :: MOBILE FRIENDLY TABLES
+// ===============================================
+@mixin tb-modularize() {
 	thead {
 		display: none;
 	}
@@ -74,6 +161,52 @@ td {
 		content:     attr(data-label);
 		display:     block;
 		font-weight: bolder;
+	}
+}
+
+// MIXINS :: RESULTS
+// ===============================================
+@mixin tableized-results($bg, $cap, $hd, $bdr, $size) {
+	.tableized-results {
+		background: $bg;
+		border: 10px solid $bg;
+
+		@include theading($cap, desaturate(lighten($hd, 15%), 20%), $bdr, 5px);
+	}
+}
+
+@mixin results-modularize() {
+	td {
+		padding: 5px 20px 0px;
+	}
+	td:before {
+		margin:  0px 0px 2px;
+		padding: 5px 0 2px;
+	}
+}
+
+@mixin indexed-banding($bg) {
+	.show-page tr,
+	.index-body tr { @include rowbanding($bg); }
+}
+
+// MIXINS :: SWITCH BOARD
+// ===============================================
+@mixin switch-board($cap-bg, $bdr-bg, $bdr-sz) {
+	.switch-board {
+		background: $page-color;
+		width:      100%;
+
+		@include theading($cap-bg, lighten($cap-bg, 20%), $bdr-bg, $bdr-sz);
+
+		tbody {
+			text-align: center;
+
+			th {
+				font-weight:    bolder;
+				padding-bottom: 0;
+			}
+		}
 	}
 }
 

@@ -32,6 +32,25 @@
 	}
 }
 
+.action-bar {
+	color:       $water-dark-minor;
+	padding:     0;
+	line-height: 1;
+	font-size:   .8em;
+	margin:      5px 0;
+
+	a {
+		color:           $water-dark-minor;
+		padding:         5px;
+		text-decoration: none;
+	}
+
+	.unlink {
+		color:   $page-dark-minor;
+		padding: 5px;
+	}
+}
+
 // TOOLKITS :: Alteration
 // ===============================================
 .alteration {
@@ -43,11 +62,6 @@
 	width:         100%;
 
 	@include buttonable($fire-color);
-
-	@include non-desktop {
-		margin: 10px;
-		width:  calc(100% - 20px);
-	}
 
 	.toolblock & {
 		margin:    0px;
@@ -125,16 +139,8 @@ tfoot .creation {
 	.toolblock & {
 		min-width: 100%;
 		width:     100%;
-
-		@include desktop {
-			a {
-				padding: 10px 0;
-				width:   50%;
-			}
-		}
 	}
 }
-
 
 // END
 // ***********************************************/

@@ -215,3 +215,6 @@ DEPENDENCIES
   sunspot_solr!
   tzinfo-data
   uglifier (= 2.1.1)
+
+BUNDLED WITH
+   1.12.3

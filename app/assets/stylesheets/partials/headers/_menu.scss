@@ -2,6 +2,13 @@
 // ***********************************************
 // SECTION :: ALL
 // ===============================================
+@mixin hide-arrow() {
+	.submenu, 
+	.drop-arrow {
+		display: none;
+	}
+}
+
 .menu {
 	text-align: center;
 
@@ -9,31 +16,6 @@
 		display: none;
 	}
 	
-	@include desktop {
-		width: $three-fourths;
-	}
-
-	@include tablet {
-		overflow:   auto;
-		margin-top: 5px;
-	}
-
-	@include mobile {
-		display: block;
-
-		li {
-			width: $one-half;
-			float: left;
-		}
-	}
-	@include non-mobile {
-		display: block;
-
-		li:hover ul {
-			display: block;
-		}
-	}
-
 	a {
 		color:          $water-lightest-minor;
 		display:        block;
@@ -53,47 +35,6 @@
 .submenu {
 	background: $water-dark-major;
 	z-index: 200;
-
-	@include desktop {
-		width: (3/4) * (1/4) * (5/6) * 100%; 
-	}
-	@include non-mobile {
-		float:    left;
-		position: absolute;
-
-		a {
-			font-size: .9em;
-			padding:   10px 5px;
-		}
-	}
-	@include tablet {
-		width: $one-fourth;
-	}
-}
-
-// VIEWPORT SPECIFIC
-// ===============================================
-@include mobile {
-	.submenu, 
-	.drop-arrow {
-		display: none;
-	}
-}
-@include non-mobile {
-	.drop-arrow {
-		font-size: .68em;
-	}
-	.menu a {
-		padding: 12px 0 8px;
-	}
-	.menu > ul > li {
-		width: $one-fourth;
-		float: left;
-	}
-
-}
-@include tablet {
-	.menu > ul > li { width: 24.50%; }
 }
 
 // END

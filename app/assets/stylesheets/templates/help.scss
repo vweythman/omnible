@@ -10,6 +10,10 @@
 h1 {
 	color: $page-color;
 }
+@include page-desktop() {}
+@include page-mobile() {}
+@include page-non-mobile() {}
+@include page-tablet() {}
 
 .lightest-major {
 	color: $page-darkest-major;

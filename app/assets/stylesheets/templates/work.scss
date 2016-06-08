@@ -3,22 +3,20 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
+@import "partials/forms/inline_form";
 @import "partials/pagination";
 @import "partials/content/status";
-@import "partials/forms/inline_form";
 @import "partials/content/comments";
 
 // SETUP :: VARIABLES
 // ===============================================
-$header-gutter:      $one-twelfth;
-$header-width:       100% - (2 * $header-gutter);
-$header-negate:      $header-gutter / $header-width * 100%;
-$full-header-margin: ($header-negate * -1);
+$header-gutter: $one-twelfth;
+$header-negate: gutter-negate($header-gutter);
+$header-margin: ($header-negate * -1);
 
 $page-gutter:    $one-sixth;
 $article-gutter: $page-gutter / 2;
-$article-width:  100% - 2 * $page-gutter;
-$article-negate: $page-gutter / $article-width * 100%;
+$article-negate: gutter-negate($page-gutter);
 $content-negate: $article-negate / 2;
 
 // SECTION :: HEADER
@@ -28,28 +26,22 @@ $content-negate: $article-negate / 2;
 
 	h1 {
 		border-bottom: 7px solid $water-dark-major;
-		margin:        0 $full-header-margin;
+		margin:        0px $header-margin;
 		padding:       5px $header-negate;
 		padding-top:   35px;
 	}
 
-	.completion-status {
-		margin: 0 $full-header-margin;
-	}
+	.completion-status { margin: 0px $header-margin; }
 
 	.about {
 		color:        $page-lightest-minor;
 		margin:       0;
 		padding-left: 0;
 
-		a {
-			color: $water-lightest-minor;
-		}
+		a { color: $water-lightest-minor; }
 	}
 
-	.multikit {
-		margin: 0;
-	}
+	.multikit { margin: 0; }
 
 	.alteration {
 		margin:     0;
@@ -93,10 +85,6 @@ article {
 	padding:    20px $article-gutter;
 	box-shadow: 0px 0px 10px $water-darkest-minor;
 
-	@include non-desktop {
-		margin-top: 25px;
-	}
-
 	.toolkit {
 		margin: 10px 0 0;
 	}
@@ -107,7 +95,8 @@ article {
 	h1 {
 		margin:     0 ($article-negate * -1 * 3/4);
 		padding:    15px ($article-negate * 3/4);
-		background: $page-lighter-major;
+		background: fade-out($water-lighter-major, .5);
+		border-radius: 20em;
 		text-align: center;
 		.word-count {
 			display: block;
@@ -142,42 +131,37 @@ hr {
 .subject-body {
 	margin: 15px $article-gutter;
 
-	.characters li {
-		color: $fire-dark-minor;
-	}
-
-	.places li {
-		color: $moss-dark-minor;
-	}
+	.characters li { color: $fire-dark-minor; }
+	.places     li { color: $moss-dark-minor; }
 
 	.indexable li {
 		padding: 5px 25px;
+		&::before {
+			font-size:   16px;
+			margin-left: -20px;
+			padding:     0 5px;
+		}
 	}
-	.indexable li::before {
-		font-size:   16px;
-		margin-left: -20px;
-		padding:     0 5px;
-	}
+
 	.widget {
 		margin:     10px;
 		background: $page-color;
+		p {
+			padding: 5px 15px;
+		}
+		h3 {
+			padding: 5px 15px 0;
+		}
 	}
 
 	.summary-cell {
 		background: $fire-lighter-minor;
 		min-height: 75px;
-
-		p {
-			padding: 5px 10px;
-		}
 	}
 }
 
-
 .subheading {
-	background:    $water-lightest-minor;
-	color:         $water-darkest-minor;
-	border-bottom: 2px solid $water-lighter-minor;
+	@include simple-brand($water-lightest-minor, $water-lighter-minor, 2px);
 	font-family:   "Arial", sans-serif;
 	font-size:     1.25em;
 	font-weight:   600;
@@ -191,52 +175,68 @@ hr {
 	}
 }
 
-.full-pagination {
-	margin: 5px 0;
-
-	ul {
-		margin: 5px 0;
-	}
-	select {
-		margin: 5px 0;
-    	width:  100%;
-	}
-}
-
-.indexable {
-	padding: 10px 10px 25px;
-}
+.indexable { padding: 10px 10px 25px; }
 
 .branching li {
-	color: $moss-dark-major;
+	color:   $moss-dark-major;
 	padding: 2px 10px;
 
+	&:before { margin: 0px -10px; }
 	a {
 		color: $moss-dark-major;
 		padding: 0px 15px;
 	}
-	&:before {
-		margin: 0px -10px;
-	}
 }
+
 .branching form {
 	background: $page-lightest-minor;
 	padding:    10px;
+	margin:     10px 0;
+	width:      calc(100% - 20px);
 
-	.primary-panel {
-		margin-bottom: 10px;
-	}
+	.primary-panel { margin-bottom: 10px; }
 
 	select {
 		margin: 0px 0px 0px 10px;
 		width:  calc(100% - 10px);
-
-		@include mobile {
-			margin: 0;
-			width: 100%;
-		}
 	}
 }
+
+.full-pagination {
+	margin: 5px 0;
+
+	ul     { margin: 5px 0; }
+	select {
+		margin: 5px 0;
+		width:  100%;
+	}
+}
+
+@include pagination-blocks($water-dark-minor, $page-color, $water-darker-minor, $one-fifth);
+
+// SECTION :: VIEWPORTS
+// ===============================================
+@include page-desktop() {}
+
+@include page-mobile() {
+	@include mobilize-pagination();
+	@include mobilized-forms();
+	@include distanced-comment(0px, 10px);
+
+	.branching form select {
+		margin: 0;
+		width:  100%;
+	}
+}
+
+@include page-non-desktop {
+	article { margin-top: 25px; }
+}
+
+@include page-non-mobile() {
+	@include distanced-comment(0px, 10px);
+}
+@include page-tablet() {}
 
 /* END
 /* ***********************************************/

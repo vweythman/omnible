@@ -1,0 +1,14 @@
+<div class="comments">
+	<%= solo_cell "comments-content" do %>
+		<% if @comments.length > 0 %>
+			<h3 class="comments-heading">Comments</h3>
+			<%= render 'comments/nested_comments', comments: @comments, merged: false %>
+		<% end %>
+	<% end %>
+
+	<%= solo_cell do %>
+		<div class="comments-form">
+			<%= render 'comments/form', comment: @comment %>
+		</div>
+	<% end %>
+</div>

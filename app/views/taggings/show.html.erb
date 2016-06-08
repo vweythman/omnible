@@ -5,11 +5,7 @@
 </header>
 
 <div class="index-body">
-	<%= grid_panel do %>
-		<%= panel_cell "trio" do @activities.index_content end %>
-		<%= panel_cell "trio" do @tags.index_content       end %>
-		<%= panel_cell "trio" do @qualities.index_content  end %>
-	<% end %>
+	<%= solo_cell do @tags.index_content end %>
 	<%= grid_panel do %>
 		<%= panel_cell "golden-minor" do @relators.index_content   end %>
 		<%= panel_cell "golden-major" do @identities.index_content end %>

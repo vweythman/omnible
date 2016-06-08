@@ -1,0 +1,59 @@
+<% merged ||= false %>
+<% tp      = [] %>
+<% path    = [] %>
+<% root_id = nil %>
+
+<% comments.each do |comment| %>
+	<% while path.size != 0 && path.last != comment.parent_id %>
+		</div>
+		<% path.pop %>
+	<% end %>
+
+	<% if merged && !tp.include?(comment.topic_id) %>
+		<% tp << comment.topic_id %>
+		<header class="comments-heading">
+			<h2><%= comment.topic.full_heading %></h2>
+		</header>
+	<% end %>
+
+	<% path       << comment.id %>
+	<% root_id    = comment.root.id if path.size == 1 %>
+	<% node_class = comment.leaf? ? 
+		"childless" : 
+		(
+			comment.depth == @depth_control ? 
+			"hidden-children" : 
+			"has-children"
+		)
+	%>
+	<% voice_type = comment.child? ? "replied"  : "commented" %>
+
+	<div class="comment <%= node_class %>">
+		<div class="comment-body">
+			<div class="comment-response">
+				<p class="comment-speaker"><%= link_to comment.creator.heading, comment.creator %> <%= voice_type %>:</p>
+				<div class="comment-content"><%= markdown comment.content %></div>
+			</div>
+
+			<div class="comment-action-bar">
+				<%= link_to "Reply", comment_on_comment_path(comment) %>
+
+				<% if comment.child? %>
+					<%= link_to "Parent", params.merge(:root => comment.parent_id) %>
+					<%= link_to "Root",   params.merge(:root => root_id) if comment.parent_id != root_id %>
+				<% end %>
+				<% rep_text = node_class == "hidden-children" ? "Replies (view)" : "Replies" %>
+
+				<% unless comment.leaf? %>
+					<%= link_to rep_text, params.merge(:root => comment.id) %>
+				<% else %>
+					<span class="unlink">No <%= rep_text %></span>
+				<% end %>
+			</div>
+		</div>
+<% end %>
+
+<% while path.size != 0 %>
+	</div>
+	<% path.pop %>
+<% end %>

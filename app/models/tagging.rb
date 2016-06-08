@@ -22,7 +22,7 @@ class Tagging < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :work
+	belongs_to :tagger, polymorphic: true
 	belongs_to :tag
 
 	def self.update_for(model, list)

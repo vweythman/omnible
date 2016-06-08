@@ -12,7 +12,7 @@
 	<% piedata = @facet.piedata %>
 	
 	<%= grid_panel "stat-distribution" do %>
-		<%= panel_cell "golden-minor" do %>
+		<%= panel_cell "duo" do %>
 			<table class="analytics">
 				<caption>Distribution of Characters by <%= @facet.name.titleize %></caption>
 
@@ -30,13 +30,11 @@
 			</table>
 		<% end %>
 
-		<%= panel_cell "golden-major" do %>
+		<%= panel_cell "duo" do %>
 			<canvas id="distribution"></canvas>
 			<p>Chart of Character Distribution</p>
 		<% end %>
 	<% end %>
-
-	<footer><%= @facet.alphabetic_pagination %>	</footer>
 </article>
 
 <footer class="path-finder"><%= link_to "Facets", facets_path %></footer>

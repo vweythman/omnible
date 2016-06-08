@@ -47,14 +47,4 @@ class PossessionsDecorator < Draper::CollectionDecorator
 		end
 	end
 
-	# RENDER
-	# ------------------------------------------------------------
-	def characters
-		values = ""
-		Possession.organize_characters(object).each do |relator, group|
-			values = values + h.subgrouped_list(relator, CharactersDecorator.decorate(group))
-		end
-		values
-	end
-
 end
