@@ -1,0 +1,60 @@
+<% provide(:title, @squad.name) %>
+
+<header class="subject-header show-header">
+	<h1>
+		<%= @squad.name %>
+	</h1>
+	<div class="metadata">
+		<%= metadata("Label:", @squad.label_status.capitalize) %>
+	</div>
+</header>
+
+<div class="subject-body">
+	<div class="info-body">
+		<div class="info-grid">
+			<%= grid_panel do %>
+				<%= panel_cell "golden-minor" do %>
+					<%= widget_cell "Tags" do %>
+						<p><%= cslinks @squad.qualities %></p>
+					<% end %>
+				<% end %>
+				<%= panel_cell "general golden-major" do %>
+					<%= widget_cell "Characters" do %>
+						<p>
+							<%= cslinks @squad.people unless @squad.people.nil? %>
+						</p>
+					<% end %>
+				<% end %>
+			<% end %>
+			<%= page_widget "Relationships" do %>
+				<table class="connections">
+					<thead>
+						<tr>
+							<th>Type</th>
+							<th colspan="2">Characters</th>
+						</tr>
+					</thead>
+					<% relator = nil %>
+					<% @squad.interconnections.includes(:relator, :left, :right).order("relators.left_name").each do |i| %>
+						<tr>
+							<% if relator != i.relator %>
+								<% relator = i.relator %>
+								<th rowspan="<%= @squad.relator_count[relator] %>">
+									<%= relator.heading %>
+								</th>
+							<% end %>
+							<td class="left-character">
+								<%= i.left.nil?  ? "ERROR" : link_to(i.left.name, i.left)   %>
+							</td>
+							<td class="right-character">
+								<%= i.right.nil? ? "ERROR" : link_to(i.right.name, i.right) %>
+							</td>
+						</tr>
+					<% end %>
+				</table>
+			<% end if @squad.interconnections.size > 0 %>
+		</div>
+	</div>
+</div>
+
+<%= render 'subjects/shared/footer' %>

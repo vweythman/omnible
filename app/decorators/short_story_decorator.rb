@@ -22,7 +22,7 @@ class ShortStoryDecorator < WorkDecorator
 
 	def createables_links
 		if self.editable?(h.current_user)
-			h.prechecked_multi_kit [[self, :note]]
+			h.prechecked_createables [[self, :note]]
 		end
 	end
 

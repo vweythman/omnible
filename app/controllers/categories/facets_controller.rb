@@ -95,7 +95,7 @@ class Categories::FacetsController < ApplicationController
 	# FIND
 	# ------------------------------------------------------------
 	def facets
-		@facets = Facet.order('lower(name)').all.decorate
+		@facets = Collectables::FacetsDecorator.decorate Facet.order('lower(name)').includes(:identities, :characters)
 	end
 
 	def facet

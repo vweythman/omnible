@@ -14,7 +14,7 @@ class Works::StoryLinksController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = StoryLinksDecorator.decorate(StoryLink.with_filters(index_params, current_user))
+		@works = Collectables::StoryLinksDecorator.decorate(Work.by_type("StoryLink").with_filters(index_params, current_user))
 	end
 
 	# SET

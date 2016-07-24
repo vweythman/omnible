@@ -9,5 +9,15 @@
 </header>
 
 <div class="index-body">
-	<%= @works.results %>
+	<%= grid_panel "filtered" do %>
+		<%= paginated_panel(@works) do %>
+			<%= @works.snippets %>
+			<%= @works.link_display_question %>
+		<% end %>
+		<%= panel_cell "golden-minor" do @works.filters end %>
+	<% end %>
 </div>
+
+<script type="text/javascript">
+$('.filter-links').change(function() { window.location.href = $(this).val(); });
+</script>

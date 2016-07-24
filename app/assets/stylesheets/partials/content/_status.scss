@@ -16,49 +16,34 @@
 }
 
 .complete   {
-	background:    $water-lightest-minor;
-	border-bottom: 3px solid $page-lighter-minor;
-	border-right:  3px solid $page-lighter-minor;
-	border-left:   3px solid $page-lighter-minor;
-	color:         $water-darker-minor;
+	background: $water-lightest-minor;
+	color:      $water-darker-minor;
 
 	.show-page & { color: $water-light-minor; }
 }
 
 .incomplete {
-	background:    $fire-lightest-minor;
-	border-bottom: 3px solid $page-lighter-minor;
-	border-right:  3px solid $page-lighter-minor;
-	border-left:   3px solid $page-lighter-minor;
-	color:         $fire-dark-minor;
+	background: $fire-lightest-minor;
+	color:      $fire-dark-minor;
 
 	.show-page & { color: $fire-dark-minor; }
 }
 
 .hiatus {
-	background:    $page-lightest-major;
-	border-bottom: 3px solid $page-lighter-minor;
-	border-right:  3px solid $page-lighter-minor;
-	border-left:   3px solid $page-lighter-minor;
-	color:         $page-dark-minor;
+	background: $page-lightest-major;
+	color:      $page-dark-minor;
 
 	.show-page & { color: $fire-lightest-minor; }
 }
 
 .upcoming {
-	background:    $moss-lightest-minor;
-	border-bottom: 3px solid $moss-lighter-minor;
-	border-right:  3px solid $moss-lighter-minor;
-	border-left:   3px solid $moss-lighter-minor;
-	color:         $moss-dark-minor;
+	background: $moss-lightest-minor;
+	color:      $moss-dark-minor;
 }
 
 .abandoned {
-	background:    $rating-lowest;
-	border-bottom: 3px solid $page-lighter-minor;
-	border-right:  3px solid $page-lighter-minor;
-	border-left:   3px solid $page-lighter-minor;
-	color:         $page-lightest-minor;
+	background: lighten(desaturate($rating-lowest, 15%), 5%);
+	color:      $page-lightest-minor;
 
 	.show-page & {
 		background: $page-darkest-minor;
@@ -135,6 +120,7 @@
 }
 
 .ratings {
+	font-size:   .8em;
 	font-weight: bolder;
 	margin:      0px calc(100% / 6 - 20px);
 	padding:     2px;
@@ -170,7 +156,7 @@
 	}
 
 	.status & {
-		background: $water-color;
+		background: $water-dark-minor;
 		padding:    7px 0;
 		width:      120px;
 

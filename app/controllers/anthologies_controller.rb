@@ -11,7 +11,7 @@ class AnthologiesController < ApplicationController
 	# GET
 	# ------------------------------------------------------------
 	def show
-		@works = @anthology.works.decorate
+		@works = Collectables::WorksDecorator.decorate @anthology.works
 	end
 
 	def new
@@ -67,7 +67,7 @@ class AnthologiesController < ApplicationController
 
 	# Anthologies :: find all
 	def anthologies
-		@anthologies = Anthology.alphabetic.decorate
+		@anthologies = Collectables::AnthologiesDecorator.decorate Anthology.alphabetic
 	end
 
 	def can_edit?

@@ -4,20 +4,21 @@ gem 'rails', '4.2.1'
 
 # dev
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
+  gem 'sqlite3'
 end
 
-# tests
-group :test do 
-  gem 'shoulda'
-end
-
+# model management
 gem 'awesome_nested_set', '~> 3.0.1'
 gem "friendly_id", "~> 5.0.1"
 gem 'amoeba'
 
-gem 'sunspot_rails', git: "http://github.com/betam4x/sunspot.git" # , '2.1.1'
-gem 'sunspot_solr', git: "http://github.com/betam4x/sunspot.git" # '2.1.1'
+gem 'validate_url'
+
+gem 'carrierwave'
+gem "mini_magick"
+
+#gem 'sunspot_rails', git: "http://github.com/betam4x/sunspot.git" # , '2.1.1'
+#gem 'sunspot_solr', git: "http://github.com/betam4x/sunspot.git" # '2.1.1'
 
 # assets management
 gem "sass-rails", "~> 4.0.2"

@@ -14,7 +14,7 @@ class SubjectsController < ApplicationController
 		@items      = Item.order_by_generic
 		@places     = Place.order_by_form
 
-		SubjectsDecorator.decorate(@characters + @items + @places)
+		Collectables::SubjectsDecorator.decorate(@characters + @items + @places)
 	end
 
 end

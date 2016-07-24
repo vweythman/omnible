@@ -1,8 +1,12 @@
 module Widgets
 	module Snippet
 
+		def partial_prepend
+			klass.to_s.pluralize + '/'
+		end
+
 		def snippet_path
-			'shared/snippets/' + klass.to_s
+			partial_prepend + 'snippet'
 		end
 
 	end

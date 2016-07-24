@@ -1,0 +1,37 @@
+<% provide(:title, @art.title) %>
+
+<div class="artwork centerpiece">
+	<%= image_tag @art.image_url %>
+</div>
+
+<article class="work-footer">
+	<h1>
+		<%= @art.title %>
+		<%= subtitle @art.byline.html_safe %>
+	</h1>
+	<%= @art.edit_bar %>
+
+	<div class="about">
+		<%= @art.summarized %>
+		<%= @art.all_tags_line %>
+	</div>
+</article>
+
+<% if @art.comments.length > 0 %>
+	<div class="comments-content">
+		<h2 class="comments-heading">Comments</h2>
+		<%= render 'comments/nested_comments', comments: @art.comments, merged: false %>
+	</div>
+<% end %>
+<div class="comments-form">
+	<%= render 'comments/form', comment: @art.comments.new %>
+</div>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to "All Art", artwork_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>
+
+<%= @work.skin_content %>

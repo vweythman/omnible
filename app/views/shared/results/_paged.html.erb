@@ -1,0 +1,11 @@
+<%= panel_cell panel_size do %>
+	<div class="results">
+		<header><%= paginate results, :window => results.page_window %></header>
+
+		<div class="results-body">
+			<%= yield %>
+		</div>
+
+		<footer><%= paginate results, :window => results.page_window %></footer>
+	</div>
+<% end %>

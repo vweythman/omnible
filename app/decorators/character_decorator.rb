@@ -37,7 +37,7 @@ class CharacterDecorator < Draper::Decorator
 	# LISTS
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def connections
-		@connections ||= InterconnectionsDecorator.decorate(self.interconnections)
+		@connections ||= Collectables::InterconnectionsDecorator.decorate(self.interconnections)
 	end
 
 	def current_detail_text
@@ -50,15 +50,15 @@ class CharacterDecorator < Draper::Decorator
 	end
 
 	def decorated_details
-		@decorated_details ||= CharacterInfosDecorator.decorate(self.details)
+		@decorated_details ||= Collectables::CharacterInfosDecorator.decorate(self.details)
 	end
 
 	def decorated_possessions
-		@decorated_possessions ||= PossessionsDecorator.decorate(self.possessions.includes(:item, :generic))
+		@decorated_possessions ||= Collectables::PossessionsDecorator.decorate(self.possessions.includes(:item, :generic))
 	end
 
 	def identification_list
-		@identification_list ||= self.identities.includes(:facet).sorted_alphabetic.decorate
+		@identification_list ||= Collectables::IdentitiesDecorator.decorate self.identities.includes(:facet).sorted_alphabetic
 	end
 
 	def public_opinion
@@ -81,9 +81,9 @@ class CharacterDecorator < Draper::Decorator
 	end
 
 	def relationship_tag_groups
-		i = taggables_group(Relator.lacks_reverse.decorate)
-		l = taggables_group(Relator.unreversible_lefts.decorate,  :left)
-		r = taggables_group(Relator.unreversible_rights.decorate, :right)
+		i = taggables_group(Collectables::RelatorsDecorator.decorate Relator.lacks_reverse)
+		l = taggables_group(Collectables::RelatorsDecorator.decorate(Relator.unreversible_lefts),  :left)
+		r = taggables_group(Collectables::RelatorsDecorator.decorate(Relator.unreversible_rights), :right)
 
 		(i.merge l.merge r).sort
 	end

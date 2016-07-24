@@ -15,6 +15,10 @@
 
 class Setting < ActiveRecord::Base
 
+	# MODULES
+	# ============================================================
+	include CountableTagging
+
 	# VALIDATIONS
 	# ------------------------------------------------------------
 	validates_uniqueness_of :place_id, :scope => :work_id
@@ -23,6 +27,8 @@ class Setting < ActiveRecord::Base
 	# ------------------------------------------------------------
 	scope :are_among_for, ->(work, ids) { where("work_id = ? AND place_id IN (?)",     work.id, ids) }
 	scope :not_among_for, ->(work, ids) { where("work_id = ? AND place_id NOT IN (?)", work.id, ids) }
+
+	scope :tagger_by_places, ->(ws) { tagger_by_tag_names(ws, :work_id, :place) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------

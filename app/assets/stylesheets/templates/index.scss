@@ -4,6 +4,7 @@
 // ===============================================
 @import "application";
 @import "partials/forms/inline_form";
+@import "partials/forms/fields/selections";
 @import "partials/content/snippets";
 
 // SECTION :: COLORS
@@ -12,7 +13,7 @@ $page:           $water-light-minor;
 $border:         $water-color;
 $header:         $water-dark-minor;
 $heading:        $moss-dark-minor;
-$content-shadow: 0px 0px 10px $water-darker-minor;
+$content-shadow: 0px 0px 10px $water-darker-major;
 
 
 // SECTION :: HEADER
@@ -42,7 +43,8 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 }
 .page-body,
 .index-body {
-	background: $water-darker-major;
+	background: $water-dark-minor;
+	box-shadow: $content-shadow;
 }
 .index-body {
 	padding: 10px;
@@ -54,13 +56,11 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 // -----------------------------------------------
 .filters {
 	margin:     10px;
-	min-height: 300px;
 	background: $page-color;
-	box-shadow: $content-shadow;
 
 	h2 {
-		background:    $fire-light-minor;
-		border-bottom: 3px solid $fire-dark-minor;
+		background:    $water-lightest-minor;
+		border-bottom: 3px solid $water-light-minor;
 		font-size:     $text-size + 1px;
 		font-weight:   300;
 		font-variant:  small-caps;
@@ -90,10 +90,41 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 	}
 }
 
+.filter-links {
+	width: calc(100%);
+	border: none;
+	border-bottom: 3px solid $fire-light-minor;
+}
+
+.display-question {
+	padding: 10px 15px;
+	margin: 20px 0px;
+	background: $page-darker-major;
+	text-align: center;
+	a {
+		color: $water-lighter-minor;
+	}
+}
+
 // RESULTS
 // -----------------------------------------------
 .filtered .panel-cell {
 	float: right;
+}
+.filtered .tag-input .panel-cell {
+	float: left;
+	label {
+		background:  $moss-dark-minor;
+		color:       $page-color;
+		font-weight: bolder;
+		margin:      0 5px;
+		padding:     10px;
+		text-align:  center;
+	}
+	.taggables {
+		margin-right: 5px;
+		width:        calc(100% - 5px);
+	}
 }
 
 .indexable {
@@ -104,11 +135,11 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 
 .pagination {
 	padding:    10px;
-	background: $fire-light-minor;
+	background: $fire-lightest-minor;
 	color:      $page-darkest-minor;
 
-	header & { border-bottom: 3px solid $fire-dark-minor; }
-	footer & { border-top:    3px solid $fire-dark-minor; }
+	header & { border-bottom: 3px solid $fire-light-minor; }
+	footer & { border-top:    3px solid $fire-light-minor; }
 
 	a {
 		color: $page-darker-minor;
@@ -118,8 +149,7 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 .results {
 	margin:     10px;
 	padding:    0px;
-	background: $page-color;
-	box-shadow: $content-shadow;
+	background: rgba(255, 255, 255, .9);
 
 	dl,
 	ul {
@@ -130,9 +160,21 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 	}
 
 	h2 {
-		background:    $water-lighter-minor;
-		border-bottom: 3px solid $water-dark-minor;
+		border-bottom: 3px solid $water-light-minor;
 		padding:       5px 10px;
+	}
+}
+.results-body {
+	padding: 5px 0px 15px;
+}
+
+.media-results h2 {
+	padding: 10px 5px 2px 2px;
+
+	a {
+		color: $page-darker-minor;
+
+		&:hover { color: $page-darkest-minor; }
 	}
 }
 
@@ -188,6 +230,9 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 // ===============================================
 @include page-desktop() {
 	@include indexed-banding($water-lightest-minor);
+	.manager-editor .toolkit {
+		min-width: 200px;
+	}
 }
 
 @include page-mobile() {
@@ -207,6 +252,12 @@ $content-shadow: 0px 0px 10px $water-darker-minor;
 
 @include page-non-mobile() {
 	@include non-mobile-snippet();
+	table .toolkit {
+		margin: 0;
+	}
+	.insertion {
+		max-width: 100%;
+	}
 }
 
 @include page-tablet() {}

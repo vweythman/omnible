@@ -40,7 +40,7 @@ describers =
 			},
 			{
 				name: "StoryLink",
-				content_type: "text",
+				content_type: "reference",
 				is_record:    true,
 				is_singleton: false,
 				status: "Fictional Narrative"
@@ -65,6 +65,27 @@ describers =
 				is_singleton: true,
 				is_record:    true,
 				status: "Nonfiction"
+			},
+			{
+				name: "Art",
+				content_type: "picture",
+				is_record:    false,
+				is_singleton: false,
+				status: "Creative Expression"
+			},
+			{
+				name: "Comic",
+				content_type: "picture",
+				is_record:    false,
+				is_singleton: false,
+				status: "Fictional Narrative"
+			},
+			{
+				name: "Music Video",
+				content_type: "video",
+				is_record:    false,
+				is_singleton: true,
+				status: "Creative Expression"
 			}
 		]
 	)

@@ -1,0 +1,49 @@
+<%= form_for(@squad) do |f| %>
+
+	<fieldset class="primary">
+		<%= string_panel f, :name, "Write Name" %>
+		<%= string_panel f, :label, "Write Group Type" %>
+		<%= text_panel   f, :description, :minor, "Write Description" %>
+
+		<%= grid_panel do %>
+			<%= panel_cell "duo squad-tags" do %>
+				<%= taggables(["squad","tags"], @squad.current_tags, "Tags") %>
+				<%= taggables(["squad","people"], @squad.current_characters, "Characters") %>
+				<%= taggables(["squad","relateables"], @squad.current_connections, "Relationships") %>
+			<% end %>
+			<%= panel_cell "duo" do %>
+				<div class="clarify">
+					<p>Tagging characters in both the relationship tags and the characters tags is <b>redundant</b> but <b>permitted.</b></p>
+					<p>The positions of the character names are only important when there are two labels. <%= link_to "See here for all relationship types", relators_url %></p>
+					<p>Example relationship tags</p>
+						
+					<ul>
+						<li>siblings: Luke Skywalker &amp; Leia Organa</li>
+						<li>siblings: Leia Organa &amp; Luke Skywalker </li>
+						<li>parent/child: Anakin Skywalker &amp; Luke Skywalker</li>
+						<li>grandparent/grandchild: Shmi Skywalker &amp; Luke Skywalker</li>
+						<li>loves: Anakin Skywalker &amp; Padme Amidala</li>
+						<li>loves: Padme Amidala &amp; Anakin Skywalker</li>
+						<li>spouses: Anakin Skywalker &amp; Padme Amidala</li>
+						<li>spouses: Padme Amidala &amp; Anakin Skywalker</li>
+						<li>parent's sibling/sibling's child: Luke Skywalker & Kylo Ren</li>
+					</ul>
+				</div>
+
+			<% end %>
+		<% end %>
+		<%= render 'shared/forms/edit_fields', f: f %>
+	</fieldset>
+
+	<%= submit_panel f %>
+
+<style type="text/css">
+.squad-tags .tag-input {
+	width: calc(100% - 5px);
+}
+.clarify {
+	margin-right: 0;
+}
+</style>
+
+<% end %>

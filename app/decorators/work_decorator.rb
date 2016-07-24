@@ -26,6 +26,10 @@ class WorkDecorator < Draper::Decorator
 		:work
 	end
 
+	def partial_prepend
+		'works/' + klass.to_s.pluralize + '/'
+	end
+
 	# CHECK
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def has_skin?
@@ -79,6 +83,19 @@ class WorkDecorator < Draper::Decorator
 		cohort_group_by(role).map(&:name)
 	end
 
+	def organized_true_tags
+		@organized_true_tags ||= Tagging.organize(self.taggings)
+	end
+
+	def organized_true_tags_by(label)
+		found = organized_true_tags.with_indifferent_access[label]
+		found = found.nil? ? [] : found
+	end
+
+	def organized_true_tag_names(role)
+		organized_true_tags_by(role).map(&:name)
+	end
+
 	def organized_works
 		@organized_works ||= WorkConnection.organize(self.intratagged)
 	end
@@ -99,7 +116,7 @@ class WorkDecorator < Draper::Decorator
 	# SET
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def important_characters
-		@important_characters ||= work.narrative? ? self.main_characters : self.people_subjects
+		@important_characters ||= work.narrative? ? Array(cohorted_characters["main"]) : Array(cohorted_characters["subject"])
 	end
 
 	def location_heading
@@ -109,12 +126,12 @@ class WorkDecorator < Draper::Decorator
 	# RENDER
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def all_tags_line
-		h.content_tag :p, class: 'tags' do h.cslinks self.all_tags end
+		h.tag_group all_tags, { class: 'all-tags tags' }, { class: 'tag' }
 	end
 
 	def snippet_tags_line
 		if main_tags.length > 0
-			h.content_tag :p, class: 'tags' do h.cslinks main_tags end
+			h.tag_group main_tags, { class: 'main-tags tags' }, { class: 'tag' }
 		end
 	end
 

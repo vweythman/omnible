@@ -1,5 +1,34 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# STORY
+# ===================================
+helix_one:
+  id:    1
+  story: helix
+  title: Luckless Love
+  content: Didn't he know then?
+  position: 1
+
+helix_two:
+  id:    2
+  story: helix
+  title: The Raven Spoke
+  content: '"You will fail and find nothing." The Raven said. "I will succeed and find everything." The girl answered.'
+  position: 2
+
+frenzy_zero:
+  story: frenzy
+  title: Prologue
+  content: She would find her true love where the east met the moon.
+  about: This is only the start of an idea.
+  afterward: I want to thank my betas for their hard work.
+  position: 0 
+
+heart_zero:
+  story: heart
+  content: A twist. A turn. They did not meet.
+  position: 0
+
 # SHORT STORY
 # ===================================
 calypso_content:
@@ -16,30 +45,3 @@ glamour_content:
   content: The fair folk came on the night of the new moon and never left.
   position: 0
   story: glamour
-
-# STORY
-# ===================================
-heart_zero:
-  story: heart
-  content: A twist. A turn. They did not meet.
-  position: 0
-
-helix_one:
-  story: helix
-  title: Luckless Love
-  content: Didn't he know then?
-  position: 1
-
-helix_two:
-  story: helix
-  title: The Raven Spoke
-  content: '"You will fail and find nothing." The Raven said. "I will succeed and find everything." The girl answered.'
-  position: 2
-
-frenzy_zero:
-  story: frenzy
-  title: Prologue
-  content: She would find her true love where the east met the moon.
-  about: This is only the start of an idea.
-  afterward: I want to thank my betas for their hard work.
-  position: 0 

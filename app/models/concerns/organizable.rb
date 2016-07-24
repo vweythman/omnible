@@ -1,5 +1,7 @@
 module Organizable
 
+	# PUBLIC METHODS
+	# ============================================================
 	# Organize
 	# - organizes models by their type
 	def organize(models)
@@ -15,6 +17,10 @@ module Organizable
 			end
 		}
 		return list
+	end
+
+	def fully_organize
+		organize self
 	end
 
 end

@@ -15,58 +15,68 @@
 class Identity < ActiveRecord::Base
 
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	extend  Organizable
 	include EditableTag
 	include Taggable
+	include WithWorkCuration
 
 	# CALLBACKS
-	# ------------------------------------------------------------
+	# ============================================================
 	before_validation :typify, on: [:update, :create]
 
 	# SCOPES
+	# ============================================================
+	# Search
 	# ------------------------------------------------------------
-	# - Search
 	scope :are_among, ->(names) { where("name IN (?)", names) }
 
-	# - Order
+	# Order
+	# ------------------------------------------------------------
 	scope :alphabetic,         -> { order('lower(name) ASC') }
 	scope :reverse_alphabetic, -> { order('lower(name) DESC') }
 	scope :sorted_alphabetic,  -> { joins(:facet).order('lower(facets.name) ASC, lower(identities.name) ASC') }
 
-	# - Types
+	# Types
+	# ------------------------------------------------------------
 	scope :ages,    -> { where(facet: 'age') }
 	scope :genders, -> { where(facet: 'gender') }
 
-	# - Associated
+	# Associated
+	# ------------------------------------------------------------
 	scope :alphabetic_next, ->(identity) { where('lower(name) > ?', identity.name.downcase).alphabetic }
 	scope :alphabetic_prev, ->(identity) { where('lower(name) < ?', identity.name.downcase).reverse_alphabetic }
 	scope :next_in_facet,   ->(identity) { where('facet_id = ? AND lower(name) > ?', identity.facet_id, identity.name.downcase).alphabetic }
 	scope :prev_in_facet,   ->(identity) { where('facet_id = ? AND lower(name) < ?', identity.facet_id, identity.name.downcase).reverse_alphabetic }
 	scope :related,         ->(identity) { where("identities.id != ?", identity.id).joins(:descriptions).merge(Description.within(identity)).with_count(identity).select("COUNT(*) as amt")}
 	
-	# - Divide
+	# Counts
+	# ------------------------------------------------------------
 	scope :with_count, ->(identity) { group("identities.id").order("COUNT(*) DESC").select("identities.*, (SELECT COUNT(*) FROM descriptions WHERE descriptions.identity_id = identities.id) as full_count")}
+	scope :count_by_name,  -> { group(:name).ordered_count }
+	scope :count_by_facet, -> { joins(:facet).group("facets.name").ordered_count }
 
 	# ASSOCIATIONS
 	# -----------------------------------------------------------
-	# - Joins
+	# Joins
 	has_many :descriptions
 
-	# - Belongs to
+	# Belongs to
 	has_many :characters, through: :descriptions
 	belongs_to :facet, :inverse_of => :identities
 
-	# - References
+	# References
 	has_many :appearances, source: :appearance, through: :descriptions
-	has_many :works, ->{uniq}, source: :work, through: :appearances
+
+	has_many :works,         ->{uniq},                source: :work, through: :appearances
+	has_many :onsite_works, ->{ Work.onsite.uniq }, source: :work, through: :appearances
 
 	# NESTED ATTRIBUTION
-	# ------------------------------------------------------------
+	# ============================================================
 	accepts_nested_attributes_for :descriptions, :allow_destroy => true
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# OrganizedAll - creates an list of all identities organized by facet
 	def self.organized_all(list = Identity.includes(:facet).alphabetic)
 		Identity.organize(list)
@@ -100,11 +110,11 @@ class Identity < ActiveRecord::Base
 	end
 
 	# ATTRIBUTES
-	# ------------------------------------------------------------
+	# ============================================================
 	attr_accessor :nature
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# GETTERS // SELF
 	# ............................................................
 	# Heading - defines the main means of addressing the model
@@ -186,7 +196,7 @@ class Identity < ActiveRecord::Base
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	def typify
 		if !@nature.nil? && (facet.nil? || facet.name != @nature)
 			self.facet = Facet.where(name: @nature).first_or_create

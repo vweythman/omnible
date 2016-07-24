@@ -14,9 +14,7 @@
 	<%= solo_cell do %>
 		<div class="widget">
 			<h2 class="subheading">Find</h2>
-			<ul class="curation">
-				<li class="icon icon-books"><%= link_to "Works", intratags_path(@record) %></li>
-			</ul>
+			<%= render 'mediums/works_by_medium', works: [@work] %>
 		</div>
 	<% end %>
 

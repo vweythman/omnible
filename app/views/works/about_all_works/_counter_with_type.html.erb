@@ -1,0 +1,26 @@
+<%= content_tag :table, class: "data sortable" do %>
+	<%= content_tag :thead do %>
+		<%= content_tag :tr do %>
+			<%= content_tag :th, label %>
+			<%= content_tag :th, "Type" %>
+			<%= content_tag :th, "Count" %>
+		<% end %>
+	<% end %>
+	<% counts.each do |bys, size| %>
+		<% t  = bys.first %>
+		<% d  = bys.last %>
+
+		<%= content_tag :tr, class: "data-content" do %>
+			<%= content_tag :th do %>
+				<%= label == "Date" ? counter_date(t) : t.underscore.pluralize.humanize.titleize %>
+			<% end %>
+			<%= content_tag :td, data: {:label => "Type"} do %>
+				<%= d.titleize %>
+			<% end %>
+			<%= content_tag :td, data: {:label => "Count"} do %>
+				<%= size %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<br>

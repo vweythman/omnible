@@ -9,7 +9,11 @@ class Users::UploadsController < ApplicationController
 	# GET
 	# ------------------------------------------------------------
 	def index
+
 		@uploads = current_user.all_uploads.sort_by! { |x| x.heading.downcase }
+	end
+
+	def show
 	end
 
 	# PRIVATE METHODS

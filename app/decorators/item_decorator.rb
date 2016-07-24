@@ -29,11 +29,11 @@ class ItemDecorator < Draper::Decorator
 	# -- Lists
 	# ............................................................
 	def list_qualities
-		h.cslinks(self.qualities)
+		h.cslinks(self.qualities, class: 'quality')
 	end
 
 	def decorated_possessions
-		@decorated_possessions ||= PossessionsDecorator.decorate(self.possessions.includes(:character))
+		@decorated_possessions ||= Collectables::PossessionsDecorator.decorate(self.possessions.includes(:character))
 	end
 
 	def possessors

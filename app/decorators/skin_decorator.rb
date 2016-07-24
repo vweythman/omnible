@@ -7,6 +7,7 @@ class SkinDecorator < Draper::Decorator
 	# MODULES
 	# ============================================================
 	include CreativeContent
+	include PageEditing
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -28,6 +29,14 @@ class SkinDecorator < Draper::Decorator
 
 	def status_type
 		@status_type ||= self.status == "Private" ? "Private Use Only" : "Public Use"
+	end
+
+	def nature
+		"Stylesheet"
+	end
+
+	def icon_choice
+		'magic-wand'
 	end
 
 end

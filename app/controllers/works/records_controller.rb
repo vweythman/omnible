@@ -26,7 +26,7 @@ class Works::RecordsController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = WorksDecorator.decorate(Record.with_filters(index_params, current_user).includes(:metadata))
+		@works = Collectables::RecordsDecorator.decorate(Work.by_type("Record").with_filters(index_params, current_user).includes(:qualitatives))
 	end
 
 	# SET

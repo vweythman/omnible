@@ -25,7 +25,7 @@ class StoryLinkDecorator < WorkDecorator
 	# -- Links
 	# ............................................................
 	def first_link
-		sources.first.reference
+		@first_link ||= sources.first.pathing
 	end
 
 	def main_link
@@ -36,6 +36,15 @@ class StoryLinkDecorator < WorkDecorator
 		end
 
 		h.link_to self.title, path, class: "offsite-link"
+	end
+
+	def first_domain
+		Addressable::URI.parse(first_link).host
+	end
+
+	def link_to_host
+		hst = first_domain
+		h.link_to first_domain, first_domain
 	end
 
 end

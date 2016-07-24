@@ -13,6 +13,14 @@ class StoryLink < Work
 	# ============================================================
 	before_create :set_categories
 
+	# ASSOCIATIONS
+	# ============================================================
+	has_many :sources, :dependent  => :destroy,  as: :referencer
+
+	# NESTED ATTRIBUTION
+	# ============================================================
+	accepts_nested_attributes_for :sources,  :allow_destroy => true
+
 	# PRIVATE METHODS
 	# ============================================================
 	private

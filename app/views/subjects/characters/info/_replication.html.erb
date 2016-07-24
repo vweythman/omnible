@@ -1,7 +1,7 @@
 <div class="toolkit interaction">
 	<% unless @character.is_a_clone? %>
-		<%= link_to "Connect to Original Variant", new_clone_path(@character) %>
+		<%= link_to "> Connect to Original Variant", assign_clone_path(@character) %>
 	<% end %>
-	<%= link_to "Duplicate", replicate_path(@character), method: :post %>
-	<a href="">Create a Roleplay Copy</a>
+	<%= link_to "+Duplicate", replicate_path(@character), method: :post %>
+	<a href="">+ Duplicate for Roleplay</a>
 </div>

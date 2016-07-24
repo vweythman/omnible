@@ -32,14 +32,18 @@ class WorksTypeDescriber < ActiveRecord::Base
 	scope :chaptered,  -> { where(is_singleton: false) }
 	scope :oneshot,    -> { where(is_singleton: true) }
 
-	scope :offsite,    -> { where(is_record: true)  }
-	scope :onsite,     -> { where(is_record: false) }
+	scope :offsite, -> { where(is_record: true)  }
+	scope :onsite,  -> { where(is_record: false) }
 
-	scope :textual,    -> { where("content_type = 'text'") }
-	scope :audible,    -> { where("content_type = 'video' OR content_type = 'audio'") }
-	scope :visual,     -> { where("content_type = 'video' OR content_type = 'picture'") }
+	scope :textual,     -> { where("content_type = 'text'")      }
+	scope :audible,     -> { where("content_type = 'audio'")     }
+	scope :audiovisual, -> { where("content_type = 'video'")     }
+	scope :linkable,    -> { where("content_type = 'reference'") }
+	scope :visual,      -> { where("content_type = 'picture'")   }
+	scope :evidential,  -> { where("content_type = 'data'")      }
 
 	scope :among,      ->(ids) { where("id IN (?)", ids) }
+	scope :by_content, ->(t)   { where(content_type: t)  }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -47,6 +51,12 @@ class WorksTypeDescriber < ActiveRecord::Base
 	has_many :work_bylinings, foreign_key: "describer_id", primary_key: "id"
 	has_many :uploaders, ->{uniq}, through: :works
 	has_many :creator_categories,  through: :work_bylinings
+
+	# PUBLIC METHODS
+	# ============================================================
+	def self.offsite_sql
+		WorksTypeDescriber.offsite.select(:name).to_sql
+	end
 
 	# PUBLIC METHODS
 	# ============================================================

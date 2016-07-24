@@ -7,8 +7,16 @@
 # --------------------------------------------------------------------------------
 #  is_subject?                 | answers that model is not a subject
 # ================================================================================
+require 'active_support/concern'
 
 module Taggable
+	extend ActiveSupport::Concern
+
+	# SCOPES AND ASSOCIATIONS
+	# ============================================================
+	included do
+		scope :ordered_count, -> { order("Count(*) DESC").count }
+	end
 
 	# METHODS
 	# ------------------------------------------------------------

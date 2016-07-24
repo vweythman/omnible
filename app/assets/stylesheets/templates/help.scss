@@ -15,130 +15,90 @@ h1 {
 @include page-non-mobile() {}
 @include page-tablet() {}
 
-.lightest-major {
-	color: $page-darkest-major;
+.water-lightest-major { background: $water-lightest-major; }
+.water-lightest-minor { background: $water-lightest-minor; }
+.water-lighter-major  { background: $water-lighter-major;  }
+.water-lighter-minor  { background: $water-lighter-minor;  }
+.water-light-major    { background: $water-light-major;    }
+.water-light-minor    { background: $water-light-minor;    }
+.water-medium-color   { background: $water-color;          }
+.water-dark-minor     { background: $water-dark-minor;     }
+.water-dark-major     { background: $water-dark-major;     }
+.water-darker-minor   { background: $water-darker-minor;   }
+.water-darker-major   { background: $water-darker-major;   }
+.water-darkest-minor  { background: $water-darkest-minor;  }
+.water-darkest-major  { background: $water-darkest-major;  }
 
-	.water { background: $water-lightest-major; }
-	.fire  { background: $fire-lightest-major;  }
-	.moss  { background: $moss-lightest-major;  }
-	.rose  { background: $rose-lightest-major;  }
-	.page  { background: $page-lightest-major;  }
-}
-.lightest-minor {
-	color: $page-darkest-minor;
+.fire-lightest-major { background: $fire-lightest-major; }
+.fire-lightest-minor { background: $fire-lightest-minor; }
+.fire-lighter-major  { background: $fire-lighter-major;  }
+.fire-lighter-minor  { background: $fire-lighter-minor;  }
+.fire-light-major    { background: $fire-light-major;    }
+.fire-light-minor    { background: $fire-light-minor;    }
+.fire-medium-color   { background: $fire-color;          }
+.fire-dark-minor     { background: $fire-dark-minor;     }
+.fire-dark-major     { background: $fire-dark-major;     }
+.fire-darker-minor   { background: $fire-darker-minor;   }
+.fire-darker-major   { background: $fire-darker-major;   }
+.fire-darkest-minor  { background: $fire-darkest-minor;  }
+.fire-darkest-major  { background: $fire-darkest-major;  }
 
-	.water { background: $water-lightest-minor; }
-	.fire  { background: $fire-lightest-minor;  }
-	.moss  { background: $moss-lightest-minor;  }
-	.rose  { background: $rose-lightest-minor;  }
-	.page  { background: $page-lightest-minor;  }
-}
+.moss-lightest-major { background: $moss-lightest-major; }
+.moss-lightest-minor { background: $moss-lightest-minor; }
+.moss-lighter-major  { background: $moss-lighter-major;  }
+.moss-lighter-minor  { background: $moss-lighter-minor;  }
+.moss-light-major    { background: $moss-light-major;    }
+.moss-light-minor    { background: $moss-light-minor;    }
+.moss-medium-color   { background: $moss-color;          }
+.moss-dark-minor     { background: $moss-dark-minor;     }
+.moss-dark-major     { background: $moss-dark-major;     }
+.moss-darker-minor   { background: $moss-darker-minor;   }
+.moss-darker-major   { background: $moss-darker-major;   }
+.moss-darkest-minor  { background: $moss-darkest-minor;  }
+.moss-darkest-major  { background: $moss-darkest-major;  }
 
-.lighter-major {
-	color: $page-darker-major;
+.rose-lightest-major { background: $rose-lightest-major; }
+.rose-lightest-minor { background: $rose-lightest-minor; }
+.rose-lighter-major  { background: $rose-lighter-major;  }
+.rose-lighter-minor  { background: $rose-lighter-minor;  }
+.rose-light-major    { background: $rose-light-major;    }
+.rose-light-minor    { background: $rose-light-minor;    }
+.rose-medium-color   { background: $rose-color;          }
+.rose-dark-minor     { background: $rose-dark-minor;     }
+.rose-dark-major     { background: $rose-dark-major;     }
+.rose-darker-minor   { background: $rose-darker-minor;   }
+.rose-darker-major   { background: $rose-darker-major;   }
+.rose-darkest-minor  { background: $rose-darkest-minor;  }
+.rose-darkest-major  { background: $rose-darkest-major;  }
 
-	.water { background: $water-lighter-major; }
-	.fire  { background: $fire-lighter-major;  }
-	.moss  { background: $moss-lighter-major;  }
-	.rose  { background: $rose-lighter-major;  }
-	.page  { background: $page-lighter-major;  }
-}
-.lighter-minor {
-	color: $page-darker-minor;
+.page-lightest-major { background: $page-lightest-major; }
+.page-lightest-minor { background: $page-lightest-minor; }
+.page-lighter-major  { background: $page-lighter-major;  }
+.page-lighter-minor  { background: $page-lighter-minor;  }
+.page-light-major    { background: $page-light-major;    }
+.page-light-minor    { background: $page-light-minor;    }
+.page-medium-color   { background: $page-medium;         }
+.page-dark-minor     { background: $page-dark-minor;     }
+.page-dark-major     { background: $page-dark-major;     }
+.page-darker-minor   { background: $page-darker-minor;   }
+.page-darker-major   { background: $page-darker-major;   }
+.page-darkest-minor  { background: $page-darkest-minor;  }
+.page-darkest-major  { background: $page-darkest-major;  }
 
-	.water { background: $water-lighter-minor; }
-	.fire  { background: $fire-lighter-minor;  }
-	.moss  { background: $moss-lighter-minor;  }
-	.rose  { background: $rose-lighter-minor;  }
-	.page  { background: $page-lighter-minor;  }
-}
 
-.light-major {
-	color: $page-dark-major;
-
-	.water { background: $water-light-major; }
-	.fire  { background: $fire-light-major;  }
-	.moss  { background: $moss-light-major;  }
-	.rose  { background: $rose-light-major;  }
-	.page  { background: $page-light-major;  }
-}
-.light-minor {
-	color: $page-dark-minor;
-
-	.water { background: $water-light-minor; }
-	.fire  { background: $fire-light-minor;  }
-	.moss  { background: $moss-light-minor;  }
-	.rose  { background: $rose-light-minor;  }
-	.page  { background: $page-light-minor;  }
-}
-
-.medium-color {
-	color: $page-medium;
-
-	.water { background: $water-color; }
-	.fire  { background: $fire-color;  }
-	.moss  { background: $moss-color;  }
-	.rose  { background: $rose-color;  }
-	.page  { background: $page-medium;  }
-}
-
-.dark-minor {
-	color: $page-light-minor;
-
-	.water { background: $water-dark-minor; }
-	.fire  { background: $fire-dark-minor;  }
-	.moss  { background: $moss-dark-minor;  }
-	.rose  { background: $rose-dark-minor;  }
-	.page  { background: $page-dark-minor;  }
-}
-.dark-major {
-	color: $page-light-major;
-
-	.water { background: $water-dark-major; }
-	.fire  { background: $fire-dark-major;  }
-	.moss  { background: $moss-dark-major;  }
-	.rose  { background: $rose-dark-major;  }
-	.page  { background: $page-dark-major;  }
-}
-
-.darker-minor {
-	color: $page-lighter-minor;
-
-	.water { background: $water-darker-minor; }
-	.fire  { background: $fire-darker-minor;  }
-	.moss  { background: $moss-darker-minor;  }
-	.rose  { background: $rose-darker-minor;  }
-	.page  { background: $page-darker-minor;  }
-}
-.darker-major {
-	color: $page-lighter-major;
-
-	.water { background: $water-darker-major; }
-	.fire  { background: $fire-darker-major;  }
-	.moss  { background: $moss-darker-major;  }
-	.rose  { background: $rose-darker-major;  }
-	.page  { background: $page-darker-major;  }
-}
-
-.darkest-minor {
-	color: $page-lightest-minor;
-
-	.water { background: $water-darkest-minor; }
-	.fire  { background: $fire-darkest-minor;  }
-	.moss  { background: $moss-darkest-minor;  }
-	.rose  { background: $rose-darkest-minor;  }
-	.page  { background: $page-darkest-minor;  }
-}
-.darkest-major {
-	color: $page-lightest-major;
-
-	.water { background: $water-darkest-major; }
-	.fire  { background: $fire-darkest-major;  }
-	.moss  { background: $moss-darkest-major;  }
-	.rose  { background: $rose-darkest-major;  }
-	.page  { background: $page-darkest-major;  }
-}
-
+.lightest-major { color: $page-darkest-major;  }
+.lightest-minor { color: $page-darkest-major;  }
+.lighter-major  { color: $page-darkest-major;  }
+.lighter-minor  { color: $page-darkest-major;  }
+.light-major    { color: $page-darkest-major;  }
+.light-minor    { color: $page-darkest-major;  }
+.medium-color   { color: $page-lightest-major; }
+.dark-minor     { color: $page-lightest-major; }
+.dark-major     { color: $page-lightest-major; }
+.darker-minor   { color: $page-lightest-major; }
+.darker-major   { color: $page-lightest-major; }
+.darkest-minor  { color: $page-lightest-major; }
+.darkest-major  { color: $page-lightest-major; }
 
 /* END
 /* ***********************************************/

@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
 	# CALLBACKS
 	# ------------------------------------------------------------
 	before_validation :typify, on: [:update, :create]
-	before_save       :describe
+	before_validation :update_tags,     on: [:update, :create]
 
 	# SCOPES
 	# ------------------------------------------------------------
@@ -38,18 +38,14 @@ class Item < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	# - Joins
-	has_many :item_tags
-	has_many :possessions
+	has_many :item_taggings, -> { Tagging.quality }, dependent: :destroy, class_name: "Tagging", as: :tagger
+	has_many :possessions, dependent: :destroy
 
 	# - General
 	belongs_to :generic
-	has_many :characters, through: :possessions
-	has_many :qualities, :through => :item_tags
+	has_many   :characters,   through: :possessions
+	has_many   :quality_tags, through: :item_taggings
 	
-	# NESTED ATTRIBUTION
-	# ------------------------------------------------------------
-	accepts_nested_attributes_for :item_tags, :allow_destroy => true
-
 	# CLASS METHODS
 	# ------------------------------------------------------------
 	# OrganizedAll - creates an list of all identities organized by facet
@@ -67,7 +63,7 @@ class Item < ActiveRecord::Base
 	end
 
 	def descriptions
-		@descriptions ||= ""
+		@descriptions ||= nil
 	end
 
 	def visitor
@@ -95,14 +91,12 @@ class Item < ActiveRecord::Base
 		self
 	end
 
-	# UpdateTags - reassess current tag and return ids
-	def update_tags(list)
-		ItemTag.not_among_for(self.id, list).destroy_all
-		ItemTag.are_among_for(self.id, list).pluck(:quality_id)
-	end
-
 	def editable?(user)
 		user.id == uploader_id
+	end
+
+	def qualities
+		quality_tags
 	end
 
 	# PRIVATE METHODS
@@ -113,11 +107,17 @@ class Item < ActiveRecord::Base
 		self.generic = Generic.where(name: @nature).first_or_create
 	end
 
-	def describe
-		nw_qualities = Tag.batch_by_name(@descriptions, @visitor)
+	def update_tags
+		unless descriptions.nil?
+			old_tags     = self.quality_tags
+			current_tags = Tag.merged_tag_names(old_tags, descriptions, visitor)
+			organize_tags(old_tags, current_tags)
+		end
+	end
 
-		self.qualities.delete(self.qualities - nw_qualities)
-		self.qualities <<    (nw_qualities   - self.qualities)
+	def organize_tags(old_tags, new_tags)
+		old_tags.delete(old_tags - new_tags)
+		old_tags <<    (new_tags - old_tags)
 	end
 
 end

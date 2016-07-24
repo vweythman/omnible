@@ -6,7 +6,7 @@ class Works::NonfictionController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = NonfictionDecorator.decorate(Work.onsite.nonfiction.with_filters(index_params, current_user))
+		@works = Collectables::NonfictionDecorator.decorate(Work.toggle_links(show_links).nonfiction.with_filters(index_params, current_user))
 	end
 
 end

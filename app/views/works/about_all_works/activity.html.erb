@@ -1,0 +1,59 @@
+<% provide :title, "#{@parent.heading} - Works - Activity" %>
+
+<header class="index-header">
+	<h1>
+		<%= link_to @parent.heading, @parent %>
+		::
+		<%= link_to("Works", url_for(@parent) + '/works/') %>
+		<%= subtitle "Activity" %>
+	</h1>
+</header>
+
+<div class="subject-body">
+	<%= page_widget "Monthly Creation Activity" do %>
+		<canvas id="creation-plot"></canvas>
+		<%= render "counter_with_type", label: "Date", counts: @overtime_type_count %>
+	<% end %>
+
+	<%= page_widget "Monthly Update Activity" do %>
+		<canvas id="updating-plot"></canvas>
+		<%= render "counter_with_type", label: "Date", counts: @updating_type_count %>
+	<% end %>
+
+	<%= grid_panel do %>
+		<%= page_widget "Work Types", type: "golden-minor" do %>
+			<%= render "counter", label: "Type", counts: @type_count %>
+		<% end %>
+		<%= page_widget "Work Content Types", type: "golden-major" do %>
+			<%= render "counter", label: "Title", type: :works, counts: @content_type_count %>
+		<% end %>
+	<% end %>
+</div>
+
+<% timelength_creation, dataset_creation = count_overtime_dataset(@overtime_type_count) %>
+<% timelength_update,   dataset_update   = count_overtime_dataset(@updating_type_count) %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".sortable").tablesorter();
+});
+var data1 = {
+	labels:   <%= timelength_creation.to_json.to_s.html_safe %>,
+	datasets: <%= dataset_creation.to_json.to_s.html_safe %>
+};
+var scatterChart = new Chart($("#creation-plot"), {
+	type: 'line',
+	data: data1,
+	options: {}
+});
+
+var data2 = {
+	labels:   <%= timelength_update.to_json.to_s.html_safe %>,
+	datasets: <%= dataset_update.to_json.to_s.html_safe %>
+};
+var scatterChart = new Chart($("#updating-plot"), {
+	type: 'line',
+	data: data2,
+	options: {}
+});
+</script>

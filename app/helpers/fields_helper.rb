@@ -26,6 +26,12 @@ module FieldsHelper
 	end
 
 	# OUTPUT single line text field
+	def file_upload_panel(f, value,  placeholder = nil, heading = nil)
+		heading = placeholder if heading.nil?
+		render :partial => "shared/forms/panel/file", :locals => { :f => f, :value => value, :heading => heading, :placeholder => placeholder }
+	end
+
+	# OUTPUT single line text field
 	def selectables(f, value, group)
 		render :partial => "shared/forms/panel/selection", :locals => { :f => f, :value => value, :group => group, :select_class => "selectables", :selected_value => nil }
 	end

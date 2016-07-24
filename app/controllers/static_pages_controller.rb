@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-  	@anthologies = Anthology.recently_updated(5).decorate
-  	@works       = Work.onsite.recently_updated(5).decorate
+  	@anthologies = Collectables::AnthologiesDecorator.decorate Anthology.recently_updated(5)
+  	@works       = Collectables::WorksDecorator.decorate Work.toggle_links(show_links).recently_updated(5)
   end
 
   def help

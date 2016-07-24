@@ -18,7 +18,7 @@ class StoryDecorator < WorkDecorator
 
 	def createables_links
 		if self.editable?(h.current_user)
-			h.prechecked_multi_kit [[self, :chapter], [self, :note]]
+			h.prechecked_createables [[self, :chapter], [self, :note]]
 		end
 	end
 
@@ -27,7 +27,7 @@ class StoryDecorator < WorkDecorator
 	end
 
 	def title_with_count
-		len = self.chapters.length
+		len = self.taggable_chapter_count
 		title + " (" + len.to_s + " " + "Chapter".pluralize(len) + ")"
 	end
 
@@ -62,7 +62,7 @@ class StoryDecorator < WorkDecorator
 	def chapters_status
 		text = link_first_chapter
 
-		if self.chapters.length > 1
+		if self.taggable_chapter_count > 1
 			text += link_latest_chapter
 		end
 
@@ -73,15 +73,17 @@ class StoryDecorator < WorkDecorator
 
 	def current_chapters
 		self.chapters.build if self.chapters.length == 0
-		@current_chapters ||= ChaptersDecorator.decorate(self.chapters)
+		@current_chapters ||= Collectables::ChaptersDecorator.decorate(self.chapters)
 	end
 
 	def link_first_chapter
-		h.link_to "First", [self, self.chapters.ordered.first]
+		i = searchable_metadata["first-chapter"]
+		h.link_to "First", h.story_chapter_path(self.id, i) unless i.nil?
 	end
 
 	def link_latest_chapter
-		h.link_to "Latest", [self, self.chapters.ordered.last]
+		i = searchable_metadata["latest-chapter"]
+		h.link_to "Latest", h.story_chapter_path(self.id, i)
 	end
 
 	# -- Navigation

@@ -1,8 +1,0 @@
-<% if results.size > 1 %>
-	<%= grid_panel "filtered" do %>
-		<%= panel_cell "golden-major" do results.index_content end %>
-		<%= panel_cell "golden-minor" do results.filters       end %>
-	<% end %>
-<% else %>
-	<%= solo_cell do results.index_content end %>
-<% end %>

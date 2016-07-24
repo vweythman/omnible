@@ -1,7 +1,65 @@
 module ToolkitHelper
 
-	# CREATION
-	# ------------------------------------------------------------
+	# AIDS
+	# ============================================================
+	def button_id(item_type)
+		"button#{new_polymorphic_path(item_type).gsub('/', '-')}"
+	end
+
+
+	# GENERAL TOOLKITS
+	# ============================================================
+	def alterable_kit(item, kit_id, remoteness = false)
+		content_tag :div, class:"toolkit alteration", id: kit_id do
+			concat link_to_edit(item, remoteness)
+			concat link_to_delete(item, remoteness)
+		end
+	end
+
+	def creatable_kit(titleized_type, item_type, kit_id, remoteness)
+		content_tag :div, class: "toolkit creation manager-editor", id: kit_id do
+			link_to_create(titleized_type, item_type, remoteness)
+		end
+	end
+
+	def undestroyable_kit(model, remoteness = true)
+		content_tag :div, class: "toolkit modification" do
+			link_to_edit(item, remoteness)
+		end
+	end
+
+
+	# TOOLKIT TYPE :: TABLE
+	# ============================================================
+	def creation_tablekit(kittype)
+		content_tag :div, class: "toolkit creation manager-editor" do
+			link_to_create "Create", kittype
+		end
+	end
+
+	def inline_alteration_toolblock(model)
+		content_tag :td, class: "manager-editor", id: model.kit_id do
+			alterable_kit(model, nil)
+		end
+	end
+
+	def insertion_toolkit(heading, item_type)
+		content_tag :div, class: "toolkit insertion" do
+			link_to_create "New #{heading.to_s.titleize} Here", item_type
+		end
+	end
+
+	def toolblock(colspan, toolkit)
+		content_tag :tr do
+			content_tag :td, colspan: colspan do
+				toolkit
+			end
+		end
+	end
+
+
+	# TOOLKIT TYPES :: CREATION
+	# ============================================================
 	def creation_toolkit(name, item_type)
 		if user_signed_in? 
 			prechecked_creation_toolkit(name, item_type)
@@ -9,65 +67,42 @@ module ToolkitHelper
 	end
 
 	def inline_creation_toolkit(name, item_type)
-		render(:partial => "shared/toolkits/createable", :locals => { :titleized_type => name.to_s.titleize, :item_type => item_type, :remoteness => true, :kit_id => button_id(item_type) })
-	end
-
-	def insertion_toolkit(heading, item_type)
-		render(:partial => "shared/toolkits/insertable", :locals => { :titleized_type => heading.to_s.titleize, :item_type => item_type })
+		creatable_kit(name.to_s.titleize, item_type, button_id(item_type), true)
 	end
 
 	def prechecked_creation_toolkit(name, item_type)
-		render(:partial => "shared/toolkits/createable", :locals => { :titleized_type => name.to_s.titleize, :item_type => item_type, :remoteness => false, :kit_id => nil })
+		creatable_kit(name.to_s.titleize, item_type, nil, false)
 	end
 
-	def button_id(item_type)
-		"button#{new_polymorphic_path(item_type).gsub('/', '-')}"
-	end
 
-	# EDITING & DESTROYING
-	# ------------------------------------------------------------
+	# TOOLKIT TYPES :: CREATION
+	# ============================================================
 	def alteration_toolkit(model)
 		if user_signed_in? && model.editable?(current_user)
-			render(:partial => "shared/toolkits/alterable", :locals => { :item => model, :remoteness => false, :kit_id => nil } )
+			alterable_kit(model, nil)
 		end
 	end
 
 	def inline_alteration_toolkit(model)
-		render(:partial => "shared/toolkits/alterable", :locals => { :item => model, :remoteness => true, :kit_id => model.kit_id } )
+		alterable_kit(model, model.kit_id, remoteness = true)
 	end
 
-	def inline_alteration_toolblock(model)
-		render(:partial => "shared/toolkits/inline_manager_block", :locals => { :item => model } )
-	end
 
-	def inline_undestroyable_toolkit(model, remoteness = true)
-		render(:partial => "shared/toolkits/undestroyable", :locals => { :item => model, :remoteness => remoteness } )
-	end
-
-	def edit_link(item, remoteness = false)
-		link_to 'Edit', edit_polymorphic_path(item), remote: remoteness, class:"icon icon-cog"
-	end
-
-	def delete_link(item, remoteness = false)
-		link_to 'Delete', item, class:"icon icon-bin", method: :delete, remote: remoteness , data: { confirm: "Are you sure you want to delete #{item.heading}?"} 
-	end
-
-	# FORMATING
-	# ------------------------------------------------------------
-	def toolblock(colspan, toolkit)
-		render(:partial => "shared/toolkits/table_toolblock", :locals => { :toolkit => toolkit, :colspan => colspan } )
-	end
-
-	# UNSPECIFIED
-	# ------------------------------------------------------------
-	def multi_kit(model_types, toolkit_type = :creation)
+	# TOOLKIT TYPES :: MULTI
+	# ============================================================
+	def multi_kit(model_types)
 		if user_signed_in? 
-			prechecked_multi_kit(model_types, toolkit_type)
+			prechecked_createables(model_types)
 		end
 	end
 
-	def prechecked_multi_kit(model_types, toolkit_type = :creation)
-		render :partial => "shared/toolkits/multi_#{toolkit_type}_kits", :locals => { :types => model_types }
+	def prechecked_createables(types)
+		content_tag :div, class: "multikit" do
+			types.each do |type|
+				concat prechecked_creation_toolkit (type.respond_to?('each') ? type.last : type), type
+				concat " "
+			end
+		end
 	end
 
 end

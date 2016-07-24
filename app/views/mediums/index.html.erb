@@ -1,0 +1,16 @@
+<% provide :title, "Media" %>
+
+<header class="index-header">
+	<h1>Media</h1>
+</header>
+
+<div class="index-body">
+	<div class="media-results results">
+		<% @metadata.each do |media, works| %>
+			<% path = all_media_by_medium_path(media) %>
+			<%= page_widget link_to(media.pluralize, path) do %>
+				<%= render 'works_by_medium', works: works %>
+			<% end %>
+		<% end %>
+	</div>
+</div>

@@ -37,22 +37,30 @@ class Character < ActiveRecord::Base
 	include Documentable
 	include Replicant
 	include AsNameableTag
+	include WithWorkCuration
 
 	# SCOPES
 	# ============================================================
 	# - General
+	# ------------------------------------------------------------
 	scope :alphabetical, -> { order("lower(characters.name) asc") }
 	scope :are_among,    ->(character_names) { where("name IN (?)", character_names) }
 	scope :not_among,    ->(character_names) { where("name NOT IN (?)", character_names) }
 
 	# - Specific Through Associations
+	# ------------------------------------------------------------
 	scope :not_pen_name,   -> { where('characters.id NOT IN (?)', Pseudonyming.pen_namings.pluck(:character_id)) }
 	scope :not_roleplayed, -> { where('characters.id NOT IN (?)', Pseudonyming.roleplays.pluck(:character_id)) }
 	scope :top_appearers,  -> { joins(:appearances).group("characters.id").order("COUNT(appearances.character_id) DESC").limit(10) }
 
 	# - Related Characters
+	# ------------------------------------------------------------
 	scope :next_in_line, ->(character_name) { where('name > ?', character_name).order('name ASC') }
 	scope :prev_in_line, ->(character_name) { where('name < ?', character_name).order('name DESC') }
+
+	# Counts
+	# ------------------------------------------------------------
+	scope :count_by_name,  -> { group(:name).ordered_count  }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -60,7 +68,7 @@ class Character < ActiveRecord::Base
 	has_one  :pseudonyming, dependent: :destroy
 	has_many :appearances,  dependent: :destroy
 	has_many :descriptions, dependent: :destroy
-	has_many :memberships,  dependent: :destroy
+	has_many :memberships,  dependent: :destroy, as: :member
 	has_many :possessions,  dependent: :destroy
 
 	has_many :main_appearances,    -> { Appearance.main_character }, class_name: "Appearance"
@@ -80,8 +88,9 @@ class Character < ActiveRecord::Base
 	has_one  :creator,    through: :pen_naming, source: :user
 	has_one  :roleplayer, through: :roleplay,   source: :user
 
-	has_many :groups,     through: :memberships
-	has_many :works,      through: :appearances
+	has_many :social_groups, through: :memberships
+	has_many :works,         through: :appearances
+	has_many :onsite_works, ->{ Work.onsite }, through: :appearances, class_name: "Work"
 
 	has_many :main_in,      through: :main_appearances,    source: :work
 	has_many :mentioned_in, through: :mentions,            source: :work
@@ -98,7 +107,8 @@ class Character < ActiveRecord::Base
 	has_many :prejudices,  dependent: :destroy, :inverse_of => :character
 
 	# - References
-	has_many :anthologies, ->{uniq}, :through => :works
+	# ------------------------------------------------------------
+	has_many :anthologies, ->{uniq}, through: :works
 
 	# NESTED ATTRIBUTION
 	# ============================================================

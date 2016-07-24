@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  group_id: 
-  character_id: 
-  role: MyString
+  social_group_id: 
+  member_id: 
 
 two:
-  group_id: 
-  character_id: 
-  role: MyString
+  social_group_id: 
+  member_id: 

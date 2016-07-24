@@ -7,120 +7,16 @@
 		<% end %>
 		<li><%= link_to "Dashboard", dashboard_path %></li>
 		<li><%= link_to "Pen Names", pen_namings_path %></li>
-		<li><%= link_to "Stylesheet Skins", user_skins_path %></li>
 	</ul>
 
-	<h2 class="control-title">Creations and Uploads</h2>
+	<h2 class="control-title">Uploads</h2>
 	<ul class="control-group createables">
-		<li>
-			<h3 class="action-title">Uploaded Works</h3>
-			<ul class="action-group">
-				<li>
-					Articles      
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><%= link_to 'create', new_article_path %></p>
-					</span>
-				</li>
-				<li>
-					Blog Post     
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><a href="">create one</a></p>
-					</span>
-				</li>
-				<li>
-					Music Video   
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><a href="">create one</a></p>
-					</span>
-				</li>
-				<li>
-					Poems         
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><a href="">create one</a></p>
-					</span>
-				</li>
-				<li>
-					Radio Plays   
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><a href="">create one</a></p>
-					</span>
-				</li>
-				<li>
-					Song          
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><a href="">create one</a></p>
-					</span>
-				</li>
-				<li>
-					Chaptered Stories       
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><%= link_to 'create', new_story_path %></p>
-					</span>
-				</li>
-				<li>
-					Branching Stories       
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p>------</p>
-					</span>
-				</li>
-				<li>
-					Short Stories 
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><%= link_to 'create', new_short_story_path %></p>
-					</span>
-				</li>
-			</ul>
-		</li>
-
-		<li>
-			<h3 class="action-title">Links</h3>
-			<ul class="action-group">
-				<li>
-					Fiction Links
-					<span class="manager">
-						<p><a href="">see all</a></p>
-						<p><%= link_to 'create', new_story_link_path %></p>
-					</span>
-				</li>
-			</ul>
-		</li>
-
-
-		<li>
-			<h3 class="action-title">Subjects</h3>
-			<ul class="action-group">
-				<li>
-					Characters
-					<span class="manager">
-						<p><%= link_to 'see all', uploads_characters_path %></p>
-						<p><%= link_to 'create', new_character_path %></p>
-					</span>
-				</li>
-				<li>
-					Places
-					<span class="manager">
-						<p><%= link_to 'see all', uploads_places_path %></p>
-						<p><%= link_to 'create', new_place_path %></p>
-					</span>
-				</li>
-				<li>
-					Items
-					<span class="manager">
-						<p><%= link_to 'see all', uploads_items_path %></p>
-						<p><%= link_to 'create', new_item_path %></p>
-					</span>
-				</li>
-			</ul>
-		</li>
+		<li><%= link_to "Articles",            articles_uploads_path %></li>
+		<li><%= link_to "Links",               links_uploads_path %></li>
+		<li><%= link_to "Roleplay Characters", characters_uploads_path %></li>
+		<li><%= link_to "Short Stories",       short_stories_uploads_path %></li>
+		<li><%= link_to "Stories",             stories_uploads_path %></li>
+		<li><%= link_to "Stylesheet Skins",    user_skins_path %></li>
 	</ul>
 
 	<h2 class="control-title">Discussion</h2>

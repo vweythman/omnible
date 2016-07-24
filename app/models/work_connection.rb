@@ -16,6 +16,11 @@
 
 class WorkConnection < ActiveRecord::Base
 
+	# CALLBACKS
+	# ------------------------------------------------------------
+	after_create   :increment_metadata
+	before_destroy :decrement_metadata
+
 	# VALIDATIONS
 	# ============================================================
 	validates_uniqueness_of :tagged_id, :scope => :tagger_id
@@ -23,6 +28,7 @@ class WorkConnection < ActiveRecord::Base
 	# MODULES
 	# ============================================================
 	extend Organizable
+	include CountableTagging
 
 	# SCOPES
 	# ============================================================
@@ -30,9 +36,14 @@ class WorkConnection < ActiveRecord::Base
 	# ------------------------------------------------------------
 	scope :general,    -> { where(nature: "general")    }
 	scope :set_in,     -> { where(nature: "setting")    }
-	scope :cast_from,  -> { where(nature: "characters") }
+	scope :cast_from,  -> { where(nature: "cast")       }
 	scope :subject,    -> { where(nature: "subject")    }
 	scope :referenced, -> { where(nature: "reference")  }
+
+	# SELECT
+	# ------------------------------------------------------------
+	scope :tagger_with_works,         ->(ws)      { tagger_by_tag_titles(ws, :tagger_id, :work) }
+	scope :tagger_with_grouped_works, ->(nat, ws) { where(nature: nat).tagger_with_works(ws)    }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -60,7 +71,11 @@ class WorkConnection < ActiveRecord::Base
 	end
 
 	def self.narrative_labels
-		['general', 'setting', 'characters', 'reference']
+		['general', 'setting', 'cast', 'reference']
+	end
+
+	def self.all_labels
+		narrative_labels | nonfiction_labels
 	end
 
 	def self.nonfiction_labels
@@ -87,11 +102,61 @@ class WorkConnection < ActiveRecord::Base
 		end
 	end
 
+	def self.filter_labels
+		@filter_labels ||= { "general" => "Works as Fandom", "setting" => "Works as Setting", "cast" => "Cast Only", "reference" => "Works as Reference", "subject" => "Works as Subject"}
+	end
+
+	def self.tagger_intersection_sql(finds)
+		if (finds.keys - self.all_labels).empty?
+			finds.map {|k, titles| WorkConnection.tagger_with_grouped_works(k.to_s, titles.split(";")).to_sql }.join(" INTERSECT ")
+		else
+			""
+		end
+	end
+
 	# PUBLIC METHODS
 	# ============================================================
 	# Linkable - grab what will be used when organizing
 	def linkable
 		self.work
+	end
+
+	def base_metadata_key
+		"taggings-count"
+	end
+
+	def metadata_key
+		nature + "-" + base_metadata_key
+	end
+
+	def find_metadata_counter(key)
+		c = RecordQuantitativeMetadatum.find_datum(self.tagged_id, key)
+		c.value ||= 0
+		c
+	end
+
+	# PRIVATE METHODS
+	# ============================================================
+	private
+
+	def increment_metadata
+		for_count = find_metadata_counter metadata_key
+		for_count.value = for_count.value + 1
+		for_count.save
+
+		for_total = find_metadata_counter base_metadata_key
+		for_total.value = for_total.value + 1
+		for_total.save
+	end
+
+	def decrement_metadata
+		for_count = find_metadata_counter metadata_key
+		for_count.value = [for_count.value - 1, 0].max
+		for_count.save
+
+		for_total = find_metadata_counter base_metadata_key
+		for_total.value = [for_count.value - 1, 0].max
+		for_total.save
 	end
 
 end

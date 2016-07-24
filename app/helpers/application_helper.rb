@@ -37,6 +37,10 @@ module ApplicationHelper
 		# DASHBOARD STYLESHEET
 		if ((["users", "admin"].include? collector) && (collector != type) || collector == "categories" && action == "index")
 			template_type = "dashboard"
+
+		# STATS
+		elsif type.starts_with? 'about_all'
+			template_type = "about_all"
 		
 		# SESSION STYLESHEET
 		elsif collector == 'devise'
@@ -85,41 +89,6 @@ module ApplicationHelper
 		"#{title} &rsaquo;".html_safe
 	end
 
-	# Content
-	# ............................................................
-	# OUTPUT markdown content
-	def markdown(text)
-		Kramdown::Document.new((text.nil? ? "" : text), :auto_ids => false, :parse_block_html => true).to_html.html_safe
-	end
-	
-	# OUTPUT formated time string
-	def record_time(date)
-		date.strftime("%b %d, %Y")
-	end
-
-	def timestamp(date)
-		content_tag :span, class: 'date' do
-			record_time(date)
-		end
-	end
-
-	# OUTPUT comma separated links
-	def cslinks(links)
-		r = links.map {|i| link_to i.heading, i }
-		r.join(", ").html_safe
-	end
-
-	def csnames(list)
-		if !list.nil? && list.length > 0
-			r = list.map {|i| i.name }
-			r.join(", ").html_safe
-		end
-	end
-	
-	def subgrouped_list(heading, listable)
-		render( :partial => "shared/lists/subgrouped", :locals => { :heading => heading, :listable => listable })
-	end
-
 	# User Interaction
 	# ............................................................
 
@@ -130,13 +99,15 @@ module ApplicationHelper
 		end
 	end
 
-	def list_filters(type, filters)
-		content_tag(:ul) do
-			filters.map do |f|
-				li = content_tag :li do link_to_filter(f[:heading], type, f[:key]) end
-				concat li
-			end
-		end
+	def filter_selects(type, filters)
+		current_url = url_for(params)
+
+		ht = Hash.new
+		filters.map {|f| 
+			ht[url_for(params.merge(type => f[:key]))] = f[:heading]
+		}
+
+		select_tag('filter-links-' + type.to_s, options_from_collection_for_select(ht, :first, :last, selected: current_url), class: "filter-links")
 	end
 
 	def offsite_link_to(title, path)

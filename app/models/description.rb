@@ -15,11 +15,17 @@
 
 class Description < ActiveRecord::Base
 
+	# MODULES
+	# ============================================================
+	include CountableTagging
+
 	# SCOPES
 	# ------------------------------------------------------------
 	scope :within, ->(identity) {where("character_id IN (#{identity.descriptions.pluck(:character_id).join(",")})")}
 	scope :are_among_for, ->(character, ids) { where("character_id = ? AND identity_id IN (?)", character.id, ids)}
 	scope :not_among_for, ->(character, ids) { where("character_id = ? AND identity_id NOT IN (?)", character.id, ids)}
+
+	scope :tagger_by_identities, ->(ws) { tagger_by_tag_names(ws, :character_id, :identity) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------

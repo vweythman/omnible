@@ -2,107 +2,80 @@
 <h1>Help</h1>
 
 <div class="poster-grid">
-	<%= grid_panel "lightest-major" do %>
-		<%= panel_cell "quintet water" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Lightest</p><% end %>
-	<% end %>
 
-	<%= grid_panel "lightest-minor" do %>
-		<%= panel_cell "quintet water" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Lightest</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Lightest</p><% end %>
+	<%= panel_cell "quintet" do %>
+		<%= solo_cell "water-lightest-major lightest-major" do %><p>Lightest</p><% end %>
+		<%= solo_cell "water-lightest-minor lightest-minor" do %><p>Lightest</p><% end %>
+		<%= solo_cell "water-lighter-major lighter-major"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "water-lighter-minor lighter-minor"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "water-light-major light-major"       do %><p>Light</p><%    end %>
+		<%= solo_cell "water-light-minor light-minor"       do %><p>Light</p><%    end %>
+		<%= solo_cell "water-medium-color medium-color"     do %><p>Medium</p><%   end %>
+		<%= solo_cell "water-dark-minor dark-minor"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "water-dark-major dark-major"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "water-darker-minor darker-minor"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "water-darker-major darker-major"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "water-darkest-minor darkest-minor"   do %><p>Darkest</p><%  end %>
+		<%= solo_cell "water-darkest-major darkest-major"   do %><p>Darkest</p><%  end %>
 	<% end %>
-
-	<%= grid_panel "lighter-major" do %>
-		<%= panel_cell "quintet water" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Lighter</p><% end %>
+	<%= panel_cell "quintet" do %>
+		<%= solo_cell "fire-lightest-major lightest-major" do %><p>Lightest</p><% end %>
+		<%= solo_cell "fire-lightest-minor lightest-minor" do %><p>Lightest</p><% end %>
+		<%= solo_cell "fire-lighter-major lighter-major"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "fire-lighter-minor lighter-minor"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "fire-light-major light-major"       do %><p>Light</p><%    end %>
+		<%= solo_cell "fire-light-minor light-minor"       do %><p>Light</p><%    end %>
+		<%= solo_cell "fire-medium-color medium-color"     do %><p>Medium</p><%   end %>
+		<%= solo_cell "fire-dark-minor dark-minor"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "fire-dark-major dark-major"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "fire-darker-minor darker-minor"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "fire-darker-major darker-major"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "fire-darkest-minor darkest-minor"   do %><p>Darkest</p><%  end %>
+		<%= solo_cell "fire-darkest-major darkest-major"   do %><p>Darkest</p><%  end %>
 	<% end %>
-
-	<%= grid_panel "lighter-minor" do %>
-		<%= panel_cell "quintet water" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Lighter</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Lighter</p><% end %>
+	<%= panel_cell "quintet" do %>
+		<%= solo_cell "moss-lightest-major lightest-major" do %><p>Lightest</p><% end %>
+		<%= solo_cell "moss-lightest-minor lightest-minor" do %><p>Lightest</p><% end %>
+		<%= solo_cell "moss-lighter-major lighter-major"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "moss-lighter-minor lighter-minor"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "moss-light-major light-major"       do %><p>Light</p><%    end %>
+		<%= solo_cell "moss-light-minor light-minor"       do %><p>Light</p><%    end %>
+		<%= solo_cell "moss-medium-color medium-color"     do %><p>Medium</p><%   end %>
+		<%= solo_cell "moss-dark-minor dark-minor"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "moss-dark-major dark-major"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "moss-darker-minor darker-minor"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "moss-darker-major darker-major"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "moss-darkest-minor darkest-minor"   do %><p>Darkest</p><%  end %>
+		<%= solo_cell "moss-darkest-major darkest-major"   do %><p>Darkest</p><%  end %>
 	<% end %>
-
-	<%= grid_panel "light-major" do %>
-		<%= panel_cell "quintet water" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Light</p><% end %>
+	<%= panel_cell "quintet" do %>
+		<%= solo_cell "rose-lightest-major lightest-major" do %><p>Lightest</p><% end %>
+		<%= solo_cell "rose-lightest-minor lightest-minor" do %><p>Lightest</p><% end %>
+		<%= solo_cell "rose-lighter-major lighter-major"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "rose-lighter-minor lighter-minor"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "rose-light-major light-major"       do %><p>Light</p><%    end %>
+		<%= solo_cell "rose-light-minor light-minor"       do %><p>Light</p><%    end %>
+		<%= solo_cell "rose-medium-color medium-color"     do %><p>Medium</p><%   end %>
+		<%= solo_cell "rose-dark-minor dark-minor"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "rose-dark-major dark-major"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "rose-darker-minor darker-minor"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "rose-darker-major darker-major"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "rose-darkest-minor darkest-minor"   do %><p>Darkest</p><%  end %>
+		<%= solo_cell "rose-darkest-major darkest-major"   do %><p>Darkest</p><%  end %>
 	<% end %>
-
-	<%= grid_panel "light-minor" do %>
-		<%= panel_cell "quintet water" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Light</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Light</p><% end %>
-	<% end %>
-
-	<%= grid_panel "medium-color" do %>
-		<%= panel_cell "quintet water" do %><p>Medium</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Medium</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Medium</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Medium</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Medium</p><% end %>
-	<% end %>
-
-	<%= grid_panel "dark-minor" do %>
-		<%= panel_cell "quintet water" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Dark</p><% end %>
-	<% end %>
-
-	<%= grid_panel "dark-major" do %>
-		<%= panel_cell "quintet water" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Dark</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Dark</p><% end %>
-	<% end %>
-
-	<%= grid_panel "darker-minor" do %>
-		<%= panel_cell "quintet water" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Darker</p><% end %>
-	<% end %>
-
-	<%= grid_panel "darker-major" do %>
-		<%= panel_cell "quintet water" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Darker</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Darker</p><% end %>
-	<% end %>
-
-	<%= grid_panel "darkest-minor" do %>
-		<%= panel_cell "quintet water" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Darkest</p><% end %>
-	<% end %>
-
-	<%= grid_panel "darkest-major" do %>
-		<%= panel_cell "quintet water" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet fire" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet moss" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet rose" do %><p>Darkest</p><% end %>
-		<%= panel_cell "quintet page" do %><p>Darkest</p><% end %>
+	<%= panel_cell "quintet" do %>
+		<%= solo_cell "page-lightest-major lightest-major" do %><p>Lightest</p><% end %>
+		<%= solo_cell "page-lightest-minor lightest-minor" do %><p>Lightest</p><% end %>
+		<%= solo_cell "page-lighter-major lighter-major"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "page-lighter-minor lighter-minor"   do %><p>Lighter</p><%  end %>
+		<%= solo_cell "page-light-major light-major"       do %><p>Light</p><%    end %>
+		<%= solo_cell "page-light-minor light-minor"       do %><p>Light</p><%    end %>
+		<%= solo_cell "page-medium-color medium-color"     do %><p>Medium</p><%   end %>
+		<%= solo_cell "page-dark-minor dark-minor"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "page-dark-major dark-major"         do %><p>Dark</p><%     end %>
+		<%= solo_cell "page-darker-minor darker-minor"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "page-darker-major darker-major"     do %><p>Darker</p><%   end %>
+		<%= solo_cell "page-darkest-minor darkest-minor"   do %><p>Darkest</p><%  end %>
+		<%= solo_cell "page-darkest-major darkest-major"   do %><p>Darkest</p><%  end %>
 	<% end %>
 </div>

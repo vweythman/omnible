@@ -16,45 +16,54 @@
 class Tag < ActiveRecord::Base
 
 	# VALIDATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	validates :name, presence: true
 	
 	# MODULES
-	# ------------------------------------------------------------
-	extend FriendlyId
+	# ============================================================
+	extend  FriendlyId
 	include EditableTag
 	include Taggable
 	include AsNameableTag
+	include WithWorkCuration
 	
 	# SCOPES
-	# ------------------------------------------------------------
+	# ============================================================
 	scope :not_among, ->(tags) { where("name NOT IN (?)", tags) }
 	scope :are_among, ->(tags) { where("name IN (?)", tags) }
 
-	# NONTABLE VARIABLES
+	# Counts
 	# ------------------------------------------------------------
+	scope :count_by_name, -> { group(:name).order("Count(*) DESC").count }
+
+	# NONTABLE VARIABLES
+	# ============================================================
 	friendly_id :name, :use => :slugged
 
 	# ASSOCIATIONS
+	# ============================================================
+	# Joins
 	# ------------------------------------------------------------
-	# - Joins
 	has_many :taggings
 
-	# - Belongs to
-	has_many :articles,      -> { Work.articles },       through: :taggings, source: :work
-	has_many :short_stories, -> { Work.short_stories }, through: :taggings, source: :work
-	has_many :stories,       -> { Work.stories },       through: :taggings, source: :work
-	has_many :story_links,   -> { Work.story_links },   through: :taggings, source: :work
-	has_many :works, through: :taggings
+	# Belongs to
+	# ------------------------------------------------------------
+	has_many :works, through: :taggings, source: :tagger, source_type: "Work"
+	has_many :onsite_works, ->{ Work.onsite }, through: :taggings, source: :tagger, source_type: "Work"
+
+	has_many :articles,      -> { Work.articles },      through: :taggings, source: :tagger, source_type: "Work"
+	has_many :short_stories, -> { Work.short_stories }, through: :taggings, source: :tagger, source_type: "Work"
+	has_many :stories,       -> { Work.stories },       through: :taggings, source: :tagger, source_type: "Work"
+	has_many :story_links,   -> { Work.story_links },   through: :taggings, source: :tagger, source_type: "Work"
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	def self.tag_creation(name, uploader = nil)
 		tag = Tag.where(name: name).first_or_create
 	end
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# Heading - defines the main means of addressing the model
 	def heading
 		name

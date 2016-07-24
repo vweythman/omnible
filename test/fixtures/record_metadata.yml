@@ -14,3 +14,13 @@ three:
   work: mi
   key: medium
   value: Novel
+
+rm4:
+  work: helix
+  key: first-chapter
+  value: <%= "1" %>
+
+rm5:
+  work: helix
+  key: lastest-chapter
+  value: <%= "2" %>

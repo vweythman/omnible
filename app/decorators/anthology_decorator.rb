@@ -16,7 +16,7 @@ class AnthologyDecorator < Draper::Decorator
 	end
 
 	def current_works
-		@current_works ||= CollectionsDecorator.decorate(self.works)
+		@current_works ||= Collectables::CollectionsDecorator.decorate(self.works)
 	end
 
 end

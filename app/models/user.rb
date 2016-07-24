@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 	# ============================================================
 	include Socialable
 	include Documentable
+	include WithWorkCuration
 
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
@@ -28,6 +29,7 @@ class User < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ============================================================
 	# - Joins
+	# ------------------------------------------------------------
 	# :: self
 	has_many :pseudonymings, dependent: :destroy
 	has_many :pen_namings, ->{ Pseudonyming.pen_namings }, class_name: "Pseudonyming"
@@ -38,6 +40,7 @@ class User < ActiveRecord::Base
 	has_many :view_invites, dependent: :destroy
 
 	# - Has
+	# ------------------------------------------------------------
 	# :: self
 	has_one  :admin_powers,        class_name: "Admin"
 	has_many :all_pens,            through: :pseudonymings, source: :character
@@ -46,7 +49,9 @@ class User < ActiveRecord::Base
 	has_many :skins,               foreign_key: "uploader_id"
 
 	# :: uploads
-	has_many :works,               foreign_key: "uploader_id", class_name: "Work"
+	has_many :works,                            foreign_key: "uploader_id"
+	has_many :onsite_works, ->{ Work.onsite }, foreign_key: "uploader_id", class_name: "Work"
+
 	has_many :characters, ->{ Character.not_pen_name }, foreign_key: "uploader_id", class_name: "Character"
 	has_many :places,     foreign_key: "uploader_id", class_name: "Place"
 	has_many :uploaded_items,      foreign_key: "uploader_id", class_name: "Item"
@@ -82,7 +87,7 @@ class User < ActiveRecord::Base
 	# GETTERS
 	# ------------------------------------------------------------
 	def all_uploads
-		self.works.onsite + self.characters + self.places + self.uploaded_items
+		self.works.onsite + self.skins + self.roleplay_characters
 	end
 
 	# ACTIONS

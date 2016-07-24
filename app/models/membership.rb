@@ -1,6 +1,6 @@
 # Membership
 # ================================================================================
-# join table, groups have characters
+# join table, groups have characters or relationships
 #
 # Table Variables
 # --------------------------------------------------------------------------------
@@ -18,8 +18,8 @@ class Membership < ActiveRecord::Base
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :group
-	belongs_to :character
+	belongs_to :social_group, class_name: "Squad"
+	belongs_to :member, polymorphic: :true
 
 	# CLASS METHODS
 	# ------------------------------------------------------------

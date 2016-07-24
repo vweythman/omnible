@@ -32,15 +32,35 @@ class Work < ActiveRecord::Base
 
 	# MODULES
 	# ============================================================
+	extend Organizable
+
 	include Discussable
 	include Editable
 	include Summarizable
 	include Titleizeable
 	include AsTitleableTag
+
 	include Recordable
+	include WorkAppearanceTagging
+	include WorkGeneralTagging
+	include WorkIntraAsTag
+	include WorkIntraAsTagger
+	include WorkSocialTagging
 
 	# SCOPES
 	# ============================================================
+	# COUNTS
+	# ------------------------------------------------------------
+	scope :count_by_title,          -> { group("works.title").ordered_count }
+	scope :count_by_type,           -> { group("type").ordered_count }
+	scope :count_by_content_type,   -> { joins(:type_describer).group("content_type").ordered_count }
+
+	scope :count_by_creation_month, -> { group("strftime('%Y-%m', works.created_at)").ordered_count }
+	scope :count_by_update_month,   -> { group("strftime('%Y-%m', works.updated_at)").ordered_count }
+
+	scope :type_count_by_creation,  -> { group("strftime('%Y-%m', works.created_at)", "works.type").ordered_count }
+	scope :type_count_by_updated,   -> { group("strftime('%Y-%m', works.updated_at)", "works.type").ordered_count }
+
 	# SORTER
 	# ------------------------------------------------------------
 	scope :chronological, -> { order("works.created_at asc")   }
@@ -57,24 +77,17 @@ class Work < ActiveRecord::Base
 
 	# SUBTYPES
 	# ------------------------------------------------------------
-	scope :articles,      -> { where(:type => "Article")    }
-	scope :short_stories, -> { where(:type => "ShortStory") }
-	scope :stories,       -> { where(:type => "Story")      }
-	scope :story_links,   -> { where(:type => "StoryLinks") }
-
-	# CATEGORIES
-	# ------------------------------------------------------------
-	scope :fiction,    -> { where("type IN (?)", WorksTypeDescriber.fiction.pluck(:name))    }
-	scope :nonfiction, -> { where("type IN (?)", WorksTypeDescriber.nonfiction.pluck(:name)) }
-
-	scope :chaptered,  -> { where("type IN (?)", WorksTypeDescriber.chaptered.pluck(:name)) }
-	scope :oneshot,    -> { where("type IN (?)", WorksTypeDescriber.oneshot.pluck(:name))   }
-	
-	scope :complete,   -> { where(status: 'complete')   }
-	scope :incomplete, -> { where(status: 'incomplete') }
-
-	scope :onsite,     -> { where("type IN (?)", WorksTypeDescriber.onsite.pluck(:name))  }
-	scope :offsite,    -> { where("type IN (?)", WorksTypeDescriber.offsite.pluck(:name)) }
+	scope :artwork,           -> { where(:type => "Art")            }
+	scope :articles,          -> { where(:type => "Article")        }
+	scope :branching_stories, -> { where(:type => "BranchingStory") }
+	scope :comics,            -> { where(:type => "Comic")          }
+	scope :journals,          -> { where(:type => "Journal")        }
+	scope :music_videos,      -> { where(:type => "MusicVideo")     }
+	scope :records,           -> { where(:type => "Record")         }
+	scope :short_stories,     -> { where(:type => "ShortStory")     }
+	scope :stories,           -> { where(:type => "Story")          }
+	scope :story_links,       -> { where(:type => "StoryLink")      }
+	scope :by_type,           ->(t) { where(:type => t)             }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -93,13 +106,11 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	has_one  :rating,  :inverse_of => :work
 	has_one  :skin,    :through    => :skinning, :inverse_of => :works
-	has_many :sources, :dependent  => :destroy,  as: :referencer
 	
 	# NESTED ATTRIBUTION
 	# ============================================================
 	accepts_nested_attributes_for :rating,   :allow_destroy => true
 	accepts_nested_attributes_for :skinning, :allow_destroy => true
-	accepts_nested_attributes_for :sources,  :allow_destroy => true
 
 	# CLASS METHODS
 	# ============================================================
@@ -125,19 +136,25 @@ class Work < ActiveRecord::Base
 	end
 
 	# Assort :: general filters
+	def self.with_filters(options = {}, user)
+		self.assort(options).viewable_for(user).with_relationships
+	end
+
 	def self.assort(options = {})
 		date     = options[:date]
 		order    = options[:sort]
-		page_num = options[:page]
+		pnum     = options[:page]
+
 		cmplt    = options[:completion]
-		rate_at_options     = options.slice(:vrating, :srating,    :prating)
-		rate_within_options = options.slice(:rating,  :rating_min, :rating_max)
+		ctype    = options[:content_type]
 
-		self.ready(cmplt).span(date).order_by(order).page(page_num).with_rating(rate_at_options).within_rating(rate_within_options)
-	end
+		withs    = options[:with].nil?    ? {} : options[:with] 
+		withouts = options[:without].nil? ? {} : options[:without]
 
-	def self.with_filters(options = {}, user)
-		self.assort(options).viewable_for(user).with_relationships
+		rwith    = options.slice(:vrating, :srating,    :prating)
+		rwithin  = options.slice(:rating,  :rating_min, :rating_max)
+
+		self.ready(cmplt).span(date).order_by(order).page(pnum).contextualize_by(ctype).with_rating(rwith).within_rating(rwithin).filter_by_taggings(withs, withouts)
 	end
 
 	def self.viewable_recent_for(user, count = 10)
@@ -145,66 +162,29 @@ class Work < ActiveRecord::Base
 	end
 
 	def self.with_relationships
-		eager_load(:characters, :tags, :places, :rating, :type_describer, :uploader)
+		eager_load(:tags, :places, :rating, :type_describer, :uploader, :qualitatives, :quantitatives).includes(:appearances => :character)
 	end
 
-	# FILTER ELEMENTS
-	# ------------------------------------------------------------
-	# OrderBy :: filter by sort
-	def self.order_by(choice)
-		case choice
-		when "alphabetical"
-			alphabetical
-		when "chronological"
-			chronological
-		when "chapter-count"
-			by_chapters
-		else
-			updated
-		end
-	end
+	def self.filter_by_taggings(withs = {}, withouts = {})
+		wi_w = withs[:works]
+		wo_w = withouts[:works]
 
-	# Ready :: filter by completion
-	def self.ready(seeking_completion)
-		case seeking_completion
-		when "yes"
-			complete
-		when "no"
-			incomplete
-		else
-			all
-		end
-	end
+		wi_c = withs[:characters]
+		wo_c = withouts[:characters]
 
-	# Span :: filter by time
-	def self.span(choice)
-		case choice
-		when "thisyear"
-			within_year
-		when "thismonth"
-			within_month
-		when "today"
-			within_day
-		else
-			all
-		end
-	end
+		wi_t = withs[:tags]
+		wo_t = withouts[:tags]
 
-	# WithRating :: filter by rating
-	def self.with_rating(rate_options)
-		unless rate_options.nil? || rate_options.length < 1
-			joins(:rating).merge(Rating.choose(rate_options))
-		else
-			all
-		end
-	end
+		wi_p = withs[:tags]
+		wo_p = withouts[:tags]
 
-	def self.within_rating(rate_options)
-		unless rate_options.nil? || rate_options.length < 1
-			joins(:rating).merge(Rating.within_range(rate_options))
-		else
-			all
-		end
+		wi_s = withs[:squads]
+		wo_s = withouts[:squads]
+
+		wi_i = withs[:identities]
+		wo_i = withouts[:identities]
+
+		filter_by_intraworks(wi_w, wo_w).filter_by_characters(wi_c, wo_c).filter_by_tags(wi_t, wo_t).filter_by_places(wi_p, wo_p).filter_by_squads(wi_s, wo_s).filter_by_identities(wi_i, wo_i)
 	end
 
 	# PUBLIC METHODS
@@ -215,14 +195,23 @@ class Work < ActiveRecord::Base
 		title
 	end
 
+	# Type - defines the type name if it exists
+	def nature
+		self.type
+	end
+
 	def categorized_type
 		self.type.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').titleize
+	end
+
+	def linkable
+		self
 	end
 
 	def nature
 		self.class.to_s
 	end
-
+	
 	def rated
 		self.rating.heading
 	end

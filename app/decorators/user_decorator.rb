@@ -14,16 +14,4 @@ class UserDecorator < Draper::Decorator
 		[:story_link]
 	end
 
-	def uploaded_articles
-		@uploaded_articles ||= ArticlesDecorator.decorate self.works.articles
-	end
-	
-	def uploaded_short_stories
-		@uploaded_short_stories ||= ShortStoriesDecorator.decorate self.works.short_stories
-	end
-
-	def uploaded_stories
-		@uploaded_stories ||= StoriesDecorator.decorate self.works.stories
-	end
-
 end

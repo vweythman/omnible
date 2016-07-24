@@ -1,0 +1,22 @@
+<%= form_for(@video) do |f| %>
+
+	<ul>
+		<% @video.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+
+	<fieldset class="primary">
+		<%= string_panel f, :title, "Write Title" %>
+
+		<%= solo_cell do text_panel(f, :summary, :minor, "Description") end %>
+
+		<%= f.fields_for :embedded_link do |b| %>
+			<%= string_panel b, :reference, "Embed" %>
+		<% end %>
+	</fieldset>
+
+	<%= render @video.tag_fields, f: f %>
+
+	<%= submit_panel f %>
+<% end %>

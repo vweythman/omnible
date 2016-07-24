@@ -100,13 +100,16 @@ class WorksController < ApplicationController
 	def base_work_params(type = :work)
 		params.require(type).permit(
 			:title,        :summary,         :visitor,    :status,
-			:editor_level, :publicity_level, :placeables, :taggables, 
+			:editor_level, :publicity_level, :placeables, 
 
 			uploadership:        [:category,   :pen_name],
-			skinning_attributes: [:id,         :skin_id,  :_destroy],
-			appearables:         [:main,       :side,     :mentioned, :subject],
-			rating_attributes:   [:id,         :violence, :sexuality, :language],
-			relateables:         [:characters, :general,  :setting,   :subject, :reference]
+			skinning_attributes: [:id,         :skin_id,   :_destroy],
+			rating_attributes:   [:id,         :violence,  :sexuality, :language],
+
+			appearables:         [:main,       :side,      :mentioned, :subject],
+			socialables:         [:main_ship,  :side_ship, :anti_ship, :social_group],
+			taggables:           [:commentary, :general,   :warning,   :genre], 
+			relateables:         [:general,    :setting,   :reference, :subject, :cast]
 		)
 	end
 
@@ -114,7 +117,8 @@ class WorksController < ApplicationController
 		params.slice(
 			:date,    :sort,       :completion, :page, 
 			:vrating, :srating,    :prating,
-			:rating,  :rating_min, :rating_max
+			:rating,  :rating_min, :rating_max, 
+			:with,    :without,    :content_type
 		)
 	end
 
@@ -127,7 +131,7 @@ class WorksController < ApplicationController
 
 	# Works :: find all with filtering
 	def works
-		@works = Work.onsite.with_filters(index_params, current_user).decorate
+		@works = Collectables::WorksDecorator.decorate Work.toggle_links(show_links).with_filters(index_params, current_user)
 	end
 
 	# SET
@@ -159,6 +163,10 @@ class WorksController < ApplicationController
 
 	def set_skin
 		@work.skinning ||= Skinning.new
+	end
+
+	def show_links
+		@show_links ||= params[:show_links] || false
 	end
 
 end

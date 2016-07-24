@@ -1,0 +1,30 @@
+<%= content_tag :table, class: "data sortable" do %>
+	<%= content_tag :thead do %>
+		<%= content_tag :tr do %>
+			<%= content_tag :th, label %>
+			<%= content_tag :th, "Type" %>
+			<%= content_tag :th, "Count" %>
+			<%= content_tag :th, colspan: 2 do "Filter" end %>
+		<% end %>
+	<% end %>
+	<% counts.each do |val, size| %>
+		<%= content_tag :tr, class: "data-content" do %>
+			<%= content_tag :th do %>
+				<%= val %>
+			<% end %>
+
+			<%= content_tag :td, data: {:label => "Count"} do %>
+				<%= size %>
+			<% end %>
+
+			<%= content_tag :td, data: {:label => "Index Filter"} do %>
+				<%= link_to("With", curated_works_url_appender(@parent, {with: { type => val}})) %>
+			<% end %>
+
+			<%= content_tag :td, data: {:label => "Index Filter"} do %>
+				<%= link_to("Without", curated_works_url_appender(@parent, {without: { type => val}})) %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+<br>

@@ -1,0 +1,81 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+viperfish_subject:
+  work: viperfish
+  key: subject-taggings-count
+  value: 1
+
+viperfish_total:
+  work: viperfish
+  key: total-taggings-count
+  value: 1
+
+windstorm_general:
+  work: windstorm
+  key: general-taggings-count
+  value: 1
+
+windstorm_total:
+  work: windstorm
+  key: total-taggings-count
+  value: 1
+
+helix_cast:
+  work: helix
+  key: cast-taggings-count
+  value: 1
+
+helix_total:
+  work: helix
+  key: total-taggings-count
+  value: 1
+
+heart_mentioned:
+  work: heart
+  key: mentioned-taggings-count
+  value: 1
+
+heart_total:
+  work: heart
+  key: total-taggings-count
+  value: 1
+
+glamour_setting:
+  work: glamour
+  key: setting-taggings-count
+  value: 1
+
+glamour_total:
+  work: glamour
+  key: total-taggings-count
+  value: 1
+
+zoologist_setting:
+  work: zoologist
+  key: setting-taggings-count
+  value: 2
+
+zoologist_total:
+  work: zoologist
+  key: total-taggings-count
+  value: 2
+
+do_cast:
+  work: do
+  key: cast-taggings-count
+  value: 1
+
+do_total:
+  work: do
+  key: total-taggings-count
+  value: 1
+
+mi_setting:
+  work: mi
+  key: setting-taggings-count
+  value: 1
+
+mi_total:
+  work: mi
+  key: total-taggings-count
+  value: 1

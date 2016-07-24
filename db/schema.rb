@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608051702) do
+ActiveRecord::Schema.define(version: 20160720101104) do
 
   create_table "adjectives", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -250,21 +250,6 @@ ActiveRecord::Schema.define(version: 20160608051702) do
     t.datetime "updated_at"
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "uploader_id"
-  end
-
-  create_table "hosts", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "reference",  limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "identifiers", force: :cascade do |t|
     t.string   "name",         limit: 255
     t.integer  "character_id"
@@ -341,15 +326,16 @@ ActiveRecord::Schema.define(version: 20160608051702) do
   add_index "locations", ["place_id"], name: "index_locations_on_place_id"
 
   create_table "memberships", force: :cascade do |t|
-    t.integer  "group_id"
-    t.integer  "character_id"
-    t.string   "role",         limit: 255
+    t.integer  "social_group_id"
+    t.integer  "member_id"
+    t.string   "role",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "member_type"
   end
 
-  add_index "memberships", ["character_id"], name: "index_memberships_on_character_id"
-  add_index "memberships", ["group_id"], name: "index_memberships_on_group_id"
+  add_index "memberships", ["member_id"], name: "index_memberships_on_member_id"
+  add_index "memberships", ["social_group_id"], name: "index_memberships_on_social_group_id"
 
   create_table "notes", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -373,6 +359,17 @@ ActiveRecord::Schema.define(version: 20160608051702) do
 
   add_index "opinions", ["character_id"], name: "index_opinions_on_character_id"
   add_index "opinions", ["recip_id"], name: "index_opinions_on_recip_id"
+
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "work_id"
+    t.string   "title"
+    t.string   "artwork"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "pictures", ["work_id"], name: "index_pictures_on_work_id"
 
   create_table "pitches", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -462,6 +459,16 @@ ActiveRecord::Schema.define(version: 20160608051702) do
 
   add_index "record_metadata", ["work_id"], name: "index_record_metadata_on_work_id"
 
+  create_table "record_quantitative_metadata", force: :cascade do |t|
+    t.integer  "work_id"
+    t.string   "key"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "record_quantitative_metadata", ["work_id"], name: "index_record_quantitative_metadata_on_work_id"
+
   create_table "relators", force: :cascade do |t|
     t.string   "left_name",  limit: 255
     t.string   "right_name", limit: 255
@@ -489,21 +496,6 @@ ActiveRecord::Schema.define(version: 20160608051702) do
 
   add_index "respondences", ["caller_id", "caller_type"], name: "index_challenge_responses_on_caller_id_and_caller_type"
   add_index "respondences", ["response_id"], name: "index_respondences_on_response_id"
-
-  create_table "reviews", force: :cascade do |t|
-    t.integer  "work_id"
-    t.integer  "user_id"
-    t.integer  "plot"
-    t.integer  "characterization"
-    t.integer  "writing"
-    t.integer  "overall"
-    t.text     "details"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
-  add_index "reviews", ["work_id"], name: "index_reviews_on_work_id"
 
   create_table "settings", force: :cascade do |t|
     t.integer  "work_id",    null: false
@@ -536,17 +528,37 @@ ActiveRecord::Schema.define(version: 20160608051702) do
 
   add_index "skins", ["uploader_id"], name: "index_skins_on_uploader_id"
 
+  create_table "social_appearances", force: :cascade do |t|
+    t.integer  "social_group_id"
+    t.integer  "work_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "form"
+  end
+
+  add_index "social_appearances", ["social_group_id"], name: "index_social_appearances_on_social_group_id"
+  add_index "social_appearances", ["work_id"], name: "index_social_appearances_on_work_id"
+
   create_table "sources", force: :cascade do |t|
     t.string   "reference",       limit: 255
-    t.integer  "host_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "referencer_id"
     t.string   "referencer_type"
   end
 
-  add_index "sources", ["host_id"], name: "index_sources_on_host_id"
   add_index "sources", ["referencer_type", "referencer_id"], name: "index_sources_on_referencer_type_and_referencer_id"
+
+  create_table "squads", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "uploader_id"
+    t.string   "label"
+    t.integer  "publicity_level"
+    t.integer  "editor_level"
+  end
 
   create_table "story_roots", force: :cascade do |t|
     t.integer  "story_id"
@@ -564,6 +576,7 @@ ActiveRecord::Schema.define(version: 20160608051702) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tagger_type"
+    t.string   "form"
   end
 
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"

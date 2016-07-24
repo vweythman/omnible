@@ -19,6 +19,7 @@ class Appearance < ActiveRecord::Base
 	# MODULES
 	# ============================================================
 	extend Organizable
+	include CountableTagging
 
 	# VALIDATIONS
 	# ============================================================
@@ -33,10 +34,19 @@ class Appearance < ActiveRecord::Base
 
 	# SUBTYPES
 	# ------------------------------------------------------------
-	scope :main_character, -> { where(role: "main")      }
-	scope :side,           -> { where(role: "side")      }
-	scope :mentioned,      -> { where(role: "mentioned") }
-	scope :subject,        -> { where(role: "subject")   }
+	scope :main_character,  -> { where(role: "main")      }
+	scope :side,            -> { where(role: "side")      }
+	scope :mentioned,       -> { where(role: "mentioned") }
+	scope :subject,         -> { where(role: "subject")   }
+	scope :main_or_subject, -> { where(role: "subject")   }
+
+	# SELECT
+	# ------------------------------------------------------------
+	scope :tagger_by_characters,       ->(ws)      { tagger_by_tag_names(ws, :work_id, :character) }
+	scope :tagger_by_roled_characters, ->(nat, ws) { where(role: nat).tagger_by_characters(ws) }
+
+	scope :tagger_by_identities,       ->(ws)      { where("character_id IN (#{Description.tagger_by_identities(ws).to_sql})").group_by_choice(:work_id) }
+	scope :tagger_by_roled_identities, ->(nat, ws) { where(role: nat).tagger_by_identities(ws) }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -51,6 +61,11 @@ class Appearance < ActiveRecord::Base
 	belongs_to :side_character,      -> { Appearance.side },           class_name: "Character", foreign_key: "character_id"
 	belongs_to :mentioned_character, -> { Appearance.mentioned },      class_name: "Character", foreign_key: "character_id"
 	belongs_to :people_subject,      -> { Appearance.subject },        class_name: "Character", foreign_key: "character_id"
+
+	# Reference
+	# ------------------------------------------------------------
+	has_many :descriptions, foreign_key: :character_id, primary_key: :character_id
+	has_many :identities,   through:     :descriptions
 
 	# CLASS METHODS
 	# ============================================================
@@ -73,6 +88,10 @@ class Appearance < ActiveRecord::Base
 
 	def self.nonfiction_labels
 		['subject']
+	end
+
+	def self.all_labels
+		narrative_labels + nonfiction_labels 
 	end
 
 	def self.tag_labels(work)
@@ -117,6 +136,22 @@ class Appearance < ActiveRecord::Base
 				end
 			}
 			remove = Appearance.not_among_for(model, character_ids).destroy_all
+		end
+	end
+
+	def self.tagger_intersection_sql(finds)
+		if (finds.keys - self.all_labels).empty?
+			finds.map {|k, titles| Appearance.tagger_by_roled_characters(k.to_s, titles.split(";")).to_sql }.join(" INTERSECT ")
+		else
+			""
+		end
+	end
+
+	def self.intersect_on_identities(finds)
+		if (finds.keys - self.all_labels).empty?
+			finds.map {|k, titles| Appearance.tagger_by_roled_identities(k.to_s, titles.split(";")).to_sql }.join(" INTERSECT ")
+		else
+			""
 		end
 	end
 

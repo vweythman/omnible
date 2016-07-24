@@ -21,7 +21,7 @@ class WorkTest < ActiveSupport::TestCase
 
     assert Work.all.include? work
     assert work.creators.pluck(:name).include?( "Robert Frost")
-    assert work.metadata.pluck(:value).include? "Poem"
+    assert work.qualitatives.pluck(:value).include? "Poem"
   end
 
   test "should sort titles string by existence" do

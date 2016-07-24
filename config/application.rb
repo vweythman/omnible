@@ -10,6 +10,7 @@ module Ignesity
   class Application < Rails::Application
     config.exceptions_app = self.routes
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/app/models/works)
     config.autoload_paths += %W(#{config.root}/app/decorators/concerns)
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 

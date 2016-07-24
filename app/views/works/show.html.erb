@@ -1,3 +1,5 @@
+<% provide :title, "About | #{@work.title}" %>
+
 <header class="work-header">
 	<h1>
 		<%= link_to @work.title, @work %>
@@ -22,30 +24,42 @@
 	<% end %>
 
 	<%= page_widget "Tags" do %>
-		<h3>General</h3>
-		<p><b><%= @work.tags.length %> Found</b></p>
-		<p><%= cslinks @work.tags %></p>
+		<% Tagging.work_labels.each do |form| %>
+			<% tags = @work.organized_true_tags_by form %>
+	
+			<%= render 'works/shared/grouping_tags', 
+				heading: (form.titleize + " Tags"), 
+				tags:    tags,
+				gclass:  "#{form}-tags", 
+				tclass:  "#{form}-tag tag"
+			%>
+		<% end %>
 
-		<h3>Places</h3>
-		<p><b><%= @work.places.length %> Found</b></p>
-		<p><%= cslinks @work.places %></p>
+		<%= render 'works/shared/grouping_tags', heading: "Places", tags: @work.places, gclass: "places", tclass: "place-tag" %>
 
 		<% Appearance.tag_labels(@work).each do |role| %>
 			<% characters = @work.cohort_group_by role[:label] %>
-
-			<h3><%= role[:heading] %></h3>
-			<p><b><%= characters.length %> Found</b></p>
-			<p><%= cslinks characters %></p>
+			<%= render 'works/shared/grouping_tags', 
+				heading: role[:heading], 
+				tags:    characters,
+				gclass:  "#{role[:label]}-characters", 
+				tclass:  "#{role[:label]}-character character-tag"
+			%>
 		<% end %>
 
 		<% WorkConnection.tag_labels(@work).each do |role| %>
 			<% works = @work.organized_works_by role[:label] %>
-
-			<h3><%= role[:heading] %></h3>
-			<p><b><%= works.length %> Found</b></p>
-			<p><%= cslinks works %></p>
+			<%= render 'works/shared/grouping_tags', 
+				heading: role[:heading], 
+				tags:    works,
+				gclass:  "#{role[:label]}-works", 
+				tclass:  "#{role[:label]}-works work-tag"
+			%>
 		<% end %>
+
+		<br>
 	<% end %>
+
 </div>
 
 <footer class="path-finder">

@@ -86,11 +86,11 @@ class Subjects::ItemsController < SubjectsController
 
 	# Subjects :: find all
 	def items
-		@subjects = @items = Item.order_by_generic.decorate
+		@subjects = @items = Collectables::ItemsDecorator.decorate Item.order_by_generic
 	end
 
 	def set_visitor
-		@work.visitor = current_user
+		@item.visitor = current_user
 	end
 
 end

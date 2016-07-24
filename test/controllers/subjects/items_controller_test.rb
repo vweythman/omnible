@@ -6,7 +6,7 @@ module Subjects
     # SETUP
     # ============================================================
     setup do
-      @aegis = items(:aegis)
+      @aegis     = items(:aegis)
       @excalibur = items(:excalibur)
       @sword     = generics(:sword)
 

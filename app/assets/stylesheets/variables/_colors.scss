@@ -34,48 +34,48 @@ $page-color:   $page-full-light;
 // -- Prime
 // -----------------------------------------------
 $water-full-dark:      hsl(195, 75%, 0%);
-$water-color:          hsl(195, 75%, 50%);
+$water-color:          hsl(195, 33%, 50%);
 
-$water-light-minor:    lighten($water-full-dark, 100% - $golden-minor);
-$water-light-major:    lighten($water-full-dark, 100% - $golden-little);
-$water-lighter-minor:  lighten($water-full-dark, 100% - $golden-small);
-$water-lighter-major:  lighten($water-full-dark, 100% - $golden-tiny);
-$water-lightest-minor: lighten($water-full-dark, 100% - $golden-mini);
-$water-lightest-major: lighten($water-full-dark, 100% - $golden-micro);
+$water-light-minor:    desaturate(lighten($water-full-dark, 100% - $golden-minor),  $golden-minor);
+$water-light-major:    desaturate(lighten($water-full-dark, 100% - $golden-little), $golden-minor);
+$water-lighter-minor:  desaturate(lighten($water-full-dark, 100% - $golden-small),  $golden-little);
+$water-lighter-major:  desaturate(lighten($water-full-dark, 100% - $golden-tiny),   $golden-little);
+$water-lightest-minor: desaturate(lighten($water-full-dark, 100% - $golden-mini),   $golden-small);
+$water-lightest-major: desaturate(lighten($water-full-dark, 100% - $golden-micro),  $golden-small);
 
 $water-extreme-light:  lighten($water-full-dark, 100% - $golden-nano);
 
-$water-dark-minor:     lighten($water-full-dark, $golden-minor);
-$water-dark-major:     lighten($water-full-dark, $golden-little);
-$water-darker-minor:   lighten($water-full-dark, $golden-small);
-$water-darker-major:   lighten($water-full-dark, $golden-tiny);
-$water-darkest-minor:  lighten($water-full-dark, $golden-mini);
-$water-darkest-major:  lighten($water-full-dark, $golden-micro);
+$water-dark-minor:     desaturate(lighten($water-full-dark, $golden-minor),  $golden-minor);
+$water-dark-major:     desaturate(lighten($water-full-dark, $golden-little), $golden-minor);
+$water-darker-minor:   desaturate(lighten($water-full-dark, $golden-small),  $golden-little);
+$water-darker-major:   desaturate(lighten($water-full-dark, $golden-tiny),   $golden-little);
+$water-darkest-minor:  desaturate(lighten($water-full-dark, $golden-mini),   $golden-small);
+$water-darkest-major:  desaturate(lighten($water-full-dark, $golden-micro),  $golden-small);
 
 
 $fire-full-dark:      hsl(37, 91%, 0%);
-$fire-color:          hsl(37, 91%, 50%);
+$fire-color:          hsl(37, 88%, 50%);
 
-$fire-light-minor:    lighten($fire-full-dark, 100% - $golden-minor);
-$fire-light-major:    lighten($fire-full-dark, 100% - $golden-little);
-$fire-lighter-minor:  lighten($fire-full-dark, 100% - $golden-small);
-$fire-lighter-major:  lighten($fire-full-dark, 100% - $golden-tiny);
-$fire-lightest-minor: lighten($fire-full-dark, 100% - $golden-mini);
-$fire-lightest-major: lighten($fire-full-dark, 100% - $golden-micro);
+$fire-light-minor:    desaturate(lighten($fire-full-dark, 100% - $golden-minor),  $golden-tiny);
+$fire-light-major:    desaturate(lighten($fire-full-dark, 100% - $golden-little), $golden-tiny);
+$fire-lighter-minor:  desaturate(lighten($fire-full-dark, 100% - $golden-small),  $golden-mini);
+$fire-lighter-major:  desaturate(lighten($fire-full-dark, 100% - $golden-tiny),   $golden-mini);
+$fire-lightest-minor: desaturate(lighten($fire-full-dark, 100% - $golden-mini),   $golden-micro);
+$fire-lightest-major: desaturate(lighten($fire-full-dark, 100% - $golden-micro),  $golden-micro);
 
 $fire-extreme-light:  lighten($fire-full-dark, 100% - $golden-nano);
 
-$fire-dark-minor:     lighten($fire-full-dark, $golden-minor);
-$fire-dark-major:     lighten($fire-full-dark, $golden-little);
-$fire-darker-minor:   lighten($fire-full-dark, $golden-small);
-$fire-darker-major:   lighten($fire-full-dark, $golden-tiny);
-$fire-darkest-minor:  lighten($fire-full-dark, $golden-mini);
-$fire-darkest-major:  lighten($fire-full-dark, $golden-micro);
+$fire-dark-minor:     desaturate(lighten($fire-full-dark, $golden-minor),  $golden-tiny);
+$fire-dark-major:     desaturate(lighten($fire-full-dark, $golden-little), $golden-tiny);
+$fire-darker-minor:   desaturate(lighten($fire-full-dark, $golden-small),  $golden-mini);
+$fire-darker-major:   desaturate(lighten($fire-full-dark, $golden-tiny),   $golden-mini);
+$fire-darkest-minor:  desaturate(lighten($fire-full-dark, $golden-mini),   $golden-micro);
+$fire-darkest-major:  desaturate(lighten($fire-full-dark, $golden-micro),  $golden-micro);
 
 // -- Secondary
 // -----------------------------------------------
 $moss-full-dark:      hsl(115, 50%, 0%);
-$moss-color:          hsl(115, 50%, 50%);
+$moss-color:          hsl(115, 58%, 40%);
 
 $moss-light-minor:    lighten($moss-full-dark, 100% - $golden-minor);
 $moss-light-major:    lighten($moss-full-dark, 100% - $golden-little);
@@ -95,36 +95,36 @@ $moss-darkest-major:  lighten($moss-full-dark, $golden-micro);
 
 
 $rose-full-dark:      hsl(295, 80%, 0%);
-$rose-color:          hsl(295, 80%, 50%);
+$rose-color:          hsl(295, 33%, 50%);
 
-$rose-light-minor:    lighten($rose-full-dark, 100% - $golden-minor);
-$rose-light-major:    lighten($rose-full-dark, 100% - $golden-little);
-$rose-lighter-minor:  lighten($rose-full-dark, 100% - $golden-small);
-$rose-lighter-major:  lighten($rose-full-dark, 100% - $golden-tiny);
-$rose-lightest-minor: lighten($rose-full-dark, 100% - $golden-mini);
-$rose-lightest-major: lighten($rose-full-dark, 100% - $golden-micro);
+$rose-light-minor:    desaturate(lighten($rose-full-dark, 100% - $golden-minor),  $golden-minor);
+$rose-light-major:    desaturate(lighten($rose-full-dark, 100% - $golden-little), $golden-minor);
+$rose-lighter-minor:  desaturate(lighten($rose-full-dark, 100% - $golden-small),  $golden-little);
+$rose-lighter-major:  desaturate(lighten($rose-full-dark, 100% - $golden-tiny),   $golden-little);
+$rose-lightest-minor: desaturate(lighten($rose-full-dark, 100% - $golden-mini),   $golden-small);
+$rose-lightest-major: desaturate(lighten($rose-full-dark, 100% - $golden-micro),  $golden-small);
 
 $rose-extreme-light:  lighten($rose-full-dark, 100% - $golden-nano);
 
-$rose-dark-minor:     lighten($rose-full-dark, $golden-minor);
-$rose-dark-major:     lighten($rose-full-dark, $golden-little);
-$rose-darker-minor:   lighten($rose-full-dark, $golden-small);
-$rose-darker-major:   lighten($rose-full-dark, $golden-tiny);
-$rose-darkest-minor:  lighten($rose-full-dark, $golden-mini);
-$rose-darkest-major:  lighten($rose-full-dark, $golden-micro);
+$rose-dark-minor:     desaturate(lighten($rose-full-dark, $golden-minor),  $golden-minor);
+$rose-dark-major:     desaturate(lighten($rose-full-dark, $golden-little), $golden-minor);
+$rose-darker-minor:   desaturate(lighten($rose-full-dark, $golden-small),  $golden-little);
+$rose-darker-major:   desaturate(lighten($rose-full-dark, $golden-tiny),   $golden-little);
+$rose-darkest-minor:  desaturate(lighten($rose-full-dark, $golden-mini),   $golden-small);
+$rose-darkest-major:  desaturate(lighten($rose-full-dark, $golden-micro),  $golden-small);
 
 // TEXT COLORS
 // ===============================================
 // -- Ratings
 // -----------------------------------------------
-$rating-lowest:  hsl(0,  95%, 60%);
-$rating-low:     hsl(0,  80%, 50%);
+$rating-lowest:  hsl(0,  70%, 60%);
+$rating-low:     hsl(0,  50%, 50%);
 $rating-mid:     hsl(0,   0%, 40%);
-$rating-high:    hsl(98, 45%, 30%);
-$rating-highest: hsl(98, 80%, 20%);
+$rating-high:    hsl(98, 50%, 30%);
+$rating-highest: hsl(98, 70%, 20%);
 
-$stoplight-stop: hsl(0,   95%, 34%);
-$stoplight-go:   hsl(101, 94%, 25%);
+$stoplight-stop: hsl(0,   70%, 34%);
+$stoplight-go:   hsl(101, 70%, 25%);
 
 // END
 // ***********************************************/

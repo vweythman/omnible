@@ -2,15 +2,17 @@
 	<th>
 		<span class="pen-title"><%= link_to pen_naming.name, pen_naming %></span>
 		<%= pen_naming.edit_form_div %>
+		<span id="<%= pen_naming.kit_id %>" class="manager-editor" style="margin-right:-150%;">
+			<%= pen_naming.edit_bar %>
+		</span>
 	</th>
 
-	<td data-label="Manage" id="<%= pen_naming.kit_id %>" class="manager-editor">
-		<%= pen_naming.edit_bar %>
+	<td data-label="Work Count">
+		<%= @pen_names.creatorship_counts[pen_naming.character_id] || 0 %>
 	</td>
-
-	<td data-label="Number of Works"><%= pen_naming.works.count %></td>
 	
 	<td data-label="Pen Status" class="status">
 		<%= pen_naming.status %>
 	</td>
+
 </tr>

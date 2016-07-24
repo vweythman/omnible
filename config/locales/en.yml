@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+  errors:
+    messages:
+      wrong_size:     "File size is invalid."
+      size_too_small: "File size is too small. (Min of %{file_size})"
+      size_too_big:   "File size is too big. (Max of %{file_size})"

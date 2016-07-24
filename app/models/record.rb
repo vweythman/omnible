@@ -9,6 +9,10 @@ class Record < Work
 	# ============================================================
 	before_create :set_categories
 
+	# SCOPES
+	# ============================================================
+	scope :by_medium, ->(t) { joins(:qualitatives).merge(RecordMetadatum.by_medium(t)) }
+
 	# ASSOCIATIONS
 	# ============================================================
 	has_one :medium_datum, ->{ RecordMetadatum.mediums }, foreign_key: "work_id", class_name: "RecordMetadatum"
@@ -16,6 +20,16 @@ class Record < Work
 	# NESTED ATTRIBUTION
 	# ============================================================
 	accepts_nested_attributes_for :medium_datum
+
+	# CLASS METHODS
+	# ============================================================
+	def self.recorded(type)
+		if type.nil?
+			all
+		else
+			by_medium(t)
+		end
+	end
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -44,11 +58,7 @@ class Record < Work
 	end
 
 	def taggable_medium
-		searchable_metadata["medium"]
-	end
-
-	def searchable_metadata
-		@searchable_metadata ||= Hash[self.metadata.map{|m| [m.key, m.value]}]
+		searchable_qualitative_metadata["medium"]
 	end
 
 	def mediumize
@@ -65,7 +75,7 @@ class Record < Work
 
 	# set default categories
 	def set_categories
-		self.status = 'unknown'
+		self.status ||= "unknown"
 	end
 
 end

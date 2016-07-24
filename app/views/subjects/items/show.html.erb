@@ -11,16 +11,12 @@
 <div class="subject-body info-body info-grid">
 	<% if @item.possessors.size > 0 %>
 		<% @item.possessors.each do |heading, listable| %>
-			<%= solo_cell do %>
-				<div class="widget page-widget">
-					<h2 class="subheading"><%= heading %></h2>
-
-					<ul>
+			<%= page_widget heading do %>
+				<ul>
 					<% listable.each do |c| %>
 						<li><%= link_to c.name, c %></li>
 					<% end %>
-					</ul>
-				</div>
+				</ul>
 			<% end %>
 		<% end %>
 	<% else %>

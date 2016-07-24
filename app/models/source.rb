@@ -20,19 +20,16 @@ class Source < ActiveRecord::Base
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
-	validate :linkable
+	validates :reference, :url => true
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	belongs_to :host
 	belongs_to :referencer, :polymorphic => true
 
-	# PRIVATE METHODS
+	# PUBLIC METHODS
 	# ------------------------------------------------------------
-	private
-
-	def linkable
-		true
+	def pathing
+		(reference.match /^https?:\/\//) ? reference : "http://#{reference}"
 	end
 
 end

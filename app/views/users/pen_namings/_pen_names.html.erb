@@ -3,13 +3,15 @@
 		<caption><%= caption_heading %> <%= @pen_names.counter %></caption>
 		<thead>
 			<tr>
-				<th colspan="2">Pen Name</th>
-				<th>Works</th>
+				<th>Pen Name</th>
+				<th>Work Count</th>
 				<th>Status</th>
 			</tr>
 		</thead>
 
-		<tbody id="pen-names-list"><%= render @pen_names %></tbody>
+		<tbody id="pen-names-list">
+			<%= render @pen_names %>
+		</tbody>
 	</table>
 	<%= @pen_names.inline_creation %>
 	<%= @pen_names.link_to_creation %>

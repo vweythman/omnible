@@ -1,0 +1,37 @@
+<% provide(:title, @video.title) %>
+
+<div class="artwork centerpiece">
+	<iframe width="560" height="315" src="<%= @video.embed_src %>" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<article class="work-footer">
+	<h1>
+		<%= @video.title %>
+		<%= subtitle @video.byline.html_safe %>
+	</h1>
+	<%= @video.edit_bar %>
+
+	<div class="about">
+		<%= @video.summarized %>
+		<%= @video.all_tags_line %>
+	</div>
+</article>
+
+<% if @video.comments.length > 0 %>
+	<div class="comments-content">
+		<h2 class="comments-heading">Comments</h2>
+		<%= render 'comments/nested_comments', comments: @video.comments, merged: false %>
+	</div>
+<% end %>
+<div class="comments-form">
+	<%= render 'comments/form', comment: @video.comments.new %>
+</div>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to "All Art", artwork_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
+</footer>
+
+<%= @work.skin_content %>

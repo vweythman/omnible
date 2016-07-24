@@ -20,4 +20,6 @@ ActiveSupport::Inflector.inflections do |inflect|
  inflect.irregular 'charr', 'charr'
  inflect.irregular 'asura', 'asura'
  inflect.irregular 'sylvari', 'sylvari'
+ inflect.irregular 'love', 'loves'
+ inflect.irregular 'art', 'artwork'
 end

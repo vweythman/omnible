@@ -16,9 +16,9 @@
 			<p>None.</p>
 		<% else %>
 			<% @place.works.viewable_recent_for(current_user).decorate.each do |work| %>
-				<%= render snippet_partial, snippet: work %>
+				<%= render to_snippet, snippet: work %>
 			<% end %>
-		<% end %>	
+		<% end %>
 	<% end %>
 
 	<%= page_widget "Recent Characters" do %>

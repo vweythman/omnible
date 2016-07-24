@@ -16,7 +16,7 @@ class Taggings::TagsController < TaggingsController
 
 	# Tags :: find all
 	def tags
-		@tags = Tag.order('name').all.decorate
+		@tags = Collectables::TagsDecorator.decorate Tag.order('name')
 	end
 
 end

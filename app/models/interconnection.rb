@@ -17,7 +17,13 @@
 class Interconnection < ActiveRecord::Base
 
 	# SCOPES
-	# ------------------------------------------------------------
+	# ============================================================
+	validates :left_id,    presence: true
+	validates :relator_id, presence: true
+	validates :right_id,   presence: true
+
+	# SCOPES
+	# ============================================================
 	# - Order
 	scope :simple_order, -> { order(:relator_id, :left_id, :right_id) }
 
@@ -31,9 +37,10 @@ class Interconnection < ActiveRecord::Base
 	scope :related_by, ->(relator_id) { where(:relator_id => relator_id) }
 
 	# - By Character
-	scope :left_relations_for,  ->(person_id) { where(:right_id => person_id) }
+	scope :left_relations_for,  ->(person_id) { where(:left_id => person_id) }
 	scope :relations_for,       ->(person_id) { where("left_id = ? OR right_id = ?", person_id, person_id)}
-	scope :right_relations_for, ->(person_id) { where(:left_id => person_id) }
+	scope :right_relations_for, ->(person_id) { where(:right_id => person_id) }
+	scope :crosssection,        ->(p1, p2)    { where("(left_id = ? AND right_id = ?) OR (left_id = ? AND right_id = ?)", p1, p2, p2, p1)}
 
 	# - By Relator and Character
 	scope :specific_left_relations_for,  ->(person_id, relator_id) { left_relations_for(person_id).related_by(relator_id) }
@@ -46,21 +53,17 @@ class Interconnection < ActiveRecord::Base
 	scope :specific_right_not_among_for, ->(person_id, relator_id, cids) { specific_right_relations_for(person_id, relator_id).not_in_right(cids) }
 	
 	# ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	belongs_to :left, class_name: "Character"
 	belongs_to :relator
 	belongs_to :right, class_name: "Character"
 
 	# DELEGATED METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	delegate :right_heading, :left_heading, to: :relator
 
 	# CLASS METHODS
-	# ------------------------------------------------------------
-	def self.full_build(lcid, rid, rcid)
-		Interconnection.where(left_id: lcid, relator_id: rid, right_id: rcid).first_or_create
-	end
-
+	# ============================================================
 	# Organize - sort and group similar interconnections
 	def self.organize(interconnections, character)
 		list = Hash.new
@@ -87,6 +90,7 @@ class Interconnection < ActiveRecord::Base
 		end
 	end
 
+	# FIND AND CREATE
 	def self.related_find_by(curr, visitor)
 		tags  = Hash.new
 
@@ -106,8 +110,24 @@ class Interconnection < ActiveRecord::Base
 		return tags
 	end
 
+	def self.full_build(lcid, rid, rcid)
+		Interconnection.where(left_id: lcid, relator_id: rid, right_id: rcid).first_or_create
+	end
+
+	def self.seekout(rel, lft, rgt)
+		self.full_build(lft.id, rel.id, rgt.id)
+	end
+
+	def self.unspecific_seekout(rel, left, right)
+		i = self.related_by(rel.id).crosssection(left.id, right.id).first
+		if i.nil?
+			self.full_build(left.id, rel.id, right.id)
+		end
+		i
+	end
+
 	# PRIVATE CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	def self.directed_relations_for(person_id, relator_id, direction = :left)
 		if direction == :left
 			specific_left_relations_for(person_id, relator_id).includes(:left)
@@ -196,7 +216,7 @@ class Interconnection < ActiveRecord::Base
 	end
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# Flip - determine the correct relator heading and character
 	def flip(character)
 		if self.left.id == character.id
@@ -227,6 +247,13 @@ class Interconnection < ActiveRecord::Base
 
 	def right_name
 		@right_name ||= right.name
+	end
+
+	def data_heading
+		label      = relator.data_heading
+		left_name  = left.name
+		right_name = right.name
+		"#{label}: #{left_name} & #{right_name}"
 	end
 
 end

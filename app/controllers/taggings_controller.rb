@@ -62,9 +62,9 @@ class TaggingsController < ApplicationController
 
 	# Tags :: find all
 	def tags
-		@tags       = Tag.order(:name).decorate
-		@identities = Identity.sorted_alphabetic.decorate
-		@relators   = Relator.order(:left_name).decorate
+		@tags       = Collectables::TagsDecorator.decorate Tag.order(:name)
+		@identities = Collectables::IdentitiesDecorator.decorate Identity.sorted_alphabetic.includes(:facet)
+		@relators   = Collectables::RelatorsDecorator.decorate Relator.order(:left_name)
 		@tag        = @tags.first
 	end
 

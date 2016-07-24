@@ -1,5 +1,7 @@
 module ContentHelper
 
+	# HEADINGS
+	# ============================================================
 	def dashboard_header(subs = [], hid = nil)
 		content_tag :header, class: "dashboard-header" do
 			concat dash_heading subs, hid
@@ -9,7 +11,7 @@ module ContentHelper
 
 	def dash_heading(s, hid)
 		content_tag :h1, id: hid do
-			concat "Your Dashboard"
+			concat "My Dashboard"
 			concat subtitles(s)
 		end
 	end
@@ -22,6 +24,22 @@ module ContentHelper
 		end
 	end
 
+	# OUPUT item label tag
+	def subtitle(heading)
+		content_tag :span, class: "subtitle" do heading end
+	end
+
+	# OUPUT item label tag
+	def title(heading)
+		content_tag :span, class: "title" do heading end
+	end
+
+	def uploads_url(n = nil)
+		"/uploads/#{n}"
+	end
+
+	# DATA
+	# ============================================================
 	# OUTPUT correct article
 	def indefinite_article(phrase)
 		article = strip_tags(phrase).lstrip.chop =~ /^[FMNRS][^AEIOUa-z]|^[AEIOUaeiou]/ ? "An" : "A"
@@ -34,57 +52,59 @@ module ContentHelper
 			"#{key_string} #{val}".html_safe
 		end
 	end
-
-	# OUPUT item label tag
-	def subtitle(heading)
-		content_tag :span, class: "subtitle" do heading end
-	end
-
-	# OUPUT item label tag
-	def title(heading)
-		content_tag :span, class: "title" do heading end
+	
+	# OUTPUT formated time string
+	def record_time(date)
+		date.strftime("%b %d, %Y")
 	end
 	
 	def time_label(heading)
 		content_tag :span, class: "time-label" do heading end
 	end
 
-	def page_widget(heading, options = {})
-		cell_type = options[:type]
-		cell_type ||= "solo"
-
-		if cell_type == "solo"
-			solo_cell(cell_type) do
-				widget_cell(heading, options) do
-					yield
-				end
-			end
-		else
-			panel_cell(cell_type) do
-				widget_cell(heading, options) do
-					yield
-				end
-			end
+	def timestamp(date)
+		content_tag :span, class: 'date' do
+			record_time(date)
 		end
 	end
 
-	def subheading(heading)
-		content_tag :h2, class: "subheading" do
-			heading
+	def counter_date(date)
+		d = date.split("-")
+		d[0] + " " + I18n.t("date.month_names")[d[1].to_i]
+	end
+
+
+	# TEXT
+	# ============================================================
+	# OUTPUT comma separated links
+	def cslinks(links, link_options={})
+		r = links.map {|i| link_to i.heading, i, link_options }
+		r.join(", ").html_safe
+	end
+
+	def tag_group(list, group_options = {}, tag_options = {})
+		content_tag :p, group_options do
+			cslinks(list, tag_options)
 		end
 	end
 
-	def snippet_partial
-		"shared/snippets/snippet"
+	def csnames(list)
+		if !list.nil? && list.length > 0
+			r = list.map {|i| i.name }
+			r.join(", ").html_safe
+		end
 	end
 
-	def widget_cell(heading, options = {})
-		widget_classes = ["widget", "page-widget", options[:class]].join(" ").strip
-		widget_id      = options[:id]
+	# OUTPUT markdown content
+	def markdown(text)
+		Kramdown::Document.new((text.nil? ? "" : text), :auto_ids => false, :parse_block_html => true).to_html.html_safe
+	end
 
-		content_tag :div, class: widget_classes, id: widget_id do
-			concat subheading(heading)
-			yield
+	def indexed_tagging(title, type, count, path)
+		if count.present? && count > 0
+			content_tag :li, class: 'icon icon-books' do
+				(" " + link_to("#{title}: #{type} (#{count})", path)).html_safe
+			end
 		end
 	end
 

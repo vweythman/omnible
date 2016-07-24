@@ -8,7 +8,7 @@ class Admin::ControlsController < ApplicationController
 	# ============================================================
 	def show
 		@user   = current_user.decorate
-		@facets = Facet.alphabetic.includes(:identities).decorate
+		@facets = Collectables::FacetsDecorator.decorate Facet.alphabetic.includes(:identities)
 	end
 
 end

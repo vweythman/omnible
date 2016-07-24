@@ -16,7 +16,7 @@ class Taggings::IdentitiesController < TaggingsController
 
 	# Tags :: find all
 	def tags
-		@tags = @identities = Identity.sorted_alphabetic.decorate
+		@tags = @identities = Collectables::IdentitiesDecorator.decorate Identity.sorted_alphabetic
 	end
 	
 end

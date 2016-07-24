@@ -1,6 +1,7 @@
 <% cache('site_menu_options') do %>
 	<nav class="menu">
 		<ul>
+			<li><%= link_to t("Media"), mediums_path %></li>
 			<li><%= link_to drop_arrowed(t("Works")), works_path %>
 				<ul class="submenu">
 					<li><%= link_to 'Fiction', fiction_index_path %></li>
@@ -12,6 +13,7 @@
 				<%= link_to drop_arrowed(t("Subjects")), subjects_path %>
 				<ul class="submenu">
 					<li><%= link_to t('Characters'), characters_path %></li>
+					<li><%= link_to t('Groups'), squads_path %></li>
 					<li><%= link_to t('Items'), items_path %></li>
 					<li><%= link_to t('Places'), places_path %></li>
 				</ul>
@@ -23,7 +25,6 @@
 					<ul class="submenu">
 						<li><%= link_to t('Tags'), tags_path %></li>
 						<li><%= link_to t('Identities'), identities_path %></li>
-						<li><%= link_to t('Qualities'), qualities_path %></li>
 						<li><%= link_to t("Creator Categories"), creator_categories_path %></li>
 						<li><%= link_to t('Relationships Categories'), relators_path %></li>
 						<li><%= link_to t("Identities Categories"), facets_path %></li>

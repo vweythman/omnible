@@ -28,4 +28,12 @@ class Skin < ActiveRecord::Base
 		uploader == user
 	end
 
+	def publicity
+		"Private"
+	end
+
+	def editablity
+		"Private"
+	end
+
 end

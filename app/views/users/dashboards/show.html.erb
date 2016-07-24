@@ -2,43 +2,58 @@
 <%= dashboard_header %>
 
 <div class="dashboard-grid">
-	<%= solo_cell do @pen_names.tableize end %>
-	<%= solo_cell do render 'users/skins/skins' end %>
-	<%= solo_cell do %>
-		<h2>Uploads</h2>
-		
-		<h3>Subjects</h3>
-		<ul>
-			<% @user.characters.each do |article| %>
-				<li><%= article.name %></li>
-			<% end %>
-		</ul>
-		<ul>
-			<% @user.places.each do |article| %>
-				<li><%= article.name %></li>
-			<% end %>
-		</ul>
-		<ul>
-			<% @user.uploaded_items.each do |article| %>
-				<li><%= article.name %></li>
-			<% end %>
-		</ul>
+	<%= grid_panel do %>
+		<%= panel_cell "golden-minor" do %>
+			<div class="widget">
+				<%= @pen_names.tableize %>
+				<%= render 'users/skins/skins' %>
+			</div>
+		<% end %>
 
-		<h3>Works</h3>
-		<ul>
-			<% @user.uploaded_articles.each do |article| %>
-				<li><%= article.title %></li>
+		<%= panel_cell "golden-major" do %>
+			<%= panel_cell "duo" do %>
+				<div class="widget">
+					<table class="editable sortable">
+						<caption>Links &amp; Works</caption>
+						<thead><tr><th>Type</th><th>Count</th></tr></thead>
+
+						<% @user.works.count_by_type.each do |type, size| %>
+							<tr class="editable-content">
+								<th>
+									<% snake_type = type.underscore %>
+									<% coll_type  = snake_type.pluralize %>
+									<%= link_to coll_type.humanize.titleize, uploads_url(coll_type) %>
+									<%= creation_tablekit snake_type %>
+								</th>
+								<td data-label="Count"><%= size %></td>
+							</tr>
+						<% end %>
+					</table>
+
+					<table class="editable sortable">
+						<caption>Top 10 Character Identities in Works</caption>
+						<thead><tr><th>Name</th><th>Count</th></tr></thead>
+
+						<% @user.intrawork_identities.limit(10).count_by_name.each do |name, count| %>
+							<tr>
+								<th><%= name %></th>
+								<td data-label="Count"><%= count %></td>
+							</tr>
+						<% end %>
+					</table>
+				</div>
 			<% end %>
-		</ul>
-		<ul>
-			<% @user.uploaded_stories.each do |article| %>
-				<li><%= article.title %></li>
+
+			<%= panel_cell "duo" do %>
+				<div class="widget">
+				</div>
 			<% end %>
-		</ul>
-		<ul>
-			<% @user.uploaded_short_stories.each do |article| %>
-				<li><%= article.title %></li>
-			<% end %>
-		</ul>
+		<% end %>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".sortable").tablesorter();
+	});
+</script>

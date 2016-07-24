@@ -1,0 +1,5 @@
+<article class='snippet <%= snippet.klass %>'>
+	<%= solo_cell "snippet-about" do %>
+		<%= render snippet.snippet_path, snippet.klass => snippet %>
+	<% end %>
+</article>

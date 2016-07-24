@@ -90,7 +90,7 @@ class Subjects::PlacesController < SubjectsController
 	end
 
 	def places
-		@subjects = @places = Place.order_by_form.decorate
+		@subjects = @places = Collectables::PlacesDecorator.decorate Place.with_filters(params).order_by_form
 	end
 
 	def set_visitor

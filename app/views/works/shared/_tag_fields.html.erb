@@ -9,19 +9,43 @@
 
 	<%= grid_panel do %>
 		<%= panel_cell "golden-major" do %>
-			<%= taggables([@work.klass, "taggables"], @work.tag_names, "General Tags") %>
+			<fieldset class="tags true-tags place-tags">
+				<legend>Tags</legend>
 
-			<% Appearance.tag_labels(@work).each do |role| %>
-				<%= taggables [@work.klass, "appearables", role[:label]], @work.cohort_names_by(role[:label]), role[:heading] %>
-			<% end %>
-			<%= taggables([@work.klass, "placeables"], @work.place_names, @work.location_heading) %>
+				<% Tagging.work_labels.each do |form| %>
+					<% lb = [@work.klass, "taggables", form]     %>
+					<% tg = @work.organized_true_tag_names(form) %>
+					<%= taggables(lb, tg, "#{form.titleize} Tags") %>
+				<% end %>
+				<%= taggables([@work.klass, "placeables"], @work.place_names, @work.location_heading) %>
+			</fieldset>
+
+			<fieldset class="tags characters">
+				<legend>Character Tags</legend>
+
+				<% Appearance.tag_labels(@work).each do |role| %>
+					<% lb = [@work.klass, "appearables", role[:label]] %>
+					<% tg = @work.cohort_names_by(role[:label])        %>
+					<%= taggables lb, tg, role[:heading] %>
+				<% end %>
+			</fieldset>
+
+			<fieldset class="tags groupings">
+				<legend>Relationships &amp; Groups</legend>
+				<% (0..(SocialAppearance.labels.size-1)).each do |i| %>
+					<% lb = [@work.klass, "socialables", SocialAppearance.data_labels[i]] %>
+					<% hd = SocialAppearance.labels[i] %>
+					<%= taggables(lb, [], "#{hd.titleize} Tags") %>
+				<% end %>
+			</fieldset>
 
 			<fieldset class="tags works">
 				<legend>Related Work Tags</legend>
-
-						<% WorkConnection.tag_labels(@work).each do |group| %>
-							<%= taggables [@work.klass, "relateables", group[:label]], @work.organized_work_titles_by(group[:label]), group[:heading] %>
-						<% end %>
+				<% WorkConnection.tag_labels(@work).each do |group| %>
+					<% lb = [@work.klass, "relateables", group[:label]]   %>
+					<% tg = @work.organized_work_titles_by(group[:label]) %>
+					<%= taggables lb, tg, group[:heading] %>
+				<% end %>
 			</fieldset>
 		<% end %>
 

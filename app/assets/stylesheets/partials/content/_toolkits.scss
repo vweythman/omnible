@@ -73,7 +73,7 @@
 		background: none;
 		display:    block;
 		float:      left;
-		padding:    10px 0;
+		padding:    7px 0;
 		width:      50%;
 
 		&:hover { border-radius: 0; }
@@ -84,12 +84,13 @@
 // ===============================================
 .creation  a,
 .insertion a {
-	background: $moss-dark-minor;
+	background: $moss-color;
+	font-weight: bolder;
 
 	&:visited { color: $page-lightest-major; }
 	&:hover   {
-		background: $moss-lightest-minor;
-		color:      $moss-darker-minor;
+		background: desaturate($moss-dark-major, $golden-tiny);
+		color:      $page-color;
 	}
 }
 

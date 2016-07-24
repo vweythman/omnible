@@ -51,7 +51,7 @@ class Taggings::RelatorsController < TaggingsController
 	
 	# Tags :: find all
 	def relators
-		@relators = @tags = Relator.order('left_name').all.decorate
+		@relators = @tags = Collectables::RelatorsDecorator.decorate Relator.order('left_name')
 	end
 
 	# PERMIT

@@ -12,10 +12,10 @@ calypso_general:
   tagging_work: calypso
   nature: general
 
-heart_using_characters:
+heart_using_cast:
   work: helix
   tagging_work: heart
-  nature: characters
+  nature: cast
 
 hope_mentioned:
   work: heart
@@ -41,12 +41,48 @@ zinc_using_setting:
 
 # DIFFERENT GROUP; SAME WORK
 # ===================================
-glamour_using_characters:
+glamour_using_cast:
   work: do
   tagging_work: glamour
-  nature: characters
+  nature: cast
 
 glamour_using_setting:
   work: mi
   tagging_work: glamour
   nature: setting
+
+# TAGGED COUNTS
+
+# work: viperfish
+# subject-taggings-count: 1
+# total-taggings-count: 1
+
+# work: windstorm
+# general-taggings-count: 1
+# total-taggings-count: 1
+
+# work: helix
+# cast-taggings-count: 1
+# total-taggings-count: 1
+
+# work: heart
+# mentioned-taggings-count: 1
+# total-taggings-count: 1
+
+# work: glamour
+# setting-taggings-count: 1
+# total-taggings-count: 1
+
+# work: zoologist
+# setting-taggings-count: 2
+# total-taggings-count: 2
+
+# work: do
+# cast-taggings-count: 1
+# total-taggings-count: 1
+
+# work: mi
+# setting-taggings-count: 1
+# total-taggings-count: 1
+
+

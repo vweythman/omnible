@@ -33,6 +33,7 @@ class Place < ActiveRecord::Base
 
 	# SCOPES
 	# ============================================================
+	scope :count_by_name, -> { group("places.name").ordered_count }
 	scope :order_by_form, -> { includes(:form).order('forms.name, places.name') }
 	scope :actual,        -> { where("fictional = 'f'") }
 	scope :fictitious,    -> { where("fictional = 't'") }
@@ -85,6 +86,21 @@ class Place < ActiveRecord::Base
 				model = self.create(name: name, uploader_id: uploader.id, fictional: false) if model.nil?
 				model
 			}
+		end
+	end
+
+	def self.with_filters(filters)
+		by_realness(filters[:reality_check])
+	end
+
+	def self.by_realness(real_check)
+		case real_check
+		when "real"
+			actual
+		when "unreal"
+			fictitious
+		else
+			all
 		end
 	end
 

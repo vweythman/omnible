@@ -3,7 +3,7 @@
 	<fieldset class="primary">
 		<%= string_panel f, :nature, "Describe Type" %>
 		<%= string_panel f, :name,   "Name Item"     %>
-		<%= taggables(["items","descriptions"], @item.current_tags, "General Tags") %>
+		<%= taggables(["item","descriptions"], @item.current_tags, "General Tags") %>
 	</fieldset>
 
 	<%= submit_panel f %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: The Awesome Group
+  description: MyText
+  uploader: amiya
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>
+
+two:
+  name: The Worst Group
+  description: MyText
+  uploader: tegan
+  editor_level: <%= Editable::PERSONAL %>
+  publicity_level: <%= Editable::PUBLIC %>

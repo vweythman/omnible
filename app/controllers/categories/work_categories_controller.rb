@@ -29,7 +29,7 @@ class Categories::WorkCategoriesController < ApplicationController
 	end
 
 	def work_categories
-		@work_categories = WorksTypeDescriber.all.order(:name)
+		@work_categories = WorksTypeDescriber.order(:name)
 	end
 
 end

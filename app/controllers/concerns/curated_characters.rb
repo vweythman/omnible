@@ -16,7 +16,7 @@ module CuratedCharacters
 
 	def characters		
 		@characters = @parent.characters.viewable_for(current_user).order('name')
-		@characters = CharactersCurationDecorator.decorate(@characters)
+		@characters = Collectables::Curations::CharactersDecorator.decorate @characters
 	end
 
 	def character_parent

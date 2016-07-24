@@ -19,20 +19,22 @@
 
 class Chapter < ActiveRecord::Base
 
-	# VALIDATIONS
-	# ============================================================
-	validates :content, presence: true
-	validates_uniqueness_of :position, :scope => :story_id
-
 	# MODULES
 	# ============================================================
 	include Discussable
 	include Titleizeable
 
+	# VALIDATIONS
+	# ============================================================
+	validates :content, presence: true
+	validates_uniqueness_of :position, :scope => :story_id
+
 	# CALLBACKS
 	# ============================================================
-	before_create :set_position
-	after_save    :cascade_data
+	after_save     :potential_cascade
+	after_save     :full_cascade, on: [:create]
+	before_create  :set_position
+	after_destroy  :full_cascade
 
 	# SCOPES
 	# ============================================================
@@ -176,11 +178,15 @@ class Chapter < ActiveRecord::Base
 		end
 	end
 
-	def cascade_data
+	def potential_cascade
 		if self.story.updated_at != self.updated_at
 			self.story.updated_at = self.updated_at
 			self.story.save
 		end
 	end
-	
+
+	def full_cascade
+		self.story.update_metadata
+	end
+
 end

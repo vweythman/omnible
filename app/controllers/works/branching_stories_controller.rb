@@ -39,7 +39,7 @@ class Works::BranchingStoriesController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = WorksDecorator.decorate(BranchingStory.with_filters(index_params, current_user))
+		@works = Collectables::BranchingStoriesDecorator.decorate(Work.by_type("BranchingStory").with_filters(index_params, current_user))
 	end
 
 	# SET

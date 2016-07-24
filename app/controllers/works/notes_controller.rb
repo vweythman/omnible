@@ -105,7 +105,7 @@ class Works::NotesController < ApplicationController
 
 	def notes
 		work	
-		@notes = @work.notes.decorate
+		@notes = Collectables::NotesDecorator.decorate @work.notes
 	end
 
 	def work

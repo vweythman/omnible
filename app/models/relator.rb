@@ -33,6 +33,7 @@ class Relator < ActiveRecord::Base
 	# - Name Relators
 	scope :unreversible_lefts,  -> { has_reverse.select(:id, :left_name)  }
 	scope :unreversible_rights, -> { has_reverse.select(:id, :right_name) }
+	scope :specific, ->(left, right) { where(:left_name => left).where(:right_name => right) }
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -57,6 +58,14 @@ class Relator < ActiveRecord::Base
 		else
 			"right"
 		end
+	end
+	
+	def heading
+		has_reverse? ? "#{left_name} & #{right_name}" : left_name.pluralize
+	end
+
+	def data_heading
+		has_reverse? ? "#{left_name}/#{right_name}" : left_name.pluralize
 	end
 
 	# LeftHeading - defines the left hand interconnection
@@ -87,6 +96,5 @@ class Relator < ActiveRecord::Base
 	def has_right?
 		attributes.has_key? ('right_name')
 	end
-
 
 end

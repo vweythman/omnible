@@ -5,10 +5,10 @@
 </header>
 
 <div class="index-body">
-	<%= solo_cell do @tags.index_content end %>
+	<%= index_panel "Tags", "solo" do @tags.list end %>
 	<%= grid_panel do %>
-		<%= panel_cell "golden-minor" do @relators.index_content   end %>
-		<%= panel_cell "golden-major" do @identities.index_content end %>
+		<%= index_panel "Relationship Tags", "golden-minor" do @relators.list          end %>
+		<%= index_panel "Character Tags",    "golden-major" do @identities.definitions end %>
 	<% end %>
 </div>
 

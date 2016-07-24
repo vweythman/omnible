@@ -2,7 +2,7 @@ class Works::WholeStoryController < Works::StoriesController
 
 	def show
 		work
-		@chapters = @story.chapters.ordered.decorate
+		@chapters = Collectables::ChaptersDecorator.decorate @story.chapters.ordered
 		find_comments
 	end
 

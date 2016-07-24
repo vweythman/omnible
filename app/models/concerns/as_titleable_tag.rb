@@ -56,7 +56,7 @@ module AsTitleableTag
 		def create_by_title_values(title, type, creator, uploader)
 			type = "Unsorted" if type.nil?
 			work = Record.create(title: title, uploader_id: uploader.id)
-			work.metadata.create(key: 'medium', value: type)
+			work.qualitatives.create(key: 'medium', value: type)
 
 			unless creator.nil?
 				person = Character.where(name: creator).first

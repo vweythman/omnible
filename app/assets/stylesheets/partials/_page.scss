@@ -65,7 +65,7 @@
 // -- Text
 // -----------------------------------------------
 a {
-	color: $water-dark-minor;
+	color: saturate($water-dark-minor, $golden-small);
 
 	&:hover {
 		color:           $page-darker-major;
@@ -189,14 +189,17 @@ dt:first-child {
 }
 
 @mixin page-non-mobile() {
-	@include site-non-mobile($water-light-minor, $one-fourth) {
+	@include site-non-mobile($water-light-minor, $one-fifth) {
 		@content;
 	}
 }
 
 @mixin page-tablet() {
-	@include site-tablet($one-fourth) {
+	@include site-tablet($one-fifth) {
 		@content;
+		.panel-cell {
+			@include mobilize-cell()
+		}
 	}
 }
 

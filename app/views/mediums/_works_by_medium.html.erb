@@ -1,0 +1,16 @@
+<ul class="indexable">
+	<% works.each do |work| %>
+		<% mtdt = work.searchable_quantitative_metadata %>
+		<% if mtdt["taggings-count"].present? && mtdt["taggings-count"] > 0 %>
+			<%= indexed_tagging(work.title, "Any",          mtdt["taggings-count"],           intratags_path(work)) %>
+			<%= indexed_tagging(work.title, "As Fandom",    mtdt["general-taggings-count"],   work_as_mythos_path(work)) %>
+			<%= indexed_tagging(work.title, "As Setting",   mtdt["setting-taggings-count"],   work_as_setting_path(work)) %>
+			<%= indexed_tagging(work.title, "As Subject",   mtdt["subject-taggings-count"],   work_as_subject_path(work)) %>
+			<%= indexed_tagging(work.title, "As Reference", mtdt["reference-taggings-count"], work_as_reference_path(work)) %>
+			<%= indexed_tagging(work.title, "Cast Only",    mtdt["cast-taggings-count"],      work_archetyped_in_path(work)) %>
+		<% else %>
+			<li class="icon icon-books"> <%= work.title %> (0)</li>
+		<% end %>
+
+	<% end %>
+</ul>

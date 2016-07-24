@@ -8,7 +8,7 @@ class Users::DashboardsController < ApplicationController
 	# ============================================================
 	def show
 		@user      = current_user.decorate
-		@pen_names = PenNamingsDecorator.decorate(current_user.pen_namings)
+		@pen_names = Collectables::PenNamingsDecorator.decorate(current_user.pen_namings)
 		@skins     = @user.skins
 	end
 

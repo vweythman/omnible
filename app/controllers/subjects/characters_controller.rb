@@ -104,7 +104,7 @@ class Subjects::CharactersController < SubjectsController
 	# FIND
 	# ------------------------------------------------------------
 	def characters
-		@subjects = @characters = Character.not_pen_name.viewable_for(current_user).order('name').decorate
+		@subjects = @characters = Collectables::CharactersDecorator.decorate Character.not_pen_name.viewable_for(current_user).order('name')
 	end
 
 	def character
@@ -119,10 +119,10 @@ class Subjects::CharactersController < SubjectsController
 	end
 
 	def associables
-		@identities = IdentitiesDecorator.decorate(@character.identities)
-		@items      = PossessionsDecorator.decorate(@character.items)
-		@opinions   = OpinionsDecorator.decorate(@character.opinions)
-		@prejudices = PrejudicesDecorator.decorate(@character.prejudices)
+		@identities = Collectables::IdentitiesDecorator.decorate(@character.identities.includes(:facet))
+		@items      = Collectables::PossessionsDecorator.decorate(@character.items)
+		@opinions   = Collectables::OpinionsDecorator.decorate(@character.opinions)
+		@prejudices = Collectables::PrejudicesDecorator.decorate(@character.prejudices)
 		@text       = @character.current_detail_text
 	end
 

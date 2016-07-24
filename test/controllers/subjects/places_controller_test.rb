@@ -7,6 +7,7 @@ module Subjects
     # ============================================================
     setup do
       @actual_earth = places(:actual_earth)
+      @middle_earth = places(:middle_earth)
       @nile         = places(:nile)
       @planet       = forms(:planet)
 
@@ -25,6 +26,22 @@ module Subjects
       assert_not_nil assigns(:places)
       assert_not_nil assigns(:subjects)
       assert_equal assigns(:places), assigns(:subjects)
+    end
+
+    test "should get index of real" do
+      get :index, reality_check: "real"
+
+      assert_response :success
+      assert assigns(:places).include? @actual_earth
+      assert_not assigns(:places).include? @middle_earth
+    end
+
+    test "should get index of unreal" do
+      get :index, reality_check: "unreal"
+
+      assert_response :success
+      assert assigns(:places).include? @middle_earth
+      assert_not assigns(:places).include? @actual_earth
     end
 
     # SHOW

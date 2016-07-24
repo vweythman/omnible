@@ -83,7 +83,7 @@ class Categories::CreatorCategoriesController < ApplicationController
 	end
 
 	def creator_categories
-		@creator_categories = CreatorCategory.all.order(:name).decorate
+		@creator_categories = Collectables::CreatorCategoriesDecorator.decorate CreatorCategory.all.order(:name)
 	end
 
 end

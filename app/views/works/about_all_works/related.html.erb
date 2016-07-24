@@ -1,0 +1,42 @@
+<% provide :title, "#{@parent.heading} - Works - Tag Totals" %>
+
+<header class="index-header">
+	<h1>
+		<%= link_to @parent.heading, @parent %>
+		::
+		<%= link_to("Works", url_for(@parent) + '/works/') %>
+		<%= subtitle "Tag Totals" %>
+	</h1>
+</header>
+
+<div class="subject-body">
+	<%= page_widget "Tagged Works" do %>
+		<%= render "tag_counter_with_type", label: "Title", type: :works, counts: @intrawork_count %>
+	<% end %>
+
+	<%= page_widget "Characters" do %>
+		<%= render "tag_counter_with_type", label: "Name", type: :characters, counts: @characters_count %>
+	<% end %>
+
+	<%= page_widget "Groups and Relationships" do %>
+		<%= render "tag_counter_with_type", label: "Name", type: :squads, counts: @squads_count %>
+	<% end %>
+
+	<%= page_widget "Tags" do %>
+		<%= render "tag_counter_with_type", label: "Name", type: :tags, counts: @tags_count %>
+	<% end %>
+
+	<%= page_widget "Places" do %>
+		<%= render "tag_counter", label: "Name", type: :places, counts: @places_count %>
+	<% end %>
+
+	<%= page_widget "Character Identities" do %>
+		<%= render "tag_counter_with_type", label: "Name", type: :identities, counts: @identities_count %>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".sortable").tablesorter();
+});
+</script>
