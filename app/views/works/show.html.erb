@@ -25,7 +25,7 @@
 
 	<%= page_widget "Tags" do %>
 		<% Tagging.work_labels.each do |form| %>
-			<% tags = @work.ordered_true_tags form %>
+			<% tags = @work.ordered_true_tags.group_by form %>
 	
 			<%= render 'works/shared/grouping_tags', 
 				heading: (form.titleize + " Tags"), 
