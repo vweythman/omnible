@@ -25,12 +25,12 @@ class WorkLinkDecorator < WorkDecorator
 	# -- Links
 	# ............................................................
 	def first_link
-		@first_link ||= sources.first.pathing
+		@first_link ||= sources.first
 	end
 
 	def main_link
 		if sources.present? && h.current_user != self.uploader
-			path = first_link
+			path = first_link.pathing
 		else
 			path = self
 		end
@@ -44,7 +44,7 @@ class WorkLinkDecorator < WorkDecorator
 
 	def link_to_host
 		hst = first_domain
-		h.link_to first_domain, first_domain
+		h.link_to first_domain, "http://#{first_domain}"
 	end
 
 end
