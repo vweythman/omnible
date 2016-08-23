@@ -6,7 +6,7 @@
 		<tr>
 			<th><%= link_to category.name, category %></th>
 			<td class="switch-state">
-				<%= toggle_panel "category", category.id, category.connected?(@work_category) %>
+				<%= toggle_field_cell "category", category.id, category.connected?(@work_category) %>
 			</td>
 		</tr>
 	<% end %>
@@ -15,7 +15,7 @@
 </table>
 
 <script type="text/javascript">
-$('.switch-button .switch').click(function() {
+$('.switch-field .switch').click(function() {
 
 	if ($(this).is(':checked')) {
 		$.ajax({

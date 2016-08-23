@@ -1,8 +1,8 @@
-<div class='nested-fields'>
+<div class='nested-fields nested-item-fields'>
 
-	<fieldset>
-		<%= selectables f, :item_id, @items.possible %>
-		<%= radios_by_string(f, :nature, Possession.types, f.object.nature) %>
+	<fieldset class="possession-fields">
+		<%= f.selectable_cell :item_id, @items.possible %>
+		<%= f.strung_radios   :nature,  Possession.types, f.object.nature %>
 	</fieldset>
 
 	<p class="remove-cell"><%= link_to_remove_association "- Remove Item", f %></p>

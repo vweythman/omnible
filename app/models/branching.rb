@@ -17,6 +17,7 @@ class Branching < ActiveRecord::Base
 	# VALIDATIONS
 	# ============================================================
 	validates_uniqueness_of :child_node_id, :scope => :parent_node_id
+	validates :heading, presence: true
 
 	# ASSOCIATIONS
 	# ============================================================

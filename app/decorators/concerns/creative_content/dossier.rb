@@ -8,7 +8,7 @@ module CreativeContent
 		end
 
 		def klass
-			self.object.class.to_s.downcase
+			@klass ||= self.object.class.to_s.downcase
 		end
 
 		# SET

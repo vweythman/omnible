@@ -86,7 +86,7 @@ class Work < ActiveRecord::Base
 	scope :records,           -> { where(:type => "Record")         }
 	scope :short_stories,     -> { where(:type => "ShortStory")     }
 	scope :stories,           -> { where(:type => "Story")          }
-	scope :story_links,       -> { where(:type => "StoryLink")      }
+	scope :work_links,        -> { where(:type => "WorkLink")       }
 	scope :by_type,           ->(t) { where(:type => t)             }
 
 	# ASSOCIATIONS
@@ -104,8 +104,8 @@ class Work < ActiveRecord::Base
 
 	# HAS
 	# ------------------------------------------------------------
-	has_one  :rating,  :inverse_of => :work
-	has_one  :skin,    :through    => :skinning, :inverse_of => :works
+	has_one  :rating, inverse_of: :work
+	has_one  :skin,   through:    :skinning, inverse_of: :works 
 	
 	# NESTED ATTRIBUTION
 	# ============================================================
@@ -218,6 +218,10 @@ class Work < ActiveRecord::Base
 
 	def tag_heading
 		title + " [#{categorized_type}]"
+	end
+
+	def language
+		@language ||= 1
 	end
 
 	# ACTIONS

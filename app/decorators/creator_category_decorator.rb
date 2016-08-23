@@ -16,7 +16,7 @@ class CreatorCategoryDecorator < Draper::Decorator
 	end
 
 	def klass
-		:creator_category
+		@klass ||= :creator_category
 	end
 
 	# PRIVATE METHODS

@@ -37,6 +37,7 @@ class Subjects::CharactersController < SubjectsController
 		if @character.save
 			redirect_to @character
 		else
+			@character = @character.decorate
 			associables
 			render 'new'
 		end

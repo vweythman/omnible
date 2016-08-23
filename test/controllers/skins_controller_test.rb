@@ -41,8 +41,9 @@ class SkinsControllerTest < ControllerTestCase
   # ============================================================
   test "should create skin" do
     sign_in @letty
+
     assert_difference('Skin.count') do
-      post :create, skin: { style: @skin.style, uploader_id: @skin.uploader_id, status: @skin.status }
+      post :create, skin: { title: "new title", style: "p { font-size: 11em; }", uploader_id: @skin.uploader_id, status: 'Public' }
     end
 
     assert_redirected_to skin_path(assigns(:skin))
@@ -52,7 +53,7 @@ class SkinsControllerTest < ControllerTestCase
   # ============================================================
   test "should update skin" do
     sign_in @letty
-    patch :update, id: @skin, skin: { style: @skin.style, uploader_id: @skin.uploader_id, status: @skin.status }
+    patch :update, id: @skin, skin: { title: @skin.title, style: @skin.style, uploader_id: @skin.uploader_id, status: 'Public' }
     assert_redirected_to skin_path(assigns(:skin))
   end
 

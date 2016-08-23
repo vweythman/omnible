@@ -11,7 +11,7 @@ class WorksTypeDescriberTest < ActiveSupport::TestCase
     @poem        = works_type_describers(:poem)
     @short_story = works_type_describers(:short_story)
     @story       = works_type_describers(:story)
-    @story_link  = works_type_describers(:story_link)
+    @work_link   = works_type_describers(:work_link)
 
     # CATEGORIES
     @author     = creator_categories(:author)
@@ -52,7 +52,7 @@ class WorksTypeDescriberTest < ActiveSupport::TestCase
   test "should be narrative" do
     assert @story.narrative?
     assert @short_story.narrative?
-    assert @story_link.narrative?
+    assert @work_link.narrative?
   end
 
   test "should not be narrative" do
@@ -62,7 +62,7 @@ class WorksTypeDescriberTest < ActiveSupport::TestCase
   end
 
   test "should be record" do
-    assert @story_link.narrative?
+    assert @work_link.narrative?
   end
 
   test "should not be record" do

@@ -23,7 +23,7 @@ module Collectables
 		end
 
 		def klass
-			:relators
+			@klass ||= :relators
 		end
 
 		def taggables_list_for(person, direction = nil)

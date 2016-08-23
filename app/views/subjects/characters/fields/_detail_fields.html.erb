@@ -1,11 +1,13 @@
-<div class='nested-fields'>
-	<fieldset class="chapter page-fields">
-		<legend>
-			<%= string_panel f, :title, "Title" %>
-		</legend>
+<%= panel_cell "duo" do %>
+	<div class='nested-fields nested-detail-fields'>
 
-		<%= text_panel f, :content, :minor, "Write Description" %>
-	</fieldset>
+		<fieldset class="paged-fieldset">
+			<legend>
+				<%= f.string_cell :title, "Title", placeholder: "Title (Optional)" %>
+			</legend>
+			<%= f.text_cell :content, class: :minor, placeholder: "Detail Content" %>
+		</fieldset>
 
-	<p class="remove-cell"><%= link_to_remove_association "- Remove Description", f %></p>
-</div>
+		<p class="remove-cell"><%= link_to_remove_association "- Remove Detail", f %></p>
+	</div>
+<% end %>

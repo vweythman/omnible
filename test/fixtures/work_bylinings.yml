@@ -23,7 +23,7 @@ wb4:
 
 wb5:
   creator_category: author
-  describer: story_link
+  describer: work_link
   prime: true
 
 
@@ -62,7 +62,7 @@ wb11:
 
 wb12:
   creator_category: writer
-  describer: story_link
+  describer: work_link
   prime: false
 
 wb12:
@@ -93,5 +93,5 @@ wb16:
 
 wb17:
   creator_category: translator
-  describer: story_link
+  describer: work_link
   prime: false

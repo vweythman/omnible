@@ -5,5 +5,8 @@
 	<%= @tag.edit_form_div %>
 	<%= @tag.edit_bar %>
 
-	<p><%= @tag.first_use_status %></p>
+
+	<div class="metadata">
+		<%= metadata("First Use", @tag.created_at_tag) %>
+	</div>
 </header>

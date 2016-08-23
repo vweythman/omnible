@@ -40,8 +40,10 @@ class RecordQuantitativeMetadatum < ActiveRecord::Base
 
 	# Subtype
 	# ------------------------------------------------------------
-	scope :chapter_counts, -> { where(key: "chapter-count") }
-	scope :chapter_count,  -> { chapter_count.pluck(:value) }
+	scope :chapter_counts, -> { where(key: "chapter-count")  }
+	scope :chapter_count,  -> { chapter_counts.pluck(:value) }
+	scope :line_counts,    -> { where(key: "line-count")     }
+	scope :line_count,     -> { line_counts.pluck(:value)    }
 
 	# ASSOCIATIONS
 	# ============================================================

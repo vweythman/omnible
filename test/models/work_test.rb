@@ -9,7 +9,7 @@ class WorkTest < ActiveSupport::TestCase
     @journal     = works(:rainfalls)
     @story       = works(:frenzy)
     @short_story = works(:calypso)
-    @story_link  = works(:zoologist)
+    @work_link  = works(:zoologist)
     @record      = works(:do)
   end
 

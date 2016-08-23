@@ -34,6 +34,9 @@ $(document).ready(function(){
 		$("#form_"+id[1]).hide();
 	});
 
+	$(".dismissal").click(function(){
+		$(this).parent().hide();
+	});
 
 	// CREATE IDENTITY SELECTION BY FACET
 	terms = $("#character_descriptions_attributes_0_identity_id").html();
@@ -70,7 +73,7 @@ $(document).ready(function(){
 		create: true,
 		sortField: 'text'
 	});
-	$( ".nested" ).on('cocoon:after-insert', function(e, inserted_item) {
+	$( ".nested-fieldset" ).on('cocoon:after-insert', function(e, inserted_item) {
 		inserted_item.find('.selectables').selectize({
 			create: true,
 			sortField: 'text'

@@ -1,0 +1,18 @@
+<%= clean_form_for(@link) do |f| %>
+
+	<%= error_block(@link) %>
+
+	<fieldset class="primary-fieldset">
+		<%= panel_cell "duo" do f.string_cell :title, "Text" end %>
+
+		<%= panel_cell "duo" do %>
+			<%= f.fields_for  :sources do |b| %>
+				<%= b.string_cell :reference, "Link" %>
+			<% end %>
+		<% end %>
+	</fieldset>
+
+	<%= render @link.tag_fields, f: f %>
+
+	<%= f.submit_cell %>
+<% end %>

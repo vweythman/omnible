@@ -1,11 +1,11 @@
 <% remote ||= false %>
-<%= form_for @identity, remote: remote do |f| %>
+<%= clean_form_for @identity, remote: remote do |f| %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :nature, "Describe Type" %>
-		<%= string_panel f, :name,   "Write Name"    %>
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :name,   "Identity Name" %>
+		<%= f.string_cell :nature, "Identity Type" %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 
 <% end %>

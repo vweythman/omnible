@@ -1,8 +1,0 @@
-<%= grid_panel "simple-selection" do %>
-	<%= panel_cell "golden-minor" do %>
-		<%= f.label(:skin_id, "Choose Stylesheet (Optional)") %>
-	<% end %>
-	<%= panel_cell "golden-major" do %>
-		<%= f.collection_select(:skin_id, @work.chooseable_skins, :id, :title, :include_blank => true) %>
-	<% end %>
-<% end %>

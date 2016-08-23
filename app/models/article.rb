@@ -7,7 +7,7 @@ class Article < Work
 	
 	# CALLBACKS
 	# ------------------------------------------------------------
-	after_save    :contentize, on: [:update, :create]
+	before_save   :contentize, on: [:update, :create]
 	before_create :set_categories
 
 	# ASSOCIATIONS
@@ -43,7 +43,6 @@ class Article < Work
 	def contentize
 		self.note ||= Note.new
 		self.note.content = article_content
-		note.save
 	end
 
 end

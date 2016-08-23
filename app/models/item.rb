@@ -19,24 +19,28 @@
 
 class Item < ActiveRecord::Base
 
+	# VALIDATIONS
+	# ============================================================
+	validates :name, presence: true, length: { maximum: 100 }
+
 	# MODULES
-	# ------------------------------------------------------------
+	# ============================================================
 	extend FriendlyId
 	extend Organizable
 	include Documentable
 	include Editable
 
 	# CALLBACKS
-	# ------------------------------------------------------------
+	# ============================================================
 	before_validation :typify, on: [:update, :create]
 	before_validation :update_tags,     on: [:update, :create]
 
 	# SCOPES
-	# ------------------------------------------------------------
+	# ============================================================
 	scope :order_by_generic, -> { includes(:generic).order('generics.name, items.name') }
 
 	# ASSOCIATIONS
-	# ------------------------------------------------------------
+	# ============================================================
 	# - Joins
 	has_many :item_taggings, -> { Tagging.quality }, dependent: :destroy, class_name: "Tagging", as: :tagger
 	has_many :possessions, dependent: :destroy
@@ -47,14 +51,14 @@ class Item < ActiveRecord::Base
 	has_many   :quality_tags, through: :item_taggings
 	
 	# CLASS METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# OrganizedAll - creates an list of all identities organized by facet
 	def self.organized_all(list = Item.includes(:generic))
 		self.organize(list)
 	end
 
 	# ATTRIBUTES
-	# ------------------------------------------------------------
+	# ============================================================
 	friendly_id :name, :use => :slugged
 	attr_accessor :visitor, :nature, :descriptions
 
@@ -71,7 +75,7 @@ class Item < ActiveRecord::Base
 	end
 
 	# PUBLIC METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	# Heading - defines the main means of addressing the model
 	def heading
 		name + " #{generic_heading}"
@@ -100,7 +104,7 @@ class Item < ActiveRecord::Base
 	end
 
 	# PRIVATE METHODS
-	# ------------------------------------------------------------
+	# ============================================================
 	private
 
 	def typify

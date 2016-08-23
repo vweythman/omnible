@@ -14,7 +14,7 @@ module Collectables
 		end
 
 		def klass
-			:tags
+			@klass ||= :tags
 		end
 
 	end

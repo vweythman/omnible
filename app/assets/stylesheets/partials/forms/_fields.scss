@@ -1,0 +1,275 @@
+// STYLE PARTIAL: FIELDS
+// ***********************************************
+// SETUP :: IMPORTS
+// ===============================================
+@import "partials/forms/fields/selections";
+@import "partials/forms/fields/slider";
+
+// ERRORS & ANSWERS
+// ===============================================
+.error-explanation {
+	border-bottom-right-radius: 0.75em;
+	border-bottom-left-radius:  0.75em;
+	background: $page-color;
+	color:      $stoplight-stop;
+	margin:     10px 0;
+	min-width:  250px;
+	width:      $two-thirds;
+
+	h2 {
+		font-weight:    bold;
+		letter-spacing: 1px;
+		padding:       4px 10px 2px;
+		border-bottom: 3px solid $page-color;
+	}
+
+	ul {
+		padding:    0px 20px 5px;
+		margin:     0px;
+		font-style: italic;
+	}
+
+	li {
+		padding: 5px 0px 0px;
+	}
+}
+
+.tooltip {
+	background: $page-lightest-minor;
+	border:     2px solid $page-lighter-major;
+	margin:     10px 0px 10px 10px;
+	padding:    10px;
+
+	ul {
+		margin-top: 0;
+		padding:    0 1em;
+	}
+
+	li {
+		padding: 2px 5px;
+	}
+}
+
+.tool-explain {
+	margin: 10px;
+}
+
+
+// LABEL
+// ===============================================
+.field-label {
+	border-top-left-radius:  3px;
+	border-top-right-radius: 3px;
+
+	display:    block;
+	padding:    8px 10px 0px 10px;
+	margin:     0 5px;
+	font-weight: bolder;
+
+	background: $page-lighter-major;
+	color:      $page-darkest-major;
+
+	label {
+		padding: 0;
+	}
+}
+
+// CHECKBOX
+// ===============================================
+.decision-field {
+	overflow: auto;
+
+	.field-label {
+		display: inline-block;
+	}
+	label {
+		display: block;
+	}
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox] + label .field-value {
+	display:        inline-block;
+	width:          13px;
+	height:         13px;
+	border:         2px solid $border-color;
+	border-radius:  .4em;
+	background:     $page-color;
+	vertical-align: bottom;
+}
+
+input[type=checkbox]:checked + label .field-value:before{
+	content:     '✓';
+	display:     block;
+	width:       1em;
+	font-size:   0.875em;
+	line-height: 1em;
+	text-align:  center;
+	font-weight: bold;
+}
+
+// FILE UPLOAD
+// ===============================================
+.file-field .field-value {
+	background: $page-color;
+	border:     2px solid $border-color;
+	padding:    10px;
+}
+
+// RADIO SELECTIONS
+// ===============================================
+.choice-fields {
+	margin:   5px 0px;
+	overflow: auto;
+
+	input {
+		display: none;
+	}
+
+	.field-value {
+		display:    block;
+		padding:    6px 10px;
+		text-align: center;
+	}
+
+	.selection-field {
+		float:    left;
+		overflow: auto;
+		margin:   0;
+		padding:  0;
+	}
+}
+
+// SELECTION
+// ===============================================
+.selection-field {
+	select {
+		border:        1px solid $border-color;
+		border-radius: 3px;
+		padding:       5px;
+		width:         100%;
+	}
+	option {
+		padding: 2px 10px;
+	}
+}
+
+// STRING FIELDS
+// ===============================================
+.string-field {
+	padding: 0px 10px;
+
+	label {
+		display:     block;
+		font-weight: bolder;
+	}
+
+	input {
+		padding:       7px 5px;
+		border:        2px solid $border-color;
+		border-radius: 3px;
+		width:         calc(100% - 12px);
+	}
+}
+
+// SUBMIT
+// ===============================================
+.submit-field input {
+	border:      none;
+	font-weight: bolder;
+	padding:     10px 0px;
+	text-align:  center;
+	width:       100%;
+}
+
+// TAG FIELDS
+// ===============================================
+.taggable-field {
+	padding:  0px;
+	overflow: auto;
+
+	.field-content {
+		float:   left;
+		margin:  0;
+		padding: 0;
+		border-radius: 0;
+	}
+
+	.field-label {
+		background:  none;
+		font-weight: bolder;
+		width:       $golden-minor;
+
+		label {
+			display:      block;
+			margin-right: 1px;
+			padding:      7px 7px 6px;
+		}
+	}
+
+	.field-value {
+		width: $golden-major;
+	}
+}
+
+// TEXT FIELDS
+// ===============================================
+.minor { min-height: 50px;  }
+.major { min-height: 300px; }
+
+.text-field {
+	.field-label {
+		text-transform: capitalize;
+		text-align:     center;
+		padding:        10px 0px 5px;
+	}
+
+	.field-value {
+		border: 2px solid $border-color;
+	}
+
+	textarea {
+		border:  none;
+		padding: 10px;
+		width:   calc(100% - 20px);
+	}
+}
+
+// ERROR VALUES
+// ===============================================
+.field-label .field_with_errors label {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+
+	background: $stoplight-stop;
+	color:      $page-color;
+	display:    block;
+	text-align: center;
+
+	.string-field & {
+		margin:     -8px -10px 0px -10px;
+		padding:    8px 10px 0px 10px;
+	}
+
+	.text-field & {
+		margin:  -10px 0px -5px;
+		padding: 10px 0px 5px;
+	}
+}
+
+.field-value .field_with_errors {
+	input {
+		border: 2px solid $stoplight-stop !important;
+	}
+
+	.text-field & {
+		border: 2px solid $stoplight-stop;
+		margin: -2px;
+	}
+}
+
+/* END
+/* ***********************************************/

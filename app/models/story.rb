@@ -30,8 +30,7 @@ class Story < Work
 	# CLASS METHODS
 	# ============================================================
 	def self.order_by(choice)
-		case choice
-		when "chapter-count"
+		if choice == "chapter-count"
 			by_chapters
 		else
 			super(choice)

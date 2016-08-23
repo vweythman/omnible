@@ -1,61 +1,44 @@
-<%= form_for(@art) do |f| %>
+<%= clean_form_for(@art) do |f| %>
 
-	<ul>
-		<% @art.errors.full_messages.each do |msg| %>
-		<li><%= msg %></li>
-		<% end %>
-	</ul>
+	<%= error_block(@art) %>
 
-	<fieldset class="primary">
-		<%= solo_cell do %>
-			<%= string_panel f, :title, "Write Title" %>
-		<% end %>
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :title, "Title" %>
+		<%= f.text_cell   :summary, class: :minor, placeholder: "Description" %>
 
-		<%= f.fields_for :picture do |fdr| %>
+		<%= f.fields_for :picture do |pic| %>
+			<% picture = pic.object.decorate %>
 			<%= grid_panel do %>
 				<%= panel_cell "golden-minor" do %>
-					<div class="preview-area">
-						<img id="previewer" src="<%= fdr.object.artwork.nil? ? '#' : fdr.object.artwork_url %>" alt="no image">
-					</div>
+					<%= picture.preview_area %>
 				<% end %>
 
 				<%= panel_cell "golden-major" do %>
-					<%= file_upload_panel fdr, :artwork, "Upload" %>
+					<%= pic.file_cell :artwork, "Upload" %>
 				<% end %>
 			<% end %>
 		<% end %>
-
-		<%= solo_cell do text_panel(f, :summary, :minor, "Description") end %>
-
-		<%= grid_panel do %>
-			<%= panel_cell "duo" do %>
-				<div class="field-group left-group">	
-					<%= render 'shared/forms/view_fields', f: f %>
-				</div>
-			<% end %>
-
-			<%= panel_cell "duo" do %>
-				<%= render 'works/shared/creatorship_local_fields' %>
-			<% end %>
-		<% end %>
-		<%= render @art.tag_fields, f: f %>
 	</fieldset>
+
+	<%= render @art.meta_fields, f: f %>
+	<%= render @art.tag_fields,  f: f %>
 	
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>
+
 <script>
-function readURL(input) {
+function read_url(input) {
 
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#previewer').attr('src', e.target.result);
+            $('#image-preview').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#art_picture_attributes_artwork").change(function(){ readURL(this); });
+$("#art_picture_attributes_artwork").change(function(){ read_url(this); });
 </script>

@@ -28,8 +28,8 @@ story:
   is_singleton: true
   status: Fictional Narrative
 
-story_link:
-  name: StoryLink
+work_link:
+  name: WorkLink
   content_type: text
   is_record:    true
   is_singleton: false

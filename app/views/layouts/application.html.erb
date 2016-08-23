@@ -16,10 +16,16 @@
 	<div class="site-content" id="site-content">
 		<header>
 			<% if notice %>
-				<p class="notice"><%= notice %></p>
+				<p class="notice">
+					<span class="dismissal">x</span>
+					<%= notice %>
+				</p>
 			<% end %>
 			<% if alert %>
-				<p class="alert"><%= alert %></p>
+				<p class="alert">
+					<span class="dismissal">x</span>
+					<%= alert %>
+				</p>
 			<% end %>
 		</header>
 		<div class="page-content">

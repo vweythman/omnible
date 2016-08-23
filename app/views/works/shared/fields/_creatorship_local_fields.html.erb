@@ -1,0 +1,10 @@
+<fieldset class="agentive-selection associative-fieldset">
+	<legend>Pen Name Selection</legend>
+
+	<%= grid_panel do %>
+		<%= panel_cell "duo" do @work.choose_creator_category end %>
+		<%= panel_cell "duo" do %>
+		 <%= selection_field_cell "[#{@work.klass}][uploadership][pen_name]", @work.pseudonym_options(@create_as), "Pen Name" %>
+		<% end %>
+	<% end %>
+</fieldset>

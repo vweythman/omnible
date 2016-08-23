@@ -24,6 +24,10 @@ module Collectables
 			:identities
 		end
 
+		def nest_class
+			"nested-tags-fieldset nested-#{klass}-fieldset nested-#{owner_klass}-fields"
+		end
+
 		def organized
 			Identity.organize(object)
 		end
@@ -43,13 +47,9 @@ module Collectables
 		def fields
 			h.capture do
 				list_possible.each do |facet, list|
-					h.concat h.taggables(["character", "describers", facet], list.nil? ? [] : list.map{|i| i.name }, facet.pluralize) 
+					h.concat h.tag_field_cell(["character", "describers", facet], list.nil? ? [] : list.map{|i| i.name }, facet.pluralize) 
 				end
 			end
-		end
-
-		def nest_class
-			"tags identities descriptions"
 		end
 
 		# -- Related

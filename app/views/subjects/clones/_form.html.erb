@@ -1,10 +1,10 @@
-<%= form_for(@replication, url: clone_path(@clone), html: { method: "patch" }) do |f| %>
+<%= clean_form_for(@replication, url: clone_path(@clone), html: { method: "patch" }) do |f| %>
 
-	<fieldset>
+	<fieldset class="associative-fieldset">
 		<legend>Original Character</legend>
-		<%= f.hidden_field :clone_id,    :value => @clone.id %>
-		<%= selectables f, :original_id, @clone.other_characters %>
+		<%= f.hidden_field    :clone_id,    value: @clone.id %>
+		<%= f.selectable_cell :original_id, @clone.other_characters %>
 	</fieldset>
 	
-	<%= submit_panel f, "Submit" %>
+	<%= f.submit_cell "Submit" %>
 <% end %>

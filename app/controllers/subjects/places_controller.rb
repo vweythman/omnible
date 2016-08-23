@@ -31,6 +31,7 @@ class Subjects::PlacesController < SubjectsController
 		if @place.save
 			redirect_to @place
 		else
+			@place = @place.decorate
 			render action: 'new'
 		end
 	end

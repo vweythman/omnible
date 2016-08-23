@@ -1,0 +1,22 @@
+<%= clean_form_for(@journal) do |f| %>
+
+	<%= error_block(@journal) %>
+
+	<%= f.string_cell :title, "Title" %>
+	<%= f.text_cell   :summary, class: :minor %>
+
+	<%  current_articles = @journal.current_articles %>
+	<%= current_articles.show %>
+
+	<%= nestset(current_articles) do %>
+		<%= current_articles.fields(f) %>
+		<p class="add-cell">
+			<%= link_to_add_association "+ Add Article", f, current_articles.klass, :partial => current_articles.partial %>
+		</p>
+	<% end %>
+	
+	<%= render @journal.meta_fields, f: f %>
+	<%= render @journal.tag_fields,  f: f %>
+
+	<%= f.submit_cell %>
+<% end %>

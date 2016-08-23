@@ -1,0 +1,153 @@
+// STYLE PARTIAL: FIELDSETS
+// ***********************************************
+// SECTION :: GENERAL
+// ===============================================
+.primary-fieldset {
+	border: none;
+	overflow: auto;
+}
+
+.solo-fieldset {
+	padding-top: 0.75em;
+	border:      0.25em solid $page-light-minor;
+
+	.taggable-field {
+		margin-top: 10px;
+	}
+}
+
+// SECTION :: ASSOCIATIVE
+// ===============================================
+.associative-fieldset {
+	border:        0.25em solid $page-dark-minor;
+	border-radius: 0.75em;
+	margin-top:    10px;
+
+	& > legend {
+		background:  $page-dark-minor;
+		color:       $page-lightest-minor;
+		margin:      0 -0.825em;
+		padding:     13px 10px 7px;
+		width:       calc(100% + 0.36em);
+		font-weight: bolder;
+	}
+}
+
+// SECTION :: NESTED GENERAL
+// ===============================================
+.nested-fieldset {
+	background: $page-lightest-major;
+	border:     3px solid $water-color;
+	margin-top: 10px;
+
+	& > legend {
+		background:    $page-lighter-major;
+		border:        3px solid $water-color;
+		border-radius: 5px;
+		padding:       10px;
+		font-weight:   bolder;
+	}
+}
+
+.add-cell a,
+.remove-cell a {
+	padding:         5px;
+	border-radius:   5px;
+	font-weight:     bolder;
+	text-decoration: none;
+	display:         inline-block;
+}
+
+.add-cell {
+	margin-top: 10px;
+	padding:    0px;
+	clear:      both;
+
+	a {
+		background: $water-darker-minor;
+		color:      $water-lighter-major;
+
+		&:hover {
+			background: $water-color;
+		}
+	}
+}
+
+.remove-cell {
+	margin-bottom: 10px;
+	padding:       0;
+	text-align:    right;
+
+	a {
+		background: $fire-dark-major;
+		color:      $fire-lighter-major;
+
+		&:hover {
+			background: $fire-color;
+		}
+	}
+}
+
+// SECTION :: NESTED PAGES
+// ===============================================
+.paged-fieldset {
+	background:    $page-lightest-minor;
+	margin-bottom: 5px;
+	border:        3px solid $water-light-major;
+
+	.string-field input {
+		border-color: $water-light-major;
+	}
+
+	.text-field .field-value {
+		border-color: $water-light-major;
+	}
+
+	legend .string-field {
+		padding: 0;
+
+		.field-label {
+			display: none;
+		}
+	}
+}
+
+// SECTION :: NESTED TAGS
+// ===============================================
+.nested-tags-fieldset {
+	margin-top: 10px;
+
+	& > legend {
+		border-radius: 1em;
+		padding:       10px;
+		width:         100%;
+		font-weight:   bolder;
+
+		background:    $page-lightest-major;
+		border:        0.25em solid $fire-light-minor;
+		color:         $fire-darker-minor;
+	}
+}
+
+.nested-contained-fieldset,
+.nested-tags-fieldset {
+	background: $page-color;
+	border:     0.25em solid $water-dark-minor;
+}
+
+.nested-tags-fieldset .nested-tags-fieldset {
+	padding:    1px;
+	background: $fire-light-major;
+	border:     0.125em solid $fire-dark-minor;
+
+	& > legend {
+		display: none;
+	}
+}
+
+.nested-place-fields {
+	background: $page-color;
+}
+
+/* END
+/* ***********************************************/

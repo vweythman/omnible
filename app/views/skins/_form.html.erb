@@ -1,28 +1,12 @@
-<%= form_for(@skin) do |f| %>
+<%= clean_form_for(@skin) do |f| %>
 
-	<% if @skin.errors.any? %>
-		<div id="error_explanation">
-			<h2><%= pluralize(@skin.errors.count, "error") %> prohibited this skin from being saved:</h2>
+	<%= error_block(@skin) %>
 
-			<ul>
-			<% @skin.errors.full_messages.each do |message| %>
-				<li><%= message %></li>
-			<% end %>
-			</ul>
-		</div>
-	<% end %>
-
-	<fieldset class="primary">
-		<%= string_panel f, :title, "Write Title" %>
-		<%= text_panel   f, :style, :major, "Stylesheet" %>
-
-		<%= solo_cell "field" do %>
-			<div class="field-content"><%= f.label(:status, "Publicity") %></div>
-			<div class="field-content">
-				<%= f.select(:status, options_for_select(Skin.statuses, selected: 'Public')) %>
-			</div>
-		<% end %>
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :title, "Stylesheet Title" %>
+		<%= f.text_cell   :style, class: :major %>
+		<%= f.drop_selection_cell :status, Skin.statuses, "Publicity", selected: 'Public' %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

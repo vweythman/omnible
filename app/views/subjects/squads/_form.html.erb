@@ -1,18 +1,31 @@
-<%= form_for(@squad) do |f| %>
+<%= clean_form_for(@squad) do |f| %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :name, "Write Name" %>
-		<%= string_panel f, :label, "Write Group Type" %>
-		<%= text_panel   f, :description, :minor, "Write Description" %>
-
+	<%= error_block(@squad) %>
+	<fieldset class="primary-fieldset">
 		<%= grid_panel do %>
-			<%= panel_cell "duo squad-tags" do %>
-				<%= taggables(["squad","tags"], @squad.current_tags, "Tags") %>
-				<%= taggables(["squad","people"], @squad.current_characters, "Characters") %>
-				<%= taggables(["squad","relateables"], @squad.current_connections, "Relationships") %>
+			<%= panel_cell "duo" do %>
+				<%= f.string_cell :name,   "Group Name" %>
 			<% end %>
 			<%= panel_cell "duo" do %>
-				<div class="clarify">
+				<%= f.string_cell :label, "Group Type" %>
+			<% end %>
+		<% end %>
+
+		<%= f.text_cell :description, class: :minor %>
+		<%= f.edit_and_view_fields %>
+	</fieldset>
+
+	<div class="nested-contained-fieldset">
+		<%= grid_panel do %>
+			<%= panel_cell "duo" do %>
+				<div class="squad-tags">
+					<%= tag_field_cell(["squad","tags"], @squad.current_tags, "Tags") %>
+					<%= tag_field_cell(["squad","people"], @squad.current_characters, "Characters") %>
+					<%= tag_field_cell(["squad","relateables"], @squad.current_connections, "Relationships") %>
+				</div>
+			<% end %>
+			<%= panel_cell "duo" do %>
+				<div class="tooltip">
 					<p>Tagging characters in both the relationship tags and the characters tags is <b>redundant</b> but <b>permitted.</b></p>
 					<p>The positions of the character names are only important when there are two labels. <%= link_to "See here for all relationship types", relators_url %></p>
 					<p>Example relationship tags</p>
@@ -32,18 +45,8 @@
 
 			<% end %>
 		<% end %>
-		<%= render 'shared/forms/edit_fields', f: f %>
-	</fieldset>
+	</div>
 
-	<%= submit_panel f %>
-
-<style type="text/css">
-.squad-tags .tag-input {
-	width: calc(100% - 5px);
-}
-.clarify {
-	margin-right: 0;
-}
-</style>
+	<%= f.submit_cell %>
 
 <% end %>

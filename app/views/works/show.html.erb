@@ -25,35 +25,42 @@
 
 	<%= page_widget "Tags" do %>
 		<% Tagging.work_labels.each do |form| %>
-			<% tags = @work.organized_true_tags_by form %>
+			<% tags = @work.ordered_true_tags form %>
 	
 			<%= render 'works/shared/grouping_tags', 
 				heading: (form.titleize + " Tags"), 
 				tags:    tags,
 				gclass:  "#{form}-tags", 
-				tclass:  "#{form}-tag tag"
+				topts:   {
+					class: "#{form}-tag tag"
+				}
 			%>
 		<% end %>
 
 		<%= render 'works/shared/grouping_tags', heading: "Places", tags: @work.places, gclass: "places", tclass: "place-tag" %>
 
 		<% Appearance.tag_labels(@work).each do |role| %>
-			<% characters = @work.cohort_group_by role[:label] %>
+			<% characters = @work.ordered_characters.group_by role[:label] %>
 			<%= render 'works/shared/grouping_tags', 
 				heading: role[:heading], 
 				tags:    characters,
 				gclass:  "#{role[:label]}-characters", 
-				tclass:  "#{role[:label]}-character character-tag"
+				topts:   {
+					class: "#{role[:label]}-character character-tag",
+					type: role[:label]
+				}
 			%>
 		<% end %>
 
 		<% WorkConnection.tag_labels(@work).each do |role| %>
-			<% works = @work.organized_works_by role[:label] %>
+			<% works = @work.ordered_works.group_by role[:label] %>
 			<%= render 'works/shared/grouping_tags', 
 				heading: role[:heading], 
 				tags:    works,
 				gclass:  "#{role[:label]}-works", 
-				tclass:  "#{role[:label]}-works work-tag"
+				topts:   {
+					class: "#{role[:label]}-works work-tag"
+				}
 			%>
 		<% end %>
 
@@ -63,5 +70,5 @@
 </div>
 
 <footer class="path-finder">
-	<%= link_to t("All Works"), works_path %>
+	<%= link_to t('pather.works'), works_path %>
 </footer>

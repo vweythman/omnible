@@ -12,6 +12,7 @@
 #  created_at      | datetime    | must be earlier or equal to updated_at
 #  updated_at      | datetime    | must be later or equal to created_at
 # ================================================================================
+
 class CreatorCategory < ActiveRecord::Base
 
 	# VALIDATIONS

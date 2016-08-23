@@ -12,7 +12,7 @@ module Collectables
 		end
 
 		def klass
-			:sublocalities
+			@klass ||= :sublocalities
 		end
 
 		def partial

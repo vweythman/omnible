@@ -1,59 +1,62 @@
-<%= form_for(@character) do |f| %>
+<%= clean_form_for(@character) do |f| %>
 
-	<ul>
-		<% @character.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-	</ul>
+	<%= error_block(@character) %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :name, "Character Name" %>
-		<%= render 'shared/forms/edit_fields', f: f %>
-
-		<div class="restrictions">
-			<%= boolean_field(f, :allow_clones, "Allow Users to Make Taggable Copies of This Character") %>
-			<%= boolean_field(f, :allow_play,   "Allow Users to Make Roleplayable Copies of This Character") %>
-			<%= boolean_field(f, :can_connect,  "Allow Users to Tag This Character in Relationships") %>
-		</div>
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :name, "Character Name" %>
+		<%= f.edit_and_view_fields %>
 	</fieldset>
 
-	<fieldset class="about">
+	<fieldset class="associative-fieldset">
 		<legend>About</legend>
 
 		<div class="other-names">
-			<%= taggables(["character", "variations"], @character.variant_names, "Add Other Names") %>
+			<%= tag_field_cell(["character", "variations"], @character.variant_names, "Other Names (Optional)") %>
 		</div>
 
-		<%= render :layout => nested_partial, :locals => { :models => @text } do %>
+		<%= @text.show %>
+		<%= nestset(@text) do %>
 			<%= @text.fields(f) %>
-			<p class="add-cell"><%= link_to_add_association "+ Add Detail", f, @text.klass, :partial => @text.partial %></p>
+			<p class="add-cell">
+				<%= link_to_add_association "+ Add Detail", f, @text.klass, :partial => @text.partial %>
+			</p>
 		<% end %>
 
-		<%= render :layout => nested_partial, :locals => { :models => @identities } do %>
+		<%= @identities.show %>
+		<%= nestset(@identities) do %>
 			<%= @identities.fields %>
 		<% end %>
 
 		<%= render 'subjects/characters/fields/relationships_tags' %>
 
-		<%= render :layout => nested_partial, :locals => { :models => @items } do %>
+		<%= @items.show %>
+		<%= nestset(@items) do %>
 			<%= @items.fields(f) %>
-			<p class="add-cell"><%= link_to_add_association "+ Add Item", f, @items.klass, :partial=> @items.partial %></p>
+			<p class="add-cell">
+				<%= link_to_add_association "+ Add Item", f, @items.klass, :partial=> @items.partial %>
+			</p>
 		<% end %>
 	</fieldset>
 
-	<fieldset class="about">
-		<legend>Opinions and Prejudices</legend>
+	<fieldset class="associative-fieldset">
+		<legend>Opinions and Prejudices (Optional)</legend>
 
-		<%= render :layout => nested_partial, :locals => { :models => @prejudices } do %>
+		<%= @prejudices.show %>
+		<%= nestset(@prejudices) do %>
 			<%= @prejudices.fields(f) %>
-			<p class="add-cell"><%= link_to_add_association "+ Add Prejudice", f, @prejudices.klass, :partial=> @prejudices.partial %></p>
+			<p class="add-cell">
+				<%= link_to_add_association "+ Add Prejudice", f, @prejudices.klass, :partial=> @prejudices.partial %>
+			</p>
 		<% end %>
 
-		<%= render :layout => nested_partial, :locals => { :models => @opinions } do %>
+		<%= @opinions.show %>
+		<%= nestset(@opinions) do %>
 			<%= @opinions.fields(f) %>
-			<p class="add-cell"><%= link_to_add_association "+ Add Opinion", f, @opinions.klass, :partial=> @opinions.partial %></p>
+			<p class="add-cell">
+				<%= link_to_add_association "+ Add Opinion", f, @opinions.klass, :partial=> @opinions.partial %>
+			</p>
 		<% end %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

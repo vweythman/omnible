@@ -78,13 +78,19 @@ module ContentHelper
 	# ============================================================
 	# OUTPUT comma separated links
 	def cslinks(links, link_options={})
-		r = links.map {|i| link_to i.heading, i, link_options }
-		r.join(", ").html_safe
+		r = links.map {|i| link_to i.heading, i, link_options }.join(", ").html_safe
 	end
 
-	def tag_group(list, group_options = {}, tag_options = {})
+	def cstags(links, choice, link_options={})
+		r = links.map {|i|
+			ul = 
+			link_to i.heading, (url_for(i) + '/' + choice), link_options
+		}.join(", ").html_safe
+	end
+
+	def tag_group(list, group, group_options = {}, tag_options = {})
 		content_tag :p, group_options do
-			cslinks(list, tag_options)
+			cstags(list, group, tag_options)
 		end
 	end
 

@@ -1,26 +1,28 @@
-<aside class='filters'>
-	<% @works.filter_values.each do |key, group| %>
-		<div>
-			<h2><%= group[:title] %></h2>
-			<%= filter_selects group[:type], group[:values] %>
+<div class="filters">
+	<aside>
+		<% @works.filter_values.each do |key, group| %>
+			<div>
+				<h2><%= group[:title] %></h2>
+				<%= filter_selects group[:type], group[:values] %>
+			</div>
+		<% end %>
+	</aside>
+
+	<aside>
+		<h2>With</h2>
+		<div id="tag-inclusion-filters">
+			<% WorkConnection.all_labels.each do |group| %>
+				<%# filter_tags(:with, :works, group, WorkConnection.filter_labels[group]) %>
+			<% end %>
 		</div>
-	<% end %>
-</aside>
+	</aside>
 
-<aside class='filters'>
-	<h2>With</h2>
-	<div id="tag-inclusion-filters">
-		<% WorkConnection.all_labels.each do |group| %>
-			<%# filter_tags(:with, :works, group, WorkConnection.filter_labels[group]) %>
-		<% end %>
-	</div>
-</aside>
-
-<aside class='filters'>
-	<h2>Without</h2>
-	<div id="tag-exclusion-filters">
-		<% WorkConnection.all_labels.each do |group| %>
-			<%# filter_tags(:without, :works, group, WorkConnection.filter_labels[group]) %>
-		<% end %>
-	</div>
-</aside>
+	<aside>
+		<h2>Without</h2>
+		<div id="tag-exclusion-filters">
+			<% WorkConnection.all_labels.each do |group| %>
+				<%# filter_tags(:without, :works, group, WorkConnection.filter_labels[group]) %>
+			<% end %>
+		</div>
+	</aside>
+</div>

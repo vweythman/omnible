@@ -1,19 +1,12 @@
-<%= form_for(@story) do |f| %>
+<%= clean_form_for(@story) do |f| %>
 
-	<ul>
-		<% @story.errors.full_messages.each do |msg| %>
-		<li><%= msg %></li>
-		<% end %>
-	</ul>
+	<%= error_block(@story) %>
 
-	<fieldset class="primary">
-		<%= render @story.primary_fields, f: f %>
-	</fieldset>
+	<%= f.string_cell :title, "Title" %>
+	<%= f.text_cell   :summary, {class: :minor}, true %>
 
-	<fieldset class='nested'>
-		<legend>
-			<%= @story.trunk.nil? ? "First Branch" : "Branches" %>
-		</legend>
+	<fieldset class='nested-fieldset nested-branches-fieldset'>
+		<legend><%= @story.trunk.nil? ? "First Branch" : "Branches" %></legend>
 
 		<%= f.fields_for :branches do |branch| %>
 			<div class="branch">
@@ -22,7 +15,8 @@
 		<% end %>
 	</fieldset>
 
+	<%= render @story.meta_fields, f: f %>
 	<%= render @story.tag_fields, f: f %>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

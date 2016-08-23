@@ -46,6 +46,8 @@ class Tagging < ActiveRecord::Base
 	scope :tagger_by_tag,         ->(ws, tgr_type) { tagger_by_tag_names(ws, :tagger_id, :tag).where(tagger_type: tgr_type) }
 	scope :tagger_by_grouped_tag, ->(nat, ws, tgr_type) { where(form: nat).tagger_by_tag(ws, tgr_type) }
 
+	scope :with_tag, -> { includes(:tag) }
+
 	# ASSOCIATIONS
 	# ============================================================
 	# BELONGS TO

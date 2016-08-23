@@ -54,7 +54,7 @@ class Tag < ActiveRecord::Base
 	has_many :articles,      -> { Work.articles },      through: :taggings, source: :tagger, source_type: "Work"
 	has_many :short_stories, -> { Work.short_stories }, through: :taggings, source: :tagger, source_type: "Work"
 	has_many :stories,       -> { Work.stories },       through: :taggings, source: :tagger, source_type: "Work"
-	has_many :story_links,   -> { Work.story_links },   through: :taggings, source: :tagger, source_type: "Work"
+	has_many :work_links,    -> { Work.work_links },    through: :taggings, source: :tagger, source_type: "Work"
 
 	# CLASS METHODS
 	# ============================================================

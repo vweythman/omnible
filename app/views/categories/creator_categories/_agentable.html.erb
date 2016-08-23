@@ -11,7 +11,7 @@
 			<tr>
 				<th><%= link_to type.heading, work_category_path(type) %></th>
 				<td class="switch-state">
-					<%= toggle_panel "category", type.id, @creator_category.connected?(type) %>
+					<%= toggle_field_cell "category", type.id, @creator_category.connected?(type) %>
 				</td>
 			</tr>
 		<% end %>
@@ -19,7 +19,7 @@
 </table>
 
 <script type="text/javascript">
-$('.switch-button .switch').click(function() {
+$('.switch-field .switch').click(function() {
 
 	if ($(this).is(':checked')) {
 		$.ajax({

@@ -33,7 +33,7 @@ module CreativeContent
 		# ============================================================
 		def choose_creator_category
 			if multiple_creator_categories?
-				h.simple_selection_panel "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
+				h.selection_field_cell "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
 			else
 				@category = self.creator_categories.first
 				h.capture do

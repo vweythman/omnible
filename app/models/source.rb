@@ -20,7 +20,7 @@ class Source < ActiveRecord::Base
 
 	# VALIDATIONS
 	# ------------------------------------------------------------
-	validates :reference, :url => true
+	validates :reference, presence: true, :url => true
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
@@ -30,6 +30,14 @@ class Source < ActiveRecord::Base
 	# ------------------------------------------------------------
 	def pathing
 		(reference.match /^https?:\/\//) ? reference : "http://#{reference}"
+	end
+
+	def parsed
+		@parsed ||= Addressable::URI.parse(pathing)
+	end
+
+	def host
+		parsed.host
 	end
 
 end

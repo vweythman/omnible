@@ -1,11 +1,19 @@
-<%= form_for(@item) do |f| %>
+<%= clean_form_for(@item) do |f| %>
+	<%= error_block(@item) %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :nature, "Describe Type" %>
-		<%= string_panel f, :name,   "Name Item"     %>
-		<%= taggables(["item","descriptions"], @item.current_tags, "General Tags") %>
+	<fieldset class="primary-fieldset solo-fieldset">
+		<%= grid_panel do %>
+			<%= panel_cell "duo" do %>
+				<%= f.string_cell :name,   "Item Name" %>
+			<% end %>
+			<%= panel_cell "duo" do %>
+				<%= f.string_cell :nature, "Item Type" %>
+			<% end %>
+		<% end %>
+
+		<%= tag_field_cell(["item","descriptions"], @item.current_tags, "General Tags") %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 
 <% end %>

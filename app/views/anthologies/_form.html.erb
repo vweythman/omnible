@@ -1,14 +1,21 @@
-<%= form_for(@anthology) do |f| %>
+<%= clean_form_for(@anthology) do |f| %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :name, "Add Name of Anthology" %>
-		<%= text_panel   f, :summary, :minor, "Add Summary" %>
+	<%= error_block(@anthology) %>
+
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :name,    "Name of Anthology"   %>
+		<%= f.text_cell   :summary, {class: :minor}, true %>
 	</fieldset>
 
-	<%= render :layout => nested_partial, :locals => { :models => @anthology.current_works } do %>
-		<%= @anthology.current_works.fields(f) %>
-		<p class="add-cell"><%= link_to_add_association "+ Add Work", f, @anthology.current_works.klass, :partial => @anthology.current_works.partial %></p>
+	<% current_works = @anthology.current_works %>
+
+	<%= current_works.show %>
+	<%= nestset(current_works) do %>
+		<%= current_works.fields(f) %>
+		<p class="add-cell">
+			<%= link_to_add_association "+ Add Work", f, current_works.klass, :partial => current_works.partial %>
+		</p>
 	<% end %>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

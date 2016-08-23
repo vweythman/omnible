@@ -9,13 +9,21 @@
 </header>
 
 <div class="index-body">
-	<%= grid_panel "filtered" do %>
-		<%= paginated_panel(@works) do %>
-			<%= @works.snippets %>
-			<%= @works.link_display_question %>
-		<% end %>
-		<%= panel_cell "golden-minor" do @works.filters end %>
-	<% end %>
+	<div class="results">
+		<header><%= paginate @works, :window => @works.page_window %></header>
+
+		<div class="filtered">
+			<%= grid_panel do %>
+				<%= panel_cell "results-body golden-major" do %>
+					<%= @works.snippets %>
+					<%= @works.link_display_question %>
+				<% end %>
+				<%= panel_cell "golden-minor" do @works.filters end %>
+			<% end %>
+		</div>
+
+		<footer><%= paginate @works, :window => @works.page_window %></footer>
+	</div>
 </div>
 
 <script type="text/javascript">

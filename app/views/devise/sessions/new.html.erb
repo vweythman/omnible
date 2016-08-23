@@ -1,19 +1,19 @@
 <h2>Sign in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= clean_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
 	<%= devise_error_messages! %>
 
 	<div class="form-grid">
-		<%= input_email    f %>
-		<%= input_password f, :password %>
+		<%= f.email_cell %>
+		<%= f.password_cell :password %>
 	</div>
 
 	<% if devise_mapping.rememberable? %>
-		<div class="rememberable"><%= boolean_field f, :remember_me %></div>
+		<%= f.boolean_cell :remember_me %>
 	<% end %>
 
-	<%= submit_panel f, "Sign In" %>
+	<%= f.submit_cell "Sign In" %>
 <% end %>
 
 <footer>

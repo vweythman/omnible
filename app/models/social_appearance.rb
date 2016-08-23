@@ -35,6 +35,8 @@ class SocialAppearance < ActiveRecord::Base
 	scope :tagger_by_squads,         ->(ws)      { tagger_by_tag_names(ws, :work_id, :social_group) }
 	scope :tagger_by_grouped_squads, ->(nat, ws) { where(form: nat).tagger_by_squads(ws) }
 
+	scope :with_squad, -> { includes(:social_group) }
+
 	# CLASS METHODS
 	# ============================================================
 	def self.labels
@@ -43,6 +45,23 @@ class SocialAppearance < ActiveRecord::Base
 
 	def self.data_labels
 		[:main_ship, :side_ship, :anti_ship, :social_group]
+	end
+
+	def self.subject_labels
+		{
+			main_ship:    'Subject (Ship)', 
+			anti_ship:    'Subject (Anti Ship)', 
+			social_group: 'Subject (Group)'
+		}
+	end
+
+	def self.narrative_labels
+		{
+			main_ship:    'Main Ship Tags', 
+			side_ship:    'Side Ship Tags', 
+			anti_ship:    'Anti Ship Tags', 
+			social_group: 'Group tags'
+		}
 	end
 
 	# ASSOCIATIONS

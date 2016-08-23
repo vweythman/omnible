@@ -1,12 +1,9 @@
-<%= form_for(@branching) do |f| %>
+<%= clean_form_for(@branching) do |f| %>
 
-	<fieldset class="branch page-fields">
-		<legend><%= string_panel f, :heading, "Write Link" %></legend>
+	<div class="primary-fieldset">
+		<%= panel_cell "golden-minor" do f.string_cell :heading, "Link Text", placeholder: "Write Link Text" end %>
+		<%= panel_cell "golden-major" do f.drop_selection_cell :child_node_id, @parent_branch.graftable_options, "Branches" end %>
+	</div>
 
-		<div class="page-grid form-grid">
-		<%= simple_selection_panel "[branching][child_node_id]", @branching.grafting_options(@parent_branch), "Branches" %>
-		</div>
-	</fieldset>
-
-	<%= submit_panel f, "Update" %>
+	<%= f.submit_cell "Update" %>
 <% end %>

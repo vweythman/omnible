@@ -3,7 +3,7 @@ class MusicVideoDecorator < WorkDecorator
 	# PUBLIC METHODS
 	# ============================================================
 	def klass
-		:music_video
+		@klass ||= :music_video
 	end
 
 	def icon_choice

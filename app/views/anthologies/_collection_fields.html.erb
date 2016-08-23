@@ -1,7 +1,4 @@
-<fieldset class='nested-fields'>
-
-	<%= selectables f, :work_id, @anthology.possible %>
-
-	<p class="remove-cell"><%= link_to_remove_association "- Remove Work", f %></p>
-	
-</fieldset>
+<div class='nested-fields nested-work-fields'>
+	<%= f.selectable_cell :work_id, @anthology.possible %>
+	<p class="remove-cell"><%= link_to_remove_association "- Remove Work", f %></p>	
+</div>

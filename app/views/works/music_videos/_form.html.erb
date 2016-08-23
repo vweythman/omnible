@@ -1,22 +1,19 @@
-<%= form_for(@video) do |f| %>
+<%= clean_form_for(@video) do |f| %>
 
-	<ul>
-		<% @video.errors.full_messages.each do |msg| %>
-		<li><%= msg %></li>
+	<%= error_block(@video) %>
+
+	<fieldset class="primary-fieldset">
+		<%= panel_cell "duo" do f.string_cell :title, "Title" end %>
+		<%= panel_cell "duo" do %>
+			<%= f.fields_for :embedded_link do |b| %>
+				<%= b.string_cell :reference, "Embed Video Link" %>
+			<% end %>
 		<% end %>
-	</ul>
 
-	<fieldset class="primary">
-		<%= string_panel f, :title, "Write Title" %>
-
-		<%= solo_cell do text_panel(f, :summary, :minor, "Description") end %>
-
-		<%= f.fields_for :embedded_link do |b| %>
-			<%= string_panel b, :reference, "Embed" %>
-		<% end %>
+		<%= solo_cell do f.text_cell(:summary, class: :minor) end %>
 	</fieldset>
 
 	<%= render @video.tag_fields, f: f %>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

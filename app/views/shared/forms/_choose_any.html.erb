@@ -1,8 +1,0 @@
-<div class="form-grid choose-any">
-	<% collection.each do |item| %>
-		<%= solo_cell do %>
-			<%= f.check_box value, {:multiple => true}, item.id %>
-			<%= f.label value, item.heading, value: item.id %>
-			<% end %>
-	<% end %>
-</div>

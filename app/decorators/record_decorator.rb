@@ -9,7 +9,7 @@ class RecordDecorator < WorkDecorator
 	end
 
 	def klass
-		:record
+		@klass ||= :record
 	end
 
 	def icon_choice

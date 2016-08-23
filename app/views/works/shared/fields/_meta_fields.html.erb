@@ -1,0 +1,30 @@
+<%= show_link("Work Metadata", :meta) %>
+<fieldset class="associative-fieldset work-meta-fieldset" id="form_meta">
+	<legend>
+		Work Metadata
+		<%= hide_link(:meta) %>
+	</legend>
+	
+	<%= f.edit_and_view_fields %>
+	<%= render @work.creatorship_fields %>
+
+	<div class="meta-selections">
+		<%= f.drop_selection_cell(:language, ['English', 'Spanish'], 'Language', selected: @work.language) %>
+
+		<% if @work.onsite_multishot? %>
+			<%= f.drop_selection_cell(:status, Work.public_status_labels, 'Status', selected: @work.status) %>
+		<% end %>
+
+		<% if @work.can_skin? %>
+			<%= f.fields_for :skinning do |fdr| %>
+				<%= fdr.selection_cell(:skin_id, @work.chooseable_skins, "Stylesheet (Optional)", :id, :title, include_blank: true) %>
+			<% end %>
+		<% end %>
+	</div>
+
+	<% if @work.uploader?(current_user) %>
+		<%= f.fields_for :rating do |rating_builder| %>
+			<%= render 'works/shared/fields/rating_fields', f: rating_builder %>
+		<% end %>
+	<% end %>
+</fieldset>

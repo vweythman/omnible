@@ -19,6 +19,10 @@
 
 class Place < ActiveRecord::Base
 
+	# VALIDATIONS
+	# ============================================================
+	validates :name, presence: true, length: { maximum: 100 }
+
 	# MODULES
 	# ============================================================
 	include Documentable

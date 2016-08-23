@@ -1,9 +1,9 @@
 <h2>Resend confirmation instructions</h2>
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+<%= clean_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
 
 	<%= devise_error_messages! %>
-	<%= input_email f %>
-	<%= submit_panel f, "Resend confirmation instructions" %>
+	<%= f.email_cell %>
+	<%= f.submit_cell "Resend confirmation instructions" %>
 <% end %>
 
 <footer>

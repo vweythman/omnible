@@ -1,11 +1,15 @@
-<%= form_for(@short) do |f| %>
+<%= clean_form_for(@short) do |f| %>
 
-	<fieldset class="primary">
-		<%= render @short.primary_fields, f: f %>
-		<%= text_panel f, :story_content, :major, "Write Story" %>
+	<%= error_block(@short) %>
+
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :title, "Title" %>
+		<%= f.text_cell   :summary, { class: :minor }, true %>
+		<%= f.text_cell   :story_content, class: :major %>
+		<%= render @short.meta_fields, f: f %>
 	</fieldset>
 	
 	<%= render @short.tag_fields, f: f %>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

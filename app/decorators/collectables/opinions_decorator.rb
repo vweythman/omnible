@@ -10,7 +10,7 @@ module Collectables
 		# -- About
 		# ............................................................
 		def klass
-			:opinions
+			@klass ||= :opinions
 		end
 
 		def heading

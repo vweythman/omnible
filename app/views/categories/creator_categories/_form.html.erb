@@ -1,20 +1,23 @@
 <% remote ||= false %>
-<%= form_for @creator_category, remote: remote do |f| %>
+
+<%= clean_form_for(@creator_category, remote: remote) do |f| %>
+
+	<%= error_block(@creator_category) %>
 
 	<fieldset class="form-grid primary">
-		<%= string_panel f, :name, "writer, singer, illustrator...", "Name" %>
-		<%= string_panel f, :agentive, "written by, sung by, illustrated by...", "Inflected Form" %>
+		<%= f.string_cell :name, "Name" %>
+		<%= f.string_cell :agentive, "Inflected Agentive", placeholder: "written by, sung by, illustrated by..." %>
 	</fieldset>
 
 	<% unless remote %>
-		<fieldset class="nested">
+		<fieldset class="associative-fieldset">
 			<legend>Used By</legend>
-			<%= choose_any f, :work_types, WorksTypeDescriber.all %>
+			<%= f.multiple_choice :work_types, WorksTypeDescriber.all %>
 		</fieldset>
 	<% else %>
 		<%= f.hidden_field :work_types, value: @creator_category.describers.pluck(:id) %>
 	<% end %>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 
 <% end %>

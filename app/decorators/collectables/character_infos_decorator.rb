@@ -10,15 +10,11 @@ module Collectables
 		# -- About
 		# ............................................................
 		def heading
-			"Details"
+			"Detail"
 		end
 
 		def show_heading
 			"Detailed Description"
-		end
-
-		def nest_class
-			"nested textable"
 		end
 
 		def klass

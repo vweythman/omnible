@@ -1,33 +1,46 @@
 <% cache('site_menu_options') do %>
 	<nav class="menu">
 		<ul>
-			<li><%= link_to t("Media"), mediums_path %></li>
-			<li><%= link_to drop_arrowed(t("Works")), works_path %>
+			<li><%= link_to t("menu.media"), mediums_path %></li>
+			<li><%= link_to drop_arrowed(t('menu.works')), works_path %>
 				<ul class="submenu">
-					<li><%= link_to 'Fiction', fiction_index_path %></li>
-					<li><%= link_to 'Nonfiction', nonfiction_index_path %></li>
+					<li><%= link_to t('menu.fiction'), fiction_index_path %></li>
+					<li><%= link_to t('menu.nonfiction'), nonfiction_index_path %></li>
+
+					<li><%= link_to t('menu.work_types.articles'), articles_path %></li>
+					<li><%= link_to t('menu.work_types.journals'), journals_path %></li>
+
+					<li><%= link_to t('menu.work_types.artwork'), artwork_path %></li>
+
+					<li><%= link_to t('menu.work_types.music_videos'), music_videos_path %></li>
+
+					<li><%= link_to t('menu.work_types.poems'), poems_path %></li>
+
+					<li><%= link_to t('menu.work_types.stories'), stories_path %></li>
+					<li><%= link_to t('menu.work_types.branching_stories'), branching_stories_path %></li>
+					<li><%= link_to t('menu.work_types.short_stories'), short_stories_path %></li>
 				</ul>
 			</li>
-			<li><%= link_to t('Anthologies'), anthologies_path %> </li>
+			<li><%= link_to t('menu.anthologies'), anthologies_path %> </li>
 			<li>
-				<%= link_to drop_arrowed(t("Subjects")), subjects_path %>
+				<%= link_to drop_arrowed(t('menu.subjects')), subjects_path %>
 				<ul class="submenu">
-					<li><%= link_to t('Characters'), characters_path %></li>
-					<li><%= link_to t('Groups'), squads_path %></li>
-					<li><%= link_to t('Items'), items_path %></li>
-					<li><%= link_to t('Places'), places_path %></li>
+					<li><%= link_to t('menu.characters'), characters_path %></li>
+					<li><%= link_to t('menu.groups'), squads_path %></li>
+					<li><%= link_to t('menu.items'), items_path %></li>
+					<li><%= link_to t('menu.places'), places_path %></li>
 				</ul>
 			</li>
 			
 			<% if user_signed_in? && current_user.admin? %>
 				<li>
-					<%= link_to drop_arrowed(t("Tags")), all_tags_path %>
+					<%= link_to drop_arrowed(t('menu.all_tags')), all_tags_path %>
 					<ul class="submenu">
-						<li><%= link_to t('Tags'), tags_path %></li>
-						<li><%= link_to t('Identities'), identities_path %></li>
-						<li><%= link_to t("Creator Categories"), creator_categories_path %></li>
-						<li><%= link_to t('Relationships Categories'), relators_path %></li>
-						<li><%= link_to t("Identities Categories"), facets_path %></li>
+						<li><%= link_to t('menu.tags'), tags_path %></li>
+						<li><%= link_to t('menu.identities'), identities_path %></li>
+						<li><%= link_to t('menu.cat.creator'), creator_categories_path %></li>
+						<li><%= link_to t('menu.cat.relator'), relators_path %></li>
+						<li><%= link_to t('menu.cat.identities'), facets_path %></li>
 					</ul>
 				</li>
 			<% end %>

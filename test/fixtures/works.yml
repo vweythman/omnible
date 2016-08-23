@@ -193,7 +193,7 @@ zoologist:
   uploader: indra
   editor_level: <%= Editable::MEMBERS_ONLY %>
   publicity_level: <%= Editable::PUBLIC %>
-  type: StoryLink
+  type: WorkLink
   is_complete: true
   status: unknown
 
@@ -202,7 +202,7 @@ windstorm:
   uploader: sirka
   editor_level: <%= Editable::PERSONAL %>
   publicity_level: <%= Editable::FRIENDS_N_FOLLOWERS %>
-  type: StoryLink
+  type: WorkLink
   is_complete: true
   status: unknown
 
@@ -211,6 +211,6 @@ viperfish:
   uploader: amiya
   editor_level: <%= Editable::MEMBERS_ONLY %>
   publicity_level: <%= Editable::MEMBERS_ONLY %>
-  type: StoryLink
+  type: WorkLink
   is_complete: true
   status: unknown

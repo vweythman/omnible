@@ -1,2 +1,29 @@
-<h1>Journals#show</h1>
-<p>Find me in app/views/journals/show.html.erb</p>
+<% provide(:title, @work.title) %>
+
+<header class="work-header">
+	<h1><%= @work.title %></h1>
+	<%= @work.completion_status %>
+	<div class="about">
+		<%= @work.all_tags_line %>
+		<%= @work.summarized %>
+	</div>
+	<%= @work.edit_bar %>
+</header>
+
+<div class="subject-body">
+	<%= page_widget "Articles" do %>
+		<% @work.current_articles.each do |article| %>
+			<h3><%= article.title %></h3>
+
+			<p><%= article.time_started.html_safe %> | <%= article.time_updated.html_safe %></p>
+		<% end %>
+	<% end %>
+</div>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to t('pather.journals'), journals_path %> |
+		<%= link_to t('pather.nonfiction'), nonfiction_index_path %> |
+		<%= link_to t('pather.works'), works_path %>
+	</p>
+</footer>

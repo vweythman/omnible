@@ -1,11 +1,11 @@
 <%= show_link "Relationships", :relationships %>
 
-<%= content_tag :fieldset, class: "tags", id: "form_relationships" do %>
+<%= content_tag :fieldset, class: "nested-tags-fieldset", id: "form_relationships" do %>
 	<legend>Relationships<%= hide_link(:relationships) %></legend>
 
-	<p class="warning">Relationships can include what others have tagged for the other character or a group. Disable this above.</p>
+	<p class="tooltip tool-explain">Relationships can include what others have tagged.</p>
 
 	<% @character.relationship_tag_groups.each do |type, relator| %>
-		<%= taggables([relator[:id]], relator[:list], type.pluralize) %>
+		<%= tag_field_cell([relator[:id]], relator[:list], type.pluralize) %>
 	<% end %>
 <% end %>

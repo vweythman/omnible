@@ -34,8 +34,9 @@ $content-negate: $article-negate / 2;
 	.completion-status { margin: 0px $header-margin; }
 
 	.about {
-		color:        $page-lightest-minor;
-		margin:       0;
+		clear:  both;
+		color:  $page-lightest-minor;
+		margin: 0;
 		padding-left: 0;
 
 		a { color: $water-lightest-minor; }
@@ -67,7 +68,6 @@ $content-negate: $article-negate / 2;
 	margin:        5px 0;
 	color:         $page-color;
 	border-radius: 10px;
-    font-size:     .85em;
 }
 
 .level0 { background: $rating-lowest;  }
@@ -162,7 +162,7 @@ hr {
 		margin:     10px;
 		background: $page-color;
 		p {
-			padding: 5px 15px;
+			padding: 5px 15px 15px;
 		}
 	}
 
@@ -170,11 +170,11 @@ hr {
 		background: $fire-lighter-minor;
 		min-height: 75px;
 	}
-}
 
-.tags h3 {
-	font-size: 1em;
-	padding: 5px 15px 0;
+	h3 {
+		padding: 5px 15px 0;
+		font-size: 1em;
+	}
 }
 
 .subheading {
@@ -202,20 +202,6 @@ hr {
 	a {
 		color: $moss-dark-major;
 		padding: 0px 15px;
-	}
-}
-
-.branching form {
-	background: $page-lightest-minor;
-	padding:    10px;
-	margin:     10px 0;
-	width:      calc(100% - 20px);
-
-	.primary-panel { margin-bottom: 10px; }
-
-	select {
-		margin: 0px 0px 0px 10px;
-		width:  calc(100% - 10px);
 	}
 }
 

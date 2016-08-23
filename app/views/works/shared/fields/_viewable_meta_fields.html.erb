@@ -1,0 +1,10 @@
+<%= show_link("Work Metadata", :meta) %>
+<fieldset class="associative-fieldset work-meta-fieldset" id="form_meta">
+	<legend>
+		Work Metadata
+		<%= hide_link(:meta) %>
+	</legend>
+
+	<%= f.view_fields %>
+	<%= render @work.creatorship_fields %>
+</fieldset>

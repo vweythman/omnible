@@ -1,12 +1,14 @@
-<%= form_for [@parent_branch, @branching], :url => branch_bubble_path do |f| %>
-	<fieldset class="branch page-fields">
-		<legend><%= string_panel f, :heading, "Write Link" %></legend>
+<%= clean_form_for [@parent_branch, @branching], :url => branch_bubble_path do |f| %>
 
-		<div class="page-grid form-grid">
-			<%= f.fields_for :child_node do |branch_builder| %>
-				<%= render 'works/branches/form_fields', f: branch_builder %>
-			<% end %>	
-		</div>
+	<%= error_block(@branching) %>
+
+	<fieldset class='paged-fieldset'>
+		<legend><%= f.string_cell :heading, "Link Text", placeholder: "Write Link Text" %></legend>
+
+		<%= f.fields_for :child_node do |branch_builder| %>
+			<%= render 'works/branches/form_fields', f: branch_builder %>
+		<% end %>
 	</fieldset>
-	<%= submit_panel f, "Create" %>
+
+	<%= f.submit_cell "Create" %>
 <% end %>

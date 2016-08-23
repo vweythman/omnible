@@ -13,7 +13,7 @@ module Collectables
 		end
 
 		def klass
-			:short_stories
+			@klass ||= :short_stories
 		end
 
 		def filter_values

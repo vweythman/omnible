@@ -43,5 +43,26 @@
 	}
 }
 
+@mixin mobilized-forms() {
+	.agentive-selection {
+		margin: 0;
+
+		p {
+			padding:    5px;
+			margin:     0px 5px;
+			margin-top: 5px;
+		}
+	}
+	.taggables-label {
+		padding:       7px;
+		text-align:    left;
+		margin-right:  0px;
+		margin-bottom: 2px;
+	}
+	.range .label {
+		text-align:  left;
+	}
+}
+
 // END
 // ***********************************************/

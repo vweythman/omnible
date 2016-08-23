@@ -1,7 +1,8 @@
-<div class='nested-fields'>
-	<fieldset>
+<div class='nested-fields nested-opinion-fields'>
+
+	<fieldset class="viewpoint-fields">
 		<legend>Interpersonal Opinion</legend>
-		<%= selectables f, :recip_id, Character.all %>
+		<%= f.selectable_cell :recip_id, Character.all %>
 		<%= render 'subjects/characters/fields/viewpoint_fields', f: f %>
 	</fieldset>
 

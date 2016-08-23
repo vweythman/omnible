@@ -17,12 +17,12 @@ module Collectables
 			:chapters
 		end
 
-		def meta_title(story)
-			story.title + " - Chapters"
+		def meta_title
+			owner_heading + " - Chapters"
 		end
 
-		def nest_class
-			"nested textable"
+		def owner_heading
+			object.proxy_association.owner.title
 		end
 
 		# -- Links

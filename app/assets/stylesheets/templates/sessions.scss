@@ -3,13 +3,18 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "partials/forms/page_form";
+@import "partials/forms/fields";
+@import "partials/mixins/forms";
 
-// VIEWPORT :: ALL
+// SETUP :: VIEWPORTS
 // ===============================================
-.page-content {
-	background: $water-dark-major;
-}
+@include page-desktop() {}
+@include page-mobile() {}
+@include page-non-mobile() {}
+@include page-tablet() {}
+
+// SECTION :: HEADER
+// ===============================================
 h2 {
 	background:     $water-color;
 	border-bottom:  7px solid $water-dark-minor;
@@ -21,59 +26,79 @@ h2 {
 	text-transform: lowercase;
 	font-style:     italic;
 }
+.page-content {
+	border-bottom:  7px solid $water-dark-major;
+}
+
+// SECTION :: FORM LAYOUT
+// ===============================================
 form {
-	margin: 10px $one-twelfth;
-	width:  $five-sixths;
+	border:     3px solid $page-dark-minor;
+	margin:     10px auto;
+	margin-top: 25px;
+	max-width:  350px;
+	background: $page-lightest-minor;
+	color:      $fire-darker-major;
 }
-legend {
-	width:       calc(100% - 20px);
-	margin-top:  10px;
-	padding:     10px;
-	background:  $water-light-minor;
-	color:       $water-darkest-major;
-	font-weight: 600;
-}
-.form-grid {
-	margin: 0 10px;
 
-	label {
-		font-weight: 600;
-		padding:     8px 0;
-	}
-}
-.field {
-	margin: 5px 0;
-}
-.submit-field input { @include submission-look($fire-color, $page-color); }
-.rememberable {
-	margin: 10px 20px;
+fieldset {
+	border:  none;
+	margin:  0;
+	margin-top: 10px;
+	padding: 0;
 
-	input {
-		width: 13px;
-	}
-	label {
-		display: inline-block;
+	legend {
+		background: $fire-dark-major;
+		color:      $fire-lighter-major;
+		margin:     0px;
+		padding:    8px;
+		width:      calc(100% - 16px);
 	}
 }
+
+// SECTION :: FORM CONTENT
+// ===============================================
+$y: $golden-minor / 2;
+$x: 100% - $y;
+$z: ($y/$x);
+
+.decision-field {
+	.field-value {
+		margin-right: $y;
+	}
+	.field-label {
+		padding: 0;
+	}
+	label {
+		margin:  5px 10px 5px calc(#{$z * 100%} - 26px);
+		padding: 10px 8px;
+	}
+}
+.field-label {
+	background: none;
+	margin:     0;
+	padding:    8px 0px;
+}
+
+input[type=checkbox]:checked + label .field-value:before{
+	color:       $fire-dark-minor;
+	text-shadow: 0 0 .025em $fire-color;
+}
+
+.submit-field input {
+	@include submission-look($fire-color, $page-color);
+}
+
+// SECTION :: FOOTER
+// ===============================================
 .page-content footer {
 	padding-top:    10px;
 	padding-bottom: 25px;
 	text-align:     center;
-}
-
-// VIEWPORT :: DESKTOP
-// ===============================================
-@include page-desktop() {
-	.form-grid label {
-		background:   $water-lighter-minor;
-		margin-right: 5px;
-		padding:      8px 5px;
-		text-align:   right;
+	a {
+		color: $page-color;
 	}
 }
-@include page-mobile() {}
-@include page-non-mobile() {}
-@include page-tablet() {}
 
 /* END
 /* ***********************************************/

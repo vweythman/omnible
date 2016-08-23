@@ -1,12 +1,12 @@
-<%= text_panel f, :about, :minor, "Add Description" %>
+<%= f.text_cell :about, class: :minor %>
 
-<fieldset class="options">
+<fieldset class="options-fieldset">
 	<legend>Fondness</legend>
-	<%= radios(f, :fondness, Judgemental.scale, f.object.fondness || 2) %>
+	<%= f.listed_radios :fondness, Judgemental.scale, f.object.fondness || 2 %>
 </fieldset>
 
-<fieldset class="options">
+<fieldset class="options-fieldset">
 	<legend>Respect</legend>
-	<%= radios(f, :respect, Judgemental.scale, f.object.respect || 2) %>
+	<%= f.listed_radios :respect, Judgemental.scale, f.object.respect || 2 %>
 </fieldset>
 

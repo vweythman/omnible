@@ -18,4 +18,8 @@ class ArtDecorator < WorkDecorator
 		"Upload Art"
 	end
 
+	def meta_fields
+		"works/shared/fields/viewable_meta_fields"
+	end
+
 end

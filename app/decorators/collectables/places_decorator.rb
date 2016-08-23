@@ -18,7 +18,7 @@ module Collectables
 		end
 
 		def klass
-			:places
+			@klass ||= :places
 		end
 		
 		def results

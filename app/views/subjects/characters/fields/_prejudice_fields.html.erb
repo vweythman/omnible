@@ -1,16 +1,19 @@
-<div class='nested-fields'>
-	<fieldset>
-		<legend>Prejudice</legend>
+<div class="nested-fields nested-prejudice-fields">
 
-		<% oi = f.object.identity %>
+	<fieldset class="viewpoint-fields">
+		<legend>Prejudice</legend>
+		<% identity       = f.object.identity %>
+		<% selected_value = (identity.nil? ? "state" : identity.facet_id) %>
+
 		<%= grid_panel do %>
 			<%= panel_cell "duo" do %>
-				<%= selection_panel(f, :facet_id,  @prejudices.facets, (oi.nil? ? "state" : oi.facet_id)) %>
+				<%= f.selection_cell :facet_id, @prejudices.facets, "Type", :id, :heading, selected: selected_value %>
 			<% end %>
 			<%= panel_cell "duo" do %>
-				<%= string_panel f, :identity_name, "Type of Person" %>
+				<%= f.string_cell :identity_name, "Type of Person" %>
 			<% end %>
 		<% end %>
+
 		<%= render 'subjects/characters/fields/viewpoint_fields', f: f %>
 	</fieldset>
 

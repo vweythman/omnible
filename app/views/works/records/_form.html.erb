@@ -1,25 +1,24 @@
-<%= form_for(@record) do |f| %>
+<%= clean_form_for(@record) do |f| %>
 
-	<ul>
-		<% @record.errors.full_messages.each do |msg| %>
-		<li><%= msg %></li>
-		<% end %>
-	</ul>
+	<%= error_block(@record) %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :title, "Write Title" %>
-		<%= text_panel   f, :summary, :minor, "Add Summary" %>
+	<fieldset class="primary-fieldset">
+		<%= panel_cell "duo" do f.string_cell :title, "Title" end %>
 
-		<%= f.fields_for :medium_datum do |b| %>
-			<%= string_panel b, :value, "Medium" %>
+		<%= panel_cell "duo" do %>
+			<%= f.fields_for :medium_datum do |b| %>
+				<%= b.string_cell :value, "Medium" %>
+			<% end %>
 		<% end %>
 	</fieldset>
 
-	<fieldset class="tags about">
+	<%= f.text_cell :summary, { class: :minor }, true %>
+
+	<fieldset class="nested-tags-fieldset nested-work-tags-fieldset">
 		<legend>Tags</legend>
-		<%= taggables([@record.klass, "appearables", "subject"], @record.cohort_names_by('subject'), "Characters") %>
-		<%= taggables([@record.klass, "placeables"], @record.place_names, "Places") %>
+		<%= tag_field_cell([@record.klass, "appearables", "subject"], @record.ordered_characters.names_by('subject'), "Characters") %>
+		<%= tag_field_cell([@record.klass, "placeables"], @record.place_names, "Places") %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

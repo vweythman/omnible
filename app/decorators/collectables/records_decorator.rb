@@ -9,17 +9,15 @@ module Collectables
 		# PUBLIC METHODS
 		# ------------------------------------------------------------
 		def title
-			"Records"
+			"Media Records"
 		end
 
 		def klass
-			:records
+			@klass ||= :records
 		end
 
 		def filter_values
-			filters = super
-			filters.except!(:completion)
-			filters.except!(:content_type)
+			{}
 		end
 
 	end

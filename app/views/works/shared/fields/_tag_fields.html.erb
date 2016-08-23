@@ -1,0 +1,77 @@
+<%= show_link("Tags", :tags) %>
+
+<fieldset class="nested-tags-fieldset nested-work-tags-fieldset" id="form_tags">
+	<legend>
+		Tags (Optional)
+		<%= hide_link(:tags) %>
+	</legend>
+
+	<% klass = @work.klass %>
+	<%= grid_panel do %>
+		<%= panel_cell "golden-major" do %>
+			<%= tagset "Tags", class: "true-tags place-tags" do %>
+				<% Tagging.work_labels.each do |form| %>
+
+					<%  tags = @work.ordered_true_tags.names_by form %>
+					<%= tag_field_cell [klass, :taggables, form], tags, "#{form.titleize} Tags" %>
+
+				<% end %>
+
+				<%= tag_field_cell [klass, :placeables], @work.place_names, @work.location_heading %>
+			<% end %>
+
+			<%= tagset "Character Tags", class: "characters" do %>
+				<% Appearance.tag_labels(@work).each do |role| %>
+
+					<%  key  = role[:label] %>
+					<%  tags = @work.ordered_characters.names_by key %>
+					<%= tag_field_cell [klass, :appearables, key], tags, role[:heading] %>
+
+				<% end %>
+			<% end %>
+
+			<%= tagset "Relationships & Groups", class: "groupings" do %>
+				<% SocialAppearance.narrative_labels.each do |key, heading| %>
+
+					<%  tags = @work.ordered_squads.names_by key %>
+					<%= tag_field_cell [klass, :socialables, key], tags, "#{heading.titleize} Tags" %>
+
+				<% end %>
+			<% end %>
+
+			<%= tagset "Related Work Tags", class: "works" do %>
+				<% WorkConnection.tag_labels(@work).each do |squad| %>
+
+					<%  key  = squad[:label] %>
+					<%  tags = @work.ordered_works.titles_by key %>
+					<%= tag_field_cell [klass, :relateables, key], tags, squad[:heading] %>
+
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<%= panel_cell "golden-minor" do %>
+			<div class="tooltip">
+				<p>Tag in whichever way disambiguates</p>
+				<p>Characters</p>
+				<ul>
+					<li>Harry Potter</li>
+					<li>Slytherin!Harry Potter</li>
+					<li>Nemo (Little Nemo)</li>
+					<li>Nemo (Finding Nemo)</li>
+				</ul>
+
+				<p>Works:</p>
+				<ul>
+					<li>Fire and Ice</li>
+					<li>Fire and Ice [Poem]</li>
+					<li>Fire and Ice / Robert Frost</li>
+					<li>Fire and Ice [Poem] / Robert Frost</li>
+					<li>Star Wars [Film Series]</li>
+					<li>Star Wars [Franchise]</li>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
+
+</fieldset>

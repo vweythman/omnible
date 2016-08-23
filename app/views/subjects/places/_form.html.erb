@@ -1,37 +1,42 @@
-<%= form_for(@place) do |f| %>
+<%= clean_form_for(@place) do |f| %>
 
-	<ul>
-		<% @place.errors.full_messages.each do |msg| %>
-		<li><%= msg %></li>
+	<%= error_block(@place) %>
+
+	<fieldset class="primary-fieldset">
+		<%= grid_panel do %>
+			<%= panel_cell "duo" do %>
+				<%= f.string_cell :name,   "Place Name" %>
+			<% end %>
+			<%= panel_cell "duo" do %>
+				<%= f.string_cell :nature, "Place Type" %>
+			<% end %>
 		<% end %>
-	</ul>
 
-	<fieldset class="primary">
-		<%= string_panel f, :nature, "Describe Type" %>
-		<%= string_panel f, :name,   "Name Place"    %>
-		<%= radios_by_string f, :fictionality, @place.realness_choices, @place.current_realness %>
+		<%= f.strung_radios :fictionality, @place.realness_choices, @place.current_realness %>
 	</fieldset>
 
-	<fieldset class="tags about">
+	<fieldset class="associative-fieldset nested-place-fields">
 		<legend>Related Places</legend>
 		<%= solo_cell do %>
-			<%= taggables(['place', "domainables"],    @place.domain_names,    "Contained Within") %>
-			<%= taggables(['place', "subdomainables"], @place.subdomain_names, "Contains")         %>
+			<%= tag_field_cell(['place', "domainables"],    @place.domain_names,    "Contained Within") %>
+			<%= tag_field_cell(['place', "subdomainables"], @place.subdomain_names, "Contains")         %>
 		<% end %>
 
 		<%= grid_panel do %>
-			<%= panel_cell "duo" do %>
-				<%= boolean_field(f, :uptree, "automatically tag with parents of the parent places.") %>
-				<%= boolean_field(f, :downtree, "automatically tag with children of the children places.") %>
+			<%= panel_cell "golden-major" do %>
+				<div class="cascadeable-fields">
+					<%= f.boolean_cell :uptree, "automatically tag with parents of the parent places" %>
+					<%= f.boolean_cell :downtree, "automatically tag with children of the children places" %>
+				</div>
 			<% end %>
-			<%= panel_cell "duo" do %>
-				<div class="clarify">
+			<%= panel_cell "golden-minor" do %>
+				<div class="tooltip">
 					<p>Example: If the Solar System contains Earth and Earth contains Europe, then the Solar System probably contains Europe.</p>
 				</div>
 			<% end %>
 		<% end %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 
 <% end %>

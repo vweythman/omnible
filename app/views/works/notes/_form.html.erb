@@ -1,12 +1,11 @@
-<%= form_for [@work, @note] do |f| %>
+<%= clean_form_for [@work, @note] do |f| %>
 
+	<%= error_block(@note) %>
 	<%= f.hidden_field :work_id, :value => @work.id %>
 
-	<fieldset>
-		<%= string_panel f, :title, "Write Title (Optional)" %>
-		<%= text_panel   f, :content, :major, "Write Content" %>
-	</fieldset>
+	<%= render 'form_fields', f: f %>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 
 <% end %>
+ 

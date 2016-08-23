@@ -19,6 +19,7 @@ class Branch < ActiveRecord::Base
 	# VALIDATIONS
 	# ============================================================
 	validates :content, presence: true
+	validates :title,   presence: true
 
 	# MODULES
 	# ============================================================

@@ -24,6 +24,23 @@
 	padding:  0;
 }
 
+.dismissal {
+	float:  left;
+	height: 26px;
+	margin: -15px;
+	width:  26px;
+	cursor: pointer;
+	text-decoration: none;
+
+	color:      $page-color;
+	background: $water-light-minor;
+
+	&:hover {
+		color:      $water-dark-minor;
+		background: $page-color;
+	}
+}
+
 .found {
 	font-size:   1.2em;
 	font-weight: bolder;
@@ -52,7 +69,7 @@
 }
 
 .subject-body {
-	background: $water-darker-major;
+	background: $water-dark-minor;
 	min-height: 200px;
 	padding:    10px;
 }
@@ -130,7 +147,6 @@ dt:first-child {
 // ===============================================
 .path-finder {
 	color:       $water-color;
-	background:  $water-dark-minor;
 	font-weight: bolder;
 	margin:      0px auto;
 	padding:     10px 20% 35px 20%;
@@ -176,7 +192,7 @@ dt:first-child {
 }
 
 @mixin page-mobile() {
-	@include site-mobile($water-dark-minor, $one-half) {
+	@include site-mobile($water-dark-minor, $one-fifth) {
 		@include mobilize-cell();
 		@content;
 	}

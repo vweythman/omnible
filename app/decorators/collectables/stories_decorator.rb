@@ -9,7 +9,7 @@ module Collectables
 		# PUBLIC METHODS
 		# ------------------------------------------------------------
 		def klass
-			:stories
+			@klass ||= :stories
 		end
 
 		def title

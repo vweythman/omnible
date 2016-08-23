@@ -16,6 +16,10 @@
 
 class Note < ActiveRecord::Base
 
+	# VALIDATIONS
+	# ============================================================
+	validates :content, presence: true
+
 	# MODULES
 	# ============================================================
 	include Discussable

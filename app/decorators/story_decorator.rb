@@ -23,7 +23,7 @@ class StoryDecorator < WorkDecorator
 	end
 
 	def klass
-		:story
+		@klass ||= :story
 	end
 
 	def title_with_count

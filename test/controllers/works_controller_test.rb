@@ -19,8 +19,6 @@ class WorksControllerTest < ControllerTestCase
     @link  = works(:zoologist)
   end
 
-
-
   # CAN
   # ============================================================
   # CREATE
@@ -71,7 +69,7 @@ class WorksControllerTest < ControllerTestCase
   test "should update work" do
     sign_in @letty
     patch :update, id: @link.id, work: { title: @link.title }
-    assert_redirected_to story_link_path(@link)
+    assert_redirected_to work_link_path(@link)
   end
 
 
@@ -134,7 +132,7 @@ class WorksControllerTest < ControllerTestCase
       delete :destroy, id: @link.id
     end
 
-    assert_redirected_to story_link_path(assigns(:work))
+    assert_redirected_to work_link_path(assigns(:work))
   end
 
 end

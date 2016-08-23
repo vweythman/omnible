@@ -1,12 +1,12 @@
 <h2>Resend unlock instructions</h2>
 
-<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+<%= clean_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
 
 	<%= devise_error_messages! %>
 
-	<%= input_email f %>
+	<%= f.email_cell %>
 
-	<%= submit_panel f, "Resend unlock instructions" %>
+	<%= f.submit_cell "Resend unlock instructions" %>
 <% end %>
 
 <footer>

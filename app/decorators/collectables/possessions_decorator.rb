@@ -20,7 +20,7 @@ module Collectables
 		end
 
 		def klass
-			:possessions
+			@klass ||= :possessions
 		end
 
 		def organize_characters

@@ -7,7 +7,7 @@ module IndexHelper
 			p = ""
 		end
 
-		taggables([inclusion, type, group], p.split(";"), label)
+		tag_field_cell([inclusion, type, group], p.split(";"), label)
 	end
 
 	def curated_works_url_appender(parent, filter)

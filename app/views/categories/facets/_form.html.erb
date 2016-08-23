@@ -1,9 +1,11 @@
 <% remote ||= false %>
-<%= form_for @facet, remote: remote do |f| %>
-
+<%= clean_form_for @facet, remote: remote do |f| %>
+	
+	<%= error_block(@facet) %>
+	
 	<div class="form-grid primary">
-		<%= string_panel f, :name, "Provide Name" %>
-		<%= submit_panel f %>
+		<%= f.string_cell :name, "Provide Name" %>
+		<%= f.submit_cell %>
 	</div>
 
 <% end %>

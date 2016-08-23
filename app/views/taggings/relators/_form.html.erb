@@ -1,13 +1,20 @@
 <% remote ||= false %>
-<%= form_for @relator, remote: remote do |f| %>
+<%= clean_form_for @relator, remote: remote do |f| %>
 
-	<p class='note'>Use gender neutral terms whenever possible.</p>
+	<%= grid_panel do %>
+		<%= panel_cell "golden-major" do %>
+			<fieldset class="primary-fieldset">
+				<%= f.string_cell :left_name,  "Name" %>
+				<%= f.string_cell :right_name, "Name of the Inverse Relationship If It Exists" %>
+			</fieldset>
+		<% end %>
 
-	<fieldset class="primary">
-		<%= string_panel f, :left_name,  "Name Relationship" %>
-		<%= string_panel f, :right_name, "Name The Inverse Relationship If It Exists" %>
-	</fieldset>
+		<%= panel_cell "golden-minor" do %>
+			<div class="tooltip">
+				<p>Use gender neutral terms whenever possible.</p>
+			</div>
+		<% end %>
+	<% end %>
 	
-	<%= submit_panel f %>
-
+	<%= f.submit_cell %>
 <% end %>

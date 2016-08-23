@@ -47,7 +47,7 @@ module Collectables
 		end
 
 		def klass
-			:works
+			@klass ||= :works
 		end
 
 		def title
@@ -77,7 +77,7 @@ module Collectables
 		end
 
 		def external_types
-			{ :story_links => h.story_links_path }
+			{ :work_links => h.work_links_path }
 		end
 
 		def filter_values
@@ -135,8 +135,10 @@ module Collectables
 			{
 				:artwork       => h.artwork_path,
 				:articles      => h.articles_path,
-				:branching_stories => h.branching_stories_path,
+				:journals      => h.journals_path,
 				:music_videos  => h.music_videos_path,
+				:poems         => h.poems_path,
+				:branching_stories => h.branching_stories_path,
 				:stories       => h.stories_path,
 				:short_stories => h.short_stories_path,
 			}
@@ -166,7 +168,7 @@ module Collectables
 
 		def type_links
 			(self.category_types.merge self.types).map {|key, p|
-				h.content_tag :li do h.link_to("#{key}".humanize.titleize, p) end 
+				h.content_tag :li do h.link_to(h.t("menu.work_types.#{key}"), p) end 
 			}.join.html_safe
 		end
 

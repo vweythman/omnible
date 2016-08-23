@@ -1,6 +1,0 @@
-<%= solo_cell "field" do %>
-	<div class="field-content"><%= f.label(value) %></div>
-	<div class="field-content">
-		<%= f.collection_select(value, group, :id, :heading, { :selected => selected_value }, :class => select_class) %>
-	</div>
-<% end %>

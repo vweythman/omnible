@@ -1,15 +1,10 @@
 <% remote ||= false %>
-<%= form_for [@parent_branch, @branching], :url => graft_branch_path do |f| %>
-	<fieldset class="primary">
-		<%= grid_panel "primary-panel" do %>
-			<%= panel_cell "golden-minor" do %>
-				<%= string_panel f, :heading, "Write Link" %>
-			<% end %>
-			<%= panel_cell "golden-major" do %>
-				<%= simple_selection_panel "[branching][child_node_id]", @parent_branch.graftable_options, "Branches" %>
-			<% end %>
-		<% end %>
-	</fieldset>
+<%= clean_form_for [@parent_branch, @branching], :url => graft_branch_path do |f| %>
 
-	<%= submit_panel f, "Create" %>
+	<div class="primary-fieldset">
+		<%= panel_cell "golden-minor" do f.string_cell :heading, "Link Text", placeholder: "Write Link Text" end %>
+		<%= panel_cell "golden-major" do f.drop_selection_cell :child_node_id, @parent_branch.graftable_options, "Branches" end %>
+	</div>
+
+	<%= f.submit_cell "Create" %>
 <% end %>

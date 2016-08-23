@@ -48,6 +48,8 @@ class Appearance < ActiveRecord::Base
 	scope :tagger_by_identities,       ->(ws)      { where("character_id IN (#{Description.tagger_by_identities(ws).to_sql})").group_by_choice(:work_id) }
 	scope :tagger_by_roled_identities, ->(nat, ws) { where(role: nat).tagger_by_identities(ws) }
 
+	scope :with_character, -> { includes(:character) }
+
 	# ASSOCIATIONS
 	# ============================================================
 	# BELONGS TO

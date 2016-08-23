@@ -18,7 +18,7 @@ class Anthology < ActiveRecord::Base
 	
 	# VALIDATIONS
 	# ------------------------------------------------------------
-	validates :name, length: { maximum: 250 }, presence: true
+	validates :name,        presence: true, length: { maximum: 250 }
 	validates :uploader_id, presence: true
 
 	# MODULES

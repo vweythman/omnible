@@ -1,6 +1,6 @@
 <% provide(:title, @identity.page_title) %>
 
-<header>
+<header class="tag-header">
 	<%= content_tag :h1, id: @tag.heading_id do %>
 		<%= @tag.facet_title %>
 		<%= subtitle @tag.name %>
@@ -9,7 +9,9 @@
 	<%= @tag.edit_form_div %>
 	<%= @tag.edit_bar %>
 
-	<p><%= @tag.first_use_status %></p>
+	<div class="metadata">
+		<%= metadata("First Use", @tag.created_at_tag) %>
+	</div>
 </header>
 
 

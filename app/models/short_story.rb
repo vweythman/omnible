@@ -16,6 +16,8 @@ class ShortStory < Work
 	has_one  :chapter,  :inverse_of => :story, foreign_key: "story_id"
 	has_many :comments, :through => :chapter
 
+	has_one  :line_counter, ->{ RecordQuantitativeMetadatum.chapter_counts  }, foreign_key: "work_id", class_name: "RecordQuantitativeMetadatum"
+
 	# DELEGATED METHODS
 	# ------------------------------------------------------------
 	delegate :content,   to: :chapter
@@ -63,7 +65,7 @@ class ShortStory < Work
 	def contentize
 		self.chapter ||= Chapter.new
 		self.chapter.position = 1
-		self.chapter.content = @story_content
+		self.chapter.content  = @story_content
 	end
 
 end

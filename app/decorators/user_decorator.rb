@@ -11,7 +11,7 @@ class UserDecorator < Draper::Decorator
 	end
 
 	def linkable_types
-		[:story_link]
+		[:work_link]
 	end
 
 end

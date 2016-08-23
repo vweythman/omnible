@@ -1,0 +1,32 @@
+<fieldset class='rating nested'>
+	<legend>Rating</legend>
+
+	<%= grid_panel do %>
+		<%= panel_cell "golden-small" do %>
+			<p class="rating-title">Violence</p>
+		<% end %>
+		<%= panel_cell "golden-large" do %>
+			<%= f.listed_radios :violence, Rating.labels, f.object.violence || 0 %>
+		<% end %>
+	<% end %>
+
+	<%= grid_panel do %>
+		<%= panel_cell "golden-small" do %>
+			<p class="rating-title">Sexual Content</p>
+		<% end %>
+		<%= panel_cell "golden-large" do %>
+			<%= f.listed_radios :sexuality, Rating.labels, f.object.sexuality || 0 %>
+		<% end %>
+	<% end %>
+
+	<%= grid_panel do %>
+		<%= panel_cell "golden-small" do %>
+			<p class="rating-title">Profanity</p>
+		<% end %>
+		<%= panel_cell "golden-large" do %>
+			<%= f.listed_radios :language, Rating.labels, f.object.language || 0 %>
+		<% end %>
+	<% end %>
+
+</fieldset>
+

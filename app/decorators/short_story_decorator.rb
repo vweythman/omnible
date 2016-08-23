@@ -9,7 +9,7 @@ class ShortStoryDecorator < WorkDecorator
 	end
 
 	def klass
-		:short_story
+		@klass ||= :short_story
 	end
 
 	def link_to_self

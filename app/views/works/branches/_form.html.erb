@@ -1,14 +1,10 @@
-<%= form_for(@branch) do |f| %>
+<%= clean_form_for(@branch) do |f| %>
 
-	<ul>
-		<% @branch.errors.full_messages.each do |msg| %>
-		<li><%= msg %></li>
-		<% end %>
-	</ul>
+	<%= error_block(@branch) %>
 
-	<fieldset class="primary">
+	<fieldset class="primary-fieldset">
 		<%= render 'works/branches/form_fields', f: f %>
 	</fieldset>
 
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

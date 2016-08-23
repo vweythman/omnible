@@ -13,12 +13,8 @@ module Collectables
 			"Personal Prejudices"
 		end
 
-		def nest_class
-			"nested identities prejudices"
-		end
-
 		def klass
-			:prejudices
+			@klass ||= :prejudices
 		end
 
 		# -- Location

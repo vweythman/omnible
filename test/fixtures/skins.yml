@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  title: Here
   uploader: letty 
   style: MyText
   status: Public
 
 two:
+  title: There
   uploader: letty 
   style: MyText
   status: Public

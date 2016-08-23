@@ -1,3 +1,5 @@
+require 'organized_tag_groups'
+
 class WorkDecorator < Draper::Decorator
 
 	# DELEGATION
@@ -23,7 +25,7 @@ class WorkDecorator < Draper::Decorator
 	end
 
 	def klass
-		:work
+		@klass ||= :work
 	end
 
 	def partial_prepend
@@ -64,59 +66,38 @@ class WorkDecorator < Draper::Decorator
 
 	# TAGS
 	# ------------------------------------------------------------
-	# GET
+	# GET Collected Tags
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def all_tags
 		@all_tags  ||= (self.tags + self.characters + self.places + self.works).sort_by! { |x| x.heading.downcase }
-	end
-
-	def cohorted_characters
-		@cohorted_characters ||= Appearance.organize(self.appearances)
-	end
-
-	def cohort_group_by(role)
-		found = cohorted_characters.with_indifferent_access[role]
-		found = found.nil? ? [] : found.sort_by! { |x| x[:name].downcase }
-	end
-
-	def cohort_names_by(role)
-		cohort_group_by(role).map(&:name)
-	end
-
-	def organized_true_tags
-		@organized_true_tags ||= Tagging.organize(self.taggings)
-	end
-
-	def organized_true_tags_by(label)
-		found = organized_true_tags.with_indifferent_access[label]
-		found = found.nil? ? [] : found
-	end
-
-	def organized_true_tag_names(role)
-		organized_true_tags_by(role).map(&:name)
-	end
-
-	def organized_works
-		@organized_works ||= WorkConnection.organize(self.intratagged)
-	end
-
-	def organized_works_by(group)
-		found = organized_works.with_indifferent_access[group]
-		found = found.nil? ? [] : found
-	end
-
-	def organized_work_titles_by(group)
-		organized_works_by(group).map(&:title)
 	end
 
 	def main_tags
 		@main_tags ||= (self.tags + self.important_characters + self.places).sort_by! { |x| x[:name].downcase }
 	end
 
+	# GET :: Tags by Group
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def ordered_characters
+		@ordered_characters ||= order_tags Appearance.organize(self.appearances.with_character)
+	end
+
+	def ordered_squads
+		@social_cohorts     ||= order_tags SocialAppearance.organize(self.social_appearances.with_squad)
+	end
+
+	def ordered_true_tags
+		@ordered_true_tags  ||= order_tags Tagging.organize(self.taggings.with_tag)
+	end
+
+	def ordered_works
+		@ordered_works      ||= order_tags WorkConnection.organize(self.intratagged.with_tagged)
+	end
+
 	# SET
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def important_characters
-		@important_characters ||= work.narrative? ? Array(cohorted_characters["main"]) : Array(cohorted_characters["subject"])
+		@important_characters ||= work.narrative? ? Array(ordered_characters.group_by("main")) : Array(ordered_characters.group_by("subject"))
 	end
 
 	def location_heading
@@ -126,12 +107,12 @@ class WorkDecorator < Draper::Decorator
 	# RENDER
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def all_tags_line
-		h.tag_group all_tags, { class: 'all-tags tags' }, { class: 'tag' }
+		h.tag_group all_tags, 'works', { class: 'all-tags tags' }, { class: 'tag' }
 	end
 
 	def snippet_tags_line
 		if main_tags.length > 0
-			h.tag_group main_tags, { class: 'main-tags tags' }, { class: 'tag' }
+			h.tag_group main_tags, 'works', { class: 'main-tags tags' }, { class: 'tag' }
 		end
 	end
 
@@ -159,18 +140,30 @@ class WorkDecorator < Draper::Decorator
 
 	# SET
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def primary_fields
-		"works/shared/fields"
+	def creatorship_fields
+		self.record? ? 'works/shared/fields/creatorship_fields' : 'works/shared/fields/creatorship_local_fields'
+	end
+
+	def meta_fields
+		"works/shared/fields/meta_fields"
 	end
 
 	def tag_fields
-		"works/shared/tag_fields"
+		"works/shared/fields/tag_fields"
 	end
 
 	# CHECK
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def can_skin?
 		!self.record?
+	end
+
+	private
+
+	# PUBLIC METHODS
+	# ============================================================
+	def order_tags(tags)
+		OrganizedTagGroups.new tags
 	end
 
 end

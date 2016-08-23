@@ -18,7 +18,7 @@ module Collectables
 		end
 
 		def klass
-			:groups
+			@klass ||= :groups
 		end
 
 	end

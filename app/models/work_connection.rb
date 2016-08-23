@@ -45,6 +45,9 @@ class WorkConnection < ActiveRecord::Base
 	scope :tagger_with_works,         ->(ws)      { tagger_by_tag_titles(ws, :tagger_id, :work) }
 	scope :tagger_with_grouped_works, ->(nat, ws) { where(nature: nat).tagger_with_works(ws)    }
 
+	scope :with_tagged, -> { includes(:work) }
+	scope :with_tagger, -> { includes(:tagging_work) }
+
 	# ASSOCIATIONS
 	# ============================================================
 	# BELONGS TO

@@ -1,0 +1,16 @@
+<%= clean_form_for(@poem) do |f| %>
+
+	<%= error_block(@poem) %>
+
+	<fieldset class="primary-fieldset">
+		<%= f.string_cell :title, "Title"        %>
+		<%= f.text_cell   :summary,      class: :minor %>
+		<%= f.text_cell   :poem_content, class: :major %>
+
+		<%= render @poem.meta_fields, f: f %>
+	</fieldset>
+
+	<%= render @poem.tag_fields, f: f %>
+
+	<%= f.submit_cell %>
+<% end %>

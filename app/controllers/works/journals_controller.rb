@@ -29,7 +29,9 @@ class Works::JournalsController < WorksController
 
 	# WorkParams :: define strong parameters
 	def work_params
-		base_work_params(:journal)
+		based_permitted   = base_work_params(:journal)
+		journal_permitted = params.require(:journal).permit(articles_attributes: [:id, :title, :content])
+		based_permitted.merge journal_permitted
 	end
 
 end

@@ -1,4 +1,4 @@
-<% provide(:title, @chapters.meta_title(@story)) %>
+<% provide(:title, @chapters.meta_title) %>
 
 <header class="work-header">
 	<h1>
@@ -6,7 +6,6 @@
 		<%= subtitle "Chapters" %>
 	</h1>
 </header>
-
 
 <article class="page-body">
 	<% if @chapters.length > 0 %>

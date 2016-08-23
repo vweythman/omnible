@@ -1,4 +1,4 @@
-<%= form_for [@previous, @chapter], :url => insert_chapter_path do |f| %>
+<%= clean_form_for [@previous, @chapter], :url => insert_chapter_path do |f| %>
 	<%= render 'works/chapters/form_fields', f: f %>
-	<%= submit_panel f %>
+	<%= f.submit_cell %>
 <% end %>

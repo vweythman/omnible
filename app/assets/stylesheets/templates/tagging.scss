@@ -10,8 +10,8 @@
 // ===============================================
 $page:           $moss-dark-minor;
 $border:         $moss-dark-major;
-$header:         $water-dark-minor;
-$heading:        $water-dark-minor;
+$header:         $water-darker-minor;
+$heading:        $water-darker-minor;
 $content-shadow: 0px 0px 10px $moss-darker-minor;
 
 // SECTION :: ALL
@@ -26,6 +26,10 @@ $content-shadow: 0px 0px 10px $moss-darker-minor;
 .alteration {
 	margin: 0px $one-twelfth;
 	width:  $five-sixths;
+}
+
+header .editor-block form {
+  border-top-color: $heading;
 }
 
 // SECTION :: BODY
