@@ -10,10 +10,10 @@
 	<%= grid_panel do %>
 		<%= panel_cell "golden-major" do %>
 			<%= tagset "Tags", class: "true-tags place-tags" do %>
-				<% Tagging.work_labels.each do |form| %>
+				<% Tagging.work_tag_labels(@work).each do |key, heading| %>
 
-					<%  tags = @work.ordered_true_tags.names_by form %>
-					<%= tag_field_cell [klass, :taggables, form], tags, "#{form.titleize} Tags" %>
+					<%  tags = @work.ordered_true_tags.names_by key %>
+					<%= tag_field_cell [klass, :taggables, key], tags, heading %>
 
 				<% end %>
 
@@ -21,30 +21,28 @@
 			<% end %>
 
 			<%= tagset "Character Tags", class: "characters" do %>
-				<% Appearance.tag_labels(@work).each do |role| %>
+				<% Appearance.tag_labels(@work).each do |key, heading| %>
 
-					<%  key  = role[:label] %>
 					<%  tags = @work.ordered_characters.names_by key %>
-					<%= tag_field_cell [klass, :appearables, key], tags, role[:heading] %>
+					<%= tag_field_cell [klass, :appearables, key], tags, heading %>
 
 				<% end %>
 			<% end %>
 
 			<%= tagset "Relationships & Groups", class: "groupings" do %>
-				<% SocialAppearance.narrative_labels.each do |key, heading| %>
+				<% SocialAppearance.tag_labels(@work).each do |key, heading| %>
 
 					<%  tags = @work.ordered_squads.names_by key %>
-					<%= tag_field_cell [klass, :socialables, key], tags, "#{heading.titleize} Tags" %>
+					<%= tag_field_cell [klass, :socialables, key], tags, heading %>
 
 				<% end %>
 			<% end %>
 
 			<%= tagset "Related Work Tags", class: "works" do %>
-				<% WorkConnection.tag_labels(@work).each do |squad| %>
+				<% WorkConnection.work_tag_labels(@work).each do |key, heading| %>
 
-					<%  key  = squad[:label] %>
 					<%  tags = @work.ordered_works.titles_by key %>
-					<%= tag_field_cell [klass, :relateables, key], tags, squad[:heading] %>
+					<%= tag_field_cell [klass, :relateables, key], tags, heading %>
 
 				<% end %>
 			<% end %>

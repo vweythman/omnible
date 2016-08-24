@@ -105,6 +105,20 @@ class WorkConnection < ActiveRecord::Base
 		end
 	end
 
+	def self.work_tag_labels(work)
+		labels = Hash.new
+
+		if work.narrative?
+			work_labels = narrative_labels
+			work_labels.map {|lb| labels[lb] = "Works (#{lb.titleize})" }
+		else
+			work_labels = nonfiction_labels
+			work_labels.map {|lb| labels[lb] = "#{lb.titleize} (Works)" }
+		end
+
+		return labels
+	end
+
 	def self.filter_labels
 		@filter_labels ||= { "general" => "Works as Fandom", "setting" => "Works as Setting", "cast" => "Cast Only", "reference" => "Works as Reference", "subject" => "Works as Subject"}
 	end

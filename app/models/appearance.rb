@@ -98,20 +98,14 @@ class Appearance < ActiveRecord::Base
 
 	def self.tag_labels(work)
 		if work.narrative?
-			labels = narrative_labels
-			labels.map { |label|
-				{
-					:label   => label,
-					:heading => "#{label.titleize} Characters"
-				}
+			{
+				:main => "Main Characters",
+				:side => "Side Characters",
+				:mentioned => "Mentioned Characters"
 			}
 		else
-			labels = nonfiction_labels
-			labels.map { |label|
-				{
-					:label   => label,
-					:heading => "#{label.titleize} (People)"
-				}
+			{
+				:subject => "Subject (People)"
 			}
 		end
 	end

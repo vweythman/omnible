@@ -4,7 +4,6 @@
 	<h1><%= @work.title %></h1>
 	<%= @work.completion_status %>
 	<div class="about">
-		<%= @work.all_tags_line %>
 		<%= @work.summarized %>
 	</div>
 	<%= @work.edit_bar %>
@@ -18,6 +17,7 @@
 			<p><%= article.time_started.html_safe %> | <%= article.time_updated.html_safe %></p>
 		<% end %>
 	<% end %>
+	<%= render 'works/shared/tag_widget' %>
 </div>
 
 <footer class="path-finder">

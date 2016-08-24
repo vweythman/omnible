@@ -81,6 +81,18 @@ class Tagging < ActiveRecord::Base
 		end
 	end
 
+	def self.work_tag_labels(work)
+		labels = Hash.new
+
+		if work.narrative?
+			work_labels.map {|lb| labels[lb] = "#{lb.titleize} Tags"}
+		else
+			work_labels.map {|lb| labels[lb] = "Subject (#{lb.titleize})"}
+		end
+
+		return labels
+	end
+
 	def self.tagger_intersection_sql(finds, tagger_type = "Subject")
 		if (finds.keys - Tagging.specific_labels(tagger_type)).empty?
 			finds.map {|k, titles| Tagging.tagger_by_grouped_tag(k.to_s, titles.split(";"), tagger_type).to_sql }.join(" INTERSECT ")

@@ -47,6 +47,10 @@ class SocialAppearance < ActiveRecord::Base
 		[:main_ship, :side_ship, :anti_ship, :social_group]
 	end
 
+	def self.tag_labels(work)
+		work.narrative? ? narrative_labels : subject_labels
+	end
+
 	def self.subject_labels
 		{
 			main_ship:    'Subject (Ship)', 

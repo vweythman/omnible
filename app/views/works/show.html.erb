@@ -23,50 +23,7 @@
 		</div>
 	<% end %>
 
-	<%= page_widget "Tags" do %>
-		<% Tagging.work_labels.each do |form| %>
-			<% tags = @work.ordered_true_tags.group_by form %>
-	
-			<%= render 'works/shared/grouping_tags', 
-				heading: (form.titleize + " Tags"), 
-				tags:    tags,
-				gclass:  "#{form}-tags", 
-				topts:   {
-					class: "#{form}-tag tag"
-				}
-			%>
-		<% end %>
-
-		<%= render 'works/shared/grouping_tags', heading: "Places", tags: @work.places, gclass: "places", tclass: "place-tag" %>
-
-		<% Appearance.tag_labels(@work).each do |role| %>
-			<% characters = @work.ordered_characters.group_by role[:label] %>
-			<%= render 'works/shared/grouping_tags', 
-				heading: role[:heading], 
-				tags:    characters,
-				gclass:  "#{role[:label]}-characters", 
-				topts:   {
-					class: "#{role[:label]}-character character-tag",
-					type: role[:label]
-				}
-			%>
-		<% end %>
-
-		<% WorkConnection.tag_labels(@work).each do |role| %>
-			<% works = @work.ordered_works.group_by role[:label] %>
-			<%= render 'works/shared/grouping_tags', 
-				heading: role[:heading], 
-				tags:    works,
-				gclass:  "#{role[:label]}-works", 
-				topts:   {
-					class: "#{role[:label]}-works work-tag"
-				}
-			%>
-		<% end %>
-
-		<br>
-	<% end %>
-
+	<%= render 'works/shared/tag_widget' %>
 </div>
 
 <footer class="path-finder">

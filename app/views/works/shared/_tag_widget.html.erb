@@ -1,0 +1,42 @@
+<%= page_widget "Tags" do %>
+	<% Tagging.work_labels.each do |key| %>
+		<% tags = @work.ordered_true_tags.group_by key %>
+
+		<%= render 'works/shared/grouping_tags', 
+			heading: (key.titleize + " Tags"), 
+			tags:    tags,
+			gclass:  "#{key}-tags", 
+			topts:   {
+				class: "#{key}-tag tag"
+			}
+		%>
+	<% end %>
+
+	<%= render 'works/shared/grouping_tags', heading: "Places", tags: @work.places, gclass: "places", tclass: "place-tag" %>
+
+	<% Appearance.tag_labels(@work).each do |key, heading| %>
+		<% characters = @work.ordered_characters.group_by key %>
+
+		<%= render 'works/shared/grouping_tags', 
+			heading: heading, 
+			tags:    characters,
+			gclass:  "#{key}-characters", 
+			topts:   {
+				class: "#{key}-character character-tag",
+				type: key
+			}
+		%>
+	<% end %>
+
+	<% WorkConnection.work_tag_labels(@work).each do |key, heading| %>
+		<% works = @work.ordered_works.group_by key %>
+		<%= render 'works/shared/grouping_tags', 
+			heading: heading, 
+			tags:    works,
+			gclass:  "#{key}-works", 
+			topts:   {
+				class: "#{key}-works work-tag"
+			}
+		%>
+	<% end %>
+<% end %>

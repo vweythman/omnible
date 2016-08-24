@@ -18,32 +18,7 @@
 		</ul>
 	<% end %>
 
-	<%= page_widget "Tags" do %>
-		<h3>General(<%= @work.tags.length %>)</h3>
-		<p><%= cslinks @work.tags %></p>
-
-		<h3>Places (<%= @work.places.length %>)</h3>
-		<p><%= cslinks @work.places %></p>
-	<% end %>
-	
-	<%= page_widget "Characters" do %>
-		<% Appearance.tag_labels(@work).each do |role| %>
-			<% characters = @work.ordered_characters.group_by role[:label] %>
-
-			<h3><%= role[:heading] %>(<%= characters.length %>)</h3>
-			<p><%= cslinks characters %></p>
-		<% end %>
-	<% end %>
-
-	<%= page_widget "Works" do %>
-		<% WorkConnection.tag_labels(@work).each do |role| %>
-			<% works = @work.ordered_works.group_by role[:label] %>
-
-			<h3><%= role[:heading] %> (<%= works.length %>)</h3>
-			<p><%= cslinks works %></p>
-		<% end %>
-
-	<% end %>
+	<%= render 'works/shared/tag_widget' %>
 </div>
 
 <footer class="path-finder">
