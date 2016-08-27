@@ -97,4 +97,12 @@ class WorksTypeDescriber < ActiveRecord::Base
 		self.is_singleton == false && self.is_record == false
 	end
 
+	def textual?
+		content_type == 'text'
+	end
+
+	def watchable?
+		!oneshot? || textual?
+	end
+
 end
