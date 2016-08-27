@@ -1,4 +1,4 @@
-class Works::MergedDiscussionsController < DiscussionsController
+class MergedDiscussionsController < DiscussionsController
 
 	# PUBLIC METHODS
 	# ============================================================
