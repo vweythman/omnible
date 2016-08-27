@@ -85,9 +85,9 @@ en:
     edit:    "Edit"
     delete:  "Delete"
     checked:
-      watch: "Unwatch"
-      like:  "Unlike"
-      dislike: "Undislike"
+      watch: ""
+      like:  ""
+      dislike: ""
     unchecked:
       watch:   "Watch"
       like:    "Like"
