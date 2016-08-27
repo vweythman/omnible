@@ -38,6 +38,9 @@ module ApplicationHelper
 		if ((["users", "admin"].include? collector) && (collector != type) || collector == "categories" && action == "index")
 			template_type = "dashboard"
 
+		elsif type.ends_with? 'discussion'
+			template_type = 'discussion'
+	
 		# STATS
 		elsif type.starts_with? 'about_all'
 			template_type = "about_all"
