@@ -64,8 +64,8 @@ $content-negate: $article-negate / 2;
 	border-bottom: none;
 }
 
-.ratings span {
-	margin:        5px 0;
+.rating {
+	padding:       0px 10px;
 	color:         $page-color;
 	border-radius: 10px;
 }
@@ -139,8 +139,9 @@ hr {
 }
 
 .comments {
-	width: calc(100% - 8px);
-	margin: 0px auto;
+	margin:     15px $one-twelfth;
+	background: $water-dark-major;
+	padding:    15px 35px;
 }
 
 // SECTION :: META

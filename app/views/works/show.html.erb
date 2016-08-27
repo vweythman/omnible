@@ -6,22 +6,21 @@
 		<%= subtitle @work.byline.html_safe %>
 	</h1>
 
+	<%= @work.completion_status %>
+
 	<div class="metadata">
-		<%= metadata(@work.categorized_type, '') %>
-		<%= metadata("Completion:",  @work.status_label) %>
+		<%= metadata("Likes:",  @work.opinion_avg) %>
+		<% @work.rating.categorized.each do |label, level_content| %>
+			<%= metadata("#{label}:",  level_content) %>
+		<% end %>
 	</div>
+	<%= metadata(@work.categorized_type, '') %>
 
 	<%= @work.response_bar %>
 </header>
 
 <div class="subject-body">
-
-	<%= solo_cell do %>
-		<div class="summary-cell widget">
-			<h2 class="subheading summary-heading">Summary</h2>
-			<%= markdown @work.summarized %>
-		</div>
-	<% end %>
+	<%= @work.summary_block %>
 	<%= render 'works/shared/tag_widget' %>
 </div>
 

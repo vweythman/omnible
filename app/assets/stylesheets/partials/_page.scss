@@ -49,8 +49,19 @@
 }
 
 .metadata {
-	font-size: 1.3em;
+	clear:        both;
+	display:      table;
+	table-layout: fixed;
+	padding:      8px 0px;
 
+	.datum {
+		display: table-cell;
+		padding: 0px 5px 0px 0px;
+	}
+}
+
+.datum {
+	font-size: 1.2em;
 	.key {
 		color: $fire-light-minor;
 	}
@@ -70,7 +81,6 @@
 
 .subject-body {
 	background: $water-dark-minor;
-	min-height: 200px;
 	padding:    10px;
 }
 .notice {

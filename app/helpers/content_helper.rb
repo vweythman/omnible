@@ -48,7 +48,7 @@ module ContentHelper
 
 	def metadata(ky, val)
 		key_string = content_tag :b, class: "key" do (ky) end
-		content_tag :p do
+		content_tag :p, class: "datum" do
 			"#{key_string} #{val}".html_safe
 		end
 	end

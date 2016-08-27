@@ -245,6 +245,7 @@ class Work < ActiveRecord::Base
 	delegate :oneshot?,          to: :type_describer
 	delegate :record?,           to: :type_describer
 	delegate :onsite_multishot?, to: :type_describer
+	delegate :watchable?,        to: :type_describer
 
 	# PRIVATE METHODS
 	# ============================================================

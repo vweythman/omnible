@@ -6,32 +6,32 @@
 		<%= subtitle @short.byline.html_safe %>
 	</h1>
 	<%= @short.completion_status %>
-	<%= @short.rated %>
 
-	<div class="about">
-		<%= @short.summarized %>
-		<%= @short.all_tags_line %>
-	</div>
+	<%= @short.metadata_block %>
 
 	<%= @short.response_bar %>
 	<%= @short.createables_links %>
 
 	<%= @short.navigation_on_short %>
+
 </header>
+
+<div class="subject-body">
+	<%= @work.summary_block %>
+</div>
 
 <article role="article">
 	<div class="page-body" id="work-content"><%= markdown @short.content %></div>
 </article>
 
-<footer>
-	<%= render 'comments/discussion' %>
-	<div class="path-finder">
-		<p>
-			<%= link_to "All Short Stories", short_stories_path %> |
-			<%= link_to "All Fiction", fiction_index_path %> |
-			<%= link_to "All Works", works_path %>
-		</p>
-	</div>
+<%= render 'comments/discussion' %>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to "All Short Stories", short_stories_path %> |
+		<%= link_to "All Fiction", fiction_index_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
 </footer>
 
 <%= @work.skin_content %>

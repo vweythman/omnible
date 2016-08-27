@@ -13,6 +13,14 @@ class RatingDecorator < Draper::Decorator
 		sex + " " + fight + " " + curse 
 	end
 
+	def categorized
+		{
+			"Sexual Content" => rating_value(sexuality),
+			"Violence"       => rating_value(violence),
+			"Profanity"      => rating_value(language),
+		}
+	end
+
 	# PRIVATE METHODS
 	# ------------------------------------------------------------
 	private
@@ -21,4 +29,9 @@ class RatingDecorator < Draper::Decorator
 			Rating.labels[level] + " " + type
 		end
 	end
+
+	def rating_value(level)
+		h.content_tag :span, class: "level#{4 - level} rating" do Rating.labels[level] end
+	end
+
 end

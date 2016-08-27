@@ -17,19 +17,27 @@
 
 class WorkOpinion < ActiveRecord::Base
 
-	belongs_to :work
-	belongs_to :user
-
+	# SCOPES
+	# ============================================================
 	scope :liked,    ->    { where("value > ?", 0) }
-	scope :disliked, ->    { where("value < ?", 0) }
+	scope :disliked, ->    { where("value < ?", 1) }
 
-	scope :by_work, ->(w) { where(work_id: w.id) }
-	scope :by_user, ->(u) { where(user_id: u.id) }
+	scope :by_work,  ->(w) { where(work_id: w.id) }
+	scope :by_user,  ->(u) { where(user_id: u.id) }
 
 	scope :by_selectables, -> (u, w) { by_user(u).by_work(w) }
 
+	scope :avg, -> { average(:value) }
+
+	# ASSOCIATIONS
+	# ============================================================
+	belongs_to :work
+	belongs_to :user
+
+	# PUBLIC METHODS
+	# ============================================================
 	def is_a_dislike?
-		self.value < 0
+		self.value < 1
 	end
 
 	def is_a_like?
@@ -37,7 +45,7 @@ class WorkOpinion < ActiveRecord::Base
 	end
 
 	def make_disliked
-		self.value = -1
+		self.value = 0
 	end
 
 	def make_liked

@@ -32,6 +32,10 @@ class WorkDecorator < Draper::Decorator
 		'works/' + klass.to_s.pluralize + '/'
 	end
 
+	def opinion_avg
+		h.number_to_percentage(object.work_opinions.avg * 100, precision: 0)
+	end
+
 	# CHECK
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def has_skin?
@@ -77,8 +81,7 @@ class WorkDecorator < Draper::Decorator
 		response_paths = {}
 		checked_status = {}
 
-		unless complete?
-			logger.debug "!!!!! #{complete?}"
+		unless watchable?
 			if current_user.tracking? object
 				response_paths[:watch], checked_status[:watch] = work_untracking
 			else
@@ -89,38 +92,55 @@ class WorkDecorator < Draper::Decorator
 		opinion = current_user.work_opinions.by_work(self).first
 
 		if opinion.nil?
-			response_paths[:like],    checked_status[:like]    = work_liking
-			response_paths[:dislike], checked_status[:dislike] = work_disliking
+			response_paths[:like],    checked_status[:like]    = work_like_link
+			response_paths[:dislike], checked_status[:dislike] = work_dislike_link
 		elsif opinion.is_a_like?
-			response_paths[:like],    checked_status[:like]    = work_unliking
-			response_paths[:dislike], checked_status[:dislike] = work_disliking
+			response_paths[:like],    checked_status[:like]    = work_unlike_link
+			response_paths[:dislike], checked_status[:dislike] = work_dislike_link
 		else
-			response_paths[:like],    checked_status[:like]    = work_liking
-			response_paths[:dislike], checked_status[:dislike] = work_undisliking
+			response_paths[:like],    checked_status[:like]    = work_like_link
+			response_paths[:dislike], checked_status[:dislike] = work_undislike_link
 		end
 		h.response_kit response_paths, checked_status
 	end
 
+	def metadata_block
+		h.content_tag :div, class: 'metadata' do
+			h.concat h.metadata("Likes:", self.opinion_avg)
+			self.rating.categorized.each do |label, level_content|
+				h.concat h.metadata("#{label}:",  level_content)
+			end
+		end
+	end
+
+	def summary_block
+		h.widget_cell("Summary", class: 'summary-cell') do
+			h.concat h.markdown(self.summarized)
+		end
+	end
+
+	# LINK
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# ADD
 	def work_tracking
 		[h.work_track_path(object), false]
 	end
 
-	def work_liking
+	def work_like_link
 		[h.work_like_path(object), false]
 	end
 
-	def work_disliking
+	def work_dislike_link
 		[h.work_track_path(object), false]
 	end
 
 	# REMOVE
-	def work_undisliking
+	def work_undislike_link
 		[h.work_undislike_path(object), true]
 	end
 
-	def work_unliking
-		[h.work_unliking(object), true]
+	def work_unlike_link
+		[h.work_unlike_path(object), true]
 	end
 
 	def work_untracking
