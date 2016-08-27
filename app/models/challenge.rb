@@ -23,5 +23,5 @@ class Challenge < ActiveRecord::Base
 	EXCEPT_BLOCKED      = 'any user except blocked users'
 	ANYONE              = 'anyone'
 
-  belongs_to :uploader
+	belongs_to :uploader
 end

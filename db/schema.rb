@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720101104) do
+ActiveRecord::Schema.define(version: 20160826123723) do
 
   create_table "adjectives", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -603,6 +603,17 @@ ActiveRecord::Schema.define(version: 20160720101104) do
   add_index "topics", ["creator_id", "creator_type"], name: "index_topics_on_creator_id_and_creator_type"
   add_index "topics", ["discussed_id", "discussed_type"], name: "index_topics_on_discussed_id_and_discussed_type"
 
+  create_table "trackings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tracked_id"
+    t.string   "tracked_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "trackings", ["tracked_type", "tracked_id"], name: "index_trackings_on_tracked_type_and_tracked_id"
+  add_index "trackings", ["user_id"], name: "index_trackings_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255
     t.string   "email",                  limit: 255
@@ -654,6 +665,9 @@ ActiveRecord::Schema.define(version: 20160720101104) do
 
   add_index "work_connections", ["tagged_id"], name: "index_work_connections_on_tagged_id"
   add_index "work_connections", ["tagger_id"], name: "index_work_connections_on_tagger_id"
+
+# Could not dump table "work_opinions" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "works", force: :cascade do |t|
     t.string   "title",           limit: 255

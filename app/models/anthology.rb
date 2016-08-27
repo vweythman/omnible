@@ -54,7 +54,7 @@ class Anthology < ActiveRecord::Base
 	end
 
 	def editable? user
-		self.uploader == user
+		self.uploader_id == user.id
 	end
 
 end

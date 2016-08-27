@@ -12,7 +12,14 @@
 		%>
 	<% end %>
 
-	<%= render 'works/shared/grouping_tags', heading: "Places", tags: @work.places, gclass: "places", tclass: "place-tag" %>
+	<%= render 'works/shared/grouping_tags', 
+		heading: "Places", 
+		tags: @work.places, 
+		gclass: "places", 
+		topts: {
+				class: "place-tag"
+		}
+	%>
 
 	<% Appearance.tag_labels(@work).each do |key, heading| %>
 		<% characters = @work.ordered_characters.group_by key %>
@@ -23,6 +30,20 @@
 			gclass:  "#{key}-characters", 
 			topts:   {
 				class: "#{key}-character character-tag",
+				type: key
+			}
+		%>
+	<% end %>
+
+	<% SocialAppearance.tag_labels(@work).each do |key, heading| %>
+		<% squads = @work.ordered_squads.group_by key %>
+
+		<%= render 'works/shared/grouping_tags', 
+			heading: heading, 
+			tags:    squads,
+			gclass:  "#{key}-squads", 
+			topts:   {
+				class: "#{key}-squad squad-tag",
 				type: key
 			}
 		%>

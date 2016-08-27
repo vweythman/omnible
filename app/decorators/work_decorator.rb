@@ -64,6 +64,69 @@ class WorkDecorator < Draper::Decorator
 		end unless self.summary.empty?
 	end
 
+	def response_bar
+		if self.uploader? h.current_user
+			edit_bar
+		elsif !(["Record", "WorkLink"].include? type)
+			reader_response_bar
+		end
+	end
+
+	def reader_response_bar
+		current_user   = h.current_user
+		response_paths = {}
+		checked_status = {}
+
+		unless complete?
+			logger.debug "!!!!! #{complete?}"
+			if current_user.tracking? object
+				response_paths[:watch], checked_status[:watch] = work_untracking
+			else
+				response_paths[:watch], checked_status[:watch] = work_tracking
+			end
+		end
+
+		opinion = current_user.work_opinions.by_work(self).first
+
+		if opinion.nil?
+			response_paths[:like],    checked_status[:like]    = work_liking
+			response_paths[:dislike], checked_status[:dislike] = work_disliking
+		elsif opinion.is_a_like?
+			response_paths[:like],    checked_status[:like]    = work_unliking
+			response_paths[:dislike], checked_status[:dislike] = work_disliking
+		else
+			response_paths[:like],    checked_status[:like]    = work_liking
+			response_paths[:dislike], checked_status[:dislike] = work_undisliking
+		end
+		h.response_kit response_paths, checked_status
+	end
+
+	# ADD
+	def work_tracking
+		[h.work_track_path(object), false]
+	end
+
+	def work_liking
+		[h.work_like_path(object), false]
+	end
+
+	def work_disliking
+		[h.work_track_path(object), false]
+	end
+
+	# REMOVE
+	def work_undisliking
+		[h.work_undislike_path(object), true]
+	end
+
+	def work_unliking
+		[h.work_unliking(object), true]
+	end
+
+	def work_untracking
+		[h.work_untrack_path(object), true]
+	end
+
 	# TAGS
 	# ------------------------------------------------------------
 	# GET Collected Tags
@@ -76,7 +139,7 @@ class WorkDecorator < Draper::Decorator
 		@main_tags ||= (self.tags + self.important_characters + self.places).sort_by! { |x| x[:name].downcase }
 	end
 
-	# GET :: Tags by Group
+	# GET :: Ordered Tags
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def ordered_characters
 		@ordered_characters ||= order_tags Appearance.organize(self.appearances.with_character)

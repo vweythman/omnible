@@ -15,6 +15,26 @@ function sort_description(selector, list) {
 	$("#" + d_id).parent().show();
 }
 
+function checked_response_link(id, heading, controller) {
+	link_value = $(id)
+
+	link_value.html(heading);
+	link_value.addClass('checked').removeClass('unchecked');
+	link_value.attr("href", link_value.attr("href").replace(controller, 'un' + controller));
+
+	link_value.data('method', 'delete');
+}
+
+function unchecked_response_link(id, heading, controller) {
+	watch_link = $(id)
+
+	watch_link.html(heading);
+	watch_link.addClass('unchecked').removeClass('checked');
+	watch_link.attr("href", watch_link.attr("href").replace('un' + controller, controller));
+
+	watch_link.data('method', 'post');
+}
+
 $(document).ready(function(){
 
 	// SETUP TOGGLE

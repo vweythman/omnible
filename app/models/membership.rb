@@ -19,7 +19,7 @@ class Membership < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	belongs_to :social_group, class_name: "Squad"
-	belongs_to :member, polymorphic: :true
+	belongs_to :member,       polymorphic: :true
 
 	# CLASS METHODS
 	# ------------------------------------------------------------

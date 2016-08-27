@@ -32,7 +32,10 @@ class Categories::CreatorCategoriesController < ApplicationController
 
 		if @creator_category.save
 			respond_to do |format|
-				format.js   { creator_categories }
+				format.js   {
+					creator_categories
+					render layout: false
+				}
 				format.html { redirect_to @creator_category }
 			end
 		else

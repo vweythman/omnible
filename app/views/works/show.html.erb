@@ -11,7 +11,7 @@
 		<%= metadata("Completion:",  @work.status_label) %>
 	</div>
 
-	<%= @work.edit_bar %>
+	<%= @work.response_bar %>
 </header>
 
 <div class="subject-body">
@@ -22,7 +22,6 @@
 			<%= markdown @work.summarized %>
 		</div>
 	<% end %>
-
 	<%= render 'works/shared/tag_widget' %>
 </div>
 

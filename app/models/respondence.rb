@@ -16,6 +16,6 @@
 # ================================================================================
 
 class Respondence < ActiveRecord::Base
-  belongs_to :caller, :polymorphic => true
+  belongs_to :caller, polymorphic: true
   belongs_to :response, class_name: "Work"
 end

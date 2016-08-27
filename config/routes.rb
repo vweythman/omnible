@@ -199,7 +199,16 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   # 2.3.3.1 -- ROUTES :: UPLOADS :: WORKS :: GENERAL
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  resources :works, concerns: index_concerns
+  resources :works, concerns: index_concerns do
+    post   'track'   => "trackings#create",  as: :track,   tracked_type: "Work"
+    delete 'untrack' => "trackings#destroy", as: :untrack, tracked_type: "Work"
+
+    post   'like'   => "likes#create",  as: :like
+    delete 'unlike' => "likes#destroy", as: :unlike
+
+    post   'dislike'   => "dislikes#create",  as: :dislike
+    delete 'undislike' => "dislikes#destroy", as: :undislike
+  end
 
   all_work_types.each do |type|
     resources :notes
@@ -208,7 +217,7 @@ Rails.application.routes.draw do
   end
 
   work_elements.each do |type|
-    resources type, except: [:index, :new, :show], controller: 'works/' + type
+    resources type, except: [:index, :new, :show],  controller: 'works/' + type
     get '/' + type + '/:id/discuss', action: :show, controller: "discussions", as: type.singularize + '_discussion'
   end
 
@@ -226,34 +235,27 @@ Rails.application.routes.draw do
     resources :fiction,    only: [:index], concerns: index_concerns
     resources :nonfiction, only: [:index], concerns: index_concerns
 
-    to_about = ['_id/works/about',      'about_all_works#show']
-    to_actvt = ['_id/works/activity',   'about_all_works#activity']
-    to_atags = ['_id/works/about-tags', 'about_all_works#related']
+    to_about = ['/works/about',      'about_all_works#show']
+    to_actvt = ['/works/activity',   'about_all_works#activity']
+    to_atags = ['/works/about-tags', 'about_all_works#related']
 
     all_acts_as_tag.each do |tag_type|
       get "/#{tag_type.pluralize}/:#{tag_type}_id/works/" => "curation/#{tag_type}_works#index", as: tag_type + '_works'
     end
 
     all_acts_as_tag.each do |c|
-      path_start = "/#{c.pluralize}/:#{c}"
+      path_start = "/#{c.pluralize}/:id"
       get path_start + to_about[0] => to_about[1], as: c + '_works_about',      tagger_table: c.pluralize
       get path_start + to_actvt[0] => to_actvt[1], as: c + '_works_activity',   tagger_table: c.pluralize
       get path_start + to_atags[0] => to_atags[1], as: c + '_works_about_tags', tagger_table: c.pluralize
     end
 
     all_work_types.each do |type|
-      get '/' + type + '/:work_id/works' => 'curation/works_intratags#index'
+      get '/' + type + '/:id/works' => 'curation/works_intratags#index'
     end
 
     taggable_work_types.each do |tag_type|
-      get '/works/:work_id/' + tag_type[0] + '-works' => 'curation/works_intratags#index', as: 'work_' + tag_type[1], tagging_type: tag_type[2]
-    end
-
-    taggable_work_types.each do |sc|
-      path_start = "/works/:work_id/#{sc[0]}"
-      get path_start + to_about[0] => to_about[1], as: 'work_' + sc[1] +'_about',      tagging_type: sc[2], tagger_table: 'works'
-      get path_start + to_actvt[0] => to_actvt[1], as: 'work_' + sc[1] +'_activity',   tagging_type: sc[2], tagger_table: 'works'
-      get path_start + to_atags[0] => to_atags[1], as: 'work_' + sc[1] +'_about_tags', tagging_type: sc[2], tagger_table: 'works'
+      get '/works/:id/' + tag_type[0] + '-works' => 'curation/works_intratags#index', as: 'work_' + tag_type[1], tagging_type: tag_type[2]
     end
 
     # 2.3.3.2.2 -- ROUTES :: UPLOADS :: WORKS :: FICTION

@@ -80,6 +80,30 @@
 	}
 }
 
+// TOOLKITS :: Reader Response
+// ===============================================
+.reader-response {
+	display:       inline-block;
+	overflow:      auto;
+	border-radius: 5px;
+	margin:        0;
+	width:         100%;
+
+	@include buttonable($moss-dark-minor);
+
+	a {
+		display:    block;
+		border-radius: 0;
+		min-width:      33.333%;
+		padding:       7px 0;
+		float: left;
+	}
+
+	.unchecked {
+		color: $moss-light-major;
+	}
+}
+
 // TOOLKITS :: Creation & Insertion
 // ===============================================
 .creation  a,
@@ -87,7 +111,6 @@
 	background: $moss-color;
 	font-weight: bolder;
 
-	&:visited { color: $page-lightest-major; }
 	&:hover   {
 		background: desaturate($moss-dark-major, $golden-tiny);
 		color:      $page-color;

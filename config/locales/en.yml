@@ -47,21 +47,10 @@ en:
   menu:
     media:      "Media"
     works:      "Works"
-    work_types:
-      artwork: "Artwork"
-
-      articles: "Articles"
-      journals: "Journals"
-
-      music_videos:      "Music Videos"
-      poems:             "Poems"
-
-      branching_stories: "Branching Stories"
-      stories:           "Chaptered Stories"
-      short_stories:     "Short Stories"
 
     fiction:    "Fiction"
     nonfiction: "Nonfiction"
+
     anthologies: "Anthologies"
     subjects:    "Subjects"
     characters:  "Characters"
@@ -76,7 +65,33 @@ en:
       relator: "Relationships Categories"
       identities: "Identities Categories"
 
+  work_types:
+    artwork:           "Artwork"
+    articles:          "Articles"
+    journals:          "Journals"
+    music_videos:      "Music Videos"
+    poems:             "Poems"
+    branching_stories: "Branching Stories"
+    stories:           "Chaptered Stories"
+    short_stories:     "Short Stories"
+
   pather:
     works:      "All Works"
     nonfiction: "All Nonfiction"
     journals:   "All Journals"
+    
+
+  toolkit:
+    edit:    "Edit"
+    delete:  "Delete"
+    checked:
+      watch: "Unwatch"
+      like:  "Unlike"
+      dislike: "Undislike"
+    unchecked:
+      watch:   "Watch"
+      like:    "Like"
+      dislike: "Dislike"
+
+
+

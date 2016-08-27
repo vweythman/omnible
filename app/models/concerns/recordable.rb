@@ -41,7 +41,8 @@ module Recordable
 		# ------------------------------------------------------------
 		# Joins
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		has_many :creatorships, dependent: :destroy
+		has_many :creatorships,  dependent: :destroy
+		has_many :work_opinions, dependent: :destroy
 
 		# Has and Belongs To
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

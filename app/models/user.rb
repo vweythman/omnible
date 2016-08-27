@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# :: self
 	has_many :pseudonymings, dependent: :destroy
+	has_many :work_opinions, dependent: :destroy
+
 	has_many :pen_namings, ->{ Pseudonyming.pen_namings }, class_name: "Pseudonyming"
 	has_many :roleplays,   ->{ Pseudonyming.roleplays },   class_name: "Pseudonyming"
 
@@ -49,16 +51,20 @@ class User < ActiveRecord::Base
 	has_many :skins,               foreign_key: "uploader_id"
 
 	# :: uploads
-	has_many :works,                            foreign_key: "uploader_id"
-	has_many :onsite_works, ->{ Work.onsite }, foreign_key: "uploader_id", class_name: "Work"
+	has_many :works,           foreign_key: "uploader_id"
+	has_many :places,          foreign_key: "uploader_id", class_name: "Place"
+	has_many :uploaded_items,  foreign_key: "uploader_id", class_name: "Item"
+	has_many :uploaded_events, foreign_key: "uploader_id", class_name: "Event"
 
-	has_many :characters, ->{ Character.not_pen_name }, foreign_key: "uploader_id", class_name: "Character"
-	has_many :places,     foreign_key: "uploader_id", class_name: "Place"
-	has_many :uploaded_items,      foreign_key: "uploader_id", class_name: "Item"
-	has_many :uploaded_events,     foreign_key: "uploader_id", class_name: "Event"
+	has_many :onsite_works, ->{ Work.onsite },            foreign_key: "uploader_id", class_name: "Work"
+	has_many :characters,   ->{ Character.not_pen_name }, foreign_key: "uploader_id", class_name: "Character"
 
 	has_many :editables, through: :edit_invites
 	has_many :viewables, through: :view_invites
+
+	# :: tracked
+	has_many :trackings
+	has_many :tracked_works, through: :trackings, source: :tracked, source_type: "Work"
 
 	# DELEGATED METHODS
 	# ============================================================
@@ -90,6 +96,10 @@ class User < ActiveRecord::Base
 		self.works.onsite + self.skins + self.roleplay_characters
 	end
 
+	def trackables
+		tracked_works
+	end
+
 	# ACTIONS
 	# ------------------------------------------------------------
 	# Characterize - turn user into a character
@@ -117,6 +127,27 @@ class User < ActiveRecord::Base
 				type:         "PenNaming", 
 				is_primary:   is_prime
 			)
+		end
+	end
+
+	# Track
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def track(model)
+		Tracking.by_selectables(self, model).first_or_create
+	end
+
+	def untrack(model)
+		Tracking.by_selectables(self, model).first.destroy
+	end
+
+	# QUESTIONS
+	# ------------------------------------------------------------
+	def tracking? model
+		case model.class.base_class.to_s
+		when "Work"
+			self.tracked_works.include? model
+		else
+			false
 		end
 	end
 

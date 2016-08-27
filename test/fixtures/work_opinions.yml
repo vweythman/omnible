@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work_id: 
+  user_id: 
+  opinion_value: 1
+
+two:
+  work_id: 
+  user_id: 
+  opinion_value: 1

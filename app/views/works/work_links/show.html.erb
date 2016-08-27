@@ -3,7 +3,6 @@
 <header class="work-header record-header">
 	<h1>
 		<%= @link.title %>
-		<%= @link.uploaded_by.html_safe %>
 	</h1>
 
 	<%= @link.edit_bar %>
@@ -18,12 +17,16 @@
 		</ul>
 	<% end %>
 
+	<%= page_widget "Linked By" do %>
+		<p><%= link_to @link.uploader.name, @link.uploader %></p>
+	<% end %>
+
 	<%= render 'works/shared/tag_widget' %>
 </div>
 
 <footer class="path-finder">
 	<p>
 		<%= link_to "All Links", work_links_path %> |
-		<%= link_to "All Works", works_path %>
+		<%= link_to t('pather.works'), works_path %>
 	</p>
 </footer>

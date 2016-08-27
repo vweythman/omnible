@@ -6,7 +6,6 @@ module ToolkitHelper
 		"button#{new_polymorphic_path(item_type).gsub('/', '-')}"
 	end
 
-
 	# GENERAL TOOLKITS
 	# ============================================================
 	def alterable_kit(item, kit_id, remoteness = false)
@@ -28,6 +27,16 @@ module ToolkitHelper
 		end
 	end
 
+	def response_kit(paths = {}, checked_status = {})
+		user = current_user
+		content_tag :div, class: "toolkit reader-response" do
+			if !paths[:watch].nil?
+				concat link_to_watch(paths[:watch], checked_status[:watch])
+			end
+			concat link_to_like(paths[:like], checked_status[:like])
+			concat link_to_dislike(paths[:dislike], checked_status[:dislike])
+		end
+	end
 
 	# TOOLKIT TYPE :: TABLE
 	# ============================================================
@@ -73,7 +82,6 @@ module ToolkitHelper
 	def prechecked_creation_toolkit(name, item_type)
 		creatable_kit(name.to_s.titleize, item_type, nil, false)
 	end
-
 
 	# TOOLKIT TYPES :: CREATION
 	# ============================================================

@@ -93,9 +93,11 @@ class Work < ActiveRecord::Base
 	# ============================================================
 	# JOINS
 	# ------------------------------------------------------------
-	has_many :collections,  dependent: :destroy
-	has_many :respondences, dependent: :destroy, foreign_key: "response_id"
-	has_one  :skinning,     dependent: :destroy
+	has_many :collections,   dependent: :destroy
+	has_many :respondences,  dependent: :destroy, foreign_key: "response_id"
+	has_one  :skinning,      dependent: :destroy
+	has_many :trackings,     dependent: :destroy, as: :tracked
+	has_many :work_opinions, dependent: :destroy
 
 	# BELONGS TO
 	# ------------------------------------------------------------
@@ -234,7 +236,7 @@ class Work < ActiveRecord::Base
 	# ------------------------------------------------------------
 	# Complete? - self explantory
 	def complete?
-		self.is_complete == 't' || self.is_complete == true
+		self.status == 'complete'
 	end
 
 	# DELEGATED METHODS

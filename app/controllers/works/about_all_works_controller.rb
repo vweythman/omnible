@@ -38,17 +38,12 @@ class Works::AboutAllWorksController < ApplicationController
 	private
 
 	def find_works
-		case params[:tagger_table]
-		when 'characters'
-			@parent = Character.find(params[:character_id])
-		when 'users'
-			@parent = User.find(params[:user_id])
-		when 'tags'
-			@parent = Tag.find(params[:tag_id])
-		when 'works'
-			@parent = Work.find(params[:work_id])
-		when 'identities'
-			@parent = Identity.find(params[:identity_id])
+		class_name = params[:tagger_table]
+
+		if class_name == 'tags'
+			@parent = class_name.classify.constantize.friendly.find(params[:id])
+		else
+			@parent = class_name.classify.constantize.find(params[:id])
 		end
 	end
 
