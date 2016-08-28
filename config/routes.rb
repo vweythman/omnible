@@ -240,7 +240,7 @@ Rails.application.routes.draw do
     to_atags = ['/works/about-tags', 'about_all_works#related']
 
     all_acts_as_tag.each do |tag_type|
-      get "/#{tag_type.pluralize}/:#{tag_type}_id/works/" => "curation/#{tag_type}_works#index", as: tag_type + '_works'
+      get "/#{tag_type.pluralize}/:#{tag_type}_id/works/" => "curation/#{tag_type == 'work' ? 'intratags' : tag_type}_works#index", as: tag_type + '_works'
     end
 
     all_acts_as_tag.each do |c|
@@ -251,11 +251,11 @@ Rails.application.routes.draw do
     end
 
     all_work_types.each do |type|
-      get '/' + type + '/:id/works' => 'curation/works_intratags#index'
+      get '/' + type + '/:id/works' => 'curation/intratags_works#index'
     end
 
     taggable_work_types.each do |tag_type|
-      get '/works/:id/' + tag_type[0] + '-works' => 'curation/works_intratags#index', as: 'work_' + tag_type[1], tagging_type: tag_type[2]
+      get '/works/:id/' + tag_type[0] + '-works' => 'curation/intratags_works#index', as: 'work_' + tag_type[1], tagging_type: tag_type[2]
     end
 
     # 2.3.3.2.2 -- ROUTES :: UPLOADS :: WORKS :: FICTION
