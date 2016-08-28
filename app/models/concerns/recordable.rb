@@ -8,28 +8,21 @@ module Recordable
 	included do
 
 		# CALLBACKS
-		# ------------------------------------------------------------
+		# ============================================================
 		after_save :update_creators, on: [:update, :create]
 
 		# SCOPES
+		# ============================================================
+		# SEEK
 		# ------------------------------------------------------------
 		scope :seek_with_creator, ->(creator_name) { joins(:creators).where("characters.name IN (?)", creator_name) }
 		scope :seek_with_type,    ->(type_name)    { joins('LEFT OUTER JOIN "record_metadata" ON "record_metadata"."work_id" = "works"."id"').where("((key = 'medium' AND value = ?) OR type = ?)", type_name, type_name.split(' ').collect(&:capitalize).join) }
 
-		# CATEGORIES
+		# TYPIFY
 		# ------------------------------------------------------------
-		scope :fiction,    -> { where("type IN (#{WorksTypeDescriber.fiction.select(:name).to_sql})")    }
-		scope :nonfiction, -> { where("type IN (#{WorksTypeDescriber.nonfiction.select(:name).to_sql})") }
-
-		scope :chaptered,  -> { where("type IN (#{WorksTypeDescriber.chaptered.select(:name).to_sql})") }
-		scope :oneshot,    -> { where("type IN (#{WorksTypeDescriber.oneshot.select(:name).to_sql})")   }
-		
-		scope :complete,   -> { where(status: 'complete')   }
-		scope :incomplete, -> { where(status: 'incomplete') }
-
-		scope :onsite,     -> { where("type IN (#{WorksTypeDescriber.onsite.select(:name).to_sql})") }
-		scope :offsite,    -> { where("type IN (#{WorksTypeDescriber.offsite_sql})")   }
-
+		# BY CONTENT TYPE
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		scope :textual,     -> { where("type IN (#{WorksTypeDescriber.textual.select(:name).to_sql})")     }
 		scope :audible,     -> { where("type IN (#{WorksTypeDescriber.audible.select(:name).to_sql})")     }
 		scope :audiovisual, -> { where("type IN (#{WorksTypeDescriber.audiovisual.select(:name).to_sql})") }
@@ -37,22 +30,50 @@ module Recordable
 		scope :evidential,  -> { where("type IN (#{WorksTypeDescriber.evidential.select(:name).to_sql})")  }
 		scope :nondata,     -> { where.not(type: "Record") }
 
+		# BY LENGTH
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		scope :chaptered,  -> { where("type IN (#{WorksTypeDescriber.chaptered.select(:name).to_sql})") }
+		scope :oneshot,    -> { where("type IN (#{WorksTypeDescriber.oneshot.select(:name).to_sql})")   }
+
+		# BY LOCATION
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		scope :onsite,     -> { where("type IN (#{WorksTypeDescriber.onsite.select(:name).to_sql})") }
+		scope :offsite,    -> { where("type IN (#{WorksTypeDescriber.offsite_sql})")                 }
+
+		# BY NARRATIVE
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		scope :fiction,    -> { where("type IN (#{WorksTypeDescriber.fiction.select(:name).to_sql})")    }
+		scope :nonfiction, -> { where("type IN (#{WorksTypeDescriber.nonfiction.select(:name).to_sql})") }
+
+		# BY STATUS
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		scope :complete,       -> { where(status: 'complete')   }
+		scope :incomplete,     -> { where(status: 'incomplete') }
+		scope :hiatus,         -> { where(status: 'hiatus')     }
+		scope :upcoming,       -> { where(status: 'upcoming')   }
+		scope :abandoned,      -> { where(status: 'abandoned')  }
+		scope :status_unknown, -> { where(status: 'unknown')    }
+
 		# ASSOCIATIONS
-		# ------------------------------------------------------------
+		# ============================================================
 		# Joins
-		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ------------------------------------------------------------
 		has_many :creatorships,  dependent: :destroy
 		has_many :work_opinions, dependent: :destroy
 
 		# Has and Belongs To
-		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ------------------------------------------------------------
 		has_many   :creators,       through: :creatorships
 		belongs_to :type_describer, class_name: "WorksTypeDescriber",          foreign_key: "type",    primary_key: "name"
 		has_many   :qualitatives,   class_name: "RecordMetadatum",             foreign_key: "work_id", dependent: :destroy, extend: DataDrivenExtension
 		has_many   :quantitatives,  class_name: "RecordQuantitativeMetadatum", foreign_key: "work_id", dependent: :destroy, extend: DataDrivenExtension
 
 		# References
-		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ------------------------------------------------------------
 		has_many   :creator_categories, through: :type_describer
 
 	end
@@ -71,14 +92,25 @@ module Recordable
 	# ============================================================
 	class_methods do
 
-		def toggle_links(show_links)
-			if show_links
-				nondata
-			else
-				onsite
-			end
+		# LABELS
+		# ------------------------------------------------------------
+		def all_status_labels
+			public_status_labels + hidden_status_labels
 		end
 
+		def public_status_labels
+			['incomplete', 'upcoming', 'complete', 'hiatus', 'abandoned']
+		end
+
+		def hidden_status_labels
+			['unknown']
+		end
+
+		# SELECTION FILTERS
+		# ------------------------------------------------------------
+		# FILTER : SORT
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		# OrderBy :: filter by sort
 		def order_by(choice)
 			case choice
@@ -93,6 +125,9 @@ module Recordable
 			end
 		end
 
+		# FILTER : SLICE BY GENERAL
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		# ContextualizeBy :: filter by content type
 		def contextualize_by(content_type)
 			if ["text", "data", "audio", "picture", "video", "reference"].include? content_type
@@ -128,6 +163,17 @@ module Recordable
 			end
 		end
 
+		def toggle_links(show_links)
+			if show_links
+				nondata
+			else
+				onsite
+			end
+		end
+
+		# FILTER : SLICE BY RATING
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		# WithRating :: filter by rating
 		def with_rating(rate_options)
 			unless rate_options.nil? || rate_options.length < 1

@@ -93,9 +93,10 @@
 	@include buttonable($moss-dark-minor);
 
 	a {
-		display: table-cell;
+		display:       table-cell;
 		border-radius: 0;
 		padding:       7px 0;
+		min-width:     $one-sixth;
 	}
 	a:last-child {
 		border-top-right-radius: 5px;

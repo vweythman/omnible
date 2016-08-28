@@ -7,13 +7,7 @@
 	</h1>
 
 	<%= @work.completion_status %>
-
-	<div class="metadata">
-		<%= metadata("Likes:",  @work.opinion_avg) %>
-		<% @work.rating.categorized.each do |label, level_content| %>
-			<%= metadata("#{label}:",  level_content) %>
-		<% end %>
-	</div>
+	<%= @work.metadata_block %>
 	<%= metadata(@work.categorized_type, '') %>
 
 	<%= @work.response_bar %>

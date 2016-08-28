@@ -16,63 +16,117 @@ class WorkDecorator < Draper::Decorator
 
 	# PUBLIC METHODS
 	# ============================================================
-	# WORK
+	# GETTERS
 	# ------------------------------------------------------------
-	# SET
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def summary
-		object.summary || ""
+	# Variables
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def chooseable_skins
+		uploader.skins
 	end
 
 	def klass
 		@klass ||= :work
 	end
 
-	def partial_prepend
-		'works/' + klass.to_s.pluralize + '/'
+	def location_heading
+		self.narrative? ? "Settings" : "Subject (Location)"
 	end
 
-	def opinion_avg
-		h.number_to_percentage(object.work_opinions.avg * 100, precision: 0)
+	def opinion_percentage
+		h.number_to_percentage(object.average_likes * 100, precision: 0)
 	end
 
-	# CHECK
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def has_skin?
-		self.skin.present?
-	end
-
-	def skin_content
-		if has_skin?
-			h.render 'works/shared/skin', work: self
+	# Links : Creation
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def note_creation_link
+		if self.editable?(h.current_user)
+			h.prechecked_creation_toolkit("Note", [self, :note])
 		end
 	end
 
-	# RENDER
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def completion_status
-		h.content_tag :p, class: "status completion-status " + status_label.downcase do
-			status_label
+	def note_insertion_link
+		if self.editable?(h.current_user)
+			h.insertion_toolkit("Note", [self, :note])
 		end
 	end
 
-	def rated
-		h.content_tag :p, class: 'ratings' do
-			rating.full_list
-		end
+	def work_tracking
+		[h.work_track_path(object), false]
 	end
 
-	def summarized
-		h.content_tag :div, class: 'summary' do
-			h.markdown self.summary 
-		end unless self.summary.empty?
+	def work_like_link
+		[h.work_like_path(object), false]
 	end
 
-	def response_bar
-		if self.uploader? h.current_user
-			edit_bar
-		elsif !(["Record", "WorkLink"].include? type)
-			reader_response_bar
+	def work_dislike_link
+		[h.work_track_path(object), false]
+	end
+
+	# Links :: Deletion
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def work_undislike_link
+		[h.work_undislike_path(object), true]
+	end
+
+	def work_unlike_link
+		[h.work_unlike_path(object), true]
+	end
+
+	def work_untracking
+		[h.work_untrack_path(object), true]
+	end
+
+	# Tags :: Sliced
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def main_tags
+		@main_tags ||= (self.tags + self.important_characters + self.places).sort_by! { |x| x[:name].downcase }
+	end
+
+	def important_characters
+		@important_characters ||= work.narrative? ? Array(snippet_ordered_characters.group_by("main")) : Array(snippet_ordered_characters.group_by("subject"))
+	end
+	
+	# Tags :: Sorted
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def ordered_characters
+		@ordered_characters ||= order_tags Appearance.organize(self.appearances.with_character)
+	end
+
+	def snippet_ordered_characters
+		@ordered_characters ||= order_tags Appearance.organize(self.appearances)
+	end
+
+	def ordered_squads
+		@social_cohorts     ||= order_tags SocialAppearance.organize(self.social_appearances.with_squad)
+	end
+
+	def ordered_true_tags
+		@ordered_true_tags  ||= order_tags Tagging.organize(self.taggings.with_tag)
+	end
+
+	def ordered_works
+		@ordered_works      ||= order_tags WorkConnection.organize(self.intratagged.with_tagged)
+	end
+
+	# VIEWS
+	# ------------------------------------------------------------
+	# Content Blocks
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def metadata_block
+		h.content_tag :div, class: 'metadata' do
+			if has_likes?
+				h.concat h.metadata("Likes:", self.opinion_percentage)
+			end
+
+			self.rating.categorized.each do |label, level_content|
+				h.concat h.metadata("#{label}:",  level_content)
+			end if self.rating.present?
 		end
 	end
 
@@ -104,12 +158,11 @@ class WorkDecorator < Draper::Decorator
 		h.response_kit response_paths, checked_status
 	end
 
-	def metadata_block
-		h.content_tag :div, class: 'metadata' do
-			h.concat h.metadata("Likes:", self.opinion_avg)
-			self.rating.categorized.each do |label, level_content|
-				h.concat h.metadata("#{label}:",  level_content)
-			end
+	def response_bar
+		if self.uploader? h.current_user
+			edit_bar
+		elsif !(["Record", "WorkLink"].include? type)
+			reader_response_bar
 		end
 	end
 
@@ -119,78 +172,23 @@ class WorkDecorator < Draper::Decorator
 		end
 	end
 
-	# LINK
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ADD
-	def work_tracking
-		[h.work_track_path(object), false]
-	end
-
-	def work_like_link
-		[h.work_like_path(object), false]
-	end
-
-	def work_dislike_link
-		[h.work_track_path(object), false]
-	end
-
-	# REMOVE
-	def work_undislike_link
-		[h.work_undislike_path(object), true]
-	end
-
-	def work_unlike_link
-		[h.work_unlike_path(object), true]
-	end
-
-	def work_untracking
-		[h.work_untrack_path(object), true]
-	end
-
-	# TAGS
-	# ------------------------------------------------------------
-	# GET Collected Tags
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def all_tags
-		@all_tags  ||= (self.tags + self.characters + self.places + self.works).sort_by! { |x| x.heading.downcase }
-	end
-
-	def main_tags
-		@main_tags ||= (self.tags + self.important_characters + self.places).sort_by! { |x| x[:name].downcase }
-	end
-
-	# GET :: Ordered Tags
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def ordered_characters
-		@ordered_characters ||= order_tags Appearance.organize(self.appearances.with_character)
-	end
-
-	def ordered_squads
-		@social_cohorts     ||= order_tags SocialAppearance.organize(self.social_appearances.with_squad)
-	end
-
-	def ordered_true_tags
-		@ordered_true_tags  ||= order_tags Tagging.organize(self.taggings.with_tag)
-	end
-
-	def ordered_works
-		@ordered_works      ||= order_tags WorkConnection.organize(self.intratagged.with_tagged)
-	end
-
-	# SET
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def important_characters
-		@important_characters ||= work.narrative? ? Array(ordered_characters.group_by("main")) : Array(ordered_characters.group_by("subject"))
-	end
-
-	def location_heading
-		self.narrative? ? "Settings" : "Subject (Location)"
-	end
-
-	# RENDER
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# Content Tags
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def all_tags_line
 		h.tag_group all_tags, 'works', { class: 'all-tags tags' }, { class: 'tag' }
+	end
+
+	def completion_status
+		h.content_tag :p, class: "status completion-status " + status_label.downcase do
+			status_label
+		end
+	end
+
+	def rated
+		h.content_tag :p, class: 'ratings' do
+			rating.full_list
+		end
 	end
 
 	def snippet_tags_line
@@ -199,30 +197,15 @@ class WorkDecorator < Draper::Decorator
 		end
 	end
 
-	# NOTES
-	# ------------------------------------------------------------
-	def note_creation_link
-		if self.editable?(h.current_user)
-			h.prechecked_creation_toolkit("Note", [self, :note])
+	def summarized
+		h.content_tag :div, class: 'summary' do
+			h.markdown object.summarized 
 		end
 	end
 
-	def note_insertion_link
-		if self.editable?(h.current_user)
-			h.insertion_toolkit("Note", [self, :note])
-		end
-	end
-
-	# FORM
-	# ------------------------------------------------------------
-	# GET
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def chooseable_skins
-		uploader.skins
-	end
-
-	# SET
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# Partial Locations
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def creatorship_fields
 		self.record? ? 'works/shared/fields/creatorship_fields' : 'works/shared/fields/creatorship_local_fields'
 	end
@@ -231,20 +214,24 @@ class WorkDecorator < Draper::Decorator
 		"works/shared/fields/meta_fields"
 	end
 
+	def partial_prepend
+		'works/' + klass.to_s.pluralize + '/'
+	end
+
 	def tag_fields
 		"works/shared/fields/tag_fields"
 	end
 
-	# CHECK
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def can_skin?
-		!self.record?
+	def skin_content
+		if has_skin?
+			h.render 'works/shared/skin', work: self
+		end
 	end
 
+	# PRIVATE METHODS
+	# ============================================================
 	private
 
-	# PUBLIC METHODS
-	# ============================================================
 	def order_tags(tags)
 		OrganizedTagGroups.new tags
 	end

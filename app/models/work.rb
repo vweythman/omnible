@@ -49,33 +49,46 @@ class Work < ActiveRecord::Base
 
 	# SCOPES
 	# ============================================================
-	# COUNTS
+	# COUNT
 	# ------------------------------------------------------------
+	# GROUP BY : ONE VALUE
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	scope :count_by_content_type,   -> { joins(:type_describer).group("content_type").ordered_count }
+	scope :count_by_creation_month, -> { group("strftime('%Y-%m', works.created_at)").ordered_count }
 	scope :count_by_title,          -> { group("works.title").ordered_count }
 	scope :count_by_type,           -> { group("type").ordered_count }
-	scope :count_by_content_type,   -> { joins(:type_describer).group("content_type").ordered_count }
-
-	scope :count_by_creation_month, -> { group("strftime('%Y-%m', works.created_at)").ordered_count }
 	scope :count_by_update_month,   -> { group("strftime('%Y-%m', works.updated_at)").ordered_count }
 
+	# GROUP BY : TWO VALUES
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	scope :type_count_by_creation,  -> { group("strftime('%Y-%m', works.created_at)", "works.type").ordered_count }
 	scope :type_count_by_updated,   -> { group("strftime('%Y-%m', works.updated_at)", "works.type").ordered_count }
 
-	# SORTER
+	# SORT
 	# ------------------------------------------------------------
 	scope :chronological, -> { order("works.created_at asc")   }
 	scope :alphabetical,  -> { order("lower(works.title) asc") }
 	scope :updated,       -> { order("works.updated_at desc")  }
 	scope :by_chapters,   -> { order("(SELECT COUNT(*) FROM chapters WHERE story_id = works.id) desc") }
 
-	# CHRONOLOGICAL
+	# SLICE
 	# ------------------------------------------------------------
-	scope :recently_updated, ->(num) { updated.limit(num)                          }
+	# LIMIT BY : VALUE
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	scope :recently_updated, ->(num)  { updated.limit(num)   }
+	scope :by_type,          ->(type) { where(:type => type) }
+
+	# LIMIT BY : TIME
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	scope :within_day,       ->      { where("works.updated_at > ? ", 1.day.ago)   }
 	scope :within_month,     ->      { where("works.updated_at > ? ", 1.month.ago) }
 	scope :within_year,      ->      { where("works.updated_at > ? ", 1.year.ago)  }
 
-	# SUBTYPES
+	# TYPIFY
 	# ------------------------------------------------------------
 	scope :artwork,           -> { where(:type => "Art")            }
 	scope :articles,          -> { where(:type => "Article")        }
@@ -87,7 +100,6 @@ class Work < ActiveRecord::Base
 	scope :short_stories,     -> { where(:type => "ShortStory")     }
 	scope :stories,           -> { where(:type => "Story")          }
 	scope :work_links,        -> { where(:type => "WorkLink")       }
-	scope :by_type,           ->(t) { where(:type => t)             }
 
 	# ASSOCIATIONS
 	# ============================================================
@@ -116,32 +128,30 @@ class Work < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ============================================================
-	# VALUES
-
-	def self.public_status_labels
-		['incomplete', 'upcoming', 'complete', 'hiatus', 'abandoned']
-	end
-
-	def self.hidden_status_labels
-		['unknown']
-	end
-
-	def self.all_status_labels
-		public_status_labels + hidden_status_labels
-	end
-
 	# SELECTION
 	# ------------------------------------------------------------
+	# SELECTION GENERAL
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# Any :: random selection
 	def self.any(count = 1)
 		Work.offset(rand(Work.count)).limit(count)
 	end
 
-	# Assort :: general filters
+	# ViewableRecentFor :: chronological allowed selected
+	def self.viewable_recent_for(user, count = 10)
+		recently_updated(count).viewable_for(user).with_relationships
+	end
+
+	# WithFilters :: sortable allowed selection
 	def self.with_filters(options = {}, user)
 		self.assort(options).viewable_for(user).with_relationships
 	end
 
+	# SELECTION OPTIONS
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# Assort :: general filters
 	def self.assort(options = {})
 		date     = options[:date]
 		order    = options[:sort]
@@ -159,14 +169,6 @@ class Work < ActiveRecord::Base
 		self.ready(cmplt).span(date).order_by(order).page(pnum).contextualize_by(ctype).with_rating(rwith).within_rating(rwithin).filter_by_taggings(withs, withouts)
 	end
 
-	def self.viewable_recent_for(user, count = 10)
-		recently_updated(count).viewable_for(user).with_relationships
-	end
-
-	def self.with_relationships
-		eager_load(:tags, :places, :rating, :type_describer, :uploader, :qualitatives, :quantitatives).includes(:appearances => :character)
-	end
-
 	def self.filter_by_taggings(withs = {}, withouts = {})
 		wi_w = withs[:works]
 		wo_w = withouts[:works]
@@ -177,8 +179,8 @@ class Work < ActiveRecord::Base
 		wi_t = withs[:tags]
 		wo_t = withouts[:tags]
 
-		wi_p = withs[:tags]
-		wo_p = withouts[:tags]
+		wi_p = withs[:places]
+		wo_p = withouts[:places]
 
 		wi_s = withs[:squads]
 		wo_s = withouts[:squads]
@@ -189,54 +191,88 @@ class Work < ActiveRecord::Base
 		filter_by_intraworks(wi_w, wo_w).filter_by_characters(wi_c, wo_c).filter_by_tags(wi_t, wo_t).filter_by_places(wi_p, wo_p).filter_by_squads(wi_s, wo_s).filter_by_identities(wi_i, wo_i)
 	end
 
+	# LOADING
+	# ------------------------------------------------------------
+	def self.with_relationships
+		joins(:rating).includes(:appearances => :character).eager_load(:tags, :places, :rating, :uploader, :type_describer, :qualitatives, :quantitatives)
+	end
+
 	# PUBLIC METHODS
 	# ============================================================
-	# GETTERS
-	# ------------------------------------------------------------
-	def heading
-		title
-	end
-
-	# Type - defines the type name if it exists
-	def nature
-		self.type
-	end
-
-	def categorized_type
-		self.type.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').titleize
-	end
-
-	def linkable
-		self
-	end
-
-	def nature
-		self.class.to_s
-	end
-	
-	def rated
-		self.rating.heading
-	end
-
-	def tag_heading
-		title + " [#{categorized_type}]"
-	end
-
-	def language
-		@language ||= 1
-	end
-
 	# ACTIONS
 	# ------------------------------------------------------------
 	def rate(v, s, l)
 		Rating.create(work_id: self.id, violence: v, sexuality: s, language: l)
 	end
 
+	# GETTERS
+	# ------------------------------------------------------------
+	# Labels
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def categorized_type
+		self.type.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ').titleize
+	end
+
+	def heading
+		title
+	end
+
+	def nature
+		self.class.to_s
+	end
+
+	def tag_heading
+		title + " [#{categorized_type}]"
+	end
+
+	# Metadata
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def all_tags
+		@all_tags  ||= (self.tags + self.characters + self.places + self.works).sort_by! { |x| x.heading.downcase }
+	end
+
+	def average_likes
+		@average_likes ||= work_opinions.avg
+	end
+
+	def language
+		@language ||= 1
+	end
+
+	def linkable
+		self
+	end
+
+	def rated
+		self.rating.heading
+	end
+
+	def summarized
+		self.summary ||= ""
+	end
+
 	# QUESTIONS
 	# ------------------------------------------------------------
-	# Complete? - self explantory
+	# CanSkin? - work is allow to have a skin
+	def can_skin?
+		!self.record?
+	end
+
+	# Complete? - self explanatory
 	def complete?
 		self.status == 'complete'
+	end
+
+	# HasLikes? - average likes is only empty if the work has no likes
+	def has_likes?
+		!average_likes.blank?
+	end
+
+	# HasSkin? - self explanatory
+	def has_skin?
+		self.skin.present?
 	end
 
 	# DELEGATED METHODS
@@ -249,12 +285,12 @@ class Work < ActiveRecord::Base
 
 	# PRIVATE METHODS
 	# ============================================================
-	# ============================================================
 	private
 	def set_default
 		self.type            ||= "Record"
 		self.editor_level    ||= Editable::PERSONAL
 		self.publicity_level ||= Editable::PUBLIC
+		self.summary         ||= ""
 	end
 
 end

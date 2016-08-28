@@ -1,4 +1,4 @@
-class Works::Curation::WorksIntratagsController < WorksController
+class Works::Curation::IntratagsWorksController < WorksController
 
 	# MODULES
 	# ============================================================

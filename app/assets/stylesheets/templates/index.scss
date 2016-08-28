@@ -170,13 +170,24 @@ $content-shadow: 0px 0px 10px $water-darker-major;
 	background: $page-color;
 }
 
-.media-results h2 {
-	padding: 10px 5px 2px 2px;
+.media-results .page-widget {
+	h2 {
+		padding: 10px 5px 2px 10px;
+		border:  none;
 
-	a {
-		color: $page-darker-minor;
+		a {
+			color: $page-darker-minor;
 
-		&:hover { color: $page-darkest-minor; }
+			&:hover { color: $page-darkest-minor; }
+		}
+	}
+
+	.indexable {
+		display: none;
+	}
+
+	&:hover .indexable {
+		display: block;
 	}
 }
 
