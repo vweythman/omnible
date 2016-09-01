@@ -16,6 +16,14 @@ module ContentHelper
 		end
 	end
 
+	def index_header(collection)
+		content_tag :header, class: "index-header" do
+			concat content_tag :h1, collection.heading
+			concat collection.found_status
+			yield if block_given?
+		end
+	end
+
 	def subtitles(s)
 		capture do
 			s.each do |t|

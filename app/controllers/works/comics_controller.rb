@@ -22,7 +22,7 @@ class Works::ComicsController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = Collectables::ComicsDecorator.decorate(Work.by_type("Comic").with_filters(index_params, current_user))
+		@works = Collectables::Works::ComicsDecorator.decorate(Work.by_type("Comic").with_filters(index_params, current_user))
 	end
 
 	# SET

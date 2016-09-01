@@ -5,26 +5,23 @@ module ToolLinkHelper
 	end
 
 	def link_to_edit(item, remoteness = false)
-		link_to t('toolkit.edit'), edit_polymorphic_path(item), remote: remoteness, class:"icon icon-cog"
+		tool_link 'toolkit.edit', edit_polymorphic_path(item), remote: remoteness, class:"icon icon-cog"
 	end
 
 	def link_to_delete(item, remoteness = false)
-		link_to t('toolkit.delete'), item, class:"icon icon-bin", method: :delete, remote: remoteness , data: { confirm: "Are you sure you want to delete #{item.heading}?"} 
+		tool_link 'toolkit.delete', item, class:"icon icon-bin", method: :delete, remote: remoteness , data: { confirm: "Are you sure you want to delete #{item.heading}?"} 
 	end
 
-	def link_to_watch(path, checked = false)
-		checked_status, method_type = response_switch checked
-		link_to t('toolkit.' + checked_status + '.watch'), path, class: "icon icon-eye #{checked_status}", id: 'watch-link', remote: true, method: method_type
+	def link_to_track(path, checked = false)
+		response_link 'watch', path, 'eye', checked
 	end
 
 	def link_to_like(path, checked = false)
-		checked_status, method_type = response_switch checked
-		link_to t('toolkit.' + checked_status + '.like'), path, class: "icon icon-heart #{checked_status}", id: 'work-like', remote: true, method: method_type
+		response_link 'like', path, 'heart', checked
 	end
 
 	def link_to_dislike(path, checked = false)
-		checked_status, method_type = response_switch checked
-		link_to t('toolkit.' + checked_status + '.dislike'), path, class: "icon icon-heart-broken #{checked_status}", id: 'work-dislike', remote: true, method: method_type
+		response_link 'dislike', path, 'heart-broken', checked
 	end
 
 	def response_switch(checked)
@@ -33,6 +30,16 @@ module ToolLinkHelper
 		else
 			['unchecked', :post]
 		end
+	end
+
+	def response_link(type, path, icon, checked)
+		checked_status, method_type = response_switch checked
+		tool_link 'toolkit.' + checked_status + '.' + type, path, class: "icon icon-#{icon} #{checked_status}", id: type + '-link', remote: true, method: method_type
+	end
+
+	def tool_link(heading, path, options = {})
+		span_tag = content_tag :span, class: "tool-value" do t(heading) end
+		link_to span_tag, path, options
 	end
 
 end

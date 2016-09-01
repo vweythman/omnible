@@ -1,12 +1,9 @@
 <% provide :title, @works.title %>
 
-<header class="index-header">
-	<h1><%= @works.heading %></h1>
-	<%= @works.found_status %>
-
+<%= index_header(@works) do %>
 	<%= @works.for_categories %>
 	<%= @works.creation_path %>
-</header>
+<% end %>
 
 <div class="index-body">
 	<div class="results">

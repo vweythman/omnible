@@ -13,7 +13,7 @@ class Works::JournalsController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = Collectables::JournalsDecorator.decorate(Work.by_type("Journal").with_filters(index_params, current_user))
+		@works = Collectables::Works::JournalsDecorator.decorate(Work.by_type("Journal").with_filters(index_params, current_user))
 	end
 
 	# SET

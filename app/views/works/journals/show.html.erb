@@ -3,13 +3,12 @@
 <header class="work-header">
 	<h1><%= @work.title %></h1>
 	<%= @work.completion_status %>
-	<div class="about">
-		<%= @work.summarized %>
-	</div>
+	<%= @work.metadata_block %>
 	<%= @work.response_bar %>
 </header>
 
 <div class="subject-body">
+	<%= @work.summary_block %>
 	<%= page_widget "Articles" do %>
 		<% @work.current_articles.each do |article| %>
 			<h3><%= article.title %></h3>

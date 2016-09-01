@@ -101,7 +101,7 @@ class WorksTypeDescriber < ActiveRecord::Base
 		content_type == 'text'
 	end
 
-	def watchable?
+	def trackable?
 		!oneshot? || textual?
 	end
 

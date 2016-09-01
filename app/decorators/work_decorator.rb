@@ -13,6 +13,7 @@ class WorkDecorator < Draper::Decorator
 	include CreativeContent::Composition
 	include PageEditing
 	include Widgets::Snippet
+	include WorkFormFields
 
 	# PUBLIC METHODS
 	# ============================================================
@@ -21,16 +22,8 @@ class WorkDecorator < Draper::Decorator
 	# Variables
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def chooseable_skins
-		uploader.skins
-	end
-
 	def klass
 		@klass ||= :work
-	end
-
-	def location_heading
-		self.narrative? ? "Settings" : "Subject (Location)"
 	end
 
 	def opinion_percentage
@@ -135,11 +128,11 @@ class WorkDecorator < Draper::Decorator
 		response_paths = {}
 		checked_status = {}
 
-		unless watchable?
+		if trackable?
 			if current_user.tracking? object
-				response_paths[:watch], checked_status[:watch] = work_untracking
+				response_paths[:track], checked_status[:track] = work_untracking
 			else
-				response_paths[:watch], checked_status[:watch] = work_tracking
+				response_paths[:track], checked_status[:track] = work_tracking
 			end
 		end
 
@@ -206,20 +199,8 @@ class WorkDecorator < Draper::Decorator
 	# Partial Locations
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def creatorship_fields
-		self.record? ? 'works/shared/fields/creatorship_fields' : 'works/shared/fields/creatorship_local_fields'
-	end
-
-	def meta_fields
-		"works/shared/fields/meta_fields"
-	end
-
 	def partial_prepend
 		'works/' + klass.to_s.pluralize + '/'
-	end
-
-	def tag_fields
-		"works/shared/fields/tag_fields"
 	end
 
 	def skin_content

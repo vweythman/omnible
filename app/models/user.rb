@@ -41,6 +41,12 @@ class User < ActiveRecord::Base
 	has_many :edit_invites, dependent: :destroy
 	has_many :view_invites, dependent: :destroy
 
+	# :: works
+	has_many :trackings
+	has_many :work_opinions, dependent: :destroy
+	has_many :likings,    -> { WorkOpinion.liked },    class_name: "WorkOpinion"
+	has_many :dislikings, -> { WorkOpinion.disliked }, class_name: "WorkOpinion"
+
 	# - Has
 	# ------------------------------------------------------------
 	# :: self
@@ -62,9 +68,10 @@ class User < ActiveRecord::Base
 	has_many :editables, through: :edit_invites
 	has_many :viewables, through: :view_invites
 
-	# :: tracked
-	has_many :trackings
-	has_many :tracked_works, through: :trackings, source: :tracked, source_type: "Work"
+	# :: works
+	has_many :disliked_works, through: :dislikings, source: :work
+	has_many :liked_works,    through: :likings,    source: :work
+	has_many :tracked_works,  through: :trackings,  source: :tracked, source_type: "Work"
 
 	# DELEGATED METHODS
 	# ============================================================

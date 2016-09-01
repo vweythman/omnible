@@ -1,9 +1,7 @@
 <% provide(:title, "Anthologies") %>
 
-<header class="index-header">
-	<h1>Anthologies</h1>
-	<%= @anthologies.found_status %>
+<%= index_header(@anthologies) do %>
 	<%= creation_toolkit("Anthology", :anthology) %>
-</header>
+<% end %>
 
 <div class="index-body"><%= @anthologies.results %></div>

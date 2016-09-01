@@ -73,7 +73,7 @@ class StoryDecorator < WorkDecorator
 
 	def current_chapters
 		self.chapters.build if self.chapters.length == 0
-		@current_chapters ||= Collectables::ChaptersDecorator.decorate(self.chapters)
+		@current_chapters ||= Collectables::Works::ChaptersDecorator.decorate(self.chapters)
 	end
 
 	def link_first_chapter

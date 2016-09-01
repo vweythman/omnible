@@ -41,6 +41,11 @@
 	}
 }
 
+.dashboard-header {
+	background:    $water-dark-minor;;
+	border-bottom: 7px solid $water-dark-major;
+}
+
 .found {
 	font-size:   1.2em;
 	font-weight: bolder;

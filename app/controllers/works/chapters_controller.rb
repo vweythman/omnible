@@ -105,7 +105,7 @@ class Works::ChaptersController < ApplicationController
 
 	def chapters
 		story	
-		@chapters = Collectables::ChaptersDecorator.decorate @story.chapters.ordered
+		@chapters = Collectables::Works::ChaptersDecorator.decorate @story.chapters.ordered
 	end
 
 	# PERMIT

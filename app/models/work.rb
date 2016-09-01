@@ -128,6 +128,34 @@ class Work < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ============================================================
+	# PERMITTED
+	# FOR CREATION and UPDATING
+	def self.permitted_model_params
+		[
+			:title,        :summary,         :visitor,    :status,
+			:editor_level, :publicity_level, :placeables, 
+
+			uploadership:        [:category,   :pen_name],
+			skinning_attributes: [:id,         :skin_id,   :_destroy],
+			rating_attributes:   [:id,         :violence,  :sexuality, :language],
+
+			appearables:         [:main,       :side,      :mentioned, :subject],
+			socialables:         [:main_ship,  :side_ship, :anti_ship, :social_group],
+			taggables:           [:commentary, :general,   :warning,   :genre], 
+			relateables:         [:general,    :setting,   :reference, :subject, :cast]
+		]
+	end
+
+	# FOR INDEXING
+	def self.permitted_index_params
+		[
+			:date,    :sort,       :completion, :page, 
+			:vrating, :srating,    :prating,
+			:rating,  :rating_min, :rating_max, 
+			:with,    :without,    :content_type
+		]
+	end
+
 	# SELECTION
 	# ------------------------------------------------------------
 	# SELECTION GENERAL
@@ -194,7 +222,7 @@ class Work < ActiveRecord::Base
 	# LOADING
 	# ------------------------------------------------------------
 	def self.with_relationships
-		joins(:rating).includes(:appearances => :character).eager_load(:tags, :places, :rating, :uploader, :type_describer, :qualitatives, :quantitatives)
+		includes(:appearances => :character).eager_load(:tags, :places, :rating, :uploader, :type_describer, :qualitatives, :quantitatives)
 	end
 
 	# PUBLIC METHODS
@@ -281,7 +309,7 @@ class Work < ActiveRecord::Base
 	delegate :oneshot?,          to: :type_describer
 	delegate :record?,           to: :type_describer
 	delegate :onsite_multishot?, to: :type_describer
-	delegate :watchable?,        to: :type_describer
+	delegate :trackable?,        to: :type_describer
 
 	# PRIVATE METHODS
 	# ============================================================

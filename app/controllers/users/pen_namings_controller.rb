@@ -70,7 +70,7 @@ class Users::PenNamingsController < ApplicationController
 
 	# get all
 	def pen_names
-		@pen_names = Collectables::PenNamingsDecorator.decorate(current_user.pen_namings)
+		@pen_names = Collectables::Dashboard::PenNamingsDecorator.decorate(current_user.pen_namings)
 	end
 
 	def pen_name

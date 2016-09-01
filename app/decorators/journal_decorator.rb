@@ -5,7 +5,7 @@ class JournalDecorator < WorkDecorator
 	end
 
 	def current_articles
-		@current_articles ||= Collectables::JournalArticlesDecorator.decorate(built_articles)
+		@current_articles ||= Collectables::Works::JournalArticlesDecorator.decorate(built_articles)
 	end
 
 	private

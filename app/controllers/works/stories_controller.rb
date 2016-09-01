@@ -27,7 +27,7 @@ class Works::StoriesController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = Collectables::StoriesDecorator.decorate(Work.by_type("Story").with_filters(index_params, current_user))
+		@works = Collectables::Works::StoriesDecorator.decorate(Work.by_type("Story").with_filters(index_params, current_user))
 	end
 
 	# SET

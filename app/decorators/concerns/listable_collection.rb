@@ -1,5 +1,11 @@
 module ListableCollection
 
+	# GET
+	# ============================================================
+	def heading
+		@heading ||= h.t("categories.#{klass}")
+	end
+
 	# RENDER
 	# ============================================================
 	# BLOCK

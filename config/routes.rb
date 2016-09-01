@@ -128,7 +128,9 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------
   devise_for :users
 
-  resources  :users, only: [:show]
+  resources  :users, only: [:show] do
+    get '/favorites/' => 'likes#index', is_reader: true
+  end
   resources  :comments
 
   get '/comments/:id/respond' => 'comments#new', as: :comment_on_comment
@@ -147,13 +149,14 @@ Rails.application.routes.draw do
 
     resources :pen_namings do
       resource :switch, only: [:update], controller: 'pen_switches'
-    end 
+    end
+  end
 
-    get 'styles' => 'skins#index', as: :style_uploads
+  get 'my-styles'    => 'users/skins#index', as: :style_uploads
+  get 'my-favorites' => 'likes#index',       as: :dashboad_favorites, is_reader: false
 
-    uploadables.each do |type|
-      get '/uploads/' + type, action: :index, controller: "uploads", resource_type: type, as: type.singularize + '_uploads'
-    end  
+  uploadables.each do |type|
+    get '/uploads/' + type => 'users/uploads#index', resource_type: type.singularize, as: type.singularize + '_uploads'
   end
 
   # 2.3 -- ROUTES :: UPLOADS
@@ -251,11 +254,11 @@ Rails.application.routes.draw do
     end
 
     all_work_types.each do |type|
-      get '/' + type + '/:id/works' => 'curation/intratags_works#index'
+      get '/' + type + '/:work_id/works' => 'curation/intratags_works#index'
     end
 
     taggable_work_types.each do |tag_type|
-      get '/works/:id/' + tag_type[0] + '-works' => 'curation/intratags_works#index', as: 'work_' + tag_type[1], tagging_type: tag_type[2]
+      get '/works/:work_id/' + tag_type[0] + '-works' => 'curation/intratags_works#index', as: 'work_' + tag_type[1], tagging_type: tag_type[2]
     end
 
     # 2.3.3.2.2 -- ROUTES :: UPLOADS :: WORKS :: FICTION

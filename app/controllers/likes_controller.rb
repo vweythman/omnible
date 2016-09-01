@@ -10,6 +10,19 @@ class LikesController < ApplicationController
 
 	# PUBLIC METHODS
 	# ============================================================
+	# GET
+	# ------------------------------------------------------------
+	def index
+		if params[:is_reader]
+			@results_type = 'user-results'
+			@user  = User.find(params[:user_id])
+			@likes = Collectables::FavoritesDecorator.decorate @user.liked_works
+		else
+			@results_type = 'dashboard-body'
+			@likes = Collectables::Dashboard::FavoritesDecorator.decorate current_user.liked_works
+		end
+	end
+
 	# POST
 	# ------------------------------------------------------------
 	def create

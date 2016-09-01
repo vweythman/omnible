@@ -22,7 +22,7 @@ class Works::MusicVideosController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = Collectables::MusicVideosDecorator.decorate(Work.by_type("MusicVideo").with_filters(index_params, current_user))
+		@works = Collectables::Works::MusicVideosDecorator.decorate(Work.by_type("MusicVideo").with_filters(index_params, current_user))
 	end
 
 	# SET

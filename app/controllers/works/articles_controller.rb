@@ -14,7 +14,7 @@ class Works::ArticlesController < WorksController
 
 	# Works :: find all with filtering
 	def works
-		@works = Collectables::ArticlesDecorator.decorate(Work.by_type("Article").with_filters(index_params, current_user))
+		@works = Collectables::Works::ArticlesDecorator.decorate(Work.by_type("Article").with_filters(index_params, current_user))
 	end
 
 	# SET

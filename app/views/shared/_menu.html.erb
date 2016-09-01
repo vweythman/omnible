@@ -1,11 +1,11 @@
 <% cache('site_menu_options') do %>
 	<nav class="menu">
 		<ul>
-			<li><%= link_to t("menu.media"), mediums_path %></li>
-			<li><%= link_to drop_arrowed(t('menu.works')), works_path %>
+			<li><%= link_to t("collected.media"), mediums_path %></li>
+			<li><%= link_to drop_arrowed(t('collected.works')), works_path %>
 				<ul class="submenu">
-					<li><%= link_to t('menu.fiction'), fiction_index_path %></li>
-					<li><%= link_to t('menu.nonfiction'), nonfiction_index_path %></li>
+					<li><%= link_to t('collected.fiction'), fiction_index_path %></li>
+					<li><%= link_to t('collected.nonfiction'), nonfiction_index_path %></li>
 
 					<li><%= link_to t('work_types.articles'), articles_path %></li>
 					<li><%= link_to t('work_types.journals'), journals_path %></li>
@@ -21,26 +21,26 @@
 					<li><%= link_to t('work_types.short_stories'), short_stories_path %></li>
 				</ul>
 			</li>
-			<li><%= link_to t('menu.anthologies'), anthologies_path %> </li>
+			<li><%= link_to t('collected.anthologies'), anthologies_path %> </li>
 			<li>
-				<%= link_to drop_arrowed(t('menu.subjects')), subjects_path %>
+				<%= link_to drop_arrowed(t('collected.subjects')), subjects_path %>
 				<ul class="submenu">
-					<li><%= link_to t('menu.characters'), characters_path %></li>
-					<li><%= link_to t('menu.groups'), squads_path %></li>
-					<li><%= link_to t('menu.items'), items_path %></li>
-					<li><%= link_to t('menu.places'), places_path %></li>
+					<li><%= link_to t('collected.characters'), characters_path %></li>
+					<li><%= link_to t('collected.groups'), squads_path %></li>
+					<li><%= link_to t('collected.items'), items_path %></li>
+					<li><%= link_to t('collected.places'), places_path %></li>
 				</ul>
 			</li>
 			
 			<% if user_signed_in? && current_user.admin? %>
 				<li>
-					<%= link_to drop_arrowed(t('menu.all_tags')), all_tags_path %>
+					<%= link_to drop_arrowed(t('collected.all_tags')), all_tags_path %>
 					<ul class="submenu">
-						<li><%= link_to t('menu.tags'), tags_path %></li>
-						<li><%= link_to t('menu.identities'), identities_path %></li>
-						<li><%= link_to t('menu.cat.creator'), creator_categories_path %></li>
-						<li><%= link_to t('menu.cat.relator'), relators_path %></li>
-						<li><%= link_to t('menu.cat.identities'), facets_path %></li>
+						<li><%= link_to t('collected.tags'), tags_path %></li>
+						<li><%= link_to t('collected.identities'), identities_path %></li>
+						<li><%= link_to t('categories.creator'), creator_categories_path %></li>
+						<li><%= link_to t('categories.relator'), relators_path %></li>
+						<li><%= link_to t('categories.identities'), facets_path %></li>
 					</ul>
 				</li>
 			<% end %>

@@ -44,7 +44,7 @@ en:
       size_too_big:   "File size is too big. (Max of %{file_size})"
       blank:          "must have text"
 
-  menu:
+  collected:
     media:      "Media"
     works:      "Works"
 
@@ -60,10 +60,11 @@ en:
     all_tags:    "Tags"
     tags:        "Tags"
     identities:  "Identities"
-    cat:
-      creator: "Creator Categories"
-      relator: "Relationships Categories"
-      identities: "Identities Categories"
+
+  categories:
+    creator:    "Creator Categories"
+    relator:    "Relationships Categories"
+    identities: "Identities Categories"
 
   work_types:
     artwork:           "Artwork"
@@ -89,7 +90,7 @@ en:
       like:  ""
       dislike: ""
     unchecked:
-      watch:   "Watch"
+      watch:   "Track"
       like:    "Like"
       dislike: "Dislike"
 

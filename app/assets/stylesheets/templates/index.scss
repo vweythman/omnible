@@ -15,7 +15,6 @@ $header:         $water-dark-minor;
 $heading:        $moss-dark-minor;
 $content-shadow: 0px 0px 10px $water-darker-major;
 
-
 // SECTION :: HEADER
 // ===============================================
 .index-header > .toolkit {
@@ -47,6 +46,12 @@ $content-shadow: 0px 0px 10px $water-darker-major;
 }
 .index-body {
 	padding: 10px;
+}
+
+.dashboard-body {
+	margin:     0;
+	padding:    10px $one-twelfth;
+	background: $page-light-minor;
 }
 
 // SECTION :: BODY
@@ -168,6 +173,7 @@ $content-shadow: 0px 0px 10px $water-darker-major;
 .results > .indexable,
 .results-body {
 	background: $page-color;
+	overflow:   auto;
 }
 
 .media-results .page-widget {

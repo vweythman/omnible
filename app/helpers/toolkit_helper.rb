@@ -30,8 +30,8 @@ module ToolkitHelper
 	def response_kit(paths = {}, checked_status = {})
 		user = current_user
 		content_tag :div, class: "toolkit reader-response" do
-			if !paths[:watch].nil?
-				concat link_to_watch(paths[:watch], checked_status[:watch])
+			if !paths[:track].nil?
+				concat link_to_track(paths[:track], checked_status[:track])
 			end
 			concat link_to_like(paths[:like], checked_status[:like])
 			concat link_to_dislike(paths[:dislike], checked_status[:dislike])

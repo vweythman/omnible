@@ -144,7 +144,7 @@ module Editable
 	end
 
 	def uploader?(user)
-		self.uploader_id == user.id
+		user.present? && self.uploader_id == user.id
 	end
 
 	# Model
