@@ -8,7 +8,7 @@
 	<%= @link.edit_bar %>
 </header>
 
-<div class="subject-body">
+<%= subject_body do %>
 	<%= page_widget "Links" do %>
 		<ul class="indexable">
 			<% @link.sources.each do |source| %>
@@ -22,11 +22,11 @@
 	<% end %>
 
 	<%= render 'works/shared/tag_widget' %>
-</div>
+<% end %>
 
 <footer class="path-finder">
 	<p>
 		<%= link_to "All Links", work_links_path %> |
-		<%= link_to t('pather.works'), works_path %>
+		<%= link_to t('collected.works'), works_path %>
 	</p>
 </footer>

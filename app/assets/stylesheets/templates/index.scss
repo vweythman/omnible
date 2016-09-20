@@ -62,6 +62,11 @@ $content-shadow: 0px 0px 10px $water-darker-major;
 	padding:    15px;
 	background: $water-color;
 
+	aside {
+		padding: 5px;
+		background: $page-color;
+	}
+
 	h2 {
 		background:    $water-lightest-minor;
 		border-bottom: 3px solid $water-light-minor;
@@ -92,6 +97,14 @@ $content-shadow: 0px 0px 10px $water-darker-major;
 		padding: 0;
 		margin:  0;
 	}
+	.submit-field input {
+		background: $page-darker-major;
+		border-radius: 0;
+
+		&:hover {
+			background: $page-dark-major;
+		}
+	}
 }
 
 .filter-links {
@@ -109,6 +122,32 @@ $content-shadow: 0px 0px 10px $water-darker-major;
 	a {
 		color: $water-lighter-minor;
 	}
+}
+
+.filter-tags-title {
+	overflow: auto;
+}
+
+.show-cell,
+.hide-cell {
+	display:      inline-block;
+	float:        right;
+	font-variant: none;
+}
+
+.show-toggle,
+.hide-toggle {
+	border-radius: 10px;
+	background:    $water-dark-minor;
+	color:         $page-color;
+	cursor:        pointer;
+	padding:       0 10px;
+	font-weight:   600;
+}
+
+.toggleable-filter-tags,
+.hide-toggle {
+	display: none;
 }
 
 // RESULTS

@@ -20,7 +20,6 @@
 // ===============================================
 .page-content {
 	margin:   0;
-	overflow: auto;
 	padding:  0;
 }
 
@@ -94,6 +93,56 @@
 	width:    $one-sixth;
 }
 
+.breadcrumbs {
+	background: white;
+	display:       table;
+	table-layout:  fixed;
+	padding: 0;
+	margin: 20px 0;
+}
+.breadcrumbs li {
+	display: table-cell;
+}
+
+$crumb-right-color: $water-dark-minor;
+$crumb-left-color:  $water-darker-minor;
+
+$crumb-hover-right-color: $water-dark-minor;
+$crumb-hover-left-color:  $water-light-minor;
+
+$crumb-text-color:       $page-color;
+$crumb-hover-text-color: $water-lightest-minor;
+
+.crumb-link {
+	display: block;
+	padding: 10px 10px 9px 30px;
+	text-decoration: none;
+	color:      $crumb-text-color;
+	background: linear-gradient(90deg, $crumb-left-color, $crumb-right-color);
+
+	&:after {
+		content: '';
+		display: block;
+		width:   0;
+		height:  0;
+		margin:      -10px -46px;
+		margin-left: 20px;
+		float:       right;
+
+		border: 18px solid transparent;
+		border-left-color: $crumb-right-color;
+	}
+
+	&:hover {
+		color:      $crumb-hover-text-color;
+		background: linear-gradient(90deg, $crumb-hover-left-color, $crumb-hover-right-color);
+
+		&:after {
+			border-left-color: $crumb-hover-right-color;
+		}
+	}
+}
+
 // -- Text
 // -----------------------------------------------
 a {
@@ -145,8 +194,6 @@ dt:first-child {
 .indexable-data:before {
 	@include arrowed($fire-dark-minor);
 }
-
-.date { font-weight: bolder; }
 
 .curation {
 	margin:  0px;

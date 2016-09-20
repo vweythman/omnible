@@ -1,28 +1,38 @@
-<div class="filters">
-	<aside>
-		<% @works.filter_values.each do |key, group| %>
-			<div>
-				<h2><%= group[:title] %></h2>
-				<%= filter_selects group[:type], group[:values] %>
+<%= form_tag url_for(only_path: true), method: 'get' do %>
+	<div class="filters">
+		<aside>
+			<% @works.filter_values.each do |key, group| %>
+				<div>
+					<%= filter_selects group[:type], group[:values], group[:title] %>
+				</div>
+			<% end %>
+		</aside>
+
+		<aside>
+			<h2 class="filter-tags-title">
+				With
+				<%= hide_link("tag-inclusion-filters") %>
+				<%= show_link("", "tag-inclusion-filters") %>
+			</h2>
+			<div id="form_tag-inclusion-filters" class="toggleable-filter-tags">
+				<% @works.filter_labels.each do |label, filters| %>
+					<%= filter_tags([:with] + filters, label) %>
+				<% end %>
 			</div>
-		<% end %>
-	</aside>
+		</aside>
 
-	<aside>
-		<h2>With</h2>
-		<div id="tag-inclusion-filters">
-			<% WorkConnection.all_labels.each do |group| %>
-				<%# filter_tags(:with, :works, group, WorkConnection.filter_labels[group]) %>
-			<% end %>
-		</div>
-	</aside>
-
-	<aside>
-		<h2>Without</h2>
-		<div id="tag-exclusion-filters">
-			<% WorkConnection.all_labels.each do |group| %>
-				<%# filter_tags(:without, :works, group, WorkConnection.filter_labels[group]) %>
-			<% end %>
-		</div>
-	</aside>
-</div>
+		<aside>
+			<h2 class="filter-tags-title">
+				Without
+				<%= hide_link("tag-exclusion-filters") %>
+				<%= show_link("", "tag-exclusion-filters") %>
+			</h2>
+			<div id="form_tag-exclusion-filters" class="toggleable-filter-tags">
+				<% @works.filter_labels.each do |label, filters| %>
+					<%= filter_tags([:without] + filters, label) %>
+				<% end %>
+			</div>
+		</aside>
+		<%= filter_submit_tag  %>
+	</div>
+<% end %>

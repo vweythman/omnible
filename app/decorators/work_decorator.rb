@@ -33,6 +33,12 @@ class WorkDecorator < Draper::Decorator
 	# Links : Creation
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def createables
+		if self.editable?(h.current_user)
+			h.prechecked_createables [[self, :note]]
+		end
+	end
+
 	def note_creation_link
 		if self.editable?(h.current_user)
 			h.prechecked_creation_toolkit("Note", [self, :note])
@@ -154,15 +160,19 @@ class WorkDecorator < Draper::Decorator
 	def response_bar
 		if self.uploader? h.current_user
 			edit_bar
-		elsif !(["Record", "WorkLink"].include? type)
+		elsif h.current_user.present? && !(["Record", "WorkLink"].include? type)
 			reader_response_bar
 		end
 	end
 
 	def summary_block
-		h.widget_cell("Summary", class: 'summary-cell') do
+		h.widget_cell(summary_title, class: 'summary-cell') do
 			h.concat h.markdown(self.summarized)
 		end
+	end
+
+	def summary_title
+		h.t("work.summary_title")
 	end
 
 	# Content Tags

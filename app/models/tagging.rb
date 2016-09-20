@@ -65,6 +65,8 @@ class Tagging < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ============================================================
+	# LABEL GROUPS
+	# ------------------------------------------------------------
 	def self.work_labels
 		['general', 'genre', 'warning', 'commentary']
 	end
@@ -81,6 +83,12 @@ class Tagging < ActiveRecord::Base
 		end
 	end
 
+	# LABEL HEADINGS
+	# ------------------------------------------------------------
+	def self.work_filter_labels
+		@filter_labels ||= { "general" => "General Tags", "genre" => "Genre Tags", "warning" => "Content Warnings" }
+	end
+
 	def self.work_tag_labels(work)
 		labels = Hash.new
 
@@ -93,6 +101,8 @@ class Tagging < ActiveRecord::Base
 		return labels
 	end
 
+	# SQL
+	# ------------------------------------------------------------
 	def self.tagger_intersection_sql(finds, tagger_type = "Subject")
 		if (finds.keys - Tagging.specific_labels(tagger_type)).empty?
 			finds.map {|k, titles| Tagging.tagger_by_grouped_tag(k.to_s, titles.split(";"), tagger_type).to_sql }.join(" INTERSECT ")

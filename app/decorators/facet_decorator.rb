@@ -8,15 +8,5 @@ class FacetDecorator < TagDecorator
 	# ------------------------------------------------------------
 	include AlphabeticPagination
 	include InlineEditing
-	
-	# PUBLIC METHODS
-	# ------------------------------------------------------------
-	def alphabetic_first
-		@alphabetic_first ||= Facet.alphabetic.first
-	end
-	
-	def alphabetic_last
-		@alphabetic_last ||= Facet.alphabetic.last
-	end
 
 end

@@ -63,22 +63,26 @@ class Rating < ActiveRecord::Base
 		p = selectables[:prating]
 		s = selectables[:srating]
 
-		if (selectables.length == 3)
+		has_v = v.is_a? Integer
+		has_p = p.is_a? Integer
+		has_s = s.is_a? Integer
+
+		if has_s && has_p && has_v
 			violence_at(v).sexuality_at(s).language_at(p)
-		elsif selectables.length == 2
-			if v.nil?
+		elsif has_s
+			if has_p
 				sexuality_at(s).language_at(p)
-			elsif p.nil?
-				violence_at(v).sexuality_at(s)
+			elsif has_v
+				sexuality_at(s).violence_at(v)
 			else
-				violence_at(v).language_at(p)
+				sexuality_at(s)
 			end
-		elsif !v.nil?
-			violence_at(v)
-		elsif !p.nil?
-			language_at(p)
-		elsif !s.nil?
-			sexuality_at(s)
+		elsif has_p
+			if has_v
+				language_at(p).violence_at(p)
+			else
+				violence_at(v)
+			end
 		else
 			all
 		end

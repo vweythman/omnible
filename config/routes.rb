@@ -99,7 +99,7 @@ Rails.application.routes.draw do
 
   index_concerns = [:sortable, :dateable, :completeable, :paginatable]
   all_work_types = work_singletons + work_multiples
-  uploadables    = all_work_types  - ['records', 'work_links'] + ['links', 'characters', 'works']
+  uploadables    = all_work_types  - ['records'] + ['roleplay_characters', 'works']
 
   # ############################################################
   # 2 -- ROUTES

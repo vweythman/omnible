@@ -32,7 +32,6 @@ class Chapter < ActiveRecord::Base
 	# CALLBACKS
 	# ============================================================
 	after_save     :potential_cascade
-	after_save     :full_cascade, on: [:create]
 	before_create  :set_position
 	after_destroy  :full_cascade
 
@@ -186,7 +185,8 @@ class Chapter < ActiveRecord::Base
 	end
 
 	def full_cascade
-		self.story.update_metadata
+		self.story.updated_at = self.updated_at
+		self.story.save
 	end
 
 end

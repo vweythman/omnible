@@ -35,4 +35,10 @@ class Setting < ActiveRecord::Base
 	belongs_to :work
 	belongs_to :place
 
+	# CLASS METHODS
+	# ============================================================
+	def self.filter_labels
+		@filter_labels ||= { "main" => "Main Characters", "side" => "Side Characters", "mentioned" => "Mentioned Characters", "subjects" => "Characters as Subjects" }
+	end
+
 end

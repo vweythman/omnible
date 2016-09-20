@@ -2,27 +2,34 @@
 
 	<h2 class="control-title">Account</h2>
 	<ul class="control-group">
-		<% if current_user.admin? %>
-			<li><%= link_to "Admin Panel", admin_path %></li>
-		<% end %>
 		<li><%= link_to "Dashboard", dashboard_path %></li>
 		<li><%= link_to "Pen Names", pen_namings_path %></li>
+		<li><%= link_to "Favorite Works", dashboad_favorites_path %></li>
 	</ul>
 
 	<h2 class="control-title">Uploads</h2>
 	<ul class="control-group createables">
-		<li><%= link_to "Articles",            article_uploads_path %></li>
-		<li><%= link_to "Links",               link_uploads_path %></li>
-		<li><%= link_to "Roleplay Characters", character_uploads_path %></li>
-		<li><%= link_to "Short Stories",       short_story_uploads_path %></li>
-		<li><%= link_to "Stories",             story_uploads_path %></li>
-		<li><%= link_to "Stylesheet Skins",    style_uploads_path %></li>
+
+		<li><%= link_to "Roleplay Characters",         roleplay_character_uploads_path %></li>
+		<li><%= link_to "Stylesheet Skins",            style_uploads_path %></li>
+		<li><%= link_to t('content_types.work_links'), work_link_uploads_path %></li>
+		<li><%= link_to t('content_types.artwork'),    art_uploads_path %></li>
+		<li><%= link_to t('content_types.articles'),   article_uploads_path %></li>
+		<li><%= link_to t('content_types.journals'),   journal_uploads_path %></li>
+		<li><%= link_to t('content_types.poems'),      poem_uploads_path %></li>
+
+		<li><%= link_to t('content_types.music_videos'),      music_video_uploads_path %></li>
+		<li><%= link_to t('content_types.branching_stories'), branching_story_uploads_path %></li>
+		<li><%= link_to t('content_types.stories'),           story_uploads_path %></li>
+		<li><%= link_to t('content_types.short_stories'),     short_story_uploads_path %></li>
 	</ul>
 
-	<h2 class="control-title">Discussion</h2>
+	<% if current_user.admin? %>
+		<h2 class="control-title">Admin Panel</h2>
+		<ul class="control-group">
+			<li></li>
+			<li></li>
+		</ul>
+	<% end %>
 
-	<ul class="control-group">
-		<li><a href="">Topics</a></li>
-		<li><a href="">Tracked Comments</a></li>
-	</ul>
 </aside>

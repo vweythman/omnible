@@ -176,7 +176,7 @@ module Recordable
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		# WithRating :: filter by rating
 		def with_rating(rate_options)
-			unless rate_options.nil? || rate_options.length < 1
+			unless skip_rating_filters?(rate_options)
 				joins(:rating).merge(Rating.choose(rate_options))
 			else
 				all
@@ -189,6 +189,14 @@ module Recordable
 			else
 				all
 			end
+		end
+
+		def skip_rating_filters?(rate_options)
+			rate_options.each do |opt|
+				return false unless opt.nil?
+			end
+
+			return true
 		end
 
 	end

@@ -71,6 +71,8 @@ class Appearance < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ============================================================
+	# LABEL GROUPS
+	# ------------------------------------------------------------
 	# Roles - defines and collects the types of appearances
 	def self.roles(work)
 		self.roles_by_type(work.narrative?)
@@ -96,6 +98,8 @@ class Appearance < ActiveRecord::Base
 		narrative_labels + nonfiction_labels 
 	end
 
+	# LABEL HEADINGS
+	# ------------------------------------------------------------
 	def self.tag_labels(work)
 		if work.narrative?
 			{
@@ -110,7 +114,12 @@ class Appearance < ActiveRecord::Base
 		end
 	end
 
-	# UpdateFor - add and change appearances for work
+	def self.filter_labels
+		@filter_labels ||= { "main" => "Main Characters", "side" => "Side Characters", "mentioned" => "Mentioned Characters", "subjects" => "Characters as Subjects" }
+	end
+
+	# UPDATE
+	# ------------------------------------------------------------
 	def self.update_for(model, grouped_ids)
 		Appearance.transaction do
 			character_ids = Array.new
@@ -135,6 +144,8 @@ class Appearance < ActiveRecord::Base
 		end
 	end
 
+	# SQL
+	# ------------------------------------------------------------
 	def self.tagger_intersection_sql(finds)
 		if (finds.keys - self.all_labels).empty?
 			finds.map {|k, titles| Appearance.tagger_by_roled_characters(k.to_s, titles.split(";")).to_sql }.join(" INTERSECT ")

@@ -9,11 +9,11 @@ module CreativeContent
 	# GET
 	# ============================================================
 	def time_started
-		started_label + ": " + h.timestamp(created_at).html_safe
+		date_meta("Uploaded", created_at)
 	end
 
 	def time_updated
-		most_recent_label  + ": " + h.timestamp(updated_at).html_safe
+		date_meta("Changed", updated_at)
 	end
 
 	def by_uploader
@@ -30,12 +30,31 @@ module CreativeContent
 		'file-empty'
 	end
 
-	def started_label
-		"Uploaded"
+	def date_label(heading)
+		h.content_tag :span, class: "date-label" do "#{heading}:" end
 	end
 
-	def most_recent_label
-		"Updated"
+	def date_meta(heading, stamp)
+		h.content_tag :span, class: "date-metadatum" do
+			h.concat date_label(heading)
+			h.concat h.timestamp(stamp)
+		end
+	end
+
+	def breacrumbing(crumbs)
+		h.content_tag :ul, class: "breadcrumbs" do
+			crumbs.each do |heading, path|
+				h.concat crumb(heading, path)
+			end
+		end
+	end
+
+	def crumb(heading, path)
+		h.content_tag :li, class: "crumb" do h.link_to(heading, path, class: 'crumb-link') end
+	end
+
+	def content_category
+		klass.to_s.pluralize
 	end
 
 	# RENDER
@@ -63,7 +82,7 @@ module CreativeContent
 		time = time_started
 
 		unless just_created?
-			time += " " + time_updated
+			time +=  time_updated.html_safe
 		end
 
 		h.content_tag :p, class: 'time' do

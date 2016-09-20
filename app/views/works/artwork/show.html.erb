@@ -1,20 +1,22 @@
 <% provide(:title, @art.title) %>
 
+<%= @art.breadcrumbs %>
+
 <div class="artwork centerpiece">
 	<%= image_tag @art.image_url %>
 </div>
 
-<article class="work-footer">
-	<h1>
-		<%= @art.title %>
-		<%= subtitle @art.byline.html_safe %>
-	</h1>
-	<%= @art.response_bar %>
-
-	<div class="about">
-		<%= @art.summarized %>
-		<%= @art.all_tags_line %>
-	</div>
+<article>
+	<header>
+		<h1 class="section-title">
+			<%= @art.title %>
+			<%= subtitle @art.byline.html_safe %>
+		</h1>
+		<%= @art.response_bar %>
+	</header>
+	<p></p>
+	<%= @work.summary_block %>
+	<%= render 'works/shared/tag_widget' %>
 </article>
 
 <% if @art.comments.length > 0 %>

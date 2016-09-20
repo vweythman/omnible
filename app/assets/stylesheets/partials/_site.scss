@@ -9,7 +9,7 @@
 // SECTION :: ALL
 // ===============================================
 body {
-	background: $water-darker-minor;
+	background: $page-darkest-minor;
 	color:      $page-darker-major;
 	font:       $text-size "Arial", sans-serif;
 }
@@ -103,12 +103,7 @@ body {
 		.account {
 			float: right;
 		}
-		.menu {
-			width: $ms;
-		}
-		.submenu {
-			width: (3/4) * (1/5) * (5/6) * 100%; 
-		}
+		@include menu-for-desk($ms);
 		@content;
 	}
 }
@@ -116,17 +111,10 @@ body {
 @mixin site-mobile($bg, $mis) {
 	@include mobile {
 		@include mobile-friendly-account($bg);
-		@include hide-arrow();
+		@include menu-for-mobile($mis);
+
 		.session a {
 			color: lighten($bg, $golden-major);
-		}
-		.menu {
-			display: block;
-
-			li {
-				width: $mis;
-				float: left;
-			}
 		}
 		@content;
 	}
@@ -140,6 +128,8 @@ body {
 
 @mixin site-non-mobile($hover-color, $mis) {
 	@include non-mobile {
+		@include menu-for-non-mobile($mis);
+
 		.logo {
 			display:    block;
 			float:      left;
@@ -151,51 +141,17 @@ body {
 			color: lighten($hover-color, $golden-major);
 			&:hover { color: $hover-color; }
 		}
-
-		.menu {
-			display: block;
-
-			li:hover ul {
-				display: block;
-			}
-			a {
-				padding: 12px 0 8px;
-			}
-			& > ul > li {
-				width: $mis;
-				float: left;
-			}
-		}
-		.submenu {
-			float:    left;
-			position: absolute;
-
-			a {
-				font-size: .9em;
-				padding:   10px 5px;
-			}
-		}
-		.drop-arrow {
-			font-size: .68em;
-		}
 		@content;
 	}
 }
 
 @mixin site-tablet($sms) {
 	@include tablet {
+		@include menu-for-tablet($sms);
 		.logo {
 			font-size: 1.5rem;
 			min-width: 90px;
 			padding:   10px 10px 0px;
-		}
-		.menu {
-			overflow:   auto;
-			margin-top: 5px;
-			& > ul > li { width: 19.50%; }
-		}
-		.submenu {
-			width: $sms;
 		}
 		@content;
 	}

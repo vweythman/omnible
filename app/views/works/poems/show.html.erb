@@ -1,0 +1,37 @@
+<% provide(:title, @poem.title) %>
+
+<%= @poem.breadcrumbs %>
+
+<header class="work-header">
+	<h1>
+		<%= @poem.title %>
+	</h1>
+
+	<%= @poem.metadata_block %>
+	<%= @poem.response_bar %>
+</header>
+
+<article role="article">
+	<h1 class="section-title">
+		<%= @poem.title %>
+		<%= subtitle @poem.byline.html_safe %>
+	</h1>
+	<div class="page-body" id="work-content">
+		<%= @poem.linefied_content %>
+	</div>
+</article>
+
+<%= subject_body do %>
+	<%= @poem.summary_block unless @poem.lacks_summary? %>
+	<%= render 'works/shared/tag_widget' %>
+	<%= render 'comments/discussion' %>
+<% end %>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to t('content_types.poems'), poems_path %> |
+		<%= link_to t('collected.works'), works_path %>
+	</p>
+</footer>
+
+<%= @poem.skin_content %>

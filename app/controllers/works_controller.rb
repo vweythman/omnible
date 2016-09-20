@@ -101,7 +101,12 @@ class WorksController < ApplicationController
 	end
 
 	def index_params
-		params.slice(Work.permitted_index_params)
+		params.slice(
+			:date,    :sort,       :completion, :page, 
+			:vrating, :srating,    :prating,
+			:rating,  :rating_min, :rating_max, 
+			:with,    :without,    :content_type
+		)
 	end
 
 	def decorator

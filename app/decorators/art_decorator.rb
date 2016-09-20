@@ -6,10 +6,6 @@ class ArtDecorator < WorkDecorator
 		:art
 	end
 
-	def most_recent_label
-		"Changed"
-	end
-
 	def icon_choice
 		'image'
 	end
@@ -20,6 +16,15 @@ class ArtDecorator < WorkDecorator
 
 	def meta_fields
 		"works/shared/fields/viewable_meta_fields"
+	end
+
+	def summary_title
+		h.t("art.summary_title")
+	end
+
+	def breadcrumbs
+		crumbs = [["Works", h.works_path], ["Art", h.artwork_path]]
+		breacrumbing(crumbs)
 	end
 
 end

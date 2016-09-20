@@ -1,41 +1,40 @@
 <% provide(:title, @work.title) %>
 
+<%= @work.breadcrumbs %>
+
 <header class="work-header">
 	<h1><%= @work.title %></h1>
 	<%= @work.completion_status %>
-	<%= @work.rated %>
-
-	<div class="about">
-		<%= @work.summarized %>
-		<%= @work.all_tags_line %>
-		<%= link_to "All Branches", branching_story_branches_path(@work) %>
-	</div>
+	<%= @work.metadata_block %>
+	<p class="related-menu"><%= link_to "All Branches", branching_story_branches_path(@work) %></p>
 	<%= @work.response_bar %>
 </header>
 
 <article role="article">
 	<header>
-		<% if @branch.parent_nodes.length > 0 && !@branch.is_trunk? %>
-			<h3>Return:</h3>
-			<ul class="branching">
-				<% @branch.parent_nodes.each do |parent| %>
-					<li class="icon icon-leaf"><%= link_to parent.title, [@work, parent] %></li>
-				<% end %>			
-			</ul>
-		<% end %>
+
+		<h1 class="section-title"><%= @branch.title %></h1>
 	</header>
 
+
 	<div class="page-body" id="work-content">
-		<h2><%= @branch.title %></h2>
 		<%= markdown @branch.content %>
 	</div>
 
 	<footer>
-		<div class="branching">
+		<div class="branching-paths">
+			<% if @branch.parent_nodes.length > 0 && !@branch.is_trunk? %>
+				<h3>Return:</h3>
+				<ul class="branching">
+					<% @branch.parent_nodes.each do |parent| %>
+						<li class="icon icon-leaf"><%= link_to parent.title, [@work, parent] %></li>
+					<% end %>			
+				</ul>
+			<% end %>
 			<% if @branch.has_children? %>
 				<h3>Choose:</h3>
 
-				<ul>
+				<ul class="branching">
 					<% @branch.child_branchings.each do |branching| %>
 						<li class="icon icon-leaf"><%= link_to branching.heading, [@work, branching.child_node] %></li>
 					<% end %>			
@@ -46,16 +45,16 @@
 
 			<%= render 'works/branches/interaction_toolkit', branch: @branch %>
 		</div>
-
 	</footer>
 </article>
 
+<%= subject_body do %>
+	<%= render 'works/shared/tag_widget' %>
+	<%# render 'comments/discussion' %>
+<% end %>
+
 <footer>
 	<div class="path-finder">
-		<p>
-			<%= link_to "Discuss Branch", branch_discussion_path(@branch) %> | 
-			<%= link_to "See All Story Discussion", branching_story_discussion_path(@work) %>
-		</p>
 		<p>
 			<%= link_to "All Branching Stories", branching_stories_path %> | 
 			<%= link_to "All Fiction", fiction_index_path %> | 

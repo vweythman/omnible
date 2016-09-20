@@ -146,16 +146,6 @@ class Work < ActiveRecord::Base
 		]
 	end
 
-	# FOR INDEXING
-	def self.permitted_index_params
-		[
-			:date,    :sort,       :completion, :page, 
-			:vrating, :srating,    :prating,
-			:rating,  :rating_min, :rating_max, 
-			:with,    :without,    :content_type
-		]
-	end
-
 	# SELECTION
 	# ------------------------------------------------------------
 	# SELECTION GENERAL
@@ -301,6 +291,10 @@ class Work < ActiveRecord::Base
 	# HasSkin? - self explanatory
 	def has_skin?
 		self.skin.present?
+	end
+
+	def lacks_summary?
+		summary == ""
 	end
 
 	# DELEGATED METHODS

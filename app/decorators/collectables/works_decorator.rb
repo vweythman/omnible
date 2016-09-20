@@ -60,7 +60,7 @@ module Collectables
 
 		def link_display_question
 			unless showing_links
-				link_to_links = h.link_to "Reveal Any Hidden Links", h.url_for(h.params.merge(show_links: true))
+				link_to_links = h.link_to h.t('question.link_reveal'), h.url_for(h.params.merge(show_links: true))
 				h.content_tag :p, class: "display-question" do
 					"#{link_to_links}".html_safe
 				end
@@ -86,11 +86,11 @@ module Collectables
 					title: "Content Type",
 					type: :content_type,
 					values: [
-						{ heading: "All",     key: "all"     },
-						{ heading: "Text",    key: "text"    },
-						{ heading: "Images",  key: "picture" },
-						{ heading: "Audio",   key: "audio"   },
-						{ heading: "Video",   key: "video"   },
+						{ heading: h.t('content.all'),     key: "all"     },
+						{ heading: h.t('content.text'),    key: "text"    },
+						{ heading: h.t('content.images'),  key: "picture" },
+						{ heading: h.t('content.audio'),   key: "audio"   },
+						{ heading: h.t('content.video'),   key: "video"   },
 					]
 				},
 				:order => {
@@ -122,6 +122,10 @@ module Collectables
 					]
 				}
 			}
+		end
+
+		def filter_labels
+			@filter_labels ||= sort_filter_labels
 		end
 
 		def category_types
@@ -195,6 +199,24 @@ module Collectables
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		def table_type
 			:works
+		end
+
+		def sort_filter_labels
+			filter_labels = {}
+			label_groups  = {
+				tags: Tagging.work_filter_labels,
+				characters: Appearance.filter_labels,
+				squads: SocialAppearance.filter_labels,
+				works: WorkConnection.filter_labels
+			}
+			label_groups.each do |type, filters|
+				filters.each do |group, label|
+					filter_labels[label] = [type, group]
+				end
+			end
+			filter_labels["Places"] = [:places]
+
+			filter_labels.sort
 		end
 
 	end

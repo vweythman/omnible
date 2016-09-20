@@ -14,6 +14,10 @@ class PlaceDecorator < Draper::Decorator
 	# ============================================================
 	# GETTERS
 	# ------------------------------------------------------------
+	def defined_heading
+		name.titleize
+	end
+
 	def editing_title
 		name + " (Edit Draft)"
 	end

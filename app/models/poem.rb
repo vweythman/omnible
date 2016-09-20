@@ -7,7 +7,7 @@ class Poem < Work
 	
 	# CALLBACKS
 	# ============================================================
-	before_save   :contentize,      on: [:update, :create]
+	after_save    :contentize,      on: [:update, :create]
 	after_save    :update_metadata, on: [:update, :create]
 	before_create :set_categories
 
@@ -38,17 +38,23 @@ class Poem < Work
 	# ATTRIBUTES
 	# ============================================================
 	attr_accessor :poem_content
-
 	def poem_content
 		if self.chapter.nil?
 			@poem_content ||= ""
 		else
-			@poem_content ||= content
+			@poem_content ||=  self.chapter.content
 		end
 	end
 
 	# PUBLIC METHODS
 	# ============================================================
+	def linefy
+		poem_content.split("\n")
+	end
+
+	def count_lines
+		linefy.count
+	end
 
 	# PRIVATE METHODS
 	# ============================================================
@@ -62,17 +68,14 @@ class Poem < Work
 	def contentize
 		self.chapter ||= Chapter.new
 		self.chapter.position = 1
-		self.chapter.content = @poem_content
+		self.chapter.content  = poem_content
+		self.chapter.save
 	end
 
 	def update_metadata
 		counter       = qualitatives.datum("line-count")
-		counter.value = linefy
+		counter.value = count_lines
 		counter.save
-	end
-
-	def linefy
-		poem_content.split("\n")
 	end
 
 end

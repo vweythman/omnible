@@ -16,7 +16,7 @@ class StoryDecorator < WorkDecorator
 		h.link_to "First Chapter", h.story_path(self)
 	end
 
-	def createables_links
+	def createables
 		if self.editable?(h.current_user)
 			h.prechecked_createables [[self, :chapter], [self, :note]]
 		end
@@ -33,6 +33,11 @@ class StoryDecorator < WorkDecorator
 
 	def icon_choice
 		'book'
+	end
+
+	def breadcrumbs
+		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.stories'), h.stories_path]]
+		breacrumbing(crumbs)
 	end
 
 	# -- Chapters

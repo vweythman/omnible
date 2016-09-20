@@ -46,6 +46,14 @@ module ContentHelper
 		"/uploads/#{n}"
 	end
 
+	# BODY
+	# ============================================================
+	def subject_body
+		content_tag :div, class: "subject-body" do
+			yield
+		end
+	end
+
 	# DATA
 	# ============================================================
 	# OUTPUT correct article
@@ -71,7 +79,7 @@ module ContentHelper
 	end
 
 	def timestamp(date)
-		content_tag :span, class: 'date' do
+		content_tag :span, class: 'date-value' do
 			record_time(date)
 		end
 	end
@@ -80,7 +88,6 @@ module ContentHelper
 		d = date.split("-")
 		d[0] + " " + I18n.t("date.month_names")[d[1].to_i]
 	end
-
 
 	# TEXT
 	# ============================================================

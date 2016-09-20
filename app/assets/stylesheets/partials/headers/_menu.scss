@@ -2,17 +2,10 @@
 // ***********************************************
 // SECTION :: ALL
 // ===============================================
-@mixin hide-arrow() {
-	.submenu, 
-	.drop-arrow {
-		display: none;
-	}
-}
-
 .menu {
 	text-align: center;
 
-	li ul {
+	.submenu {
 		display: none;
 	}
 	
@@ -34,6 +27,103 @@
 .submenu {
 	background: $water-dark-major;
 	z-index: 200;
+}
+
+.category-title {
+	background:    $water-dark-minor;
+	border-bottom: 3px solid $water-darker-minor;
+	color:         $water-lightest-minor;
+	font-weight:   bolder;
+}
+
+// SECTION :: VIEWPORT SPECIFIC
+// ===============================================
+@mixin menu-for-non-mobile($submenu-width) {
+	.menu {
+		display: block;
+
+		li:hover .submenu {
+			display: block;
+		}
+		a {
+			padding: 12px 0 8px;
+		}
+		& > ul > li {
+			width: $submenu-width;
+			float: left;
+		}
+	}
+	.submenu {
+		float:    left;
+		position: absolute;
+
+		a {
+			font-size: .9em;
+			padding:   10px 5px;
+		}
+	}
+	.drop-arrow {
+		font-size: .68em;
+	}
+	.category-title a {
+		padding: 0;
+	}
+}
+
+@mixin menu-for-desk($menu-width) {
+	.menu {
+		width: $menu-width;
+	}
+
+	.submenu {
+		width: (3/4) * (1/5) * (5/6) * 100%;
+	}
+
+	.mega-drop {
+		width: 50%;
+		.categories {
+			display:       table;
+			table-layout:  fixed;
+			width:         100%;
+
+			.category { display: table-cell; }
+		}
+	}
+
+	.category.fiction-type {
+		overflow: auto;
+
+		li {
+			float: left;
+			width: 50%;
+		}
+	}
+}
+
+@mixin menu-for-tablet($submenu-width) {
+	.menu {
+		overflow:   auto;
+		margin-top: 5px;
+		& > ul > li { width: 19.50%; }
+	}
+	.submenu {
+		width: $submenu-width;
+	}
+}
+
+@mixin menu-for-mobile($menu-width) {
+	.submenu, 
+	.drop-arrow {
+		display: none;
+	}
+	.menu {
+		display: block;
+
+		li {
+			width: $menu-width;
+			float: left;
+		}
+	}
 }
 
 // END

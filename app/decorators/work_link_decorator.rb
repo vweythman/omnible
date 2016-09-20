@@ -22,6 +22,10 @@ class WorkLinkDecorator < WorkDecorator
 		'link'
 	end
 
+	def nature
+		"Link"
+	end
+
 	# -- Links
 	# ............................................................
 	def first_link

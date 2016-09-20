@@ -102,17 +102,6 @@ module ApplicationHelper
 		end
 	end
 
-	def filter_selects(type, filters)
-		current_url = url_for(params)
-
-		ht = Hash.new
-		filters.map {|f| 
-			ht[url_for(params.merge(type => f[:key]))] = f[:heading]
-		}
-
-		select_tag('filter-links-' + type.to_s, options_from_collection_for_select(ht, :first, :last, selected: current_url), class: "filter-links")
-	end
-
 	def offsite_link_to(title, path)
 		link_to title, path, class: "offsite-link"
 	end

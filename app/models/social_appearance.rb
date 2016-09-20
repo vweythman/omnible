@@ -68,6 +68,10 @@ class SocialAppearance < ActiveRecord::Base
 		}
 	end
 
+	def self.filter_labels
+		@filter_labels ||= { "main ship" => "Main Ships", "side ship" => "Side Ships", "anti ship" => "Anti Ships", "social group" => "Groups" }
+	end
+
 	# ASSOCIATIONS
 	# ============================================================
 	# BELONGS TO

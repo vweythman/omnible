@@ -16,18 +16,13 @@ class ShortStoryDecorator < WorkDecorator
 		h.link_to "Story", h.short_story_path(self)
 	end
 
-	def most_recent_label
-		"Changed"
-	end
-
-	def createables_links
-		if self.editable?(h.current_user)
-			h.prechecked_createables [[self, :note]]
-		end
-	end
-
 	def icon_choice
 		'file-text'
+	end
+
+	def breadcrumbs
+		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.short_stories'), h.short_stories_path]]
+		breacrumbing(crumbs)
 	end
 
 	# -- Navigation

@@ -65,6 +65,12 @@ class WorkConnection < ActiveRecord::Base
 
 	# CLASS METHODS
 	# ============================================================
+	# LABEL GROUPS
+	# ------------------------------------------------------------
+	def self.all_labels
+		narrative_labels | nonfiction_labels
+	end
+
 	def self.labels(is_narrative)
 		if is_narrative
 			narrative_labels
@@ -77,12 +83,14 @@ class WorkConnection < ActiveRecord::Base
 		['general', 'setting', 'cast', 'reference']
 	end
 
-	def self.all_labels
-		narrative_labels | nonfiction_labels
-	end
-
 	def self.nonfiction_labels
 		['subject', 'reference']
+	end
+
+	# LABEL HEADINGS
+	# ------------------------------------------------------------
+	def self.filter_labels
+		@filter_labels ||= { "general" => "Works as Fandom", "setting" => "Works as Setting", "cast" => "Cast From These Works", "reference" => "Works as Reference", "subject" => "Works as Subject"}
 	end
 
 	def self.tag_labels(work)
@@ -119,10 +127,8 @@ class WorkConnection < ActiveRecord::Base
 		return labels
 	end
 
-	def self.filter_labels
-		@filter_labels ||= { "general" => "Works as Fandom", "setting" => "Works as Setting", "cast" => "Cast Only", "reference" => "Works as Reference", "subject" => "Works as Subject"}
-	end
-
+	# SQL
+	# ------------------------------------------------------------
 	def self.tagger_intersection_sql(finds)
 		if (finds.keys - self.all_labels).empty?
 			finds.map {|k, titles| WorkConnection.tagger_with_grouped_works(k.to_s, titles.split(";")).to_sql }.join(" INTERSECT ")

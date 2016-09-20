@@ -1,36 +1,37 @@
 <% provide(:title, @article.title) %>
 
+<%= @article.breadcrumbs %>
+
 <header class="work-header">
 	<h1>
 		<%= @article.title %>
-		<%= @article.byline.html_safe %>
+		<%= subtitle @article.byline.html_safe %>
 	</h1>
-	<%= @article.completion_status %>
-	<%= @article.response_bar %>
 
-	<div class="about">
-		<%= @article.summarized %>
-		<%= @article.all_tags_line %>
-	</div>
-	
+	<%= @article.metadata_block %>
+	<%= @article.response_bar %>
 </header>
+
+<%= subject_body do %>
+	<%= @article.summary_block %>
+<% end unless @article.lacks_summary? %>
 
 <article role="article">
 	<div class="page-body" id="work-content">
 		<%= markdown @article.content %>
 	</div>
-
-	<footer>
-		<%= render 'comments/discussion' %>
-	</footer>
 </article>
 
+<%= subject_body do %>
+	<%= render 'works/shared/tag_widget' %>
+	<%= render 'comments/discussion' %>
+<% end %>
+
 <footer class="path-finder">
-	<p><%= link_to "Discuss", article_discussion_path(@article) %></p>
 	<p>
-		<%= link_to "All Article", articles_path %> |
-		<%= link_to "All Works", works_path %>
+		<%= link_to t('content_types.articles'), articles_path %> |
+		<%= link_to t('collected.works'), works_path %>
 	</p>
 </footer>
 
-<%= @work.skin_content %>
+<%= @article.skin_content %>

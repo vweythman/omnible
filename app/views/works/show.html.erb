@@ -13,11 +13,11 @@
 	<%= @work.response_bar %>
 </header>
 
-<div class="subject-body">
+<%= subject_body do %>
 	<%= @work.summary_block %>
 	<%= render 'works/shared/tag_widget' %>
-</div>
+<% end %>
 
 <footer class="path-finder">
-	<%= link_to t('pather.works'), works_path %>
+	<%= link_to t('collected.works'), works_path %>
 </footer>

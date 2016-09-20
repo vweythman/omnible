@@ -5,34 +5,12 @@
 
 <div class="dashboard-grid">
 	<%= solo_cell do %>
-		<table class="editable sortable">
-			<thead>
-				<tr>
-					<th>Type</th>
-					<th>Title/Name</th>
-					<th>Uploaded</th>
-					<th>Editor Level</th>
-					<th>Visibility Level</th>
-				</tr>
-			</thead>
-			<% @uploads.each do |upload| %>
-				<% upload = upload.decorate %>
-				<tr class="editable-content">
-					<td class="item-type">
-						<%= upload.icon %> <span><%= upload.nature.titleize %></span>
-					</td>
-					<th>
-						<%= link_to upload.heading, upload %>
-						<span class="manager-editor" style="margin-right: -184%;">
-							<%= upload.user_edit_bar %>
-						</span>
-					</th>
-					<td data-label="Uploaded"><%= record_time upload.created_at %></td>
-					<td data-label="Editor Level"><%= upload.editablity %></td>
-					<td data-label="Visibility Level"><%= upload.publicity %></td>
-				</tr>
-			<% end %>
-		</table>
+		<% if @uploads.length > 0 %>
+			<%= render 'table' %>
+		<% else %>
+			<p>Empty</p>
+			
+		<% end %>
 	<% end %>
 </div>
 

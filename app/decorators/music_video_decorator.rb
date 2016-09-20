@@ -14,4 +14,9 @@ class MusicVideoDecorator < WorkDecorator
 		"Upload Music Video"
 	end
 
+	def breadcrumbs
+		crumbs = [[h.t('collected.works'), h.works_path], [h.t('content_types.music_videos'), h.poems_path]]
+		breacrumbing(crumbs)
+	end
+
 end

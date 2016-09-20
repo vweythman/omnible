@@ -1,15 +1,5 @@
 module IndexHelper
 
-	def filter_tags(inclusion, type, group, label)
-		if params[inclusion].present? && params[inclusion][type].present? && params[inclusion][type][group].present?
-			p = params[inclusion][type][group]
-		else
-			p = ""
-		end
-
-		tag_field_cell([inclusion, type, group], p.split(";"), label)
-	end
-
 	def curated_works_url_appender(parent, filter)
 		url_for(parent) + '/works/?' + filter.to_query
 	end

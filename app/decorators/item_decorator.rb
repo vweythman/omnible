@@ -18,6 +18,10 @@ class ItemDecorator < Draper::Decorator
 		@tags ||= qualities.pluck(:name)
 	end
 
+	def defined_heading
+		name.titleize
+	end
+
 	def description_status
 		h.metadata self.generic.name.titleize + ":", list_qualities
 	end

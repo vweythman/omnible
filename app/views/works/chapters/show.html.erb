@@ -1,5 +1,7 @@
 <% provide(:title, @chapter.meta_title) %>
 
+<%= @story.breadcrumbs %>
+
 <header id="story-header" class="work-header">
 	<h1>
 		<%= @story.title %>
@@ -7,24 +9,25 @@
 		<%= subtitle @chapter.positioned_heading %>
 	</h1>
 	<%= @story.completion_status %>
-	<%= @story.rated             %>
+	<%= @story.metadata_block %>
+
+	<%= @story.navigation_on_chapter %>
+	<%= @story.createables %>
 	<%= @story.response_bar %>
-	<%# @story.createables_links %>
-	
-	<div class="about">
-		<%= @story.summarized %>
-		<%= @story.all_tags_line %>
-		<%= @story.navigation_on_chapter %>
-	</div>
 </header>
+
+<%= subject_body do %>
+	<%= @story.summary_block %>
+	<%= @chapter.pagination  %>
+<% end %>
 
 <article role="article">
 	<header>
-		<h1><%= @chapter.heading_with_count %></h1>
+		<h1 class="section-title">
+			<%= @chapter.heading_with_count %>
+		</h1>
 		<%= @chapter.timestamps %>
-		<%= @chapter.pagination %>
 		<%# @chapter.edit_bar %>
-
 		<%= @chapter.summarized %>
 	</header>
 
@@ -33,26 +36,22 @@
 	</div>
 
 	<footer>
-		<%= @chapter.pagination %>
 		<%= markdown @chapter.afterward %>
 	</footer>
 </article>
 
-<footer>
-	<div class="about">
-		<%= @story.all_tags_line %>
-	</div>
-	<div class="path-finder">
-		<p>
-			<%= link_to "Discuss Chapter", chapter_discussion_path(@chapter) %> | 
-			<%= link_to "See All Story Discussion", story_discussion_path(@story) %>
-		</p>
-		<p>
-			<%= link_to "All Stories", stories_path %> |
-			<%= link_to "All Fiction", fiction_index_path %> |
-			<%= link_to "All Works", works_path %>
-		</p>
-	</div>
+<%= subject_body do %>
+	<%= @chapter.pagination %>
+	<%= render 'works/shared/tag_widget' %>
+	<%= render 'comments/discussion' %>
+<% end %>
+
+<footer class="path-finder">
+	<p>
+		<%= link_to "All Stories", stories_path %> |
+		<%= link_to "All Fiction", fiction_index_path %> |
+		<%= link_to "All Works", works_path %>
+	</p>
 </footer>
 
 <%= @story.skin_content %>

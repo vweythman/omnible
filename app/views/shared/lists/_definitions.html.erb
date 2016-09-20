@@ -1,8 +1,8 @@
 <dl class="indexable">
-	<% listable.each do |type, group| %>
-		<dt><%= type.pluralize(group.length) %></dt>
-		<% group.each do |item| %>
-			<dd><%= link_to item.name, item %></dd>
+	<% listable.each do |key, values| %>
+		<dt><%= key %></dt>
+		<% values.each do |definition| %>
+			<dd><%= link_to definition.name, definition %></dd>
 		<% end %>
 	<% end %>
 </dl>

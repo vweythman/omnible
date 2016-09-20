@@ -31,6 +31,10 @@ module CreativeContent
 
 		# RENDER
 		# ============================================================
+		def agentive_line
+			h.content_tag :p do @category.agentive.titleize end
+		end
+
 		def choose_creator_category
 			if multiple_creator_categories?
 				h.selection_field_cell "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
@@ -43,12 +47,14 @@ module CreativeContent
 			end
 		end
 
-		def agentive_line
-			h.content_tag :p do @category.agentive.titleize end
-		end
-
 		def creating_as(creator)
 			h.content_tag :p do h.link_to(creator.name, creator).html_safe end
+		end
+		
+		def length_data
+			h.content_tag :td, :data => {:label => "Word Count"} do
+				length_status
+			end
 		end
 
 		def length_span
@@ -56,10 +62,12 @@ module CreativeContent
 				length_status
 			end
 		end
-		
-		def length_data
-			h.content_tag :td, :data => {:label => "Word Count"} do
-				length_status
+
+		def snippet
+			h.content_tag :article, class: "snippet #{klass}" do
+				h.solo_cell "snippet-about" do
+					h.render snippet_path, klass => self
+				end
 			end
 		end
 

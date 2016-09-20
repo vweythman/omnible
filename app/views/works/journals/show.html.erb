@@ -1,5 +1,7 @@
 <% provide(:title, @work.title) %>
 
+<%= @work.breadcrumbs %>
+
 <header class="work-header">
 	<h1><%= @work.title %></h1>
 	<%= @work.completion_status %>
@@ -8,7 +10,8 @@
 </header>
 
 <div class="subject-body">
-	<%= @work.summary_block %>
+	<%= @work.summary_block unless @work.lacks_summary? %>
+
 	<%= page_widget "Articles" do %>
 		<% @work.current_articles.each do |article| %>
 			<h3><%= article.title %></h3>
@@ -22,8 +25,8 @@
 
 <footer class="path-finder">
 	<p>
-		<%= link_to t('pather.journals'), journals_path %> |
-		<%= link_to t('pather.nonfiction'), nonfiction_index_path %> |
-		<%= link_to t('pather.works'), works_path %>
+		<%= link_to t('content_types.journals'), journals_path %> |
+		<%= link_to t('collected.nonfiction'), nonfiction_index_path %> |
+		<%= link_to t('collected.works'), works_path %>
 	</p>
 </footer>

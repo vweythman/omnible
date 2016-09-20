@@ -1,41 +1,40 @@
 <% provide(:title, @work.title) %>
 
+<%= @work.breadcrumbs %>
+
 <header class="work-header">
 	<h1>
 		<%= @work.title %>
 		<%= subtitle @work.byline.html_safe %>
 	</h1>
 	<%= @work.completion_status %>
-	<%= @work.rated %>
-
-	<%= @work.createables_links %>
-
-	<div class="about">
-		<%= @work.summarized %>
-		<%= @work.all_tags_line %>
-	</div>
+	<%= @work.metadata_block %>
 
 	<%= @work.navigation_on_whole %>
+	<%= @work.createables %>
 	<%= @work.response_bar %>
 </header>
+
+<%= subject_body do %>
+	<%= @work.summary_block %>
+<% end %>
 
 <article role="article">
 	<div class="page-body" id="work-content">
 		<% @work.current_chapters.each do |chapter| %>
-
 			<section class="chapter">
-				<h1><%= chapter.positioned_heading %></h1>
+				<h1 class="section-title"><%= chapter.positioned_heading %></h1>
 				<%= markdown chapter.content %>
 				<%= chapter.afterward_foot %>
 			</section>
-		
 		<% end %>
 	</div>
-
-	<footer>
-		<%= render 'comments/discussion' %>
-	</footer>
 </article>
+
+<%= subject_body do %>
+	<%= render 'works/shared/tag_widget' %>
+	<%= render 'comments/discussion' %>
+<% end %>
 
 <footer class="path-finder">
 	<p>

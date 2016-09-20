@@ -6,12 +6,13 @@ class BranchingStoryDecorator < WorkDecorator
 		:branching_story
 	end
 
-	def most_recent_label
-		"Changed"
-	end
-
 	def icon_choice
 		'tree'
+	end
+
+	def breadcrumbs
+		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.branching_stories'), h.branching_stories_path]]
+		breacrumbing(crumbs)
 	end
 
 end

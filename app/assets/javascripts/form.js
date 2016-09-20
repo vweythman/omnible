@@ -44,6 +44,7 @@ $(document).ready(function(){
 
 		$("#show_"+id[1]).hide();
 		$("#form_"+id[1]).show();
+		$("#hide_"+id[1]).show();
 	});
 
 	$(".hide-toggle").click(function(){
@@ -52,6 +53,7 @@ $(document).ready(function(){
 
 		$("#show_"+id[1]).css('display', 'block');
 		$("#form_"+id[1]).hide();
+		$("#hide_"+id[1]).hide();
 	});
 
 	$(".dismissal").click(function(){

@@ -29,7 +29,16 @@ module Collectables
 		end
 
 		def organized
-			Identity.organize(object)
+			keys = self.facets.pluck(:id, :name).to_h
+			results = {}
+			self.each do |item|
+				key = keys[item.facet_id]
+				if results[key].nil?
+					results[key] = []
+				end
+				results[key] << item
+			end
+			results
 		end
 
 		def show_heading
@@ -63,6 +72,8 @@ module Collectables
 		private
 
 		def list_possible
+
+
 			list = Hash[self.facets.pluck(:name).zip(Array.new())]
 			if self.length > 0
 				ordered = self.organized
@@ -71,6 +82,7 @@ module Collectables
 				list
 			end
 		end
+
 
 	end
 end

@@ -20,6 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+
+# MODELS
+# ------------------------------------------------------------
   activerecord:
     attributes:
       branches:
@@ -37,62 +40,73 @@ en:
       work_link:
         title: "Text"
 
+  work:
+    summary_title: "Summary"
+  art:
+    summary_title: "Description"
+
+# COLLECTIONS
+# ------------------------------------------------------------
+  categories:
+    creator:       "Creator Categories"
+    ficton_status: "Category"
+    identities:    "Identities Categories"
+    relator:       "Relationships Categories"
+    content:
+      all:    "All"
+      audio:  "Audio"
+      images: "Images"
+      text:   "Text"
+      video:  "Video"
+
+  collected:
+    all_tags:    "Tags"
+    anthologies: "Anthologies"
+    characters:  "Characters"
+    fiction:     "Fiction"
+    groups:      "Groups"
+    items:       "Items"
+    identities:  "Identities"
+    media:       "Media"
+    nonfiction:  "Nonfiction"
+    places:      "Places"
+    subjects:    "Subjects"
+    tags:        "Tags"
+    works:       "Works"
+
+  content_types:
+    artwork:             "Artwork"
+    articles:            "Articles"
+    branching_stories:   "Branching Stories"
+    journals:            "Journals"
+    music_videos:        "Music Videos"
+    poems:               "Poems"
+    stories:             "Chaptered Stories"
+    short_stories:       "Short Stories"
+    work_links:          "Links"
+    stylesheet_skins:    "Stylesheet Skins"
+    roleplay_characters: "Roleplay Characters"
+
+# METHODS
+# ------------------------------------------------------------
   errors:
     messages:
+      blank:          "must have text"
       wrong_size:     "File size is invalid."
       size_too_small: "File size is too small. (Min of %{file_size})"
       size_too_big:   "File size is too big. (Max of %{file_size})"
-      blank:          "must have text"
-
-  collected:
-    media:      "Media"
-    works:      "Works"
-
-    fiction:    "Fiction"
-    nonfiction: "Nonfiction"
-
-    anthologies: "Anthologies"
-    subjects:    "Subjects"
-    characters:  "Characters"
-    groups:      "Groups"
-    items:       "Items"
-    places:      "Places"
-    all_tags:    "Tags"
-    tags:        "Tags"
-    identities:  "Identities"
-
-  categories:
-    creator:    "Creator Categories"
-    relator:    "Relationships Categories"
-    identities: "Identities Categories"
-
-  work_types:
-    artwork:           "Artwork"
-    articles:          "Articles"
-    journals:          "Journals"
-    music_videos:      "Music Videos"
-    poems:             "Poems"
-    branching_stories: "Branching Stories"
-    stories:           "Chaptered Stories"
-    short_stories:     "Short Stories"
-
-  pather:
-    works:      "All Works"
-    nonfiction: "All Nonfiction"
-    journals:   "All Journals"
-    
 
   toolkit:
-    edit:    "Edit"
-    delete:  "Delete"
+    delete: "Delete"
+    edit:   "Edit"
     checked:
-      watch: ""
-      like:  ""
+      watch:   ""
+      like:    ""
       dislike: ""
     unchecked:
       watch:   "Track"
       like:    "Like"
       dislike: "Dislike"
 
-
-
+  question:
+    link_reveal: "Reveal Any Hidden Links"

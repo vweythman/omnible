@@ -1,46 +1,80 @@
 <% cache('site_menu_options') do %>
 	<nav class="menu">
 		<ul>
-			<li><%= link_to t("collected.media"), mediums_path %></li>
+			<li><%= link_to t("collected.media"),               mediums_path %></li>
 			<li><%= link_to drop_arrowed(t('collected.works')), works_path %>
-				<ul class="submenu">
-					<li><%= link_to t('collected.fiction'), fiction_index_path %></li>
-					<li><%= link_to t('collected.nonfiction'), nonfiction_index_path %></li>
+				<div class="submenu mega-drop">
 
-					<li><%= link_to t('work_types.articles'), articles_path %></li>
-					<li><%= link_to t('work_types.journals'), journals_path %></li>
+					<div class="category fiction-type">
+						<p class="category-title"><%= t('categories.fiction_status') %></p>
+						<ul>
+							<li><%= link_to t('collected.fiction'), fiction_index_path %></li>
+							<li><%= link_to t('collected.nonfiction'), nonfiction_index_path %></li>
+						</ul>
+					</div>
 
-					<li><%= link_to t('work_types.artwork'), artwork_path %></li>
+					<div class="categories">
+						<div class="category content-type">
+							<p class="category-title"><%= link_to t('categories.content.text'), works_path(content_type: 'text') %></p>
+							<ul>
+								<li><%= link_to t('content_types.articles'), articles_path %></li>
+								<li><%= link_to t('content_types.journals'), journals_path %></li>
+								<li><%= link_to t('content_types.poems'),    poems_path %></li>
 
-					<li><%= link_to t('work_types.music_videos'), music_videos_path %></li>
+								<li><%= link_to t('content_types.branching_stories'), branching_stories_path %></li>
+								<li><%= link_to t('content_types.stories'),           stories_path %></li>
+								<li><%= link_to t('content_types.short_stories'),     short_stories_path %></li>
+							</ul>
+						</div>
 
-					<li><%= link_to t('work_types.poems'), poems_path %></li>
+						<div class="category content-type">
+							<p class="category-title"><%= link_to t('categories.content.video'), works_path(content_type: 'video') %></p>
+							<ul>
+								<li><%= link_to t('content_types.music_videos'), music_videos_path %></li>
+								<li>Webisode</li>
+							</ul>
+						</div>
 
-					<li><%= link_to t('work_types.stories'), stories_path %></li>
-					<li><%= link_to t('work_types.branching_stories'), branching_stories_path %></li>
-					<li><%= link_to t('work_types.short_stories'), short_stories_path %></li>
-				</ul>
+						<div class="category content-type">
+							<p class="category-title"><%= link_to t('categories.content.images'), works_path(content_type: 'images') %></p>
+							<ul>
+								<li><%= link_to t('content_types.artwork'), artwork_path %></li>
+								<li>Comics</li>
+							</ul>
+						</div>
+
+						<div class="category content-type">
+							<p class="category-title"><%= link_to t('categories.content.audio'), works_path(content_type: 'audio') %></p>
+							<ul>
+								<li>Podcasts</li>
+								<li>Radio Plays</li>
+								<li>Songs</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
 			</li>
-			<li><%= link_to t('collected.anthologies'), anthologies_path %> </li>
-			<li>
-				<%= link_to drop_arrowed(t('collected.subjects')), subjects_path %>
-				<ul class="submenu">
-					<li><%= link_to t('collected.characters'), characters_path %></li>
-					<li><%= link_to t('collected.groups'), squads_path %></li>
-					<li><%= link_to t('collected.items'), items_path %></li>
-					<li><%= link_to t('collected.places'), places_path %></li>
-				</ul>
-			</li>
+			<li><%= link_to t('collected.anthologies'), anthologies_path %></li>
 			
 			<% if user_signed_in? && current_user.admin? %>
 				<li>
-					<%= link_to drop_arrowed(t('collected.all_tags')), all_tags_path %>
+					<%= link_to drop_arrowed(t('collected.subjects')), subjects_path, rel: 'nofollow'  %>
 					<ul class="submenu">
-						<li><%= link_to t('collected.tags'), tags_path %></li>
-						<li><%= link_to t('collected.identities'), identities_path %></li>
-						<li><%= link_to t('categories.creator'), creator_categories_path %></li>
-						<li><%= link_to t('categories.relator'), relators_path %></li>
-						<li><%= link_to t('categories.identities'), facets_path %></li>
+						<li><%= link_to t('collected.characters'), characters_path, rel: 'nofollow' %></li>
+						<li><%= link_to t('collected.groups'),     squads_path,     rel: 'nofollow'  %></li>
+						<li><%= link_to t('collected.items'),      items_path,      rel: 'nofollow'  %></li>
+						<li><%= link_to t('collected.places'),     places_path,     rel: 'nofollow'  %></li>
+					</ul>
+				</li>
+				<li>
+					<%= link_to drop_arrowed(t('collected.all_tags')), all_tags_path, rel: 'nofollow'  %>
+					<ul class="submenu">
+						<li><%= link_to t('collected.tags'),        tags_path,               rel: 'nofollow'  %></li>
+						<li><%= link_to t('collected.identities'),  identities_path,         rel: 'nofollow'  %></li>
+						<li><%= link_to t('categories.creator'),    creator_categories_path, rel: 'nofollow'  %></li>
+						<li><%= link_to t('categories.relator'),    relators_path,           rel: 'nofollow'  %></li>
+						<li><%= link_to t('categories.identities'), facets_path,             rel: 'nofollow'  %></li>
 					</ul>
 				</li>
 			<% end %>

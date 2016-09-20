@@ -1,20 +1,20 @@
 <% provide(:title, @video.title) %>
 
-<div class="artwork centerpiece">
-	<iframe width="560" height="315" src="<%= @video.embed_src %>" frameborder="0" allowfullscreen></iframe>
-</div>
+<%= @video.breadcrumbs %>
 
-<article class="work-footer">
-	<h1>
-		<%= @video.title %>
-		<%= subtitle @video.byline.html_safe %>
-	</h1>
-	<%= @video.response_bar %>
-
-	<div class="about">
-		<%= @video.summarized %>
-		<%= @video.all_tags_line %>
+<article>
+	<div class="artwork centerpiece">
+		<iframe width="560" height="315" src="<%= @video.embed_src %>" frameborder="0" allowfullscreen></iframe>
 	</div>
+
+	<h1 class="section-title">
+		<%= @video.title %>
+		<%= subtitle "Hosted @ #{@video.host}" %>
+	</h1>
+
+	<%= @video.response_bar %>
+	<%= @video.summary_block %>
+	<%= render 'works/shared/tag_widget' %>
 </article>
 
 <% if @video.comments.length > 0 %>
@@ -29,8 +29,8 @@
 
 <footer class="path-finder">
 	<p>
-		<%= link_to "All Art", artwork_path %> |
-		<%= link_to "All Works", works_path %>
+		<%= link_to t('content_types.music_videos'), music_videos_path %> |
+		<%= link_to t('collected.works'), works_path %>
 	</p>
 </footer>
 

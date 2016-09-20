@@ -31,6 +31,10 @@ class SkinDecorator < Draper::Decorator
 		@status_type ||= self.status == "Private" ? "Private Use Only" : "Public Use"
 	end
 
+	def klass
+		:stylesheet_skin
+	end
+
 	def nature
 		"Stylesheet"
 	end

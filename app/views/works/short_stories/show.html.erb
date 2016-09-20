@@ -1,29 +1,34 @@
 <% provide(:title, @short.title) %>
 
+<%= @short.breadcrumbs %>
+
 <header class="work-header">
-	<h1>
+	<h1><%= @short.title %></h1>
+
+	<%= @short.metadata_block %>
+	<%= @short.createables %>
+	<%= @short.navigation_on_short %>
+	<%= @short.response_bar %>
+</header>
+
+<%= subject_body do %>
+	<%= @work.summary_block %>
+<% end %>
+
+<article role="article">
+	<h1 class="section-title">
 		<%= @short.title %>
 		<%= subtitle @short.byline.html_safe %>
 	</h1>
-	<%= @short.completion_status %>
-
-	<%= @short.metadata_block %>
-
-	<%= @short.response_bar %>
-	<%= @short.createables_links %>
-
-	<%= @short.navigation_on_short %>
-</header>
-
-<div class="subject-body">
-	<%= @work.summary_block %>
-</div>
-
-<article role="article">
-	<div class="page-body" id="work-content"><%= markdown @short.content %></div>
+	<div class="page-body" id="work-content">
+		<%= markdown @short.content %>
+	</div>
 </article>
 
-<%= render 'comments/discussion' %>
+<%= subject_body do %>
+	<%= render 'works/shared/tag_widget' %>
+	<%= render 'comments/discussion' %>
+<% end %>
 
 <footer class="path-finder">
 	<p>

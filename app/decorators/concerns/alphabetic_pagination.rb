@@ -2,12 +2,16 @@ module AlphabeticPagination
 
 	# SET
 	# ============================================================
+	def alphabetic_all
+		@alphabetic_all ||= object.class.alphabetic
+	end
+
 	def alphabetic_first
-		nil
+		@alphabetic_first ||= alphabetic_all.first
 	end
 
 	def alphabetic_last
-		nil
+		@alphabetic_last ||= alphabetic_all.last
 	end
 
 	# CHECK

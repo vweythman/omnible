@@ -1,0 +1,28 @@
+<table class="editable sortable">
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th>Title/Name</th>
+			<th>Uploaded</th>
+			<th>Editor Level</th>
+			<th>Visibility Level</th>
+		</tr>
+	</thead>
+	<% @uploads.each do |upload| %>
+		<% upload = upload.decorate %>
+		<tr class="editable-content">
+			<td class="item-type">
+				<%= upload.icon %> <span><%= t("content_types.#{upload.content_category}").singularize %></span>
+			</td>
+			<th>
+				<%= link_to upload.heading, upload %>
+				<span class="manager-editor" style="margin-right: -184%;">
+					<%= upload.user_edit_bar %>
+				</span>
+			</th>
+			<td data-label="Uploaded"><%= record_time upload.created_at %></td>
+			<td data-label="Editor Level"><%= upload.editablity %></td>
+			<td data-label="Visibility Level"><%= upload.publicity %></td>
+		</tr>
+	<% end %>
+</table>
