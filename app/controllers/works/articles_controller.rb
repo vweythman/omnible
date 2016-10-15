@@ -26,7 +26,7 @@ class Works::ArticlesController < WorksController
 	def new_work
 		@article         = Article.new
 		@article.rating  = Rating.new
-		@article.note    = Note.new
+		@article.chapter = Chapter.new
 		@article = @work = @article.decorate
 	end
 

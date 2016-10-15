@@ -1,36 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# ARTICLE
-# ===================================
-apologia_content:
-  content: I must defend his character.
-  work: apologia
-
-theocrat_content:
-  content: I will count the ways that Sirka is *wrong*.
-  work: theocrat
-
-skywalks_content:
-  content: I am not involved and I would rather talk about something else.
-  work: skywalks
-
-# JOURNAL
-# ===================================
-gunrunner_article:
-  title: Foobar
-  content: tester is tired and just wishes to test content
-  work: gunrunner
-
-absurdist_article:
-  title: Foobar
-  content: tester is tired and just wishes to test content
-  work: absurdist
-
-rainfalls_article:
-  title: Foobar
-  content: tester is tired and just wishes to test content
-  work: rainfalls
-
 # STORY NOTE
 # ===================================
 heart_note1:

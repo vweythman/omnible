@@ -3,7 +3,7 @@ class TrackingsController < ApplicationController
 	before_action :signed_restriction
 
 	def create
-		tracked_type   = params[:tracked_type]
+		tracked_type   = request.fullpath.split("/")[1].singularize
 		tracked_id     = params[tracked_type.downcase.underscore + '_id']
 		@to_be_tracked = tracked_type.classify.constantize.find(tracked_id)
 
@@ -17,7 +17,7 @@ class TrackingsController < ApplicationController
 	end
 
 	def destroy
-		tracked_type = params[:tracked_type]
+		tracked_type = request.fullpath.split("/")[1].singularize
 		tracked_id   = params[tracked_type.downcase.underscore + '_id']
 		@tracked     = tracked_type.classify.constantize.find(tracked_id)
 

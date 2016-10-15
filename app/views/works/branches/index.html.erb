@@ -1,55 +1,81 @@
 <% provide(:title, @work.title) %>
 
-<header class="work-header">
+<header class="work-header show-header">
 	<h1>
 		<%= link_to @work.title, @work %>
-		<%= subtitle "Branches" %>
+		<%= subtitle "Branches & Paths" %>
 	</h1>
 </header>
 
 <div class="index-body">
-	<div class="results branches">
+	<div class="results-table">
+		<h2>Branches</h2>
 
-		<% @branches.includes(:child_branchings, :child_nodes).decorate.each do |branch| %>
-			<div class="branch">
-				<%= solo_cell do %>
-					<h2 class="branch-title">
-						<b>Branch:</b>
-						<%= link_to branch.title, [@work, branch] %>
-					</h2>
-					<ul>
-						<li><b>Updated</b> <%= record_time branch.updated_at %></li>
-						<li><b>Created</b> <%= record_time branch.created_at %></li>
-					</ul>
-					<%= branch.edit_bar %>
-				<% end %>
+		<% branches = @branches.includes(:child_branchings => :child_node).decorate %>
+		<% count    = branches.length %>
 
+		<div id="branching-form"></div>
+
+		<table class="branches-table tableized-results sortable">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Creation Date</th>
+					<th>Update Date</th>
+				</tr>
+			</thead>
+
+			<% branches.each do |branch| %>
+				<tr class="index-content branch-info editable-content">
+					<th>
+						<span class="branch-title content-title">
+							<%= link_to branch.title, [@work, branch] %>
+						</span>
+						<% path_count = branch.child_branchings.length %>
+						<% can_graft  = count - path_count > 0 %>
+						<%= branch.manage_kit(can_graft) %>
+					</th>
+					<td data-label="Creation Date"><%= record_time branch.created_at %></td>
+					<td data-label="Update Date"><%=   record_time branch.updated_at %></td>
+				</tr>
+			<% end %>
+		</table>
+
+		<h2>Paths</h2>
+		<table class="branches-table tableized-results sortable">
+			<thead>
+				<tr>
+					<th>Path Title</th>
+					<th>Branch From</th>
+					<th>Branch To</th>
+				</tr>
+			</thead>
+			<% branches.each do |branch| %>
 				<% branch.child_branchings.decorate.each do |branching| %>
-					<div class="child-branch">
-						<h3>Path</h3>
-
-						<%= grid_panel do %>
-							<%= panel_cell branch.child_index_width do branching.quoted_heading end %>
-							<%= panel_cell branch.child_index_width do branching.go_to end %>
-							<% if @is_editable %>
-								<%= panel_cell "trio" do %>
-									<%= branching.edit_bar %>
-								<% end %>
-							<% end %>
-						<% end %>
-					</div>
+					<tr class="index-content branching-info editable-content">
+						<th>
+							<span class="content-title icon icon-leaf">
+								<%= branching.heading %>
+							</span>
+							<%= branching.manage_kit %>
+						</th>
+						<td data-label="From"><%= link_to branch.title, [@work, branch] %></td>
+						<td data-label="To"><%= link_to branching.child_node.title, [@work, branching.child_node] %></td>
+					</tr>
 				<% end %>
-
-				<%= render 'interaction_toolkit', branch: branch %>
-			</div>
-		<% end %>
+			<% end %>
+		</table>
 	</div>
 </div>
 
 <footer>
-	<div class="path-finder">
-		<p><%= link_to "All Branching Stories", branching_stories_path %></p>
-		<p><%= link_to "All Fiction", fiction_index_path %></p>
-		<p><%= link_to "All Works", works_path %></p>
-	</div>
+	<p class="path-finder">
+		<%= link_to "All Branching Stories", branching_stories_path %> | 
+		<%= link_to "All Fiction", fiction_index_path %> | 
+		<%= link_to "All Works", works_path %>
+	</p>
 </footer>
+
+<script type="text/javascript">
+	$(document).ready(function(){ $(".sortable").tablesorter(); });
+</script>

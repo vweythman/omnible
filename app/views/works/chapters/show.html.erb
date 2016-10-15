@@ -2,7 +2,7 @@
 
 <%= @story.breadcrumbs %>
 
-<header id="story-header" class="work-header">
+<header id="story-header" class="work-header show-header">
 	<h1>
 		<%= @story.title %>
 		<%= subtitle @story.byline.html_safe     %>
@@ -11,9 +11,9 @@
 	<%= @story.completion_status %>
 	<%= @story.metadata_block %>
 
-	<%= @story.navigation_on_chapter %>
 	<%= @story.createables %>
 	<%= @story.response_bar %>
+	<%= @story.directory %>
 </header>
 
 <%= subject_body do %>

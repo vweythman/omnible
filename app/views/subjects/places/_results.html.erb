@@ -1,8 +1,8 @@
 <%= grid_panel "filtered" do %>
-	<%= panel_cell "golden-major" do %>
+	<%= panel_cell "golden-major results-body" do %>
 		<div class="results">
 			<%= @places.definitions %>
 		</div>
 	<% end %>
-	<%= panel_cell "golden-minor" do @places.filters     end %>
+	<%= panel_cell "golden-minor filters-body" do @places.filters     end %>
 <% end %>

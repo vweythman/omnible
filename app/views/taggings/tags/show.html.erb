@@ -2,38 +2,37 @@
 
 <%= render 'taggings/shared/header' %>
 
-<article class="page-body">
-	<h2>Statistics</h2>
-	<table class="analytics">
-		<thead>
-			<tr>
-				<th>Work Type</th>
-				<th>Count</th>
-			</tr>
-		</thead>
-		<tr>
-			<th>Articles</th>
-			<td><%= @tag.articles.count %></td>
-		</tr>
-		<tr>
-			<th>Short Stories</th>
-			<td><%= @tag.short_stories.count %></td>
-		</tr>
-		<tr>
-			<th>Stories</th>
-			<td><%= @tag.stories.count %></td>
-		</tr>
-		<tr>
-			<th>Story Links</th>
-			<td><%= @tag.work_links.count %></td>
-		</tr>
-		<tfoot>
-			<tr>
-				<th><%= link_to "All Works", tag_works_path(@tag) %></th>
-				<td><%= @tag.works.count %></td>
-			</tr>
-		</tfoot>
-	</table>
+<article class="subject-body">
+	<%= page_widget "Find" do %>
+		<ul class="curation-navigation">
+			<li class="icon icon-books"><%= link_to "Works", tag_works_path(@tag) %></li>
+		</ul>
+	<% end %>
+
+	<%= page_widget "Statistics" do %>
+		<table class="analytics">
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Count</th>
+				</tr>
+			</thead>
+
+			<% @tag.categories_count.each do |type, count| %>
+				<tr>
+					<th><%= type %></th>
+					<td><%= count %></td>
+				</tr>
+			<% end %>
+
+			<tfoot>
+				<tr>
+					<th>Total</th>
+					<td><%= @tag.taggers.size %></td>
+				</tr>
+			</tfoot>
+		</table>
+	<% end %>
 </article>
 
 <%= render 'taggings/shared/footer' %>

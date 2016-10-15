@@ -16,7 +16,7 @@ module ToolkitHelper
 	end
 
 	def creatable_kit(titleized_type, item_type, kit_id, remoteness)
-		content_tag :div, class: "toolkit creation manager-editor", id: kit_id do
+		content_tag :div, class: "toolkit creation", id: kit_id do
 			link_to_create(titleized_type, item_type, remoteness)
 		end
 	end
@@ -38,10 +38,18 @@ module ToolkitHelper
 		end
 	end
 
+	def directory_kit(sections = [])
+		content_tag :div, class: "toolkit directory" do
+			sections.each do |heading, path|
+				concat link_to heading, path
+			end
+		end if sections.length > 0
+	end
+
 	# TOOLKIT TYPE :: TABLE
 	# ============================================================
 	def creation_tablekit(kittype)
-		content_tag :div, class: "toolkit creation manager-editor" do
+		content_tag :div, class: "toolkit creation" do
 			link_to_create "Create", kittype
 		end
 	end

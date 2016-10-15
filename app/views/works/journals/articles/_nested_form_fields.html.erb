@@ -1,0 +1,7 @@
+<div class='nested-fields nested-article-fields'>
+	<%= render 'works/chapters/form_fields', f: f %>
+
+	<p class="remove-cell">
+		<%= link_to_remove_association "- Delete Article", f, data: { confirm: 'Are you sure that you want to delete this article?' } %>
+	</p>
+</div>

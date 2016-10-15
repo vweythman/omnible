@@ -1,15 +1,15 @@
 <%= form_tag url_for(only_path: true), method: 'get' do %>
-	<div class="filters">
-		<aside>
+	<aside class="filters">
+		<div class="filter-section">
 			<% @works.filter_values.each do |key, group| %>
 				<div>
 					<%= filter_selects group[:type], group[:values], group[:title] %>
 				</div>
 			<% end %>
-		</aside>
+		</div>
 
-		<aside>
-			<h2 class="filter-tags-title">
+		<div class="filter-section">
+			<h2 class="filter-title filter-tags-title">
 				With
 				<%= hide_link("tag-inclusion-filters") %>
 				<%= show_link("", "tag-inclusion-filters") %>
@@ -19,10 +19,10 @@
 					<%= filter_tags([:with] + filters, label) %>
 				<% end %>
 			</div>
-		</aside>
+		</div>
 
-		<aside>
-			<h2 class="filter-tags-title">
+		<div class="filter-section">
+			<h2 class="filter-title filter-tags-title">
 				Without
 				<%= hide_link("tag-exclusion-filters") %>
 				<%= show_link("", "tag-exclusion-filters") %>
@@ -32,7 +32,7 @@
 					<%= filter_tags([:without] + filters, label) %>
 				<% end %>
 			</div>
-		</aside>
+		</div>
 		<%= filter_submit_tag  %>
-	</div>
+	</aside>
 <% end %>

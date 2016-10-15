@@ -1,14 +1,20 @@
-<h4>
-	<%= branching_story.icon %>
-	<%= link_to branching_story.title, branching_story %>
-</h4>
+<header class="snippet-header">
+	<h4>
+		<%= branching_story.icon %>
+		<%= link_to branching_story.title, branching_story %>
+	</h4>
 
-<div class="snippet-detail">
 	<%= branching_story.completion_status %>
 	<%= branching_story.rated %>
+</header>
 
-	<div class="snippet-meta">
-		<%= branching_story.summarized %>
-		<%= branching_story.snippet_tags_line %>
-	</div>
+<div class="snippet-body">
+	<%= branching_story.summarized %>
+	<%= branching_story.snippet_tags_line %>
 </div>
+
+<footer class="snippet-footer">
+	<%= branching_story.byline %>
+	<%= branching_story.time_started %>
+	<%= branching_story.time_updated %>
+</footer>

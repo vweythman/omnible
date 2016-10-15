@@ -1,13 +1,9 @@
 <% provide(:title, "Creator Categories") %>
 
-<header class="index-header">
-	<h1>
-		Admin Panel
-		<%= subtitle "Creator Categories" %>
-	</h1>
+<%= dashboard_header ["Admin Panel", "Creator Categories"] do %>
 	<%= @creator_categories.found_status %>
 	<%= creation_toolkit("Category", :creator_category) %>
-</header>
+<% end %>
 
 <div class="index-body">
 	<%= @creator_categories.results %>

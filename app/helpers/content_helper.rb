@@ -9,10 +9,11 @@ module ContentHelper
 		end
 	end
 
-	def dash_heading(s, hid)
+	def dash_heading(all_titles, hid)
+		main_title = all_titles.shift
 		content_tag :h1, id: hid do
-			concat "My Dashboard"
-			concat subtitles(s)
+			concat main_title
+			concat subtitles(all_titles)
 		end
 	end
 

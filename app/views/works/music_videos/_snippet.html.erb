@@ -1,4 +1,15 @@
-<h4>
-	<%= music_video.icon %>
-	<%= link_to music_video.title, music_video %>
-</h4>
+<header class="snippet-header">
+	<h4>
+		<%= music_video.icon %>
+		<%= link_to music_video.title, music_video %>
+	</h4>
+</header>
+
+<div class="snippet-body">
+	<%= music_video.summarized %>
+	<%= music_video.snippet_tags_line %>
+</div>
+
+<footer class="snippet-footer">
+	<%= music_video.time_started %>
+</footer>

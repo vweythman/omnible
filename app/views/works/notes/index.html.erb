@@ -8,11 +8,10 @@
 </header>
 
 <article class="page-body">
-	<% if @notes.length > 0 %>
-		<%= render 'works/notes/list' %>
-	<% else %>
+	<div class="results-table">
+		<%= render 'works/notes/list' if @notes.length > 0 %>
 		<%= @work.note_creation_link %>
-	<% end %>
+	</div>
 </article>
 
 <footer class="path-finder">

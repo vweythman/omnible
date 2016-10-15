@@ -1,28 +1,30 @@
-<table class="tableized-results">
+<table class="tableized-results sortable">
 	<thead>
 		<tr>
-			<th>Chapter Title</th>
+			<th>#</th>
+			<th>Title</th>
 			<th>Creation Date</th>
 			<th>Update Date</th>
 			<th>Word Count</th>
 		</tr>
 	</thead>
-	
-	<%= toolblock 5, @chapters.link_to_insert_first(@story) %>
 
 	<% @chapters.each do |chapter| %>
-		<tr class="chapter-info">
-			<th><%= chapter.position %>. <%= link_to chapter.heading, [@story, chapter] %></th>
+		<tr class="index-content chapter-info editable-content">
+			<th class="position"><%= chapter.position %>.</th>
+			<th>
+				<span class="content-title">
+					<%= link_to chapter.heading, [@story, chapter] %>
+				</span>
+				<%= chapter.manage_kit %>
+			</th>
 			<%= chapter.creation_data %>
 			<%= chapter.updated_at_data %>
 			<%= chapter.length_data %>
-			<td class="manager-editor"><%= chapter.edit_bar %></td>
 		</tr>
-		
-		<% if chapter.position < @chapters.length %>
-			<%= toolblock 5, chapter.link_to_insert_next %>
-		<% end %>
 	<% end %>
-
-	<%= toolblock 5, @story.chapter_insertion_link %></tr>
 </table>
+
+<script type="text/javascript">
+	$(document).ready(function(){ $(".sortable").tablesorter(); });
+</script>

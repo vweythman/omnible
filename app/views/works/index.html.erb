@@ -1,8 +1,8 @@
 <% provide :title, @works.title %>
 
 <%= index_header(@works) do %>
-	<%= @works.for_categories %>
 	<%= @works.creation_path %>
+	<%= @works.directory %>
 <% end %>
 
 <div class="index-body">
@@ -15,7 +15,7 @@
 					<%= @works.snippets %>
 					<%= @works.link_display_question %>
 				<% end %>
-				<%= panel_cell "golden-minor" do @works.filters end %>
+				<%= panel_cell "filters-body golden-minor" do @works.filters end %>
 			<% end %>
 		</div>
 

@@ -29,4 +29,12 @@ class NoteDecorator < Draper::Decorator
 		h.content_tag :h1, class: 'ref' do "Edit Note of #{link}".html_safe end
 	end
 
+	def manage_kit
+		if self.editable?(h.current_user)
+			h.content_tag :div, class: "manager-editor" do
+				h.concat edit_bar
+			end
+		end
+	end
+
 end

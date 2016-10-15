@@ -1,18 +1,17 @@
-<h4>
-	<%= short_story.icon %>
-	<%= link_to short_story.title, short_story %>
-</h4>
-
-<div class="snippet-detail">
-	<%= short_story.completion_status %>
+<header class="snippet-header">
+	<h4>
+		<%= short_story.icon %>
+		<%= link_to short_story.title, short_story %>
+	</h4>
 	<%= short_story.rated %>
+</header>
 
-	<div class="about">
-		<%= short_story.uploaded_by.html_safe %>
-	</div>
-
-	<div class="snippet-meta">
-		<%= short_story.summarized %>
-		<%= short_story.snippet_tags_line %>
-	</div>
+<div class="snippet-body">
+	<%= short_story.summarized %>
+	<%= short_story.snippet_tags_line %>
 </div>
+
+<footer class="snippet-footer">
+	<%= short_story.byline %>
+	<%= short_story.time_started %>
+</footer>

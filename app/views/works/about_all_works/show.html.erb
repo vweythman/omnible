@@ -5,44 +5,25 @@
 		<%= link_to @parent.heading, @parent %>
 		::
 		<%= link_to("Works", url_for(@parent) + '/works/') %>
-		<%= subtitle "Activity, Related Tags, and Statistics" %>
+		<%= subtitle "About Tags" %>
 	</h1>
 </header>
 
 <div class="subject-body">
-	<%= grid_panel do %>
-		<%= page_widget "Work Types", type: "golden-minor" do %>
-			<%= render "counter", label: "Type", counts: @type_count %>
-		<% end %>
-		<%= page_widget "Work Content Types", type: "golden-major" do %>
-			<%= render "counter", label: "Title", type: :works, counts: @content_type_count %>
-		<% end %>
-	<% end %>
-
-	<%= page_widget "Monthly Creation Activity" do %>
-		<canvas id="creation-plot"></canvas>
-		<%= render "counter_with_type", label: "Date", counts: @overtime_type_count %>
-	<% end %>
-
-	<%= page_widget "Monthly Update Activity" do %>
-		<canvas id="updating-plot"></canvas>
-		<%= render "counter_with_type", label: "Date", counts: @updating_type_count %>
-	<% end %>
-
 	<%= page_widget "Tagged Works" do %>
-		<%= render "tag_counter_with_type", label: "Title", type: :works, counts: @intrawork_count %>
+		<%= render "tag_counter_with_type", label: "Title", type: :works, counts: @intrawork_count, type_labels: WorkConnection.filter_labels %>
 	<% end %>
 
 	<%= page_widget "Characters" do %>
-		<%= render "tag_counter_with_type", label: "Name", type: :characters, counts: @characters_count %>
+		<%= render "tag_counter_with_type", label: "Name", type: :characters, counts: @characters_count, type_labels: Appearance.filter_labels %>
 	<% end %>
 
 	<%= page_widget "Groups and Relationships" do %>
-		<%= render "tag_counter_with_type", label: "Name", type: :squads, counts: @squads_count %>
+		<%= render "tag_counter_with_type", label: "Name", type: :squads, counts: @squads_count, type_labels: SocialAppearance.filter_labels %>
 	<% end %>
 
 	<%= page_widget "Tags" do %>
-		<%= render "tag_counter_with_type", label: "Name", type: :tags, counts: @tags_count %>
+		<%= render "tag_counter_with_type", label: "Name", type: :tags, counts: @tags_count, type_labels: Tagging.work_filter_labels  %>
 	<% end %>
 
 	<%= page_widget "Places" do %>
@@ -50,7 +31,7 @@
 	<% end %>
 
 	<%= page_widget "Character Identities" do %>
-		<%= render "tag_counter_with_type", label: "Name", type: :identities, counts: @identities_count %>
+		<%= render "tag_counter_with_type", label: "Name", type: :identities, counts: @identities_count, type_labels: Appearance.filter_labels  %>
 	<% end %>
 </div>
 

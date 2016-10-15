@@ -1,4 +1,15 @@
-<h4>
-	<%= art.icon %>
-	<%= link_to art.title, art %>
-</h4>
+<header class="snippet-header">
+	<h4>
+		<%= art.icon %>
+		<%= link_to art.title, art %>
+	</h4>
+</header>
+
+<div class="snippet-body">
+	<%= art.summarized %>
+	<%= art.snippet_tags_line %>
+</div>
+
+<footer class="snippet-footer">
+	<%= art.time_started %>
+</footer>

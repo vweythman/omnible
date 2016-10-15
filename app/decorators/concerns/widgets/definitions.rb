@@ -2,8 +2,7 @@ module Widgets
 	module Definitions
 
 		def definitions
-
-			#h.render 'shared/lists/definitions', listable: listable
+			h.render 'shared/lists/definitions', listable: listable
 		end
 
 		def results

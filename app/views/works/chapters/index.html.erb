@@ -1,18 +1,22 @@
 <% provide(:title, @chapters.meta_title) %>
 
-<header class="work-header">
+<header class="work-header show-header">
 	<h1>
 		<%= link_to @story.title, @story %>
 		<%= subtitle "Chapters" %>
 	</h1>
 </header>
 
-<article class="page-body">
-	<% if @chapters.length > 0 %>
-		<%= render 'works/chapters/list' %>
-	<% else %>
+<article class="index-body">
+	<div class="results-table">
+		<% if @chapters.length > 0 %>
+			<%= @chapters.link_to_insert_first %>
+			<%= render 'works/chapters/list' %>
+			<%= @story.chapter_insertion_link %>
+		<% end %>
+
 		<%= @story.chapter_creation_link %>
-	<% end %>
+	</div>
 </article>
 
 <footer class="path-finder">

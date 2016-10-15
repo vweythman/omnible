@@ -2,10 +2,9 @@
 
 <%= @article.breadcrumbs %>
 
-<header class="work-header">
+<header class="work-header show-header">
 	<h1>
 		<%= @article.title %>
-		<%= subtitle @article.byline.html_safe %>
 	</h1>
 
 	<%= @article.metadata_block %>
@@ -17,6 +16,10 @@
 <% end unless @article.lacks_summary? %>
 
 <article role="article">
+	<h1 class="section-title">
+		<%= @article.title %>
+		<%= subtitle @article.byline.html_safe %>
+	</h1>
 	<div class="page-body" id="work-content">
 		<%= markdown @article.content %>
 	</div>

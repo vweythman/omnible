@@ -32,20 +32,35 @@ class PenNamingDecorator < Draper::Decorator
 			},
 			{
 				icon: "book",
-				title: "chaptered story",
+				title: "story",
 				path:  h.new_story_path(create_as: self.id)
 			},
 			{
 				icon: "tree",
-				title: "branching story",
+				title: "branching_story",
 				path:  h.new_branching_story_path(create_as: self.id)
 			},
 			{
 				icon: "file-text",
-				title: "short story",
+				title: "short_story",
 				path:  h.new_short_story_path(create_as: self.id)
 			}
 		]
+	end
+
+	def bylines_by_category
+		results = {}
+
+		bylines.each do |item|
+			key = item.category.name
+
+			if results[key].nil?
+				results[key] = []
+			end
+			results[key] << item
+		end
+		results.sort
+		results
 	end
 
 	# PRIVATE METHODS

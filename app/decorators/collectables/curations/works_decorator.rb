@@ -21,7 +21,7 @@ module Collectables
 				nil
 			end
 
-			def for_categories
+			def directory
 				nil
 			end
 

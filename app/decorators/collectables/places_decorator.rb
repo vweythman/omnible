@@ -25,5 +25,9 @@ module Collectables
 			h.render 'results'
 		end
 
+		def organized
+			Place.organize object
+		end
+
 	end
 end

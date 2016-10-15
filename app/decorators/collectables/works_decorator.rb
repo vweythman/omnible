@@ -144,7 +144,17 @@ module Collectables
 				:poems         => h.poems_path,
 				:branching_stories => h.branching_stories_path,
 				:stories       => h.stories_path,
-				:short_stories => h.short_stories_path,
+				:short_stories => h.short_stories_path
+			}
+		end
+
+		def unset_types
+			{
+				:webisodes     => nil,
+				:comics        => nil,
+				:podcasts      => nil,
+				:radio_plays   => nil,
+				:songs         => nil
 			}
 		end
 
@@ -155,25 +165,15 @@ module Collectables
 			}
 		end
 
-		# RENDER
+		# TOOLKIT
 		# ------------------------------------------------------------
-		def for_categories
-			all_link    = h.content_tag :li do link_to_all end
-			other_links = type_links
-
-			h.content_tag :ul, class: "type-categories" do 
-				all_link + other_links
-			end
+		def directory_sections
+			any_type = (self.types.merge self.unset_types)
+			any_type.map {|key, p| [h.t("content_types.#{key}"), p] }
 		end
 
-		def link_to_all
-			h.link_to "All Works", h.polymorphic_path(:works)
-		end
-
-		def type_links
-			(self.category_types.merge self.types).map {|key, p|
-				h.content_tag :li do h.link_to(h.t("menu.work_types.#{key}"), p) end 
-			}.join.html_safe
+		def directory
+			h.directory_kit directory_sections
 		end
 
 		# PRIVATE METHODS

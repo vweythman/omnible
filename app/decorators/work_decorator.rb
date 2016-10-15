@@ -60,7 +60,7 @@ class WorkDecorator < Draper::Decorator
 	end
 
 	def work_dislike_link
-		[h.work_track_path(object), false]
+		[h.work_dislike_path(object), false]
 	end
 
 	# Links :: Deletion
@@ -119,13 +119,15 @@ class WorkDecorator < Draper::Decorator
 	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def metadata_block
 		h.content_tag :div, class: 'metadata' do
+			creatorships.includes(:category, :creator).each do |byline_value|
+				h.concat h.metadata(byline_value.category.agentive_title + ":", h.link_to(byline_value.creator.name, h.pen_name_path(byline_value.creator.id)))
+			end
 			if has_likes?
 				h.concat h.metadata("Likes:", self.opinion_percentage)
 			end
-
-			self.rating.categorized.each do |label, level_content|
-				h.concat h.metadata("#{label}:",  level_content)
-			end if self.rating.present?
+ 			if self.rating.present?
+ 				h.concat h.metadata("Max Rating:", rating.max_rating_value)
+			end
 		end
 	end
 
@@ -191,7 +193,7 @@ class WorkDecorator < Draper::Decorator
 	def rated
 		h.content_tag :p, class: 'ratings' do
 			rating.full_list
-		end
+		end unless rating.nil?
 	end
 
 	def snippet_tags_line

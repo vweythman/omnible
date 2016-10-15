@@ -27,8 +27,32 @@ class BranchDecorator < Draper::Decorator
 		}
 	end
 
+	def manage_kit(can_graft)
+		if self.editable?(h.current_user)
+			h.content_tag :div, class: "manager-editor" do
+				h.concat edit_bar
+				h.concat generation_toolkit(can_graft)
+			end
+		end
+	end
+
+	def branching_form
+		h.content_tag :div, id: "branching-form" do "" end
+	end
+
+	def generation_toolkit(can_graft = graftable?)
+		h.content_tag :div, class: "toolkit generation" do
+			h.concat h.link_to "New Branch", h.branch_bubble_path(self), class:"icon icon-leaf"
+			h.concat h.link_to("Graft to Existing Branch", h.graft_branch_path(self), remote: true , class:"icon icon-leaf") if can_graft
+		end
+	end
+
 	def graftable?
-		graftable_branches.length > 0
+		(story_grafting_branches - self.child_nodes.length) > 0
+	end
+
+	def story_grafting_branches
+		self.story.branches.count
 	end
 
 	def index_rowspan

@@ -5,12 +5,12 @@
 </header>
 
 <div class="index-body">
-	<div class="media-results results">
+	<ul class="media-results results">
 		<% @metadata.each do |media, works| %>
-			<% path = all_media_by_medium_path(media) %>
-			<%= page_widget link_to(media.pluralize, path) do %>
+			<li>
+				<%= link_to(media.pluralize, all_media_by_medium_path(media)) %>
 				<%= render 'works_by_medium', works: works %>
-			<% end %>
+			</li>
 		<% end %>
-	</div>
+	</ul>
 </div>

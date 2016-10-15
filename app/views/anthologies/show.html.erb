@@ -1,15 +1,50 @@
 <% provide(:title, @anthology.heading) %>
 
-<header>
-	<h1><%= @anthology.heading %></h1>
-	<div class="summary">
-		<%= markdown @anthology.summary || "" %>
-	</div>
-	<%= @anthology.edit_bar %>
+<header class="show-header">
+	<h1>
+		<%= @anthology.heading %>
+	</h1>
+
+	<%= @anthology.response_bar %>
 </header>
 
-<div class="page-body">
-	<%= @works.recent_widget %>
+<div class="subject-body">
+	<%= @anthology.summary_block %>
+
+	<%= page_widget "Tags" do %>
+
+		<% if @anthology.tagged_characters.length > 0 %>
+			<h3>Characters</h3>
+			<%= tag_group @anthology.tagged_characters, 'works', class: "anthology-characters" %>
+		<% end %>
+
+		<% if @anthology.tagged_groups.length > 0 %>
+			<h3>Groups &amp; Relationships</h3>
+			<%= tag_group @anthology.tagged_groups, 'works', class: "anthology-groups" %>
+		<% end %>
+		
+		<% if @anthology.tagged_tags.length > 0 %>
+			<h3>Tags</h3>
+			<%= tag_group @anthology.tagged_tags, 'works', class: "anthology-tags" %>
+		<% end %>
+		
+		<% if @anthology.tagged_places.length > 0 %>
+			<h3>Places</h3>
+			<%= tag_group @anthology.tagged_places, 'works', class: "anthology-places" %>
+		<% end %>
+		
+		<% if @anthology.tagged_works.length > 0 %>
+			<h3>Works</h3>
+			<%= tag_group @anthology.tagged_works, 'works', class: "anthology-works" %>
+		<% end %>
+	<% end %>
+
+	<%= page_widget "Works" do %>
+		<% @works.each do |work| %>
+			<h3><%= link_to work.heading, work %></h3>
+			<%= work.summarized %>
+		<% end %>
+	<% end %>
 </div>
 
 <%= render 'footer' %>

@@ -1,4 +1,4 @@
-<table>
+<table class="tableized-results sortable">
 	<thead>
 		<tr>
 			<th>Title</th>
@@ -7,13 +7,17 @@
 		</tr>
 	</thead>
 	<% @notes.each do |note| %>
-		<tr>
-			<th rowspan="2"><%= link_to note.heading, [@work, note] %></th>
+		<tr class="index-content note-info editable-content">
+			<th>
+				<%= link_to note.heading, [@work, note] %>
+				<%= note.manage_kit %>
+			</th>
 			<td data-label="Creation Date"><%= record_time note.created_at %></td>
 			<td data-label="Update Date"><%= record_time note.updated_at %></td>
 		</tr>
-		<%= toolblock 2, note.edit_bar %>
 	<% end %>
-
-	<%= toolblock 3, @work.note_insertion_link %></tr>
 </table>
+
+<script type="text/javascript">
+	$(document).ready(function(){ $(".sortable").tablesorter(); });
+</script>

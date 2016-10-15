@@ -19,6 +19,10 @@ class SquadDecorator < Draper::Decorator
 		@people ||= connected_people.uniq!
 	end
 
+	def klass
+		model.class.to_s
+	end
+
 	# LIST OF STRINGS
 	# ------------------------------------------------------------
 	def current_characters

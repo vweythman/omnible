@@ -35,11 +35,6 @@ class StoryDecorator < WorkDecorator
 		'book'
 	end
 
-	def breadcrumbs
-		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.stories'), h.stories_path]]
-		breacrumbing(crumbs)
-	end
-
 	# -- Chapters
 	# ............................................................
 	def link_to_chapters
@@ -93,36 +88,15 @@ class StoryDecorator < WorkDecorator
 
 	# -- Navigation
 	# ............................................................
-	def navigation_on_whole
-		h.content_tag :p, class: "related-menu" do
-			(link_to_chaptered_view + append_chapters + append_notes).html_safe
-		end
+	def breadcrumbs
+		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.stories'), h.stories_path]]
+		breacrumbing(crumbs)
 	end
 
-	def navigation_on_chapter
-		h.content_tag :p, class: "related-menu" do
-			(link_to_whole_story + append_chapters + append_notes).html_safe
-		end
-	end
-
-	def append_chapters
-		(" | " + link_to_chapters).html_safe
-	end
-	
-	def append_notes
-		if self.notes.length > 0
-			(" | " + link_to_notes).html_safe
-		end
-	end
-
-	def navigation_on_note
-		h.content_tag :p, class: "related-menu" do
-			(link_to_whole_story + " | " + link_to_chaptered_view + append_chapters + append_notes).html_safe
-		end
-	end
-
-	def link_to_notes
-		h.link_to "Notes", h.story_notes_path(self)
+	def directory_scenes
+		scenes = [["Whole Story", h.whole_story_path(self)], ["Chapters", h.story_chapters_path(self)], ["First Chapter", h.story_path(self)]]
+		scenes << ["Notes", h.story_notes_path(self)]
+		scenes
 	end
 
 end

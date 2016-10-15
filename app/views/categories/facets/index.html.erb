@@ -1,21 +1,16 @@
 <% provide(:title, @facets.index_heading) %>
 
-<header class="index-header">
-	<h1>
-		Admin Panel
-		<%= subtitle @facets.index_heading %>
-	</h1>
-
+<%= dashboard_header ["Admin Panel", @facets.index_heading] do %>
 	<%= @facets.inline_creation %>
 	<%= @facets.creation_path %>
-</header>
+<% end %>
 
-<div class="results">
-	<%= solo_cell "facets management-widget" do %>
-		<div id="facets-index">
-			<%= render 'facets_table' %>
-		</div>
-	<% end %>
+<div class="dashboard-grid" id="facets-index">
+	<%= render 'facets_table' %>
 </div>
 
 <%= render 'categories/footer' %>
+
+<script type="text/javascript">
+	$(document).ready(function(){ $(".sortable").tablesorter(); });
+</script>

@@ -54,6 +54,10 @@ class CreatorCategory < ActiveRecord::Base
 		self.name
 	end
 
+	def agentive_title
+		agentive.titleize
+	end
+
 	def connected? type
 		describers.include? type
 	end

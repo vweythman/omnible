@@ -32,7 +32,7 @@ class SkinDecorator < Draper::Decorator
 	end
 
 	def klass
-		:stylesheet_skin
+		:stylesheet
 	end
 
 	def nature

@@ -1,6 +1,6 @@
 <% provide(:title, @note.meta_title) %>
 
-<header class="work-header">
+<header class="work-header show-header">
 	<h1>
 		<%= @work.title %>
 		<%= @work.byline.html_safe %>
@@ -15,7 +15,7 @@
 		<%= @work.all_tags_line %>
 	</div>
 
-	<%= @work.navigation_on_note %>
+	<%= @work.directory %>
 </header>
 
 <article role="article">

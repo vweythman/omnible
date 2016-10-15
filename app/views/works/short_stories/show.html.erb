@@ -1,19 +1,18 @@
 <% provide(:title, @short.title) %>
 
-<%= @short.breadcrumbs %>
-
-<header class="work-header">
+<header class="work-header show-header">
+	<%= @short.breadcrumbs %>
 	<h1><%= @short.title %></h1>
 
 	<%= @short.metadata_block %>
 	<%= @short.createables %>
-	<%= @short.navigation_on_short %>
 	<%= @short.response_bar %>
-</header>
+	<%= @short.directory %>
 
-<%= subject_body do %>
-	<%= @work.summary_block %>
-<% end %>
+	<%= subject_body do %>
+		<%= @work.summary_block %>
+	<% end %>
+</header>
 
 <article role="article">
 	<h1 class="section-title">
@@ -25,13 +24,13 @@
 	</div>
 </article>
 
-<%= subject_body do %>
-	<%= render 'works/shared/tag_widget' %>
-	<%= render 'comments/discussion' %>
-<% end %>
+<footer>
+	<%= subject_body do %>
+		<%= render 'works/shared/tag_widget' %>
+		<%= render 'comments/discussion' %>
+	<% end %>
 
-<footer class="path-finder">
-	<p>
+	<p class="path-finder">
 		<%= link_to "All Short Stories", short_stories_path %> |
 		<%= link_to "All Fiction", fiction_index_path %> |
 		<%= link_to "All Works", works_path %>

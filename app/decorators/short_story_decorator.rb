@@ -20,31 +20,17 @@ class ShortStoryDecorator < WorkDecorator
 		'file-text'
 	end
 
+	# -- Navigation
+	# ............................................................
 	def breadcrumbs
 		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.short_stories'), h.short_stories_path]]
 		breacrumbing(crumbs)
 	end
 
-	# -- Navigation
-	# ............................................................
-	def navigation_on_short
-		h.content_tag :p, class: "related-menu" do
-			link_to_notes
-		end
-	end
-	
-	def navigation_on_note
-		h.content_tag :p, class: "related-menu" do
-			(link_to_self + " | " + link_to_notes).html_safe
-		end
-	end
-
-	# -- Related
-	# ............................................................
-	def link_to_notes
-		if self.notes.length > 0
-			h.link_to "Notes", h.short_story_notes_path(self)
-		end
+	def directory_scenes
+		scenes = []
+		scenes << ["Notes", h.short_story_notes_path(self)]
+		scenes
 	end
 
 end

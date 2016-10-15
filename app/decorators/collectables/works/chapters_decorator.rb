@@ -28,10 +28,10 @@ module Collectables
 
 			# -- Links
 			# ............................................................
-			def link_to_insert_first(story)
+			def link_to_insert_first
 				if story.editable?(h.current_user)
 					h.content_tag :nav, class: 'toolkit insertion' do
-						h.link_to "+ New Chapter Here", h.first_chapter_path(story)
+						h.link_to "+ New First Chapter", h.first_chapter_path(story)
 					end
 				end
 			end
@@ -40,6 +40,10 @@ module Collectables
 			# ............................................................
 			def partial
 				'works/chapters/nested_fields'
+			end
+
+			def story
+				object.proxy_association.owner
 			end
 
 		end

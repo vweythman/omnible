@@ -129,7 +129,7 @@ class CharacterDecorator < Draper::Decorator
 	end
 
 	def with_descent
-		h.content_tag :ul, class: "clones" do
+		h.content_tag :ul, class: "clones indexable" do
 			clones.each do |clone|
 				h.concat descent_tree(clone)
 			end
@@ -177,7 +177,7 @@ class CharacterDecorator < Draper::Decorator
 		clone = clone.decorate
 		link  = h.link_to clone.name, clone
 		node  = clone.clones.empty? ? "" : clone.with_descent
-		h.content_tag :li do
+		h.content_tag :li, class: "icon icon-#{icon_choice}" do
 			link + node
 		end
 	end

@@ -1,12 +1,17 @@
-<h4>
-	<%= poem.icon %>
-	<%= link_to poem.title, poem %>
-	<%= subtitle poem.byline %>
-</h4>
+<header class="snippet-header">
+	<h4>
+		<%= poem.icon %>
+		<%= link_to poem.title, poem %>
+	</h4>
+	<%= poem.rated %>
+</header>
 
-<div class="snippet-detail">
-	<div class="snippet-meta">
-		<%= poem.summarized %>
-		<%= poem.snippet_tags_line %>
-	</div>
+<div class="snippet-body">
+	<%= poem.summarized %>
+	<%= poem.snippet_tags_line %>
 </div>
+
+<footer class="snippet-footer">
+	<%= poem.byline %>
+	<%= poem.time_started %>
+</footer>

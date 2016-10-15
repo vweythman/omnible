@@ -1,6 +1,7 @@
 <% provide :title, "My Stylesheets" %>
-<%= dashboard_header ["Stylesheet Skins"] %>
+<%= dashboard_header ["Uploads", "Stylesheet Skins"] %>
 
 <div class="dashboard-grid">
-	<%= solo_cell do render 'skins' end %>
+	<%= render 'users/uploads/table' %>
+	<%= prechecked_creation_toolkit("Stylesheet Skin", :skin) %>
 </div>

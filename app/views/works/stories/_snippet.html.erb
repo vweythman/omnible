@@ -1,20 +1,22 @@
-<h4>
-	<%= story.icon %>
-	<%= link_to story.title_with_count, story %>
-</h4>
+<header class="snippet-header">
+	<h4>
+		<%= story.icon %>
+		<%= link_to story.title_with_count, story %>
+	</h4>
 
-<div class="snippet-detail">
 	<%= story.completion_status %>
 
 	<%= story.chapters_status %>
 	<%= story.rated %>
+</header>
 
-	<div class="about">
-		<%= story.uploaded_by.html_safe %>
-	</div>
-
-	<div class="snippet-meta">
-		<%= story.summarized %>
-		<%= story.snippet_tags_line %>
-	</div>
+<div class="snippet-body">
+	<%= story.summarized %>
+	<%= story.snippet_tags_line %>
 </div>
+
+<footer class="snippet-footer">
+	<%= story.byline %>
+	<%= story.time_started %>
+	<%= story.time_updated %>
+</footer>

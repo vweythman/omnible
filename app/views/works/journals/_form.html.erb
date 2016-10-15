@@ -10,9 +10,7 @@
 
 	<%= nestset(current_articles) do %>
 		<%= current_articles.fields(f) %>
-		<p class="add-cell">
-			<%= link_to_add_association "+ Add Article", f, current_articles.klass, :partial => current_articles.partial %>
-		</p>
+		<p class="add-cell"><%= link_to_add_association "+ Add Article", f, current_articles.klass, :partial => current_articles.partial %></p>
 	<% end %>
 	
 	<%= render @journal.meta_fields, f: f %>

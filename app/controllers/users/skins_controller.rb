@@ -9,7 +9,7 @@ class Users::SkinsController < ApplicationController
 	# GET
 	# ------------------------------------------------------------
 	def index
-		@skins = current_user.skins
+		@uploads = @skins = current_user.skins.decorate
 	end
 
 	# PRIVATE METHODS

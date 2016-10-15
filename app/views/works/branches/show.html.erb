@@ -2,20 +2,18 @@
 
 <%= @work.breadcrumbs %>
 
-<header class="work-header">
+<header class="work-header show-header">
 	<h1><%= @work.title %></h1>
 	<%= @work.completion_status %>
 	<%= @work.metadata_block %>
-	<p class="related-menu"><%= link_to "All Branches", branching_story_branches_path(@work) %></p>
 	<%= @work.response_bar %>
+	<%= @work.directory %>
 </header>
 
 <article role="article">
 	<header>
-
 		<h1 class="section-title"><%= @branch.title %></h1>
 	</header>
-
 
 	<div class="page-body" id="work-content">
 		<%= markdown @branch.content %>

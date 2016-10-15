@@ -15,10 +15,15 @@ class RatingDecorator < Draper::Decorator
 
 	def categorized
 		{
-			"Sexual Content" => rating_value(sexuality),
-			"Violence"       => rating_value(violence),
-			"Profanity"      => rating_value(language),
+			"Sexual Content" => rating_value(sexuality, "Sexual Content"),
+			"Violence"       => rating_value(violence,  "Violence"),
+			"Profanity"      => rating_value(language,  "Profanity"),
 		}
+	end
+
+	def max_rating_value
+		labels = Rating.labels
+		rating_value(self.max, "Sexual Content: #{labels[sexuality]} | Violence: #{labels[violence]} | Profanity: #{labels[language]}")
 	end
 
 	# PRIVATE METHODS
@@ -30,8 +35,8 @@ class RatingDecorator < Draper::Decorator
 		end
 	end
 
-	def rating_value(level)
-		h.content_tag :span, class: "level#{4 - level} rating" do Rating.labels[level] end
+	def rating_value(level, title)
+		h.content_tag :span, title: title, class: "level#{4 - level} rating" do Rating.labels[level] end
 	end
 
 end

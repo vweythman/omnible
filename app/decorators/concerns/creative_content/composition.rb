@@ -35,6 +35,14 @@ module CreativeContent
 			h.content_tag :p do @category.agentive.titleize end
 		end
 
+		def byline_snippet_status
+			h.content_tag :div, class: 'bylines' do
+				creatorships.each do |byline_value|
+					h.concat print_byline(byline_value.category.agentive_title + ":", byline_value.creator)
+				end
+			end
+		end
+
 		def choose_creator_category
 			if multiple_creator_categories?
 				h.selection_field_cell "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
@@ -65,7 +73,7 @@ module CreativeContent
 
 		def snippet
 			h.content_tag :article, class: "snippet #{klass}" do
-				h.solo_cell "snippet-about" do
+				h.solo_cell "snippet-content" do
 					h.render snippet_path, klass => self
 				end
 			end

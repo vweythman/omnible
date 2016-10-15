@@ -33,7 +33,7 @@ module Collectables
 			# -- Location
 			# ............................................................
 			def partial
-				'works/notes/form_nested_fields'
+				'works/journals/articles/nested_form_fields'
 			end
 
 		end

@@ -1,6 +1,6 @@
 <% provide(:title, "Edit") %>
 
-<%= editing_block("Edit") do %>
+<%= editing_block("Branch From #{link_to @parent_branch.title, [@parent_branch.story, @parent_branch]}".html_safe) do %>
 	<%= render 'form' %>
 <% end %>
 

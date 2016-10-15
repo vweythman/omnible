@@ -1,10 +1,10 @@
 <tr id="<%= pen_naming.tag_id %>" class="editable-content">
 	<th>
-		<span class="pen-title"><%= link_to pen_naming.name, pen_naming %></span>
+		<span class="pen-title content-title"><%= link_to pen_naming.name, pen_naming %></span>
 		<%= pen_naming.edit_form_div %>
-		<span id="<%= pen_naming.kit_id %>" class="manager-editor" style="margin-right:-150%;">
+		<div id="<%= pen_naming.kit_id %>" class="manager-editor">
 			<%= pen_naming.edit_bar %>
-		</span>
+		</div>
 	</th>
 
 	<td data-label="Work Count">

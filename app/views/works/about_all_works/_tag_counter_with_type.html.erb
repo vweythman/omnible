@@ -17,7 +17,7 @@
 			<% end %>
 
 			<%= content_tag :td, data: {:label => "Type"} do %>
-				<%= group.titleize %>
+				<%= type_labels[group] %>
 			<% end %>
 
 			<%= content_tag :td, data: {:label => "Count"} do %>

@@ -52,12 +52,8 @@ module ApplicationHelper
 		# EDITING AND CREATING STYLESHEET
 		elsif ['new', 'edit', 'update', 'create'].include? action
 			template_type = "forms"
-
-		# MODEL STYLESHEET
-		elsif action == 'show'
-			template_type = collector.singularize
 		
-		# INDEX STYLESHEET
+		# INDEX AND SHOW STYLESHEET
 		else
 			template_type = action
 		end

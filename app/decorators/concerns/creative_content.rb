@@ -9,36 +9,29 @@ module CreativeContent
 	# GET
 	# ============================================================
 	def time_started
-		date_meta("Uploaded", created_at)
+		date_meta("Published", created_at)
 	end
 
 	def time_updated
 		date_meta("Changed", updated_at)
 	end
 
-	def by_uploader
-		("Uploaded By " + h.link_to(uploader.name, uploader)).html_safe
-	end
-
 	def creator_categories_count
 		@creator_categories_count ||= self.creator_categories.size
+	end
+
+	def directory_scenes
+		[]
+	end
+
+	def directory
+		h.directory_kit directory_scenes
 	end
 
 	# SET
 	# ============================================================
 	def icon_choice
 		'file-empty'
-	end
-
-	def date_label(heading)
-		h.content_tag :span, class: "date-label" do "#{heading}:" end
-	end
-
-	def date_meta(heading, stamp)
-		h.content_tag :span, class: "date-metadatum" do
-			h.concat date_label(heading)
-			h.concat h.timestamp(stamp)
-		end
 	end
 
 	def breacrumbing(crumbs)
@@ -49,12 +42,11 @@ module CreativeContent
 		end
 	end
 
-	def crumb(heading, path)
-		h.content_tag :li, class: "crumb" do h.link_to(heading, path, class: 'crumb-link') end
-	end
-
 	def content_category
 		klass.to_s.pluralize
+	end
+
+	def createables
 	end
 
 	# RENDER
@@ -73,9 +65,7 @@ module CreativeContent
 	# PARAGRAPHS
 	# ------------------------------------------------------------
 	def uploaded_by
-		h.content_tag :p, class: 'agents' do
-			("Uploaded by " + h.link_to(uploader.name, uploader)).html_safe
-		end
+		print_byline("Uploaded By:", uploader)
 	end
 
 	def timestamps
@@ -93,7 +83,7 @@ module CreativeContent
 	# SPAN
 	# ------------------------------------------------------------
 	def byline
-		h.content_tag :span, class: 'byline' do by_uploader end
+		h.content_tag :div, class: 'bylines' do uploaded_by end
 	end
 
 	def icon
@@ -114,6 +104,33 @@ module CreativeContent
 
 		h.content_tag :td, :rowspan => rw, colspan: cl, :data => {:label => "Update Date"} do
 			h.record_time self.updated_at
+		end
+	end
+
+	# PRIVATE METHODS
+	# ============================================================
+	private
+	def date_label(heading)
+		h.content_tag :span, class: "date-label meta-label" do "#{heading}:" end
+	end
+
+	def date_meta(heading, stamp)
+		h.content_tag :span, class: "date-metadatum content-metadatum" do
+			h.concat date_label(heading)
+			h.concat h.timestamp(stamp)
+		end
+	end
+
+	def crumb(heading, path)
+		h.content_tag :li, class: "crumb" do h.link_to(heading, path, class: 'crumb-link') end
+	end
+
+	def print_byline(title, person)
+		byline_label = h.content_tag :span, class: "byline-label meta-label" do title end
+		byline_value = h.content_tag :span, class: "byline-value" do h.link_to(person.name, person) end
+
+		h.content_tag :p, class: 'byline-metadatum content-metadatum' do
+			(byline_label + byline_value).html_safe
 		end
 	end
 

@@ -1,42 +1,36 @@
 <% provide :title, @pen.page_title %>
 
 <%= dashboard_header(["Pen Names", @pen.name], @pen.heading_id) do %>
+
+	<div class="metadata">
+		<%= metadata("Number of Works", @pen.bylines.length) %>
+	</div>
+
 	<%= @pen.edit_form_div %>
 	<%= @pen.edit_bar %>
 <% end %>
 
 <article class="dashboard-grid">
-	<p><b><%= @pen.bylines.length %> Works</b></p>
 	<% if @pen.bylines.empty? %>
-		<p>Go out and make something!</p>
+		<p><b>Go out and make something!</b></p>
+
+		<div class="create-as">
+			<h2>As <%= @pen.name %> create:</h2>
+			<ul class="createable-list">
+				<% @pen.createable_works_list.each do |createables| %>
+					<li class="icon icon-<%= createables[:icon] %> createable-option">
+						<%= link_to t(createables[:title]), createables[:path] %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
 	<% end %>
 
-	<div class="create-as">
-		<p>As <%= @pen.name %></p>
-		<ul>
-			<% @pen.createable_works_list.each do |createables| %>
-				<li class="icon icon-<%= createables[:icon] %>">
-					<%= link_to "create an #{createables[:title]}", createables[:path] %>
-				</li>
-			<% end %>
-		</ul>
-	</div>
-
-	<% @pen.bylines.each do |byline| %>
-		<h2>
-			<%= byline.category.name.titleize %> of 
-			<%= link_to byline.work.title, byline.work %>
-		</h2>
-
-		<div class="work-meta">
-			<dl>
-				<dt>Created</dt>
-				<dd><%= record_time byline.work.created_at %></dd>
-				<dt>Updated</dt>
-				<dd><%= record_time byline.work.updated_at %></dd>
-			</dl>
-			<%= markdown byline.work.summary %>
-			<%= alteration_toolkit byline.work %>
+	<% @pen.bylines_by_category.each do |category, bylines| %>
+		<div class="pen-credit" id="as-<%= category.underscore %>">
+			<h2>As [<%= category.titleize %>]</h2>
+			<% @uploads = Collectables::UploadsDecorator.decorate bylines.map {|b| b.work } %>
+			<%= render 'users/uploads/table' %>
 		</div>
 	<% end %>
 </article>
@@ -44,3 +38,9 @@
 <footer class="path-finder">
 	<%= link_to "Pen Names", pen_namings_path %>
 </footer>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".sortable").tablesorter();
+});
+</script>

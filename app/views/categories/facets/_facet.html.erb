@@ -1,0 +1,17 @@
+<tr id="<%= facet.tag_id %>" class="editable-content">
+	<th>
+		<span class="facet-title content-title">
+			<%= link_to facet.heading, facet %>
+		</span>
+		<%= facet.edit_form_div %>
+		<div class="manager-editor" id="<%= facet.kit_id %>">
+			<%= facet.edit_bar %>
+		</div>
+	</th>
+	<td data-label="Identities Count">
+		<%= facet.identities.size %>
+	</td>
+	<td data-label="Character Count">
+		<%= facet.characters.size %>
+	</td>
+</tr>

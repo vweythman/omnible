@@ -1,0 +1,5 @@
+
+<div class="results">
+	<% trackings = current_user.tracked_works.assort(params).with_relationships.decorate %>
+	<%= render 'shared/results/snippets', listable: trackings %>
+</div>

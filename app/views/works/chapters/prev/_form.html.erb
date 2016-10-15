@@ -1,0 +1,4 @@
+<%= clean_form_for [@previous, @chapter], :url => presert_chapter_path do |f| %>
+	<%= render 'works/chapters/form_fields', f: f %>
+	<%= f.submit_cell %>
+<% end %>

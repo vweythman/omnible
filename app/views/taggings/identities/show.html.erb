@@ -1,36 +1,34 @@
 <% provide(:title, @identity.page_title) %>
 
-<header class="tag-header">
+<header class="tag-header show-header">
 	<%= content_tag :h1, id: @tag.heading_id do %>
 		<%= @tag.facet_title %>
 		<%= subtitle @tag.name %>
 	<% end %>
 
 	<%= @tag.edit_form_div %>
-	<%= @tag.edit_bar %>
 
 	<div class="metadata">
-		<%= metadata("First Use", @tag.created_at_tag) %>
+		<%= metadata("First Use:", @tag.created_at_tag) %>
 	</div>
+
+	<%= @tag.edit_bar %>
 </header>
 
 
-<article class="page-body">
-	<header>
-		<nav class="related-menu">
-			<%= link_to "All Works",      identity_works_path(@identity) %>
-			<%= link_to "All Characters", identity_characters_path(@identity) %>
-		</nav>
-		<%= render 'pagination' %>
-	</header>
+<%= subject_body do %>
+	<%= render 'pagination' %>
+
+	<div class="widget">
+		<h2 class="subheading">Find</h2>
+		<ul class="curation-navigation">
+			<li class="icon icon-books"><%= link_to "Works", identity_works_path(@identity) %></li>
+			<li class="icon icon-smile"><%= link_to "Characters", identity_characters_path(@identity) %></li>
+		</ul>
+	</div>
 
 	<%= render 'stats' %>
-
-	<footer>
-		<%= render 'pagination' %>
-	</footer>
-
-</article>
+	<%= render 'pagination' %>
+<% end %>
 
 <%= render 'taggings/shared/footer' %>
-

@@ -38,7 +38,7 @@ module FieldsHelper
 		filters.map {|f| list << [f[:key], f[:heading]] }
 		values = options_from_collection_for_select(list, :first, :last, current)
 
-		selection_field_cell(type, values, heading, class: "filter-links")
+		selection_field_cell(type, values, heading, class: "filter-selection-links")
 	end
 
 	def filter_submit_tag

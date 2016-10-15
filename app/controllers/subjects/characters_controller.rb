@@ -105,7 +105,7 @@ class Subjects::CharactersController < SubjectsController
 	# FIND
 	# ------------------------------------------------------------
 	def characters
-		@subjects = @characters = Collectables::CharactersDecorator.decorate Character.not_pen_name.viewable_for(current_user).order('name')
+		@subjects = @characters = Collectables::CharactersDecorator.decorate Character.not_pen_name.viewable_for(current_user).alphabetical
 	end
 
 	def character
