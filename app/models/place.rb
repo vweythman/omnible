@@ -38,10 +38,11 @@ class Place < ActiveRecord::Base
 	# SCOPES
 	# ============================================================
 	scope :count_by_name, -> { group("places.name").ordered_count }
-	scope :order_by_form, -> { includes(:form).order('forms.name, places.name') }
 	scope :actual,        -> { where("fictional = 'f'") }
 	scope :fictitious,    -> { where("fictional = 't'") }
-	scope :alphabetical,  -> { order("lower(places.name) asc") }
+
+	scope :alphabetical,         -> { order("lower(places.name) asc") }
+	scope :alphabetical_by_form, -> { includes(:form).order('forms.name, places.name') }
 
 	scope :not_among,            ->(place_ids)      { where("id NOT IN (?)", place_ids)                    }
 	scope :taggable_places,      ->(exception_list) { not_among(exception_list).includes(:form)            }
