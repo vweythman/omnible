@@ -45,6 +45,7 @@ class Chapter < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ============================================================
 	belongs_to :story, class_name: "Work"
+	has_many   :creatorships, through: :story
 
 	# DELEGATED METHODS
 	# ============================================================
@@ -127,19 +128,37 @@ class Chapter < ActiveRecord::Base
 	end
 
 	# PlaceAfter - set after previous chapter
-	def place_after(prev, made_room = false)
-		if self.story != prev.story
+	def place_after(chapter, made_room = false)
+		if self.story != chapter.story
 			return false
 		end
 
 		last_position = self.story.newest_chapter_position
-		next_position = prev.position + 1
+		next_position = chapter.position + 1
 
 		if !(made_room || last_position == next_position)
-			prev.make_room
+			chapter.make_room
 		end
 
 		self.position = next_position
+	end
+
+	def place_before(chapter, made_room = false)
+		if self.story != chapter.story
+			return false
+		end
+
+		chapter_position = chapter.position
+		next_position    = chapter_position + 1
+		
+		Chapter.transaction do
+			chapter.make_room
+
+			self.position    = chapter_position
+			chapter.position = next_position
+
+			chapter.save
+		end
 	end
 
 	# QUESTIONS

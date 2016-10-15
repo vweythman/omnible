@@ -45,6 +45,32 @@ class ChapterDecorator < Draper::Decorator
 		meta_title + " (Edit Draft)"
 	end
 
+	def manage_kit
+		if self.editable?(h.current_user)
+			h.content_tag :div, class: "manager-editor" do
+				h.concat edit_bar
+				h.concat link_to_insert_prev
+				h.concat link_to_insert_next
+			end
+		end
+	end
+
+	def link_to_insert_next
+		heading   = "+ New Chapter After"
+		insertion = h.link_to heading, h.insert_chapter_path(self)
+		h.content_tag :nav, class: 'toolkit insertion' do
+			insertion
+		end
+	end
+
+	def link_to_insert_prev
+		heading   = "+ New Chapter Before"
+		insertion = h.link_to heading, h.presert_chapter_path(self)
+		h.content_tag :nav, class: 'toolkit insertion' do
+			insertion
+		end
+	end
+
 	# -- Status
 	# ............................................................
 	def summarized
@@ -105,16 +131,6 @@ class ChapterDecorator < Draper::Decorator
 		end
 	end
 
-	def link_to_insert_next
-		if self.editable?(h.current_user)
-			heading   = "+ New Chapter Here"
-			insertion = h.link_to heading, h.insert_chapter_path(self)
-			h.content_tag :nav, class: 'toolkit insertion' do
-				insertion
-			end
-		end
-	end
-
 	# -- Position Checks
 	# ------------------------------
 	def is_first?
@@ -134,7 +150,8 @@ class ChapterDecorator < Draper::Decorator
 		cs = self.story.chapters.ordered.select(:title, :id).decorate
 		cs.map {|c| ht[h.story_chapter_path(self.story, c)] = c.heading }
 		
-		h.select_tag('chapter-links', h.options_from_collection_for_select(ht, :first, :last, selected: h.story_chapter_path(self.story, self)))
+		value = h.options_from_collection_for_select(ht, :first, :last, selected: h.story_chapter_path(self.story, self))
+		h.selection_field_cell('chapter-links', value, "Story Pagination")
 	end
 
 	def ordered_chapters

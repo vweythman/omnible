@@ -45,3 +45,40 @@ glamour_content:
   content: The fair folk came on the night of the new moon and never left.
   position: 0
   story: glamour
+
+# ARTICLE
+# ===================================
+apologia_content:
+  content: I must defend his character.
+  story: apologia
+  position: 1
+
+theocrat_content:
+  content: I will count the ways that Sirka is *wrong*.
+  story: theocrat
+  position: 1
+
+skywalks_content:
+  content: I am not involved and I would rather talk about something else.
+  story: skywalks
+  position: 1
+
+# JOURNAL
+# ===================================
+gunrunner_article:
+  title: Foobar
+  content: tester is tired and just wishes to test content
+  story: gunrunner
+  position: 1
+
+absurdist_article:
+  title: Foobar
+  content: tester is tired and just wishes to test content
+  story: absurdist
+  position: 1
+
+rainfalls_article:
+  title: Foobar
+  content: tester is tired and just wishes to test content
+  story: rainfalls
+  position: 1

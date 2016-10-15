@@ -96,7 +96,7 @@ class ChapterTest < ActiveSupport::TestCase
     assert_equal 1, chapter.position
   end
 
-  test "should insert chapter within existing chapters" do
+  test "should insert after a chapter within existing chapters" do
     # setup values
     new_chapter = @helix.new_chapter
     old_pos     = @helix_two.position
@@ -119,6 +119,16 @@ class ChapterTest < ActiveSupport::TestCase
     assert new_chapter.place_after @helix_two
     assert new_chapter.save
     assert_equal next_pos, new_chapter.position
+  end
+
+  test "should insert before a chapter within existing chapters" do
+    new_chapter = @helix.new_chapter
+    new_chapter.content = "XX blah"
+    chap_pos = @helix_two.position
+
+    assert new_chapter.place_before @helix_two
+    assert new_chapter.save
+    assert_equal chap_pos, new_chapter.position
   end
 
   # PRIVATE METHODS TESTS
