@@ -1,0 +1,18 @@
+<aside class="sidebar">
+	<h2 class="control-title"><%= t('collected.subjects') %></h2>
+	<ul class="control-group">
+		<li><%= link_to t('collected.characters'), characters_path, rel: 'nofollow' %></li>
+		<li><%= link_to t('collected.groups'),     squads_path,     rel: 'nofollow'  %></li>
+		<li><%= link_to t('collected.items'),      items_path,      rel: 'nofollow'  %></li>
+		<li><%= link_to t('collected.places'),     places_path,     rel: 'nofollow'  %></li>
+	</ul>
+
+	<h2 class="control-title"><%= t('collected.all_tags') %></h2>
+	<ul class="control-group ">
+		<li><%= link_to t('collected.tags'),        tags_path,               rel: 'nofollow'  %></li>
+		<li><%= link_to t('collected.identities'),  identities_path,         rel: 'nofollow'  %></li>
+		<li><%= link_to t('categories.creator'),    creator_categories_path, rel: 'nofollow'  %></li>
+		<li><%= link_to t('categories.relator'),    relators_path,           rel: 'nofollow'  %></li>
+		<li><%= link_to t('categories.identities'), facets_path,             rel: 'nofollow'  %></li>
+	</ul>
+</aside>
