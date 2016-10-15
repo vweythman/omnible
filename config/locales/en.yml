@@ -74,7 +74,15 @@ en:
     tags:        "Tags"
     works:       "Works"
 
+  user:
+    uploads:   "My Uploads"
+    dashboard: "My Dashboard"
+    pens:      "My Pen Names"
+
   content_types:
+    uploads:             "All Uploads"
+    works:               "All Works"
+    anthologies:         "Anthologies"
     artwork:             "Artwork"
     articles:            "Articles"
     branching_stories:   "Branching Stories"
@@ -84,8 +92,9 @@ en:
     stories:             "Chaptered Stories"
     short_stories:       "Short Stories"
     work_links:          "Links"
-    stylesheet_skins:    "Stylesheet Skins"
+    stylesheets:         "Stylesheet Skins"
     roleplay_characters: "Roleplay Characters"
+    squads:              "Squads"
 
 # METHODS
 # ------------------------------------------------------------
