@@ -68,6 +68,7 @@ class Rating < ActiveRecord::Base
 		has_s = s.is_a? Integer
 
 		if has_s && has_p && has_v
+			# HAS ALL
 			violence_at(v).sexuality_at(s).language_at(p)
 		elsif has_s
 			if has_p
@@ -79,10 +80,12 @@ class Rating < ActiveRecord::Base
 			end
 		elsif has_p
 			if has_v
-				language_at(p).violence_at(p)
+				language_at(p).violence_at(v)
 			else
-				violence_at(v)
+				language_at(p)
 			end
+		elsif has_v
+			violence_at(v)
 		else
 			all
 		end
