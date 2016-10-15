@@ -38,6 +38,7 @@ class Relator < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
 	has_many :interconnections, dependent: :destroy
+	has_many :social_groups, ->{uniq}, through: :interconnections
 	
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------

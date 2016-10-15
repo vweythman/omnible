@@ -58,6 +58,9 @@ class Interconnection < ActiveRecord::Base
 	belongs_to :relator
 	belongs_to :right, class_name: "Character"
 
+	has_many :memberships, dependent: :destroy, as: :member
+	has_many :social_groups, through: :memberships
+
 	# DELEGATED METHODS
 	# ============================================================
 	delegate :right_heading, :left_heading, to: :relator
