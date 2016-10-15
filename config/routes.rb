@@ -53,6 +53,11 @@ Rails.application.routes.draw do
     get '(sort/:sort)', action: :index, on: :collection, as: :sorted
   end
 
+  concern :trackable do
+    post   'track'   => "trackings#create",  as: :track
+    delete 'untrack' => "trackings#destroy", as: :untrack
+  end
+
   # 1.2 -- SETUP :: VARIABLES
   # ============================================================
   subject_types   = [
@@ -131,7 +136,8 @@ Rails.application.routes.draw do
   resources  :users, only: [:show] do
     get '/favorites/' => 'likes#index', is_reader: true
   end
-  resources  :comments
+  resources :comments
+  resources :pen_names, only: [:show], path: "pen-names"
 
   get '/comments/:id/respond' => 'comments#new', as: :comment_on_comment
 
@@ -156,7 +162,9 @@ Rails.application.routes.draw do
   get 'my-favorites' => 'likes#index',       as: :dashboad_favorites, is_reader: false
 
   uploadables.each do |type|
-    get '/uploads/' + type => 'users/uploads#index', resource_type: type.singularize, as: type.singularize + '_uploads'
+    single  = type.singularize
+    urltype = type.gsub(/_/, '-').gsub(/work-/, '')
+    get '/my-' + urltype => 'users/uploads#index', resource_type: single, as: single + '_uploads'
   end
 
   # 2.3 -- ROUTES :: UPLOADS
@@ -170,7 +178,9 @@ Rails.application.routes.draw do
   get 'media/'        => 'mediums#index', as: :mediums
   get 'media/:medium' => 'mediums#show',  as: :all_media_by_medium
 
-  resources :anthologies
+  resources :anthologies, concerns: index_concerns do
+    concerns :trackable
+  end
   resources :skins
 
   # 2.3.3 -- SUBJECTS
@@ -203,8 +213,7 @@ Rails.application.routes.draw do
   # 2.3.3.1 -- ROUTES :: UPLOADS :: WORKS :: GENERAL
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   resources :works, concerns: index_concerns do
-    post   'track'   => "trackings#create",  as: :track,   tracked_type: "Work"
-    delete 'untrack' => "trackings#destroy", as: :untrack, tracked_type: "Work"
+    concerns :trackable
 
     post   'like'   => "likes#create",  as: :like
     delete 'unlike' => "likes#destroy", as: :unlike
@@ -279,15 +288,18 @@ Rails.application.routes.draw do
     scope module: 'chapters' do
       get  'stories/:story_id/new-first'   => 'first#new', as: :first_chapter
       get  'chapters/:chapter_id/new-next' => "next#new",  as: :insert_chapter
+      get  'chapters/:chapter_id/new-prev' => "prev#new",  as: :presert_chapter
 
       post 'stories/:story_id/new-first'   => "first#create"
       post 'chapters/:chapter_id/new-next' => "next#create"
+      post 'chapters/:chapter_id/new-prev' => "prev#create"
     end
 
     # 2.3.3.2.2.2 -- ROUTES :: UPLOADS :: WORKS :: FICTION :: BRANCHING STORIES
     # ..........................................................
     resources :branching_stories, concerns: index_concerns do
       resources :branches, except: [:new, :create]
+      resources :notes
     end
 
     scope module: 'branches' do
@@ -304,6 +316,7 @@ Rails.application.routes.draw do
     # ..........................................................
     resources :comics, concerns: index_concerns do
       resources :pages, controller: :comic_pages
+      resources :notes
     end
 
     resources :short_stories, concerns: index_concerns do
@@ -313,7 +326,9 @@ Rails.application.routes.draw do
     # 2.3.3.2.3 -- ROUTES :: UPLOADS :: WORKS :: TYPES
     # **********************************************************
     work_singletons.each do |type|
-      resources type, concerns: index_concerns
+      resources type, concerns: index_concerns do
+        resources :notes
+      end
     end
 
     resources :journals, :concerns => index_concerns do
@@ -329,7 +344,6 @@ Rails.application.routes.draw do
   scope module: 'taggings' do
     resources :tags,       except: [:new, :create]
     resources :identities, except: [:new, :create]
-    resources :qualities,  except: [:new, :create]
     resources :relators
   end
 
