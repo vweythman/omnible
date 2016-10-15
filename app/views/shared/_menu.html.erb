@@ -56,28 +56,6 @@
 				</div>
 			</li>
 			<li><%= link_to t('collected.anthologies'), anthologies_path %></li>
-			
-			<% if user_signed_in? && current_user.admin? %>
-				<li>
-					<%= link_to drop_arrowed(t('collected.subjects')), subjects_path, rel: 'nofollow'  %>
-					<ul class="submenu">
-						<li><%= link_to t('collected.characters'), characters_path, rel: 'nofollow' %></li>
-						<li><%= link_to t('collected.groups'),     squads_path,     rel: 'nofollow'  %></li>
-						<li><%= link_to t('collected.items'),      items_path,      rel: 'nofollow'  %></li>
-						<li><%= link_to t('collected.places'),     places_path,     rel: 'nofollow'  %></li>
-					</ul>
-				</li>
-				<li>
-					<%= link_to drop_arrowed(t('collected.all_tags')), all_tags_path, rel: 'nofollow'  %>
-					<ul class="submenu">
-						<li><%= link_to t('collected.tags'),        tags_path,               rel: 'nofollow'  %></li>
-						<li><%= link_to t('collected.identities'),  identities_path,         rel: 'nofollow'  %></li>
-						<li><%= link_to t('categories.creator'),    creator_categories_path, rel: 'nofollow'  %></li>
-						<li><%= link_to t('categories.relator'),    relators_path,           rel: 'nofollow'  %></li>
-						<li><%= link_to t('categories.identities'), facets_path,             rel: 'nofollow'  %></li>
-					</ul>
-				</li>
-			<% end %>
 		</ul>
 	</nav>
 <% end %>
