@@ -7,8 +7,8 @@ class Journal < Work
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_many :articles, :inverse_of => :work, foreign_key: "work_id", class_name: "Note"
-	has_many :comments, :through => :articles
+	has_many :articles, inverse_of: :story, foreign_key: "story_id", class_name: "Chapter"
+	has_many :comments, through: :articles
 
 	# NESTED ATTRIBUTION
 	# ------------------------------------------------------------

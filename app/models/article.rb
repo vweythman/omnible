@@ -12,22 +12,22 @@ class Article < Work
 
 	# ASSOCIATIONS
 	# ------------------------------------------------------------
-	has_one  :note,     :inverse_of => :work, foreign_key: "work_id"
-	has_many :comments, :through => :note
+	has_one  :chapter,  inverse_of: :story, foreign_key: "story_id"
+	has_many :comments, through:    :chapter
 
 	# DELEGATED METHODS
 	# ------------------------------------------------------------
-	delegate :content, to: :note
+	delegate :content, to: :chapter
 
 	# ATTRIBUTES
 	# ------------------------------------------------------------
 	attr_accessor :article_content
 
 	def article_content
-		if self.note.nil?
+		if self.chapter.nil?
 			@article_content ||= ""
 		else
-			@article_content ||= self.note.content
+			@article_content ||= self.chapter.content
 		end
 	end
 
@@ -41,8 +41,9 @@ class Article < Work
 	end
 
 	def contentize
-		self.note ||= Note.new
-		self.note.content = article_content
+		self.chapter ||= Chapter.new
+		self.chapter.content  = @article_content
+		self.chapter.position = 1
 	end
 
 end

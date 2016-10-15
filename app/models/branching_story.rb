@@ -68,4 +68,8 @@ class BranchingStory < Work
 		@parentable_node_count ||= [self.parent_nodes.count, 1].max
 	end
 
+	def grafting_branches
+		branches.pluck(:title, :id)
+	end
+
 end

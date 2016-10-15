@@ -39,8 +39,9 @@ class Branch < ActiveRecord::Base
 
 	# HAS
 	# ------------------------------------------------------------
-	has_many :child_nodes, through: :child_branchings
-	has_one  :story_root,  foreign_key: "trunk_id"
+	has_many :child_nodes,  through: :child_branchings
+	has_one  :story_root,   foreign_key: "trunk_id"
+	has_many :creatorships, through: :story
 
 	# NESTED ATTRIBUTION
 	# ============================================================
