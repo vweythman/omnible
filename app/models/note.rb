@@ -32,6 +32,7 @@ class Note < ActiveRecord::Base
 	# ASSOCIATIONS
 	# ============================================================
 	belongs_to :work
+	has_many :creatorships, through: :work
 
 	# DELEGATED METHODS
 	# ============================================================
