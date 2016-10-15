@@ -48,7 +48,10 @@ class Tag < ActiveRecord::Base
 
 	# Belongs to
 	# ------------------------------------------------------------
-	has_many :works, through: :taggings, source: :tagger, source_type: "Work"
+	has_many :works,   through: :taggings, source: :tagger, source_type: "Work"
+	has_many :squads,  through: :taggings, source: :tagger, source_type: "Squad"
+	has_many :items,   through: :taggings, source: :tagger, source_type: "Item"
+
 	has_many :onsite_works, ->{ Work.onsite }, through: :taggings, source: :tagger, source_type: "Work"
 
 	has_many :articles,      -> { Work.articles },      through: :taggings, source: :tagger, source_type: "Work"
@@ -60,6 +63,10 @@ class Tag < ActiveRecord::Base
 	# ============================================================
 	def self.tag_creation(name, uploader = nil)
 		tag = Tag.where(name: name).first_or_create
+	end
+
+	def taggers
+		@taggers ||= works + squads + items
 	end
 
 	# PUBLIC METHODS
