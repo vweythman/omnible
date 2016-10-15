@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826123723) do
+ActiveRecord::Schema.define(version: 20161013100232) do
 
   create_table "adjectives", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 20160826123723) do
   add_index "admins", ["user_id"], name: "index_admins_on_user_id"
 
   create_table "anthologies", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "summary"
     t.integer  "uploader_id"
+    t.integer  "publicity_level"
+    t.integer  "editor_level"
   end
 
   add_index "anthologies", ["uploader_id"], name: "index_anthologies_on_uploader_id"
