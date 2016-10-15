@@ -1,21 +1,25 @@
 <%  provide :title, "My Uploads" %>
-<%= dashboard_header ["My Uploads"] do %>
-	
+<%= dashboard_header @uploads.subtitles do %>
+	<% if @uploads.is_mixture? %>
+		<p class="metadata category-counts">
+			<% @uploads.categories_count.each {|category, count| %>
+				<span class="category-count">
+					<span class="category-type"><%= category %></span>
+					<span class="counter"><%= count %></span>
+				</span>
+			<% } %>
+		</p>
+	<% end %>
 <% end %>
 
 <div class="dashboard-grid">
-	<%= solo_cell do %>
-		<% if @uploads.length > 0 %>
-			<%= render 'table' %>
-		<% else %>
-			<p>Empty</p>
-			
-		<% end %>
+	<% if @uploads.length > 0 %>
+		<%= render 'table' %>
+	<% else %>
+		<p>Empty</p>
 	<% end %>
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$(".sortable").tablesorter();
-	});
+	$(document).ready(function(){ $(".sortable").tablesorter(); });
 </script>
