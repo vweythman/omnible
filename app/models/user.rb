@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
 
 	# :: uploads
 	has_many :works,           foreign_key: "uploader_id"
+	has_many :anthologies,     foreign_key: "uploader_id"
 	has_many :places,          foreign_key: "uploader_id", class_name: "Place"
 	has_many :uploaded_items,  foreign_key: "uploader_id", class_name: "Item"
 	has_many :uploaded_events, foreign_key: "uploader_id", class_name: "Event"
@@ -69,9 +70,10 @@ class User < ActiveRecord::Base
 	has_many :viewables, through: :view_invites
 
 	# :: works
-	has_many :disliked_works, through: :dislikings, source: :work
-	has_many :liked_works,    through: :likings,    source: :work
-	has_many :tracked_works,  through: :trackings,  source: :tracked, source_type: "Work"
+	has_many :disliked_works,      through: :dislikings, source: :work
+	has_many :liked_works,         through: :likings,    source: :work
+	has_many :tracked_works,       through: :trackings,  source: :tracked, source_type: "Work"
+	has_many :tracked_anthologies, through: :trackings,  source: :tracked, source_type: "Anthology"
 
 	# DELEGATED METHODS
 	# ============================================================
@@ -100,7 +102,7 @@ class User < ActiveRecord::Base
 	# GETTERS
 	# ------------------------------------------------------------
 	def all_uploads
-		self.works.onsite + self.skins + self.roleplay_characters
+		self.works.onsite + self.skins + self.roleplay_characters + self.anthologies
 	end
 
 	def trackables
@@ -153,6 +155,8 @@ class User < ActiveRecord::Base
 		case model.class.base_class.to_s
 		when "Work"
 			self.tracked_works.include? model
+		when "Anthology"
+			self.tracked_anthologies.include? model
 		else
 			false
 		end
