@@ -4,146 +4,148 @@
 // ===============================================
 // -- Blocks
 // -----------------------------------------------
-$one-sixtieth:           01 / 60 * 100%;
-$one-thirtieth:          02 / 60 * 100%;
-$one-twentieth:          03 / 60 * 100%;
-$one-fifthteenth:        04 / 60 * 100%;
-$one-twelfth:            05 / 60 * 100%;
-$one-tenth:              06 / 60 * 100%;
+$one-sixtieth           : 01 / 60 * 100%;
+$one-thirtieth          : 02 / 60 * 100%;
+$one-twentieth          : 03 / 60 * 100%;
+$one-fifthteenth        : 04 / 60 * 100%;
+$one-twelfth            : 05 / 60 * 100%;
+$one-tenth              : 06 / 60 * 100%;
 // 07 / 60 * 100%
 // 08 / 60 * 100%
 // 09 / 60 * 100%
-$one-sixth:              10 / 60 * 100%;
+$one-sixth              : 10 / 60 * 100%;
 // 11 / 60 * 100%
-$one-fifth:              12 / 60 * 100%;
+$one-fifth              : 12 / 60 * 100%;
 // 13 / 60 * 100%
 // 14 / 60 * 100%
-$one-fourth:             15 / 60 * 100%;
+$one-fourth             : 15 / 60 * 100%;
 // 16 / 60 * 100%
 // 17 / 60 * 100%
-$three-tenths:           18 / 60 * 100%; 
+$three-tenths           : 18 / 60 * 100%; 
 // 19 / 60 * 100%
-$one-third:              20 / 60 * 100%;
+$one-third              : 20 / 60 * 100%;
 // 21 / 60 * 100%
 // 22 / 60 * 100%
 // 23 / 60 * 100% 
-$two-fifths:             24 / 60 * 100%;
-$five-twelfths:          25 / 60 * 100%;
+$two-fifths             : 24 / 60 * 100%;
+$five-twelfths          : 25 / 60 * 100%;
 // 26 / 60 * 100%
 // 27 / 60 * 100%
 // 28 / 60 * 100%
 // 29 / 60 * 100%
-$one-half:               30 / 60 * 100%;
+$one-half               : 30 / 60 * 100%;
 // 31 / 60 * 100%
 // 32 / 60 * 100%
 // 33 / 60 * 100%
 // 34 / 60 * 100%
-$seven-twelfth:          35 / 60 * 100%;
-$three-fifths:           36 / 60 * 100%;
+$seven-twelfth          : 35 / 60 * 100%;
+$three-fifths           : 36 / 60 * 100%;
 // 37 / 60 * 100%
 // 38 / 60 * 100%
 // 39 / 60 * 100%
-$two-thirds:             40 / 60 * 100%;
+$two-thirds             : 40 / 60 * 100%;
 // 41 / 60 * 100%
-$seven-tenths:           42 / 60 * 100%;
+$seven-tenths           : 42 / 60 * 100%;
 // 43 / 60 * 100%
 // 44 / 60 * 100%
-$three-fourths:          45 / 60 * 100%;
+$three-fourths          : 45 / 60 * 100%;
 // 46 / 60 * 100%
 // 47 / 60 * 100%
-$four-fifths:            48 / 60 * 100%;
+$four-fifths            : 48 / 60 * 100%;
 // 49 / 60 * 100%
-$five-sixths:            50 / 60 * 100%;
+$five-sixths            : 50 / 60 * 100%;
 // 51 / 60 * 100%
 // 52 / 60 * 100%
 // 53 / 60 * 100%
-$nine-tenths:            54 / 60 * 100%;
-$eleven-twelfths:        55 / 60 * 100%;
-$fourteen-fifthteenths:  56 / 60 * 100%;
-$nineteen-twentieths:    57 / 60 * 100%;
-$twenty-nine-thirtieths: 58 / 60 * 100%;
-$fifty-nine-sixtieths:   59 / 60 * 100%;
-$one-whole:              60 / 60 * 100%;
+$nine-tenths            : 54 / 60 * 100%;
+$eleven-twelfths        : 55 / 60 * 100%;
+$fourteen-fifthteenths  : 56 / 60 * 100%;
+$nineteen-twentieths    : 57 / 60 * 100%;
+$twenty-nine-thirtieths : 58 / 60 * 100%;
+$fifty-nine-sixtieths   : 59 / 60 * 100%;
+$one-whole              : 60 / 60 * 100%;
 
 // -- Negative Blocks
 // -----------------------------------------------
-$neg-one-sixth:              -1 * $one-sixth;
-$neg-one-sixtieth:           -1 * $one-sixtieth;
-$neg-one-thirtieth:          -1 * $one-thirtieth;
-$neg-one-twentieth:          -1 * $one-twentieth;
-$neg-one-fifthteenth:        -1 * $one-fifthteenth;
-$neg-one-twelfth:            -1 * $one-twelfth;
-$neg-one-tenth:              -1 * $one-tenth;
-$neg-one-sixth:              -1 * $one-sixth;
-$neg-one-fifth:              -1 * $one-fifth;
-$neg-one-fourth:             -1 * $one-fourth;
-$neg-three-tenths:           -1 * $three-tenths;
-$neg-one-third:              -1 * $one-third;
-$neg-two-fifths:             -1 * $two-fifths;
-$neg-five-twelfths:          -1 * $five-twelfths;
-$neg-one-half:               -1 * $one-half;
-$neg-seven-twelfth:          -1 * $seven-twelfth;
-$neg-three-fifths:           -1 * $three-fifths;
-$neg-two-thirds:             -1 * $two-thirds;
-$neg-seven-tenths:           -1 * $seven-tenths;
-$neg-three-fourths:          -1 * $three-fourths;
-$neg-four-fifths:            -1 * $four-fifths;
-$neg-five-sixths:            -1 * $five-sixths;
-$neg-nine-tenths:            -1 * $nine-tenths;
-$neg-eleven-twelfths:        -1 * $eleven-twelfths;
-$neg-fourteen-fifthteenths:  -1 * $fourteen-fifthteenths;
-$neg-nineteen-twentieths:    -1 * $nineteen-twentieths;
-$neg-twenty-nine-thirtieths: -1 * $twenty-nine-thirtieths;
-$neg-fifty-nine-sixtieths:   -1 * $fifty-nine-sixtieths;
-$neg-one-whole:              -1 * $one-whole;
+$neg-one-sixth              : -1 * $one-sixth;
+$neg-one-sixtieth           : -1 * $one-sixtieth;
+$neg-one-thirtieth          : -1 * $one-thirtieth;
+$neg-one-twentieth          : -1 * $one-twentieth;
+$neg-one-fifthteenth        : -1 * $one-fifthteenth;
+$neg-one-twelfth            : -1 * $one-twelfth;
+$neg-one-tenth              : -1 * $one-tenth;
+$neg-one-sixth              : -1 * $one-sixth;
+$neg-one-fifth              : -1 * $one-fifth;
+$neg-one-fourth             : -1 * $one-fourth;
+$neg-three-tenths           : -1 * $three-tenths;
+$neg-one-third              : -1 * $one-third;
+$neg-two-fifths             : -1 * $two-fifths;
+$neg-five-twelfths          : -1 * $five-twelfths;
+$neg-one-half               : -1 * $one-half;
+$neg-seven-twelfth          : -1 * $seven-twelfth;
+$neg-three-fifths           : -1 * $three-fifths;
+$neg-two-thirds             : -1 * $two-thirds;
+$neg-seven-tenths           : -1 * $seven-tenths;
+$neg-three-fourths          : -1 * $three-fourths;
+$neg-four-fifths            : -1 * $four-fifths;
+$neg-five-sixths            : -1 * $five-sixths;
+$neg-nine-tenths            : -1 * $nine-tenths;
+$neg-eleven-twelfths        : -1 * $eleven-twelfths;
+$neg-fourteen-fifthteenths  : -1 * $fourteen-fifthteenths;
+$neg-nineteen-twentieths    : -1 * $nineteen-twentieths;
+$neg-twenty-nine-thirtieths : -1 * $twenty-nine-thirtieths;
+$neg-fifty-nine-sixtieths   : -1 * $fifty-nine-sixtieths;
+$neg-one-whole              : -1 * $one-whole;
 
 // -- Golden Ratio
 // -----------------------------------------------
-$golden: 1.618;
+$golden        : 1.618;
 
+$golden-major  : 100% / $golden;
+$golden-minor  : 100% - $golden-major;
 
-$golden-major:  100% / $golden;
-$golden-minor:  100% - $golden-major;
+$golden-little : $golden-minor / $golden;
+$golden-small  : $golden-minor - $golden-little;
 
-$golden-little: $golden-minor / $golden;
-$golden-small:  $golden-minor - $golden-little;
+$golden-tiny   : $golden-small / $golden;
+$golden-mini   : $golden-small - $golden-tiny;
 
-$golden-tiny:   $golden-small / $golden;
-$golden-mini:   $golden-small - $golden-tiny;
+$golden-micro  : $golden-mini  / $golden;
+$golden-nano   : $golden-mini  - $golden-micro;
 
-$golden-micro:  $golden-mini / $golden;
-
-$golden-nano:   $golden-mini - $golden-micro;
-
-$golden-large:  $golden-major + $golden-little;
+$golden-large  : $golden-major + $golden-little;
 
 // -- Input
 // -----------------------------------------------
-$micro-height: 200px;
+$micro-height : 200px;
+
+// -- Layout
+// -----------------------------------------------
+$gutter : $one-twelfth;
 
 // -- Screen
 // -----------------------------------------------
-$mobile-max:  550px;
-$tablet-min:  $mobile-max;
-$tablet-max:  875px;
-$desktop-min: $tablet-max;
+$mobile-max  : 550px;
+$tablet-min  : $mobile-max;
+$tablet-max  : 875px;
+$desktop-min : $tablet-max;
 
 // TEXT
 // ===============================================
-$text-size:    15px;
-$heading-size: 25px;
-$logo-size:    28px;
-$def-size:     25px;
+$text-size    : 15px;
+$heading-size : 25px;
+$logo-size    : 28px;
+$def-size     : 25px;
 
-$size-0: $def-size * (1 - $golden-major  / 100%);
-$size-1: $def-size * (1 - $golden-minor  / 100%);
-$size-2: $def-size * (1 - $golden-little  / 100%);
-$size-3: $def-size * (1 - $golden-small / 100%);
-$size-4: $def-size;
-$size-5: $def-size / (1 - $golden-small / 100%);
-$size-6: $def-size / (1 - $golden-little  / 100%);
-$size-7: $def-size / (1 - $golden-minor  / 100%);
-$size-8: $def-size / (1 - $golden-major  / 100%);
+$size-0 : $def-size * (1 - $golden-major  / 100%);
+$size-1 : $def-size * (1 - $golden-minor  / 100%);
+$size-2 : $def-size * (1 - $golden-little / 100%);
+$size-3 : $def-size * (1 - $golden-small  / 100%);
+$size-4 : $def-size;
+$size-5 : $def-size / (1 - $golden-small  / 100%);
+$size-6 : $def-size / (1 - $golden-little / 100%);
+$size-7 : $def-size / (1 - $golden-minor  / 100%);
+$size-8 : $def-size / (1 - $golden-major  / 100%);
 
 // END
 // ***********************************************/

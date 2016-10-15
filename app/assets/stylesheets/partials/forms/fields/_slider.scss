@@ -1,52 +1,58 @@
-// STYLE PARTIAL: SLIDER FIELDS
+// STYLE PARTIAL : SLIDER FIELDS
 // ***********************************************
-.slider {
-	background: $page-color;
-	border:     3px solid $border-color;
-	margin:     10px 0px;
-	padding:    10px;
-}
-.range-cell {
-	padding: 10px;
-}
-
+// BACKGROUND
+// ===============================================
 .range {
-	margin: 10px 0;
-	width:  calc(100% - 20px);
+	margin : 10px 0;
+	width  : calc(100% - 20px);
 
 	.label {
-		display:     block;
-		font-weight: bolder;
-		text-align:  right;
+		display     : block;
+		font-weight : bolder;
+		text-align  : right;
 	}
+
 	.val {
-		color:       $water-darker-minor;
-		display:     block;
-		font-weight: lighter;
-		margin:      0 10px;
-		text-align:  left;
+		color       : $range-value-color;
+		display     : block;
+		font-weight : lighter;
+		margin      : 0 10px;
+		text-align  : left;
 	}
 }
+
+.range-cell {
+	padding : 10px;
+}
+
 .range-values {
-	margin: 10px auto;
-	width:  calc(60% - 20px);
+	margin : 10px auto;
+	width  : calc(60% - 20px);
 
 	&, 
 	.ui-slider-range {
-		border-color: $moss-dark-minor;
-		background:   $moss-dark-minor;
+		background   : $slider-color;
+		border-color : $slider-color;
 	}
+}
+
+.slider {
+	background : $slider-box-background;
+	border     : 3px solid $border-color;
+	margin     : 10px 0px;
+	padding    : 10px;
 }
 
 .ui-slider-horizontal {
-	width:  $nine-tenths;
-	margin: 0 auto;
+	width  : $nine-tenths;
+	margin : 0 auto;
 
 	.ui-slider-handle {
-		background:   $moss-color;
-		border-color: $moss-dark-minor;
+		background   : $moss-color;
+		border-color : $slider-color;
 	}
 }
+// ===============================================
 
 // END
 // ************************************************/

@@ -1,339 +1,363 @@
 /* TEMPLATE: INDEX
 /* ***********************************************/
+// TABLE of CONTENT
+// ===============================================
+// -- SETUP :: VARIABLES
+// ----- Index
+// ----- Filters
+// -- SECTION :: HEADER
+// -- SECTION :: BODY LAYOUT
+// -- SECTION :: FILTERS
+// ----- Layout
+// ----- Sections
+// ----- Toggle
+// -- SECTION :: RESULTS
+// -- SECTION :: VIEWPORTS
+// ----- Desktop
+// ----- Desktop & Tablet
+// ----- Tablet
+// ----- Mobile & Tablet
+// ----- Mobile
+// ===============================================
+
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
 @import "partials/forms/inline_form";
 @import "partials/forms/fields/selections";
 @import "partials/content/snippets";
-
-// SECTION :: COLORS
+@import "partials/mixins/data";
 // ===============================================
-$page:           $water-light-minor;
-$border:         $water-color;
-$header:         $water-dark-minor;
-$heading:        $moss-dark-minor;
-$content-shadow: 0px 0px 10px $water-darker-major;
+
+// SETUP :: VARIABLES
+// ===============================================
+// -----------------------------------------------
+// -- Index
+// -----------------------------------------------
+$index-background : $water-color;
+$index-shadow     : 0px 0px 10px $water-darker-major;
+
+$index-question-background : $water-darker-minor;
+$index-question-color      : $page-color;
+
+$results-background           : $page-color;
+$results-toolkit-border-color : $page-darkest-minor;
+
+$tableized-border : 3px solid $page-darker-major;
+
+$index-title-background   : $page-lighter-minor;
+$index-title-border-color : $page-darker-major;
+
+// -----------------------------------------------
+// -- Pagination
+// -----------------------------------------------
+$index-paging-background : $fire-lightest-minor;
+$index-paging-border     : 3px solid $fire-light-minor;
+$index-paging-color      : $page-darkest-minor;
+$index-paging-link-color : $page-darker-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Filters
+// -----------------------------------------------
+$filters-background : $water-dark-minor;
+
+$filter-link-color       : $water-dark-minor;
+$filter-link-hover-color : $water-darker-minor;
+
+$filter-submit-background : $water-darker-minor;
+$filter-submit-hover      : $water-dark-major;
+
+$filter-background   : $page-color;
+$filter-title-color  : $water-lightest-minor;
+$fitler-title-border : 3px solid $water-light-minor;
+
+$filter-tag-label-color : $fire-dark-minor;
+
+$filter-toggle-background : $water-dark-minor;
+$filter-toggle-color      : $page-color;
+// -----------------------------------------------
+// ===============================================
 
 // SECTION :: HEADER
 // ===============================================
-.index-header > .toolkit {
-	margin:  10px 0;
-	padding: 0 $one-twelfth;
-}
+.index-header .directory {
+	display    : block;
+	padding    : 5px 0px;
+	text-align : center;
 
-.type-categories {
-	margin:  0;
-	padding: 0 $one-twelfth;
-
-	li {
-		display: inline-block;
-		padding: 10px 15px 5px 0px;
-	}
 	a {
-		color:       $water-lightest-minor;
-		font-weight: 900;
-
-		&:hover {
-			color: $fire-light-minor;
-		}
+		border-radius : 5px;
+		display       : inline-block;
 	}
 }
+// ===============================================
+
+// SECTION :: BODY LAYOUT
+// ===============================================
 .page-body,
 .index-body {
-	background: $water-dark-minor;
-	box-shadow: $content-shadow;
+	background : $index-background;
+	box-shadow : $index-shadow;
 }
+
 .index-body {
-	padding: 10px;
+	padding : 15px;
 }
 
-.dashboard-body {
-	margin:     0;
-	padding:    10px $one-twelfth;
-	background: $page-light-minor;
-}
+.filtered { padding : 15px 0px; }
 
-// SECTION :: BODY
+.filtered .grid-panel { display : table; }
+.filtered .panel-cell {
+	display : table-cell;
+	float   : none;
+}
 // ===============================================
-// FILTERS
-// -----------------------------------------------
-.filters {
-	padding:    15px;
-	background: $water-color;
 
-	aside {
-		padding: 5px;
-		background: $page-color;
-	}
+// SECTION :: FILTERS
+// ===============================================
+// -----------------------------------------------
+// -- Layout
+// -----------------------------------------------
+.filters-body { background : $filters-background; }
+.filters {
+	padding : 15px;
+
+	.submit-field input       { background : $filter-submit-background; }
+	.submit-field input:hover { background : $filter-submit-hover; }
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Sections
+// -----------------------------------------------
+.filter-section {
+	background : $filter-background;
+	padding    : 5px;
 
 	h2 {
-		background:    $water-lightest-minor;
-		border-bottom: 3px solid $water-light-minor;
-		font-size:     $text-size + 1px;
-		font-weight:   300;
-		font-variant:  small-caps;
-		margin:        0;
-		padding:       7px 15px;
-	}
-	li {
-		display:     block;
-		font-size:   .95em;
-		font-weight: 600;
-		padding:     8px 0;
-	}
-	a {
-		color:           $water-dark-minor;
-		display:         block;
-		padding:         0 15px;
-		text-decoration: none;
-
-		&:hover {
-			color:       $water-darker-minor;
-			font-weight: 900;
-		}
+		background    : $filter-title-color;
+		border-bottom : $fitler-title-border;
+		font-size     : $text-size + 1px;
+		font-weight   : 300;
+		font-variant  : small-caps;
+		margin        : 0px;
+		padding       : 7px 15px;
 	}
 	ul {
-		padding: 0;
-		margin:  0;
+		padding : 0px;
+		margin  : 0px;
 	}
-	.submit-field input {
-		background: $page-darker-major;
-		border-radius: 0;
+	li {
+		display     : block;
+		font-size   : 0.95em;
+		font-weight : 600;
+		padding     : 8px 0px;
+	}
+	a {
+		color           : $filter-link-color;
+		display         : block;
+		padding         : 0px 15px;
+		text-decoration : none;
 
 		&:hover {
-			background: $page-dark-major;
+			color       : $filter-link-hover-color;
+			font-weight : 900;
 		}
 	}
 }
 
-.filter-links {
-	padding: 5px 10px;
-	width: calc(100%);
-	border: none;
-	border-bottom: 3px solid $fire-light-minor;
-}
+.filter-tags-title { overflow : auto; }
 
-.display-question {
-	margin:  20px 0 0 -20px;
-	padding: 10px 15px;
-	background: $water-darker-minor;
-	text-align: center;
-	a {
-		color: $water-lighter-minor;
-	}
+.toggleable-filter-tags .field-label {
+	color      : $filter-tag-label-color;
+	text-align : right;
 }
+// -----------------------------------------------
 
-.filter-tags-title {
-	overflow: auto;
-}
-
+// -----------------------------------------------
+// -- Toggle
+// -----------------------------------------------
 .show-cell,
 .hide-cell {
-	display:      inline-block;
-	float:        right;
-	font-variant: none;
+	display      : inline-block;
+	float        : right;
+	font-variant : none;
 }
 
 .show-toggle,
 .hide-toggle {
-	border-radius: 10px;
-	background:    $water-dark-minor;
-	color:         $page-color;
-	cursor:        pointer;
-	padding:       0 10px;
-	font-weight:   600;
+	border-radius : 10px;
+	background    : $filter-toggle-background;
+	color         : $filter-toggle-color;
+	cursor        : pointer;
+	padding       : 0px 10px;
+	font-weight   : 600;
 }
 
 .toggleable-filter-tags,
 .hide-toggle {
-	display: none;
+	display : none;
 }
-
-// RESULTS
 // -----------------------------------------------
-.filtered .panel-cell {
-	float: right;
-}
-.filtered .tag-input .panel-cell {
-	float: left;
-	label {
-		background:  $moss-dark-minor;
-		color:       $page-color;
-		font-weight: bolder;
-		margin:      0 5px;
-		padding:     10px;
-		text-align:  center;
-	}
-	.taggables {
-		margin-right: 5px;
-		width:        calc(100% - 5px);
-	}
+// ===============================================
+
+// SECTION :: RESULTS
+// ===============================================
+// -----------------------------------------------
+// -- Results Layout & Headings
+// -----------------------------------------------
+.media-results,
+.results > .indexable,
+.results-body {
+	background : $results-background;
+	overflow   : auto;
 }
 
 .indexable {
 	@include columnable_by(15em);
-	margin:  0;
-	padding: 0;
-}
-
-.pagination {
-	padding:    10px;
-	background: $fire-lightest-minor;
-	color:      $page-darkest-minor;
-
-	header & { border-bottom: 3px solid $fire-light-minor; }
-	footer & { border-top:    3px solid $fire-light-minor; }
-
-	a {
-		color: $page-darker-minor;
-	}
-}
-
-.results {
-	margin:  10px;
-	padding: 0px;
-
-	dl,
-	ul {
-		padding: 15px;
-	}
+	margin  : 0px;
+	padding : 10px;
 	dt {
 		font-weight: bolder;
 	}
+}
 
+.media-results {
+	margin  : 0px;
+	padding : 15px;
+}
+
+.results-body .snippet {
+	margin : 15px;
+}
+.index-body {
 	h2 {
-		border-bottom: 3px solid $water-light-minor;
-		padding:       5px 10px;
+		background    : $index-title-background;
+		border-bottom : 5px solid $index-title-border-color;
+		padding       : 15px 10px 5px;
 	}
 }
 
-.media-results,
-.results > .indexable,
-.results-body {
-	background: $page-color;
-	overflow:   auto;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Tools & Pagination
+// -----------------------------------------------
+.display-question {
+	background : $index-question-background;
+	margin     : 20px 0px 0px -15px;
+	padding    : 10px 15px;
+	text-align : center;
+
+	a { color: $index-question-color; }
 }
 
-.media-results .page-widget {
-	h2 {
-		padding: 10px 5px 2px 10px;
-		border:  none;
+.pagination {
+	padding    : 10px;
+	background : $index-paging-background;
+	color      : $index-paging-color;
 
-		a {
-			color: $page-darker-minor;
+	header & { border-bottom : $index-paging-border; }
+	footer & { border-top    : $index-paging-border; }
 
-			&:hover { color: $page-darkest-minor; }
+	a { color : $index-paging-link-color; }
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Index Table
+// -----------------------------------------------
+.results-table {
+	background : $results-background;
+	padding    : 10px;
+
+	& > .insertion,
+	& > .creation {
+		margin: 10px auto;
+	}
+}
+
+.tableized-results {
+	border-bottom : $tableized-border;
+	border-top    : $tableized-border;
+
+	thead {
+		border-bottom : $tableized-border;
+
+		th {
+			padding        : 15px 10px 5px 10px;
+			vertical-align : bottom;
 		}
 	}
 
-	.indexable {
-		display: none;
+	td { text-align : center; }
+
+	.manager-editor {
+		display     : none;
+		font-weight : bolder;
 	}
-
-	&:hover .indexable {
-		display: block;
-	}
-}
-
-.branches {
-	margin: 0 10px;
-}
-
-.branch {
-	padding-bottom: 25px;
-	background: $page-color;
-
-	.alteration {
-		margin:    10px;
-		max-width: 100%;
-		width:     calc(100% - 20px);
-	}
-
-	h2 {
-		color: $page-color;
-		background:          $water-dark-minor;
-		border-bottom-color: $water-dark-major;
-		a {
-			color: $page-color;
-		}
-	}
-
-	ul {
-		padding: 10px 15px 0px;
+	.position {
+		text-align : center;
 	}
 }
 
-.ratings span {
-	font-size: .85em;
+.branches-table {
+	margin : 15px;
+	width  : calc(100% - 30px);
 }
-
-.child-branch {
-    margin: 0 auto;
-    width:  $four-fifths;
-
-	.alteration {
-		margin:    0px;
-    	width:     calc(100% - 0px);
-    	font-size: .82em;
-
-    	a {
-    		padding: 5px 0;
-    	}
-	}
-	h3 {
-		padding:       5px 0 3px;
-		margin:        5px 0;
-	}
-}
-
-@include tableized-results($page-color, $water-dark-minor, $fire-lightest-major, $water-dark-major, 5px);
-
-// SECTION :: VIEWPORT
+// -----------------------------------------------
 // ===============================================
+
+// VIEWPORTS
+// ===============================================
+// -----------------------------------------------
+// -- Desktop
+// -----------------------------------------------
 @include page-desktop() {
-	@include indexed-banding($water-lightest-minor);
-	.manager-editor .toolkit {
-		min-width: 200px;
-	}
+	@include desktop-management-toolkit($results-background, $results-toolkit-border-color);
 }
+// -----------------------------------------------
 
-@include page-mobile() {
-	@include mobilized-forms();
-	@include mobile-snippet();
-
-	.child-branch .alteration {
-		margin:    5px 0px 10px;
-		max-width: 200px;
-	}
-}
-
-@include page-non-desktop {
-	.tableized-results { @include tb-modularize(); }
-	.page-body .tableized-results { @include results-modularize(); }
-}
-
+// -----------------------------------------------
+// -- Desktop & Tablet
+// -----------------------------------------------
 @include page-non-mobile() {
-	@include non-mobile-snippet();
-	table .toolkit {
-		margin: 0;
-	}
-	.display-question {
-		border-top-left-radius: 20px;
-	}
-	.insertion {
-		max-width: 100%;
-	}
-	.filters {
-		margin-right: 30px;
-	}
+	.tableized-results td { font-size : 0.8em; }
+	.branching-info    td { font-size : 1em; }
 }
+// -----------------------------------------------
 
+// -----------------------------------------------
+// -- Tablet
+// -----------------------------------------------
 @include page-tablet() {
-	.filters {
-		padding: 5px;
-	}
+
 }
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile & Tablet
+// -----------------------------------------------
+@include page-non-desktop() {
+
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile
+// -----------------------------------------------
+@include page-mobile() {
+	.tableized-results {
+		@include mobile-friendly-data-results();
+		@include mobile-friendly-table-data($page-darker-major);
+
+	}
+	.chapter-info th { display : inline; }
+	.branching-info td { text-align : left; }
+}
+// -----------------------------------------------
+// ===============================================
 
 /* END
 /* ***********************************************/

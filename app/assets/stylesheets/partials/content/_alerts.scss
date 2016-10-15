@@ -2,46 +2,55 @@
 // ***********************************************
 // SETUP :: MIXINS
 // ===============================================
-@mixin alertable($box-color, $text-color) {
-	background:  $box-color;
-	color:       $text-color;
-	$link-color: lighten($text-color, 15%);
+@mixin alert-look($box-color, $text-color) {
+	background : $box-color;
+	color      : $text-color;
 
 	a {
-		color: $link-color;
+		color: lighten($text-color, 15%);
+
 		&:hover {
-			text-decoration: none;
+			text-decoration : none;
 		}
 	}
 }
-
-// VIEWPORT :: ALL
 // ===============================================
+
+// SITE ALERTS
+// ===============================================
+$gutter : $one-twelfth;
+
 .alert,
-.announce,
-.notice {
-	font-size:  1.3em;
-	margin:     10px auto;
-	text-align: center;
-}
-.alert {
-	padding: 20px;
-	width:   90%;
-
-	@include alertable(red, white);
-}
+.notice,
 .announce {
-	padding: 10px;
-	width:   50%;
-
-	@include alertable($fire-light-minor, $fire-darkest-minor);
+	font-size  : 1.3em;
+	margin     : 10px auto;
+	text-align : center;
 }
+
+.alert {
+	@include alert-look(red, white);
+
+	padding : 20px;
+	width   : 90%;
+}
+
+.announce {
+	@include alert-look($fire-light-minor, $fire-darkest-minor);
+
+	padding : 10px;
+	width   : 50%;
+}
+
 .notice {
-	padding: 15px;
-	width:   90%;
+	@include alert-look($water-color, $water-lightest-minor);
 
-	@include alertable($water-color, $water-lightest-minor);
+	margin   : 0 $gutter;
+	position : absolute;
+	padding  : 15px;
+	width    : (100% / 6);
 }
+// ===============================================
 
 // END
-// ************************************************/
+// ***********************************************/

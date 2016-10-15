@@ -1,0 +1,29 @@
+// STYLE PARTIAL: DATA MANAGEMENT
+// ***********************************************
+@mixin desktop-management-toolkit($data-toolkit-background, $data-toolkit-border-color) {
+	.editable-content:hover {
+		th {
+			position : relative;
+
+			& > a,
+			.content-title {
+				display : block;
+			}
+		}
+		.manager-editor {
+			background    : $data-toolkit-background;
+			border        : 2px solid $data-toolkit-border-color;
+			box-shadow    : 0px 3px 5px $data-toolkit-border-color;
+			border-radius : 10px;
+			display       : inline-block;
+			margin        : 5px 0px;
+			min-width     : 350px;
+			padding       : 5px 7px 8px;
+			position      : absolute;
+		}
+	}
+}
+// ===============================================
+
+// END
+// ***********************************************/

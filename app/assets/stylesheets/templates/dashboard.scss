@@ -1,222 +1,258 @@
 /* TEMPLATE: SHOW DASHBOARD
 /* ***********************************************/
-// SETUP :: GENERAL IMPORTS
+// TABLE of CONTENT
+// ===============================================
+// -- SETUP :: IMPORTS
+// -- SETUP :: VARIABLES
+// ----- Dashboard
+// ----- Data
+// ----- Pen Names
+// -- SECTION :: LAYOUT & HEADER
+// -- SECTION :: BODY CONTENT
+// ----- Toolkits & Forms
+// ----- Data
+// ----- Pen Names
+// -- SECTION :: VIEWPORTS
+// ----- Desktop
+// ----- Desktop & Tablet
+// ----- Tablet
+// ----- Mobile & Tablet
+// ----- Mobile
+// ===============================================
+
+// SETUP :: IMPORTS
 // ===============================================
 @import "application";
 @import "partials/content/status";
 @import "partials/forms/inline_form";
-
-// SECTION :: COLORS
+@import "partials/content/snippets";
+@import "partials/mixins/data";
 // ===============================================
-$page:           $water-darker-minor;
-$border:         $water-dark-major;
-$header:         $water-dark-minor;
-$heading:        $water-dark-minor;
-$content-shadow: 0px 0px 10px $page-darker-minor;
 
-// SECTION :: ALL
+// SETUP :: VARIABLES
 // ===============================================
-@include page-look($page, $border);
+// -----------------------------------------------
+// -- Dashboard
+// -----------------------------------------------
+$dashboard-background        : $water-darker-minor;
+$dashboard-header-background : $water-dark-minor;
+$show-dashboard-background   : $page-color;
 
-// SECTION :: HEADER
+$dashboard-border : 7px solid $water-dark-major;
+
+$dash-meta-color : $fire-lighter-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Data
+// -----------------------------------------------
+$data-row-background         : $fire-light-minor;
+$data-index-background       : $page-color;
+
+$data-table-border-color   : $fire-light-minor;
+$data-toolkit-border-color : $page-darker-minor;
+
+$mobile-data-label-color    : $page-darker-major;
+$mobile-data-row-background : $fire-light-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Pen Names
+// -----------------------------------------------
+$credit-border-color     : $fire-dark-minor;
+$credit-title-color      : $fire-dark-major;
+$credit-title-background : $fire-lightest-minor;
+// -----------------------------------------------
 // ===============================================
-@include header-look($header, $heading, $border);
 
-.creation,
-.creation-block {
-	margin: 0 auto;
-
-	.index-header & {
-		margin: 5px $one-twelfth;
-	}
-}
-
-.alteration {
-	margin:    5px 10px;
-	min-width: calc(100% - 20px);
-}
-
-h2 {
-	text-align: center;
-	font-size:  18px;
-	margin:     35px 0px 0px;
-}
-
-// SECTION :: BODY :: ALL
+// SECTION :: LAYOUT & HEADER
 // ===============================================
-.dashboard-grid,
-.index-body {
-	background: $page-color;
-	margin:     0;
-	padding:    10px 25px;
-	box-shadow: $content-shadow;
+.dashboard-header {
+	background    : $dashboard-header-background;
+	border-bottom : $dashboard-border;
+	font-weight   : bolder;
 
-	b {
-		display:    block;
-		background: $page-lighter-minor;
-		padding:    10px 5px;
+	.metadata {
+		margin  : 0px $gutter;
+		padding : 0px;
+
+		.key { color: $dash-meta-color;}
 	}
-	.creation {
-		text-align: center;
+	.category-counts {
+		padding: 8px 0px;
 	}
-	.widget {
-		padding: 0 5px;
+
+	.counter,
+	.metadata .key {
+		color : $dash-meta-color;
+	}
+
+	.alteration {
+		width  : 300px;
+		margin : 10px $gutter;
 	}
 }
-.page-content > .results {
-	padding: 0 5%;
-	background: $page-color;
+
+.index-page .index-body {
+	background    : $data-index-background;
+	border-bottom : $dashboard-border;
+	border-top    : $dashboard-border;
+	margin        : 0px;
+	padding       : 20px $gutter;
 }
 
-// SECTION :: BODY :: LISTS
+.page-content {
+	background    : $dashboard-background;
+	border-bottom : $dashboard-border;
+}
+
+.show-page article {
+	background : $show-dashboard-background;
+	margin     : 10px $gutter;
+	padding    : 10px;
+	border     : $dashboard-border;
+}
 // ===============================================
-.create-as {
-	padding: 0px 0;
 
-	ul {
-		margin:  0 10px;
-		padding: 0;
-	}
-
-	li {
-		color:   $water-dark-major;
-		padding: 5px 0;
-
-		&:before {
-			padding: 0 10px;
-		}
-	}
-}
-
-.work-meta {
-	color:    $page-darker-minor;
-	margin:   0px $one-twelfth 50px;
-
-	.toolkit {
-		display: block;
-		margin:  5px auto;
-	}
-
-	dl {
-		margin:  0 10px;
-		padding: 0;
-	}
-
-	dt {
-		padding: 0;
-		font-weight: bolder;
-	}
-
-	p { margin: 0 10px; }
-}
-
-// SECTION :: BODY :: TABLES
+// SECTION :: BODY CONTENT
 // ===============================================
+// -----------------------------------------------
+// -- Toolkits & Forms
+// -----------------------------------------------
+.pen-names > .toolkit,
+.dashboard-header .toolkit,
+.dashboard-grid > .toolkit {
+	margin : 10px auto;
+}
+
+// -----------------------------------------------
+// -- Data
+// -----------------------------------------------
 .editable {
-	font-weight: bolder;
-	margin-bottom: 30px;
-	th > a {
-		display: block;
-		margin: 0 0 5px 0;
+	border-bottom : 3px solid $data-table-border-color;
+	margin        : 10px $gutter 25px;
+	width         : calc(100% - #{$gutter * 2});
+
+	.manager-editor { display : none; }
+	.item-type      {
+		font-weight : bolder;
+		padding     : 5px;
 	}
 
-	td { 
-		text-align:     center;
-		vertical-align: top;
+	th {
+		padding : 5px;
 	}
-
-	caption {
-		text-align: left;
-		padding-left: 0;
-	}
-
 	thead th {
-		vertical-align: bottom;
-		border-bottom: 3px solid $fire-lighter-minor;
+		border-bottom  : 3px solid $data-table-border-color;
+		vertical-align : bottom;
 	}
-	.toolkit a {
-		padding: 7px 0;
+	td {
+		padding    : 0px 5px;
+		text-align : center;
 	}
 }
 
-.default-pen {
-	color: $rose-dark-minor;
+.indexable {
+	padding : 0px;
+	margin  : 0px;
 }
+// -----------------------------------------------
 
+// -----------------------------------------------
+// -- Pen Names
+// -----------------------------------------------
 .management-widget {
-	padding-bottom: 35px;
+	background : $data-index-background;
+	margin     : 0px;
+	padding    : 10px $gutter;
+
 }
+.create-as,
+.pen-credit {
+	margin     : 10px;
+	padding    : 10px;
+	border     : 2px solid $credit-border-color;
 
-.status {
-	font-weight:    bolder;
-	text-align:     center;
-	vertical-align: middle;
-
-	span {
-		display: block;
-		margin:  5px;
-		padding: 5px;
+	h2 {
+		background  : $credit-title-background;
+		color       : $credit-title-color;
+		font-size   : 1.25em;
+		font-weight : bolder;
+		margin      : -10px -10px 10px;
+		padding     : 10px;
 	}
 }
+.createable-list {
+	margin       : 5px;
+	padding      : 0px;
+	width        : calc(100% - 10px);
+}
+// -----------------------------------------------
+// ===============================================
 
 // SECTION :: VIEWPORTS
 // ===============================================
+// -----------------------------------------------
+// -- Desktop
+// -----------------------------------------------
 @include page-desktop() {
-	tr { border-bottom: 2px dotted $fire-light-minor; }
+	@include desktop-management-toolkit($data-index-background, $data-toolkit-border-color);
+
 	.logged-in {
-		background: $heading;
+		background : $dashboard-header-background;
 	}
-	
-	.editable-content {
-		.manager-editor {
-			text-align: left;
-			display: none;
-			margin-left: 0;
-			
 
-			.alteration {
-				margin: 5px 0;
-				width:  100%;
-			}
-		}
-		&:hover {
-			.manager-editor {
-				display: block;
-			}
-		}
-		.creation a {
-			padding: 5px 20px;
+	.editable {
+		background : $data-index-background;
+		min-height : 300px;
+
+		tr {
+			border-bottom : 2px dotted $data-table-border-color;
 		}
 	}
 }
+// -----------------------------------------------
 
-@include page-mobile() {
-	@include mobilized-forms();
-	.editable-content { width: calc(100% - 20px); }
-}
-
-@include page-non-desktop {
-	@include tb-modularize();
-
-	.editable .manager-editor { display: none; }
-
-	.editable-content {
-		@include modularized-dossier($fire-light-minor);
-		.item-type { display:none; }
-	}
-
-	.status {
-		padding: 0px 0px 5px 0px;
-	}
-}
-
+// -----------------------------------------------
+// -- Desktop & Tablet
+// -----------------------------------------------
 @include page-non-mobile() {
 
 }
+// -----------------------------------------------
 
+// -----------------------------------------------
+// -- Tablet
+// -----------------------------------------------
 @include page-tablet() {
-	.editable-content { width: calc( 50% - 20px); }
+	.editable-content { width: calc(50% - 20px); }
 }
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile & Tablet
+// -----------------------------------------------
+@include page-non-desktop {
+	@include mobile-friendly-table-data($mobile-data-label-color);
+
+	.editable-content {
+		@include editable-data-row($mobile-data-row-background);
+
+		.item-type { display:none; }
+	}
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile
+// -----------------------------------------------
+@include page-mobile() {
+	@include mobilized-forms();
+
+	.editable-content { width: calc(100% - 20px); }
+}
+// -----------------------------------------------
+// -- ===============================================
 
 /* END
 /* ***********************************************/

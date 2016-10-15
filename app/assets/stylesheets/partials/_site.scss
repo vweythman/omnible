@@ -1,161 +1,484 @@
 // STYLE PARTIAL: SITE STYLES
 // ***********************************************
-// IMPORTS
+// TABLE of CONTENT
 // ===============================================
-@import "partials/headers/account";
-@import "partials/headers/menu";
-@import "partials/headers/sidebar";
+// -- SETUP :: VARIABLES
+// ----- Site
+// ----- Header Menu
+// ----- Account Menu
+// ----- Sidebar
+// ----- Site Footer
+// -- SECTION :: ALL
+// -- SECTION :: HEADER
+// ----- General
+// ----- Logo
+// ----- Menu
+// ----- Account Menu
+// ----- Sidebar
+// -- SECTION :: FOOTER
+// -- SECTION :: VIEWPORTS
+// ----- Desktop
+// ----- Desktop & Tablet
+// ----- Tablet
+// ----- Mobile & Tablet
+// ----- Mobile
+// ===============================================
+
+// SETUP :: VARIABLES
+// ===============================================
+// -----------------------------------------------
+// -- Site
+// -----------------------------------------------
+$site-background        : $page-darkest-minor;
+$site-header-background : $water-dark-major;
+
+$content-color        : $page-darker-major;
+$content-header-color : $page-color;
+
+$logo-color       : $water-lighter-minor;
+$logo-hover-color : $water-lighter-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Header Menu
+// -----------------------------------------------
+$menu-title-background        : $water-dark-minor;
+$mobile-login-link-background : $water-dark-minor;
+$submenu-background           : $water-dark-major;
+
+$menu-title-border-color : $water-darker-minor;
+
+$nonmobile-submenu-width : $one-fifth;
+$mobile-menu-width       : $one-fifth;
+$tablet-submenu-width    : $one-fifth;
+$desktop-menu-width      : $three-fourths;
+$desktop-submenu-width   : $desktop-menu-width * (1/5) * (5/6);
+$mega-drop-width         : $one-half;
+
+$menu-title-color : $water-lightest-minor;
+$menu-color       : $water-lightest-minor;
+$menu-hover-color : $water-light-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Account Menu
+// -----------------------------------------------
+$login-background       : $water-darker-minor;
+$login-hover-background : $fire-light-minor;
+
+$login-color              : $page-lightest-minor;
+$login-hover-color        : $page-darkest-minor;
+$mobile-login-link-color  : lighten($water-dark-minor, $golden-major); 
+$session-link-hover-color : $water-light-minor;
+$session-link-color       : lighten($water-light-minor, $golden-major);
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Sidebar
+// -----------------------------------------------
+$sidebar-background            : $water-dark-major;
+$sidebar-link-hover-background : $water-lightest-minor;
+$sidebar-title-background      : $fire-light-minor;
+
+$sidebar-width : 250px;
+
+$sidebar-link-color      : $page-lightest-minor;
+$sidebar-title-color     : $fire-darker-minor;
+$social-link-hover-color : $water-light-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Site Footer
+// -----------------------------------------------
+$footer-widget-background      : $water-dark-minor;
+$site-credit-title-background  : $page-darker-major;
+$social-link-background        : $water-darker-major;
+$social-link-hover-background  : $water-darker-minor;
+
+$site-footer-color       : $water-color;
+$footer-link-color       : $water-lighter-minor;
+$footer-widget-color     : $page-color;
+// -----------------------------------------------
+// ===============================================
 
 // SECTION :: ALL
 // ===============================================
 body {
-	background: $page-darkest-minor;
-	color:      $page-darker-major;
-	font:       $text-size "Arial", sans-serif;
+	background : $site-background;
+	color      : $content-color;
+	font       : $text-size "Arial", sans-serif;
 }
+// ===============================================
 
 // SECTION :: HEADER
 // ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
 .site-header {
-	padding:    0;
-	overflow:   auto;
-	background: $water-dark-major;
+	padding    : 0px;
+	overflow   : auto;
+	background : $water-dark-major;
 
-	a  { text-decoration: none; }
-	ul { list-style:      none; }
-}
-
-.logo {
-	color:          $water-lighter-minor;
-	font-size:      $logo-size;
-	letter-spacing: 3px;
-	margin:         0;
-	padding:        10px;
-
-	&:hover   {
-		color: $water-lighter-major;
-	}
+	a  { text-decoration : none; }
+	ul { list-style      : none; }
 }
 
 .actionbar {
-	margin: 0;
+	margin    : 0px;
 }
+
+.page-content > header,
+.page-content > header a {
+	color : $content-header-color;
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Logo
+// -----------------------------------------------
+.logo {
+	color          : $logo-color;
+	font-size      : $logo-size;
+	letter-spacing : 3px;
+	margin         : 0px;
+	padding        : 10px;
+
+	&:hover { color: $logo-hover-color; }
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Menu
+// -----------------------------------------------
+.menu {
+	text-align : center;
+
+	.submenu { display : none; }
+	
+	a {
+		color          : $menu-color;
+		display        : block;
+		letter-spacing : 2px;
+		padding        : 10px;
+
+		&:hover   { color : $menu-hover-color; }
+	}
+	ul {
+		margin  : 0px;
+		padding : 0px;
+	}
+}
+
+.submenu {
+	background : $submenu-background;
+	z-index    : 200;
+}
+
+.category-title {
+	background    : $menu-title-background;
+	border-bottom : 3px solid $menu-title-border-color;
+	color         : $menu-title-color;
+	font-weight   : bolder;
+}
+
+// -----------------------------------------------
+// -- Account Menu
+// -----------------------------------------------
+.account {
+	line-height : normal;
+	margin      : 0px;
+	padding     : 10px 0px;
+	text-align  : right;
+
+	a {
+		font-weight : bolder;
+		padding     : 10px;
+	}
+}
+
+.user   { display     : inline-block; }
+.user a { font-weight : bolder; }
+
+.logged-in {
+	background     : $login-background;
+	color          : $login-color;
+	letter-spacing : 2px;
+
+	.user:hover & {
+		color      : $login-hover-color; 
+		background : $login-hover-background;
+	}
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Sidebar
+// -----------------------------------------------
+.sidebar {
+	background : $sidebar-background;
+	color      : contrastable($sidebar-background);
+	display    : none;
+	margin-top : 10px;
+	padding    : 0px;
+	position   : absolute;
+	right      : 0;
+	width      : $sidebar-width;
+	z-index    : 300;
+
+	a {
+		background      : none;
+		color           : $sidebar-link-color;
+		font-weight     : bolder;
+		text-decoration : none;
+
+		&:hover { background : $sidebar-link-hover-background; }
+	}
+	ul,
+	li {
+		margin  : 0px;
+		padding : 0px;
+	}
+}
+
+.control-title {
+	color       : $sidebar-title-color;
+	background  : $sidebar-title-background;
+	text-align  : left;
+	font-size   : 1.25em;
+	margin      : 0px;
+	padding     : 10px 15px 5px;
+	font-weight : bolder;
+}
+
+.control-group {
+	text-align : left;
+	
+	& > li > a {
+		background : none;
+		display    : block;
+		padding    : 5px 15px;
+	}
+}
+.createables li li { padding : 2px 10px; }
+// -----------------------------------------------
+// ===============================================
 
 // SECTION :: FOOTER
 // ===============================================
 .site-footer {
-	color:          $water-color;
-	padding-bottom: 0;
+	color   : $site-footer-color;
+	padding : 0px;
 }
 
 .site-meta .widget {
-	background:  $water-dark-minor;
-	color:       $page-color;
-	margin:      15px;
+	background  : $footer-widget-background;
+	color       : $footer-widget-color;
+	margin      : 15px;
 
-	a { color: $water-lighter-minor; }
+	a { color : $footer-link-color; }
 }
 
-.credit-widget .widget-title {
-	background: $page-darker-major;
-}
+.credit-widget .widget-title { background : $site-credit-title-background; }
 
 .credit-widget p {
-	padding: 10px 15px;
-	margin:  0;
+	padding : 10px 15px;
+	margin  : 0px;
 }
 
-.ownership-widget {
-	padding: 15px;
-}
+.ownership-widget { padding : 15px; }
 
 .social-media-widget {
-	margin:     15px 0;
-	padding:    7px;
-	text-align: center;
+	margin     : 15px 0;
+	padding    : 7px;
+	text-align : center;
 	
 	a {
-		background:      $water-darker-major;
-		border-radius:   1em;
-		display:         inline-block;
-		padding:         1em;
-		text-decoration: none;
+		background      : $social-link-background;
+		border-radius   : 1em;
+		display         : inline-block;
+		padding         : 1em;
+		text-decoration : none;
 
 		&:hover {
-			color:      $water-light-major;
-			background: $water-darker-minor;
+			color      : $social-link-hover-color;
+			background : $social-link-hover-background;
 		}
 	}
 }
-
-// SECTION :: VIEWPORT SPECIFIC
 // ===============================================
-@mixin site-desktop($ls, $ms) {
-	@include desktop {
+
+// SECTION :: VIEWPORTS
+// ===============================================
+// -----------------------------------------------
+// -- Desktop
+// -----------------------------------------------
+@mixin page-desktop() {
+	@include desktop() {
+		.menu    { width : $desktop-menu-width; }
+		.submenu { width : $desktop-submenu-width; }
+
+		.mega-drop {
+			width : $mega-drop-width;
+
+			.categories {
+				display       : table;
+				table-layout  : fixed;
+				width         : 100%;
+
+				.category { display : table-cell; }
+			}
+		}
+
+		.category.fiction-type {
+			overflow : auto;
+
+			li {
+				float : left;
+				width : 50%;
+			}
+		}
+
 		.logo {
-			padding:    1px 0px;
-			width:      $ls;
+			padding : 1px 0px;
+			width   : $one-sixth;
 		}
+
 		.actionbar {
-			margin-left: $ls;
-			width:       100% - $ls;
+			margin-left : $one-sixth;
+			width       : 100% - $one-sixth;
 		}
-		.account {
-			float: right;
+
+		.account { float : right; }
+
+		.toolblock .interaction a {
+			padding : 10px 0px;
+			width   : 50%;
 		}
-		@include menu-for-desk($ms);
+
+		h1 { padding-top : 60px; }
+
 		@content;
 	}
 }
+// -----------------------------------------------
 
-@mixin site-mobile($bg, $mis) {
-	@include mobile {
-		@include mobile-friendly-account($bg);
-		@include menu-for-mobile($mis);
+// -----------------------------------------------
+// -- Desktop & Tablet
+// -----------------------------------------------
+@mixin page-non-mobile() {
+	@include non-mobile() {
+		.drop-arrow          { font-size : 0.68em; }
+		.user:hover .sidebar { display : block; }
+
+		.logo {
+			display    : block;
+			float      : left;
+			text-align : center;
+		}
+
+		.menu {
+			display : block;
+
+			li:hover .submenu { display : block; }
+			a { padding : 12px 0px 8px; }
+
+			& > ul > li {
+				width : $nonmobile-submenu-width;
+				float : left;
+			}
+		}
+
+		.submenu {
+			float    : left;
+			position : absolute;
+
+			a {
+				font-size : 0.9em;
+				padding   : 10px 5px;
+			}
+		}
+
+		.category-title a { padding : 0px; }
 
 		.session a {
-			color: lighten($bg, $golden-major);
+			color : $session-link-color;
+
+			&:hover { color : $session-link-hover-color; }
 		}
+
 		@content;
 	}
 }
+// -----------------------------------------------
 
-@mixin site-non-desktop() {
+// -----------------------------------------------
+// -- Tablet
+// -----------------------------------------------
+@mixin page-tablet() {
+	@include tablet() {
+		.logo {
+			font-size : 1.5rem;
+			min-width : 90px;
+			padding   : 10px 10px 0px;
+		}
+		.menu {
+			overflow   : auto;
+			margin-top : 5px;
+
+			& > ul > li { width: 19.50%; }
+		}
+		.submenu { width: $tablet-submenu-width; }
+
+		@content;
+
+		.panel-cell { @include mobile-panel-cell(); }
+	}
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile & Tablet
+// -----------------------------------------------
+@mixin page-non-desktop() {
 	@include non-desktop {
 		@content;
 	}
 }
+// -----------------------------------------------
 
-@mixin site-non-mobile($hover-color, $mis) {
-	@include non-mobile {
-		@include menu-for-non-mobile($mis);
+// -----------------------------------------------
+// -- Mobile
+// -----------------------------------------------
+@mixin page-mobile() {
+	@include mobile() {
+		@include mobile-panel-cell();
 
-		.logo {
-			display:    block;
-			float:      left;
-			text-align: center;
+		.site-header {
+			font-size : 0.83em;
 		}
-		.user { @include side-reveal(); }
+
+		.menu,
+		.account { display : block; }
+
+		.submenu, 
+		.drop-arrow { display : none; }
+
+		.menu li {
+			float : left;
+			width : $mobile-menu-width;
+		}
 
 		.session a {
-			color: lighten($hover-color, $golden-major);
-			&:hover { color: $hover-color; }
+			color      : $mobile-login-link-color;
+			background : $mobile-login-link-background;
 		}
-		@content;
-	}
-}
 
-@mixin site-tablet($sms) {
-	@include tablet {
-		@include menu-for-tablet($sms);
-		.logo {
-			font-size: 1.5rem;
-			min-width: 90px;
-			padding:   10px 10px 0px;
-		}
 		@content;
 	}
 }
+// -----------------------------------------------
+// ===============================================
 
 // END
-// ************************************************/
+// ***********************************************/

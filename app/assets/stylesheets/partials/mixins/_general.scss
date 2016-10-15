@@ -1,73 +1,107 @@
-// STYLE PARTIAL: GENERAL MIXINS
+// STYLE PARTIAL : MIXINS : GENERAL
 // ***********************************************
-// USED BY :: ANY
+// BROWSER UNIFY
 // ===============================================
 @mixin boxable () {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing:    border-box;
-	box-sizing:         border-box;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
 }
+
+@mixin columnable($count) {
+	-webkit-column-count : $count;
+	-moz-column-count    : $count;
+	column-count         : $count;
+}
+
+@mixin columnable_by($width) {
+	-webkit-column-width : $width;
+	-moz-column-width    : $width;
+	column-width         : $width;
+}
+// ===============================================
+
+// CONTENT
+// ===============================================
+@mixin arrowed($color) {
+	color       : $color;
+	content     : "» ";
+	font-weight : bolder;
+}
+// ===============================================
+
+// CONTENT :: APPEARANCE
+// ===============================================
 @mixin buttonable($color) {
-	background:  $color;
-	$text-color: contrastable($color);
+	background  : $color;
+	$text-color : contrastable($color);
 
 	a {
-		color: $text-color;
+		color : $text-color;
 		&:hover {
-			color:      $text-color;
-			background: darken($color, 5%);
+			color      : $text-color;
+			background : darken($color, 5%);
 		}
 	}
 }
-@mixin gradientized($deg, $start, $stop) {
-	background: linear-gradient($deg, $start, $stop);
-}
 
-@function contrastable($bg) {
-	$color: lighten($bg, 100%);
-	@if lightness($bg) > 60% { 
-		$color: darken($bg, 100%);
+@function contrastable($background) {
+	$color : lighten($background, 100%);
+
+	@if lightness($background) > 60% { 
+		$color : darken($background, 100%);
 	}
+
 	@return $color
 }
 
+@mixin rowbanding($even-bg) {
+	&:nth-child(2n) {
+		background: $even-bg;
+	}
+}
+
+@mixin simple-brand($background, $border-color, $border-size) {
+	background-color : $background;
+	border-bottom    : $border-size solid $border-color;
+	color            : contrastable($background);
+}
+
+@mixin theading($cap, $th, $bdr-color, $bdr-size) {
+	caption { @include simple-brand($cap, $bdr-color, $bdr-size);      }
+	thead   { @include simple-brand($th, darken($th, 10%), $bdr-size); }
+}
+// ===============================================
+
+// CONTENT :: BORDER RADIUS
+// ===============================================
+@mixin border-radius-bottom($num) {
+	border-bottom-left-radius  : $num;
+	border-bottom-right-radius : $num;
+}
+
+@mixin border-radius-left($num) {
+	border-top-left-radius    : $num;
+	border-bottom-left-radius : $num;
+}
+
+@mixin border-radius-right($num) {
+	border-top-right-radius    : $num;
+	border-bottom-right-radius : $num;
+}
+
+@mixin border-radius-top($num) {
+	border-top-left-radius  : $num;
+	border-top-right-radius : $num;
+}
+// ===============================================
+
+// CONTENT :: CALCULATE
+// ===============================================
 @function gutter-negate($margin) {
 	@return $margin / (100% - (2 * $margin)) * 100%
 }
-
-// USED BY :: LISTS
 // ===============================================
-@mixin columnable($count) {
-	-webkit-column-count: $count;
-	-moz-column-count:    $count;
-	column-count:         $count;
-}
-@mixin columnable_by($width) {
-	-webkit-column-width: $width;
-	-moz-column-width:    $width;
-	column-width:         $width;
-}
-@mixin arrowed($color) {
-	color:       $color;
-	content:     "» ";
-	font-weight: bolder;
-}
-
-// USED BY :: LINKS
-// ===============================================
-@mixin visitable($color) {
-	&:visited {
-		color: desaturate($color, 20%);
-	}
-}
-@mixin rounded-top($num) {
-	border-top-left-radius:  $num;
-	border-top-right-radius: $num;
-}
-@mixin rounded-bottom($num) {
-	border-bottom-left-radius:  $num;
-	border-bottom-right-radius: $num;
-}
 
 // END
 // ***********************************************/

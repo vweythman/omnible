@@ -1,61 +1,64 @@
-// STYLE PARTIAL: SELECTIONS
+// STYLE PARTIAL : SELECTIONS
 // ***********************************************
-// SETUP :: IMPORTS
+// SETUP : : IMPORTS
 // ===============================================
 @import "partials/forms/fields/dropdown";
+// ===============================================
 
-// STYLE :: GENERAL
+// STYLE : : GENERAL
 // ===============================================
 .selectize-control {
-	background: $page-color;
-	display:    inline-block;
-	margin:     0;
-	padding:    0;
-	width:      100%;
+	background : $page-color;
+	display    : inline-block;
+	margin     : 0;
+	padding    : 0;
+	width      : 100%;
 }
+
 .single .selectize-input,
-.single .selectize-input input {
-	cursor: pointer;
-}
+.single .selectize-input input { cursor : pointer; }
+
 .selectize-input {
-	border:  1px solid $border-color;
-	margin:  0;
-	padding: 7px;
-	width:   calc(100% - 16px);
+	border  : 1px solid $border-color;
+	margin  : 0px;
+	padding : 7px;
+	width   : calc(100% - 16px);
+
+	& > .item { display : inline; }
 
 	& > input,
 	& > .item {
-		vertical-align: baseline;
-		zoom:           1;
+		vertical-align : baseline;
+		zoom           : 1;
 	}
-	& > input {
-		border:    none;
-		display:   inline-block;
-		max-width: 100%;
-		margin:    0 2px 0 0 !important;
-		padding:   0;
 
-		&::-ms-clear { display: none;            }
-		&:focus      { outline: none !important; }
+	& > input {
+		border    : none;
+		display   : inline-block;
+		max-width : 100%;
+		margin    : 0px 2px 0px 0px !important;
+		padding   : 0px;
+
+		&::-ms-clear { display : none;            }
+		&:focus      { outline : none !important; }
 	}
-	& > .item {
-		display: inline;
-	}
+
 	.multi & > .item {
-		background:    $page-lighter-minor;
-		border-radius: 5px;
-		color:         $page-darker-major;
-		cursor:        pointer;
-		display:       inline-block;
-		padding:       0 5px;
-		margin:        3px 2px;
+		background    : $select-input-background;
+		border-radius : 5px;
+		color         : $select-input-color;
+		cursor        : pointer;
+		display       : inline-block;
+		margin        : 3px 2px;
+		padding       : 0px 5px;
 
 		&.active { 
-			color: $fire-darker-minor;
-			font-weight: 600;
+			color       : $select-input-active-color;
+			font-weight : 600;
 		}
 	}
 }
+// ===============================================
 
 // END
 // ************************************************/

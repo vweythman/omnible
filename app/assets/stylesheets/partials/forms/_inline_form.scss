@@ -1,87 +1,98 @@
-// STYLE PARTIAL: INLINE FORM
+// STYLE PARTIAL : INLINE FORM
 // ***********************************************
-// SETUP :: IMPORTS
+// SETUP : : IMPORTS
 // ===============================================
 @import "partials/mixins/forms";
 @import "partials/forms/fields";
 @import "partials/forms/fieldsets";
-
-// STYLES
+@import "partials/forms/errors";
 // ===============================================
+
+// SETUP :: VARIABLES
+// ===============================================
+$branch-creation-background  : $page-lighter-minor;
+$inline-form-background      : $page-lightest-minor;
+$inline-submit-background    : $moss-dark-major;
+
+$branch-creation-border-color : $page-darker-minor;
+$creation-border-color        : $page-darkest-minor;
+$editing-border-color         : $water-dark-minor;
+
+$gutter         : $one-twelfth;
+$creation-width : 100% - (2 * $gutter);
+
+$inline-form-color   : $page-darkest-minor;
+$inline-submit-color : $moss-lightest-minor;
+
+// SECTION :: LAYOUT & HEADER
+// ===============================================
+.form-grid { padding-top : 10px; }
+
 .creation-block {
-	background: $page-lightest-minor;
-	width:      calc($five-sixths - 26px);
-	border:     3px solid $page-darkest-minor;
-	padding:    5px 10px;
-	margin:     0 $one-twelfth;
-	color:      $page-darkest-minor;
+	background : $inline-form-background;
+	border     : 3px solid $creation-border-color;
+	color      : $inline-form-color;
+	padding    : 5px 10px;
+	margin     : 5px $gutter;
+	width      : calc(#{$creation-width} - 26px);
 }
-
-.form-grid {
-	padding-top: 10px;
-}
-
-.submit-field {
-	margin: 10px 10px 0px;
-
-	input {
-		@include submission-look($moss-dark-major, $moss-lightest-minor);
-		border-radius: .5em;
-	}
-}
-
-.panel-cell > .primary {
-	margin: 5px 10px;
-}
-
-.primary {
-	padding: 0px;
-}
-
-.field-box {
-	padding: 4px 0px;
-}
-
-.field-value {
-	color: $page-darkest-minor;
-}
-
 
 header .editor-block {
-	color: $page-darkest-minor;
-	margin: 0 auto;
-	width:  calc(90% - 20px);
+	color  : $inline-form-color;
+	margin : 0 auto;
+	width  : calc(90% - 20px);
 
 	form {
-		-moz-box-sizing: border-box;
-		box-sizing:      border-box;
-		background: $page-lightest-minor;
-		color:      $page-darkest-minor;
-		margin:     0px 10px;
-		padding:    15px;
-		width:      calc(100% - 20px);
-		border-top: 25px solid $water-dark-minor;
+		@include boxable();
+
+		background : $inline-form-background;
+		border-top : 25px solid $editing-border-color;
+		color      : $inline-form-color;
+		margin     : 0px 10px;
+		padding    : 15px;
+		width      : calc(100% - 20px);
 	}
 }
 
 .new_branching {
-	background: $page-lighter-minor;
-	border:     2px solid $page-darker-minor;
-	padding:    10px;
-	margin:     10px 0;
-	width:      calc(100% - 20px);
+	background : $branch-creation-background;
+	border     : 2px solid $branch-creation-border-color;
+	padding    : 10px;
+	margin     : 10px 0;
+	width      : calc(100% - 20px);
+}
+// ===============================================
 
-	.primary-fieldset {
-		margin: 0px 15px 10px;
+// SECTION :: FIELDS
+// ===============================================
+.field-value { color : $inline-form-color }
 
-		.field-box {
-			margin: 5px;
-		}
+.submit-field {
+	margin : 10px 10px 0px;
+
+	input {
+		@include submission-look($inline-submit-background, $inline-submit-color);
+		border-radius : .5em;
 	}
+}
+// ===============================================
 
+// SECTION :: FIELDSETS
+// ===============================================
+.field-box { padding : 4px 0px; }
+
+.primary {
+	padding : 0px;
+
+	.panel-cell > & { margin : 5px 10px; }
 }
 
+.new_branching .primary-fieldset {
+	margin : 0px 15px 10px;
 
+	.field-box { margin : 5px; }
+}
+// ===============================================
 
 // END
 // ***********************************************/

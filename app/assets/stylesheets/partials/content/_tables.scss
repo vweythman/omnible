@@ -1,214 +1,208 @@
-// STYLE PARTIAL: TABLES
+// STYLE PARTIAL : TABLES
 // ***********************************************
-// SETUP :: BASE
+// SETUP :: VARIABLES
+// ===============================================
+$row-background : $page-color;
+
+// SECTION :: LAYOUT & HEADER
 // ===============================================
 table {
-	margin: 0;
-	width:  100%;
+	margin : 0;
+	width  : 100%;
 
 	caption {
-		font-size:   1.3em;
-		font-weight: bolder;
-		padding:     20px 25px 10px 25px;
+		font-size   : 1.3em;
+		font-weight : bolder;
+		padding     : 20px 25px 10px 25px;
 	}
 
 	thead {
-		vertical-align: bottom;
+		vertical-align : bottom;
 
-		th { padding: 15px 25px 5px 25px; }
+		th { padding : 15px 25px 5px 25px; }
 	}
 }
 
+.sortable .header:after         { content : "⬩" }
+.sortable .headerSortDown:after { content : "▾" }
+.sortable .headerSortUp:after   { content : "▴" }
+// ===============================================
+
+// SECTION :: TABLE BODY
+// ===============================================
 tbody {
-	text-align: left;
+	text-align : left;
 
-	tr {
-		background: $page-color;
-	}
+	tr { background : $row-background; }
 }
+
+td { padding : 10px 0; }
 
 th {
-	vertical-align: top;
+	vertical-align : top;
 
-	thead & {
-		padding: 15px 25px 5px 25px;
-	}
+	thead & { padding : 15px 25px 5px; }
 
 	tbody & {
-		font-weight: lighter;
-		padding:     10px 0;
+		font-weight : lighter;
+		padding     : 10px 0;
 	}
 }
-
-td {
-	padding: 10px 0;
-}
-
-// TYPE :: SORTABLE AND EDITABLE
 // ===============================================
-.sortable .header:after         { content: "⬩" }
-.sortable .headerSortDown:after { content: "▾" }
-.sortable .headerSortUp:after   { content: "▴" }
 
-// MIXINS :: SLICES
+// TABLES :: MIXINS
 // ===============================================
-@mixin rowbanding($even-bg) {
-	&:nth-child(2n) {
-		background: $even-bg;
+// -----------------------------------------------
+// -- Appearance
+// -----------------------------------------------
+@mixin tableized-results($background, $caption-background, $header-background, $border-color, $border-size) {
+	.tableized-results {
+		background : $background;
+		border     : 10px solid $background;
+
+		@include theading($caption-background, desaturate(lighten($header-background, 15%), 20%), $border-color, $border-size);
 	}
 }
 
-@mixin theading($cap, $th, $bdr-color, $bdr-size) {
-	caption { @include simple-brand($cap, $bdr-color, $bdr-size);      }
-	thead   { @include simple-brand($th, darken($th, 10%), $bdr-size); }
+@mixin indexed-banding($background) {
+	.show-page tr,
+	.index-body tr { @include rowbanding($background); }
 }
+// -----------------------------------------------
 
-// MIXINS :: EDITABLE
-// ===============================================
-@mixin modularized-dossier($bg) {
-	@include gradientized(180deg, $bg, lighten($bg, 20%));
-	border-radius: 10px;
-	box-shadow:    0px 0px 5px $bg;
-	float:         left;
-
-	th {
-		font-weight: bolder;
-		padding:     0;
-		text-align:  center;
-
-		a {
-			@include rounded-top(10px);
-			border-bottom:   3px solid darken($bg, 10%);
-			color:           contrastable($bg);
-			display:         block;
-			margin:          0;
-			text-decoration: none;
-
-			&:hover {
-				background: darken($bg, 15%);
-				color:      contrastable(darken($bg, 25%));
-			}
-		}
-	}
-	th a,
-	.subheading {
-		margin:  0px;
-		padding: 10px 10px 5px;
-	}
-
-	td {
-		background: fade-out($page-color, .4);
-		padding:    0px 0px 5px 0px;
-		font-weight: lighter;
-
-		&:before {
-			background:    lighten($bg, 20%);
-			padding:       7px 0 2px;
-			margin-bottom: 5px;
-		}
-		&:last-child {
-			@include rounded-bottom(10px);
-		}
-	}
-}
-
-// MIXINS :: RUNNING TOTALS
-// ===============================================
-@mixin tally($cap-bg, $hd-bg, $bdr-sz) {
-	.analytics {
-		margin: 15px auto;
-		width:  $three-fourths;
-
-		@include theading($cap-bg, $hd-bg, darken($hd-bg, 15%), $bdr-sz);
-
-		tbody {	text-align: center; }
-
-		tfoot {
-			text-align: center;
-			border-top: $bdr-sz solid darken($hd-bg, 15%);
-			th {
-				padding: 10px;
-			}
-		}
-	}
-}
-
-// MIXINS :: MOBILE FRIENDLY TABLES
-// ===============================================
-@mixin tb-modularize() {
+// -----------------------------------------------
+// -- Mobile Content
+// -----------------------------------------------
+@mixin mobile-friendly-table-data($data-label-color) {
 	thead {
-		display: none;
+		display : none;
 	}
 
 	th, 
 	tr, 
 	td {
-		display: block;
+		display : block;
 	}
 
 	tbody tr {
-		margin: 10px;
+		margin : 10px;
 	}
 
 	th {
-		font-size:      $text-size + 2px;
-		font-weight:    500;
-		padding-bottom: 3px;
+		font-size      : $text-size + 2px;
+		font-weight    : 500;
+		padding-bottom : 3px;
 	}
 	
 	td:before {
-		color:       $page-darker-major;
-		content:     attr(data-label);
-		display:     block;
-		font-weight: bolder;
+		color       : $data-label-color;
+		content     : attr(data-label);
+		display     : block;
+		font-weight : bolder;
 	}
 }
 
-// MIXINS :: RESULTS
-// ===============================================
-@mixin tableized-results($bg, $cap, $hd, $bdr, $size) {
-	.tableized-results {
-		background: $bg;
-		border: 10px solid $bg;
-
-		@include theading($cap, desaturate(lighten($hd, 15%), 20%), $bdr, 5px);
-	}
-}
-
-@mixin results-modularize() {
+@mixin mobile-friendly-data-results() {
 	td {
-		padding: 5px 20px 0px;
+		padding : 5px 20px 0px;
+
+		&:before {
+			margin  : 0px 0px 2px;
+			padding : 5px 0 2px;
+		}
 	}
-	td:before {
-		margin:  0px 0px 2px;
-		padding: 5px 0 2px;
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Tools
+// -----------------------------------------------
+@mixin editable-data-row($background) {
+	background    : linear-gradient(180deg, $background, lighten($background, 20%));
+	border-radius : 10px;
+	box-shadow    : 0px 0px 5px $background;
+	float         : left;
+
+	th {
+		font-weight : bolder;
+		padding     : 0;
+		text-align  : center;
+
+		a {
+			@include border-radius-top(10px);
+
+			border-bottom   : 3px solid darken($background, 10%);
+			color           : contrastable($background);
+			display         : block;
+			margin          : 0;
+			text-decoration : none;
+
+			&:hover {
+				background : darken($background, 15%);
+				color      : contrastable(darken($background, 25%));
+			}
+		}
+	}
+
+	th a,
+	.subheading {
+		margin  : 0px;
+		padding : 10px 10px 5px;
+	}
+
+	td {
+		background  : fade-out($page-color, .4);
+		padding     : 0px 0px 5px 0px;
+		font-weight : lighter;
+
+		&:before {
+			background    : lighten($background, 20%);
+			padding       : 7px 0 2px;
+			margin-bottom : 5px;
+		}
+
+		&:last-child { @include border-radius-bottom(10px); }
 	}
 }
 
-@mixin indexed-banding($bg) {
-	.show-page tr,
-	.index-body tr { @include rowbanding($bg); }
-}
-
-// MIXINS :: SWITCH BOARD
-// ===============================================
-@mixin switch-board($cap-bg, $bdr-bg, $bdr-sz) {
+@mixin switch-board($caption-background, $border-background, $border-size) {
 	.switch-board {
-		background: $page-color;
-		width:      100%;
+		background : $page-color;
+		width      : 100%;
 
-		@include theading($cap-bg, lighten($cap-bg, 20%), $bdr-bg, $bdr-sz);
+		@include theading($caption-background, lighten($caption-background, 20%), $border-background, $border-size);
 
 		tbody {
-			text-align: center;
+			text-align : center;
 
 			th {
-				font-weight:    bolder;
-				padding-bottom: 0;
+				font-weight    : bolder;
+				padding-bottom : 0;
 			}
 		}
 	}
 }
+
+@mixin tally($caption-background, $header-background, $border-size) {
+	.analytics {
+		margin : 15px auto;
+		width  : $three-fourths;
+
+		@include theading($caption-background, $header-background, darken($header-background, 15%), $border-size);
+
+		tbody {	text-align : center; }
+
+		tfoot {
+			text-align : center;
+			border-top : $border-size solid darken($header-background, 15%);
+			th {
+				padding : 10px;
+			}
+		}
+	}
+}
+// -----------------------------------------------
+// ===============================================
 
 // END
 // ***********************************************/

@@ -81,7 +81,7 @@ $content-shadow: 0px 0px 10px $moss-darker-minor;
 }
 
 @include page-non-desktop {
-	.switch-board { @include tb-modularize(); }
+	.switch-board { @include mobile-friendly-table-data($page-darker-major); }
 }
 @include page-non-mobile() {}
 

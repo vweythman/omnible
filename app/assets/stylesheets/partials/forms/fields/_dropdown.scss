@@ -1,54 +1,47 @@
-// STYLE PARTIAL: DROPDOWN FIELDS
+// STYLE PARTIAL : DROPDOWN FIELDS
 // ***********************************************
 // VIEWPORT :: ALL
 // ===============================================
 .selectize-dropdown-content {
-	overflow-y: auto;
-	overflow-x: hidden;
-	max-height: $micro-height;
+	max-height : $micro-height;
+	overflow-y : auto;
+	overflow-x : hidden;
 }
 
 .selectize-dropdown {
-	// -- General
-	// -----------------------------------------------
 	@include boxable();
 
-	position:   absolute;
-	z-index:    10;
-	background: $page-color;
-	border:     1px solid $border-color;
-	border-top: 0 none;	
-	margin:     0;
+	background : $page-color;
+	border     : 1px solid $border-color;
+	border-top : 0px none;	
+	margin     : 0px;
+	position   : absolute;
+	z-index    : 10;
 
 	[data-selectable=""] {
-		cursor:   pointer;
-		overflow: hidden;
+		cursor   : pointer;
+		overflow : hidden;
 	}
 
-	// -- Header
-	// -----------------------------------------------
-	.optgroup:first-child .optgroup-header {
-		border-top: 0 none;
-	}
+	.optgroup:first-child .optgroup-header { border-top : 0 none; }
+
 	.optgroup-header {
-		color:  $water-darker-minor;
-		cursor: default;
+		color  : $water-darker-minor;
+		cursor : default;
 	}
 
-	// -- TEXT
-	// -----------------------------------------------
-	.active        { background: $water-lightest-minor; }
-	.create        { color: $water-darkest-minor;       }
-	.active.create { color: $water-darker-minor;        }
+	.active { background : $selction-active-background; }
+
+	.create        { color : $selction-create-color; }
+	.active.create { color : $selction-active-color; }
 	
 	.option {
-		padding: 7px 5px;
+		padding : 7px 5px;
 
-		&:hover {
-			background: $water-lighter-major;
-		}
+		&:hover { background : $water-lighter-major; }
 	}
 }
+// ===============================================
 
 // END
-// ************************************************/
+// ***********************************************/

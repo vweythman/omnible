@@ -4,13 +4,41 @@
 // ===============================================
 @import "application";
 @import "partials/code/css";
-@import "partials/content/example";
 
 // SECTION :: ALL
 // ===============================================
 // HEADER
 // -----------------------------------------------
 .toolkit, .agents { margin: 5px $one-twelfth; }
+
+// STYLE PARTIAL: PREVIEWER
+// ***********************************************
+// STYLES :: COLORS
+// ===============================================
+.previewer {
+	border :  3px solid $water-color;
+
+	&:before {
+		background : $water-color;
+		color      : $page-color;
+	}
+}
+
+// VIEWPORT :: ALL
+// ===============================================
+.previewer {
+	display : block;
+	margin  :  15px;
+
+	&:before {
+		display : block;
+		font    : bolder ($heading-size - 8px) "Segoe UI";
+		padding : 10px;
+	}
+}
+
+// END
+// ************************************************/
 
 // BODY
 // -----------------------------------------------
@@ -55,7 +83,7 @@
 
 @include page-non-desktop {
 	.tableized-results {
-		@include tb-modularize();
+		@include mobile-friendly-table-data($page-darker-major);
 	}
 }
 

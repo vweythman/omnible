@@ -1,0 +1,349 @@
+/* TEMPLATE: SHOW
+/* ***********************************************/
+// TABLE of CONTENT
+// ===============================================
+// -- SETUP :: IMPORTS
+// -- SETUP :: VARIABLES
+// ----- Metadata
+// ----- Toolkits
+// -- SECTION :: HEADER
+// ----- Pagination
+// ----- Tables
+// ----- Subject Content
+// ----- Work Content
+// -- SECTION :: VIEWPORTS
+// ----- Desktop
+// ----- Desktop & Tablet
+// ----- Tablet
+// ----- Mobile & Tablet
+// ----- Mobile
+// ===============================================
+
+// SETUP :: IMPORTS
+// ===============================================
+@import "application";
+@import "partials/forms/inline_form";
+@import "partials/content/status";
+@import "partials/content/comments";
+// ===============================================
+
+// SETUP :: VARIABLES
+// ===============================================
+$show-title-border-color : $water-dark-major;
+
+$widget-background          : $page-color;
+$widget-title-background    : $water-lighter-minor;
+$widget-title-border-color  : $water-color;
+
+$summary-title-background   : $fire-lightest-minor;
+$summary-title-border-color : $fire-light-minor;
+
+$pagination-background       : $page-light-major;
+$pagination-hover-background : $page-lighter-major;
+$pagination-color            : $water-darkest-major;
+
+$index-list-color : $fire-dark-minor;
+
+$centerpiece-border-color : $page-darkest-major;
+$article-background : $page-color;
+$article-color      : $page-darkest-minor;
+
+$section-title-background : fade-out($page-lightest-minor, .4);
+$section-title-border     : 5px solid $page-light-major;
+$section-title-shadow     : $page-darkest-major;
+
+$article-negate : gutter-negate($gutter);
+$content-negate : $article-negate / 2;
+
+$content-separator-color : $fire-color;
+
+$subject-table-border-color : $fire-color;
+// ===============================================
+
+// SECTION :: HEADER
+// ===============================================
+.show-header h1 {
+	border-bottom : 7px solid $water-dark-major;
+	padding-top   : 15px;
+}
+
+// -----------------------------------------------
+// -- Metadata
+// -----------------------------------------------
+.metadata {
+	margin : 10px $gutter 0px;
+}
+
+.date-metadatum {
+	display : inline-block;
+	margin  : 3px 5px;
+}
+
+.date-label { font-weight : bolder; }
+
+.date-value,
+.byline-value {
+	display : inline-block;
+	margin  : 0px 5px;
+}
+
+
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Toolkits
+// -----------------------------------------------
+.show-header .toolkit:not(.creation) {
+	margin    : 5px $gutter;
+	max-width : calc(100% - #{$gutter * 2});
+}
+
+.alteration {
+	min-width : 50%;
+}
+
+.alteration a {
+	padding : 5px;
+}
+
+.multikit {
+	margin : 0px $gutter;
+}
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: BODY CONTENT
+// ===============================================
+// -----------------------------------------------
+// -- Pagination
+// -----------------------------------------------
+.pageable {
+	background : $widget-background;
+	margin     : 10px;
+	padding    : 10px;
+}
+
+.pageable .field-label {
+	display : none;
+}
+
+.pagination {
+	display      : table;
+	font-weight  : bolder;
+	margin       : 10px 15px;
+	padding      : 0px;
+	table-layout : fixed;
+	width        : calc(100% - 30px);
+
+	li {
+		display    : table-cell;
+		list-style : none;
+		text-align : center;
+		padding    : 2px;
+	}
+
+	a {
+		background      : $pagination-background;
+		border-radius   : 5px;
+		color           : $pagination-color;
+		display         : block;
+		padding         : 7px 5px;
+		text-decoration : none;
+
+		&:hover { background : $pagination-hover-background; }
+	}
+}
+
+.pagination-heading {
+	text-align  : center;
+	font-weight : bolder;
+}
+
+// -----------------------------------------------
+// -- Tables
+// -----------------------------------------------
+table caption {
+	@include simple-brand($widget-title-background, $widget-title-border-color, 2px);
+	font-size : 1.1em;
+	padding   : 10px 3px 5px;
+}
+
+td, 
+tbody th {
+	padding    : 10px;
+	text-align : center;
+}
+tfoot th {
+	vertical-align : middle;
+}
+
+thead th { border-bottom : 3px solid $subject-table-border-color; }
+tfoot    { border-top    : 3px solid $subject-table-border-color; }
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Subject Content
+// -----------------------------------------------
+.subject-body {
+	margin : 0px $gutter;
+
+	p {
+		line-height : 1.5;
+		padding     : 0px 15px 5px;
+	}
+
+	h3 {
+		font-size : 1em;
+		margin    : 10px 15px 0px;
+	}
+
+	.widget {
+		background : $widget-background;
+		margin     : 10px;
+		overflow   : uto;
+
+	}
+}
+
+.subheading {
+	@include simple-brand($widget-title-background, $widget-title-border-color, 2px);
+	font-family   : "Arial", sans-serif;
+	font-size     : 1.25em;
+	font-weight   : 600;
+	padding       : 3px 5px;
+	padding-top   : 10px;
+}
+
+.summary-cell {
+	min-height : 75px;
+
+	.subheading {
+		background    : $summary-title-background;
+		border-bottom : 2px solid $summary-title-border-color;
+	}
+}
+
+.indexable {
+	margin  : 0px;
+	padding : 10px;
+
+	li {
+		padding : 5px 15px;
+	}
+
+	li:before {
+		color   : $index-list-color;
+		padding : 5px;
+	}
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Work Content
+// -----------------------------------------------
+.centerpiece {
+	margin : 20px auto;
+
+	iframe,
+	img {
+		border    : 10px solid $centerpiece-border-color;
+		display   : block;
+		margin    : auto;
+		max-width : calc(100% - 20px);
+	}
+
+	img { width : auto; }
+}
+
+article {
+	@include boxable();
+	
+	background : $article-background;
+	color      : $article-color;
+	margin     : 10px $gutter;
+	padding    : 20px 0px;
+
+	p { line-height : 1.5; }
+
+	.time {
+		margin     : 0px $gutter;
+		text-align : center;
+	}
+}
+
+.section-title {
+	background    : $section-title-background;
+	box-shadow    : 0px 2px 2px $section-title-shadow;
+
+	border-bottom : $section-title-border;
+	border-top    : $section-title-border;
+
+	margin        : 0 ($article-negate * -1 * 3/4);
+	padding       : 15px ($article-negate * 3/4);
+
+	text-align    : center;
+
+	.word-count { display : block; }
+}
+
+h2 {
+	font-size : $heading-size - 5px;
+	margin    : 0px;
+	padding   : 0px;
+}
+
+hr {
+	background : $content-separator-color;
+	border     : none;
+	padding    : 1px;
+	margin     : 25px auto;
+	width      : 45%;
+}
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: VIEWPORTS
+// ===============================================
+// -----------------------------------------------
+// -- Desktop
+// -----------------------------------------------
+@include page-desktop() {
+
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Desktop & Tablet
+// -----------------------------------------------
+@include page-non-mobile() {
+
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Tablet
+// -----------------------------------------------
+@include page-tablet() {
+
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile & Tablet
+// -----------------------------------------------
+@include page-non-desktop {
+
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Mobile
+// -----------------------------------------------
+@include page-mobile() {
+
+}
+// -----------------------------------------------
+// ===============================================
+
+/* END
+/* ***********************************************/

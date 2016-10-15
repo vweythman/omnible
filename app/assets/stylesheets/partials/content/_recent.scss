@@ -1,55 +1,98 @@
-// STYLE PARTIAL: RECENT
+// STYLE PARTIAL : RECENT
 // ***********************************************
-// VIEWPORT :: ALL
+// SETUP :: VARIABLES
+// ===============================================
+$excerpt-background            : $water-darker-minor;
+$preview-background            : $page-color;
+$preview-title-background      : $water-dark-minor;
+$preview-title-hover-back      : $water-darkest-minor;
+$recent-background             : $page-darker-major;
+$recent-index-background       : $page-darker-major;
+$recent-index-hover-background : $fire-color;
+$recent-title-background       : $fire-color;
+
+$recent-title-border-color : $fire-dark-minor;
+
+$preview-gutter     : $golden-micro;
+$recent-index-width : $one-fourth;
+
+$excerpt-color            : $page-color;
+$preview-title-color      : $page-lightest-major;
+$recent-index-color       : $water-color;
+$recent-index-hover-color : $page-darkest-major;
+// ===============================================
+
+// SECTION :: LAYOUT & HEADER
 // ===============================================
 .recent-panel {
-	background: $water-darker-major;
+	background : $recent-background;
 }
+
 .recent-widget {
-	min-height: 200px;
+	min-height : 200px;
 
 	& > header {
-		background:    $fire-color;
-		border-bottom: 5px solid $fire-dark-minor;
-		margin:        0;
-		padding:       0 5px;
-		padding-top:   25px;
+		background    : $recent-title-background;
+		border-bottom : 5px solid $recent-title-border-color;
+		margin        : 0px;
+		padding       : 25px 5px 0px;
 	}
+
 	a {
-		text-decoration: none;
-		font-weight:     bolder;
-		display:         block;
+		display         : block;
+		font-weight     : bolder;
+		text-decoration : none;
 	}
+
 	h2 {
-		padding: 5px 10px;
-		margin:  0;
+		padding : 5px 10px;
+		margin  : 0px;
 	}
+
 	.widget-body {
-		padding-top: 8px;
+		padding-top : 8px;
 	}
 }
+// ===============================================
+
+// SECTION :: CONTENT
+// ===============================================
 .preview {
-	background: $page-color;
-	margin:     0 $golden-micro 10px;
+	background : $preview-background;
+	margin     : 0px $preview-gutter 10px;
 }
 .preview-title {
-	padding: 0;
+	padding : 0px;
 	a {
-		background: $water-dark-minor;
-		color:      $page-lightest-major;
-		padding:    5px;
+		background : $preview-title-background;
+		color      : $preview-title-color;
+		padding    : 5px;
 
-		&:hover {
-			background: $water-darkest-minor;
-			color:      $water-lighter-minor;
-		}
+		&:hover { background : $preview-title-hover-back; }
 	}
 }
 .excerpt {
-	padding:    5px 5px 25px;
-	color:      $page-color;
-	background: $water-darker-minor;
+	background : $excerpt-background;
+	color      : $excerpt-color;
+	padding    : 5px 5px 25px;
 }
+
+.see-more a {
+	border-radius : 10px;
+	background    : $recent-index-background;
+	color         : $recent-index-color;
+	margin        : 15px auto;
+	min-width     : 100px;
+	padding       : 10px 15px;
+	text-align    : center;
+	width         : $one-fourth;
+
+	&:hover {
+		background : $recent-index-hover-background;
+		color      : $recent-index-hover-color;
+	}
+}
+// ===============================================
 
 // END
 // ***********************************************/

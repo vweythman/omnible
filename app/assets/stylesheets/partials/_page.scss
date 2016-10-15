@@ -1,283 +1,315 @@
-// STYLE PARTIAL: PAGE
+// STYLE PARTIAL : PAGE
 // ***********************************************
-// SETUP :: GENERAL IMPORTS
+// SETUP : : GENERAL IMPORTS
 // ===============================================
 @import "partials/grid";
-@import "partials/headers/page";
 @import "partials/content/alerts";
 @import "partials/content/tables";
 @import "partials/content/toolkits";
-
-// SETUP :: MIXINS
 // ===============================================
-@mixin simple-brand($bg, $bdr, $size) {
-	background:    $bg;
-	border-bottom: $size solid $bdr;
-	color:         contrastable($bg);
+
+// SETUP :: VARIABLES
+// ===============================================
+// -----------------------------------------------
+// -- Page Layout & Header
+// -----------------------------------------------
+$exit-color            : $page-color;
+$exit-background       : $water-light-minor;
+$exit-hover-color      : $water-dark-minor;
+$exit-hover-background : $page-color;
+
+$subject-background : $water-dark-minor; 
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Header Navigation
+// -----------------------------------------------
+$crumb-left-background  : $water-darker-minor;
+$crumb-right-background : $water-dark-minor;
+$crumb-background       : linear-gradient(90deg, $crumb-left-background, $crumb-right-background);
+
+$crumb-hover-left-background  : $water-light-minor;
+$crumb-hover-right-background : $water-dark-minor;
+$crumb-hover-background       : linear-gradient(90deg, $crumb-hover-left-background, $crumb-hover-right-background);
+
+$crumb-color       : $page-color;
+$crumb-hover-color : $water-lightest-minor;
+$datum-key-color   : $fire-light-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Footer Navigation
+// -----------------------------------------------
+$path-color      : $water-color;
+$path-link-color : $water-lighter-major;
+$path-gutter     : 20%;
+$path-width      : 100% - $path-gutter * 2;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Content Body
+// -----------------------------------------------
+$link-color       : saturate($water-dark-minor, $golden-small);
+$link-hover-color : $page-darker-major;
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: HEADINGS
+// ===============================================
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family : "Segoe UI";
+	font-weight : 900;
+	margin      : 0px;
+	padding     : 0px;
+}
+h1 {
+	font-size : $heading-size;
+	padding   : 15px $gutter 5px;
+}
+h2 {
+	font-size   : $heading-size - 6px;
+	font-weight : lighter;
+	margin      : 0px;
 }
 
-// SECTION :: ALL
+.subtitle {
+	display     : block;
+	font-size   : 0.8em;
+	font-weight : 500;
+}
+
+.byline {
+	display     : block;
+	font-weight : lighter;
+}
 // ===============================================
+
+// SECTION :: LAYOUT & HEADER
+// ===============================================
+// -----------------------------------------------
+// -- Page
+// -----------------------------------------------
 .page-content {
-	margin:   0;
-	padding:  0;
+	margin   : 0px;
+	padding  : 0px;
 }
 
 .dismissal {
-	float:  left;
-	height: 26px;
-	margin: -15px;
-	width:  26px;
-	cursor: pointer;
-	text-decoration: none;
-
-	color:      $page-color;
-	background: $water-light-minor;
+	background      : $exit-background;
+	color           : $exit-color;
+	cursor          : pointer;
+	float           : left;
+	height          : 26px;
+	margin          : -15px;
+	width           : 26px;
+	text-decoration : none;
 
 	&:hover {
-		color:      $water-dark-minor;
-		background: $page-color;
+		background : $exit-hover-background;
+		color      : $exit-hover-color;
 	}
 }
 
-.dashboard-header {
-	background:    $water-dark-minor;;
-	border-bottom: 7px solid $water-dark-major;
+.page-body  { margin : 25px $gutter; }
+.index-body { margin : 10px $gutter; }
+
+.subject-body {
+	background : $subject-background;
+	padding    : 10px;
 }
 
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Header Metadata
+// -----------------------------------------------
 .found {
-	font-size:   1.2em;
-	font-weight: bolder;
-	margin:      0px;
-	padding:     5px $one-twelfth;
+	font-size   : 1.2em;
+	font-weight : bolder;
+	margin      : 0px;
+	padding     : 5px $gutter;
 }
 
 .metadata {
-	clear:        both;
-	display:      table;
-	table-layout: fixed;
-	padding:      8px 0px;
-
-	.datum {
-		display: table-cell;
-		padding: 0px 5px 0px 0px;
-	}
+	clear        : both;
+	display      : table;
+	padding      : 8px 0px;
+	table-layout : fixed;
 }
 
 .datum {
-	font-size: 1.2em;
-	.key {
-		color: $fire-light-minor;
-	}
-}
+	display   : table-cell;
+	font-size : 1.2em;
+	padding   : 0px 5px 0px 0px;
 
-// SECTION :: BODY
-// ===============================================
-// -- Layout
+	.key { color : $datum-key-color; }
+}
 // -----------------------------------------------
-.page-body {
-	margin: 25px $one-twelfth;
-}
+// ===============================================
 
-.index-body {
-	margin: 10px $one-twelfth;
-}
-
-.subject-body {
-	background: $water-dark-minor;
-	padding:    10px;
-}
-.notice {
-	margin:   0 $one-twelfth;
-	position: absolute;
-	width:    $one-sixth;
-}
-
+// SECTION :: NAVIGATION
+// ===============================================
+// -----------------------------------------------
+// -- Header Navigation
+// -----------------------------------------------
 .breadcrumbs {
-	background: white;
-	display:       table;
-	table-layout:  fixed;
-	padding: 0;
-	margin: 20px 0;
+	display      : table;
+	margin       : 20px 0px;
+	padding      : 0px;
+	table-layout : fixed;
+
+	li { display : table-cell; }
 }
-.breadcrumbs li {
-	display: table-cell;
-}
-
-$crumb-right-color: $water-dark-minor;
-$crumb-left-color:  $water-darker-minor;
-
-$crumb-hover-right-color: $water-dark-minor;
-$crumb-hover-left-color:  $water-light-minor;
-
-$crumb-text-color:       $page-color;
-$crumb-hover-text-color: $water-lightest-minor;
 
 .crumb-link {
-	display: block;
-	padding: 10px 10px 9px 30px;
-	text-decoration: none;
-	color:      $crumb-text-color;
-	background: linear-gradient(90deg, $crumb-left-color, $crumb-right-color);
+	background      : $crumb-background;
+	color           : $crumb-color;
+	display         : block;
+	padding         : 10px 10px 9px 30px;
+	text-decoration : none;
 
 	&:after {
-		content: '';
-		display: block;
-		width:   0;
-		height:  0;
-		margin:      -10px -46px;
-		margin-left: 20px;
-		float:       right;
+		content     : '';
+		display     : block;
+		width       : 0px;
+		height      : 0px;
+		margin      : -10px -46px;
+		margin-left : 20px;
+		float       : right;
 
-		border: 18px solid transparent;
-		border-left-color: $crumb-right-color;
+		border            : 18px solid transparent;
+		border-left-color : $crumb-right-background;
 	}
 
 	&:hover {
-		color:      $crumb-hover-text-color;
-		background: linear-gradient(90deg, $crumb-hover-left-color, $crumb-hover-right-color);
+		background : $crumb-hover-background;
+		color      : $crumb-hover-color;
 
-		&:after {
-			border-left-color: $crumb-hover-right-color;
-		}
+		&:after { border-left-color : $crumb-hover-right-background; }
 	}
 }
-
-// -- Text
 // -----------------------------------------------
-a {
-	color: saturate($water-dark-minor, $golden-small);
 
-	&:hover {
-		color:           $page-darker-major;
-		text-decoration: none;
+// -----------------------------------------------
+// -- Body Navigation
+// -----------------------------------------------
+.curation-navigation {
+	margin  : 0px;
+	padding : 20px;
+
+	li:before { padding : 0px 6px; }
+}
+
+// -----------------------------------------------
+// -- Footer Navigation
+// -----------------------------------------------
+.path-finder {
+	color       : $path-color;
+	font-weight : bolder;
+	margin      : 0px auto;
+	padding     : 10px $path-gutter 35px;
+	text-align  : center;
+	width       : $path-width;
+
+	a {
+		color           : $path-link-color;
+		text-decoration : none;
+	}
+
+	a:hover {
+		color           : $path-color;
+		text-decoration : underline;
 	}
 }
-p {
-	margin:  0;
-	padding: 5px 0;
-}
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: CONTENT BODY
+// ===============================================
+// -----------------------------------------------
+// -- Code
+// -----------------------------------------------
 pre {
-	overflow:    auto;
-	white-space: pre-wrap;
+	overflow    : auto;
+	white-space : pre-wrap;
 }
-ul {
-	list-style: none;
-}
-article ol li {
-	padding: 0;
-}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Definitions
+// -----------------------------------------------
 dl {
-	margin:  0;
-	padding: 0;
+	margin  : 0px;
+	padding : 0px;
 }
-dd {
-	padding: 0px 25px;
-}
+
 dd,
-dt { margin: 0; }
-dt {
-	padding: 1px 5px;
-	padding-top: 10px;
-}
-dt:first-child {
-	padding-top: 0;
-}
+dt { margin : 0px; }
+
+dd { padding : 0px 25px; }
+dt { padding : 10px 5px 1px 5px }
+
+dt:first-child { padding-top : 0px; }
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Lists
+// -----------------------------------------------
+ul { list-style : none; }
+article ol li { padding : 0px; }
+
 .indexable dd:before, 
 .indexable li:before {
-	font-size:   12px;
-	margin-left: -12px;
+	font-size   : 12px;
+	margin-left : -12px;
 }
 .indexable li {
-	padding: 0px 15px 5px;
+	padding : 0px 15px 5px;
 }
 .indexable-data:before {
 	@include arrowed($fire-dark-minor);
 }
+// -----------------------------------------------
 
-.curation {
-	margin:  0px;
-	padding: 20px;
-
-	li:before {
-		padding: 0 6px;
-	}
-}
-
-
-// SECTION :: FOOTER
-// ===============================================
-.path-finder {
-	color:       $water-color;
-	font-weight: bolder;
-	margin:      0px auto;
-	padding:     10px 20% 35px 20%;
-	text-align:  center;
-	width:       60%;
-
-	a {
-		text-decoration: none;
-		color: $water-lighter-major;
-
-		&:hover { text-decoration: underline; }
-	}
-}
-.see-more a {
-	background:    $page-darker-major;
-	border-radius: 10px;
-	color:         $water-lighter-minor;
-	margin:        15px auto;
-	min-width:     100px;
-	padding:       10px 15px;
-	text-align:    center;
-	width:         $one-fourth;
+// -----------------------------------------------
+// -- Text
+// -----------------------------------------------
+a {
+	color : $link-color;
 
 	&:hover {
-		background: $fire-color;
-		color:      $page-darkest-major;
+		color           : $link-hover-color;
+		text-decoration : none;
 	}
 }
-
-// SECTION :: VIEWPORT SPECIFIC
+p {
+	margin  : 0;
+	padding : 5px 0;
+}
+// -----------------------------------------------
 // ===============================================
-@mixin page-desktop() {
-	@include site-desktop($one-sixth, $three-fourths)  {
-		h1 {
-			padding-top: 60px;
-		}
-		.toolblock .interaction a {
-			padding: 10px 0;
-			width:   50%;
-		}
-		@content;
-	}
+
+
+// ===============================================
+// SETUP :: MIXINS
+// ===============================================
+@mixin page-look($page-background, $page-border) {
+	.page-content { background: $page-background; }
+	.path-finder  { border-top: 7px solid $page-border; }
 }
 
-@mixin page-mobile() {
-	@include site-mobile($water-dark-minor, $one-fifth) {
-		@include mobilize-cell();
-		@content;
+@mixin header-look($header-background, $heading-background, $page-border) {
+	.page-content > header {
+		background:    $header-background;
+		border-bottom: 7px solid $page-border;
 	}
-}
-
-@mixin page-non-desktop() {
-	@include site-non-desktop {
-		@content;
-	}
-}
-
-@mixin page-non-mobile() {
-	@include site-non-mobile($water-light-minor, $one-fifth) {
-		@content;
-	}
-}
-
-@mixin page-tablet() {
-	@include site-tablet($one-fifth) {
-		@content;
-		.panel-cell {
-			@include mobilize-cell()
-		}
+	h1 {
+		background: $heading-background;
 	}
 }
 

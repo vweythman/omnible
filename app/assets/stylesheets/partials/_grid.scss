@@ -1,47 +1,48 @@
-// STYLE PARTIAL: GRID
+// STYLE PARTIAL : GRID
 // ***********************************************
-// GENERAL
+// GRID LAYOUT
 // ===============================================
-@mixin mobilize-cell() {
-	.panel-cell { width: $one-whole !important; }
-}
-
-.poster {
-	margin:   0;
-	padding:  0;
-	overflow: auto;
-	width:    100%;
-}
+.poster, 
 .grid-panel {
-	margin:   0;
-	overflow: auto;
-	padding:  0;
-	width:    100%;
+	margin   : 0px;
+	padding  : 0px;
+	overflow : auto;
+	width    : 100%;
 }
+
 .panel-cell {
-	float:   left;
-	margin:  0;
-	padding: 0;
+	float   : left;
+	margin  : 0px;
+	padding : 0px;
 }
+// ===============================================
 
-.solo    { width: $one-whole;  }
-.duo     { width: $one-half;   }
-.trio    { width: $one-third;  }
-.quartet { width: $one-fourth; }
-.quintet { width: $one-fifth;  }
-.sextet  { width: $one-sixth;  }
-.dectet  { width: $one-tenth;  }
+// GRID SIZES
+// ===============================================
+.solo    { width : $one-whole;  }
+.duo     { width : $one-half;   }
+.trio    { width : $one-third;  }
+.quartet { width : $one-fourth; }
+.quintet { width : $one-fifth;  }
+.sextet  { width : $one-sixth;  }
+.dectet  { width : $one-tenth;  }
 
-.golden-major  { width: $golden-major;  }
-.golden-minor  { width: $golden-minor;  }
+.golden-major { width : $golden-major;  }
+.golden-minor { width : $golden-minor;  }
 
-.golden-large  { width: $golden-large;  }
-.golden-small  { width: $golden-small;  }
+.golden-large { width : $golden-large;  }
+.golden-small { width : $golden-small;  }
 
-.third-quartet  { width: $three-fourths; }
-.fourth-quintet { width: $four-fifths;   }
-.fifth-sextet   { width: $five-sixths;   }
-.ninth-dectet   { width: $nine-tenths;   }
+.third-quartet  { width : $three-fourths; }
+.fourth-quintet { width : $four-fifths;   }
+.fifth-sextet   { width : $five-sixths;   }
+.ninth-dectet   { width : $nine-tenths;   }
+// ===============================================
+
+// MOBILE
+// ===============================================
+@mixin mobile-panel-cell() { .panel-cell { width : $one-whole !important; } }
+// ===============================================
 
 // END
 // ************************************************/

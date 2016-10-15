@@ -1,48 +1,50 @@
-// STYLE PARTIAL: TOGGLE
+// STYLE PARTIAL : TOGGLE
 // ***********************************************
+// TOGGLE
+// ===============================================
 .show-toggle,
 .hide-toggle {
-	background: $page-color;
-	cursor:     pointer;
+	background : $toggle-background;
+	cursor     : pointer;
+	width      : $toggle-width;
 }
 
 .show-toggle {
-	border-bottom: 3px solid $moss-dark-major;
-	color:         $moss-dark-major;
+	border-bottom : 3px solid $toggle-show-color;
+	color         : $toggle-show-color;
 
-	border-radius: 5px;
-	display:       none;
-	font-weight:   bolder;
-	padding:       7px 10px 3px;
-	text-align:    center;
-	margin:        5px auto;
-	width:         $one-fifth;
+	border-radius : 5px;
+	display       : none;
+	font-weight   : bolder;
+	padding       : 7px 10px 3px;
+	margin        : 5px auto;
+	text-align    : center;
 
 	&:hover {
-		background: $moss-lighter-major;
+		background : $toggle-show-hover-color;
 	}
 }
 
 .hide-cell {
-	display: inline-block;
-	margin:  0 10px;
+	display : inline-block;
+	margin  : 0 10px;
 }
 
 .hide-toggle {
-	border-top: 3px solid $fire-dark-minor;
-	color:      $fire-dark-minor;
+	border-top : 3px solid $toggle-hide-color;
+	color      : $toggle-hide-color;
 
-	border-radius:  5px;
-	font-weight:    600;
-	letter-spacing: 2px;
-	padding:        2px 10px;
-	text-align:     center;
-	width:          $one-fifth;
+	border-radius  : 5px;
+	font-weight    : 600;
+	letter-spacing : 2px;
+	padding        : 2px 10px;
+	text-align     : center;
 
 	&:hover {
-		background: $fire-lighter-major;
+		background : $toggle-hide-hover-color;
 	}
 }
+// ===============================================
 
 /* END
 /* ***********************************************/

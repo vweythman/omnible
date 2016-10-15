@@ -1,63 +1,63 @@
-// STYLE PARTIAL: SWITCH FIELDS
+// STYLE PARTIAL : SWITCH FIELDS
 // ***********************************************
 // modification of http://callmenick.com/post/css-toggle-switch-examples
 @mixin toggle-button($circle, $pad, $timing, $on_color, $off_color) {
 	.switch-field {
-		max-width: 100px;
-		margin:    0 auto;
+		max-width : 100px;
+		margin    : 0 auto;
 
 		.switch {
-			margin-left: -999px;
-			visibility:  hidden;
+			margin-left : -999px;
+			visibility  : hidden;
 			
 			& + label {
-				background-color: $off_color;
-				border-radius:    $circle;
-				cursor:           pointer;
-				display:          block;
-				float:            left;
-				height:           $circle;
-				margin:           0px;
-				padding:          0px;
-				position:         relative;
-				transition:       background $timing;
-				user-select:      none;
-				width:            100%;
+				background-color : $off_color;
+				border-radius    : $circle;
+				cursor           : pointer;
+				display          : block;
+				float            : left;
+				height           : $circle;
+				margin           : 0px;
+				padding          : 0px;
+				position         : relative;
+				transition       : background $timing;
+				user-select      : none;
+				width            : 100%;
 				
 				&:before,
 				&:after {
-					content:  "";
-					display:  block;
-					position: absolute;
+					content  : "";
+					display  : block;
+					position : absolute;
 				}
 				&:before {
-					background-color: fade-out($page-color, .5);
-					border-radius:    $circle;
-					transition:       background $timing;
+					background-color : fade-out($page-color, .5);
+					border-radius    : $circle;
+					transition       : background $timing;
 
-					bottom: $pad;
-					left:   $pad;
-					right:  $pad;
-					top:    $pad;
+					bottom : $pad;
+					left   : $pad;
+					right  : $pad;
+					top    : $pad;
 				}
 				&:after  {
-					background-color: $off_color;
-					border-radius:    $circle - $pad * 4;
-					transition:       margin $timing, background $timing;
-					width:            $circle - $pad * 4;
+					background-color : $off_color;
+					border-radius    : $circle - $pad * 4;
+					transition       : margin $timing, background $timing;
+					width            : $circle - $pad * 4;
 
-					top:    $pad * 2;
-					left:  $pad * 2;
-					bottom: $pad * 2;
+					top    : $pad * 2;
+					left   : $pad * 2;
+					bottom : $pad * 2;
 				}
 			}
 
 			&:checked + label,
 			&:checked + label:after {
-				background: $on_color;
+				background : $on_color;
 			}
 			&:checked + label:after {
-				margin-left: calc(100% - #{$circle});
+				margin-left : calc(100% - #{$circle});
 			}
 		}
 	}

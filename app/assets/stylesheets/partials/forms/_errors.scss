@@ -1,0 +1,67 @@
+// STYLE PARTIAL : ERRORS
+// ***********************************************
+// SETUP :: VARIABLES
+// ===============================================
+$form-error-background : $page-color;
+$form-error-color      : $stoplight-go;
+$form-erorr-width      : $two-thirds;
+// ===============================================
+
+// ERRORS & ANSWERS
+// ===============================================
+.error-explanation {
+	@include border-radius-bottom(0.75em);
+
+	background : $form-error-background;
+	color      : $form-error-color;
+	margin     : 10px 0;
+	min-width  : 250px;
+	width      : $form-erorr-width;
+
+	h2 {
+		font-weight    : bold;
+		border-bottom  : 3px solid $form-error-background;
+		letter-spacing : 1px;
+		padding        : 4px 10px 2px;
+	}
+
+	ul {
+		padding    : 0px 20px 5px;
+		margin     : 0px;
+		font-style : italic;
+	}
+
+	li { padding : 5px 0px 0px; }
+}
+
+.field-label .field_with_errors label {
+	@include border-radius-top(3px);
+
+	background : $form-error-color;
+	color      : $form-error-background;
+	display    : block;
+	text-align : center;
+
+	.string-field & {
+		margin     : -8px -10px 0px -10px;
+		padding    : 8px 10px 0px 10px;
+	}
+
+	.text-field & {
+		margin  : -10px 0px -5px;
+		padding : 10px 0px 5px;
+	}
+}
+
+.field-value .field_with_errors {
+	input { border : 2px solid $form-error-color !important; }
+
+	.text-field & {
+		border : 2px solid $form-error-color;
+		margin : -2px;
+	}
+}
+// ===============================================
+
+/* END
+/* ***********************************************/

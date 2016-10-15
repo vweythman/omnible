@@ -1,61 +1,59 @@
-// STYLE PARTIAL: GENERAL PAGINATION
+// STYLE PARTIAL : GENERAL PAGINATION
 // ***********************************************
-@mixin pagination-blocks($block-bg, $current-bg, $hover-bg, $size) {
+@mixin pagination-blocks($block-background, $current-block-background, $block-hover-background, $block-size) {
 	.pagination {
-		list-style: none;
-		margin:     0 auto;
-		padding:    10px 0;
-		overflow:   auto;
-		width:      100%;
+		list-style : none;
+		margin     : 0px auto;
+		padding    : 10px 0px;
+		overflow   : auto;
+		width      : 100%;
 
 		a {
-			color:   contrastable($block-bg);
-			display: block;
-			padding: 10px;
-			text-decoration: none;
+			color   : contrastable($block-background);
+			display : block;
+			padding : 10px;
+			text-decoration : none;
 			
 			&:hover {
-				background:    $hover-bg;
-				border-radius: 4px;
-				color:         contrastable($hover-bg);
+				background    : $block-hover-background;
+				border-radius : 4px;
+				color         : contrastable($block-hover-background);
 			}
 		}
 
 		li {
-			background:    $block-bg;
-			border-radius: 5px;
-			display:       inline-block;
-			font-weight:   bolder;
-			margin:        0 10px 0 0px;
-			width:         calc(#{$size} - 10px);
+			background    : $block-background;
+			border-radius : 5px;
+			display       : inline-block;
+			font-weight   : bolder;
+			margin        : 0px 10px 0px 0px;
+			width         : calc(#{$block-size} - 10px);
 		}
 
 		li:last-child {
-			margin: 0;
-			width:  $size;
+			margin : 0px;
+			width  : $block-size;
 		}
 
 		.current {
-			background: $current-bg;
-			color:      contrastable($current-bg);
-			padding:    10px 0;
-			text-align: center;
+			background : $current-block-background;
+			color      : contrastable($current-block-background);
+			padding    : 10px 0px;
+			text-align : center;
 		}
 	}
 
 	.next,
-	.last {
-		text-align: right;
-	}
+	.last { text-align : right; }
 }
 
 @mixin mobilize-pagination() {
-	header .pagination { display: none; }
+	header .pagination { display : none; }
 
 	.pagination li {
-		display: block;
-		margin:  5px !important;
-		width:   calc(100% - 10px) !important;
+		display : block;
+		margin  : 5px !important;
+		width   : calc(100% - 10px) !important;
 	}
 }
 

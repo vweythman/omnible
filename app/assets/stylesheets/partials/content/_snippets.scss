@@ -3,95 +3,125 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "partials/content/status";
-
-// VIEWPORT :: ALL
 // ===============================================
-// -- General
-// -----------------------------------------------
-.snippet {
-	overflow:   auto;
-	box-shadow: 0px 0px 2px $page-darkest-major;
-	padding:    10px;
 
-	.icon {
-		color: $fire-dark-minor;
+// SETUP :: VARIABLES
+// ===============================================
+$chapter-link-background   : $water-lighter-minor;
+$snippet-icon-color        : $fire-dark-minor;
+
+$snippet-meta-color        : $page-darker-major;
+$snippet-meta-label-width  : $golden-little;
+
+$snippet-shadow            : $water-dark-major;
+
+$snippet-title-color       : $water-darker-minor;
+$snippet-title-hover-color : $fire-dark-minor;
+
+$snippet-inner-border      : 1px solid fade-out($snippet-shadow, $golden-major / 100%);
+// ===============================================
+
+// SETUP :: LAYOUT
+// ===============================================
+.snippet {
+	overflow   : auto;
+	box-shadow : 0px 0px 2px $snippet-shadow;
+
+	.meta-label {
+		display : inline-block;
+		padding : 0px 10px 0px 0px;
 	}
+}
+// ===============================================
+
+// SETUP :: HEADER
+// ===============================================
+.snippet-header {
+	padding     : 10px;
+	padding-top : 0px;
 
 	h4 {
-		color:   $water-darker-major;
-		margin:  0px;
-		padding: 5px 0;
+		border-bottom : $snippet-inner-border;
+		color         : $snippet-title-color;
+		margin        : 0px -10px;
+		padding       : 5px;
+
 		a {
-			color: $water-dark-major;
-			&:hover {
-				color: $fire-dark-minor;
-			}
+			color : $snippet-title-color;
+
+			&:hover { color : $snippet-title-hover-color; }
+		}
+	}
+
+	.icon {
+		color: $snippet-icon-color;
+	}
+
+	.ratings span {
+		display : inline-block;
+		padding : 4px 10px;
+  		font-size: 1.2em;
+	}
+}
+
+.chapters {
+	text-align : right;
+	margin     : 10px;
+	margin-top : 0;
+	padding    : 0;
+
+	a {
+		background      : $chapter-link-background;
+		display         : inline-block;
+		font-weight     : bolder;
+		padding         : 5px 10px 10px;
+		width           : 20%;
+		text-align      : center;
+		text-decoration : none;
+
+		&:hover {
+			background : none;
 		}
 	}
 }
-.time-block {
-	overflow: auto;
-}
+// ===============================================
 
-// -- About
-// -----------------------------------------------
-.snippet-detail {
-	background: $page-color;
-	border:  1px solid $page-light-minor;
-}
-
-.snippet-meta {
-	padding: 0px 5px;
-}
-
+// SETUP :: BODY
+// ===============================================
 .summary {
-	font-style: italic;
-	padding:    10px;
-	text-align: center;
-}
-
-.about {
-	color:       $page-darkest-major;
-	font-size:   .95em;
-	font-weight: bolder;
-	overflow:    auto;
-}
-
-.agents, 
-.chapters-count,
-.time {
-	float:   left;
-	padding: 6px 10px;
+	clear      : both;
+	font-style : italic;
+	padding    : 10px;
+	text-align : center;
 }
 
 .tags {
-	text-align: right;
+	padding    : 5px 10px 10px;
+	text-align : right;
 }
+// ===============================================
 
-.ratings span {
-	padding: 4px 10px;
-	display: inline-block;
-}
+// SETUP :: FOOTER
+// ===============================================
+.snippet-footer {
+	border-top : $snippet-inner-border;
+	padding    : 10px 0px;
+	color      : $snippet-meta-color;
 
-// -- Length
-// -----------------------------------------------
-.chapters {
-	text-align: right;
-	margin:     10px;
-	margin-top: 0;
-	padding:    0;
+	.content-metadatum {
+		display : inline-block;
+		padding : 0px 10px;
+	}
 
-	a {
-		background:  $water-lighter-minor;
-		display:     inline-block;
-		text-align:  center;
-		font-weight: bolder;
-		padding:     5px 10px 10px;
-		width:       20%;
-		text-decoration: none;
-		&:hover {
-			background: $fire-lighter-major;
-		}
+	.meta-label {
+		font-weight : bolder;
+	}
+
+	.date-value,
+	.byline-value {
+		padding    : 0px;
+		font-style : italic;
+
 	}
 }
 
@@ -99,14 +129,14 @@
 // ===============================================
 @mixin mobile-snippet {
 	.snippet {
-		margin:       10px;
-		border-width: 5px;
+		margin       : 10px;
+		border-width : 5px;
 	}
 }
 
 @mixin non-mobile-snippet {
 	.snippet {
-		margin: 15px;
+		margin : 15px;
 	}
 }
 

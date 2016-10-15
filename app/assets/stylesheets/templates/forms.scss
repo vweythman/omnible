@@ -1,338 +1,347 @@
-/* TEMPLATE: GENERATE
+/* TEMPLATE: FORMS FOR UPLOADS
 /* ***********************************************/
+// TABLE of CONTENT
+// ===============================================
+// -- SETUP :: IMPORTS
+// -- SECTION :: LAYOUT & HEADER
+// -- SECTION :: FORM CONTENT
+// ----- Text Content
+// ----- Images
+// ----- Selections // Choices
+// ----- Selections // Choice Widths
+// ----- Selections // Multichoice
+// ----- Tags
+// -- SECTION :: FIELDSETS
+// ----- General
+// ----- Meta
+// ----- Opinion
+// -- SECTION :: HELP
+// -- SECTION :: FOOTER
+// -- SECTION :: VIEWPORTS
+// ===============================================
+
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
+@import "variables/form";
+
 @import "partials/mixins/forms";
 @import "partials/forms/fields";
 @import "partials/forms/fieldsets";
 @import "partials/forms/toggle";
-
-// SECTION :: COLORS
+@import "partials/forms/errors";
 // ===============================================
-$header:  $fire-light-major;
-$heading: $fire-light-minor;
 
-// SECTION :: HEADER
+// SECTION :: LAYOUT & HEADER
 // ===============================================
-@include header-look($header, $heading, $fire-color);
-
-// SECTION :: FORM LAYOUT
-// ===============================================
-form {
-	padding:    10px $one-twelfth;
-	background: $page-lightest-minor;
-}
 .page-content {
-	background: $page-lightest-minor;
-	border-bottom: 3px solid $page-darker-major;
-}
+	background    : $form-background;
+	border-bottom : 3px solid $page-darker-major;
 
-.path-finder a {
-	color: $water-dark-minor;
-}
-
-
-// SECTION :: FORM CONTENT
-// ===============================================
-// CONTENT
-// -----------------------------------------------
-.content-field {
-	margin-top: 10px;
-}
-
-.description-field.text-field {
-	margin: 10px;
-}
-
-.article-content-field,
-.poem-content-field,
-.story-content-field {
-	margin: 10px 5px;
-}
-
-.style-field {
-	padding: 10px 0;
-}
-
-.poem-content-field textarea {
-	white-space: pre;
-	overflow-x: auto !important;
-}
-
-// IMAGES
-// -----------------------------------------------
-.preview-area {
-	margin:     10px;
-	padding:    10px;
-	background: $page-color;
-	border:     2px solid $border-color;
-
-	img {
-		display:block;
-		margin:auto;
-		max-width: 150px
+	header {
+		background    : $header-background;
+		border-bottom : 7px solid $form-border-color;
 	}
 }
 
-// MULTIPLE CHOICE CHECK BOXES
+form {
+	padding    : $form-margin $gutter;
+	background : $form-background;
+}
+
+h1 {
+	background : $form-title-background;
+}
+// ===============================================
+
+// SECTION :: FORM CONTENT
+// ===============================================
 // -----------------------------------------------
-.multichoice-fields {
-	.decision-field {
-		display: block;
-		margin:  5px;
-		.field-value {
-			color: $water-dark-minor;
-		}
-		.field-label {
-			padding:    0 10px;
-			background: none;
-		}
+// -- Text Content
+// -----------------------------------------------
+.content-field { margin-top : $form-margin; }
+.description-field.text-field { margin : $form-margin; }
+.edit_branching .string-field { margin : 5px 0px; }
+.style-field   { padding : $form-margin 0px; }
+.summary-field { padding : $form-margin 5px; }
+
+.poem-content-field textarea {
+	white-space : pre;
+	overflow-x  : auto !important;
+}
+
+.poem-content-field,
+.story-content-field,
+.article-content-field {
+	margin: $form-margin 5px;
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Images
+// -----------------------------------------------
+.preview-area {
+	background : $page-color;
+	border     : 2px solid $border-color;
+	padding    : $form-margin;
+	margin     : $form-margin;
+
+	img {
+		display   : block;
+		margin    : auto;
+		max-width : 150px;
+	}
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Selections // Choices
+// -----------------------------------------------
+.choice-fields {
+	background    : $choice-background;
+	border        : 2px solid $choice-border-color;
+	border-radius : 5px;
+	color         : $choice-color;
+
+	input[type=radio]:checked + label {
+		color      : $choice-background;
+		background : $choice-color;
+	}
+}
+
+.rating-title {
+	font-weight : bolder;
+	margin      : 5px 0px;
+	padding     : 8px 0px;
+}
+
+.selection-field { margin : 5px 0px; }
+.edit_branching .selection-field { padding : 0px $form-margin 0px 0px; }
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Selections // Choice Widths
+// -----------------------------------------------
+.fictionality-field { width : $fiction-type-size; }
+.nested-item-fields .nature-field { width : $item-type-size; }
+
+.rating .selection-field,
+.nested-opinion-fields .selection-field { width : $opinion-type-size; }
+// -----------------------------------------------
+
+// -----------------------------------------------
+// Selections // Multichoice
+// -----------------------------------------------
+.multichoice-fields .decision-field {
+	display : block;
+	margin  : 5px;
+
+	.field-value { color: $decision-color; }
+
+	.field-label {
+		padding    : 0px $form-margin;
+		background : none;
 	}
 }
 
 .cascadeable-fields {
-	margin:  10px;
-	padding: 10px;
-	border:  2px solid $page-lighter-major;
+	border  : 2px solid $page-lighter-major;
+	margin  : $form-margin;
+	padding : $form-margin;
 
 	.decision-field {
 		padding: 5px;
-		.field-value {
-			color: $water-dark-minor;
-		}
+
+		.field-value { color: $decision-color; }
+
 		.field-label {
-			padding:    0 10px;
-			background: none;
+			padding    : 0px $form-margin;
+			background : none;
 		}
 	}
 }
-
-// RADIO SELECTIONS
 // -----------------------------------------------
-.choice-fields {
-	border-radius: 4px;
-	background: $water-dark-minor;
-	border:     2px solid $water-dark-minor;
-	color:      $water-lightest-minor;
 
-	input[type=radio]:checked + label {
-		color:      $water-darker-minor;
-		background: $water-light-major;
-	}
-
-}
-
-.rating-title {
-	font-weight: bolder;
-	padding: 8px 0px;
-	margin:  5px 0px;
-}
-
-// CHOICE WIDTHS
 // -----------------------------------------------
-.rating .selection-field {
-	width: $one-fifth;
-}
-
-.nested-item-fields .nature-field {
-	width: $one-sixth;
-}
-
-.fictionality-field {
-	width: $one-half;
-}
-
-// BRANCH EDITING
+// -- Tags
 // -----------------------------------------------
-.edit_branching .string-field {
-	margin: 5px 0;
-}
-.edit_branching .selection-field {
-	padding: 0px 10px 0 0;
-}
-
-// SELECTION
-// -----------------------------------------------
-.selection-field {
-	margin: 5px 0;
-}
-
-// SUMMARY
-// -----------------------------------------------
-.summary-field {
-	padding: 10px 5px;
-}
-
-// SUBMIT
-// -----------------------------------------------
-.submit-field {
-	margin: 10px 10px 0px;
-
-	input {
-		@include submission-look($water-dark-major, $water-lightest-minor);
-		border-radius: .5em;
-	}
-}
-
-// TAG
-// -----------------------------------------------
-.taggable-field {
-
-	label {
-		border:     1px solid $fire-light-major;
-		background: $fire-light-minor;
-		color:      $fire-darkest-major;
-	}
-
-	.selectize-input {
-		border-color: $fire-light-major;
-	}
-}
+.squad-tags { margin: $form-margin; }
 
 .character-variations-field {
-	width: $two-thirds;
-	margin: 0 auto;
+	width  : $variant-width;
+	margin : 0px auto;
 }
 
-// SECTION :: FIELDSETS
-// ==============================================
-.agentive-selection {
-	background: $page-color;
+.taggable-field {
+	.selectize-input { border-color : $tagging-border-color; }
 
-	.selection-field {
-		margin: 5px;
+	label {
+		border     : 1px solid $tagging-border-color;
+		background : $tag-header-background;
+		color      : $tag-header-color;
 	}
+}
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: FIELDSETS
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+.edit_branching .primary-fieldset { margin : 5px 15px; }
+.nested-anthology-fields .nested-fields { margin : $form-margin auto; }
+
+.agentive-selection {
+	background : $agent-background;
+
+	.selection-field { margin : 5px; }
 }
 
 .associative-fieldset {
-	.selectize-field {
-		margin: 5px;
-	}
-	.summary-field {
-		padding: 5px 0px 0px;
-	}
+	.selectize-field { margin  : 5px; }
+	.summary-field   { padding : 5px 0px 0px; }
 }
+// -----------------------------------------------
 
+// -----------------------------------------------
+// -- Meta
+// -----------------------------------------------
 .meta-selections {
-	background: $page-lighter-minor;
-	border:     3px solid $page-light-minor;
-	padding:    10px;
-	margin:     10px 0px;
+	background : $meta-box-background;
+	border     : 3px solid $meta-box-border-color;
+	padding    : $form-margin;
+	margin     : $form-margin 0px;
+
+	.selection-field select { border-color : $page-dark-minor; }
 
 	.field-label {
-		background: $page-dark-minor;
-		color:      $page-lightest-major;
-	}
-	.selection-field select {
-		border-color: $page-dark-minor;
-	}
-}
-
-.nested-anthology-fields .nested-fields {
-	margin: 10px auto;
-}
-
-.options-fieldset {
-	margin-top: 10px;
-	padding:    0;
-
-	& > legend {
-		background:   $water-lighter-major;
-		border-color: $water-color;
-	}
-}
-
-.edit_branching .primary-fieldset {
-	margin: 5px 15px;
-}
-
-.rating {
-	background:     $page-color;
-	border:         3px solid $page-dark-minor;
-	margin:         0px;
-	padding-bottom: 5px;
-
-	& > legend {
-		background:  $page-dark-minor;
-		color:       $page-lightest-major;
-		font-weight: bolder;
-		padding:     10px;
-		width:       $one-third;
-		margin-left: -0.8em;
-	}
-}
-
-.squad-tags {
-	margin: 10px;
-}
-
-.viewpoint-fields {
-	border: 3px solid $page-dark-minor;
-	margin-bottom: 5px;
-
-	legend {
-		background:  $page-lighter-major;
-		border:      3px solid $page-dark-minor;
-		padding:     5px 10px;
-		font-weight: bolder;
-	}
-
-	.string-field {
-		padding: 5px 10px;
-	}
-
-	.facet-id-field {
-		margin: 5px 10px;
+		background : $meta-title-background;
+		color      : $meta-title-color;
 	}
 }
 
 .work-meta-fieldset {
-	border-color:   $fire-light-minor;
-	padding-left:   25px;
-	padding-right:  25px;
-	padding-bottom: 25px;
+	border-color   : $form-border-color;
+	padding-left   : 25px;
+	padding-right  : 25px;
+	padding-bottom : 25px;
 
 	& > legend {
-		background:    $page-lightest-major;
+		background:    $work-meta-background;
 		border-radius: 1em;
-		border:        0.25em solid $fire-light-minor;
-		color:         $fire-darker-minor;
-		padding:       10px;
+		border:        0.25em solid $work-meta-border-color;
+		color:         $work-meta-color;
+		padding:       $form-margin;
 		width:         100%;
 	}
 }
+// -----------------------------------------------
 
-// SECTION :: VIEWPORTS
-// ===============================================
-@include page-desktop()    {
-	.logged-in {
-		color: $page-darkest-minor;
-		background: $heading;
+// -----------------------------------------------
+// -- Opinion
+// -----------------------------------------------
+.options-fieldset {
+	border     : none;
+	margin-top : $form-margin;
+	padding    : 0;
+
+	& > legend {
+		background   : $option-title-background;
+		border-color : $option-title-border-color;
 	}
 }
 
-@include page-mobile()     {
-	form {
-		padding: 5px
+.rating {
+	background     : $rating-background;
+	border         : 3px solid $rating-border-color;
+	margin         : 0px;
+	padding-bottom : 5px;
+
+	& > legend {
+		background  : $rating-title-background;
+		color       : $rating-title-color;
+		font-weight : bolder;
+		padding     : $form-margin;
+		width       : $rating-width;
+		margin-left : -0.8em;
 	}
+}
+
+.viewpoint-fields {
+	border        : 3px solid $opinion-border-color;
+	margin-bottom : 5px;
+
+	legend {
+		background  : $opinion-title-background;
+		border      : 3px solid $opinion-title-border-color;
+		font-weight : bolder;
+		padding     : 5px $form-margin;
+	}
+
+	.string-field,
+	.facet-id-field {
+		padding : 5px $form-margin;
+	}
+}
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: HELP
+// ===============================================
+.tool-explain { margin : $form-margin; }
+
+.tooltip {
+	background : $tooltip-background;
+	border     : 2px solid $tooltip-border-color;
+	margin     : $form-margin 0px $form-margin $form-margin;
+	padding    : $form-margin;
+
+	li { padding : 2px 5px; }
+	ul {
+		margin-top : 0px;
+		padding    : 0px 1em;
+	}
+}
+// ===============================================
+
+// SECTION :: FOOTER
+// ===============================================
+.path-finder a { color : $path-color; }
+
+.submit-field {
+	margin : $form-margin $form-margin 0px;
+
+	input {
+		@include submission-look($submission-background, $submission-color);
+		border-radius : .5em;
+	}
+}
+// ===============================================
+
+// SECTION :: VIEWPORTS
+// ===============================================
+@include page-desktop() {
+	.logged-in {
+		background : $form-background;
+		color      : $link-color;
+	}
+}
+
+@include page-mobile() {
+	form { padding : 5px; }
+	.tooltip { margin : $form-margin; }
+	.choice-fields .selection-field { width : $one-whole; }
 
 	.rating-title {
-		margin: 0px;
-		padding-bottom: 0;
-	}
-
-	.tooltip {
-		margin: 10px;
-	}
-
-	.choice-fields .selection-field {
-		width: $one-whole;
+		margin         : 0px;
+		padding-bottom : 0px;
 	}
 }
 
 @include page-non-mobile() {}
 @include page-tablet()     {}
+// ===============================================
 
 /* END
 /* ***********************************************/

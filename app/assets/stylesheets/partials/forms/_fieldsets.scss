@@ -1,153 +1,164 @@
-// STYLE PARTIAL: FIELDSETS
+// STYLE PARTIAL : FIELDSETS
 // ***********************************************
+// SETUP :: VARIABLES
+// ===============================================
+$associative-title-background : $page-dark-minor;
+$add-background               : $water-darker-minor;
+$add-hover-background         : $water-color;
+$nested-background            : $page-lightest-major;
+$paged-background             : $page-lightest-minor;
+$remove-background            : $fire-dark-major;
+$remove-hover-background      : $fire-dark-minor;
+
+$associative-border-color       : $page-dark-minor;
+$nested-border-color            : $water-color;
+$nested-tags-border-color       : $water-dark-minor;
+$nested-tags-title-border-color : $fire-light-minor;
+$paged-border-color             : $water-light-major;
+$paged-text-border-color        : $water-light-major;
+$solo-set-border-color          : $page-light-minor;
+
+$add-color               : $water-lighter-major;
+$associative-title-color : $page-lightest-minor;
+$nested-tags-color       : $fire-darker-minor;
+$nested-tags-title-color : $fire-darker-minor;
+$remove-color            : $fire-lighter-major;
+// ===============================================
+
 // SECTION :: GENERAL
 // ===============================================
 .primary-fieldset {
-	border: none;
-	overflow: auto;
+	border   : none;
+	overflow : auto;
 }
 
 .solo-fieldset {
-	padding-top: 0.75em;
-	border:      0.25em solid $page-light-minor;
+	border      : 0.25em solid $solo-set-border-color;
+	padding-top : 0.75em;
 
-	.taggable-field {
-		margin-top: 10px;
-	}
+	.taggable-field { margin-top : 10px; }
 }
+// ===============================================
 
 // SECTION :: ASSOCIATIVE
 // ===============================================
 .associative-fieldset {
-	border:        0.25em solid $page-dark-minor;
-	border-radius: 0.75em;
-	margin-top:    10px;
+	border        : 0.25em solid $associative-border-color;
+	border-radius : 0.75em;
+	margin-top    : 10px;
 
 	& > legend {
-		background:  $page-dark-minor;
-		color:       $page-lightest-minor;
-		margin:      0 -0.825em;
-		padding:     13px 10px 7px;
-		width:       calc(100% + 0.36em);
-		font-weight: bolder;
+		background  : $associative-title-background;
+		color       : $associative-title-color;
+		font-weight : bolder;
+		margin      : 0 -0.825em;
+		padding     : 13px 10px 7px;
+		width       : calc(100% + 0.36em);
 	}
 }
+// ===============================================
 
 // SECTION :: NESTED GENERAL
 // ===============================================
 .nested-fieldset {
-	background: $page-lightest-major;
-	border:     3px solid $water-color;
-	margin-top: 10px;
+	background : $nested-background;
+	border     : 3px solid $nested-border-color;
+	margin-top : 10px;
 
 	& > legend {
-		background:    $page-lighter-major;
-		border:        3px solid $water-color;
-		border-radius: 5px;
-		padding:       10px;
-		font-weight:   bolder;
+		background    : $nested-background;
+		border        : 3px solid $nested-border-color;
+		border-radius : 5px;
+		padding       : 10px;
+		font-weight   : bolder;
 	}
 }
 
 .add-cell a,
 .remove-cell a {
-	padding:         5px;
-	border-radius:   5px;
-	font-weight:     bolder;
-	text-decoration: none;
-	display:         inline-block;
+	border-radius   : 5px;
+	display         : inline-block;
+	font-weight     : bolder;
+	padding         : 5px;
+	text-decoration : none;
 }
 
 .add-cell {
-	margin-top: 10px;
-	padding:    0px;
-	clear:      both;
+	clear      : both;
+	margin-top : 10px;
+	padding    : 0px;
 
 	a {
-		background: $water-darker-minor;
-		color:      $water-lighter-major;
+		background : $add-background;
+		color      : $add-color;
 
-		&:hover {
-			background: $water-color;
-		}
+		&:hover { background : $add-hover-background; }
 	}
 }
 
 .remove-cell {
-	margin-bottom: 10px;
-	padding:       0;
-	text-align:    right;
+	margin-bottom : 10px;
+	padding       : 0;
+	text-align    : right;
 
 	a {
-		background: $fire-dark-major;
-		color:      $fire-lighter-major;
+		background : $remove-background;
+		color      : $remove-color;
 
-		&:hover {
-			background: $fire-color;
-		}
+		&:hover { background : $remove-hover-background; }
 	}
 }
+// ===============================================
 
 // SECTION :: NESTED PAGES
 // ===============================================
 .paged-fieldset {
-	background:    $page-lightest-minor;
-	margin-bottom: 5px;
-	border:        3px solid $water-light-major;
+	background    : $paged-background;
+	border        : 3px solid $paged-border-color;
+	margin-bottom : 5px;
 
-	.string-field input {
-		border-color: $water-light-major;
-	}
-
-	.text-field .field-value {
-		border-color: $water-light-major;
-	}
+	.string-field input,
+	.text-field .field-value { border-color : $paged-text-border-color; }
 
 	legend .string-field {
-		padding: 0;
+		padding : 0;
 
-		.field-label {
-			display: none;
-		}
+		.field-label { display : none; }
 	}
 }
+// ===============================================
 
 // SECTION :: NESTED TAGS
 // ===============================================
+.nested-place-fields { background : $nested-background; }
+
 .nested-tags-fieldset {
-	margin-top: 10px;
+	margin-top : 10px;
 
 	& > legend {
-		border-radius: 1em;
-		padding:       10px;
-		width:         100%;
-		font-weight:   bolder;
+		border-radius : 1em;
+		padding       : 10px;
+		width         : calc(100% - 20px);
+		font-weight   : bolder;
 
-		background:    $page-lightest-major;
-		border:        0.25em solid $fire-light-minor;
-		color:         $fire-darker-minor;
+		border        : 0.25em solid $nested-tags-title-border-color;
+		color         : $nested-tags-title-color;
 	}
 }
 
 .nested-contained-fieldset,
 .nested-tags-fieldset {
-	background: $page-color;
-	border:     0.25em solid $water-dark-minor;
+	background : $nested-background;
+	border     : 0.25em solid $nested-tags-border-color;
 }
-
 .nested-tags-fieldset .nested-tags-fieldset {
-	padding:    1px;
-	background: $fire-light-major;
-	border:     0.125em solid $fire-dark-minor;
+	padding    : 1px;
+	background : $nested-tags-title-border-color;
+	border     : 0.125em solid $nested-tags-title-color;
 
-	& > legend {
-		display: none;
-	}
+	& > legend { display : none; }
 }
-
-.nested-place-fields {
-	background: $page-color;
-}
+// ===============================================
 
 /* END
 /* ***********************************************/

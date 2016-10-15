@@ -1,178 +1,116 @@
 // STYLE PARTIAL: TOOLKITS
 // ***********************************************
-// TOOLKITS :: All
+// SETUP :: VARIABLES
 // ===============================================
-.multikit {
-	margin: 10px $one-twelfth;
-}
+$alteration-background : darken($fire-color, 5%);
+$creation-background   : $moss-color;
+$directory-background  : $water-color;
+$response-background   : $moss-dark-minor;
+$generation-background : $water-dark-major;
+// ===============================================
 
-.toolblock td { padding: 5px 0; }
-
+// SECTION TOOLKIT
+// ===============================================
 .toolkit {
-	margin:    10px 15px;
-	max-width: 300px;
-
-	.multikit & {
-		display: inline-block;
-		margin:  2px 0px;
-	}
-
-	a {
-		border-radius:   5px;
-		color:           $page-lightest-major;
-		display:         inline-block;
-		letter-spacing:  2px;
-		min-width:       50%;
-		padding:         10px;
-		text-align:      center;
-		text-decoration: none !important;
-		&:before {
-			padding-right: 5px;
-		}
-	}
-}
-
-.action-bar {
-	color:       $water-dark-minor;
-	padding:     0;
-	line-height: 1;
-	font-size:   .8em;
-	margin:      5px 0;
+	border-radius : 5px;
+	display       : table;
+	font-weight   : bolder;
+	margin        : 10px 15px;
+	max-width     : calc(100% - 30px);
+	table-layout  : fixed;
 
 	a {
-		color:           $water-dark-minor;
-		padding:         5px;
-		text-decoration: none;
-	}
+		border-radius   : 0px;
+		display         : table-cell;
+		letter-spacing  : 1px;
+		padding         : 7px 0px;
+		text-align      : center;
+		text-decoration : none;
 
-	.unlink {
-		color:   $page-dark-minor;
-		padding: 5px;
+		&:before { padding-right : 5px; }
+	}
+	a:first-child { @include border-radius-left(5px);  }
+	a:last-child  { @include border-radius-right(5px); }
+}
+.index-header > .toolkit {
+	margin    : 10px $gutter;
+	max-width : calc(100% - #{$gutter * 2});
+}
+.toolblock td { padding : 5px 0; }
+.multikit {
+	margin   : 10px $gutter;
+	overflow : auto;
+
+	.toolkit {
+		float   : left;
+		margin  : 2px 5px 2px 0px;
 	}
 }
+.manager-editor {
+	.multikit { margin : 0px; }
+	.toolkit  { margin : 5px 0px 0px; }
+	.toolkit,
+	.multikit {
+		width     : 100%;
+		max-width : 100%;
+	}
+	.creation a {
+		text-align : left;
+	}
+}
+// ===============================================
 
-// TOOLKITS :: Alteration
+// TOOLKIT TYPES
 // ===============================================
 .alteration {
-	border-radius: 5px;
-	display:       inline-block;
-	margin:        0;
-	margin-bottom: 0;
-	overflow:      auto;
-	width:         100%;
+	@include buttonable($alteration-background);
 
-	@include buttonable($fire-color);
-
-	.toolblock & {
-		margin:    0px;
-		max-width: 100%;
-		width:     100%;
-	}
+	max-width : 300px;
+}
+.creation,
+.insertion {
+	@include buttonable($creation-background);
 
 	a {
-		background: none;
-		display:    block;
-		float:      left;
-		padding:    7px 0;
-		width:      50%;
-
-		&:hover { border-radius: 0; }
+		padding : 7px 5px;
 	}
 }
 
-// TOOLKITS :: Reader Response
-// ===============================================
-.reader-response {
-	display:       table;
-	table-layout:  fixed;
+.directory {
+	@include buttonable($directory-background);
+	margin    : 10px auto;
+	width     : 100%;
+	max-width : 100%;
 
-	border-radius: 5px;
-	margin:        0;
-	width:         100%;
+	a { padding : 7px; }
+}
 
-	@include buttonable($moss-dark-minor);
+.generation {
+	@include buttonable($generation-background);
+
+	max-width : 300px;
+	margin    : 10px auto;
 
 	a {
-		display:       table-cell;
-		border-radius: 0;
-		padding:       7px 0;
-		min-width:     $one-sixth;
+		padding : 7px 5px;
 	}
-	a:last-child {
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
-	}
-	a:first-child {
-		border-top-left-radius: 5px;
-		border-bottom-left-radius: 5px;
+}
+
+.reader-response {
+	@include buttonable($response-background);
+
+	margin    : 10px auto;
+	min-width : 300px;
+
+	a {
+		min-width : $one-fourth;
 	}
 
 	.unchecked {
-		color: $moss-light-major;
+		color : $moss-light-major;
 	}
 }
-
-// TOOLKITS :: Creation & Insertion
 // ===============================================
-.creation  a,
-.insertion a {
-	background: $moss-color;
-	font-weight: bolder;
-
-	&:hover   {
-		background: desaturate($moss-dark-major, $golden-tiny);
-		color:      $page-color;
-	}
-}
-
-.toolblock .insertion {
-	margin:    0px;
-	max-width: 100%;
-}
-
-.creation a {
-	max-width: 280px;
-}
-
-.insertion a {
-	text-align: left;
-	width:      calc(100% - 20px);
-}
-
-tfoot .creation {
-	margin: 0 auto;
-	width:  200px;
-}
-
-.interaction {
-	@include buttonable($moss-dark-minor);
-
-	font-size:     .85em;
-	border-radius: 10px;
-	margin:        10px auto;
-	margin-bottom: 0;
-	overflow:      auto;
-	width:         25%;
-
-	a {
-		background:     none;
-		display:        block;
-		font-weight:    bolder;
-		float:          left;
-		letter-spacing: 1px;
-		padding:        5px 0;
-		text-align:     center;
-		width:          100%;
-		&:hover {
-			border-radius: 0;
-		}
-	}
-
-	.toolblock & {
-		min-width: 100%;
-		width:     100%;
-	}
-}
 
 // END
 // ***********************************************/

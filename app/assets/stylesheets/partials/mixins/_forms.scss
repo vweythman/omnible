@@ -1,66 +1,69 @@
-// STYLE PARTIAL: FORMS MIXINS
+// STYLE PARTIAL : FORMS MIXINS
 // ***********************************************
 @mixin chooseable($color) {
 	@include buttonable($color);
 
-	border-radius: 2px;
+	border-radius : 2px;
 
-	input:checked + label { background: darken($color, 10%); }
+	input:checked + label { background : darken($color, 10%); }
 }
+
 @mixin clickable($color) {
 	@include buttonable($color);
 
-	background:    $color;
-	border:        none;
-	border-radius: 5px;
-	color:         #FFF;
-	font-weight:   bolder;
-	padding:       10px;
+	background    : $color;
+	border        : none;
+	border-radius : 5px;
+	color         : #FFF;
+	font-weight   : bolder;
+	padding       : 10px;
 	
-	&:hover  { background: saturate($color, 25%); }
+	&:hover  { background : saturate($color, 25%); }
 	&:active { @include buttonable($color); }
 }
+
 @mixin togglable($color) {
-	cursor:      pointer;
-	background:  $color;
-	color:       black;
-	display:     block;
-	font-weight: 600;
-	padding:     10px;
+	cursor      : pointer;
+	background  : $color;
+	color       : black;
+	display     : block;
+	font-weight : 600;
+	padding     : 10px;
 	&:hover {
-		background: darken($color, 10%);
-		color:     darken($color, 70%);
+		background : darken($color, 10%);
+		color     : darken($color, 70%);
 	}
 }
+
 @mixin submission-look($bg-color, $txt-color) {
-	background:   $bg-color;
-	border-color: $bg-color;
-	color:        $txt-color;
+	background   : $bg-color;
+	border-color : $bg-color;
+	color        : $txt-color;
 
 	&:hover,
 	&:active {
-		background: lighten(saturate($bg-color, $golden-small), $golden-mini);
+		background : lighten(saturate($bg-color, $golden-small), $golden-mini);
 	}
 }
 
 @mixin mobilized-forms() {
 	.agentive-selection {
-		margin: 0;
+		margin : 0;
 
 		p {
-			padding:    5px;
-			margin:     0px 5px;
-			margin-top: 5px;
+			padding    : 5px;
+			margin     : 0px 5px;
+			margin-top : 5px;
 		}
 	}
 	.taggables-label {
-		padding:       7px;
-		text-align:    left;
-		margin-right:  0px;
-		margin-bottom: 2px;
+		padding       : 7px;
+		text-align    : left;
+		margin-right  : 0px;
+		margin-bottom : 2px;
 	}
 	.range .label {
-		text-align:  left;
+		text-align  : left;
 	}
 }
 

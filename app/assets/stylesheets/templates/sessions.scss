@@ -5,100 +5,132 @@
 @import "application";
 @import "partials/forms/fields";
 @import "partials/mixins/forms";
+@import "partials/forms/errors";
 
-// SETUP :: VIEWPORTS
+// SETUP :: VARIABLES
 // ===============================================
-@include page-desktop() {}
-@include page-mobile() {}
-@include page-non-mobile() {}
-@include page-tablet() {}
+// -----------------------------------------------
+// -- Session
+// -----------------------------------------------
+$session-background       : $page-lightest-minor;
+$session-title-background : $water-color;
 
-// SECTION :: HEADER
+$session-page-border  : 7px solid $water-dark-major;
+$session-border-color : $page-dark-minor;
+
+$session-color        : $fire-darker-major;
+$session-title-color  : $water-lightest-minor;
+$session-footer-color : $page-color;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Input
+// -----------------------------------------------
+$session-set-background    : $fire-dark-major;
+$session-submit-background : darken($fire-color, 5%);
+
+$half-width      : $golden-minor / 2;
+$width-offset    : 100% - $half-width;
+$remember-margin : $half-width / $width-offset * 100%;
+
+$remember-check-color : $fire-dark-minor;
+$session-set-color    : $fire-lighter-major;
+$session-submit-color : $page-color;
+
+$remember-check-shadow : $fire-color;
+// -----------------------------------------------
 // ===============================================
-h2 {
-	background:     $water-color;
-	border-bottom:  7px solid $water-dark-minor;
-	color:          $water-lightest-minor;
-	letter-spacing: 3px;
-	margin:         0;
-	padding:        10px $one-twelfth;
-	padding-top:    25px;
-	text-transform: lowercase;
-	font-style:     italic;
-}
+
+// SECTION :: LAYOUT & HEADER
+// ===============================================
 .page-content {
-	border-bottom:  7px solid $water-dark-major;
+	border-bottom: $session-page-border;
 }
 
-// SECTION :: FORM LAYOUT
-// ===============================================
+h2 {
+	background     : $session-title-background;
+	border-bottom  : $session-page-border;
+	color          : $session-title-color;
+	font-style     : italic;
+	letter-spacing : 3px;
+	margin         : 0px;
+	padding        : 10px $gutter;
+	padding-top    : 25px;
+	text-transform : lowercase;
+}
+
 form {
-	border:     3px solid $page-dark-minor;
-	margin:     10px auto;
-	margin-top: 25px;
-	max-width:  350px;
-	background: $page-lightest-minor;
-	color:      $fire-darker-major;
+	background : $session-background;
+	border     : 3px solid $session-border-color;
+	color      : $session-color;
+	margin     : 10px auto;
+	margin-top : 25px;
+	max-width  : 350px;
 }
 
 fieldset {
-	border:  none;
-	margin:  0;
-	margin-top: 10px;
-	padding: 0;
+	border  : none;
+	margin  : 10px 0px 0px;
+	padding : 0px;
 
 	legend {
-		background: $fire-dark-major;
-		color:      $fire-lighter-major;
-		margin:     0px;
-		padding:    8px;
-		width:      calc(100% - 16px);
+		background : $session-set-background;
+		color      : $session-set-color;
+		margin     : 0px;
+		padding    : 8px;
+		width      : calc(100% - 16px);
 	}
 }
+// ===============================================
 
 // SECTION :: FORM CONTENT
 // ===============================================
-$y: $golden-minor / 2;
-$x: 100% - $y;
-$z: ($y/$x);
+.field-label {
+	background : none;
+	margin     : 0px;
+	padding    : 8px 0px;
+}
 
 .decision-field {
-	.field-value {
-		margin-right: $y;
-	}
-	.field-label {
-		padding: 0;
-	}
+	.field-label { padding : 0px; }
+	.field-value { margin-right : $remember-margin; }
+
 	label {
-		margin:  5px 10px 5px calc(#{$z * 100%} - 26px);
-		padding: 10px 8px;
+		margin  : 5px 10px 5px calc(#{$remember-margin} - 26px);
+		padding : 10px 8px;
 	}
-}
-.field-label {
-	background: none;
-	margin:     0;
-	padding:    8px 0px;
 }
 
 input[type=checkbox]:checked + label .field-value:before{
-	color:       $fire-dark-minor;
-	text-shadow: 0 0 .025em $fire-color;
+	color       : $remember-check-color;
+	text-shadow : 0px 0px 0.025em $remember-check-shadow;
 }
 
 .submit-field input {
-	@include submission-look($fire-color, $page-color);
+	@include submission-look($session-submit-background, $session-submit-color);
 }
+// ===============================================
 
 // SECTION :: FOOTER
 // ===============================================
 .page-content footer {
-	padding-top:    10px;
-	padding-bottom: 25px;
-	text-align:     center;
+	padding    : 10px 0px 25px;
+	text-align : center;
+
 	a {
-		color: $page-color;
+		color: $session-footer-color;
 	}
 }
+// ===============================================
+
+// VIEWPORT
+// ===============================================
+@include page-desktop() {}
+@include page-mobile() {}
+@include page-non-desktop() {}
+@include page-non-mobile() {}
+@include page-tablet() {}
+// ===============================================
 
 /* END
 /* ***********************************************/

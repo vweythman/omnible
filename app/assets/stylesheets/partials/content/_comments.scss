@@ -1,109 +1,132 @@
 // STYLE PARTIAL: COMMENTS
 // ***********************************************
-// VIEWPORT :: ALL
+// SETUP :: MIXINS
 // ===============================================
-@mixin distanced-comment($pad, $marg) {
-	.comment {
-		padding-left:   0px;
-		padding-right:  0px;
-		padding-bottom: 0px;
-		padding-top:    0px;
-	}
+@mixin nested-comment($nested-margin) {
+	.comment { padding : 0px; }
+
 	.comment .comment {
-		margin-left:   $marg;
-		margin-right:  0px;
-		margin-bottom: 0px;
-		margin-top:    0px;
+		margin      : 0px;
+		margin-left : $nested-margin;
 	}
 }
+// ===============================================
 
-// GROUPED
+// SETUP :: VARIABLES
+// ===============================================
+// -----------------------------------------------
+// -- Background
+// -----------------------------------------------
+$reply-background        : $page-lightest-minor;
+$reply-submit-background : $fire-light-minor;
+$discussion-background   : $fire-light-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Border
+// -----------------------------------------------
+$comment-border : 2px solid $fire-lighter-minor;
+
+$reply-border-color         : $water-darker-major;
+$reply-title-border-color   : $page-light-major;
+$comment-title-border-color : $fire-light-minor;
+$discussion-border-color    : $fire-color;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Text
+// -----------------------------------------------
+$reply-submit-color : $page-darker-minor;
+$speaker-color      : $fire-color;
+// -----------------------------------------------
+// ===============================================
+
+// SECTION :: LAYOUT & HEADER
+// ===============================================
 .discussion {
-	background: $fire-light-major;
-	border:     1px solid $fire-color;
-	padding:    2px;
+	background : $discussion-background;
+	border     : 1px solid $discussion-border-color;
+	padding    : 2px;
 }
 
 .comments-heading {
-	@include simple-brand($fire-light-major, $fire-light-minor, 2px);
-	padding: 15px 5px 5px;
+	@include simple-brand($discussion-background, $comment-title-border-color, 2px);
+	padding : 15px 5px 5px;
 }
 
 .comments-content {
-	background: $page-color;
-	border:     2px solid $fire-color;
+	background : $page-color;
+	border     : 2px solid $fire-color;
+}
+// ===============================================
+
+// COMMENT :: CONTENT
+// ===============================================
+.comment {
+	.comments-heading + & { border : none; }
+	.comment     { border-left : $comment-border; }
+	& + .comment { border-top  : $comment-border; }
 }
 
-// SINGLETON
-.comment {
-	.comments-heading + & {
-		border: none;
-	}
-	.comment {
-		border-left: 2px solid $fire-lighter-minor;
-	}
-	& + .comment {
-		border-top: 2px solid $fire-lighter-minor;
-	}
-}
 .comment-action-bar {
-	border-bottom: 2px solid $fire-lighter-minor;
+	border-bottom : $comment-border;
 
 	.childless &,
 	.hidden-children & {
-		border-bottom: none;
+		border-bottom : none;
 	}
 }
 
-.comment-response {
-	padding: 5px 10px;
-}
+.comment-response { padding : 5px 10px; }
 
 .comment-speaker {
-	color: $fire-color;
-	float: left;
-	padding-right: 5px;
+	color :         $speaker-color;
+	float :         left;
+	padding-right : 5px;
 }
 
 .comment-action-bar {
-	font-size: 0.7em;
-	padding:   0px 10px 10px;
+	font-size : 0.7em;
+	padding   : 0px 10px 10px;
+
 	a {
-		padding:         0px 5px 0px 0px;
-		text-decoration: none;
+		padding         : 0px 5px 0px 0px;
+		text-decoration : none;
 	}
 }
+// ===============================================
 
-// FORM
+// COMMENT :: FORM
+// ===============================================
 .comments-form {
-	padding: 10px calc(25% / 2);
+	padding : 10px calc(25% / 2);
 
 	form {
-		background: $page-lightest-minor;
-		border:     2px solid $water-darker-major;
-	}
-	fieldset {
-		border: none;
+		background : $reply-background;
+		border     : 2px solid $reply-border-color;
 	}
 
+	fieldset { border : none; }
+
 	legend {
-		border-bottom: 3px solid $page-light-major;
-		font-weight:   600;
-		padding:       10px 0 2px 0;
-		width:         100%;
+		border-bottom : 3px solid $reply-title-border-color;
+		font-weight   : 600;
+		padding       : 10px 0 2px 0;
+		width         : 100%;
 	}
 
 	input[type="submit"] {
-		@include submission-look($fire-light-minor, $page-darker-minor);
+		@include submission-look($reply-submit-background, $reply-submit-color);
 	}
 
 	.submit-field {
-		margin: 10px;
-		width:  calc(100% - 20px);
+		margin : 10px;
+		width  : calc(100% - 20px);
 
-		input { padding: 10px; }
+		input { padding : 10px; }
 	}
 }
+// ===============================================
 
 // END
 // ***********************************************/

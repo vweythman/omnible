@@ -1,181 +1,167 @@
-// STYLE PARTIAL: STATUS
+// STYLE PARTIAL : STATUS
 // ***********************************************
-// STYLES :: COMPLETION
+// COMPLETION
 // ===============================================
+@mixin completion-type($color, $show-color) {
+	background : lighten($color, $golden-minor + $golden-small);
+	color      : $color;
+
+	.show-page & { color : $show-color; }
+}
+
 .completion-status {
-	float:      left;
-	text-align: right;
-	width:      calc(100% / 6 - 20px);
+	float      : left;
+	text-align : right;
+	width      : calc(100% / 6 - 20px);
 
 	.show-page & {
-		background:    none;
-		border-bottom: 2px solid $water-dark-major;
-		border-right:  2px solid $water-dark-major;
-		border-left:   none;
-	}
-}
-
-.complete   {
-	background: $water-lightest-minor;
-	color:      $water-darker-minor;
-
-	.show-page & { color: $water-light-minor; }
-}
-
-.incomplete {
-	background: $fire-lightest-minor;
-	color:      $fire-dark-minor;
-
-	.show-page & { color: $fire-dark-minor; }
-}
-
-.hiatus {
-	background: $page-lightest-major;
-	color:      $page-dark-minor;
-
-	.show-page & { color: $fire-lightest-minor; }
-}
-
-.upcoming {
-	background: $moss-lightest-minor;
-	color:      $moss-dark-minor;
-}
-
-.abandoned {
-	background: lighten(desaturate($rating-lowest, 15%), 5%);
-	color:      $page-lightest-minor;
-
-	.show-page & {
-		background: $page-darkest-minor;
-		color:      $rating-lowest;
+		background    : none;
+		border-bottom : 2px solid $water-dark-major;
+		border-right  : 2px solid $water-dark-major;
+		border-left   : none;
 	}
 }
 
 .status {
-	font-weight: bolder;
-	min-width:   100px;
-	padding:     5px 10px;
+	font-weight : bolder;
+	min-width   : 100px;
+	padding     : 5px 10px;
 }
 
-// STYLES :: BOOLEAN
+// -----------------------------------------------
+// -- Completion Types
+// -----------------------------------------------
+.abandoned  { @include completion-type($rating-lowest, desaturate($rating-lowest, 10%)); }
+.complete   { @include completion-type($water-darker-minor, $water-light-minor);         }
+.hiatus     { @include completion-type($page-dark-minor,    $fire-lightest-minor);       }
+.incomplete { @include completion-type($fire-dark-minor,    $fire-dark-minor);           }
+.upcoming   { @include completion-type($moss-dark-minor,    $moss-lightest-minor);       }
+// -----------------------------------------------
+// ===============================================
+
+// BOOLEAN
 // ===============================================
 .enabler-status {
-	font-weight: bolder;
-	padding:     10px 0;
+	font-weight : bolder;
+	padding     : 10px 0;
 
 	.label {
-		display: block;
-		margin:  0 10px;
+		display : block;
+		margin  : 0 10px;
 	}
 }
-.true {
-	color: $stoplight-go
-}
 
-.false {
-	color: $stoplight-stop;
-}
-
-// STYLES :: COUNTS
+.true  { color : $stoplight-go; }
+.false { color : $stoplight-stop; }
 // ===============================================
-.counter {
-	color:          $water-color;
-	letter-spacing: 1px;
-}
 
-.counter:before {
-	color:   $water-dark-minor;
-	content: "(";
+// COUNTS
+// ===============================================
+// -----------------------------------------------
+// -- Amount
+// -----------------------------------------------
+.counter {
+	color          : $water-color;
+	letter-spacing : 1px;
 }
 
 .counter:after {
-	color:   $water-dark-minor;
-	content: ")";
+	color   : $water-darker-minor;
+	content : ")";
 }
 
+.counter:before {
+	color   : $water-darker-minor;
+	content : "(";
+}
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Word Count
+// -----------------------------------------------
 .word-count {
-	color:     $page-dark-major;
-	font-size: .75em;
+	color     : $page-dark-major;
+	font-size : .75em;
 }
 
 .word-count:after,
 .word-count:before {
-	color:     $moss-dark-minor;
-	font-size: 1.2em;
+	color     : $moss-dark-minor;
+	font-size : 1.2em;
 }
 
-.word-count:before { content: "["; }
-
-.word-count:after  { content: "]"; }
-
-
-// STYLES :: RATING
+.word-count:after  { content : "]"; }
+.word-count:before { content : "["; }
+// -----------------------------------------------
 // ===============================================
-.avg {
-	text-align: center;
-}
 
+// RATING
+// ===============================================
 .rating {
-	font-weight: bolder;
+	font-weight : bolder;
 }
 
 .ratings {
-	font-size:   .8em;
-	font-weight: bolder;
-	margin:      0px calc(100% / 6 - 20px);
-	padding:     2px;
-	text-align:  center;
+	font-size   : .8em;
+	font-weight : bolder;
+	margin      : 0px calc(100% / 6 - 20px);
+	padding     : 2px;
+	text-align  : center;
 	span {
-		display: inline-block;
-		margin:  1px;
-		padding: 10px;
+		display : inline-block;
+		margin  : 1px;
+		padding : 10px;
 	}
 }
-
-// STYLES :: LEVELS
 // ===============================================
-.level0 { color: $rating-lowest;  }
-.level1 { color: $rating-low;     }
-.level2 { color: $rating-mid;     }
-.level3 { color: $rating-high;    }
-.level4 { color: $rating-highest; }
 
-// STYLES :: TOGGLE
+// LEVELS
+// ===============================================
+.level0 { color : $rating-lowest;  }
+.level1 { color : $rating-low;     }
+.level2 { color : $rating-mid;     }
+.level3 { color : $rating-high;    }
+.level4 { color : $rating-highest; }
+// ===============================================
+
+// TOGGLE
 // ===============================================
 .status-toggle-link {
-	border-radius:   10px;
-	color:           $page-color;
-	display:         inline-block;
-	margin:          5px auto;
-	padding:         7px 0;
-	text-decoration: none;
+	border-radius   : 10px;
+	color           : $page-color;
+	display         : inline-block;
+	margin          : 5px auto;
+	padding         : 7px 0;
+	text-decoration : none;
 
 	&:before {
-		display: block;
-		margin-bottom: 5px;
+		display : block;
+		margin-bottom : 5px;
 	}
 
 	.status & {
-		background: $water-dark-minor;
-		padding:    7px 0;
-		width:      120px;
+		background : $water-dark-minor;
+		padding    : 7px 0;
+		width      : 120px;
 
 		&:hover {
-			background: $water-lighter-major;
-			color:      $water-dark-minor;
+			background : $water-lighter-major;
+			color      : $water-dark-minor;
 		}
 	}
 
 	.enabler-status & {
-		color:     $page-darker-minor;
-		font-size: 0.95em;
-		padding:   6px 0;
-		width:     90px;
+		color     : $page-darker-minor;
+		font-size : 0.95em;
+		padding   : 6px 0;
+		width     : 90px;
 	}
+
 	.enabler-status &:hover {
-		background: $page-lighter-major;
+		background : $page-lighter-major;
 	}
 }
+// ===============================================
 
 // END
 // ************************************************/
