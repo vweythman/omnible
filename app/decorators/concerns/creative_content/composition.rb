@@ -1,64 +1,50 @@
 module CreativeContent
 	module Composition
 
-		# GET
+		# TABLE of CONTENTS
 		# ============================================================
-		def heading_with_count
-			(heading + " " + length_span).html_safe
-		end
-
-		def heading_with_icon
-			(icon + " " + heading).html_safe
-		end
-
-		# SET
+		# 1. PUBLIC DISPLAY METHODS
+		# ------------------------------------------------------------
+		# -- A. Block Display Methods
+		# ----- byline_snippet_status
+		# ----- length_data
+		# ----- length_span
+		# ----- snippet
+		#
+		# -- B. Form Display Methods
+		# ----- agentive_line
+		# ----- choose_creator_category
+		# ----- creating_as
+		#
+		# 2. PUBLIC SELECTION METHODS
+		# ------------------------------------------------------------
+		# -- A. Datum Selection Methods
+		# ----- length_status - word count
+		# ----- state_status  - completion state
+		#
+		# -- B. Heading Selection Methods
+		# ----- heading_with_count
+		# ----- heading_with_icon
+		#
+		# -- C. Title Selection Methods
+		# ----- title_for_creation
+		# ----- title_for_editing
+		#
 		# ============================================================
-		def length_status
-			@length_status ||= h.number_with_delimiter(self.word_count, :delimiter => ",") + " Words"
-		end
 
-		def status_label
-			@status_label ||= status.titleize
-		end
-
-		def title_for_creation
-			@meta_title ||= "Create #{klass}".titleize
-		end
-
-		def title_for_editing
-			@meta_title ||= heading + " (Editing)"
-		end
-
-		# RENDER
+		# 1. PUBLIC DISPLAY METHODS
 		# ============================================================
-		def agentive_line
-			h.content_tag :p do @category.agentive.titleize end
-		end
-
+		# ------------------------------------------------------------
+		# 1A. BLOCK DISPLAY METHODS
+		# ------------------------------------------------------------
 		def byline_snippet_status
 			h.content_tag :div, class: 'bylines' do
 				creatorships.each do |byline_value|
-					h.concat print_byline(byline_value.category.agentive_title + ":", byline_value.creator)
+					h.concat byline_datum(byline_value.category.agentive_title + ":", byline_value.creator)
 				end
 			end
 		end
 
-		def choose_creator_category
-			if multiple_creator_categories?
-				h.selection_field_cell "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
-			else
-				@category = self.creator_categories.first
-				h.capture do
-					h.concat(agentive_line)
-					h.concat(h.hidden_field_tag("[#{self.klass}][uploadership][category]", @category.id))
-				end
-			end
-		end
-
-		def creating_as(creator)
-			h.content_tag :p do h.link_to(creator.name, creator).html_safe end
-		end
-		
 		def length_data
 			h.content_tag :td, :data => {:label => "Word Count"} do
 				length_status
@@ -77,6 +63,68 @@ module CreativeContent
 					h.render snippet_path, klass => self
 				end
 			end
+		end
+
+		# ------------------------------------------------------------
+		# 1B. FORM DISPLAY METHODS
+		# ------------------------------------------------------------
+		def agentive_line
+			h.content_tag :p do @category.agentive.titleize end
+		end
+
+		def choose_creator_category
+			if has_multiple_creator_categories?
+				h.selection_field_cell "[#{self.klass}][uploadership][category]", self.creatorship_options, "Creator Category"
+			else
+				@category = self.creator_categories.first
+				h.capture do
+					h.concat(agentive_line)
+					h.concat(h.hidden_field_tag("[#{self.klass}][uploadership][category]", @category.id))
+				end
+			end
+		end
+
+		def creating_as(creator)
+			h.content_tag :p do h.link_to(creator.name, creator).html_safe end
+		end
+
+		# 2. PUBLIC SELECTION METHODS
+		# ============================================================
+		# ------------------------------------------------------------
+		# 2A. DATUM SELECTION METHODS
+		# ------------------------------------------------------------
+		# length_status - word count
+		# ............................................................
+		def length_status
+			@length_status ||= h.number_with_delimiter(self.word_count, :delimiter => ",") + " Words"
+		end
+
+		# length_status - completion state
+		# ............................................................
+		def state_status
+			@status_label ||= status.titleize
+		end
+
+		# ------------------------------------------------------------
+		# 2B. HEADINGS SELECTION METHODS
+		# ------------------------------------------------------------
+		def heading_with_count
+			(heading + " " + length_span).html_safe
+		end
+
+		def heading_with_icon
+			(icon + " " + heading).html_safe
+		end
+
+		# ------------------------------------------------------------
+		# 2C. TITLE SELECTION METHODS
+		# ------------------------------------------------------------
+		def title_for_creation
+			@meta_title ||= "Create #{klass}".titleize
+		end
+
+		def title_for_editing
+			@meta_title ||= heading + " (Editing)"
 		end
 
 	end
