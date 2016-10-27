@@ -52,9 +52,12 @@ class Identity < ActiveRecord::Base
 	
 	# Counts
 	# ------------------------------------------------------------
-	scope :with_count, ->(identity) { group("identities.id").order("COUNT(*) DESC").select("identities.*, (SELECT COUNT(*) FROM descriptions WHERE descriptions.identity_id = identities.id) as full_count")}
+	scope :with_count, ->(identity) { group("identities.id").order("COUNT(*) DESC").select("identities.*").with_description_count }
 	scope :count_by_name,  -> { group(:name).ordered_count }
 	scope :count_by_facet, -> { joins(:facet).group("facets.name").ordered_count }
+	scope :with_description_count, -> { select("(SELECT COUNT(*) FROM descriptions WHERE descriptions.identity_id = identities.id) as full_count") }
+	scope :with_work_count,  -> { select("(SELECT COUNT(*) FROM appearances, descriptions WHERE identity_id = identities.id AND appearances.character_id = descriptions.character_id group by appearances.work_id) as work_count") }
+	scope :with_usage_count, -> { select("identities.*").with_work_count.with_description_count }
 
 	# ASSOCIATIONS
 	# -----------------------------------------------------------
@@ -68,7 +71,7 @@ class Identity < ActiveRecord::Base
 	# References
 	has_many :appearances, source: :appearance, through: :descriptions
 
-	has_many :works,         ->{uniq},                source: :work, through: :appearances
+	has_many :works,        ->{ uniq },             source: :work, through: :appearances
 	has_many :onsite_works, ->{ Work.onsite.uniq }, source: :work, through: :appearances
 
 	# NESTED ATTRIBUTION
@@ -170,7 +173,7 @@ class Identity < ActiveRecord::Base
 	# ............................................................
 	# CharacterPercent - percent of all characters with identity
 	def character_percent
-		1.0 * self.characters.count / Character.count * 100.0
+		1.0 * use_count / Character.count * 100.0
 	end
 
 	# WorkPercent - percent of all works where characters with identity appear

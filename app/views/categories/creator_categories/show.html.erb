@@ -1,6 +1,6 @@
 <% provide(:title, @creator_category.name) %>
 
-<header class="category-header">
+<header class="category-header show-header">
 	<h1 id="<%= @creator_category.tag_id %>">
 		<%= title @creator_category.name %>
 		<%= subtitle @creator_category.agentive %>
@@ -9,8 +9,8 @@
 	<%= @creator_category.edit_bar %>
 </header>
 
-<div class="page-body">
+<%= subject_body do %>
 	<%= render 'agentable' %>
-</div>
+<% end %>
 
 <%= render 'categories/footer' %>

@@ -1,48 +1,58 @@
 <% provide(:title, @facet.name) %>
 
-<header class="category-header">
+<header class="category-header show-header">
 	<h1>
 		Admin Panel
 		<%= subtitle @facet.name %>
 	</h1>
 </header>
 
-<article class="page-body">
-	<header><%= @facet.alphabetic_pagination %></header>
-	<% piedata = @facet.piedata %>
+<%= subject_body do %>
+	<header class="pageable">
+		<%= @facet.alphabetic_pagination %>
+	</header>
+
+	<%= page_widget "Distribution" do %>
+		<%= grid_panel "stat-distribution" do %>
 	
-	<%= grid_panel "stat-distribution" do %>
-		<%= panel_cell "duo" do %>
-			<table class="analytics">
-				<caption>Distribution of Characters by <%= @facet.name.titleize %></caption>
+			<%= panel_cell "duo" do %>
+				<table class="analytics">
+					<thead>
+						<th>Identity</th>
+						<th>Character Count</th>
+						<th>Work Count</th>
+					</thead>
 
-				<thead>
-					<th>Identity</th>
-					<th>Count</th>
-				</thead>
+					<% @facet.identity_distribution.each do |identity| %>
+					<tr>
+						<th><%= link_to identity.name, identity %></th>
+						<td data-label="Count"><%= identity.full_count || 0 %></td>
+						<td data-label="Count"><%= identity.work_count || 0 %></td>
+					</tr>
+					<% end %>
+				</table>
+			<% end %>
 
-				<% piedata.each do |group| %>
-				<tr>
-					<th><%= group[:label] %></th>
-					<td data-label="Count"><%= group[:value] %></td>
-				</tr>
-				<% end %>
-			</table>
-		<% end %>
+			<%= panel_cell "duo" do %>
+				<h3>Chart of Character Distribution</h3>
+				<canvas id="distribution"></canvas>
+			<% end %>
 
-		<%= panel_cell "duo" do %>
-			<canvas id="distribution"></canvas>
-			<p>Chart of Character Distribution</p>
 		<% end %>
 	<% end %>
-</article>
 
-<footer class="path-finder"><%= link_to "Facets", facets_path %></footer>
+	<footer class="pageable">
+		<%= @facet.alphabetic_pagination %>
+	</footer>
+<% end %>
+
+<%= render 'categories/footer' %>
 
 <script type="text/javascript">
-	var data = <%= piedata.to_json.to_s.html_safe %>;
+	var data = <%= @facet.pie_dataset %>;
 	var ctx = document.getElementById("distribution").getContext("2d");
-	var distribution = new Chart(ctx).Pie(data, {
-		tooltipFillColor: "rgba(0,0,0,1)"
+	var distribution = new Chart(ctx,{
+		type: 'pie',
+		data: data
 	});
 </script>

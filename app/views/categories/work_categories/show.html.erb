@@ -1,37 +1,14 @@
 <% provide(:title, @work_category.heading) %>
 
-<header class="category-header">
+<header class="category-header show-header">
 	<h1>
 		Admin Panel
 		<%= subtitle @work_category.heading %>
 	</h1>
 </header>
 
-
-<div class="page-body">
-	<%= grid_panel "stat-distribution" do %>
-		<%= panel_cell "golden-minor" do %>
-			<div class="usage" style="margin: 0px 15%; background: white;">
-				<h2>Usage</h2>
-				<p>
-					<%= @in_use_count %> 
-					<%= @work_category.heading.pluralize @in_use_count %>
-				</p>
-				<p>
-					By 
-					<%= @used_by_count %> 
-					<%= "Uploader".pluralize @used_by_count %>
-				</p>
-			</div>
-		<% end %>
-		<%= panel_cell "golden-major" do render 'agentable' end %>
-
-	<% end %>
-</div>
-<style type="text/css">
-.stat-distribution {
-	background: none;
-}
-</style>
+<%= subject_body do %>
+	<%= render 'agentable' %>
+<% end %>
 
 <%= render 'categories/footer' %>
