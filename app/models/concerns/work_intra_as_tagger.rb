@@ -58,9 +58,9 @@ module WorkIntraAsTagger
 		end
 
 		def with_intraworks(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash(taggings)
 				with_ordered_intraworks(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string(taggings)
 				with_unordered_intraworks(taggings.split(";"))
 			else
 				all
@@ -68,16 +68,25 @@ module WorkIntraAsTagger
 		end
 
 		def without_intraworks(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash(taggings)
 				without_ordered_intraworks(taggings)
-			elsif (taggings.is_a? String)
-				without_unordered_intraworks(taggings.split(";"))	
+			elsif searchable_string(taggings)
+				without_unordered_intraworks(taggings.split(";"))
 			else
 				all
 			end		
 		end
 
 		private
+		# ============================================================
+		def searchable_hash(taggings)
+			((taggings.is_a? Hash) && !(taggings.values.reject { |v| v.empty? }.empty?))
+		end
+
+		def searchable_string(taggings)
+			((taggings.is_a? String) && !(taggings.empty?))
+		end
+
 		# ORDERED
 		def with_ordered_intraworks(taggings)
 			where("works.id IN (#{WorkConnection.tagger_intersection_sql(taggings)})")

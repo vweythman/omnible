@@ -65,19 +65,20 @@ module WorkGeneralTagging
 		end
 
 		def with_tags(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash(taggings)
 				where("works.id IN (#{Tagging.tagger_intersection_sql(taggings, "Work")})")
-			elsif (taggings.is_a? String)
+			elsif searchable_string(taggings)
 				where("works.id IN (#{Tagging.tagger_by_tag(taggings.split(";"), "Work").to_sql})")
 			else
+				logger.debug "IS NOT"
 				all
 			end
 		end
 
 		def without_tags(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash(taggings)
 				where("works.id NOT IN (#{Tagging.tagger_intersection_sql(taggings, "Work")})")
-			elsif (taggings.is_a? String)
+			elsif searchable_string(taggings)
 				where("works.id NOT IN (#{Tagging.tagger_by_tag(taggings.split(";"), "Work").to_sql})")
 			else
 				all
@@ -85,7 +86,7 @@ module WorkGeneralTagging
 		end
 
 		def with_places(taggings)
-			if (taggings.is_a? String)
+			if searchable_string(taggings)
 				where("works.id IN (#{Setting.tagger_by_places(taggings.split(";")).to_sql})")
 			else
 				all
@@ -93,11 +94,25 @@ module WorkGeneralTagging
 		end
 
 		def without_places(taggings)
-			if (taggings.is_a? String)
+			if searchable_string(taggings)
 				where("works.id NOT IN (#{Setting.tagger_by_places(taggings.split(";")).to_sql})")
 			else
 				all
 			end
+		end
+
+		# PRIVATE CLASS METHODS
+		# ============================================================
+		private
+
+		# INPUT CLEANING
+		# ------------------------------------------------------------
+		def searchable_hash(taggings)
+			((taggings.is_a? Hash) && !(taggings.values.reject { |v| v.empty? }.empty?))
+		end
+
+		def searchable_string(taggings)
+			((taggings.is_a? String) && !(taggings.empty?))
 		end
 
 	end

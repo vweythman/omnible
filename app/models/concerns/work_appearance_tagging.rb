@@ -62,9 +62,9 @@ module WorkAppearanceTagging
 		end
 
 		def with_characters(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash taggings
 				with_ordered_characters(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string taggings
 				with_unordered_characters(taggings.split(";"))
 			else
 				all
@@ -72,13 +72,13 @@ module WorkAppearanceTagging
 		end
 
 		def without_characters(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash taggings
 				without_ordered_characters(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string taggings
 				without_unordered_characters(taggings.split(";"))	
 			else
 				all
-			end		
+			end
 		end
 
 		# Identities
@@ -88,9 +88,9 @@ module WorkAppearanceTagging
 		end
 
 		def with_identities(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash taggings
 				with_ordered_identities(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string taggings
 				with_unordered_identities(taggings.split(";"))
 			else
 				all
@@ -98,16 +98,28 @@ module WorkAppearanceTagging
 		end
 
 		def without_identities(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash taggings
 				without_ordered_identities(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string taggings
 				without_unordered_identities(taggings.split(";"))	
 			else
 				all
-			end		
+			end
 		end
 
+		# PRIVATE CLASS METHODS
+		# ============================================================
 		private
+
+		# INPUT CLEANING
+		# ------------------------------------------------------------
+		def searchable_hash(taggings)
+			((taggings.is_a? Hash) && !(taggings.values.reject { |v| v.empty? }.empty?))
+		end
+
+		def searchable_string(taggings)
+			((taggings.is_a? String) && !(taggings.empty?))
+		end
 
 		# ORDERED
 		# ------------------------------------------------------------

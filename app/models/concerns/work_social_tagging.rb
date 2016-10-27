@@ -56,9 +56,9 @@ module WorkSocialTagging
 		end
 
 		def with_squads(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash(taggings)
 				with_ordered_squads(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string(taggings)
 				with_unordered_squads(taggings.split(";"))
 			else
 				all
@@ -66,17 +66,31 @@ module WorkSocialTagging
 		end
 
 		def without_squads(taggings)
-			if (taggings.is_a? Hash)
+			if searchable_hash(taggings)
 				without_ordered_squads(taggings)
-			elsif (taggings.is_a? String)
+			elsif searchable_string(taggings)
 				without_unordered_squads(taggings.split(";"))	
 			else
 				all
 			end		
 		end
 
+		# PRIVATE CLASS METHODS
+		# ============================================================
 		private
-		# ORDERED
+
+		# INPUT CLEANING
+		# ------------------------------------------------------------
+		def searchable_hash(taggings)
+			((taggings.is_a? Hash) && !(taggings.values.reject { |v| v.empty? }.empty?))
+		end
+
+		def searchable_string(taggings)
+			((taggings.is_a? String) && !(taggings.empty?))
+		end
+
+		# SORTED FILTERING
+		# ------------------------------------------------------------
 		def with_ordered_squads(taggings)
 			where("works.id IN (#{SocialAppearance.tagger_intersection_sql(taggings)})")
 		end
@@ -85,7 +99,8 @@ module WorkSocialTagging
 			where("works.id NOT IN (#{SocialAppearance.tagger_intersection_sql(taggings)})")
 		end
 
-		# UNSORTED
+		# UNSORTED FILTERING
+		# ------------------------------------------------------------
 		def with_unordered_squads(titles)
 			where("works.id IN (#{SocialAppearance.tagger_by_squads(titles).to_sql})")
 		end
