@@ -1,14 +1,20 @@
 <div class="account">
 	<% if user_signed_in? %>
-		<div class="user">
-			<%= link_to current_user.name, dashboard_path, class: "logged-in" %>
-			<%= render 'shared/sidebar' %>
+
+		<div class="account-selection">
+			<%= link_to current_user.name, dashboard_path, class: "logged-in sidebar-control" %>
+			<%= render 'shared/sidebar_for_account' %>
+		</div>
+
+		<div class="account-selection">
+			<%= link_to t('content_types.uploads'), uploads_path, class: "sidebar-control" %>
+			<%= render 'shared/sidebar_for_uploads' %>
 		</div>
 
 		<% if current_user.admin? %>
-			<div class="user">
-				<%= link_to "Admin", admin_path, class: "logged-in" %>
-				<%= render 'shared/admin_sidebar' %>
+			<div class="account-selection">
+				<%= link_to "Admin", admin_path, class: "sidebar-control" %>
+				<%= render 'shared/sidebar_for_admin' %>
 			</div>
 		<% end %>
 		<span class="session"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></span>

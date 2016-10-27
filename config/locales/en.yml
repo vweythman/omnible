@@ -53,11 +53,12 @@ en:
     identities:    "Identities Categories"
     relator:       "Relationships Categories"
     content:
-      all:    "All"
-      audio:  "Audio"
-      images: "Images"
-      text:   "Text"
-      video:  "Video"
+      all:     "All"
+      audio:   "Audio"
+      images:  "Images"
+      text:    "Text"
+      video:   "Video"
+      nontext: "Nontextual"
 
   collected:
     all_tags:    "Tags"
@@ -80,12 +81,13 @@ en:
     pens:      "My Pen Names"
 
   content_types:
-    uploads:             "All Uploads"
+    uploads:             "My Uploads"
     works:               "All Works"
     anthologies:         "Anthologies"
     artwork:             "Artwork"
     articles:            "Articles"
     branching_stories:   "Branching Stories"
+    comics:              "Comics"
     journals:            "Journals"
     music_videos:        "Music Videos"
     poems:               "Poems"
