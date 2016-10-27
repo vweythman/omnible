@@ -1,13 +1,74 @@
 /* TEMPLATE: ABOUT ALL
 /* ***********************************************/
+// TABLE of CONTENT
+// ===============================================
+// -- SETUP :: IMPORTS
+// -- SETUP :: VARIABLES
+// -- SECTION :: GENERAL CONTENT
+// -- SECTION :: VIEWPORTS
+// ===============================================
+
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
+// ===============================================
 
 // SETUP :: VARIABLES
 // ===============================================
-$page-gutter:    $one-sixth;
-$article-gutter: $page-gutter / 2;
+$page-gutter      : $one-sixth;
+$index-background : desaturate($water-light-major, 70%);
+$index-border     : 5px solid desaturate($water-dark-minor, 70%);
+
+$widget-background   : $page-color;
+$widget-border-color : $fire-dark-minor;
+
+$widget-title-background   : $fire-lightest-minor;
+$widget-title-border-color : $fire-lighter-minor;
+$data-row-border-color     : $fire-light-minor;
+// ===============================================
+
+// SECTION :: GENERAL CONTENT
+// ===============================================
+.subject-body {
+	background : $index-background;
+	border     : $index-border;
+	margin     : 15px $gutter;
+
+	.widget {
+		margin     : 10px;
+		background : $page-color;
+		border     : 2px solid $widget-border-color;
+
+		p { padding: 5px 15px; }
+	}
+}
+
+.subheading {
+	@include simple-brand($widget-title-background, $widget-title-border-color, 2px);
+
+	font-family : "Arial", sans-serif;
+	font-size   : 1.25em;
+	font-weight : 600;
+	padding     : 3px 5px;
+	padding-top : 10px;
+}
+
+.data {
+	margin : 10px auto;
+	width  : calc(90% - 10px);
+
+	thead th {
+		border-bottom  : 3px solid $widget-title-border-color;
+		padding        : 10px 0px 5px;
+		text-align     : left;
+		vertical-align : bottom;
+	}
+
+	th { padding : 10px; }
+
+	tr { border-bottom : 1px dotted $data-row-border-color; }
+}
+// ===============================================
 
 // SECTION :: VIEWPORT
 // ===============================================
@@ -15,50 +76,6 @@ $article-gutter: $page-gutter / 2;
 @include page-mobile() {}
 @include page-non-mobile() {}
 @include page-tablet() {}
-
-// SECTION :: GENERAL
 // ===============================================
-.subject-body {
-	margin: 15px $article-gutter;
-	background: desaturate($water-light-major, 70%);
-	border:  5px solid desaturate($water-dark-minor, 70%);
-
-	.widget {
-		margin:     10px;
-		background: $page-color;
-		border: 2px solid $fire-dark-minor;
-		p {
-			padding: 5px 15px;
-		}
-	}
-
-}
-.subheading {
-	@include simple-brand($fire-lightest-minor, $fire-lighter-minor, 2px);
-	font-family:   "Arial", sans-serif;
-	font-size:     1.25em;
-	font-weight:   600;
-	padding:       3px 5px;
-	padding-top:   10px;
-}
-
-.data {
-	margin: 10px auto;
-	width:  calc(90% - 10px);
-
-	thead th {
-		padding: 10px 0 5px;
-		vertical-align: bottom;
-		text-align:     left;
-		border-bottom: 3px solid $fire-lighter-minor;
-	}
-	th {
-		padding: 10px;
-	}
-	tr {
-		border-bottom: 1px dotted $fire-light-minor;
-	}
-}
-
 /* END
 /* ***********************************************/

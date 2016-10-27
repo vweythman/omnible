@@ -1,0 +1,11 @@
+<tr class="paged-fieldset">
+	<td><%= f.object.decorate.preview_area %></td>
+	<td><%= f.string_cell :title, "Page Title (Optional)" %></td>
+	<td><%= f.file_cell :artwork, "Upload", class: "art-uploader-input" %></td>
+	<td><%= f.text_cell :description, class: :minor %></td>
+	<td>
+		<p class="remove-cell">
+			<%= link_to_remove_association "- Delete Page", f, data: { confirm: 'Are you sure that you want to delete this chapter?' } %>
+		</p>
+	</td>
+</tr>

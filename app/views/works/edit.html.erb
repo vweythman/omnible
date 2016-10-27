@@ -1,7 +1,11 @@
 <% provide(:title, @work.title_for_editing) %>
 
-<%= creation_block("Edit") do %>
+<%= creation_block("") do %>
 	<%= render 'form' %>
 <% end %>
 
-<script>autosize(document.querySelectorAll('textarea'));</script>
+<script>
+autosize($("textarea"));
+
+$( "#form-tabs" ).tabs({});
+</script>

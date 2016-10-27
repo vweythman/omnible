@@ -1,75 +1,66 @@
-<%= show_link("Tags", :tags) %>
+<% klass = @work.klass %>
 
-<fieldset class="nested-tags-fieldset nested-work-tags-fieldset" id="form_tags">
-	<legend>
-		Tags (Optional)
-		<%= hide_link(:tags) %>
-	</legend>
+<%= grid_panel do %>
+	<%= panel_cell "golden-major" do %>
+		<%= tagset "Tags", class: "true-tags place-tags" do %>
+			<% Tagging.work_tag_labels(@work).each do |key, heading| %>
 
-	<% klass = @work.klass %>
-	<%= grid_panel do %>
-		<%= panel_cell "golden-major" do %>
-			<%= tagset "Tags", class: "true-tags place-tags" do %>
-				<% Tagging.work_tag_labels(@work).each do |key, heading| %>
+				<%  tags = @work.ordered_true_tags.names_by key %>
+				<%= tag_field_cell [klass, :taggables, key], tags, heading %>
 
-					<%  tags = @work.ordered_true_tags.names_by key %>
-					<%= tag_field_cell [klass, :taggables, key], tags, heading %>
-
-				<% end %>
-
-				<%= tag_field_cell [klass, :placeables], @work.place_names, @work.location_heading %>
 			<% end %>
 
-			<%= tagset "Character Tags", class: "characters" do %>
-				<% Appearance.tag_labels(@work).each do |key, heading| %>
+			<%= tag_field_cell [klass, :placeables], @work.place_names, @work.location_heading %>
+		<% end %>
 
-					<%  tags = @work.ordered_characters.names_by key %>
-					<%= tag_field_cell [klass, :appearables, key], tags, heading %>
+		<%= tagset "Character Tags", class: "characters" do %>
+			<% Appearance.tag_labels(@work).each do |key, heading| %>
 
-				<% end %>
-			<% end %>
+				<%  tags = @work.ordered_characters.names_by key %>
+				<%= tag_field_cell [klass, :appearables, key], tags, heading %>
 
-			<%= tagset "Relationships & Groups", class: "groupings" do %>
-				<% SocialAppearance.tag_labels(@work).each do |key, heading| %>
-
-					<%  tags = @work.ordered_squads.names_by key %>
-					<%= tag_field_cell [klass, :socialables, key], tags, heading %>
-
-				<% end %>
-			<% end %>
-
-			<%= tagset "Related Work Tags", class: "works" do %>
-				<% WorkConnection.work_tag_labels(@work).each do |key, heading| %>
-
-					<%  tags = @work.ordered_works.titles_by key %>
-					<%= tag_field_cell [klass, :relateables, key], tags, heading %>
-
-				<% end %>
 			<% end %>
 		<% end %>
 
-		<%= panel_cell "golden-minor" do %>
-			<div class="tooltip">
-				<p>Tag in whichever way disambiguates</p>
-				<p>Characters</p>
-				<ul>
-					<li>Harry Potter</li>
-					<li>Slytherin!Harry Potter</li>
-					<li>Nemo (Little Nemo)</li>
-					<li>Nemo (Finding Nemo)</li>
-				</ul>
+		<%= tagset "Relationships & Groups", class: "groupings" do %>
+			<% SocialAppearance.tag_labels(@work).each do |key, heading| %>
 
-				<p>Works:</p>
-				<ul>
-					<li>Fire and Ice</li>
-					<li>Fire and Ice [Poem]</li>
-					<li>Fire and Ice / Robert Frost</li>
-					<li>Fire and Ice [Poem] / Robert Frost</li>
-					<li>Star Wars [Film Series]</li>
-					<li>Star Wars [Franchise]</li>
-				</ul>
-			</div>
+				<%  tags = @work.ordered_squads.names_by key %>
+				<%= tag_field_cell [klass, :socialables, key], tags, heading %>
+
+			<% end %>
+		<% end %>
+
+		<%= tagset "Related Work Tags", class: "works" do %>
+			<% WorkConnection.work_tag_labels(@work).each do |key, heading| %>
+
+				<%  tags = @work.ordered_works.titles_by key %>
+				<%= tag_field_cell [klass, :relateables, key], tags, heading %>
+
+			<% end %>
 		<% end %>
 	<% end %>
 
-</fieldset>
+	<%= panel_cell "golden-minor" do %>
+		<div class="tooltip">
+			<p>Tag in whichever way disambiguates</p>
+			<p>Characters</p>
+			<ul>
+				<li>Harry Potter</li>
+				<li>Slytherin!Harry Potter</li>
+				<li>Nemo (Little Nemo)</li>
+				<li>Nemo (Finding Nemo)</li>
+			</ul>
+
+			<p>Works:</p>
+			<ul>
+				<li>Fire and Ice</li>
+				<li>Fire and Ice [Poem]</li>
+				<li>Fire and Ice / Robert Frost</li>
+				<li>Fire and Ice [Poem] / Robert Frost</li>
+				<li>Star Wars [Film Series]</li>
+				<li>Star Wars [Franchise]</li>
+			</ul>
+		</div>
+	<% end %>
+<% end %>

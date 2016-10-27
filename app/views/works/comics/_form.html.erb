@@ -1,0 +1,44 @@
+<%= clean_form_for(@art) do |f| %>
+
+	<%= form_title f.string_cell :title, "Title" %>
+	<%= error_block(@art) %>
+
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-1">Meta</a></li>
+			<li><a href="#tab-2">Pages</a></li>
+			<li><a href="#tab-3">Tags (Optional)</a></li>
+		</ul>
+
+		<div id="tab-1">
+			<%= f.text_cell :summary, { class: :minor }, true %>
+			<%= render @art.meta_fields, f: f %>
+		</div>
+
+		<div id="tab-2" class="article-panel">
+			<% current_pages = @art.current_pages %>
+			<table class="paged-fields comic-pages">
+				<thead>
+					<tr>
+						<th>Preview</th>
+						<th>Page Title</th>
+						<th>Upload</th>
+						<th>Description</th>
+						<th>Remove</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%= current_pages.fields(f) %>
+				</tbody>
+
+				<caption class="add-cell"><%= link_to_add_association "+ Add Page", f, current_pages.klass, :partial => current_pages.partial %></caption>
+			</table>
+		</div>
+
+		<div id="tab-3"><%= render @art.tag_fields, f: f %> </div>
+	</div>
+	
+	<%= f.submit_cell %>
+<% end %>
+
+<%= render 'works/shared/previewer' %>

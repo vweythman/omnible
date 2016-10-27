@@ -2,17 +2,26 @@
 
 	<%= error_block(@link) %>
 
-	<fieldset class="primary-fieldset">
-		<%= panel_cell "duo" do f.string_cell :title, "Text" end %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-0">Link</a></li>
+			<li><a href="#tab-1">Tags (Optional)</a></li>
+		</ul>
 
-		<%= panel_cell "duo" do %>
-			<%= f.fields_for  :sources do |b| %>
-				<%= b.string_cell :reference, "Link" %>
+		<div id="tab-0">
+			<%= grid_panel do %>
+				<%= panel_cell "duo" do f.string_cell :title, "Text" end %>
+
+				<%= panel_cell "duo" do %>
+					<%= f.fields_for  :sources do |b| %>
+						<%= b.string_cell :reference, "Link" %>
+					<% end %>
+				<% end %>
 			<% end %>
-		<% end %>
-	</fieldset>
+		</div>
 
-	<%= render @link.tag_fields, f: f %>
+		<div id="tab-1"><%= render @link.tag_fields, f: f %></div>
+	</div>
 
 	<%= f.submit_cell %>
 <% end %>

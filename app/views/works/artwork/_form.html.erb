@@ -1,44 +1,28 @@
 <%= clean_form_for(@art) do |f| %>
 
+	<%= form_title f.string_cell :title, "Title" %>
 	<%= error_block(@art) %>
 
-	<fieldset class="primary-fieldset">
-		<%= f.string_cell :title, "Title" %>
-		<%= f.text_cell   :summary, class: :minor, placeholder: "Description" %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-1">Content</a></li>
+			<li><a href="#tab-2">Tags (Optional)</a></li>
+		</ul>
 
-		<%= f.fields_for :picture do |pic| %>
-			<% picture = pic.object.decorate %>
-			<%= grid_panel do %>
-				<%= panel_cell "golden-minor" do %>
-					<%= picture.preview_area %>
+		<div id="tab-1">
+			<div class="paged-fieldset">
+				<%= f.fields_for :picture do |pic| %>
+					<%= render 'works/shared/fields/art_upload', f: pic, picture: pic.object.decorate %>
 				<% end %>
 
-				<%= panel_cell "golden-major" do %>
-					<%= pic.file_cell :artwork, "Upload" %>
-				<% end %>
-			<% end %>
-		<% end %>
-	</fieldset>
-
-	<%= render @art.meta_fields, f: f %>
-	<%= render @art.tag_fields,  f: f %>
+				<%= f.text_cell :summary, { class: :minor }, true %>
+			</div>
+			<%= render @art.meta_fields, f: f %>
+		</div>
+		<div id="tab-2"><%= render @art.tag_fields, f: f %></div>
+	</div>
 	
 	<%= f.submit_cell %>
 <% end %>
 
-<script>
-function read_url(input) {
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#image-preview').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$("#art_picture_attributes_artwork").change(function(){ read_url(this); });
-</script>
+<%= render 'works/shared/previewer' %>

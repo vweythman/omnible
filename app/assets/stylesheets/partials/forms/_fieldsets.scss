@@ -5,24 +5,27 @@
 $associative-title-background : $page-dark-minor;
 $add-background               : $water-darker-minor;
 $add-hover-background         : $water-color;
-$nested-background            : $page-lightest-major;
 $paged-background             : $page-lightest-minor;
 $remove-background            : $fire-dark-major;
 $remove-hover-background      : $fire-dark-minor;
 
 $associative-border-color       : $page-dark-minor;
-$nested-border-color            : $water-color;
-$nested-tags-border-color       : $water-dark-minor;
-$nested-tags-title-border-color : $fire-light-minor;
-$paged-border-color             : $water-light-major;
-$paged-text-border-color        : $water-light-major;
+$paged-border-color             : $border-color;
+$paged-text-border-color        : $border-color;
 $solo-set-border-color          : $page-light-minor;
 
 $add-color               : $water-lighter-major;
 $associative-title-color : $page-lightest-minor;
-$nested-tags-color       : $fire-darker-minor;
-$nested-tags-title-color : $fire-darker-minor;
 $remove-color            : $fire-lighter-major;
+
+$nested-background : $fire-lighter-minor;
+
+$nested-border-color            : $fire-color;
+$nested-tags-border-color       : $fire-light-minor;
+$nested-tags-title-border-color : $fire-dark-minor;
+
+$nested-tags-color       : $fire-darker-minor;
+$nested-tags-title-color : $page-lightest-minor;
 // ===============================================
 
 // SECTION :: GENERAL
@@ -44,7 +47,6 @@ $remove-color            : $fire-lighter-major;
 // ===============================================
 .associative-fieldset {
 	border        : 0.25em solid $associative-border-color;
-	border-radius : 0.75em;
 	margin-top    : 10px;
 
 	& > legend {
@@ -68,7 +70,6 @@ $remove-color            : $fire-lighter-major;
 	& > legend {
 		background    : $nested-background;
 		border        : 3px solid $nested-border-color;
-		border-radius : 5px;
 		padding       : 10px;
 		font-weight   : bolder;
 	}
@@ -112,18 +113,51 @@ $remove-color            : $fire-lighter-major;
 
 // SECTION :: NESTED PAGES
 // ===============================================
+.paged-fields caption {
+	caption-side : bottom;
+	font-size    : 1em;
+}
+
 .paged-fieldset {
 	background    : $paged-background;
 	border        : 3px solid $paged-border-color;
 	margin-bottom : 5px;
 
+	.artwork-field { margin : 10px; }
+	.summary-field { margin : 5px;  }
+
 	.string-field input,
 	.text-field .field-value { border-color : $paged-text-border-color; }
 
 	legend .string-field {
-		padding : 0;
+		padding    : 3px;
+		border     : 3px solid $paged-text-border-color;
+		background : $field-label-background;
+
+		.field-content {
+			display : inline-block;
+		}
+
+		.field-label {
+			padding       : 8px;
+			border-radius : 0px;
+			margin        : 0px;
+		}
+	}
+
+	td {
+		padding        : 0px;
+		vertical-align : top;
 
 		.field-label { display : none; }
+
+		.string-field,
+		.remove-cell {
+			margin : 10px 5px;
+		}
+		.file-field .field-value {
+			padding : 3px;
+		}
 	}
 }
 // ===============================================
@@ -136,13 +170,16 @@ $remove-color            : $fire-lighter-major;
 	margin-top : 10px;
 
 	& > legend {
-		border-radius : 1em;
-		padding       : 10px;
-		width         : calc(100% - 20px);
-		font-weight   : bolder;
+		padding     : 10px 5px 5px;
+		width       : calc(100% + 8px);
+		font-weight : bolder;
+		margin      : 0px -12px;
 
-		border        : 0.25em solid $nested-tags-title-border-color;
-		color         : $nested-tags-title-color;
+		background : $nested-tags-title-border-color;
+		border     : 3px solid $nested-tags-title-border-color;
+		color      : $nested-tags-title-color;
+
+		border-bottom-color : $nested-tags-border-color;
 	}
 }
 
@@ -154,7 +191,7 @@ $remove-color            : $fire-lighter-major;
 .nested-tags-fieldset .nested-tags-fieldset {
 	padding    : 1px;
 	background : $nested-tags-title-border-color;
-	border     : 0.125em solid $nested-tags-title-color;
+	border     : 3px solid $nested-tags-title-color;
 
 	& > legend { display : none; }
 }

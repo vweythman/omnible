@@ -1,5 +1,11 @@
 <%= form_tag url_for(only_path: true), method: 'get' do %>
-	<aside class="filters">
+	<h2 class="filter-body-heading filter-show-heading">
+		Filters
+		<%= show_link("", "all-filters") %>
+		<%= hide_link("all-filters") %>
+	</h2>
+
+	<aside class="filters" id="form_all-filters">
 		<div class="filter-section">
 			<% @works.filter_values.each do |key, group| %>
 				<div>
@@ -9,11 +15,11 @@
 		</div>
 
 		<div class="filter-section">
-			<h2 class="filter-title filter-tags-title">
+			<h3 class="filter-title filter-tags-title">
 				With
 				<%= hide_link("tag-inclusion-filters") %>
 				<%= show_link("", "tag-inclusion-filters") %>
-			</h2>
+			</h3>
 			<div id="form_tag-inclusion-filters" class="toggleable-filter-tags">
 				<% @works.filter_labels.each do |label, filters| %>
 					<%= filter_tags([:with] + filters, label) %>
@@ -22,11 +28,11 @@
 		</div>
 
 		<div class="filter-section">
-			<h2 class="filter-title filter-tags-title">
+			<h3 class="filter-title filter-tags-title">
 				Without
 				<%= hide_link("tag-exclusion-filters") %>
 				<%= show_link("", "tag-exclusion-filters") %>
-			</h2>
+			</h3>
 			<div id="form_tag-exclusion-filters" class="toggleable-filter-tags">
 				<% @works.filter_labels.each do |label, filters| %>
 					<%= filter_tags([:without] + filters, label) %>

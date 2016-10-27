@@ -1,9 +1,11 @@
 <% provide(:title, @work.title_for_creation) %>
 
-<%= creation_block(@work.title_for_creation) do %>
+<%= creation_block(@work.creation_heading) do %>
 	<%= render 'form' %>
 <% end %>
 
 <script>
-	autosize($("textarea"));
+autosize($("textarea"));
+
+$( "#form-tabs" ).tabs({});
 </script>

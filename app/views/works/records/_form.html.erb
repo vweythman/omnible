@@ -1,24 +1,27 @@
 <%= clean_form_for(@record) do |f| %>
 
+	<%= form_title f.string_cell :title, "Title" %>
 	<%= error_block(@record) %>
 
-	<fieldset class="primary-fieldset">
-		<%= panel_cell "duo" do f.string_cell :title, "Title" end %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-1">Content</a></li>
+			<li><a href="#tab-2">Tags (Optional)</a></li>
+		</ul>
 
-		<%= panel_cell "duo" do %>
+		<div id="tab-1">
 			<%= f.fields_for :medium_datum do |b| %>
 				<%= b.string_cell :value, "Medium" %>
 			<% end %>
-		<% end %>
-	</fieldset>
+			<%= f.text_cell :summary, { class: :minor }, true %>
+		</div>
 
-	<%= f.text_cell :summary, { class: :minor }, true %>
-
-	<fieldset class="nested-tags-fieldset nested-work-tags-fieldset">
-		<legend>Tags</legend>
-		<%= tag_field_cell([@record.klass, "appearables", "subject"], @record.ordered_characters.names_by('subject'), "Characters") %>
-		<%= tag_field_cell([@record.klass, "placeables"], @record.place_names, "Places") %>
-	</fieldset>
-
+		<div id="tab-2">
+			<%= tag_field_cell([@record.klass, "appearables", "subject"], @record.ordered_characters.names_by('subject'), "Characters") %>
+			<%= tag_field_cell([@record.klass, "placeables"], @record.place_names, "Places") %>
+		</div>
+	</div>
+	
 	<%= f.submit_cell %>
+
 <% end %>

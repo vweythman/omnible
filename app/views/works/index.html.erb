@@ -11,11 +11,11 @@
 
 		<div class="filtered">
 			<%= grid_panel do %>
+				<%= panel_cell "filters-body golden-minor" do @works.filters end %>
 				<%= panel_cell "results-body golden-major" do %>
 					<%= @works.snippets %>
 					<%= @works.link_display_question %>
 				<% end %>
-				<%= panel_cell "filters-body golden-minor" do @works.filters end %>
 			<% end %>
 		</div>
 

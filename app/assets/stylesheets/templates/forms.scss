@@ -25,6 +25,7 @@
 @import "application";
 @import "variables/form";
 
+@import "partials/content/tabs";
 @import "partials/mixins/forms";
 @import "partials/forms/fields";
 @import "partials/forms/fieldsets";
@@ -44,13 +45,18 @@
 	}
 }
 
+.form-title {
+	background : $form-title-background;
+}
+
 form {
 	padding    : $form-margin $gutter;
 	background : $form-background;
-}
 
-h1 {
-	background : $form-title-background;
+	.form-title {
+		margin  : -10px gutter-negate($gutter)*-1 0px;
+		padding : 10px gutter-negate($gutter);
+	}
 }
 // ===============================================
 
@@ -91,6 +97,10 @@ h1 {
 		margin    : auto;
 		max-width : 150px;
 	}
+}
+
+.artwork-field {
+	margin : 10px 0px;
 }
 // -----------------------------------------------
 
@@ -228,12 +238,20 @@ h1 {
 	padding-bottom : 25px;
 
 	& > legend {
-		background:    $work-meta-background;
-		border-radius: 1em;
-		border:        0.25em solid $work-meta-border-color;
-		color:         $work-meta-color;
-		padding:       $form-margin;
-		width:         100%;
+		background: $work-meta-background;
+		border:     0.25em solid $work-meta-border-color;
+		color:      $work-meta-color;
+		padding:    $form-margin;
+		width:      100%;
+	}
+}
+
+.comic-pages {
+	.paged-fieldset { border-color : $comic-border-color; }
+
+	thead {
+		background : $comic-thead-background;
+		border     : 3px solid $comic-border-color;
 	}
 }
 // -----------------------------------------------
@@ -322,8 +340,8 @@ h1 {
 // SECTION :: VIEWPORTS
 // ===============================================
 @include page-desktop() {
-	.logged-in {
-		background : $form-background;
+	.sidebar-control {
+		background : $form-title-background;
 		color      : $link-color;
 	}
 }

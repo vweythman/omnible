@@ -1,20 +1,42 @@
 <%= clean_form_for(@story) do |f| %>
 
+	<%= form_title f.string_cell :title, "Title" %>
 	<%= error_block(@story) %>
 
-	<%= f.string_cell :title, "Title" %>
-	<%= f.text_cell   :summary, class: :minor %>
-	<%  current_chapters = @story.current_chapters %>
-	<%= current_chapters.show %>
-	<%= nestset(current_chapters) do %>
-		<%= current_chapters.fields(f) %>
-		<p class="add-cell">
-			<%= link_to_add_association "+ Add Chapter", f, current_chapters.klass, :partial => current_chapters.partial %>
-		</p>
-	<% end %>
-	
-	<%= render @story.meta_fields, f: f %>
-	<%= render @story.tag_fields,  f: f %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-1">Meta</a></li>
+			<li><a href="#tab-2">Chapters</a></li>
+			<li><a href="#tab-3">Tags (Optional)</a></li>
+		</ul>
+
+		<div id="tab-1">
+			<%= f.text_cell :summary, { class: :minor }, true %>
+			<%= render @story.meta_fields, f: f %>
+		</div>
+
+		<div id="tab-2" class="chapter-panel">
+			<%  current_chapters = @story.current_chapters %>
+
+			<div id="chapter-tabs" class="paged-tabs">
+				<ul>
+					<% i = 0 %>
+					<% current_chapters.each do |c| %>
+						<%= paged_anchor c, "New Chapter", c.relative_position(i) %>
+						<% i += 1 %>
+					<% end %>
+				</ul>
+
+				<%= current_chapters.fields(f) %>
+				<p class="add-cell"><%= link_to_add_association "+ Add Chapter", f, current_chapters.klass, :partial => current_chapters.partial %></p>
+			</div>
+
+		</div>
+
+		<div id="tab-3">
+			<%= render @story.tag_fields,  f: f %>
+		</div>
+	</div>
 
 	<%= f.submit_cell %>
 <% end %>

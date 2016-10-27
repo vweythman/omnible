@@ -2,6 +2,7 @@
 /* ***********************************************/
 // TABLE of CONTENT
 // ===============================================
+// -- SETUP :: IMPORTS
 // -- SETUP :: VARIABLES
 // ----- Index
 // ----- Filters
@@ -34,8 +35,7 @@
 // -----------------------------------------------
 // -- Index
 // -----------------------------------------------
-$index-background : $water-color;
-$index-shadow     : 0px 0px 10px $water-darker-major;
+$index-background : desaturate($water-light-major, 70%);
 
 $index-question-background : $water-darker-minor;
 $index-question-color      : $page-color;
@@ -43,10 +43,15 @@ $index-question-color      : $page-color;
 $results-background           : $page-color;
 $results-toolkit-border-color : $page-darkest-minor;
 
-$tableized-border : 3px solid $page-darker-major;
-
 $index-title-background   : $page-lighter-minor;
 $index-title-border-color : $page-darker-major;
+
+$border-width : 5px;
+
+$index-border     : $border-width solid desaturate($water-dark-minor, 70%);
+$filters-border   : $border-width solid $water-dark-minor;
+$tableized-border : $border-width solid $page-darker-major;
+// -----------------------------------------------
 
 // -----------------------------------------------
 // -- Pagination
@@ -60,7 +65,7 @@ $index-paging-link-color : $page-darker-minor;
 // -----------------------------------------------
 // -- Filters
 // -----------------------------------------------
-$filters-background : $water-dark-minor;
+$filters-background : $water-light-minor;
 
 $filter-link-color       : $water-dark-minor;
 $filter-link-hover-color : $water-darker-minor;
@@ -69,12 +74,12 @@ $filter-submit-background : $water-darker-minor;
 $filter-submit-hover      : $water-dark-major;
 
 $filter-background   : $page-color;
-$filter-title-color  : $water-lightest-minor;
-$fitler-title-border : 3px solid $water-light-minor;
+$filter-title-color  : $page-lightest-minor;
+$fitler-title-border : 3px solid $page-light-minor;
 
 $filter-tag-label-color : $fire-dark-minor;
 
-$filter-toggle-background : $water-dark-minor;
+$filter-toggle-background : $page-dark-minor;
 $filter-toggle-color      : $page-color;
 // -----------------------------------------------
 // ===============================================
@@ -98,7 +103,7 @@ $filter-toggle-color      : $page-color;
 .page-body,
 .index-body {
 	background : $index-background;
-	box-shadow : $index-shadow;
+	border     : $index-border;
 }
 
 .index-body {
@@ -119,7 +124,20 @@ $filter-toggle-color      : $page-color;
 // -----------------------------------------------
 // -- Layout
 // -----------------------------------------------
-.filters-body { background : $filters-background; }
+.filters-body {
+	background : $filters-background;
+	border     : $filters-border;
+
+	.filter-body-heading {
+		border  : none;
+		padding : 10px;
+	}
+}
+
+.filter-body-heading {
+	display : none;
+}
+
 .filters {
 	padding : 15px;
 
@@ -135,15 +153,6 @@ $filter-toggle-color      : $page-color;
 	background : $filter-background;
 	padding    : 5px;
 
-	h2 {
-		background    : $filter-title-color;
-		border-bottom : $fitler-title-border;
-		font-size     : $text-size + 1px;
-		font-weight   : 300;
-		font-variant  : small-caps;
-		margin        : 0px;
-		padding       : 7px 15px;
-	}
 	ul {
 		padding : 0px;
 		margin  : 0px;
@@ -165,6 +174,16 @@ $filter-toggle-color      : $page-color;
 			font-weight : 900;
 		}
 	}
+}
+
+.filter-title {
+	background    : $filter-title-color;
+	border-bottom : $fitler-title-border;
+	font-size     : $text-size + 1px;
+	font-weight   : 300;
+	font-variant  : small-caps;
+	margin        : 0px;
+	padding       : 7px 15px;
 }
 
 .filter-tags-title { overflow : auto; }
@@ -211,6 +230,7 @@ $filter-toggle-color      : $page-color;
 .results > .indexable,
 .results-body {
 	background : $results-background;
+	border     : $index-border;
 	overflow   : auto;
 }
 
@@ -231,6 +251,7 @@ $filter-toggle-color      : $page-color;
 .results-body .snippet {
 	margin : 15px;
 }
+
 .index-body {
 	h2 {
 		background    : $index-title-background;
@@ -246,7 +267,7 @@ $filter-toggle-color      : $page-color;
 // -----------------------------------------------
 .display-question {
 	background : $index-question-background;
-	margin     : 20px 0px 0px -15px;
+	margin     : 20px -5px -5px -20px;
 	padding    : 10px 15px;
 	text-align : center;
 
@@ -258,8 +279,8 @@ $filter-toggle-color      : $page-color;
 	background : $index-paging-background;
 	color      : $index-paging-color;
 
-	header & { border-bottom : $index-paging-border; }
-	footer & { border-top    : $index-paging-border; }
+	header &,
+	footer & { border : $index-paging-border; }
 
 	a { color : $index-paging-link-color; }
 }
@@ -325,6 +346,14 @@ $filter-toggle-color      : $page-color;
 @include page-non-mobile() {
 	.tableized-results td { font-size : 0.8em; }
 	.branching-info    td { font-size : 1em; }
+
+	.filters {
+		display : block !important;
+	}
+	.filtered .filters-body {
+		border-right  : none;
+	}
+
 }
 // -----------------------------------------------
 
@@ -348,13 +377,36 @@ $filter-toggle-color      : $page-color;
 // -- Mobile
 // -----------------------------------------------
 @include page-mobile() {
+
+	// Tables
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	.tableized-results {
 		@include mobile-friendly-data-results();
 		@include mobile-friendly-table-data($page-darker-major);
-
 	}
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	// Work Subelements
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	.chapter-info th { display : inline; }
 	.branching-info td { text-align : left; }
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	// Filtered indices
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	.filtered .panel-cell,
+	.filters-body .filter-show-heading {
+		display : block;
+		border  : none;
+	}
+
+	.filters { display : none; }
+
+	.filtered .results-body { margin-top : 15px; }
+
+	.display-question { margin : 0px; }
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 }
 // -----------------------------------------------
 // ===============================================

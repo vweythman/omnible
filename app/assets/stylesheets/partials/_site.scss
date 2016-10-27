@@ -30,7 +30,7 @@
 // -- Site
 // -----------------------------------------------
 $site-background        : $page-darkest-minor;
-$site-header-background : $water-dark-major;
+$site-header-background : $page-darker-major;
 
 $content-color        : $page-darker-major;
 $content-header-color : $page-color;
@@ -42,11 +42,11 @@ $logo-hover-color : $water-lighter-major;
 // -----------------------------------------------
 // -- Header Menu
 // -----------------------------------------------
-$menu-title-background        : $water-dark-minor;
+$menu-title-background        : $page-dark-minor;
 $mobile-login-link-background : $water-dark-minor;
-$submenu-background           : $water-dark-major;
+$submenu-background           : $page-darker-major;
 
-$menu-title-border-color : $water-darker-minor;
+$menu-title-border-color : $page-dark-major;
 
 $nonmobile-submenu-width : $one-fifth;
 $mobile-menu-width       : $one-fifth;
@@ -55,7 +55,7 @@ $desktop-menu-width      : $three-fourths;
 $desktop-submenu-width   : $desktop-menu-width * (1/5) * (5/6);
 $mega-drop-width         : $one-half;
 
-$menu-title-color : $water-lightest-minor;
+$menu-title-color : $page-lighter-major;
 $menu-color       : $water-lightest-minor;
 $menu-hover-color : $water-light-minor;
 // -----------------------------------------------
@@ -76,11 +76,11 @@ $session-link-color       : lighten($water-light-minor, $golden-major);
 // -----------------------------------------------
 // -- Sidebar
 // -----------------------------------------------
-$sidebar-background            : $water-dark-major;
+$sidebar-background            : $page-dark-major;
 $sidebar-link-hover-background : $water-lightest-minor;
 $sidebar-title-background      : $fire-light-minor;
 
-$sidebar-width : 250px;
+$sidebar-width : 200px;
 
 $sidebar-link-color      : $page-lightest-minor;
 $sidebar-title-color     : $fire-darker-minor;
@@ -118,7 +118,7 @@ body {
 .site-header {
 	padding    : 0px;
 	overflow   : auto;
-	background : $water-dark-major;
+	background : $site-header-background;
 
 	a  { text-decoration : none; }
 	ul { list-style      : none; }
@@ -155,6 +155,10 @@ body {
 	text-align : center;
 
 	.submenu { display : none; }
+
+	li:hover {
+		background : $menu-title-border-color;
+	}
 	
 	a {
 		color          : $menu-color;
@@ -162,7 +166,7 @@ body {
 		letter-spacing : 2px;
 		padding        : 10px;
 
-		&:hover   { color : $menu-hover-color; }
+		&:hover { color : $menu-hover-color; }
 	}
 	ul {
 		margin  : 0px;
@@ -172,7 +176,9 @@ body {
 
 .submenu {
 	background : $submenu-background;
+	border     : 3px solid $menu-title-border-color;
 	z-index    : 200;
+	font-size  : 1.10em;
 }
 
 .category-title {
@@ -197,15 +203,14 @@ body {
 	}
 }
 
-.user   { display     : inline-block; }
-.user a { font-weight : bolder; }
+.account-selection   { display     : inline-block; }
+.account-selection a { font-weight : bolder; }
 
-.logged-in {
-	background     : $login-background;
-	color          : $login-color;
-	letter-spacing : 2px;
+.sidebar-control {
+	background : $login-background;
+	color      : $login-color;
 
-	.user:hover & {
+	.account-selection:hover & {
 		color      : $login-hover-color; 
 		background : $login-hover-background;
 	}
@@ -216,15 +221,15 @@ body {
 // -- Sidebar
 // -----------------------------------------------
 .sidebar {
-	background : $sidebar-background;
-	color      : contrastable($sidebar-background);
-	display    : none;
-	margin-top : 10px;
-	padding    : 0px;
-	position   : absolute;
-	right      : 0;
-	width      : $sidebar-width;
-	z-index    : 300;
+	background  : $sidebar-background;
+	color       : contrastable($sidebar-background);
+	display     : none;
+	margin-top  : 10px;
+	margin-left : -5%;
+	padding     : 0px;
+	position    : absolute;
+	width       : $sidebar-width;
+	z-index     : 300;
 
 	a {
 		background      : none;
@@ -369,7 +374,7 @@ body {
 @mixin page-non-mobile() {
 	@include non-mobile() {
 		.drop-arrow          { font-size : 0.68em; }
-		.user:hover .sidebar { display : block; }
+		.account-selection:hover .sidebar { display : block; }
 
 		.logo {
 			display    : block;

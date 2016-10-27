@@ -25,6 +25,7 @@
 @import "partials/forms/inline_form";
 @import "partials/content/status";
 @import "partials/content/comments";
+@import "partials/forms/fields/switch";
 // ===============================================
 
 // SETUP :: VARIABLES
@@ -58,13 +59,20 @@ $content-negate : $article-negate / 2;
 $content-separator-color : $fire-color;
 
 $subject-table-border-color : $fire-color;
+//$moss-dark-major; $moss-dark-minor;
+
+$switch-on  : $stoplight-go;
+$switch-off : $page-light-minor;
+
 // ===============================================
 
 // SECTION :: HEADER
 // ===============================================
 .show-header h1 {
+	padding-top : 25px;
+}
+.work-header h1 {
 	border-bottom : 7px solid $water-dark-major;
-	padding-top   : 15px;
 }
 
 // -----------------------------------------------
@@ -179,6 +187,13 @@ tfoot th {
 
 thead th { border-bottom : 3px solid $subject-table-border-color; }
 tfoot    { border-top    : 3px solid $subject-table-border-color; }
+
+.switch-state {
+	padding  : 10px;
+	overflow : auto;
+
+	@include toggle-button(30px, 2px, 0.5s, $stoplight-go, $page-light-minor);
+}
 // -----------------------------------------------
 
 // -----------------------------------------------
@@ -186,6 +201,7 @@ tfoot    { border-top    : 3px solid $subject-table-border-color; }
 // -----------------------------------------------
 .subject-body {
 	margin : 0px $gutter;
+	border : 5px solid $widget-title-border-color;
 
 	p {
 		line-height : 1.5;
@@ -268,6 +284,10 @@ article {
 	.time {
 		margin     : 0px $gutter;
 		text-align : center;
+	}
+
+	.widget {
+		margin : 15px;
 	}
 }
 

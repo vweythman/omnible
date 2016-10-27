@@ -4,14 +4,14 @@ module FormHelper
 	# ------------------------------------------------------------
 	def creation_block(title)
 		content_tag :div, class: "generator new" do
-			concat (content_tag :h1, class: "form-title" do title end)
+			concat (form_title title) if title.present?
 			yield
 		end
 	end
 
 	def editing_block(title)
 		content_tag :div, class: "generator edit" do
-			concat (content_tag :h1, class: "form-title" do title end)
+			concat (form_title title) if title.present?
 			yield
 		end
 	end
@@ -21,6 +21,10 @@ module FormHelper
 		form_for(model, options) do |f|
 			yield(f)
 		end
+	end
+
+	def form_title(title)
+		content_tag :h1, class: "form-title" do content_tag :span do title end end
 	end
 
 	# FIELDSETS

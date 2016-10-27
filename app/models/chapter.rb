@@ -104,6 +104,10 @@ class Chapter < ActiveRecord::Base
 		@summary ||= self.about
 	end
 
+	def relative_position(size)
+		@relative_position ||= position || size
+	end
+
 	# ACTIONS
 	# ------------------------------------------------------------
 	# MakeRoom - create space for a chapter after this chapter

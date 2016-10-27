@@ -18,19 +18,19 @@ module IndexHelper
 		end
 
 		buildset.each do |key, set|
-			x     = SecureRandom.hex(3).to_s
-			r,g,b = x.to_s.chars.each_slice(2).map(&:join).map{|n| n.to_i(16) }
+			hex   = dataset_color
+			r,g,b = hex_to_rgb_color(hex)
 
 			dataset << {
 				"label" => key, 
-				"data" => set,
-				"borderColor" => "#" + x,
+				"data"  => set,
+				"borderColor" => "#" + hex,
 				"backgroundColor" => "rgba(#{r},#{g},#{b},0.4)",
 				"tension" => 0.0,
 				"borderJoinStyle" => "round"
 			}
 		end
-		timelength = timelength.map{|n| x = counter_date n; x = x.split(" "); x = x.last + " " + x.first }
+		timelength = timelength.map{|n| time = counter_date n; time = time.split(" "); time = time.last + " " + time.first }
 		[timelength, dataset]
 	end
 
@@ -49,6 +49,15 @@ module IndexHelper
 		timelength = counts.keys.map{|n| n.first}.sort
 		timelength.uniq!
 		timelength
+	end
+
+	# choose a random hex color
+	def	dataset_color
+		SecureRandom.hex(3).to_s
+	end
+
+	def hex_to_rgb_color(hex)
+		hex.to_s.chars.each_slice(2).map(&:join).map{|n| n.to_i(16) }
 	end
 
 end

@@ -1,22 +1,34 @@
 <%= clean_form_for(@story) do |f| %>
 
+	<%= form_title f.string_cell :title, "Title" %>
 	<%= error_block(@story) %>
 
-	<%= f.string_cell :title, "Title" %>
-	<%= f.text_cell   :summary, {class: :minor}, true %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-0">Meta</a></li>
+			<li><a href="#tab-1">Branching</a></li>
+			<li><a href="#tab-2">Tags (Optional)</a></li>
+		</ul>
 
-	<fieldset class='nested-fieldset nested-branches-fieldset'>
-		<legend><%= @story.trunk.nil? ? "First Branch" : "Branches" %></legend>
+		<div id="tab-0">
+			<%= f.text_cell :summary, { class: :minor }, true %>
+			<%= render @story.meta_fields, f: f %>
+		</div>
 
-		<%= f.fields_for :branches do |branch| %>
-			<div class="branch">
-				<%= render 'works/branches/form_fields', f: branch %>
-			</div>
-		<% end %>
-	</fieldset>
+		<div id="tab-1">
+			<fieldset class='nested-fieldset nested-branches-fieldset'>
+				<legend><%= @story.trunk.nil? ? "First Branch" : "Branches" %></legend>
 
-	<%= render @story.meta_fields, f: f %>
-	<%= render @story.tag_fields, f: f %>
+				<%= f.fields_for :branches do |branch| %>
+					<div class="branch">
+						<%= render 'works/branches/form_fields', f: branch %>
+					</div>
+				<% end %>
+			</fieldset>
+		</div>
 
+		<div id="tab-2"><%= render @story.tag_fields, f: f %></div>
+	</div>
+	
 	<%= f.submit_cell %>
 <% end %>

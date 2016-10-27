@@ -198,7 +198,7 @@ $credit-title-background : $fire-lightest-minor;
 @include page-desktop() {
 	@include desktop-management-toolkit($data-index-background, $data-toolkit-border-color);
 
-	.logged-in {
+	.sidebar-control {
 		background : $dashboard-header-background;
 	}
 

@@ -1,19 +1,24 @@
 <%= clean_form_for(@video) do |f| %>
 
+	<%= form_title f.string_cell :title, "Title" %>
 	<%= error_block(@video) %>
 
-	<fieldset class="primary-fieldset">
-		<%= panel_cell "duo" do f.string_cell :title, "Title" end %>
-		<%= panel_cell "duo" do %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-1">Content</a></li>
+			<li><a href="#tab-2">Tags (Optional)</a></li>
+		</ul>
+
+		<div id="tab-1">
 			<%= f.fields_for :embedded_link do |b| %>
 				<%= b.string_cell :reference, "Embed Video Link" %>
 			<% end %>
-		<% end %>
 
-		<%= solo_cell do f.text_cell(:summary, class: :minor) end %>
-	</fieldset>
+			<%= f.text_cell :summary, { class: :minor }, true %>
+		</div>
 
-	<%= render @video.tag_fields, f: f %>
+		<div id="tab-2"><%= render @video.tag_fields, f: f %></div>
+	</div>
 
 	<%= f.submit_cell %>
 <% end %>

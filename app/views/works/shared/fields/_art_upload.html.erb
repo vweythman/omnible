@@ -1,0 +1,9 @@
+<%= grid_panel do %>
+	<%= panel_cell "golden-minor" do %>
+		<%= f.object.decorate.preview_area %>
+	<% end %>
+
+	<%= panel_cell "golden-major" do %>
+		<%= f.file_cell :artwork, "Upload" %>
+	<% end %>
+<% end %>

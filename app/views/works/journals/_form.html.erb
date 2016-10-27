@@ -1,20 +1,38 @@
 <%= clean_form_for(@journal) do |f| %>
 
+	<%= form_title f.string_cell :title, "Title" %>
 	<%= error_block(@journal) %>
 
-	<%= f.string_cell :title, "Title" %>
-	<%= f.text_cell   :summary, class: :minor %>
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-1">Meta</a></li>
+			<li><a href="#tab-2">Articles</a></li>
+			<li><a href="#tab-3">Tags (Optional)</a></li>
+		</ul>
 
-	<%  current_articles = @journal.current_articles %>
-	<%= current_articles.show %>
+		<div id="tab-1">
+			<%= f.text_cell :summary, { class: :minor }, true %>
+			<%= render @journal.meta_fields, f: f %>
+		</div>
 
-	<%= nestset(current_articles) do %>
-		<%= current_articles.fields(f) %>
-		<p class="add-cell"><%= link_to_add_association "+ Add Article", f, current_articles.klass, :partial => current_articles.partial %></p>
-	<% end %>
-	
-	<%= render @journal.meta_fields, f: f %>
-	<%= render @journal.tag_fields,  f: f %>
+		<div id="tab-2" class="article-panel">
+			<% current_articles = @journal.current_articles %>
+			<div id="article-tabs" class="paged-tabs">
+				<ul>
+					<% i = 0 %>
+					<% current_articles.each do |c| %>
+						<%= paged_anchor c, "New Article", c.relative_position(i) %>
+						<% i += 1 %>
+					<% end %>
+				</ul>
+
+				<%= current_articles.fields(f) %>
+				<p class="add-cell"><%= link_to_add_association "+ Add Article", f, current_articles.klass, :partial => current_articles.partial %></p>
+			</div>
+		</div>
+
+		<div id="tab-3"> <%= render @journal.tag_fields, f: f %> </div>
+	</div>
 
 	<%= f.submit_cell %>
 <% end %>

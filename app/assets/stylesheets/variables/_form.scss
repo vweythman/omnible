@@ -5,12 +5,12 @@
 // -----------------------------------------------
 // -- Layout
 // -----------------------------------------------
-$form-background          : $page-lightest-minor;
-$header-background        : $fire-light-major;
-$meta-box-background      : $page-lighter-minor;
-$toggle-background        : $page-color;
-$tooltip-background       : $page-lightest-minor;
-$work-meta-background     : $page-lightest-major;
+$form-background      : $page-darkest-minor;
+$header-background    : $fire-light-minor;
+$meta-box-background  : $page-lighter-minor;
+$toggle-background    : $page-color;
+$tooltip-background   : $page-lightest-minor;
+$work-meta-background : $page-lightest-major;
 // -----------------------------------------------
 
 // -----------------------------------------------
@@ -22,6 +22,7 @@ $opinion-title-background : $page-lighter-major;
 $option-title-background  : $water-lighter-major;
 $rating-title-background  : $page-dark-minor;
 $tag-header-background    : $fire-light-minor;
+$comic-thead-background   : $fire-lighter-minor;
 // -----------------------------------------------
 
 // -----------------------------------------------
@@ -41,8 +42,9 @@ $submission-background    : $water-dark-major;
 // -----------------------------------------------
 $form-border-color          : $fire-color;
 $meta-box-border-color      : $page-light-minor;
-$tooltip-border-color       : $page-lighter-major;
+$tooltip-border-color       : $page-lighter-minor;
 $work-meta-border-color     : $fire-light-minor;
+$comic-border-color         : $fire-light-minor;
 // -----------------------------------------------
 
 // -----------------------------------------------

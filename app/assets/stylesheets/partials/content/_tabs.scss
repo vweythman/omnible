@@ -1,0 +1,118 @@
+// STYLE PARTIAL: TABS
+// ***********************************************
+.ui-tabs {
+	margin : 10px;
+}
+
+.ui-tabs-nav {
+	display : table;
+	width   : 100%;
+	margin  : 0px;
+	padding : 0px;
+}
+
+.ui-state-default {
+	display : table-cell;
+}
+
+.ui-tabs-panel {
+	background : $page-lightest-minor;
+	padding    : 10px;
+	border     : 3px solid $border-color;
+
+	.paged-tabs & {
+		float : right;
+	}
+}
+
+.ui-tabs-active .ui-tabs-anchor {
+	background   : $page-color;
+	border-color : $border-color;
+	cursor       : default;
+	
+	border-top-left-radius  : 5px;
+	border-top-right-radius : 5px;
+}
+
+.ui-tabs-anchor {
+	color   : $page-darkest-major;
+	display : block;
+	padding : 10px;
+
+	font-weight     : bolder;
+	text-decoration : none;
+
+	.ui-state-default & {
+		background    : $border-color;
+		border        : 3px solid $border-color;
+		margin        : 0px 5px;
+		border-bottom : none;
+		
+		border-top-left-radius  : 5px;
+		border-top-right-radius : 5px;
+	}
+
+	.ui-tabs-active & {
+		background   : $page-lightest-minor;
+		border-color : $border-color;
+	}
+}
+
+.paged-tabs {
+	overflow   : auto;
+
+	.ui-tabs-nav {
+		display : block;
+		float   : left;
+		width   : $one-fourth;
+	}
+
+	.ui-state-default {
+		display : block;
+	}
+
+	.ui-tabs-panel {
+		float : right;
+		width : calc(#{$three-fourths} - 26px);
+		background   : $page-lightest-minor;
+		border-color : $water-color;
+	}
+
+	.ui-tabs-anchor {
+		background : $water-color;
+		border     : 3px solid $water-color;
+		color      : $page-color;
+		margin     : 10px -3px 10px 0px;
+
+		border-top-left-radius     : 5px;
+		border-bottom-left-radius  : 5px;
+
+		border-top-right-radius    : 0px;
+		border-bottom-right-radius : 0px;
+
+		&.has-errors {
+			background   : $stoplight-stop;
+			border-color : $stoplight-stop;
+			color        : $page-color;
+
+			&:after {
+				content    : attr(data-errors) " error(s)";
+				font-style : italic;
+				font-size  : 0.8em;
+				float      : right;
+			}
+		}
+	}
+
+	.ui-tabs-active .ui-tabs-anchor {
+		background : $page-lightest-minor;
+		color      : $water-darkest-major;
+	}
+
+	.add-cell {
+		clear : left;
+	}
+}
+
+// END
+// ***********************************************/

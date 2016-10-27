@@ -102,5 +102,24 @@ $(document).ready(function(){
 		});
 	});
 
-});
+	// Create paged tabs
+	$( ".paged-tabs" ).tabs();
+	$( ".paged-tabs" ).on('cocoon:after-insert', function(e, inserted_item) {
 
+		page_id  = "page-" + inserted_item.find( '.title-field input' ).attr( "id" ).match(/\d+/);
+
+		$(this).find("ul" ).append('<li><a href="#' + page_id + '" id="' + page_id + '-anchor">New ' + inserted_item.attr("data-label") + '</a></li>');
+
+		inserted_item.attr("id", page_id);
+
+		tabs = $(this).tabs();
+
+		tabs.tabs("destroy");
+		tabs.tabs({active: -1});
+	});
+
+	// On title update, update tab anchor text
+	$( ".paged-tabs" ).delegate( '.title-field input', 'input', function() {
+		$('#' + $(this).closest('fieldset').parent().attr("id") + '-anchor').html($(this).val());
+	});
+});
