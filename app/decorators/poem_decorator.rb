@@ -1,17 +1,13 @@
 class PoemDecorator < WorkDecorator
-	
-	# PUBLIC METHODS
+
+	# 1. PUBLIC METHODS
 	# ============================================================
+	def all_crumbs
+		[[h.t('collected.works'), h.works_path], [h.t('content_types.poems'), h.poems_path]]
+	end
+
 	def klass
 		@klass ||= :poem
-	end
-
-	def icon_choice
-		'image'
-	end
-
-	def title_for_creation
-		"Create Poem"
 	end
 
 	def linefied_content
@@ -22,9 +18,8 @@ class PoemDecorator < WorkDecorator
 		end
 	end
 
-	def breadcrumbs
-		crumbs = [[h.t('collected.works'), h.works_path], [h.t('content_types.poems'), h.poems_path]]
-		breacrumbing(crumbs)
+	def title_for_creation
+		"Create Poem"
 	end
 
 end

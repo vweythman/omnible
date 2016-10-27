@@ -18,12 +18,12 @@ class WorkLinkDecorator < WorkDecorator
 		end
 	end
 
-	def icon_choice
-		'link'
-	end
-
 	def nature
 		"Link"
+	end
+	
+	def creation_heading
+		title_for_creation
 	end
 
 	# -- Links

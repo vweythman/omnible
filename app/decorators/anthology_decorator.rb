@@ -11,20 +11,11 @@ class AnthologyDecorator < Draper::Decorator
 
 	# PUBLIC METHODS
 	# ============================================================
-	def possible
-		@possible_works ||= Work.order('lower(title)').decorate
-	end
-
-	def current_works
-		@current_works ||= Collectables::CollectionsDecorator.decorate(self.works)
-	end
-
-	def response_bar
-		if self.uploader? h.current_user
-			edit_bar
-		elsif h.current_user.present?
-			reader_response_bar
-		end
+	# ------------------------------------------------------------
+	# DISPLAY CONTENT BLOCKS
+	# ------------------------------------------------------------
+	def summarized
+		summary || ""
 	end
 
 	def summary_block
@@ -33,14 +24,9 @@ class AnthologyDecorator < Draper::Decorator
 		end
 	end
 
-	def summary_title
-		h.t("work.summary_title")
-	end
-
-	def summarized
-		summary || ""
-	end
-
+	# ------------------------------------------------------------
+	# DISPLAY TOOLKIT BLOCKS
+	# ------------------------------------------------------------
 	def reader_response_bar
 		checked_status = h.current_user.tracking? object
 		track_path     = checked_status ? h.anthology_untrack_path(object) : h.anthology_track_path(object)
@@ -50,12 +36,26 @@ class AnthologyDecorator < Draper::Decorator
 		end
 	end
 
-	def icon_choice
-		'stack'
-	end
-
+	# ------------------------------------------------------------
+	# SELECT TEXT
+	# ------------------------------------------------------------
 	def klass
 		:anthology
+	end
+
+	def summary_title
+		h.t("work.summary_title")
+	end
+
+	# ------------------------------------------------------------
+	# SELECT WORKS
+	# ------------------------------------------------------------
+	def current_works
+		@current_works ||= Collectables::CollectionsDecorator.decorate(self.works)
+	end
+
+	def possible_works
+		@possible_works ||= h.current_user.onsite_works.alphabetical
 	end
 
 end

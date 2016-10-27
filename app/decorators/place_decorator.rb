@@ -26,10 +26,6 @@ class PlaceDecorator < Draper::Decorator
 		form.name.titleize
 	end
 
-	def icon_choice
-		'earth'
-	end
-
 	def reality_status
 		@status ||= fictional? ? "Fictional" : "Real"
 	end

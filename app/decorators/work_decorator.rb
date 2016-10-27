@@ -15,24 +15,124 @@ class WorkDecorator < Draper::Decorator
 	include Widgets::Snippet
 	include WorkFormFields
 
+	# TABLE of METHOD CONTENTS
+	# ============================================================
+	# PUBLIC METHODS
+	# -- DISPLAY CONTENT BLOCKS
+	# ----- all_tags_line
+	# ----- completion_status
+	# ----- metadata_block
+	# ----- rated
+	# ----- snippet_tags_line
+	# ----- skin_content
+	# ----- summarized
+	# ----- summary_block
+	#
+	# -- DISPLAY LINKS
+	# ----- createables
+	# ----- note_creation_link
+	# ----- note_insertion_link
+	#
+	# -- DISPLAY TOOLKIT BLOCKS
+	# ----- reader_response_bar
+	# ----- response_bar
+	#
+	# -- SELECT SUBSECTION OF TAGS
+	# ----- important_characters
+	# ----- main_tags
+	#
+	# -- SELECT SORTED TAG GROUPS
+	# ----- ordered_characters
+	# ----- ordered_characters_for_snippets
+	# ----- ordered_squads
+	# ----- ordered_true_tags
+	# ----- ordered_works
+	#
+	# -- SELECT TEXT
+	# ----- creation_heading
+	# ----- klass
+	# ----- opinion_percentage - percent of likes vs dislikes
+	# ----- partial_prepend
+	# ----- summary_title
+	#
+	# PRIVATE METHODS
+	# -- ORDERED LISTS
+	# ----- creation_heading
+	#
+	# -- LINKS :: WATCH AND KEEP TRACK OF
+	# ----- tracking_creation_link
+	# ----- tracking_deletion_link
+	#
+	# -- LINKS :: LIKE AND DISLIKE
+	# ----- dislike_creation_link
+	# ----- dislike_deletion_link
+	# ----- like_creation_link
+	# ----- like_deletion_link
+	#
+	# ============================================================
+
 	# PUBLIC METHODS
 	# ============================================================
-	# GETTERS
 	# ------------------------------------------------------------
-	# Variables
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def klass
-		@klass ||= :work
+	# DISPLAY CONTENT BLOCKS
+	# ------------------------------------------------------------
+	def all_tags_line
+		h.tag_group all_tags, 'works', { class: 'all-tags tags' }, { class: 'tag' }
 	end
 
-	def opinion_percentage
-		h.number_to_percentage(object.average_likes * 100, precision: 0)
+	def completion_status
+		h.content_tag :p, class: "status completion-status " + state_status.downcase do
+			state_status
+		end
 	end
 
-	# Links : Creation
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	def metadata_block
+		h.content_tag :div, class: 'metadata' do
+			creatorships.includes(:category, :creator).each do |byline_value|
+				h.concat h.metadata(byline_value.category.agentive_title + ":", h.link_to(byline_value.creator.name, h.pen_name_path(byline_value.creator.id)))
+			end
+			if has_likes?
+				h.concat h.metadata("Likes:", self.opinion_percentage)
+			end
+ 			if self.rating.present?
+ 				h.concat h.metadata("Max Rating:", rating.max_rating_value)
+			end
+		end
+	end
+
+	def rated
+		h.content_tag :p, class: 'ratings' do
+			rating.full_list
+		end unless rating.nil?
+	end
+
+	def snippet_tags_line
+		if main_tags.length > 0
+			h.tag_group main_tags, 'works', { class: 'main-tags tags' }, { class: 'tag' }
+		end
+	end
+
+	def skin_content
+		if has_skin?
+			h.render 'works/shared/skin', work: self
+		end
+	end
+
+	def summarized
+		h.content_tag :div, class: 'summary' do
+			h.markdown object.summarized 
+		end
+	end
+
+	def summary_block
+		h.widget_cell(summary_title, class: 'summary-cell') do
+			h.concat h.markdown(self.summarized)
+		end
+	end
+
+	# ------------------------------------------------------------
+	# DISPLAY LINKS
+	# ------------------------------------------------------------
 	def createables
 		if self.editable?(h.current_user)
 			h.prechecked_createables [[self, :note]]
@@ -51,52 +151,57 @@ class WorkDecorator < Draper::Decorator
 		end
 	end
 
-	def work_tracking
-		[h.work_track_path(object), false]
+	# ------------------------------------------------------------
+	# DISPLAY TOOLKIT BLOCKS
+	# ------------------------------------------------------------
+	def reader_response_bar
+		current_user   = h.current_user
+		response_paths = {}
+		checked_status = {}
+
+		if trackable?
+			if current_user.tracking? object
+				response_paths[:track], checked_status[:track] = tracking_deletion_link
+			else
+				response_paths[:track], checked_status[:track] = tracking_creation_link
+			end
+		end
+
+		opinion = current_user.work_opinions.by_work(self).first
+
+		if opinion.nil?
+			response_paths[:like],    checked_status[:like]    = like_creation_link
+			response_paths[:dislike], checked_status[:dislike] = dislike_creation_link
+		elsif opinion.is_a_like?
+			response_paths[:like],    checked_status[:like]    = like_deletion_link
+			response_paths[:dislike], checked_status[:dislike] = dislike_creation_link
+		else
+			response_paths[:like],    checked_status[:like]    = like_creation_link
+			response_paths[:dislike], checked_status[:dislike] = dislike_deletion_link
+		end
+
+		h.response_kit response_paths, checked_status
 	end
 
-	def work_like_link
-		[h.work_like_path(object), false]
+	# ------------------------------------------------------------
+	# SELECT SUBSECTION OF TAGS
+	# ------------------------------------------------------------
+	def important_characters
+		@important_characters ||= work.narrative? ? Array(ordered_characters_for_snippets.group_by("main")) : Array(ordered_characters_for_snippets.group_by("subject"))
 	end
 
-	def work_dislike_link
-		[h.work_dislike_path(object), false]
-	end
-
-	# Links :: Deletion
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def work_undislike_link
-		[h.work_undislike_path(object), true]
-	end
-
-	def work_unlike_link
-		[h.work_unlike_path(object), true]
-	end
-
-	def work_untracking
-		[h.work_untrack_path(object), true]
-	end
-
-	# Tags :: Sliced
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	def main_tags
 		@main_tags ||= (self.tags + self.important_characters + self.places).sort_by! { |x| x[:name].downcase }
 	end
 
-	def important_characters
-		@important_characters ||= work.narrative? ? Array(snippet_ordered_characters.group_by("main")) : Array(snippet_ordered_characters.group_by("subject"))
-	end
-	
-	# Tags :: Sorted
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	# ------------------------------------------------------------
+	# SELECT SORTED TAG GROUPS
+	# ------------------------------------------------------------
 	def ordered_characters
 		@ordered_characters ||= order_tags Appearance.organize(self.appearances.with_character)
 	end
 
-	def snippet_ordered_characters
+	def ordered_characters_for_snippets
 		@ordered_characters ||= order_tags Appearance.organize(self.appearances)
 	end
 
@@ -112,121 +217,88 @@ class WorkDecorator < Draper::Decorator
 		@ordered_works      ||= order_tags WorkConnection.organize(self.intratagged.with_tagged)
 	end
 
-	# VIEWS
 	# ------------------------------------------------------------
-	# Content Blocks
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def metadata_block
-		h.content_tag :div, class: 'metadata' do
-			creatorships.includes(:category, :creator).each do |byline_value|
-				h.concat h.metadata(byline_value.category.agentive_title + ":", h.link_to(byline_value.creator.name, h.pen_name_path(byline_value.creator.id)))
-			end
-			if has_likes?
-				h.concat h.metadata("Likes:", self.opinion_percentage)
-			end
- 			if self.rating.present?
- 				h.concat h.metadata("Max Rating:", rating.max_rating_value)
-			end
-		end
+	# SELECT TEXT
+	# ------------------------------------------------------------
+	def creation_heading
 	end
 
-	def reader_response_bar
-		current_user   = h.current_user
-		response_paths = {}
-		checked_status = {}
-
-		if trackable?
-			if current_user.tracking? object
-				response_paths[:track], checked_status[:track] = work_untracking
-			else
-				response_paths[:track], checked_status[:track] = work_tracking
-			end
-		end
-
-		opinion = current_user.work_opinions.by_work(self).first
-
-		if opinion.nil?
-			response_paths[:like],    checked_status[:like]    = work_like_link
-			response_paths[:dislike], checked_status[:dislike] = work_dislike_link
-		elsif opinion.is_a_like?
-			response_paths[:like],    checked_status[:like]    = work_unlike_link
-			response_paths[:dislike], checked_status[:dislike] = work_dislike_link
-		else
-			response_paths[:like],    checked_status[:like]    = work_like_link
-			response_paths[:dislike], checked_status[:dislike] = work_undislike_link
-		end
-		h.response_kit response_paths, checked_status
+	def klass
+		@klass ||= :work
 	end
 
-	def response_bar
-		if self.uploader? h.current_user
-			edit_bar
-		elsif h.current_user.present? && !(["Record", "WorkLink"].include? type)
-			reader_response_bar
-		end
+	def opinion_percentage
+		h.number_to_percentage(object.average_likes * 100, precision: 0)
 	end
 
-	def summary_block
-		h.widget_cell(summary_title, class: 'summary-cell') do
-			h.concat h.markdown(self.summarized)
-		end
+	def partial_prepend
+		'works/' + klass.to_s.pluralize + '/'
 	end
 
 	def summary_title
 		h.t("work.summary_title")
 	end
 
-	# Content Tags
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def all_tags_line
-		h.tag_group all_tags, 'works', { class: 'all-tags tags' }, { class: 'tag' }
-	end
-
-	def completion_status
-		h.content_tag :p, class: "status completion-status " + status_label.downcase do
-			status_label
-		end
-	end
-
-	def rated
-		h.content_tag :p, class: 'ratings' do
-			rating.full_list
-		end unless rating.nil?
-	end
-
-	def snippet_tags_line
-		if main_tags.length > 0
-			h.tag_group main_tags, 'works', { class: 'main-tags tags' }, { class: 'tag' }
-		end
-	end
-
-	def summarized
-		h.content_tag :div, class: 'summary' do
-			h.markdown object.summarized 
-		end
-	end
-
-	# Partial Locations
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	def partial_prepend
-		'works/' + klass.to_s.pluralize + '/'
-	end
-
-	def skin_content
-		if has_skin?
-			h.render 'works/shared/skin', work: self
-		end
+	# ------------------------------------------------------------
+	# QUESTIONS
+	# ------------------------------------------------------------
+	# being_read_nonanon? - reader is logged in
+	# ............................................................
+	def being_read_nonanon?
+		h.current_user.present? && !(["Record", "WorkLink"].include? type)
 	end
 
 	# PRIVATE METHODS
 	# ============================================================
 	private
 
+	# ------------------------------------------------------------
+	# ORDERED LISTS
+	# ------------------------------------------------------------
 	def order_tags(tags)
 		OrganizedTagGroups.new tags
+	end
+
+	# ------------------------------------------------------------
+	# LINKS :: WATCH AND KEEP TRACK OF
+	# ------------------------------------------------------------
+	# tracking_creation_link - track if not already
+	# ............................................................
+	def tracking_creation_link
+		[h.work_track_path(object), false]
+	end
+
+	# tracking_deletion_link - stop tracking if currently tracking
+	# ............................................................
+	def tracking_deletion_link
+		[h.work_untrack_path(object), true]
+	end
+
+	# ------------------------------------------------------------
+	# LINKS :: LIKE AND DISLIKE
+	# ------------------------------------------------------------
+	# dislike_creation_link - dislike if not already
+	# ............................................................
+	def dislike_creation_link
+		[h.work_dislike_path(object), false]
+	end
+
+	# dislike_deletion_link - stop disliking
+	# ............................................................
+	def dislike_deletion_link
+		[h.work_undislike_path(object), true]
+	end
+
+	# like_creation_link - like if not already
+	# ............................................................
+	def like_creation_link
+		[h.work_like_path(object), false]
+	end
+
+	# like_deletion_link - stop liking
+	# ............................................................
+	def like_deletion_link
+		[h.work_unlike_path(object), true]
 	end
 
 end

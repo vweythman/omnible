@@ -12,8 +12,4 @@ class RecordDecorator < WorkDecorator
 		@klass ||= :record
 	end
 
-	def icon_choice
-		'folder'
-	end
-
 end

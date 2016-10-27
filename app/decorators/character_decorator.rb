@@ -20,10 +20,6 @@ class CharacterDecorator < Draper::Decorator
 		"Create Character"
 	end
 
-	def icon_choice
-		'smile'
-	end
-
 	def info_folder
 		"subjects/characters/info/"
 	end

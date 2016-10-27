@@ -2,13 +2,12 @@ class ArticleDecorator < WorkDecorator
 	
 	# PUBLIC METHODS
 	# ============================================================
-	def klass
-		:article
+	def all_crumbs
+		[[h.t('collected.works'), h.works_path], [h.t('collected.nonfiction'), h.nonfiction_index_path], [h.t('content_types.articles'), h.articles_path]]
 	end
 
-	def breadcrumbs
-		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.nonfiction'), h.nonfiction_index_path], [h.t('content_types.articles'), h.articles_path]]
-		breacrumbing(crumbs)
+	def klass
+		:article
 	end
 
 end

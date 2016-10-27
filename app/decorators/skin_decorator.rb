@@ -39,8 +39,4 @@ class SkinDecorator < Draper::Decorator
 		"Stylesheet"
 	end
 
-	def icon_choice
-		'magic-wand'
-	end
-
 end

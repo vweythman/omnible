@@ -2,16 +2,12 @@ class ArtDecorator < WorkDecorator
 	
 	# PUBLIC METHODS
 	# ============================================================
+	def all_crumbs
+		[[h.t('collected.works'), h.works_path], [h.t('content_types.art'), h.poems_path]]
+	end
+
 	def klass
 		:art
-	end
-
-	def icon_choice
-		'image'
-	end
-
-	def title_for_creation
-		"Upload Art"
 	end
 
 	def meta_fields
@@ -22,9 +18,8 @@ class ArtDecorator < WorkDecorator
 		h.t("art.summary_title")
 	end
 
-	def breadcrumbs
-		crumbs = [["Works", h.works_path], ["Art", h.artwork_path]]
-		breacrumbing(crumbs)
+	def title_for_creation
+		"Upload Art"
 	end
 
 end

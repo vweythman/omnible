@@ -31,10 +31,6 @@ class StoryDecorator < WorkDecorator
 		title + " (" + len.to_s + " " + "Chapter".pluralize(len) + ")"
 	end
 
-	def icon_choice
-		'book'
-	end
-
 	# -- Chapters
 	# ............................................................
 	def link_to_chapters
@@ -88,9 +84,8 @@ class StoryDecorator < WorkDecorator
 
 	# -- Navigation
 	# ............................................................
-	def breadcrumbs
-		crumbs = [[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.stories'), h.stories_path]]
-		breacrumbing(crumbs)
+	def all_crumbs
+		[[h.t('collected.works'), h.works_path], [h.t('collected.fiction'), h.fiction_index_path], [h.t('content_types.stories'), h.stories_path]]
 	end
 
 	def directory_scenes

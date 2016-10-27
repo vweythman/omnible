@@ -26,8 +26,8 @@ class ItemDecorator < Draper::Decorator
 		h.metadata self.generic.name.titleize + ":", list_qualities
 	end
 
-	def icon_choice
-		'diamonds'
+	def klass
+		:item
 	end
 
 	# -- Lists
