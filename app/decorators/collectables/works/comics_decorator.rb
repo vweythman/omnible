@@ -1,6 +1,6 @@
 module Collectables
 	module Works
-		class ArticlesDecorator < Collectables::WorksDecorator
+		class ComicsDecorator < Collectables::WorksDecorator
 
 			# MODULES
 			# ------------------------------------------------------------

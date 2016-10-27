@@ -33,14 +33,14 @@ class Works::ComicsController < WorksController
 
 	def new_work
 		@work = @art = Comic.new.decorate
-		@art.pictures.build
+		@art.pages.build
 		@work.rating = Rating.new
 	end
 
 	# define strong parameters
 	def work_params
 		based_permitted = base_work_params(:comic)
-		art_permitted   = params.require(:comic).permit(pictures_attributes: [:id, :title, :artwork, :description])
+		art_permitted   = params.require(:comic).permit(pages_attributes: [:id, :title, :artwork, :description])
 		based_permitted.merge art_permitted
 	end
 

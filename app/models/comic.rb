@@ -7,10 +7,10 @@ class Comic < Work
 
 	# ASSOCIATIONS
 	# ============================================================
-	has_many :pictures, inverse_of: :work, foreign_key: "work_id"
+	has_many :pages, inverse_of: :work, foreign_key: "work_id", class_name: "Picture"
 
 	# NESTED ATTRIBUTION
 	# ============================================================
-	accepts_nested_attributes_for :pictures, allow_destroy: :true
+	accepts_nested_attributes_for :pages, allow_destroy: :true
 
 end

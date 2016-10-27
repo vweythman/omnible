@@ -141,6 +141,7 @@ module Collectables
 				:articles      => h.articles_path,
 				:journals      => h.journals_path,
 				:music_videos  => h.music_videos_path,
+				:comics        => h.comics_path,
 				:poems         => h.poems_path,
 				:branching_stories => h.branching_stories_path,
 				:stories       => h.stories_path,
@@ -151,7 +152,6 @@ module Collectables
 		def unset_types
 			{
 				:webisodes     => nil,
-				:comics        => nil,
 				:podcasts      => nil,
 				:radio_plays   => nil,
 				:songs         => nil
