@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     'artwork',
     'music_videos',
     'poems',
+    'castings',
     'records',
     'work_links'
   ]

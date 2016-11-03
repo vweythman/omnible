@@ -39,7 +39,7 @@ describers =
 				status: "Fictional Narrative"
 			},
 			{
-				name: "StoryLink",
+				name: "WorkLink",
 				content_type: "reference",
 				is_record:    true,
 				is_singleton: false,
@@ -91,3 +91,15 @@ describers =
 	)
 
 =end
+describers = 
+	WorksTypeDescriber.create(
+		[
+			{
+				name: "Casting",
+				content_type: "data",
+				is_singleton: true,
+				is_record:    false,
+				status: "Nonfiction"
+			}
+		]
+	)

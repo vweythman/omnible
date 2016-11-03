@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013100232) do
+ActiveRecord::Schema.define(version: 20161101200700) do
 
   create_table "adjectives", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -498,6 +498,18 @@ ActiveRecord::Schema.define(version: 20161013100232) do
 
   add_index "respondences", ["caller_id", "caller_type"], name: "index_challenge_responses_on_caller_id_and_caller_type"
   add_index "respondences", ["response_id"], name: "index_respondences_on_response_id"
+
+  create_table "roll_calls", force: :cascade do |t|
+    t.string   "avatar"
+    t.integer  "character_id"
+    t.integer  "casting_id"
+    t.text     "description"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "roll_calls", ["casting_id"], name: "index_roll_calls_on_casting_id"
+  add_index "roll_calls", ["character_id"], name: "index_roll_calls_on_character_id"
 
   create_table "settings", force: :cascade do |t|
     t.integer  "work_id",    null: false

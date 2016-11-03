@@ -55,3 +55,10 @@ record:
   is_singleton: true
   is_record:    true
   status: Nonfiction
+
+casting:
+  name: Casting
+  content_type: data
+  is_singleton: true
+  is_record:    false
+  status: Nonfiction
