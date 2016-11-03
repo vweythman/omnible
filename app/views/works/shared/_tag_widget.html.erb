@@ -1,63 +1,23 @@
 <%= page_widget "Tags" do %>
 	<% Tagging.work_labels.each do |key| %>
 		<% tags = @work.ordered_true_tags.group_by key %>
-
-		<%= render 'works/shared/grouping_tags', 
-			heading: (key.titleize + " Tags"), 
-			tags:    tags,
-			gclass:  "#{key}-tags", 
-			topts:   {
-				class: "#{key}-tag tag"
-			}
-		%>
+		<%= @work.tag_block tags, (key.titleize + " Tags"), {class: "#{key}-tags"}, { class: tag_label_by(key) } %>
 	<% end %>
 
-	<%= render 'works/shared/grouping_tags', 
-		heading: "Places", 
-		tags: @work.places, 
-		gclass: "places", 
-		topts: {
-				class: "place-tag"
-		}
-	%>
+	<%= @work.places_tag_block %>
 
 	<% Appearance.tag_labels(@work).each do |key, heading| %>
 		<% characters = @work.ordered_characters.group_by key %>
-
-		<%= render 'works/shared/grouping_tags', 
-			heading: heading, 
-			tags:    characters,
-			gclass:  "#{key}-characters", 
-			topts:   {
-				class: "#{key}-character character-tag",
-				type: key
-			}
-		%>
+		<%= @work.tag_block characters, heading, {class: "#{key}-characters"}, { class: tag_label_by("character", key), type: key } %>
 	<% end %>
 
 	<% SocialAppearance.tag_labels(@work).each do |key, heading| %>
 		<% squads = @work.ordered_squads.group_by key %>
-
-		<%= render 'works/shared/grouping_tags', 
-			heading: heading, 
-			tags:    squads,
-			gclass:  "#{key}-squads", 
-			topts:   {
-				class: "#{key}-squad squad-tag",
-				type: key
-			}
-		%>
+		<%= @work.tag_block squads, heading, {class: "#{key}-squads"}, { class: tag_label_by("squad", key), type: key } %>
 	<% end %>
 
 	<% WorkConnection.work_tag_labels(@work).each do |key, heading| %>
 		<% works = @work.ordered_works.group_by key %>
-		<%= render 'works/shared/grouping_tags', 
-			heading: heading, 
-			tags:    works,
-			gclass:  "#{key}-works", 
-			topts:   {
-				class: "#{key}-works work-tag"
-			}
-		%>
+		<%= @work.tag_block works, heading, {class: "#{key}-works"}, { class: tag_label_by("work", key), type: key } %>
 	<% end %>
 <% end %>
