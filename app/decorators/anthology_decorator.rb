@@ -39,10 +39,6 @@ class AnthologyDecorator < Draper::Decorator
 	# ------------------------------------------------------------
 	# SELECT TEXT
 	# ------------------------------------------------------------
-	def klass
-		:anthology
-	end
-
 	def summary_title
 		h.t("work.summary_title")
 	end
