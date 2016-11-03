@@ -1,4 +1,4 @@
-<div class='nested-fields nested-chapter-fields' data-label="Chapter" id="page-<%= f.object.relative_position @story.current_chapters.length %>">
+<div class='nested-fields nested-chapter-fields' data-label="<%= Chapter.model_name %>" id="page-<%= f.object.relative_position @story.current_chapters.length %>">
 
 	<%= render 'works/chapters/form_fields', f: f %>
 
