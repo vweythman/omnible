@@ -1,0 +1,49 @@
+<% provide(:title, @cast.title) %>
+
+<%= @cast.breadcrumbs %>
+
+<header class="work-header show-header">
+	<h1>
+		<%= @cast.title %>
+	</h1>
+
+	<%= @cast.metadata_block %>
+	<%= @cast.response_bar %>
+</header>
+
+<%= subject_body do %>
+	<%= @cast.summary_block %>
+
+	<%= page_widget "Cast" do %>
+		<% current_cast = @cast.roll_calls.includes(:character) %>
+		<% characters   = current_cast.map{|c| c.character } %>
+	
+		<div id="chapter-tabs" class="paged-tabs cast-tabs">
+			<div class="cast-element cast-nav">
+				<ul>
+					<% count = 0 %>
+					<% current_cast.each do |c| %>
+						<%= paged_anchor c, "New Chapter", c.relative_position(count) %>
+						<% count += 1 %>
+					<% end %>
+				</ul>
+			</div>
+
+			<div class="cast-element roll-call">
+				<% current_cast.each do |c| %>
+					<div class="cast-call" id="page-<%= c.relative_position %>">
+						<div class="centerpiece"><%= image_tag c.avatar_url %></div>
+						<div class="cast-about">
+							<h2><%= c.character.name %></h2>
+							<%= c.description %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+	<% end %>
+
+	<%= render 'works/shared/tag_widget' %>
+<% end %>
+
+<%= @cast.skin_content %>

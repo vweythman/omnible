@@ -1,0 +1,43 @@
+<%= clean_form_for(@cast) do |f| %>
+
+	<%= form_title f.string_cell :title, "Title" %>
+	<%= error_block(@cast) %>
+
+	<div id="form-tabs">
+		<ul>
+			<li><a href="#tab-0">Meta</a></li>
+			<li><a href="#tab-1">Content</a></li>
+			<li><a href="#tab-2">Tags (Optional)</a></li>
+		</ul>
+
+		<div id="tab-0">
+			<%= f.text_cell :summary, { class: :minor }, true %>
+			<%= render @cast.meta_fields, f: f %>
+		</div>
+
+		<div id="tab-1">
+			<% current_cast = @cast.roll_calls %>
+
+			<div id="chapter-tabs" class="paged-tabs paged-fields">
+				<ul>
+					<% count = 0 %>
+					<% current_cast.each do |c| %>
+						<%= paged_anchor c, "New Chapter", c.relative_position(count) %>
+						<% count += 1 %>
+					<% end %>
+				</ul>
+
+				<%= f.fields_for :roll_calls do |b| %>
+					<%= render "character_fields", f: b %>
+				<% end %>
+				<p class="add-cell"><%= link_to_add_association "+ Add", f, :roll_calls, :partial => "character_fields" %></p>
+			</div>
+		</div>
+
+		<div id="tab-2"><%= render @cast.tag_fields, f: f %></div>
+	</div>
+	
+	<%= f.submit_cell %>
+<% end %>
+
+<%= render 'works/shared/previewer' %>

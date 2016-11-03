@@ -1,0 +1,19 @@
+<div class="paged-fieldset cast-fields" id="page-<%= f.object.relative_position %>" data-label="<%= Character.model_name %>">
+
+	<%= grid_panel do %>
+		<%= panel_cell "golden-minor" do %>
+			<%= preview_area f.object.avatar_src %>
+		<% end %>
+
+		<%= panel_cell "golden-major" do %>
+			<%= f.string_cell :title, "Character Name" %>
+			<%= f.file_cell   :avatar, "Upload Character Image", class: "art-uploader-input" %>
+		<% end %>
+	<% end %>
+
+	<%= f.text_cell :description, { class: :minor }, true %>
+
+	<p class="remove-cell">
+		<%= link_to_remove_association "- Delete", f, data: { confirm: 'Are you sure that you want to delete this?' } %>
+	</p>
+</div>
