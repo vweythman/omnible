@@ -17,9 +17,9 @@
 		<div class="create-as">
 			<h2>As <%= @pen.name %> create:</h2>
 			<ul class="createable-list">
-				<% @pen.createable_works_list.each do |createables| %>
-					<li class="icon icon-<%= createables[:icon] %> createable-option">
-						<%= link_to t(createables[:title]), createables[:path] %>
+				<% @pen.createable_works_list.each do |icon, type, path| %>
+					<li class="icon icon-<%= icon %> createable-option">
+						<%= link_to t("content_types.#{type}").singularize.titleize, path %>
 					</li>
 				<% end %>
 			</ul>
