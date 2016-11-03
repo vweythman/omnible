@@ -31,4 +31,10 @@ class Picture < ActiveRecord::Base
 	belongs_to :work
 	mount_uploader :artwork, ArtworkUploader
 
+	# METHODS
+	# ============================================================
+	def art_src
+		artwork.nil? ? '#' : artwork_url
+	end
+
 end
