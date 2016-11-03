@@ -25,8 +25,8 @@ class WorksTypeDescriber < ActiveRecord::Base
 
 	# SCOPES
 	# ============================================================
-	scope :fiction,    -> { where("status IN ('Fictional Narrative', 'Creative Expression')") }
-	scope :nonfiction, -> { where(status: "Nonfiction") }
+	scope :fiction,    -> { where(status: "Fictional Narrative") }
+	scope :nonfiction, -> { where.not(status: "Fictional Narrative") }
 	scope :narrative,  -> { where(status: "Fictional Narrative") }
 
 	scope :chaptered,  -> { where(is_singleton: false) }
