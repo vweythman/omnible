@@ -14,8 +14,8 @@
 <footer class="path-finder">
 	<p><%= link_to @parent.heading, polymorphic_path(@parent) %></p>
 	<% if @parent.is_subject? %>
- 		<%= render 'subjects/shared/footer' %>
+		<%= render 'subjects/shared/footer' %>
 	<% else %>
- 		<%= render 'taggings/shared/footer' %>
+		<%= render 'taggings/shared/footer' %>
 		<% end %>
 </footer>

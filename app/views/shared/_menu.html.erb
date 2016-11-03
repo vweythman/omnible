@@ -17,35 +17,21 @@
 						<div class="category content-type">
 							<p class="category-title"><%= t('categories.content.text') %></p>
 							<ul>
-								<li><%= link_to "All", works_path(content_type: 'text') %></li>
+								<li><%= link_to t('categories.content.text'), works_path(content_type: 'text') %></li>
 
-								<li><%= link_to t('content_types.articles'), articles_path %></li>
-								<li><%= link_to t('content_types.journals'), journals_path %></li>
-								<li><%= link_to t('content_types.poems'),    poems_path %></li>
-
-								<li><%= link_to t('content_types.branching_stories'), branching_stories_path %></li>
-								<li><%= link_to t('content_types.stories'),           stories_path %></li>
-								<li><%= link_to t('content_types.short_stories'),     short_stories_path %></li>
-
+								<% Collectables::WorksDecorator::TEXTUAL_TYPES.each do |name, path| %>
+									<li><%= link_to t("content_types.#{name}"), path %></li>
+								<% end %>
 							</ul>
 						</div>
 						<div class="category content-type">
 							<p class="category-title"><%= t('categories.content.nontext') %></p>
 							<ul>
-								<li><%= link_to t('categories.content.video'), works_path(content_type: 'video') %></li>
-								<li><%= link_to t('content_types.music_videos'), music_videos_path %></li>
-
 								<li><%= link_to t('categories.content.images'), works_path(content_type: 'images') %></li>
-								<li><%= link_to t('content_types.artwork'), artwork_path %></li>
-								<li><%= link_to t('content_types.comics'),  comics_path %></li>
-
-								<li><%= link_to t('categories.content.audio'), works_path(content_type: 'audio') %></li>
-
-								<li>Web Series</li>
-								<li>Podcasts</li>
-								<li>Radio Plays</li>
-								<li>Songs</li>
-								<li>Fancast</li>
+								
+								<% Collectables::WorksDecorator::NONTEXTUAL_TYPES.each do |name, path| %>
+									<li><%= link_to t("content_types.#{name}"), path %></li>
+								<% end %>
 							</ul>
 						</div>
 					</div>
