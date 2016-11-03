@@ -5,6 +5,10 @@
 
 class Comic < Work
 
+	# VALIDATIONS
+	# ============================================================
+	validates :pages, presence: true
+
 	# ASSOCIATIONS
 	# ============================================================
 	has_many :pages, inverse_of: :work, foreign_key: "work_id", class_name: "Picture"

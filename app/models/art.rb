@@ -5,6 +5,10 @@
 
 class Art < Work
 
+	# VALIDATIONS
+	# ============================================================
+	validates :picture, presence: true
+
 	# CALLBACKS
 	# ============================================================
 	before_create :set_categories
