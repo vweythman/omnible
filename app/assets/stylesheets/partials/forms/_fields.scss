@@ -1,33 +1,12 @@
 // STYLE PARTIAL : FIELDS
 // ***********************************************
-// SETUP :: VARIABLES
-// ===============================================
-$field-label-background     : $page-lighter-major;
-$input-value-background     : $page-color;
-$select-input-background    : $page-lighter-minor;
-$selction-active-background : $water-lightest-minor;
-$slider-background          : $moss-color;
-$slider-box-background      : $page-color;
-
-$field-label-color         : $page-darkest-major;
-$range-value-color         : $water-darker-minor;
-$select-input-color        : $page-darker-major;
-$select-input-active-color : $fire-darker-minor;
-$selction-create-color     : $water-darkest-minor;
-$selction-active-color     : $water-darker-minor;
-$slider-color              : $moss-dark-minor;
-
-$tag-label-width : $golden-minor;
-$tag-value-width : $golden-major;
-// ===============================================
-
 // SETUP :: IMPORTS
 // ===============================================
 @import "partials/forms/fields/selections";
 @import "partials/forms/fields/slider";
 // ===============================================
 
-// LABEL
+// BOX AND LABEL
 // ===============================================
 .field-label {
 	@include border-radius-top(3px);
@@ -160,14 +139,15 @@ input[type=checkbox]:checked + label .field-value:before{
 // TAG FIELDS
 // ===============================================
 .taggable-field {
-	padding  : 0px;
-	overflow : auto;
+	margin  : 5px;
+	display : table;
+	width   : calc(100% - 10px);
 
 	.field-content {
-		float   : left;
-		margin  : 0;
-		padding : 0;
-		border-radius : 0;
+		display : table-cell;
+		margin  : 0px;
+		padding : 0px;
+		border-radius : 0px;
 	}
 
 	.field-label {
@@ -177,7 +157,7 @@ input[type=checkbox]:checked + label .field-value:before{
 
 		label {
 			display      : block;
-			margin-right : 1px;
+			margin-right : 3px;
 			padding      : 7px 7px 6px;
 		}
 	}

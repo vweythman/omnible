@@ -1,9 +1,13 @@
 // APP STYLES
 // ***********************************************
-// SETUP
+// CURRENT SCHEME
 // ===============================================
 @import "variables/sizes";
 @import "variables/colors";
+@import "variables/schemes/blue";
+
+// SETUP
+// ===============================================
 @import "partials/mixins/general";
 @import "partials/mixins/layout";
 

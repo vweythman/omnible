@@ -1,0 +1,189 @@
+// STYLE VARIABLES : BLUE SCHEME
+// ***********************************************
+// FORM
+// ===============================================
+$form-background       : $page-lightest-minor;
+$form-border-color     : $water-color;
+$form-margin           : 10px;
+$form-path-color       : $water-dark-major;
+$form-sidebar-color    : $page-lightest-minor;
+$form-title-background : $water-darker-minor;
+
+$border-color : $page-light-minor;
+// ===============================================
+
+// FIELDS
+// ===============================================
+// -----------------------------------------------
+// -- Label and Box
+// -----------------------------------------------
+$paged-field-box-background : $page-lighter-major;
+
+$field-label-background : $page-lighter-major;
+$field-label-color      : $page-darkest-major;
+
+$option-title-background  : $water-lighter-major;
+$rating-title-background  : $page-dark-minor;
+$rating-title-color       : $page-lightest-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Input
+// -----------------------------------------------
+$input-value-background : $page-color;
+
+$agent-background      : $page-color;
+$choice-background     : $water-dark-minor;
+$choice-border-color   : $water-dark-minor;
+$choice-color          : $water-lightest-minor;
+
+$decision-color        : $water-dark-minor;
+$opinion-border-color  : $page-dark-minor;
+$range-value-color     : $water-darker-minor;
+
+$rating-background     : $page-color;
+$rating-border-color   : $page-dark-minor;
+$rating-width          : $one-third;
+
+$select-input-background   : $page-lighter-minor;
+$select-input-color        : $page-darker-major;
+$select-input-active-color : $fire-darker-minor;
+
+$selction-create-color      : $water-darkest-minor;
+$selction-active-color      : $water-darker-minor;
+$selction-active-background : $water-lightest-minor;
+
+$slider-background     : $moss-color;
+$slider-box-background : $page-color;
+$slider-color          : $moss-dark-minor;
+
+$tag-border-color : $fire-light-major;
+$tag-label-width  : $golden-minor;
+$tag-value-width  : $golden-major;
+
+$submission-background : $water-dark-major;
+$submission-color      : $water-lightest-minor;
+
+$variant-width         : $eleven-twelfths;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Selection Widths
+// -----------------------------------------------
+$fiction-type-size : $one-half;
+$item-type-size    : $one-sixth;
+$opinion-type-size : $one-fifth;
+// -----------------------------------------------
+// ===============================================
+
+// FIELDSETS
+// ===============================================
+// -----------------------------------------------
+// -- Block
+// -----------------------------------------------
+$associative-border-color : $page-dark-minor;
+$comic-border-color       : $fire-light-minor;
+$meta-box-background      : $page-lighter-minor;
+$meta-box-border-color    : $page-light-minor;
+
+$nested-background        : $fire-dark-minor;
+$nested-border-color      : $fire-color;
+$nested-tags-border-color : $fire-light-minor;
+$nested-tags-color        : $fire-darker-minor;
+
+$paged-border-color      : $border-color;
+$paged-text-border-color : $border-color;
+
+$solo-set-border-color  : $page-light-minor;
+$work-meta-background   : $page-lightest-major;
+$work-meta-border-color : $fire-light-minor;
+$work-meta-color        : $fire-darker-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Legend and Header
+// -----------------------------------------------
+$associative-title-background : $page-dark-minor;
+$associative-title-color      : $page-lightest-minor;
+
+$comic-thead-background : $fire-lighter-minor;
+$meta-title-background  : $page-dark-minor;
+$meta-title-color       : $page-lightest-major;
+
+$nested-tags-title-color        : $page-lightest-minor;
+$nested-tags-title-border-color : $fire-dark-major;
+
+$opinion-title-background   : $page-lighter-major;
+$opinion-title-border-color : $page-dark-minor;
+$option-title-border-color  : $water-color;
+
+$tag-header-background : $fire-light-minor;
+$tag-header-color      : $fire-darkest-major;
+// -----------------------------------------------
+// ===============================================
+
+// TABS
+// ===============================================
+// -----------------------------------------------
+// -- Tabs General
+// -----------------------------------------------
+$tabs-panel-padding : 10px;
+$tabs-border-width  : 3px;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Horizontal Tabs
+// -----------------------------------------------
+$dossier-panel-background   : $page-lightest-major;
+$dossier-panel-border-color : $page-light-major;
+
+$dossier-anchor-color      : $page-darkest-major;
+$dossier-anchor-background : $water-light-minor;
+
+$dossier-active-anchor-background   : $page-lightest-minor;
+$dossier-active-anchor-border-color : $page-light-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Vertical Tabs
+// -----------------------------------------------
+$paging-tabs-width     : $one-fourth;
+$paging-negative-space : 2 * ($tabs-panel-padding + $tabs-border-width);
+$paging-panel-width    : calc(#{100% - $paging-tabs-width} - #{$paging-negative-space});
+
+$paging-panel-background   : $page-lightest-minor;
+$paging-panel-border-color : $water-color;
+
+$paging-anchor-background   : $water-color;
+$paging-anchor-color        : $page-color;
+
+$paging-active-anchor-background : $page-lightest-minor;
+$paging-active-anchor-color      : $water-darkest-major;
+
+$paging-error-background : $stoplight-stop;
+$paging-error-color      : $page-color;
+// -----------------------------------------------
+// ===============================================
+
+// TOOLS
+// ===============================================
+$toggle-background       : $page-color;
+$toggle-hide-color       : $fire-dark-minor;
+$toggle-hide-hover-color : $fire-lighter-major;
+$toggle-show-color       : $moss-dark-major;
+$toggle-show-hover-color : $moss-lighter-major;
+$toggle-width            : $one-fifth;
+
+$tooltip-background   : $page-lightest-minor;
+$tooltip-border-color : $page-lighter-minor;
+
+$add-background          : $water-darker-minor;
+$add-color               : $water-lighter-major;
+$add-hover-background    : $water-color;
+$remove-background       : $fire-dark-major;
+$remove-hover-background : $fire-dark-minor;
+$remove-color            : $fire-lighter-major;
+// ===============================================
+
+// END
+// ***********************************************/

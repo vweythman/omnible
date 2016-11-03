@@ -23,7 +23,6 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "variables/form";
 
 @import "partials/content/tabs";
 @import "partials/mixins/forms";
@@ -37,16 +36,9 @@
 // ===============================================
 .page-content {
 	background    : $form-background;
-	border-bottom : 3px solid $page-darker-major;
+	border-bottom : 7px solid $form-border-color;
 
-	header {
-		background    : $header-background;
-		border-bottom : 7px solid $form-border-color;
-	}
-}
-
-.form-title {
-	background : $form-title-background;
+	header { border-bottom : 7px solid $form-border-color; }
 }
 
 form {
@@ -55,7 +47,15 @@ form {
 
 	.form-title {
 		margin  : -10px gutter-negate($gutter)*-1 0px;
-		padding : 10px gutter-negate($gutter);
+		padding : 40px gutter-negate($gutter) 10px;
+
+		.field-label {
+			margin : 0px;
+		}
+
+		input {
+			border-radius : 0px;
+		}
 	}
 }
 // ===============================================
@@ -66,7 +66,7 @@ form {
 // -- Text Content
 // -----------------------------------------------
 .content-field { margin-top : $form-margin; }
-.description-field.text-field { margin : $form-margin; }
+.description-field.text-field { margin : $form-margin 0px; }
 .edit_branching .string-field { margin : 5px 0px; }
 .style-field   { padding : $form-margin 0px; }
 .summary-field { padding : $form-margin 5px; }
@@ -183,12 +183,20 @@ form {
 }
 
 .taggable-field {
-	.selectize-input { border-color : $tagging-border-color; }
+	border : 1px solid $tag-border-color;
 
-	label {
-		border     : 1px solid $tagging-border-color;
+	.selectize-input { border : none; }
+
+	.field-value {
+		border     : 1px solid $tag-border-color;
+		background : $input-value-background;
+	}
+	.field-label {
 		background : $tag-header-background;
+		border     : 1px solid $tag-border-color;
 		color      : $tag-header-color;
+
+		vertical-align : top;
 	}
 }
 // -----------------------------------------------
@@ -247,11 +255,38 @@ form {
 }
 
 .comic-pages {
-	.paged-fieldset { border-color : $comic-border-color; }
+	.paged-fieldset {
+		border : 3px solid $comic-border-color;
+	}
 
 	thead {
 		background : $comic-thead-background;
 		border     : 3px solid $comic-border-color;
+
+		th {
+			vertical-align : bottom;
+		}
+	}
+
+	.text-field {
+		margin: 10px 5px;
+	}
+	.preview-area img {
+		max-width : 80px;
+	}
+}
+
+.chapter-page-fields .text-field {
+	margin : 7px 0px;
+}
+
+.cast-fields {
+	border  : 3px solid $border-color;
+	padding : 10px 10px 0px;
+	margin  : 10px 0px;
+
+	.preview-area {
+		margin : 0px 10px;
 	}
 }
 // -----------------------------------------------
@@ -325,7 +360,7 @@ form {
 
 // SECTION :: FOOTER
 // ===============================================
-.path-finder a { color : $path-color; }
+.path-finder a { color : $form-path-color; }
 
 .submit-field {
 	margin : $form-margin $form-margin 0px;
@@ -342,7 +377,7 @@ form {
 @include page-desktop() {
 	.sidebar-control {
 		background : $form-title-background;
-		color      : $link-color;
+		color      : $form-sidebar-color;
 	}
 }
 

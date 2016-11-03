@@ -22,6 +22,7 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
+@import "partials/content/tabs";
 @import "partials/forms/inline_form";
 @import "partials/content/status";
 @import "partials/content/comments";
@@ -216,7 +217,7 @@ tfoot    { border-top    : 3px solid $subject-table-border-color; }
 	.widget {
 		background : $widget-background;
 		margin     : 10px;
-		overflow   : uto;
+		overflow   : auto;
 
 	}
 }
@@ -237,6 +238,51 @@ tfoot    { border-top    : 3px solid $subject-table-border-color; }
 		background    : $summary-title-background;
 		border-bottom : 2px solid $summary-title-border-color;
 	}
+}
+
+.cast-call {
+	background : $article-background;
+	margin     : 10px;
+	padding    : 15px;
+
+	img {
+		max-width : 100%;
+		margin    : auto;
+	}
+}
+
+.cast-about {
+	border  : 2px solid $summary-title-border-color;
+	padding : 15px;
+	margin-top : 15px;
+}
+
+.cast-tabs {
+	display : table;
+	width   : calc(100% - 30px);
+	border  : 5px solid $paging-anchor-background;
+}
+.cast-element {
+	display : table-cell;
+	vertical-align : top;
+
+	.ui-tabs-nav{
+		width : 100%;
+	}
+	.ui-tabs-panel {
+		border : none;
+		width  : calc(100% - #{$paging-negative-space + 2 * (15px - $tabs-border-width) });
+	}
+}
+
+.cast-nav {
+	padding : 10px;
+	width   : $golden-minor;
+	border-right  : 5px solid $paging-anchor-background;
+}
+
+.roll-call {
+	background : $paging-anchor-background;
 }
 
 .indexable {

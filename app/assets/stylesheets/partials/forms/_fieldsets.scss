@@ -1,33 +1,5 @@
 // STYLE PARTIAL : FIELDSETS
 // ***********************************************
-// SETUP :: VARIABLES
-// ===============================================
-$associative-title-background : $page-dark-minor;
-$add-background               : $water-darker-minor;
-$add-hover-background         : $water-color;
-$paged-background             : $page-lightest-minor;
-$remove-background            : $fire-dark-major;
-$remove-hover-background      : $fire-dark-minor;
-
-$associative-border-color       : $page-dark-minor;
-$paged-border-color             : $border-color;
-$paged-text-border-color        : $border-color;
-$solo-set-border-color          : $page-light-minor;
-
-$add-color               : $water-lighter-major;
-$associative-title-color : $page-lightest-minor;
-$remove-color            : $fire-lighter-major;
-
-$nested-background : $fire-lighter-minor;
-
-$nested-border-color            : $fire-color;
-$nested-tags-border-color       : $fire-light-minor;
-$nested-tags-title-border-color : $fire-dark-minor;
-
-$nested-tags-color       : $fire-darker-minor;
-$nested-tags-title-color : $page-lightest-minor;
-// ===============================================
-
 // SECTION :: GENERAL
 // ===============================================
 .primary-fieldset {
@@ -119,29 +91,43 @@ $nested-tags-title-color : $page-lightest-minor;
 }
 
 .paged-fieldset {
-	background    : $paged-background;
-	border        : 3px solid $paged-border-color;
-	margin-bottom : 5px;
+	border   : none;
+	margin   : 0px;
+	padding  : 0px;
 
-	.artwork-field { margin : 10px; }
+	.artwork-field {
+		margin    : 10px 0px;
+		max-width : 250px;
+	}
 	.summary-field { margin : 5px;  }
 
 	.string-field input,
 	.text-field .field-value { border-color : $paged-text-border-color; }
 
-	legend .string-field {
+	.field-box {
+		@include border-radius-top(3px);
+
 		padding    : 3px;
-		border     : 3px solid $paged-text-border-color;
-		background : $field-label-background;
+		background : $paged-field-box-background;
+	}
 
-		.field-content {
-			display : inline-block;
-		}
+	legend {
+		width : 100%;
 
-		.field-label {
-			padding       : 8px;
-			border-radius : 0px;
-			margin        : 0px;
+		.string-field {
+			padding    : 3px;
+			background : $field-label-background;
+
+			display : table;
+			width   : calc(100% - 6px);
+
+			.field-content { display : table-cell; }
+
+			.field-label {
+				padding       : 8px;
+				border-radius : 0px;
+				margin        : 0px;
+			}
 		}
 	}
 
@@ -155,6 +141,7 @@ $nested-tags-title-color : $page-lightest-minor;
 		.remove-cell {
 			margin : 10px 5px;
 		}
+
 		.file-field .field-value {
 			padding : 3px;
 		}
@@ -171,22 +158,21 @@ $nested-tags-title-color : $page-lightest-minor;
 
 	& > legend {
 		padding     : 10px 5px 5px;
-		width       : calc(100% + 8px);
+		width       : calc(100% + 10px);
 		font-weight : bolder;
-		margin      : 0px -12px;
+		margin      : 0px -13px;
 
 		background : $nested-tags-title-border-color;
 		border     : 3px solid $nested-tags-title-border-color;
 		color      : $nested-tags-title-color;
-
-		border-bottom-color : $nested-tags-border-color;
 	}
 }
 
 .nested-contained-fieldset,
 .nested-tags-fieldset {
 	background : $nested-background;
-	border     : 0.25em solid $nested-tags-border-color;
+	border     : 3px solid $nested-tags-border-color;
+	padding    : 10px;
 }
 .nested-tags-fieldset .nested-tags-fieldset {
 	padding    : 1px;

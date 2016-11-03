@@ -1,8 +1,6 @@
 // STYLE PARTIAL: TABS
 // ***********************************************
-.ui-tabs {
-	margin : 10px;
-}
+.ui-tabs { margin : 10px; }
 
 .ui-tabs-nav {
 	display : table;
@@ -16,26 +14,14 @@
 }
 
 .ui-tabs-panel {
-	background : $page-lightest-minor;
-	padding    : 10px;
-	border     : 3px solid $border-color;
-
-	.paged-tabs & {
-		float : right;
-	}
-}
-
-.ui-tabs-active .ui-tabs-anchor {
-	background   : $page-color;
-	border-color : $border-color;
-	cursor       : default;
-	
-	border-top-left-radius  : 5px;
-	border-top-right-radius : 5px;
+	background : $dossier-panel-background;
+	border     : $tabs-border-width solid $dossier-panel-border-color;
+	padding    : $tabs-panel-padding;
+	overflow   : auto;
 }
 
 .ui-tabs-anchor {
-	color   : $page-darkest-major;
+	color   : $dossier-anchor-color;
 	display : block;
 	padding : 10px;
 
@@ -43,57 +29,52 @@
 	text-decoration : none;
 
 	.ui-state-default & {
-		background    : $border-color;
-		border        : 3px solid $border-color;
+		background    : $dossier-anchor-background;
+		border        : $tabs-border-width solid $dossier-anchor-background;
 		margin        : 0px 5px;
 		border-bottom : none;
 		
-		border-top-left-radius  : 5px;
-		border-top-right-radius : 5px;
+		@include border-radius-top(5px);
 	}
 
 	.ui-tabs-active & {
-		background   : $page-lightest-minor;
-		border-color : $border-color;
+		background   : $dossier-active-anchor-background;
+		border-color : $dossier-active-anchor-border-color;
+		cursor       : default;
 	}
 }
 
 .paged-tabs {
-	overflow   : auto;
+	overflow : auto;
 
 	.ui-tabs-nav {
-		display : block;
-		float   : left;
-		width   : $one-fourth;
+		float : left;
+		width : $paging-tabs-width;
 	}
 
-	.ui-state-default {
-		display : block;
-	}
+	.ui-tabs-nav,
+	.ui-state-default { display : block; }
 
 	.ui-tabs-panel {
-		float : right;
-		width : calc(#{$three-fourths} - 26px);
-		background   : $page-lightest-minor;
-		border-color : $water-color;
+		background   : $paging-panel-background;
+		border-color : $paging-panel-border-color;
+		float        : right;
+		width        : $paging-panel-width;
 	}
 
 	.ui-tabs-anchor {
-		background : $water-color;
-		border     : 3px solid $water-color;
-		color      : $page-color;
-		margin     : 10px -3px 10px 0px;
+		background : $paging-anchor-background;
+		border     : $tabs-border-width solid $paging-anchor-background;
+		color      : $paging-anchor-color;
+		margin     : $tabs-panel-padding #{$tabs-border-width * -1} $tabs-panel-padding 0px;
 
-		border-top-left-radius     : 5px;
-		border-bottom-left-radius  : 5px;
-
-		border-top-right-radius    : 0px;
-		border-bottom-right-radius : 0px;
+		@include border-radius-left(5px);
+		@include border-radius-right(0px);
 
 		&.has-errors {
-			background   : $stoplight-stop;
-			border-color : $stoplight-stop;
-			color        : $page-color;
+			background   : $paging-error-background;
+			border-color : $paging-error-background;
+			color        : $paging-error-color;
 
 			&:after {
 				content    : attr(data-errors) " error(s)";
@@ -105,13 +86,11 @@
 	}
 
 	.ui-tabs-active .ui-tabs-anchor {
-		background : $page-lightest-minor;
-		color      : $water-darkest-major;
+		background : $paging-active-anchor-background;
+		color      : $paging-active-anchor-color;
 	}
 
-	.add-cell {
-		clear : left;
-	}
+	.add-cell { clear : left; }
 }
 
 // END
