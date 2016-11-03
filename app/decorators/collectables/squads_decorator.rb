@@ -17,9 +17,5 @@ module Collectables
 			"Groups"
 		end
 
-		def klass
-			@klass ||= :squads
-		end
-
 	end
 end

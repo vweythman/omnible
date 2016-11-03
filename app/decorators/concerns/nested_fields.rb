@@ -53,10 +53,11 @@ module NestedFields
 	def heading
 	end
 
-	def klass
+	def partial
 	end
 
-	def partial
+	def klass
+		@klass ||= self.class.name.underscore.split("/").last.chomp('_decorator')
 	end
 
 end

@@ -1,20 +1,21 @@
 module Collectables
 	module Works
-		class ComicsDecorator < Collectables::WorksDecorator
+		class CastingsDecorator < Collectables::WorksDecorator
 
 			# MODULES
-			# ------------------------------------------------------------
+			# ============================================================
 			include PageCreating
 			include WithoutLinks
 
 			# PUBLIC METHODS
-			# ------------------------------------------------------------
+			# ============================================================
 			def title
-				"Comics"
+				"Castings"
 			end
 
 			def filter_values
 				filters = super
+				filters.except!(:completion)
 				filters.except!(:content_type)
 			end
 

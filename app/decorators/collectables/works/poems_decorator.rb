@@ -13,10 +13,6 @@ module Collectables
 				"Poems"
 			end
 
-			def klass
-				@klass ||= :poems
-			end
-
 			def filter_values
 				filters = super
 				filters[:order][:values] << { heading: "Line Count", key: "line-count"}

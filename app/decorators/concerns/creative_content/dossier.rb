@@ -4,17 +4,13 @@ module CreativeContent
 		# GET
 		# ============================================================
 		def heading_id
-			klass + "-" + object.id.to_s
-		end
-
-		def klass
-			@klass ||= self.object.class.to_s.downcase
+			 "#{klass}-" + object.id.to_s
 		end
 
 		# SET
 		# ============================================================
 		def title_for_creation
-			@meta_title ||= "Create " + klass.titleize
+			@meta_title ||= "Create " + klass.to_s.titleize
 		end
 
 		def title_for_editing

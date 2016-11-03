@@ -6,10 +6,6 @@ class MusicVideoDecorator < WorkDecorator
 		[[h.t('collected.works'), h.works_path], [h.t('content_types.music_videos'), h.poems_path]]
 	end
 
-	def klass
-		@klass ||= :music_video
-	end
-
 	def title_for_creation
 		"Upload Music Video"
 	end

@@ -16,10 +16,6 @@ module Collectables
 		def title
 			heading
 		end
-
-		def klass
-			@klass ||= :places
-		end
 		
 		def results
 			h.render 'results'

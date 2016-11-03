@@ -22,10 +22,6 @@ module Collectables
 			"Relationship Tags"
 		end
 
-		def klass
-			@klass ||= :relators
-		end
-
 		def taggables_list_for(person, direction = nil)
 			set = person.relation_set(false)
 			pnm = [person.name]

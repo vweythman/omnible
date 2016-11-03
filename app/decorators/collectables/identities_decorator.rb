@@ -20,10 +20,6 @@ module Collectables
 			"Character Tags"
 		end
 
-		def klass
-			:identities
-		end
-
 		def nest_class
 			"nested-tags-fieldset nested-#{klass}-fieldset nested-#{owner_klass}-fields"
 		end

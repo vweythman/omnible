@@ -39,11 +39,11 @@ class PlaceDecorator < Draper::Decorator
 	end
 
 	def organized_domains
-		Place.organize domains.order_by_form
+		Place.organize domains.alphabetical_by_form
 	end
 
 	def organized_subdomains
-		Place.organize subdomains.order_by_form
+		Place.organize subdomains.alphabetical_by_form
 	end
 
 end

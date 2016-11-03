@@ -26,10 +26,6 @@ class ItemDecorator < Draper::Decorator
 		h.metadata self.generic.name.titleize + ":", list_qualities
 	end
 
-	def klass
-		:item
-	end
-
 	# -- Lists
 	# ............................................................
 	def list_qualities

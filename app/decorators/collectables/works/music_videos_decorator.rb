@@ -13,10 +13,6 @@ module Collectables
 				"Music Videos"
 			end
 
-			def klass
-				:music_videos
-			end
-
 			def filter_values
 				filters = super
 				filters.except!(:completion)

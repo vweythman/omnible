@@ -13,10 +13,6 @@ module Collectables
 			"Works"
 		end
 
-		def klass
-			:collections
-		end
-
 		# -- Location
 		# ............................................................
 		def partial

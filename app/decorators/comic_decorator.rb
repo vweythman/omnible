@@ -8,18 +8,8 @@ class ComicDecorator < WorkDecorator
 		"Upload Comic"
 	end
 
-	def summary_title
-		h.t("art.summary_title")
-	end
-
 	def meta_fields
 		"works/shared/fields/viewable_meta_fields"
-	end
-
-	# SYMBOL OUTPUT
-	# ------------------------------------------------------------
-	def klass
-		:comic
 	end
 
 	# LIST OUTPUT

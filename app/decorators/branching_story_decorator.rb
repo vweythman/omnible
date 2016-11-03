@@ -10,8 +10,4 @@ class BranchingStoryDecorator < WorkDecorator
 		[["All Branches", h.branching_story_branches_path(self)]]
 	end
 
-	def klass
-		:branching_story
-	end
-
 end

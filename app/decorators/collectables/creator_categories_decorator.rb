@@ -6,9 +6,5 @@ module Collectables
 		include ListableCollection
 		include Widgets::ListableResults
 
-		def klass
-			:creator_categories
-		end
-
 	end
 end

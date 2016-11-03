@@ -13,9 +13,5 @@ module Collectables
 			"General Tags"
 		end
 
-		def klass
-			@klass ||= :tags
-		end
-
 	end
 end

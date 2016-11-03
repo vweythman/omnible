@@ -13,10 +13,6 @@ module Collectables
 				"Art"
 			end
 
-			def klass
-				:artwork
-			end
-
 			def filter_values
 				filters = super
 				filters.except!(:completion)

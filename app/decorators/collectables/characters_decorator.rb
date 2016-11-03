@@ -17,9 +17,5 @@ module Collectables
 			"Characters"
 		end
 
-		def klass
-			:characters
-		end
-
 	end
 end

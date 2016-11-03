@@ -1,14 +1,27 @@
 module ListableCollection
 
-	# GET
+	# TABLE of CONTENTS
 	# ============================================================
-	def heading
-		@heading ||= h.t("categories.#{klass}")
-	end
+	# 1. PUBLIC METHODS
+	# ------------------------------------------------------------
+	# -- A. Display Blocks
+	# ----- list
+	# ----- filters
+	#
+	# -- B. Display Text
+	# ----- found_status
+	#
+	# -- C. Selection Methods
+	# ----- heading
+	# ----- page_window
+	# ----- found_count
+	#
+	# ============================================================
 
-	# RENDER
+	# 1. PUBLIC METHODS
 	# ============================================================
-	# BLOCK
+	# ------------------------------------------------------------
+	# 1A. DISPLAY BLOCKS
 	# ------------------------------------------------------------
 	def list
 		h.render 'shared/lists/links', listable: self
@@ -18,16 +31,24 @@ module ListableCollection
 		h.render partial: "filters"
 	end
 
-	# PARAGRAPH
+	# ------------------------------------------------------------
+	# 1B. DISPLAY TEXT
 	# ------------------------------------------------------------
 	def found_status
 		h.content_tag :p, class: "found" do found_count.to_s + " Found" end
 	end
 
-	# SET
-	# ============================================================
-	# RESULTS DEFAULTS
 	# ------------------------------------------------------------
+	# 1C. SELECTION METHODS
+	# ------------------------------------------------------------
+	def heading
+		@heading ||= h.t("categories.#{klass}")
+	end
+
+	def klass
+		@klass ||= self.class.name.underscore.split("/").last.chomp('_decorator')
+	end
+
 	def page_window
 		2
 	end
@@ -35,5 +56,6 @@ module ListableCollection
 	def found_count
 		self.count
 	end
+	# ============================================================
 
 end

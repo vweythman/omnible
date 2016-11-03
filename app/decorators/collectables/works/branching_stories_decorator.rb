@@ -13,10 +13,6 @@ module Collectables
 				"Branching Stories"
 			end
 
-			def klass
-				:branching_stories
-			end
-
 			def filter_values
 				filters = super
 				filters[:order][:values] << { heading: "Word Count", key: "word-count"}

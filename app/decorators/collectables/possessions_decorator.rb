@@ -19,10 +19,6 @@ module Collectables
 			"Items"
 		end
 
-		def klass
-			@klass ||= :possessions
-		end
-
 		def organize_characters
 			@organize_characters ||= Possession.organize_characters(object)
 		end

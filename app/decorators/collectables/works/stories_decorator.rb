@@ -9,10 +9,6 @@ module Collectables
 
 			# PUBLIC METHODS
 			# ------------------------------------------------------------
-			def klass
-				@klass ||= :stories
-			end
-
 			def title
 				"Chaptered Stories"
 			end

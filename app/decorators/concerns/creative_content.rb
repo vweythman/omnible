@@ -34,8 +34,9 @@ module CreativeContent
 	# ----- content_category
 	# ----- creator_categories_count
 	# ----- directory_scenes
-	# ----- primary_pseudonym
 	# ----- icon_choice
+	# ----- klass
+	# ----- primary_pseudonym
 	#
 	# -- F. Questions
 	# ----- has_multiple_creator_categories?
@@ -68,7 +69,8 @@ module CreativeContent
 		stylesheet: 'magic-wand',
 		place:'earth',
 		item: 'diamonds',
-		character:'smile'
+		character:'smile',
+		casting: 'smile'
 	}
 	# ============================================================
 
@@ -196,6 +198,10 @@ module CreativeContent
 
 	def icon_choice
 		CreativeContent::ICONS[klass] || 'file-empty'
+	end
+
+	def klass
+		@klass ||= object.class.name.underscore.to_sym
 	end
 
 	def primary_pseudonym(creator)

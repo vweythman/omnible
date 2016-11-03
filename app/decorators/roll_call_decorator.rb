@@ -1,11 +1,11 @@
-class PictureDecorator < Draper::Decorator
+class RollCallDecorator < TagDecorator
 
 	# DELEGATION
 	# ------------------------------------------------------------
 	delegate_all
 
-	def preview_area
-		h.preview_area(art_src)
+	def character_name
+		character.name unless character.nil?
 	end
 
 end

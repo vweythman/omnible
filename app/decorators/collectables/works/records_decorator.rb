@@ -12,11 +12,7 @@ module Collectables
 			def title
 				"Media Records"
 			end
-
-			def klass
-				@klass ||= :records
-			end
-
+			
 			def filter_values
 				{}
 			end

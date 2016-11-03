@@ -22,10 +22,6 @@ class StoryDecorator < WorkDecorator
 		end
 	end
 
-	def klass
-		@klass ||= :story
-	end
-
 	def title_with_count
 		len = self.taggable_chapter_count
 		title + " (" + len.to_s + " " + "Chapter".pluralize(len) + ")"

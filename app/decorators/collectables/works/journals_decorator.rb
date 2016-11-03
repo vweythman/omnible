@@ -13,10 +13,6 @@ module Collectables
 				"Journals"
 			end
 
-			def klass
-				:journals
-			end
-
 		end
 	end
 end

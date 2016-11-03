@@ -13,10 +13,6 @@ module Collectables
 				"Articles"
 			end
 
-			def klass
-				:articles
-			end
-
 			def filter_values
 				filters = super
 				filters[:order][:values] << { heading: "Word Count", key: "word-count"}

@@ -8,10 +8,6 @@ class ShortStoryDecorator < WorkDecorator
 		"Create Short Story"
 	end
 
-	def klass
-		@klass ||= :short_story
-	end
-
 	# Navigation
 	# ------------------------------------------------------------
 	def all_crumbs

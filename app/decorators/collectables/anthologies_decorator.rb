@@ -7,11 +7,5 @@ module Collectables
 		include Widgets::Recent
 		include Widgets::ListableResults
 
-		# PUBLIC METHODS
-		# ------------------------------------------------------------
-		def klass
-			:anthologies
-		end
-
 	end
 end

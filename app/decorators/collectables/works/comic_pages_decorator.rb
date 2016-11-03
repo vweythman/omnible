@@ -14,10 +14,6 @@ module Collectables
 				"Pages"
 			end
 
-			def klass
-				:pages
-			end
-
 			def meta_title
 				owner_heading + " - Pages"
 			end

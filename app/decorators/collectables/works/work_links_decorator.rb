@@ -12,10 +12,6 @@ module Collectables
 				"Links"
 			end
 
-			def klass
-				@klass ||= :work_links
-			end
-
 		end
 	end
 end

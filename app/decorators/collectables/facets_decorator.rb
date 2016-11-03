@@ -27,10 +27,6 @@ module Collectables
 			"Identity Categories (Facets)"
 		end
 
-		def klass
-			:facets
-		end
-
 		def admin_table
 			h.render "categories/facets/facets_table"
 		end

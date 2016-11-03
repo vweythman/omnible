@@ -11,7 +11,7 @@ class BranchingDecorator < Draper::Decorator
 	# PUBLIC METHODS
 	# ============================================================
 	def klass
-		:branching
+		@klass ||= :branching
 	end
 
 	def quoted_heading

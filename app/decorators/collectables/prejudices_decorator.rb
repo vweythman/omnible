@@ -13,10 +13,6 @@ module Collectables
 			"Personal Prejudices"
 		end
 
-		def klass
-			@klass ||= :prejudices
-		end
-
 		# -- Location
 		# ............................................................
 		def partial

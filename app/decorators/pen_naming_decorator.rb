@@ -6,6 +6,7 @@ class PenNamingDecorator < Draper::Decorator
 
 	# MODULES
 	# ============================================================
+	include CreativeContent
 	include CreativeContent::Dossier
 	include InlineEditing
 
@@ -24,28 +25,11 @@ class PenNamingDecorator < Draper::Decorator
 	end
 
 	def createable_works_list
-		[
-			{
-				icon: "file-empty",
-				title: "article",
-				path:  h.new_article_path(create_as: self.id)
-			},
-			{
-				icon: "book",
-				title: "story",
-				path:  h.new_story_path(create_as: self.id)
-			},
-			{
-				icon: "tree",
-				title: "branching_story",
-				path:  h.new_branching_story_path(create_as: self.id)
-			},
-			{
-				icon: "file-text",
-				title: "short_story",
-				path:  h.new_short_story_path(create_as: self.id)
-			}
-		]
+		Collectables::WorksDecorator::ALL_TYPES.keys.map do |name|
+			type = name.to_s.singularize
+
+			[CreativeContent::ICONS[type.to_sym] || 'file-empty', name.to_s, h.polymorphic_url(type, action: :new, create_as: self.id)]
+		end
 	end
 
 	def bylines_by_category

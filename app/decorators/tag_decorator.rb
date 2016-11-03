@@ -6,6 +6,7 @@ class TagDecorator < Draper::Decorator
 
 	# MODULES
 	# ------------------------------------------------------------
+	include CreativeContent
 	include CreativeContent::Dossier
 	include InlineEditing
 

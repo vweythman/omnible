@@ -9,9 +9,6 @@ module Collectables
 		# ------------------------------------------------------------
 		# -- About
 		# ............................................................
-		def klass
-			@klass ||= :opinions
-		end
 
 		def heading
 			"Opinions about Others"

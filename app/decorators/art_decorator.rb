@@ -6,10 +6,6 @@ class ArtDecorator < WorkDecorator
 		[[h.t('collected.works'), h.works_path], [h.t('content_types.art'), h.poems_path]]
 	end
 
-	def klass
-		:art
-	end
-
 	def meta_fields
 		"works/shared/fields/viewable_meta_fields"
 	end

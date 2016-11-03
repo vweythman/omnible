@@ -14,10 +14,6 @@ module Collectables
 				"Chapters"
 			end
 
-			def klass
-				:chapters
-			end
-
 			def meta_title
 				owner_heading + " - Chapters"
 			end

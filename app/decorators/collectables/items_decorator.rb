@@ -19,10 +19,6 @@ module Collectables
 			heading
 		end
 
-		def klass
-			:items
-		end
-
 		def organized
 			keys = self.generics.pluck(:id, :name).to_h
 			results = {}

@@ -10,10 +10,6 @@ class JournalDecorator < WorkDecorator
 		@current_articles ||= Collectables::Works::JournalArticlesDecorator.decorate(built_articles)
 	end
 
-	def klass
-		@klass ||= :journal
-	end
-
 	# PRIVATE METHODS
 	# ============================================================
 	private

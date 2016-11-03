@@ -11,10 +11,6 @@ module Collectables
 			"Child Places"
 		end
 
-		def klass
-			@klass ||= :sublocalities
-		end
-
 		def partial
 			"subjects/places/fields/subdomain_fields"
 		end

@@ -1,6 +1,30 @@
 module Collectables
 	class WorksDecorator < Draper::CollectionDecorator
 
+		# CONSTANTS
+		# ============================================================
+		TEXTUAL_TYPES = {
+			:articles      => h.articles_path,
+			:journals      => h.journals_path,
+			:poems         => h.poems_path,
+			:branching_stories => h.branching_stories_path,
+			:stories       => h.stories_path,
+			:short_stories => h.short_stories_path
+		}
+
+		NONTEXTUAL_TYPES = {
+			:artwork       => h.artwork_path,
+			:comics        => h.comics_path,
+			:castings      => h.castings_path,
+			:music_videos  => h.music_videos_path,
+		}
+
+		UNSET_TYPES = {
+			:audio   => nil,
+		}
+
+		ALL_TYPES = Collectables::WorksDecorator::TEXTUAL_TYPES.merge Collectables::WorksDecorator::NONTEXTUAL_TYPES
+
 		# DELEGATION
 		# ============================================================
 		delegate :current_page, :total_pages, :limit_value, :entry_name, :total_count, :offset_value, :last_page?
@@ -31,7 +55,7 @@ module Collectables
 
 		def types
 			#local_types.merge external_types
-			local_types
+			Collectables::WorksDecorator::ALL_TYPES
 		end
 
 		def organized
@@ -44,10 +68,6 @@ module Collectables
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		def heading
 			title
-		end
-
-		def klass
-			@klass ||= :works
 		end
 
 		def title
@@ -135,40 +155,10 @@ module Collectables
 			}
 		end
 
-		def local_types
-			{
-				:artwork       => h.artwork_path,
-				:articles      => h.articles_path,
-				:journals      => h.journals_path,
-				:music_videos  => h.music_videos_path,
-				:comics        => h.comics_path,
-				:poems         => h.poems_path,
-				:branching_stories => h.branching_stories_path,
-				:stories       => h.stories_path,
-				:short_stories => h.short_stories_path
-			}
-		end
-
-		def unset_types
-			{
-				:webisodes     => nil,
-				:podcasts      => nil,
-				:radio_plays   => nil,
-				:songs         => nil
-			}
-		end
-
-		def uploaded_types
-			{
-				:artwork      => h.artwork_path,
-				:music_videos => h.music_videos_path
-			}
-		end
-
 		# TOOLKIT
 		# ------------------------------------------------------------
 		def directory_sections
-			any_type = (self.types.merge self.unset_types)
+			any_type = (self.types.merge Collectables::WorksDecorator::UNSET_TYPES)
 			any_type.map {|key, p| [h.t("content_types.#{key}"), p] }
 		end
 

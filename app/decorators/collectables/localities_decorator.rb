@@ -11,10 +11,6 @@ module Collectables
 			"Parent Places"
 		end
 
-		def klass
-			:localities
-		end
-
 		def partial
 			"subjects/places/fields/domain_fields"
 		end

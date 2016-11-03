@@ -1,89 +1,82 @@
+# WorkFields
+# ============================================================
+# TABLE of CONTENTS
+# ============================================================
+# DELEGATION
+# MODULES
+# PUBLIC METHODS
+# -- DISPLAY CONTENT BLOCKS
+# ----- completion_status
+# ----- max_rating_status
+# ----- metadata_block
+# ----- rated
+# ----- skin_content
+# ----- summarized
+# ----- summary_block
+#
+# -- DISPLAY LINKS
+# ----- createables
+# ----- note_creation_link
+# ----- note_insertion_link
+#
+# -- DISPLAY TOOLKIT BLOCKS
+# ----- reader_response_bar
+# ----- response_bar
+#
+# -- SELECT TEXT
+# ----- creation_heading
+# ----- klass
+# ----- opinion_percentage - percent of likes vs dislikes
+# ----- partial_prepend
+# ----- summary_title
+#
+# PRIVATE METHODS
+# -- LINKS :: WATCH AND KEEP TRACK OF
+# ----- tracking_creation_link
+# ----- tracking_deletion_link
+#
+# -- LINKS :: LIKE AND DISLIKE
+# ----- dislike_creation_link
+# ----- dislike_deletion_link
+# ----- like_creation_link
+# ----- like_deletion_link
+#
+# ============================================================
+
 require 'organized_tag_groups'
 
 class WorkDecorator < Draper::Decorator
 
+	# ============================================================
 	# DELEGATION
 	# ============================================================
 	delegate_all
 	decorates_association :rating
 
-	# MODULE
+	# ============================================================
+	# MODULES
 	# ============================================================
 	include CreativeContent
 	include CreativeContent::Composition
 	include PageEditing
 	include Widgets::Snippet
 	include WorkFormFields
+	include WorkTags
 
-	# TABLE of METHOD CONTENTS
 	# ============================================================
-	# PUBLIC METHODS
-	# -- DISPLAY CONTENT BLOCKS
-	# ----- all_tags_line
-	# ----- completion_status
-	# ----- metadata_block
-	# ----- rated
-	# ----- snippet_tags_line
-	# ----- skin_content
-	# ----- summarized
-	# ----- summary_block
-	#
-	# -- DISPLAY LINKS
-	# ----- createables
-	# ----- note_creation_link
-	# ----- note_insertion_link
-	#
-	# -- DISPLAY TOOLKIT BLOCKS
-	# ----- reader_response_bar
-	# ----- response_bar
-	#
-	# -- SELECT SUBSECTION OF TAGS
-	# ----- important_characters
-	# ----- main_tags
-	#
-	# -- SELECT SORTED TAG GROUPS
-	# ----- ordered_characters
-	# ----- ordered_characters_for_snippets
-	# ----- ordered_squads
-	# ----- ordered_true_tags
-	# ----- ordered_works
-	#
-	# -- SELECT TEXT
-	# ----- creation_heading
-	# ----- klass
-	# ----- opinion_percentage - percent of likes vs dislikes
-	# ----- partial_prepend
-	# ----- summary_title
-	#
-	# PRIVATE METHODS
-	# -- ORDERED LISTS
-	# ----- creation_heading
-	#
-	# -- LINKS :: WATCH AND KEEP TRACK OF
-	# ----- tracking_creation_link
-	# ----- tracking_deletion_link
-	#
-	# -- LINKS :: LIKE AND DISLIKE
-	# ----- dislike_creation_link
-	# ----- dislike_deletion_link
-	# ----- like_creation_link
-	# ----- like_deletion_link
-	#
-	# ============================================================
-
 	# PUBLIC METHODS
 	# ============================================================
 	# ------------------------------------------------------------
 	# DISPLAY CONTENT BLOCKS
 	# ------------------------------------------------------------
-	def all_tags_line
-		h.tag_group all_tags, 'works', { class: 'all-tags tags' }, { class: 'tag' }
-	end
-
 	def completion_status
 		h.content_tag :p, class: "status completion-status " + state_status.downcase do
 			state_status
 		end
+	end
+
+	def max_rating_status
+		h.metadata("Max Rating:", rating.max_rating_value)
 	end
 
 	def metadata_block
@@ -95,7 +88,7 @@ class WorkDecorator < Draper::Decorator
 				h.concat h.metadata("Likes:", self.opinion_percentage)
 			end
  			if self.rating.present?
- 				h.concat h.metadata("Max Rating:", rating.max_rating_value)
+ 				h.concat max_rating_status
 			end
 		end
 	end
@@ -104,12 +97,6 @@ class WorkDecorator < Draper::Decorator
 		h.content_tag :p, class: 'ratings' do
 			rating.full_list
 		end unless rating.nil?
-	end
-
-	def snippet_tags_line
-		if main_tags.length > 0
-			h.tag_group main_tags, 'works', { class: 'main-tags tags' }, { class: 'tag' }
-		end
 	end
 
 	def skin_content
@@ -184,47 +171,13 @@ class WorkDecorator < Draper::Decorator
 	end
 
 	# ------------------------------------------------------------
-	# SELECT SUBSECTION OF TAGS
-	# ------------------------------------------------------------
-	def important_characters
-		@important_characters ||= work.narrative? ? Array(ordered_characters_for_snippets.group_by("main")) : Array(ordered_characters_for_snippets.group_by("subject"))
-	end
-
-	def main_tags
-		@main_tags ||= (self.tags + self.important_characters + self.places).sort_by! { |x| x[:name].downcase }
-	end
-
-	# ------------------------------------------------------------
-	# SELECT SORTED TAG GROUPS
-	# ------------------------------------------------------------
-	def ordered_characters
-		@ordered_characters ||= order_tags Appearance.organize(self.appearances.with_character)
-	end
-
-	def ordered_characters_for_snippets
-		@ordered_characters ||= order_tags Appearance.organize(self.appearances)
-	end
-
-	def ordered_squads
-		@social_cohorts     ||= order_tags SocialAppearance.organize(self.social_appearances.with_squad)
-	end
-
-	def ordered_true_tags
-		@ordered_true_tags  ||= order_tags Tagging.organize(self.taggings.with_tag)
-	end
-
-	def ordered_works
-		@ordered_works      ||= order_tags WorkConnection.organize(self.intratagged.with_tagged)
-	end
-
-	# ------------------------------------------------------------
 	# SELECT TEXT
 	# ------------------------------------------------------------
 	def creation_heading
-	end
-
-	def klass
-		@klass ||= :work
+		h.capture do 
+			h.concat icon
+			h.concat " " + h.t("content_types.#{content_category}").singularize
+		end
 	end
 
 	def opinion_percentage
@@ -248,16 +201,10 @@ class WorkDecorator < Draper::Decorator
 		h.current_user.present? && !(["Record", "WorkLink"].include? type)
 	end
 
+	# ============================================================
 	# PRIVATE METHODS
 	# ============================================================
 	private
-
-	# ------------------------------------------------------------
-	# ORDERED LISTS
-	# ------------------------------------------------------------
-	def order_tags(tags)
-		OrganizedTagGroups.new tags
-	end
 
 	# ------------------------------------------------------------
 	# LINKS :: WATCH AND KEEP TRACK OF

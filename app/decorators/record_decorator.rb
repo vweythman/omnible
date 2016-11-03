@@ -8,8 +8,4 @@ class RecordDecorator < WorkDecorator
 		"Create Work Record"
 	end
 
-	def klass
-		@klass ||= :record
-	end
-
 end
