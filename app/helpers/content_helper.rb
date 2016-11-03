@@ -109,6 +109,12 @@ module ContentHelper
 			cstags(list, group, tag_options)
 		end
 	end
+	
+	def tag_label_by(type, key = nil)
+		tag_label = "#{type}-tag tag"
+		tag_label = "#{key}-#{type} #{tag_label}" unless key.nil?
+		tag_label
+	end
 
 	def csnames(list)
 		if !list.nil? && list.length > 0
