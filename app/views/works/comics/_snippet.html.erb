@@ -1,0 +1,15 @@
+<header class="snippet-header">
+	<h4>
+		<%= comic.icon %>
+		<%= link_to comic.title, comic %>
+	</h4>
+</header>
+
+<div class="snippet-body">
+	<%= comic.summarized %>
+	<%= comic.snippet_tags_line %>
+</div>
+
+<footer class="snippet-footer">
+	<%= comic.timestamps %>
+</footer>
