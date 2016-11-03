@@ -1,6 +1,6 @@
-<% provide(:title, "New Chapter") %>
+<% provide(:title, @story.title + " - New Chapter") %>
 
-<%= creation_block("New Chapter") do %>
+<%= creation_block(@story.title + " - #{Chapter.model_name.human}") do %>
 	<%= render 'form' %>
 <% end %>
 
