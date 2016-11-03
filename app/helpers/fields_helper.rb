@@ -96,4 +96,10 @@ module FieldsHelper
 		end
 	end
 
+	def preview_area(src)
+		content_tag :div, class: "preview-area" do
+			image_tag(src, alt: "image preview", class: "image-preview")
+		end
+	end
+
 end
