@@ -1,8 +1,8 @@
 <fieldset class="chapter paged-fieldset">
 	<legend><%= f.string_cell :title, "Title (Optional)" %></legend>
 	<div class="chapter-page-fields">
-		<%= f.text_cell :about,     class: :minor %>
-		<%= f.text_cell :content,   class: :major %>
-		<%= f.text_cell :afterward, class: :minor %>
+		<%= f.text_cell :about,     { class: :minor }, true %>
+		<%= f.text_cell :content,     class: :major %>
+		<%= f.text_cell :afterward, { class: :minor }, true %>
 	</div>
 </fieldset>
