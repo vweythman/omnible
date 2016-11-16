@@ -1,0 +1,13 @@
+<h1>Update!</h1>
+
+<p>
+	<%= @resource.header %>
+
+	<% @resource.creatorships.includes(:category, :creator).each do |byline_value| %>
+		<br/>
+		<%= byline_value.category.agentive_title %>:
+		<i><%= byline_value.creator.name %></i>
+	<% end %>
+</p>
+
+<p><%= link_to "View Update Here", @resource %></p>

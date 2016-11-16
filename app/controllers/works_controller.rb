@@ -62,7 +62,15 @@ class WorksController < ApplicationController
 		set_visitor
 
 		if @work.update(work_params)
-			redirect_to @work
+
+			if @work.tracking_users.count > 0
+				TrackerMailer.notification_email(@work).deliver_now
+			end
+
+			respond_to do |format|
+				format.html { redirect_to @work }
+			end
+			
 		else
 			render action: 'edit'
 		end
