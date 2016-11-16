@@ -11,14 +11,22 @@ class SkinDecorator < Draper::Decorator
 
 	# PUBLIC METHODS
 	# ============================================================
+	# ------------------------------------------------------------
+	# DISPLAY CONTENT BLOCKS
+	# ------------------------------------------------------------
+
 	def example_area
 		h.content_tag :div, id: "style-example", class: "previewer example" do
 			""
 		end
 	end
 
-	def heading_with_status
-		"#{self.heading} + [#{self.status_type}]"
+	def metadata_block
+		h.content_tag :div, class: 'metadata' do
+			h.concat h.metadata("Uploaded By:" , h.link_to(uploader.name, uploader))
+			h.concat h.metadata("Status:" , self.status)
+			h.concat h.metadata("Updated:" , h.timestamp(updated_at))
+		end
 	end
 
 	def pretty_print_area
@@ -27,8 +35,11 @@ class SkinDecorator < Draper::Decorator
 		end
 	end
 
-	def status_type
-		@status_type ||= self.status == "Private" ? "Private Use Only" : "Public Use"
+	# ------------------------------------------------------------
+	# SELECT TEXT
+	# ------------------------------------------------------------
+	def heading_with_status
+		"#{self.heading}"
 	end
 
 	def klass

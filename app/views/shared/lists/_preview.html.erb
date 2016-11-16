@@ -1,6 +1,11 @@
 <% listable.each do |i| %>
 	<div class="preview">
-		<p class="preview-title"><%= link_to i.heading, i %></p>
+
+		<p class="preview-title">
+			<%= i.icon %>
+			<%= link_to i.heading, i %>
+		</p>
+
 		<% if i.summary.present? %>
 			<p class="excerpt"><%= i.excerpt %></p>
 		<% end %>

@@ -1,22 +1,31 @@
 <% provide(:title, @skin.title) %>
 
-<header id="sheet-header">
+<header id="sheet-header" class="show-header">
 	<h1>
 		Stylesheet Skins
 		<%= subtitle @skin.heading_with_status %>
 	</h1>
-	<%= alteration_toolkit(@skin) %>
-	<%= @skin.uploaded_by %>
+	<%= @skin.edit_bar %>
+	<%= @skin.metadata_block %>
 </header>
 
-<div class="styles">
+<div class="subject-body">
 	<%= grid_panel do %>
-		<%= panel_cell "golden-major" do @skin.pretty_print_area end %>
-		<%= panel_cell "golden-minor" do @skin.example_area      end %>
+		<%= panel_cell "golden-major" do %>
+
+			<%= page_widget "Rules" do %>
+				<%= @skin.pretty_print_area %>
+			<% end %>
+
+		<% end %>
+
+		<%= panel_cell "golden-minor" do %>
+			<%= page_widget "Example" do %>
+				<%= @skin.example_area %>
+			<% end %>
+		<% end %>
 	<% end %>
-	<% if @skin.works.length > 0 %>
-		<%= solo_cell do @skin.works.decorate.tableize end %>
-	<% end %>
+
 </div>
 
 <script type="text/javascript">
@@ -25,7 +34,7 @@
 
 	prettycss("#style-skin", parsed);
 	cssexample("#style-example", parsed);
-	csscode("#inline-skin", parser.applyNamespacing(parsed, '.styles .example'));
+	csscode("#inline-skin", parser.applyNamespacing(parsed, '.subject-body .example'));
 </script>
 
 <%= render 'footer' %>
