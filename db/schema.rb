@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101200700) do
+ActiveRecord::Schema.define(version: 20161110003636) do
 
   create_table "adjectives", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -642,6 +642,10 @@ ActiveRecord::Schema.define(version: 20161101200700) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -5,42 +5,60 @@
 randa:
   name: Randa
   email: randa-omnible@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 mayra:
   name: Mayra
   email: mayra-omnible@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 gaven:
   name: Gaven
   email: gaven-omnible@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 # CONTENT CREATORS
 # ===================================
 sirka:
   name: Sirka
   email: sirka@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 amiya:
   name: Amiya
   email: amiya@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 indra:
   name: Indra
   email: indra@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 # CONTENT VIEWERS
 # ===================================
 becca:
   name: Becca
   email: becca@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 letty:
   name: Letty
   email: letty@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 tegan:
   name: Tegan
   email: tegan@example.com
+  confirmed_at: <%= Time.zone.now %>
+  confirmation_sent_at: <%= Time.zone.now - 1.hour %>
 
 # RELATIONSHIPS
 # ==============================================
