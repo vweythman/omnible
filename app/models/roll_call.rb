@@ -53,7 +53,7 @@ class RollCall < ActiveRecord::Base
 	# METHODS
 	# ============================================================
 	def avatar_src
-		avatar.nil? ? '#' : avatar_url
+		avatar.nil? ? '#' : avatar.url(:thumb)
 	end
 
 	def relative_position(set_position = Time.now.nsec)

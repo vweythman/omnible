@@ -15,7 +15,7 @@ class Casting < Work
 
 	# ASSOCIATIONS
 	# ============================================================
-	has_many :roll_calls, inverse_of: :casting
+	has_many :roll_calls, inverse_of: :casting, dependent: :destroy
 	accepts_nested_attributes_for :roll_calls, allow_destroy: :true
 
 	# PRIVATE METHODS

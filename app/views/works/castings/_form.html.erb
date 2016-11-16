@@ -22,7 +22,7 @@
 				<ul>
 					<% count = 0 %>
 					<% current_cast.each do |c| %>
-						<%= paged_anchor c, "New Chapter", c.relative_position(count) %>
+						<%= paged_anchor c, "New Character", c.relative_position(count) %>
 						<% count += 1 %>
 					<% end %>
 				</ul>

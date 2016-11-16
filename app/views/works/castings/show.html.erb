@@ -19,7 +19,7 @@
 		<% characters   = current_cast.map{|c| c.character } %>
 	
 		<div id="chapter-tabs" class="paged-tabs cast-tabs">
-			<div class="cast-element cast-nav">
+			<div class="paging-element paging-nav">
 				<ul>
 					<% count = 0 %>
 					<% current_cast.each do |c| %>
@@ -29,10 +29,10 @@
 				</ul>
 			</div>
 
-			<div class="cast-element roll-call">
+			<div class="paging-element roll-call">
 				<% current_cast.each do |c| %>
 					<div class="cast-call" id="page-<%= c.relative_position %>">
-						<div class="centerpiece"><%= image_tag c.avatar_url %></div>
+						<div class="centerpiece"><%= image_tag c.avatar.url(:show) %></div>
 						<div class="cast-about">
 							<h2><%= c.character.name %></h2>
 							<%= c.description %>
