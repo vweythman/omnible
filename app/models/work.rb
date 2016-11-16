@@ -119,7 +119,9 @@ class Work < ActiveRecord::Base
 	# HAS
 	# ------------------------------------------------------------
 	has_one  :rating, inverse_of: :work
-	has_one  :skin,   through:    :skinning, inverse_of: :works 
+	has_one  :skin,   inverse_of: :works, through: :skinning
+
+	has_many :tracking_users, through: :trackings, source: :user
 	
 	# NESTED ATTRIBUTION
 	# ============================================================
