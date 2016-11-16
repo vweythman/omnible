@@ -69,6 +69,12 @@ class WorkDecorator < Draper::Decorator
 	# ------------------------------------------------------------
 	# DISPLAY CONTENT BLOCKS
 	# ------------------------------------------------------------
+	def category_block
+		h.content_tag :div, class: 'category-data' do
+			h.metadata(icon + " " + categorized_type, '')
+		end
+	end
+
 	def completion_status
 		h.content_tag :p, class: "status completion-status " + state_status.downcase do
 			state_status
@@ -76,7 +82,7 @@ class WorkDecorator < Draper::Decorator
 	end
 
 	def max_rating_status
-		h.metadata("Max Rating:", rating.max_rating_value)
+		h.metadata("Max Rating:", rating.max_rating_value) if self.rating.present?
 	end
 
 	def metadata_block
@@ -87,9 +93,8 @@ class WorkDecorator < Draper::Decorator
 			if has_likes?
 				h.concat h.metadata("Likes:", self.opinion_percentage)
 			end
- 			if self.rating.present?
- 				h.concat max_rating_status
-			end
+
+ 			h.concat max_rating_status
 		end
 	end
 
