@@ -7,19 +7,15 @@
 
 	<h2 class="control-title"><%= t('categories.content.text') %></h2>
 	<ul class="control-group">
-		<li><%= link_to t('content_types.articles'), article_uploads_path %></li>
-		<li><%= link_to t('content_types.journals'), journal_uploads_path %></li>
-		<li><%= link_to t('content_types.poems'),    poem_uploads_path %></li>
-
-		<li><%= link_to t('content_types.branching_stories'), branching_story_uploads_path %></li>
-		<li><%= link_to t('content_types.stories'),           story_uploads_path %></li>
-		<li><%= link_to t('content_types.short_stories'),     short_story_uploads_path %></li>
+		<% Collectables::WorksDecorator::TEXTUAL_TYPES.keys.each do |resource_name| %>
+			<li><%= link_to t("content_types.#{resource_name}"), uploads_path_for(resource_name) %></li>
+		<% end %>
 	</ul>
 
 	<h2 class="control-title"><%= t('categories.content.nontext') %></h2>
 	<ul class="control-group ">
-		<li><%= link_to t('content_types.work_links'),   work_link_uploads_path %></li>
-		<li><%= link_to t('content_types.artwork'),      art_uploads_path %></li>
-		<li><%= link_to t('content_types.music_videos'), music_video_uploads_path %></li>
+		<% Collectables::WorksDecorator::NONTEXTUAL_TYPES.keys.each do |resource_name| %>
+			<li><%= link_to t("content_types.#{resource_name}"), uploads_path_for(resource_name) %></li>
+		<% end %>
 	</ul>
 </aside>
