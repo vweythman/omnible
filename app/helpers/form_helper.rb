@@ -1,7 +1,7 @@
 module FormHelper
 
 	# PAGE FORMS
-	# ------------------------------------------------------------
+	# ============================================================
 	def creation_block(title)
 		content_tag :div, class: "generator new" do
 			concat (form_title title) if title.present?
@@ -28,7 +28,7 @@ module FormHelper
 	end
 
 	# FIELDSETS
-	# ------------------------------------------------------------
+	# ============================================================
 	def nestset(models)
 		content_tag :fieldset, class: models.nest_class, id: models.formid do
 			concat models.legend
@@ -66,7 +66,7 @@ module FormHelper
 	end
 
 	# FIELDSETS ELEMENTS
-	# ------------------------------------------------------------
+	# ============================================================
 	# OUTPUT nested fields heading
 	def nested_legend(nesting)
 		heading = content_tag :legend do "#{nesting.heading} #{hide_link(nesting.klass)}".html_safe end
@@ -87,7 +87,7 @@ module FormHelper
 	end
 
 	# AJAX EDIT FORM
-	# ------------------------------------------------------------
+	# ============================================================
 	def form_div_for_ajaxed_edit(type, id)
 		content_tag :div, class: "editor-block", id: edit_form_id(type, id), style: "display:none;" do "" end
 	end

@@ -41,7 +41,7 @@ module ToolkitHelper
 	def directory_kit(sections = [])
 		content_tag :div, class: "toolkit directory" do
 			sections.each do |heading, path|
-				concat link_to heading, path
+				concat link_to heading, path, class: "tool-link"
 			end
 		end if sections.length > 0
 	end

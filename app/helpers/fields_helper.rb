@@ -1,7 +1,7 @@
 module FieldsHelper
 
 	# FORM FIELDS
-	# ------------------------------------------------------------
+	# ============================================================
 	def field_content_tag(field_block, type)
 		content_tag :div, class: "field-content field-#{type}" do
 			field_block
@@ -29,7 +29,7 @@ module FieldsHelper
 	end
 
 	# FORM FIELDS // FILTERS
-	# ------------------------------------------------------------
+	# ============================================================
 	def filter_selects(type, filters, heading = nil)
 		current = params[type]
 		heading = type.to_s.humanize if heading.nil?
@@ -65,7 +65,7 @@ module FieldsHelper
 	end
 
 	# FORM FIELDS // TAGS
-	# ------------------------------------------------------------
+	# ============================================================
 	def tag_field_cell(label, values, heading = nil, options = {})
 		options[:class] ||= ""
 		options[:class] += 'taggables'
@@ -87,7 +87,7 @@ module FieldsHelper
 	end
 
 	# RENDERED FIELDS
-	# ------------------------------------------------------------
+	# ============================================================
 	# OUTPUT form field
 	def form_field(first_element, second_element)
 		content_tag :div, class: 'field' do

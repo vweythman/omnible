@@ -42,19 +42,19 @@ module GridHelper
 		end
 	end
 
-	def subheading(heading)
-		content_tag :h2, class: "subheading" do
-			heading
-		end
-	end
-
 	def widget_cell(heading, options = {})
 		widget_classes = ["widget", "page-widget", options[:class]].join(" ").strip
 		widget_id      = options[:id]
 
 		content_tag :div, class: widget_classes, id: widget_id do
-			concat subheading(heading)
+			concat widget_subheading(heading)
 			yield
+		end
+	end
+
+	def widget_subheading(heading)
+		content_tag :h2, class: "subheading" do
+			heading
 		end
 	end
 
