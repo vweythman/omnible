@@ -1,9 +1,5 @@
 // STYLE PARTIAL : TABLES
 // ***********************************************
-// SETUP :: VARIABLES
-// ===============================================
-$row-background : $page-color;
-
 // SECTION :: LAYOUT & HEADER
 // ===============================================
 table {
@@ -89,7 +85,7 @@ th {
 	}
 
 	th {
-		font-size      : $text-size + 2px;
+		font-size      : 17px;
 		font-weight    : 500;
 		padding-bottom : 3px;
 	}
@@ -120,7 +116,7 @@ th {
 @mixin editable-data-row($background) {
 	background    : linear-gradient(180deg, $background, lighten($background, 20%));
 	border-radius : 10px;
-	box-shadow    : 0px 0px 5px $background;
+	box-shadow    : 0px 0px 2px $background;
 	float         : left;
 
 	th {

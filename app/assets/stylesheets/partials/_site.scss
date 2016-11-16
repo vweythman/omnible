@@ -2,12 +2,6 @@
 // ***********************************************
 // TABLE of CONTENT
 // ===============================================
-// -- SETUP :: VARIABLES
-// ----- Site
-// ----- Header Menu
-// ----- Account Menu
-// ----- Sidebar
-// ----- Site Footer
 // -- SECTION :: ALL
 // -- SECTION :: HEADER
 // ----- General
@@ -24,89 +18,12 @@
 // ----- Mobile
 // ===============================================
 
-// SETUP :: VARIABLES
-// ===============================================
-// -----------------------------------------------
-// -- Site
-// -----------------------------------------------
-$site-background        : $page-darkest-minor;
-$site-header-background : $page-darker-major;
-
-$content-color        : $page-darker-major;
-$content-header-color : $page-color;
-
-$logo-color       : $water-lighter-minor;
-$logo-hover-color : $water-lighter-major;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Header Menu
-// -----------------------------------------------
-$menu-title-background        : $page-dark-minor;
-$mobile-login-link-background : $water-dark-minor;
-$submenu-background           : $page-darker-major;
-
-$menu-title-border-color : $page-dark-major;
-
-$nonmobile-submenu-width : $one-fifth;
-$mobile-menu-width       : $one-fifth;
-$tablet-submenu-width    : $one-fifth;
-$desktop-menu-width      : $three-fourths;
-$desktop-submenu-width   : $desktop-menu-width * (1/5) * (5/6);
-$mega-drop-width         : $one-half;
-
-$menu-title-color : $page-lighter-major;
-$menu-color       : $water-lightest-minor;
-$menu-hover-color : $water-light-minor;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Account Menu
-// -----------------------------------------------
-$login-background       : $water-darker-minor;
-$login-hover-background : $fire-light-minor;
-
-$login-color              : $page-lightest-minor;
-$login-hover-color        : $page-darkest-minor;
-$mobile-login-link-color  : lighten($water-dark-minor, $golden-major); 
-$session-link-hover-color : $water-light-minor;
-$session-link-color       : lighten($water-light-minor, $golden-major);
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Sidebar
-// -----------------------------------------------
-$sidebar-background            : $page-dark-major;
-$sidebar-link-hover-background : $water-lightest-minor;
-$sidebar-title-background      : $fire-light-minor;
-
-$sidebar-width : 200px;
-
-$sidebar-link-color      : $page-lightest-minor;
-$sidebar-title-color     : $fire-darker-minor;
-$social-link-hover-color : $water-light-major;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Site Footer
-// -----------------------------------------------
-$footer-widget-background      : $water-dark-minor;
-$site-credit-title-background  : $page-darker-major;
-$social-link-background        : $water-darker-major;
-$social-link-hover-background  : $water-darker-minor;
-
-$site-footer-color       : $water-color;
-$footer-link-color       : $water-lighter-minor;
-$footer-widget-color     : $page-color;
-// -----------------------------------------------
-// ===============================================
-
 // SECTION :: ALL
 // ===============================================
 body {
 	background : $site-background;
 	color      : $content-color;
-	font       : $text-size "Arial", sans-serif;
+	font       : 15px "Arial", sans-serif;
 }
 // ===============================================
 
@@ -129,7 +46,7 @@ body {
 }
 
 .page-content > header,
-.page-content > header a {
+.page-content > header a:not(.tool-link) {
 	color : $content-header-color;
 }
 // -----------------------------------------------
@@ -139,7 +56,7 @@ body {
 // -----------------------------------------------
 .logo {
 	color          : $logo-color;
-	font-size      : $logo-size;
+	font-size      : 28px;
 	letter-spacing : 3px;
 	margin         : 0px;
 	padding        : 10px;
@@ -225,7 +142,7 @@ body {
 	color       : contrastable($sidebar-background);
 	display     : none;
 	margin-top  : 10px;
-	margin-left : -5%;
+	margin-left : -8%;
 	padding     : 0px;
 	position    : absolute;
 	width       : $sidebar-width;
@@ -386,7 +303,7 @@ body {
 			display : block;
 
 			li:hover .submenu { display : block; }
-			a { padding : 12px 0px 8px; }
+			a { padding : 12px 0px 9px; }
 
 			& > ul > li {
 				width : $nonmobile-submenu-width;

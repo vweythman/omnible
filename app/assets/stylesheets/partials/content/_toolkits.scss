@@ -1,14 +1,5 @@
 // STYLE PARTIAL: TOOLKITS
 // ***********************************************
-// SETUP :: VARIABLES
-// ===============================================
-$alteration-background : darken($fire-color, 5%);
-$creation-background   : $moss-color;
-$directory-background  : $water-color;
-$response-background   : $moss-dark-minor;
-$generation-background : $water-dark-major;
-// ===============================================
-
 // SECTION TOOLKIT
 // ===============================================
 .toolkit {
@@ -32,10 +23,12 @@ $generation-background : $water-dark-major;
 	a:first-child { @include border-radius-left(5px);  }
 	a:last-child  { @include border-radius-right(5px); }
 }
+
 .index-header > .toolkit {
 	margin    : 10px $gutter;
 	max-width : calc(100% - #{$gutter * 2});
 }
+
 .toolblock td { padding : 5px 0; }
 .multikit {
 	margin   : 10px $gutter;
@@ -46,6 +39,7 @@ $generation-background : $water-dark-major;
 		margin  : 2px 5px 2px 0px;
 	}
 }
+
 .manager-editor {
 	.multikit { margin : 0px; }
 	.toolkit  { margin : 5px 0px 0px; }

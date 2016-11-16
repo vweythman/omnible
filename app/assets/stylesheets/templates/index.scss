@@ -30,60 +30,6 @@
 @import "partials/mixins/data";
 // ===============================================
 
-// SETUP :: VARIABLES
-// ===============================================
-// -----------------------------------------------
-// -- Index
-// -----------------------------------------------
-$index-background : desaturate($water-light-major, 70%);
-
-$index-question-background : $water-darker-minor;
-$index-question-color      : $page-color;
-
-$results-background           : $page-color;
-$results-toolkit-border-color : $page-darkest-minor;
-
-$index-title-background   : $page-lighter-minor;
-$index-title-border-color : $page-darker-major;
-
-$border-width : 5px;
-
-$index-border     : $border-width solid desaturate($water-dark-minor, 70%);
-$filters-border   : $border-width solid $water-dark-minor;
-$tableized-border : $border-width solid $page-darker-major;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Pagination
-// -----------------------------------------------
-$index-paging-background : $fire-lightest-minor;
-$index-paging-border     : 3px solid $fire-light-minor;
-$index-paging-color      : $page-darkest-minor;
-$index-paging-link-color : $page-darker-minor;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Filters
-// -----------------------------------------------
-$filters-background : $water-light-minor;
-
-$filter-link-color       : $water-dark-minor;
-$filter-link-hover-color : $water-darker-minor;
-
-$filter-submit-background : $water-darker-minor;
-$filter-submit-hover      : $water-dark-major;
-
-$filter-background   : $page-color;
-$filter-title-color  : $page-lightest-minor;
-$fitler-title-border : 3px solid $page-light-minor;
-
-$filter-tag-label-color : $fire-dark-minor;
-
-$filter-toggle-background : $page-dark-minor;
-$filter-toggle-color      : $page-color;
-// -----------------------------------------------
-// ===============================================
-
 // SECTION :: HEADER
 // ===============================================
 .index-header .directory {
@@ -179,7 +125,7 @@ $filter-toggle-color      : $page-color;
 .filter-title {
 	background    : $filter-title-color;
 	border-bottom : $fitler-title-border;
-	font-size     : $text-size + 1px;
+	font-size     : 16px;
 	font-weight   : 300;
 	font-variant  : small-caps;
 	margin        : 0px;

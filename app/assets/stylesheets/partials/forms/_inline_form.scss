@@ -8,22 +8,6 @@
 @import "partials/forms/errors";
 // ===============================================
 
-// SETUP :: VARIABLES
-// ===============================================
-$branch-creation-background  : $page-lighter-minor;
-$inline-form-background      : $page-lightest-minor;
-$inline-submit-background    : $moss-dark-major;
-
-$branch-creation-border-color : $page-darker-minor;
-$creation-border-color        : $page-darkest-minor;
-$editing-border-color         : $water-dark-minor;
-
-$gutter         : $one-twelfth;
-$creation-width : 100% - (2 * $gutter);
-
-$inline-form-color   : $page-darkest-minor;
-$inline-submit-color : $moss-lightest-minor;
-
 // SECTION :: LAYOUT & HEADER
 // ===============================================
 .form-grid { padding-top : 10px; }
@@ -34,7 +18,7 @@ $inline-submit-color : $moss-lightest-minor;
 	color      : $inline-form-color;
 	padding    : 5px 10px;
 	margin     : 5px $gutter;
-	width      : calc(#{$creation-width} - 26px);
+	width      : negative-space($creation-form-width, 13px);
 }
 
 header .editor-block {

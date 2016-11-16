@@ -4,7 +4,11 @@
 // ===============================================
 @import "variables/sizes";
 @import "variables/colors";
-@import "variables/schemes/blue";
+
+@import "variables/schemes/dark_blue/background";
+@import "variables/schemes/dark_blue/border";
+@import "variables/schemes/dark_blue/text";
+@import "variables/schemes/golden_sizing";
 
 // SETUP
 // ===============================================

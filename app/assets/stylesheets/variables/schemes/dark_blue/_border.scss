@@ -1,0 +1,111 @@
+// STYLE VARIABLES : BLUE SCHEME :: BORDER
+// ***********************************************
+// TABLE of CONTENT
+// ===============================================
+// -- SITE HEADER
+// -- FORMS
+// ----- General
+// ----- Fields
+// ----- Fieldsets
+// -- INDEX
+// -- SHOW PAGE
+// -- TABS
+// ===============================================
+
+// SITE HEADER
+// ===============================================
+$menu-title-border-color : $water-dark-major;
+// ===============================================
+
+// FORMS
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+$form-border-color : $water-color;
+$border-color      : $page-light-minor;
+
+$creation-border-color : $page-darkest-minor;
+$editing-border-color  : $water-dark-minor;
+$session-page-border   : 7px solid $water-dark-major;
+$session-border-color  : $page-dark-minor;
+$tooltip-border-color  : $page-lighter-minor;
+
+$branch-creation-border-color : $page-darker-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Fields
+// -----------------------------------------------
+$choice-border-color   : $water-dark-minor;
+$opinion-border-color  : $page-dark-minor;
+$rating-border-color   : $page-dark-minor;
+$remember-check-shadow : $fire-color;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Fieldsets
+// -----------------------------------------------
+$associative-border-color : $page-dark-minor;
+$comic-border-color       : $fire-light-minor;
+$meta-box-border-color    : $page-light-minor;
+
+$nested-border-color      : $fire-color;
+$nested-tags-border-color : $page-lighter-major;
+$paged-border-color       : $border-color;
+$paged-text-border-color  : $border-color;
+
+$solo-set-border-color    : $page-light-minor;
+$work-meta-border-color   : $fire-light-minor;
+$work-meta-color          : $fire-darker-minor;
+
+$nested-tags-title-border-color : $page-lighter-major;
+$opinion-title-border-color     : $page-dark-minor;
+$option-title-border-color      : $water-color;
+// -----------------------------------------------
+// ===============================================
+
+// INDEX
+// ===============================================
+$index-title-border-color     : $page-darker-major;
+$results-toolkit-border-color : $page-darkest-minor;
+
+$index-border        : 5px solid desaturate($water-dark-minor, 70%);
+$index-paging-border : 3px solid $fire-light-minor;
+$filters-border      : 5px solid $water-dark-minor;
+$fitler-title-border : 3px solid $page-light-minor;
+$tableized-border    : 5px solid $page-darker-major;
+// ===============================================
+
+// SHOW PAGE
+// ===============================================
+$dashboard-border           : 7px solid $water-dark-major;
+$show-title-border-color    : fade-out($water-light-major, .7);
+$summary-title-border-color : $fire-light-minor;
+$widget-title-border-color  : $water-color;
+
+$centerpiece-border-color  : $page-darkest-major;
+$credit-border-color       : $fire-dark-minor;
+
+$data-row-border-color     : $fire-light-minor;
+$data-table-border-color   : $fire-light-minor;
+$data-toolkit-border-color : $page-darker-minor;
+
+$section-title-border      : 5px solid $page-light-major;
+$section-title-shadow      : $page-darkest-major;
+
+$stat-border-color              : desaturate($water-dark-minor, 70%);
+$stat-widget-border-color       : $fire-dark-minor;
+$stat-widget-title-border-color : $fire-lighter-minor;
+$subject-table-border-color     : $fire-color;
+// ===============================================
+
+// TABS
+// ===============================================
+$dossier-panel-border-color         : $page-light-major;
+$dossier-anchor-color               : $page-darkest-major;
+$dossier-active-anchor-border-color : $page-light-major;
+$paging-panel-border-color          : $water-color;
+// ===============================================
+// END
+// ***********************************************/

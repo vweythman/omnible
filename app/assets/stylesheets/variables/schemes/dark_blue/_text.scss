@@ -1,0 +1,165 @@
+// STYLE VARIABLES : BLUE SCHEME :: TEXT
+// ***********************************************
+// TABLE of CONTENT
+// ===============================================
+// -- SITE
+// ----- General
+// ----- Header
+// ----- Footer
+// -- FORMS
+// ----- General
+// ===============================================
+
+// SITE
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+$content-color        : $page-darker-major;
+$content-header-color : $water-light-minor;
+
+$exit-color       : $page-color;
+$exit-hover-color : $water-dark-minor;
+
+$link-color       : saturate($water-dark-minor, $golden-small);
+$link-hover-color : $page-darker-major;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Header
+// -----------------------------------------------
+$logo-color       : $water-lighter-minor;
+$logo-hover-color : $water-lighter-major;
+
+$menu-title-color : $page-lighter-major;
+$menu-color       : $water-lightest-minor;
+$menu-hover-color : $page-color;
+$datum-key-color  : $fire-light-minor;
+
+$login-color              : $page-lightest-minor;
+$login-hover-color        : $page-darkest-minor;
+$mobile-login-link-color  : lighten($water-dark-minor, $golden-major);
+
+$session-link-hover-color : $water-light-minor;
+$session-link-color       : lighten($water-light-minor, $golden-major);
+
+$sidebar-link-color       : $page-lightest-minor;
+$sidebar-title-color      : $moss-darker-minor;
+$social-link-hover-color  : $water-light-major;
+
+$crumb-color       : $page-darker-minor;
+$crumb-hover-color : $page-darkest-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Footer
+// -----------------------------------------------
+$site-footer-color   : $water-color;
+$footer-link-color   : $water-lighter-minor;
+$footer-widget-color : $page-color;
+
+$path-color      : $water-color;
+$path-link-color : $water-lighter-major;
+// -----------------------------------------------
+// ===============================================
+
+// FORMS
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+$inline-form-color   : $page-darkest-minor;
+$inline-submit-color : $moss-lightest-minor;
+
+$form-path-color    : $water-dark-major;
+$form-sidebar-color : $page-lightest-minor;
+$form-error-color   : $stoplight-stop;
+
+$session-color        : $fire-darker-major;
+$session-title-color  : $water-lightest-minor;
+$session-footer-color : $page-color;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Fields
+// -----------------------------------------------
+$choice-color      : $water-lightest-minor;
+$field-label-color : $page-darkest-major;
+$decision-color    : $water-dark-minor;
+
+$range-value-color    : $water-darker-minor;
+$rating-title-color   : $page-lightest-major;
+$remember-check-color : $fire-dark-minor;
+
+$session-set-color    : $fire-lighter-major;
+$session-submit-color : $page-color;
+
+$select-input-color        : $page-darker-major;
+$select-input-active-color : $fire-darker-minor;
+
+$selction-create-color : $water-darkest-minor;
+$selction-active-color : $water-darker-minor;
+
+$slider-color     : $moss-dark-minor;
+$submission-color : $water-lightest-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Fieldsets
+// -----------------------------------------------
+$nested-tags-color : $fire-darker-minor;
+$tag-header-color  : $fire-darkest-major;
+
+$meta-title-color        : $page-lightest-major;
+$associative-title-color : $page-lightest-minor;
+$nested-tags-title-color : $page-darkest-major;
+// -----------------------------------------------
+// ===============================================
+
+// INDEX
+// ===============================================
+$index-paging-color      : $page-darkest-minor;
+$index-paging-link-color : $page-darker-minor;
+$index-question-color    : $page-color;
+
+$filter-link-color       : $water-dark-minor;
+$filter-link-hover-color : $water-darker-minor;
+
+$filter-tag-label-color : $fire-dark-minor;
+$filter-title-color     : $page-lightest-minor;
+$filter-toggle-color    : $page-color;
+
+// SHOW PAGE
+// ===============================================
+$article-color    : $page-darkest-minor;
+$dash-meta-color  : $fire-lighter-major;
+$index-list-color : $fire-dark-minor;
+$pagination-color : $water-darkest-major;
+
+$content-separator-color : $fire-color;
+$credit-title-color      : $fire-dark-major;
+$mobile-data-label-color : $page-darker-major;
+
+$switch-on  : $stoplight-go;
+$switch-off : $page-light-minor;
+// ===============================================
+
+// TABS
+// ===============================================
+$paging-anchor-color        : $page-color;
+$paging-active-anchor-color : $water-darkest-major;
+$paging-error-color         : $page-color;
+// ===============================================
+
+// TOOLS
+// ===============================================
+$toggle-hide-color       : $fire-dark-minor;
+$toggle-hide-hover-color : $fire-lighter-major;
+$toggle-show-color       : $moss-dark-major;
+$toggle-show-hover-color : $moss-lighter-major;
+
+$add-color    : $water-lighter-major;
+$remove-color : $fire-lighter-major;
+// ===============================================
+// END
+// ***********************************************/

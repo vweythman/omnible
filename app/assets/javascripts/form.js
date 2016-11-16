@@ -116,6 +116,7 @@ $(document).ready(function(){
 
 		tabs.tabs("destroy");
 		tabs.tabs({active: -1});
+		autosize($("textarea"));
 	});
 
 	// On title update, update tab anchor text

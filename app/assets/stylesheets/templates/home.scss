@@ -3,35 +3,141 @@
 // SETUP :: IMPORTS
 // ===============================================
 @import "application";
-@import "partials/content/recent";
-
-// SECTION :: ALL
 // ===============================================
-.page-content {
-	background: $water-darker-minor;
+
+// SETUP :: VARIABLES
+// ===============================================
+$excerpt-background : $water-darker-minor;
+$excerpt-color      : $page-color;
+
+$preview-background  : fade-out($water-darker-minor, .4);
+$preview-title-color : $page-lighter-major;
+
+$recent-index-background : $fire-color;
+$recent-index-color      : $page-darkest-major;
+
+$recent-index-hover-background : $page-darker-major;
+$recent-index-hover-color      : $water-color;
+
+$recent-title-background   : $fire-color;
+$recent-title-border-color : $fire-dark-minor;
+
+$recent-widget-background : $water-dark-minor;
+// ===============================================
+
+// RECENT
+// ===============================================
+.recent-widget {
+	min-height : 200px;
+	margin     : 10px;
+	border     : 2px solid $recent-title-background;
+
+	@include border-radius-bottom(10px);
+
+	& > header {
+		background    : $recent-title-background;
+		border-bottom : 3px solid $recent-title-border-color;
+		margin        : 0px;
+		text-align    : center;
+	}
+
+	a {
+		font-weight : bolder;
+	}
+
+	h2 {
+		padding : 5px 10px 0px;
+		margin  : 0px;
+	}
+
+	.widget-body {
+		margin     : 8px;
+		padding    : 8px;
+		background : $recent-widget-background;
+
+	}
+}
+// ===============================================
+
+// PREVIEW
+// ===============================================
+.preview {
+	background : $preview-background;
+	padding    : 10px $golden-micro;
+	margin     : 1px;
 }
 
+.preview-title {
+	padding : 0px;
+	color   : $preview-title-color;
+
+	.icon {
+		margin-left : -5px;
+	}
+
+	a {
+		color   : $preview-title-color;
+		padding : 5px;
+	}
+}
+
+.excerpt {
+	color   : $excerpt-color;
+	padding : 5px 20px 8px;
+}
+
+.see-more a {
+	border-radius   : 10px;
+	background      : $recent-index-background;
+	color           : $recent-index-color;
+	margin          : 15px auto;
+	min-width       : 100px;
+	padding         : 10px 15px;
+	text-align      : center;
+	width           : $one-fourth;
+	text-decoration : none;
+	display         : block;
+
+	&:hover {
+		background : $recent-index-hover-background;
+		color      : $recent-index-hover-color;
+	}
+}
+// ===============================================
+
+
+// VIEWPORTS
+// ===============================================
 @include page-desktop() {
-	.welcome-widget { padding: 5em 0; }
+
+	.welcome-widget {
+		padding: 5em 0px;
+	}
+
 }
 
 @include page-mobile() {
-	.welcome-widget { display: none; }
+
 }
 
 @include page-non-mobile() {
+
 	.welcome-widget {
-		background: $water-darker-minor;
-		color:      $water-light-minor;
-		text-align: center;
+		color      : $water-light-minor;
+		text-align : center;
+
 		h1 {
 			font-weight: lighter;
 		}
 	}
+
 }
 
 @include page-tablet() {
-	.welcome-widget { padding: 2em 0; }
+
+	.welcome-widget {
+		padding: 2em 0px;
+	}
 
 }
 

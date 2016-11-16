@@ -183,17 +183,17 @@ form {
 }
 
 .taggable-field {
-	border : 1px solid $tag-border-color;
+	border : 1px solid $border-color;
 
 	.selectize-input { border : none; }
 
 	.field-value {
-		border     : 1px solid $tag-border-color;
+		border     : 1px solid $border-color;
 		background : $input-value-background;
 	}
 	.field-label {
 		background : $tag-header-background;
-		border     : 1px solid $tag-border-color;
+		border     : 1px solid $border-color;
 		color      : $tag-header-color;
 
 		vertical-align : top;
@@ -389,6 +389,9 @@ form {
 	.rating-title {
 		margin         : 0px;
 		padding-bottom : 0px;
+	}
+	.range .label {
+		text-align : left;
 	}
 }
 

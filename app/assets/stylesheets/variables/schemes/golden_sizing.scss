@@ -1,0 +1,77 @@
+// STYLE VARIABLES : GOLDEN SIZING
+// ***********************************************
+// SIZE FUNCTIONS
+// ===============================================
+@function gutter-negate($margin) {
+	@return $margin / (100% - (2 * $margin)) * 100%;
+}
+
+@function negative-space($width, $spacing) {
+	@return calc(#{$width} - #{ 2 * $spacing });
+}
+
+// ===============================================
+// LAYOUT
+// ===============================================
+$gutter      : $one-twelfth;
+$mobile-max  : 550px;
+$tablet-min  : $mobile-max;
+$tablet-max  : 875px;
+$desktop-min : $tablet-max;
+$path-gutter : 20%;
+$path-width  : 100% - $path-gutter * 2;
+// ===============================================
+
+// MENU
+// ===============================================
+$nonmobile-submenu-width : $one-fifth;
+$mobile-menu-width       : $one-fifth;
+$tablet-submenu-width    : $one-fifth;
+$desktop-menu-width      : $three-fourths;
+$desktop-submenu-width   : $desktop-menu-width * (1/5) * (5/6);
+$mega-drop-width         : $one-half;
+
+$sidebar-width : 200px;
+// ===============================================
+
+// FORM
+// ===============================================
+$form-margin     : 10px;
+$tag-label-width : $golden-minor;
+$tag-value-width : $golden-major;
+$variant-width   : $eleven-twelfths;
+$micro-height    : 200px;
+$toggle-width    : $one-fifth;
+$creation-form-width : 100% - (2 * $gutter);
+
+$rating-width      : $one-third;
+$fiction-type-size : $one-half;
+$item-type-size    : $one-sixth;
+$opinion-type-size : $one-fifth;
+
+$session-half-width   : $golden-minor / 2;
+$session-width-offset : 100% - $session-half-width;
+$remember-margin      : $session-half-width / $session-width-offset * 100%;
+
+$form-erorr-width : $two-thirds;
+// ===============================================
+
+// INDEX & SHOW
+// ===============================================
+$article-negate : gutter-negate($gutter);
+$content-negate : $article-negate / 2;
+// ===============================================
+
+// TABS
+// ===============================================
+$tabs-panel-padding : 10px;
+$tabs-border-width  : 3px;
+
+$paging-tabs-width  : $one-fourth;
+$paging-panel-width : negative-space($three-fourths, ($tabs-panel-padding + $tabs-border-width));
+// ===============================================
+
+// TOOLS
+// ===============================================
+// END
+// ***********************************************/

@@ -1,5 +1,10 @@
 // STYLE COLORS PARTIAL: CSS CODE
 // ***********************************************
+.code p {
+	padding     : 2px 10px;
+	line-height : 1.5;
+}
+
 .selector       { color : #ae6409; }
 .property-name  { color : #135096; }
 .property-value { color : #408ee7; }

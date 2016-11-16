@@ -7,40 +7,6 @@
 @import "partials/mixins/forms";
 @import "partials/forms/errors";
 
-// SETUP :: VARIABLES
-// ===============================================
-// -----------------------------------------------
-// -- Session
-// -----------------------------------------------
-$session-background       : $page-lightest-minor;
-$session-title-background : $water-color;
-
-$session-page-border  : 7px solid $water-dark-major;
-$session-border-color : $page-dark-minor;
-
-$session-color        : $fire-darker-major;
-$session-title-color  : $water-lightest-minor;
-$session-footer-color : $page-color;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Input
-// -----------------------------------------------
-$session-set-background    : $fire-dark-major;
-$session-submit-background : darken($fire-color, 5%);
-
-$half-width      : $golden-minor / 2;
-$width-offset    : 100% - $half-width;
-$remember-margin : $half-width / $width-offset * 100%;
-
-$remember-check-color : $fire-dark-minor;
-$session-set-color    : $fire-lighter-major;
-$session-submit-color : $page-color;
-
-$remember-check-shadow : $fire-color;
-// -----------------------------------------------
-// ===============================================
-
 // SECTION :: LAYOUT & HEADER
 // ===============================================
 .page-content {

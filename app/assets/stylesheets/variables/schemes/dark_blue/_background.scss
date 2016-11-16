@@ -1,0 +1,214 @@
+// STYLE VARIABLES : BLUE SCHEME :: BACKGROUND
+// ***********************************************
+// TABLE of CONTENT
+// ===============================================
+// -- SITE
+// ----- General
+// ----- Header
+// ----- Footer
+// -- FORMS
+// ----- General
+// ----- Fields
+// ----- Fieldsets
+// -- INDEX
+// -- SHOW PAGE
+// -- TABS
+// -- TOOLS
+// ----- General
+// ----- Toolkits
+// ===============================================
+
+// SITE
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+$site-background    : $water-darker-minor;
+$subject-background : $water-dark-minor;
+
+$exit-background       : $water-light-minor;
+$exit-hover-background : $page-color;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Header
+// -----------------------------------------------
+$site-header-background : $water-dark-minor;
+$menu-title-background  : $water-darker-minor;
+$submenu-background     : $water-darker-major;
+
+$login-background       : $water-darker-minor;
+$login-hover-background : $moss-light-minor;
+
+$mobile-login-link-background : $water-dark-minor;
+
+$sidebar-background            : $page-dark-major;
+$sidebar-link-hover-background : $water-lightest-minor;
+$sidebar-title-background      : $moss-light-minor;
+
+$breadcrumbs-background : $water-light-minor;
+$crumb-left-background  : $water-light-major;
+$crumb-right-background : $water-lighter-minor;
+$crumb-background       : linear-gradient(90deg, $crumb-left-background, $crumb-right-background);
+
+$crumb-hover-left-background  : $water-lightest-minor;
+$crumb-hover-right-background : $crumb-right-background;
+$crumb-hover-background       : linear-gradient(90deg, $crumb-hover-left-background, $crumb-hover-right-background);
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Footer
+// -----------------------------------------------
+$footer-widget-background      : $water-dark-minor;
+$site-credit-title-background  : $page-darker-major;
+$social-link-background        : $water-darker-major;
+$social-link-hover-background  : $water-darker-minor;
+// -----------------------------------------------
+// ===============================================
+
+// FORMS
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+$form-background       : $page-lightest-minor;
+$form-title-background : $water-darker-minor;
+
+$branch-creation-background : $page-lighter-minor;
+$inline-form-background     : $page-lightest-minor;
+$inline-submit-background   : $moss-dark-major;
+
+$form-error-background : $page-color;
+$tooltip-background    : $page-lightest-minor;
+
+$session-background       : $page-lightest-minor;
+$session-title-background : $water-color;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Fields
+// -----------------------------------------------
+$input-value-background : $page-color;
+$field-label-background : $page-lighter-major;
+
+$paged-field-box-background : $page-lighter-major;
+
+$agent-background  : $page-color;
+$choice-background : $water-dark-minor;
+
+$option-title-background : $water-lighter-major;
+$rating-background       : $page-color;
+$rating-title-background : $page-dark-minor;
+
+$select-input-background    : $page-lighter-minor;
+$selction-active-background : $water-lightest-minor;
+
+$slider-background     : $moss-color;
+$slider-box-background : $page-color;
+
+$submission-background : $water-dark-major;
+
+$session-set-background    : $fire-dark-major;
+$session-submit-background : darken($fire-color, 5%);
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Fieldsets
+// -----------------------------------------------
+$meta-box-background  : $page-lighter-minor;
+$nested-background    : $page-lightest-minor;
+$work-meta-background : $page-lightest-major;
+
+$associative-title-background : $page-dark-minor;
+
+$comic-thead-background   : $fire-lighter-minor;
+$meta-title-background    : $page-dark-minor;
+$opinion-title-background : $page-lighter-major;
+$tag-header-background    : $page-lighter-minor;
+// -----------------------------------------------
+// ===============================================
+
+// INDEX
+// ===============================================
+$index-background : desaturate($water-light-major, 70%);
+
+$index-paging-background   : $fire-lightest-minor;
+$index-question-background : $water-dark-minor;
+$index-title-background    : $page-lighter-minor;
+$results-background        : $page-color;
+
+$filters-background       : $water-light-minor;
+$filter-submit-background : $water-darker-minor;
+$filter-submit-hover      : $water-dark-major;
+$filter-background        : $page-color;
+$filter-toggle-background : $page-dark-minor;
+// ===============================================
+
+// SHOW PAGE
+// ===============================================
+$article-background : $page-color;
+
+$pagination-background       : $page-light-major;
+$pagination-hover-background : $page-lighter-major;
+
+$widget-background        : $page-color;
+$stat-background          : desaturate($water-light-major, 70%);
+$stat-widget-background   : $page-color;
+
+$credit-title-background  : $fire-lightest-minor;
+$section-title-background : fade-out($page-lightest-minor, .4);
+$widget-title-background  : $water-lighter-minor;
+
+$stat-widget-title-background : $fire-lightest-minor;
+$summary-title-background     : $fire-lightest-minor;
+
+$dashboard-background        : $water-darkest-minor;
+$dashboard-header-background : $water-darker-minor;
+$show-dashboard-background   : $page-color;
+
+$data-row-background        : $fire-light-minor;
+$data-index-background      : $page-color;
+$mobile-data-row-background : $water-light-minor;
+// ===============================================
+
+// TABS
+// ===============================================
+$dossier-panel-background : $page-lightest-major;
+$paging-panel-background  : $page-lightest-minor;
+
+$dossier-anchor-background : $water-light-minor;
+$paging-nav-background     : $water-lighter-minor;
+$paging-error-background   : $stoplight-stop;
+$paging-anchor-background  : $water-color;
+
+$dossier-active-anchor-background : $page-color;
+$paging-active-anchor-background  : $page-color;
+// ===============================================
+
+// TOOLS
+// ===============================================
+// -----------------------------------------------
+// -- General
+// -----------------------------------------------
+$row-background    : $page-color;
+$toggle-background : $page-color;
+
+$add-background          : $water-darker-minor;
+$add-hover-background    : $water-color;
+$remove-background       : $fire-dark-major;
+$remove-hover-background : $fire-dark-minor;
+// -----------------------------------------------
+
+// -----------------------------------------------
+// -- Toolkits
+// -----------------------------------------------
+$alteration-background : darken($fire-color, 5%);
+$creation-background   : $rose-color;
+$directory-background  : $water-color;
+$response-background   : $moss-dark-minor;
+$generation-background : $water-dark-major;
+// -----------------------------------------------
+// ===============================================
+
+// END
+// ***********************************************/

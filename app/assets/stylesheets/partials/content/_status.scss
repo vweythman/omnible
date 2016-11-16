@@ -66,12 +66,12 @@
 }
 
 .counter:after {
-	color   : $water-darker-minor;
+	color   : $water-lighter-minor;
 	content : ")";
 }
 
 .counter:before {
-	color   : $water-darker-minor;
+	color   : $water-lighter-minor;
 	content : "(";
 }
 // -----------------------------------------------
@@ -122,6 +122,14 @@
 .level2 { color : $rating-mid;     }
 .level3 { color : $rating-high;    }
 .level4 { color : $rating-highest; }
+
+header {
+	.level0 { color : lighten($rating-lowest,  $golden-minor); }
+	.level1 { color : lighten($rating-low,     $golden-minor); }
+	.level2 { color : lighten($rating-mid,     $golden-minor); }
+	.level3 { color : lighten($rating-high,    $golden-minor); }
+	.level4 { color : lighten($rating-highest, $golden-minor); }
+}
 // ===============================================
 
 // TOGGLE

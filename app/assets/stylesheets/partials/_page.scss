@@ -8,52 +8,6 @@
 @import "partials/content/toolkits";
 // ===============================================
 
-// SETUP :: VARIABLES
-// ===============================================
-// -----------------------------------------------
-// -- Page Layout & Header
-// -----------------------------------------------
-$exit-color            : $page-color;
-$exit-background       : $water-light-minor;
-$exit-hover-color      : $water-dark-minor;
-$exit-hover-background : $page-color;
-
-$subject-background : $water-dark-minor; 
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Header Navigation
-// -----------------------------------------------
-$crumb-left-background  : $water-darker-minor;
-$crumb-right-background : $water-dark-minor;
-$crumb-background       : linear-gradient(90deg, $crumb-left-background, $crumb-right-background);
-
-$crumb-hover-left-background  : $water-light-minor;
-$crumb-hover-right-background : $water-dark-minor;
-$crumb-hover-background       : linear-gradient(90deg, $crumb-hover-left-background, $crumb-hover-right-background);
-
-$crumb-color       : $page-color;
-$crumb-hover-color : $water-lightest-minor;
-$datum-key-color   : $fire-light-minor;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Footer Navigation
-// -----------------------------------------------
-$path-color      : $water-color;
-$path-link-color : $water-lighter-major;
-$path-gutter     : 20%;
-$path-width      : 100% - $path-gutter * 2;
-// -----------------------------------------------
-
-// -----------------------------------------------
-// -- Content Body
-// -----------------------------------------------
-$link-color       : saturate($water-dark-minor, $golden-small);
-$link-hover-color : $page-darker-major;
-// -----------------------------------------------
-// ===============================================
-
 // SECTION :: HEADINGS
 // ===============================================
 h1,
@@ -68,11 +22,11 @@ h6 {
 	padding     : 0px;
 }
 h1 {
-	font-size : $heading-size;
+	font-size : 25px;
 	padding   : 15px $gutter 5px;
 }
 h2 {
-	font-size   : $heading-size - 6px;
+	font-size   : 19px;
 	font-weight : lighter;
 	margin      : 0px;
 }
@@ -145,7 +99,11 @@ h2 {
 .datum {
 	display   : table-cell;
 	font-size : 1.2em;
-	padding   : 0px 5px 0px 0px;
+	padding   : 0px 15px;
+
+	&:first-child {
+		padding-left : 0px;
+	}
 
 	.key { color : $datum-key-color; }
 }
@@ -158,10 +116,14 @@ h2 {
 // -- Header Navigation
 // -----------------------------------------------
 .breadcrumbs {
+	background   : $breadcrumbs-background;
 	display      : table;
 	margin       : 20px 0px;
-	padding      : 0px;
+	padding      : 10px 20px 10px 0px;
+	font-weight  : bolder;
 	table-layout : fixed;
+
+	@include border-radius-right(10px);
 
 	li { display : table-cell; }
 }
@@ -170,7 +132,7 @@ h2 {
 	background      : $crumb-background;
 	color           : $crumb-color;
 	display         : block;
-	padding         : 10px 10px 9px 30px;
+	padding         : 4px 5px 5px 20px;
 	text-decoration : none;
 
 	&:after {
@@ -178,11 +140,11 @@ h2 {
 		display     : block;
 		width       : 0px;
 		height      : 0px;
-		margin      : -10px -46px;
+		margin      : -4px -31px;
 		margin-left : 20px;
 		float       : right;
 
-		border            : 18px solid transparent;
+		border            : 13px solid transparent;
 		border-left-color : $crumb-right-background;
 	}
 

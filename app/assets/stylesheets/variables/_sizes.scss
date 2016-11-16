@@ -115,37 +115,5 @@ $golden-nano   : $golden-mini  - $golden-micro;
 
 $golden-large  : $golden-major + $golden-little;
 
-// -- Input
-// -----------------------------------------------
-$micro-height : 200px;
-
-// -- Layout
-// -----------------------------------------------
-$gutter : $one-twelfth;
-
-// -- Screen
-// -----------------------------------------------
-$mobile-max  : 550px;
-$tablet-min  : $mobile-max;
-$tablet-max  : 875px;
-$desktop-min : $tablet-max;
-
-// TEXT
-// ===============================================
-$text-size    : 15px;
-$heading-size : 25px;
-$logo-size    : 28px;
-$def-size     : 25px;
-
-$size-0 : $def-size * (1 - $golden-major  / 100%);
-$size-1 : $def-size * (1 - $golden-minor  / 100%);
-$size-2 : $def-size * (1 - $golden-little / 100%);
-$size-3 : $def-size * (1 - $golden-small  / 100%);
-$size-4 : $def-size;
-$size-5 : $def-size / (1 - $golden-small  / 100%);
-$size-6 : $def-size / (1 - $golden-little / 100%);
-$size-7 : $def-size / (1 - $golden-minor  / 100%);
-$size-8 : $def-size / (1 - $golden-major  / 100%);
-
 // END
 // ***********************************************/

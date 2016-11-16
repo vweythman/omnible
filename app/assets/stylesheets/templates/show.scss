@@ -3,9 +3,6 @@
 // TABLE of CONTENT
 // ===============================================
 // -- SETUP :: IMPORTS
-// -- SETUP :: VARIABLES
-// ----- Metadata
-// ----- Toolkits
 // -- SECTION :: HEADER
 // ----- Pagination
 // ----- Tables
@@ -23,64 +20,37 @@
 // ===============================================
 @import "application";
 @import "partials/content/tabs";
+@import "partials/code/css";
 @import "partials/forms/inline_form";
 @import "partials/content/status";
 @import "partials/content/comments";
 @import "partials/forms/fields/switch";
 // ===============================================
 
-// SETUP :: VARIABLES
-// ===============================================
-$show-title-border-color : $water-dark-major;
-
-$widget-background          : $page-color;
-$widget-title-background    : $water-lighter-minor;
-$widget-title-border-color  : $water-color;
-
-$summary-title-background   : $fire-lightest-minor;
-$summary-title-border-color : $fire-light-minor;
-
-$pagination-background       : $page-light-major;
-$pagination-hover-background : $page-lighter-major;
-$pagination-color            : $water-darkest-major;
-
-$index-list-color : $fire-dark-minor;
-
-$centerpiece-border-color : $page-darkest-major;
-$article-background : $page-color;
-$article-color      : $page-darkest-minor;
-
-$section-title-background : fade-out($page-lightest-minor, .4);
-$section-title-border     : 5px solid $page-light-major;
-$section-title-shadow     : $page-darkest-major;
-
-$article-negate : gutter-negate($gutter);
-$content-negate : $article-negate / 2;
-
-$content-separator-color : $fire-color;
-
-$subject-table-border-color : $fire-color;
-//$moss-dark-major; $moss-dark-minor;
-
-$switch-on  : $stoplight-go;
-$switch-off : $page-light-minor;
-
-// ===============================================
-
 // SECTION :: HEADER
 // ===============================================
-.show-header h1 {
-	padding-top : 25px;
-}
+.show-header h1 { padding-top : 25px; }
 .work-header h1 {
-	border-bottom : 7px solid $water-dark-major;
+	border-bottom-style : solid;
+	border-bottom-width : 7px;
+	border-bottom-color : $show-title-border-color;
 }
 
 // -----------------------------------------------
 // -- Metadata
 // -----------------------------------------------
 .metadata {
-	margin : 10px $gutter 0px;
+	clear   : both;
+	padding : 10px $gutter;
+}
+
+.category-data {
+	margin : 25px $gutter;
+	clear  : both;
+	text-align : center;
+	font-size  : 1.3em;
+
+	.datum { display : block; }
 }
 
 .date-metadatum {
@@ -109,10 +79,6 @@ $switch-off : $page-light-minor;
 
 .alteration {
 	min-width : 50%;
-}
-
-.alteration a {
-	padding : 5px;
 }
 
 .multikit {
@@ -252,8 +218,8 @@ tfoot    { border-top    : 3px solid $subject-table-border-color; }
 }
 
 .cast-about {
-	border  : 2px solid $summary-title-border-color;
-	padding : 15px;
+	border     : 2px solid $summary-title-border-color;
+	padding    : 15px;
 	margin-top : 15px;
 }
 
@@ -262,27 +228,35 @@ tfoot    { border-top    : 3px solid $subject-table-border-color; }
 	width   : calc(100% - 30px);
 	border  : 5px solid $paging-anchor-background;
 }
-.cast-element {
+
+.paging-element {
 	display : table-cell;
 	vertical-align : top;
 
 	.ui-tabs-nav{
 		width : 100%;
 	}
+
 	.ui-tabs-panel {
 		border : none;
-		width  : calc(100% - #{$paging-negative-space + 2 * (15px - $tabs-border-width) });
+		width  : negative-space(100%, ($tabs-panel-padding + 15px));
 	}
 }
 
-.cast-nav {
-	padding : 10px;
-	width   : $golden-minor;
+.paging-nav {
+	background    : $paging-nav-background;
+	padding       : 10px;
+	width         : $golden-minor;
 	border-right  : 5px solid $paging-anchor-background;
+	padding-right : 0px;
+
+	.ui-tabs-anchor { box-shadow: 0px 0px 2px $paging-anchor-background; }
 }
 
 .roll-call {
-	background : $paging-anchor-background;
+	background : $paging-panel-background;
+
+	.centerpiece { margin : 0px auto; }
 }
 
 .indexable {
@@ -353,7 +327,7 @@ article {
 }
 
 h2 {
-	font-size : $heading-size - 5px;
+	font-size : 20px;
 	margin    : 0px;
 	padding   : 0px;
 }
