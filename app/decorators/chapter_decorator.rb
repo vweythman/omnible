@@ -57,7 +57,7 @@ class ChapterDecorator < Draper::Decorator
 
 	def link_to_insert_next
 		heading   = "+ New Chapter After"
-		insertion = h.link_to heading, h.insert_chapter_path(self)
+		insertion = h.link_to heading, h.insert_chapter_path(self), class: "tool-link"
 		h.content_tag :nav, class: 'toolkit insertion' do
 			insertion
 		end
@@ -65,7 +65,7 @@ class ChapterDecorator < Draper::Decorator
 
 	def link_to_insert_prev
 		heading   = "+ New Chapter Before"
-		insertion = h.link_to heading, h.presert_chapter_path(self)
+		insertion = h.link_to heading, h.presert_chapter_path(self), class: "tool-link"
 		h.content_tag :nav, class: 'toolkit insertion' do
 			insertion
 		end

@@ -27,7 +27,7 @@ module Collectables
 			def link_to_insert_first
 				if story.editable?(h.current_user)
 					h.content_tag :nav, class: 'toolkit insertion' do
-						h.link_to "+ New First Chapter", h.first_chapter_path(story)
+						h.link_to "+ New First Chapter", h.first_chapter_path(story), class: "tool-link"
 					end
 				end
 			end

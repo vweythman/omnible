@@ -1,15 +1,14 @@
 <% provide :title, "About | #{@work.title}" %>
 
 <header class="work-header show-header">
+	<%= @work.category_block %>
+
 	<h1>
 		<%= link_to @work.title, @work %>
-		<%= subtitle @work.byline.html_safe %>
 	</h1>
-
 	<%= @work.completion_status %>
-	<%= @work.metadata_block %>
-	<%= metadata(@work.categorized_type, '') %>
 
+	<%= @work.metadata_block %>
 	<%= @work.response_bar %>
 </header>
 
